@@ -4,6 +4,7 @@ import com.nekomaster1000.Infernal.InfernalExpansion;
 import com.nekomaster1000.Infernal.blocks.BlockItemBase;
 import com.nekomaster1000.Infernal.items.ItemBase;
 import com.nekomaster1000.Infernal.tools.ModItemTier;
+import com.nekomaster1000.Infernal.util.ModdedSpawnEggItem;
 import net.minecraft.item.*;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -16,7 +17,7 @@ public class ModItems {
     //items
     public static final RegistryObject<Item> GLOWCOAL = ITEMS.register("glowcoal", ItemBase::new);
     public static final RegistryObject<Item> DIMROCKS = ITEMS.register("glownuggets", ItemBase::new);
-    public static final RegistryObject<ModdedSpawnEggItem> GLOWSQUITO_SPAWN_EGG = ITEMS.register("glowsquito_spawn_egg", () -> new ModdedSpawnEggItem(ModEntityType.GLOWSQUITO, 0xF0A5A2, 0xA9672B, new Item.Properties().group(ModItemGroups.MOD_ITEM_GROUP)));
+    public static final RegistryObject<ModdedSpawnEggItem> GLOWSQUITO_SPAWN_EGG = ITEMS.register("glowsquito_spawn_egg", () -> new ModdedSpawnEggItem(ModEntityType.GLOWSQUITO, 0x4A4A4A, 0xF4CD55, new Item.Properties().group(InfernalExpansion.TAB)));
 
     //block items
     public static final RegistryObject<Item> DIMSTONE_ITEM = ITEMS.register("dimstone", () -> new BlockItemBase(ModBlocks.DIMSTONE.get()));
