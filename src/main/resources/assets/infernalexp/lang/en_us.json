@@ -1,0 +1,28 @@
+{
+  "itemGroup.InfernalTab": "Infernal Expansion",
+
+  "block.minecraft.glowstone": "Glowstone",
+  "block.infernalexp.dimstone": "Dimstone",
+  "block.infernalexp.dullstone": "Dullstone",
+  "block.infernalexp.glowstone_smooth": "Smooth Glowstone",
+  "block.infernalexp.dimstone_smooth": "Smooth Dimstone",
+  "block.infernalexp.dullstone_smooth": "Smooth Dullstone",
+  "block.infernalexp.glowstone_brick": "Glowstone Bricks",
+  "block.infernalexp.chiselled_glowstone_brick1": "Glowsquito Glowstone Bricks",
+  "block.infernalexp.chiselled_glowstone_brick2": "Chiselled Glowstone Bricks",
+  "block.infernalexp.dimstone_brick": "Dimstone Bricks",
+  "block.infernalexp.chiselled_dimstone_brick1":  "Glowsquito Dimstone Brick",
+  "block.infernalexp.chiselled_dimstone_brick2":  "Chiselled Dimstone Brick",
+  "block.infernalexp.dullstone_brick": "Dullstone Bricks",
+  "block.infernalexp.chiselled_dullstone_brick1": "Glowsquito Dullstone Brick",
+  "block.infernalexp.chiselled_dullstone_brick2": "Chiselled Dullstone Brick",
+
+  "item.infernalexp.glowcoal": "Glowcoal",
+  "item.infernalexp.glownuggets": "glownuggets",
+
+  "item.infernalexp.frostbitten_sword": "Frostbitten Netherite Sword",
+  "item.infernalexp.frostbitten_pickaxe": "Frostbitten Netherite Pickaxe",
+  "item.infernalexp.frostbitten_axe": "Frostbitten Netherite Axe",
+  "item.infernalexp.frostbitten_shovel": "Frostbitten Netherite Shovel",
+  "item.infernalexp.frostbitten_hoe": "Frostbitten Netherite Hoe"
+}

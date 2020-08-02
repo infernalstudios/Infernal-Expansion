@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "infernalexp:blocks/polished_glowstone"
+  }
+}

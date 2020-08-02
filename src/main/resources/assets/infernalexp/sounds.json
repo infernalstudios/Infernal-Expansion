@@ -1,0 +1,12 @@
+{
+  "volinehurt": {
+    "category": "block",
+    "subtitle": "infernalexp.subtitle.voline_hurt",
+    "sounds": [ "infernalexp:voline_hurt" ]
+  },
+  "volineambient": {
+    "category": "block",
+    "subtitle": "infernalexp.subtitle.voline_ambient",
+    "sounds": [ "infernalexp:voline_ambient" ]
+  }
+}
