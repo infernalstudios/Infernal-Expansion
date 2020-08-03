@@ -17,11 +17,11 @@ public class ModItems {
     //items
     public static final RegistryObject<Item> GLOWCOAL = ITEMS.register("glowcoal", ItemBase::new);
     public static final RegistryObject<Item> DIMROCKS = ITEMS.register("glownuggets", ItemBase::new);
+
     public static final RegistryObject<ModdedSpawnEggItem> GLOWSQUITO_SPAWN_EGG = ITEMS.register("glowsquito_spawn_egg", () -> new ModdedSpawnEggItem(ModEntityType.GLOWSQUITO, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<ModdedSpawnEggItem> VOLINE_SPAWN_EGG = ITEMS.register("voline_spawn_egg", () -> new ModdedSpawnEggItem(ModEntityType.VOLINE, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<ModdedSpawnEggItem> PYRNO_SPAWN_EGG = ITEMS.register("pyrno_spawn_egg", () -> new ModdedSpawnEggItem(ModEntityType.PYRNO, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<ModdedSpawnEggItem> WARPBEETLE_SPAWN_EGG = ITEMS.register("warpbeetle_spawn_egg", () -> new ModdedSpawnEggItem(ModEntityType.WARPBEETLE, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
-    public static final RegistryObject<ModdedSpawnEggItem> GLOWSQUITO_SPAWN_EGG = ITEMS.register("glowsquito_spawn_egg", () -> new ModdedSpawnEggItem(ModEntityType.GLOWSQUITO, 0x4A4A4A, 0xF4CD55, new Item.Properties().group(InfernalExpansion.TAB)));
 
     //block items
     public static final RegistryObject<Item> DIMSTONE_ITEM = ITEMS.register("dimstone", () -> new BlockItemBase(ModBlocks.DIMSTONE.get()));
