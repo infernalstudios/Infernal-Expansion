@@ -2,18 +2,22 @@ package com.nekomaster1000.Infernal.client.entity.model;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.nekomaster1000.Infernal.entities.VolineEntity;
 import com.nekomaster1000.Infernal.entities.WarpbeetleEntity;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.MathHelper;
 
 public class WarpbeetleModel<T extends WarpbeetleEntity> extends EntityModel<T> {
     private final ModelRenderer warpbeetle;
     private final ModelRenderer body;
     private final ModelRenderer head;
+    private final ModelRenderer left_shield;
     private final ModelRenderer left_wing;
     private final ModelRenderer right_wing;
+    private final ModelRenderer right_shield;
     private final ModelRenderer left_leg_1;
     private final ModelRenderer left_leg_2;
     private final ModelRenderer left_leg_3;
@@ -40,15 +44,25 @@ public class WarpbeetleModel<T extends WarpbeetleEntity> extends EntityModel<T> 
         head.setTextureOffset(43, 8).addBox(-3.0F, -2.0F, -4.0F, 6.0F, 4.0F, 4.0F, 0.0F, false);
         head.setTextureOffset(0, 15).addBox(0.0F, -9.0F, -8.0F, 0.0F, 10.0F, 8.0F, 0.0F, false);
 
+        left_shield = new ModelRenderer(this);
+        left_shield.setRotationPoint(5.0F, -6.0F, -6.0F);
+        body.addChild(left_shield);
+        left_shield.setTextureOffset(28, 29).addBox(-5.0F, -2.0F, 0.0F, 6.0F, 6.0F, 16.0F, 0.0F, false);
+
         left_wing = new ModelRenderer(this);
-        left_wing.setRotationPoint(5.0F, -6.0F, -6.0F);
+        left_wing.setRotationPoint(1.0F, -6.0F, -5.0F);
         body.addChild(left_wing);
-        left_wing.setTextureOffset(28, 29).addBox(-5.0F, -1.0F, 0.0F, 6.0F, 6.0F, 16.0F, 0.0F, false);
+        left_wing.setTextureOffset(41, 30).addBox(-3.0F, -0.01F, 0.0F, 6.0F, 0.0F, 15.0F, 0.0F, false);
 
         right_wing = new ModelRenderer(this);
-        right_wing.setRotationPoint(-5.0F, -6.0F, -6.0F);
+        right_wing.setRotationPoint(-1.0F, -6.0F, -5.0F);
         body.addChild(right_wing);
-        right_wing.setTextureOffset(0, 23).addBox(-1.0F, -1.0F, 0.0F, 6.0F, 6.0F, 16.0F, 0.0F, false);
+        right_wing.setTextureOffset(41, 30).addBox(-3.0F, -0.01F, 0.0F, 6.0F, 0.0F, 15.0F, 0.0F, true);
+
+        right_shield = new ModelRenderer(this);
+        right_shield.setRotationPoint(-5.0F, -6.0F, -6.0F);
+        body.addChild(right_shield);
+        right_shield.setTextureOffset(0, 23).addBox(-1.0F, -2.0F, 0.0F, 6.0F, 6.0F, 16.0F, 0.0F, false);
 
         left_leg_1 = new ModelRenderer(this);
         left_leg_1.setRotationPoint(5.0F, -1.0F, -6.0F);
@@ -89,18 +103,23 @@ public class WarpbeetleModel<T extends WarpbeetleEntity> extends EntityModel<T> 
 
     @Override
     public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-
+        this.left_leg_1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        this.left_leg_2.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        this.left_leg_3.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        this.right_leg_1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        this.right_leg_2.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        this.right_leg_3.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
     }
 
+
+    @Override
+    public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
+        warpbeetle.render(matrixStack, buffer, packedLight, packedOverlay);
+    }
 
     public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;
-    }
-
-    @Override
-    public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-        warpbeetle.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn);
     }
 }
