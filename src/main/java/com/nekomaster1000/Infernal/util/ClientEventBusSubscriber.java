@@ -6,7 +6,10 @@ import com.nekomaster1000.Infernal.client.entity.render.PyrnoRenderer;
 import com.nekomaster1000.Infernal.client.entity.render.VolineRenderer;
 import com.nekomaster1000.Infernal.client.entity.render.WarpbeetleRenderer;
 import com.nekomaster1000.Infernal.init.ModEntityType;
+import net.minecraft.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -20,5 +23,10 @@ public class ClientEventBusSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.VOLINE.get(), VolineRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.PYRNO.get(), PyrnoRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.WARPBEETLE.get(), WarpbeetleRenderer::new);
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void onPostRegisterEntities(final RegistryEvent.Register<EntityType<?>> event) {
+        ModdedSpawnEggItem.initUnaddedEggs();
     }
 }

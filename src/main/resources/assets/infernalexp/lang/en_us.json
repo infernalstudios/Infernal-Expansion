@@ -24,5 +24,10 @@
   "item.infernalexp.frostbitten_pickaxe": "Frostbitten Netherite Pickaxe",
   "item.infernalexp.frostbitten_axe": "Frostbitten Netherite Axe",
   "item.infernalexp.frostbitten_shovel": "Frostbitten Netherite Shovel",
-  "item.infernalexp.frostbitten_hoe": "Frostbitten Netherite Hoe"
+  "item.infernalexp.frostbitten_hoe": "Frostbitten Netherite Hoe",
+
+  "item.infernalexp.glowsquito_spawn_egg": "Glowsquito Spawn Egg",
+  "item.infernalexp.voline_spawn_egg": "Voline Spawn Egg",
+  "item.infernalexp.pyrno_spawn_egg": "Pyrno Spawn Egg",
+  "item.infernalexp.warpbeetle_spawn_egg": "Warpbeetle Spawn Egg"
 }
