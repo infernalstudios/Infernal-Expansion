@@ -27,6 +27,6 @@ public class ClientEventBusSubscriber {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onPostRegisterEntities(final RegistryEvent.Register<EntityType<?>> event) {
-        ModdedSpawnEggItem.initUnaddedEggs();
+        ModSpawnEggItem.initUnaddedEggs();
     }
 }

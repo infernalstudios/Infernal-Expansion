@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "infernalexp:blocks/glowdust_sandstone_top",
+    "side": "infernalexp:blocks/chiseled_glowdust_sandstone"
+  }
+}
