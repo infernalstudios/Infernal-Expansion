@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "layers=1": {
+      "model": "infernalexp:block/glowdust_height2"
+    },
+    "layers=2": {
+      "model": "infernalexp:block/glowdust_height4"
+    },
+    "layers=3": {
+      "model": "infernalexp:block/glowdust_height6"
+    },
+    "layers=4": {
+      "model": "infernalexp:block/glowdust_height8"
+    },
+    "layers=5": {
+      "model": "infernalexp:block/glowdust_height10"
+    },
+    "layers=6": {
+      "model": "infernalexp:block/glowdust_height12"
+    },
+    "layers=7": {
+      "model": "infernalexp:block/glowdust_height14"
+    },
+    "layers=8": {
+      "model": "infernalexp:block/glowdust_sand"
+    }
+  }
+}

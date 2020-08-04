@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "item": "minecraft:glowstone"
+    "item": "infernalexp:dimstone"
   },
-  "result": "infernalexp:glowstone_smooth",
+  "result": "infernalexp:smooth_dimstone",
   "experience": 0.0,
   "cookingtime": 200
 }
