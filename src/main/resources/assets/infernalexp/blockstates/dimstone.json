@@ -1,5 +1,12 @@
 {
   "variants": {
-    "": { "model": "infernalexp:block/dimstone" }
+    "": [
+      { "model": "infernalexp:block/dimstone1" },
+      { "model": "infernalexp:block/dimstone2" },
+      { "model": "infernalexp:block/dimstone3" },
+      { "model": "infernalexp:block/dimstone4" },
+      { "model": "infernalexp:block/dimstone5" },
+      { "model": "infernalexp:block/dimstone6" }
+    ]
   }
 }
