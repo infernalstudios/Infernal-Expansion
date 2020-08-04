@@ -1,2 +1,8 @@
 TODO LIST
 =========
+-Add loot tables for all blocks
+-Add recipes for all blocks 
+-Add Stairs and slabs for glowdust blocks
+-Continue code refactoring (BaconKami)
+-Remove (almost) all block classes (because we have basic blocks) (BaconKami)
+-Add BASIC_PROPERTIES (BaconKami)
