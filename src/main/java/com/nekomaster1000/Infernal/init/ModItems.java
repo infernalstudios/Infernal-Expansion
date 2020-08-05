@@ -42,6 +42,8 @@ public class ModItems {
     public static final RegistryObject<Item> CHISELED_GLOWDUST_SANDSTONE = ITEMS.register("chiseled_glowdust_sandstone", () -> new BlockItemBase(ModBlocks.CHISELED_GLOWDUST_SANDSTONE.get()));
     public static final RegistryObject<Item> SMOOTH_GLOWDUST_SANDSTONE = ITEMS.register("smooth_glowdust_sandstone", () -> new BlockItemBase(ModBlocks.SMOOTH_GLOWDUST_SANDSTONE.get()));
     public static final RegistryObject<Item> GLOWDUST = ITEMS.register("glowdust", () -> new BlockItemBase(ModBlocks.GLOWDUST.get()));
+    public static final RegistryObject<Item> GLOWDUST_SANDSTONE_SLAB = ITEMS.register("glowdust_sandstone_slab", () -> new BlockItemBase(ModBlocks.GLOWDUST_SANDSTONE_SLAB.get()));
+    public static final RegistryObject<Item> GLOWDUST_SANDSTONE_STAIRS = ITEMS.register("glowdust_sandstone_stairs", () -> new BlockItemBase(ModBlocks.GLOWDUST_SANDSTONE_STAIRS.get()));
 
 
     // Tools

@@ -9,12 +9,12 @@
   {
     "x":
     {
-      "item": "infernalexp:dullstone"
+      "item": "infernalexp:glowdust_sandstone"
     }
   },
   "result":
   {
-    "item": "infernalexp:dullstone_brick",
+    "item": "infernalexp:cut_glowdust_sandstone",
     "count": 4
   }
 }

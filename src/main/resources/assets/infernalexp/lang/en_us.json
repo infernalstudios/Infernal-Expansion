@@ -19,6 +19,8 @@
   "block.infernalexp.chiseled_glowdust_sandstone": "Chiseled Glowdust Sandstone",
   "block.infernalexp.smooth_glowdust_sandstone": "Smooth Glowdust Sandstone",
   "block.infernalexp.glowdust": "Glowdust",
+  "block.infernalexp.glowdust_sandstone_slab": "Glowdust Sandstone Slab",
+  "block.infernalexp.glowdust_sandstone_stairs": "Glowdust Sandstone Stairs",
 
   "item.infernalexp.glowcoal": "Glowcoal",
   "item.infernalexp.glownuggets": "Glownuggets",

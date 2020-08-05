@@ -32,7 +32,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> CHISELED_GLOWDUST_SANDSTONE = BLOCKS.register("chiseled_glowdust_sandstone", () -> new Block(getBasicProperties(Material.ROCK, 0.8F).setRequiresTool()));
     public static final RegistryObject<Block> SMOOTH_GLOWDUST_SANDSTONE = BLOCKS.register("smooth_glowdust_sandstone", () -> new Block(getBasicProperties(Material.ROCK, 2.0F, 6.0F).setRequiresTool()));
     public static final RegistryObject<Block> GLOWDUST = BLOCKS.register("glowdust", () ->  new SnowBlock(getBasicProperties(Material.SAND, 0.1F).tickRandomly().setRequiresTool().sound(SoundType.SAND)));
-
+    public static final RegistryObject<Block> GLOWDUST_SANDSTONE_SLAB = BLOCKS.register("glowdust_sandstone_slab", () -> new SlabBlock(getBasicProperties(Material.ROCK, 2.0F, 6.0F).setRequiresTool()));
+    public static final RegistryObject<Block> GLOWDUST_SANDSTONE_STAIRS = BLOCKS.register("glowdust_sandstone_stairs", () -> new StairsBlock(() -> GLOWDUST_SANDSTONE.get().getDefaultState(),getBasicProperties(Material.ROCK, 2.0F, 6.0F).setRequiresTool()));
 
     public static AbstractBlock.Properties getBasicProperties(Material materialIn, float hardnessAndResistanceIn) {
         return getBasicProperties(materialIn, hardnessAndResistanceIn, hardnessAndResistanceIn);
