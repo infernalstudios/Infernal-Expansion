@@ -36,15 +36,17 @@ public class ModItems {
     public static final RegistryObject<Item> CHISELED_GLOWSTONE_BRICK = ITEMS.register("chiseled_glowstone_brick", () -> new BlockItemBase(ModBlocks.CHISELED_GLOWSTONE_BRICK.get()));
     public static final RegistryObject<Item> CHISELED_DIMSTONE_BRICK = ITEMS.register("chiseled_dimstone_brick", () -> new BlockItemBase(ModBlocks.CHISELED_DIMSTONE_BRICK.get()));
     public static final RegistryObject<Item> CHISELED_DULLSTONE_BRICK = ITEMS.register("chiseled_dullstone_brick", () -> new BlockItemBase(ModBlocks.CHISELED_DULLSTONE_BRICK.get()));
+
+    public static final RegistryObject<Item> GLOWDUST = ITEMS.register("glowdust", () -> new BlockItemBase(ModBlocks.GLOWDUST.get()));
     public static final RegistryObject<Item> GLOWDUST_SAND = ITEMS.register("glowdust_sand", () -> new BlockItemBase(ModBlocks.GLOWDUST_SAND.get()));
     public static final RegistryObject<Item> GLOWDUST_SANDSTONE = ITEMS.register("glowdust_sandstone", () -> new BlockItemBase(ModBlocks.GLOWDUST_SANDSTONE.get()));
     public static final RegistryObject<Item> CUT_GLOWDUST_SANDSTONE = ITEMS.register("cut_glowdust_sandstone", () -> new BlockItemBase(ModBlocks.CUT_GLOWDUST_SANDSTONE.get()));
     public static final RegistryObject<Item> CHISELED_GLOWDUST_SANDSTONE = ITEMS.register("chiseled_glowdust_sandstone", () -> new BlockItemBase(ModBlocks.CHISELED_GLOWDUST_SANDSTONE.get()));
     public static final RegistryObject<Item> SMOOTH_GLOWDUST_SANDSTONE = ITEMS.register("smooth_glowdust_sandstone", () -> new BlockItemBase(ModBlocks.SMOOTH_GLOWDUST_SANDSTONE.get()));
-    public static final RegistryObject<Item> GLOWDUST = ITEMS.register("glowdust", () -> new BlockItemBase(ModBlocks.GLOWDUST.get()));
     public static final RegistryObject<Item> GLOWDUST_SANDSTONE_SLAB = ITEMS.register("glowdust_sandstone_slab", () -> new BlockItemBase(ModBlocks.GLOWDUST_SANDSTONE_SLAB.get()));
     public static final RegistryObject<Item> GLOWDUST_SANDSTONE_STAIRS = ITEMS.register("glowdust_sandstone_stairs", () -> new BlockItemBase(ModBlocks.GLOWDUST_SANDSTONE_STAIRS.get()));
 
+    public static final RegistryObject<Item> GLIMMERING_BLACKSTONE = ITEMS.register("glimmering_blackstone", () -> new BlockItemBase(ModBlocks.GLIMMERING_BLACKSTONE.get()));
 
     // Tools
     public static final RegistryObject<SwordItem> FROSTBITTEN_SWORD = ITEMS.register("frostbitten_sword", () -> new SwordItem(ModItemTier.FROSTBITTEN_NETHERITE, 2, -2.4F, new Item.Properties().group(InfernalExpansion.TAB)));

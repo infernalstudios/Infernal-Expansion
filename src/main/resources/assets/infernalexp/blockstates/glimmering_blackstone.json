@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "": [
+      { "model": "infernalexp:block/glimmering_blackstone/0" },
+      { "model": "infernalexp:block/glimmering_blackstone/1" },
+      { "model": "infernalexp:block/glimmering_blackstone/2" },
+      { "model": "infernalexp:block/glimmering_blackstone/3" },
+      { "model": "infernalexp:block/glimmering_blackstone/4" },
+      { "model": "infernalexp:block/glimmering_blackstone/5" },
+      { "model": "infernalexp:block/glimmering_blackstone/6" },
+      { "model": "infernalexp:block/glimmering_blackstone/7" },
+      { "model": "infernalexp:block/glimmering_blackstone/8" },
+      { "model": "infernalexp:block/glimmering_blackstone/9" },
+      { "model": "infernalexp:block/glimmering_blackstone/10" },
+      { "model": "infernalexp:block/glimmering_blackstone/11" },
+      { "model": "infernalexp:block/glimmering_blackstone/12" },
+      { "model": "infernalexp:block/glimmering_blackstone/13" },
+      { "model": "infernalexp:block/glimmering_blackstone/14" },
+      { "model": "infernalexp:block/glimmering_blackstone/15" }
+    ]
+  }
+}
