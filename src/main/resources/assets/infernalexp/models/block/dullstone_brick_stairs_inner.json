@@ -1,0 +1,8 @@
+{
+  "parent": "block/inner_stairs",
+  "textures": {
+    "bottom": "infernalexp:blocks/dullstone_brick",
+    "top": "infernalexp:blocks/dullstone_brick",
+    "side": "infernalexp:blocks/dullstone_brick"
+  }
+}

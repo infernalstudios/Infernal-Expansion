@@ -1,0 +1,8 @@
+{
+  "parent": "block/outer_stairs",
+  "textures": {
+    "bottom": "infernalexp:blocks/smooth_dullstone",
+    "top": "infernalexp:blocks/smooth_dullstone",
+    "side": "infernalexp:blocks/smooth_dullstone"
+  }
+}

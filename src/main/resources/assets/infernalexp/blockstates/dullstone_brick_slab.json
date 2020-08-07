@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "infernalexp:block/dullstone_brick_slab"
+    },
+    "type=double": {
+      "model": "infernalexp:block/dullstone_brick"
+    },
+    "type=top": {
+      "model": "infernalexp:block/dullstone_brick_slab_top"
+    }
+  }
+}

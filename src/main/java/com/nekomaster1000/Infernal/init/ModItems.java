@@ -36,6 +36,18 @@ public class ModItems {
     public static final RegistryObject<Item> CHISELED_GLOWSTONE_BRICK = ITEMS.register("chiseled_glowstone_brick", () -> new BlockItemBase(ModBlocks.CHISELED_GLOWSTONE_BRICK.get()));
     public static final RegistryObject<Item> CHISELED_DIMSTONE_BRICK = ITEMS.register("chiseled_dimstone_brick", () -> new BlockItemBase(ModBlocks.CHISELED_DIMSTONE_BRICK.get()));
     public static final RegistryObject<Item> CHISELED_DULLSTONE_BRICK = ITEMS.register("chiseled_dullstone_brick", () -> new BlockItemBase(ModBlocks.CHISELED_DULLSTONE_BRICK.get()));
+    public static final RegistryObject<Item> SMOOTH_GLOWSTONE_SLAB = ITEMS.register("smooth_glowstone_slab", () -> new BlockItemBase(ModBlocks.SMOOTH_GLOWSTONE_SLAB.get()));
+    public static final RegistryObject<Item> SMOOTH_GLOWSTONE_STAIRS = ITEMS.register("smooth_glowstone_stairs", () -> new BlockItemBase(ModBlocks.SMOOTH_GLOWSTONE_STAIRS.get()));
+    public static final RegistryObject<Item> SMOOTH_DIMSTONE_SLAB = ITEMS.register("smooth_dimstone_slab", () -> new BlockItemBase(ModBlocks.SMOOTH_DIMSTONE_SLAB.get()));
+    public static final RegistryObject<Item> SMOOTH_DIMSTONE_STAIRS = ITEMS.register("smooth_dimstone_stairs", () -> new BlockItemBase(ModBlocks.SMOOTH_DIMSTONE_STAIRS.get()));
+    public static final RegistryObject<Item> SMOOTH_DULLSTONE_SLAB = ITEMS.register("smooth_dullstone_slab", () -> new BlockItemBase(ModBlocks.SMOOTH_DULLSTONE_SLAB.get()));
+    public static final RegistryObject<Item> SMOOTH_DULLSTONE_STAIRS = ITEMS.register("smooth_dullstone_stairs", () -> new BlockItemBase(ModBlocks.SMOOTH_DULLSTONE_STAIRS.get()));
+    public static final RegistryObject<Item> GLOWSTONE_BRICK_SLAB = ITEMS.register("glowstone_brick_slab", () -> new BlockItemBase(ModBlocks.GLOWSTONE_BRICK_SLAB.get()));
+    public static final RegistryObject<Item> GLOWSTONE_BRICK_STAIRS = ITEMS.register("glowstone_brick_stairs", () -> new BlockItemBase(ModBlocks.GLOWSTONE_BRICK_STAIRS.get()));
+    public static final RegistryObject<Item> DIMSTONE_BRICK_SLAB = ITEMS.register("dimstone_brick_slab", () -> new BlockItemBase(ModBlocks.DIMSTONE_BRICK_SLAB.get()));
+    public static final RegistryObject<Item> DIMSTONE_BRICK_STAIRS = ITEMS.register("dimstone_brick_stairs", () -> new BlockItemBase(ModBlocks.DIMSTONE_BRICK_STAIRS.get()));
+    public static final RegistryObject<Item> DULLSTONE_BRICK_SLAB = ITEMS.register("dullstone_brick_slab", () -> new BlockItemBase(ModBlocks.DULLSTONE_BRICK_SLAB.get()));
+    public static final RegistryObject<Item> DULLSTONE_BRICK_STAIRS = ITEMS.register("dullstone_brick_stairs", () -> new BlockItemBase(ModBlocks.DULLSTONE_BRICK_STAIRS.get()));
 
     public static final RegistryObject<Item> GLOWDUST = ITEMS.register("glowdust", () -> new BlockItemBase(ModBlocks.GLOWDUST.get()));
     public static final RegistryObject<Item> GLOWDUST_SAND = ITEMS.register("glowdust_sand", () -> new BlockItemBase(ModBlocks.GLOWDUST_SAND.get()));

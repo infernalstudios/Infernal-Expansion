@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "infernalexp:blocks/glowstone_brick",
+    "top": "infernalexp:blocks/glowstone_brick",
+    "side": "infernalexp:blocks/glowstone_brick"
+  }
+}
