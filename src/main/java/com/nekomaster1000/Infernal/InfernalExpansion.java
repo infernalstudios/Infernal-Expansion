@@ -4,7 +4,7 @@ import com.nekomaster1000.Infernal.entities.GlowsquitoEntity;
 import com.nekomaster1000.Infernal.entities.PyrnoEntity;
 import com.nekomaster1000.Infernal.entities.VolineEntity;
 import com.nekomaster1000.Infernal.entities.WarpbeetleEntity;
-import com.nekomaster1000.Infernal.init.ModEntityType;
+import com.nekomaster1000.Infernal.init.*;
 import com.nekomaster1000.Infernal.util.RegistryHandler;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
@@ -13,6 +13,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -28,19 +31,24 @@ import java.util.stream.Collectors;
 public class InfernalExpansion
 {
     // Directly reference a log4j logger.
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "infernalexp";
-    private final RegistryHandler RegistryHandler = null;
-
 
     public InfernalExpansion() {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        modEventBus.addListener(this::setup);
+        modEventBus.addListener(this::doClientStuff);
 
-        RegistryHandler.init();
+        ModItems.ITEMS.register(modEventBus);
+        ModBlocks.BLOCKS.register(modEventBus);
+        ModEntityType.ENTITY_TYPES.register(modEventBus);
+        ModPaintings.PAINTING_TYPES.register(modEventBus);
+        //ModSurfaceBuilder.SURFACE_BUILDERS.register(modEventBus);
+        ModBiomes.BIOMES.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
     }
+
 
     private void setup(final FMLCommonSetupEvent event) {
         DeferredWorkQueue.runLater(() -> {

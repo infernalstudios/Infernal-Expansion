@@ -1,10 +1,7 @@
 package com.nekomaster1000.Infernal.util;
 import com.nekomaster1000.Infernal.InfernalExpansion;
 import com.nekomaster1000.Infernal.blocks.*;
-import com.nekomaster1000.Infernal.init.ModBlocks;
-import com.nekomaster1000.Infernal.init.ModEntityType;
-import com.nekomaster1000.Infernal.init.ModItems;
-import com.nekomaster1000.Infernal.init.ModPaintings;
+import com.nekomaster1000.Infernal.init.*;
 import com.nekomaster1000.Infernal.items.ItemBase;
 //import com.nekomaster1000.Infernal.world.biome.GlowstoneCanyonBiome;
 import net.minecraft.block.Block;
@@ -26,14 +23,15 @@ import net.minecraft.world.biome.Biome;
 public class RegistryHandler {
     // Eventually we'll want to port these to InfernalExpansion constructor
     // And move the sounds to a new class
-    public static void init() {
+    private static void init() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ModItems.ITEMS.register(modEventBus);
         ModBlocks.BLOCKS.register(modEventBus);
         ModEntityType.ENTITY_TYPES.register(modEventBus);
         ModPaintings.PAINTING_TYPES.register(modEventBus);
-
+        ModBiomes.BIOMES.register(modEventBus);
+        ModBiomes.registerBiomes();
     }
 
     //SOUNDS
