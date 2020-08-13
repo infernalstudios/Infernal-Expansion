@@ -37,7 +37,7 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<EmbodyEntity>> EMBODY = ENTITY_TYPES.register("embody",
             () -> EntityType.Builder.create(EmbodyEntity::new, EntityClassification.MONSTER)
-                    .size(0.5f, 0.5f)// Hitbox Size
+                    .size(0.8f, 0.9f)// Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "embody").toString()));
 
 }
