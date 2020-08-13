@@ -52,6 +52,7 @@ public class EmbodyModel<E extends EmbodyEntity> extends EntityModel<EmbodyEntit
     public void setRotationAngles(EmbodyEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         right_arm.rotateAngleX = MathHelper.sin(limbSwing)/2 - 45;
         left_arm.rotateAngleX = MathHelper.sin(-limbSwing)/2 - 45;
+        body.rotateAngleZ = MathHelper.sin(limbSwing)/8;
     }
 
     @Override
