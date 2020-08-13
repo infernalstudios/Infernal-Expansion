@@ -1,9 +1,6 @@
 package com.nekomaster1000.Infernal;
 
-import com.nekomaster1000.Infernal.entities.GlowsquitoEntity;
-import com.nekomaster1000.Infernal.entities.PyrnoEntity;
-import com.nekomaster1000.Infernal.entities.VolineEntity;
-import com.nekomaster1000.Infernal.entities.WarpbeetleEntity;
+import com.nekomaster1000.Infernal.entities.*;
 import com.nekomaster1000.Infernal.init.*;
 import com.nekomaster1000.Infernal.util.RegistryHandler;
 import net.minecraft.entity.EntityClassification;
@@ -56,10 +53,12 @@ public class InfernalExpansion
             GlobalEntityTypeAttributes.put(ModEntityType.VOLINE.get(), VolineEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(ModEntityType.PYRNO.get(), PyrnoEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(ModEntityType.WARPBEETLE.get(), WarpbeetleEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put(ModEntityType.EMBODY.get(), EmbodyEntity.setCustomAttributes().create());
             Biomes.NETHER_WASTES.getSpawns(EntityClassification.MONSTER).add(new Biome.SpawnListEntry(ModEntityType.VOLINE.get(), 3, 3, 7));
             Biomes.BASALT_DELTAS.getSpawns(EntityClassification.MONSTER).add(new Biome.SpawnListEntry(ModEntityType.VOLINE.get(), 3, 3, 7));
-            Biomes.CRIMSON_FOREST.getSpawns(EntityClassification.CREATURE).add(new Biome.SpawnListEntry(ModEntityType.WARPBEETLE.get(), 1, 1, 1));
+            //Biomes.CRIMSON_FOREST.getSpawns(EntityClassification.CREATURE).add(new Biome.SpawnListEntry(ModEntityType.WARPBEETLE.get(), 1, 1, 1));
             Biomes.WARPED_FOREST.getSpawns(EntityClassification.CREATURE).add(new Biome.SpawnListEntry(ModEntityType.WARPBEETLE.get(), 2, 1, 1));
+            Biomes.SOUL_SAND_VALLEY.getSpawns(EntityClassification.MONSTER).add(new Biome.SpawnListEntry(ModEntityType.EMBODY.get(), 2, 1, 15));
         });
     }
 

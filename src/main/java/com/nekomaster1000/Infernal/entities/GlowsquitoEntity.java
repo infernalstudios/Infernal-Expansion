@@ -179,14 +179,14 @@ public class GlowsquitoEntity extends FlyingEntity {
     }
 
     @Override
-    protected SoundEvent getAmbientSound() { return SoundEvents.ENTITY_PIG_AMBIENT; }
+    protected SoundEvent getAmbientSound() { return SoundEvents.ENTITY_BLAZE_AMBIENT; }
 
     @Override
-    protected SoundEvent getDeathSound() { return SoundEvents.ENTITY_PIG_DEATH; }
+    protected SoundEvent getDeathSound() { return SoundEvents.ENTITY_BLAZE_DEATH; }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.ENTITY_PIG_HURT;
+        return SoundEvents.ENTITY_BLAZE_HURT;
     }
 
     @Override

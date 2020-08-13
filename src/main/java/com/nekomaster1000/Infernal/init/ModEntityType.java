@@ -1,10 +1,7 @@
 package com.nekomaster1000.Infernal.init;
 
 import com.nekomaster1000.Infernal.InfernalExpansion;
-import com.nekomaster1000.Infernal.entities.GlowsquitoEntity;
-import com.nekomaster1000.Infernal.entities.PyrnoEntity;
-import com.nekomaster1000.Infernal.entities.VolineEntity;
-import com.nekomaster1000.Infernal.entities.WarpbeetleEntity;
+import com.nekomaster1000.Infernal.entities.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
@@ -37,5 +34,10 @@ public class ModEntityType {
             () -> EntityType.Builder.create(WarpbeetleEntity::new, EntityClassification.CREATURE)
             .size(0.5f, 0.5f) // Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "warpbeetle").toString()));
+
+    public static final RegistryObject<EntityType<EmbodyEntity>> EMBODY = ENTITY_TYPES.register("embody",
+            () -> EntityType.Builder.create(EmbodyEntity::new, EntityClassification.MONSTER)
+                    .size(0.5f, 0.5f)// Hitbox Size
+                    .build(new ResourceLocation(InfernalExpansion.MOD_ID, "embody").toString()));
 
 }

@@ -12,4 +12,6 @@ public class ModPaintings {
     public static RegistryObject<PaintingType> THE_FALLEN_ONES = PAINTING_TYPES.register("the_fallen_ones",()-> new PaintingType(48, 64));
     public static RegistryObject<PaintingType> CHILLING_ISLES = PAINTING_TYPES.register("chilling_isles",()-> new PaintingType(48, 48));
     public static RegistryObject<PaintingType> VOLINE = PAINTING_TYPES.register("voline",()-> new PaintingType(16, 16));
+
+
 }

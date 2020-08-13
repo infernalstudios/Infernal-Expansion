@@ -1,10 +1,7 @@
 package com.nekomaster1000.Infernal.util;
 
 import com.nekomaster1000.Infernal.InfernalExpansion;
-import com.nekomaster1000.Infernal.client.entity.render.GlowsquitoRenderer;
-import com.nekomaster1000.Infernal.client.entity.render.PyrnoRenderer;
-import com.nekomaster1000.Infernal.client.entity.render.VolineRenderer;
-import com.nekomaster1000.Infernal.client.entity.render.WarpbeetleRenderer;
+import com.nekomaster1000.Infernal.client.entity.render.*;
 import com.nekomaster1000.Infernal.init.ModEntityType;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -23,6 +20,7 @@ public class ClientEventBusSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.VOLINE.get(), VolineRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.PYRNO.get(), PyrnoRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.WARPBEETLE.get(), WarpbeetleRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityType.EMBODY.get(), EmbodyRenderer::new);
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)

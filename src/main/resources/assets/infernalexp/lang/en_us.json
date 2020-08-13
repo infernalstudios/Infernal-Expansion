@@ -37,7 +37,6 @@
 
   "item.infernalexp.glowcoal": "Glowcoal",
   "item.infernalexp.glownuggets": "Glownuggets",
-  "item.infernalexp.glowsquito_spawn_egg": "Glowsquito Spawn Egg",
 
   "item.infernalexp.frostbitten_sword": "Frostbitten Netherite Sword",
   "item.infernalexp.frostbitten_pickaxe": "Frostbitten Netherite Pickaxe",
@@ -48,5 +47,12 @@
   "item.infernalexp.glowsquito_spawn_egg": "Glowsquito Spawn Egg",
   "item.infernalexp.voline_spawn_egg": "Voline Spawn Egg",
   "item.infernalexp.pyrno_spawn_egg": "Pyrno Spawn Egg",
-  "item.infernalexp.warpbeetle_spawn_egg": "Warpbeetle Spawn Egg"
+  "item.infernalexp.warpbeetle_spawn_egg": "Warpbeetle Spawn Egg",
+  "item.infernalexp.smbody_spawn_egg": "Embody Spawn Egg",
+
+  "entity.infernalexp.glowsquito": "Glowsquito",
+  "entity.infernalexp.voline": "Voline",
+  "entity.infernalexp.pyrno": "Pyrno",
+  "entity.infernalexp.warpbeetle": "Warpbeetle",
+  "entity.infernalexp.smbody": "Embody"
 }
