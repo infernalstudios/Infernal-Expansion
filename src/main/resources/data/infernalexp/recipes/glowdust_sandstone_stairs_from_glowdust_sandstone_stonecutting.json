@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "infernalexp:glowdust_sandstone"
+  },
+  "result": "infernalexp:glowdust_sandstone_stairs",
+  "count": 1
+}

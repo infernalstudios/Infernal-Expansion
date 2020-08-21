@@ -33,6 +33,10 @@
   "block.infernalexp.glowdust": "Glowdust",
   "block.infernalexp.glowdust_sandstone_slab": "Glowdust Sandstone Slab",
   "block.infernalexp.glowdust_sandstone_stairs": "Glowdust Sandstone Stairs",
+  "block.infernalexp.cut_glowdust_sandstone_slab": "Cut Glowdust Sandstone Slab",
+  "block.infernalexp.smooth_glowdust_sandstone_slab": "Smooth Glowdust Sandstone Slab",
+  "block.infernalexp.smooth_glowdust_sandstone_stairs": "Smooth Glowdust Sandstone Stairs",
+  "block.infernalexp.glowdust_sandstone_wall": "Glowdust Sandstone Wall",
   "block.infernalexp.glimmering_blackstone": "Glimmering Blackstone",
 
   "item.infernalexp.glowcoal": "Glowcoal",

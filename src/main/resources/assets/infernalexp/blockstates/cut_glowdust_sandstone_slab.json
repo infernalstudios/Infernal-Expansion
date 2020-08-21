@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "infernalexp:block/cut_glowdust_sandstone_slab"
+    },
+    "type=double": {
+      "model": "infernalexp:block/cut_glowdust_sandstone"
+    },
+    "type=top": {
+      "model": "infernalexp:block/cut_glowdust_sandstone_slab_top"
+    }
+  }
+}

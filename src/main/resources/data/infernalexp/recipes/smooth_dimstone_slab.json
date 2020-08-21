@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "infernalexp:smooth_dimstone"
+    }
+  },
+  "result":
+  {
+    "item": "infernalexp:smooth_dimstone_slab",
+    "count": 6
+  }
+}

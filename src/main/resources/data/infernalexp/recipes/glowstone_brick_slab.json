@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "infernalexp:glowstone_brick"
+    }
+  },
+  "result":
+  {
+    "item": "infernalexp:glowstone_brick_slab",
+    "count": 6
+  }
+}

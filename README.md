@@ -48,7 +48,7 @@ DEV GUIDE
 
 Place your texture in main/resources/assets/infernaldiv/textures/entity
 
-create a new java class in com.nekomaster1000.Infernal.entities called \[your mob\]Entity
+create a new java class in com.nekomaster1000.infernalexp.entities called \[your mob\]Entity
 
 Paste the following into your class. This is boilerplate code that would normally be in every mob.
 
@@ -96,7 +96,7 @@ public class [ENTITY NAME] extends CreatureEntity {
 }
 ```
 
-In com.nekomaster1000.Infernal.client.entity.model, copy and paste your generated class from blockbench.
+In com.nekomaster1000.infernalexp.client.entity.model, copy and paste your generated class from blockbench.
 
 right click on the file, select 'refactor' and then 'rename', and change it to have the same name as what blockbench gave it.
 
@@ -112,7 +112,7 @@ in the render function, if you have an error in your class, matrixStack, buffer,
 
 do the same for any usages of those parameters
 
-in com.nekomaster1000.Infernal.init.modEntityType, add a new entity. This should be done in the format:
+in com.nekomaster1000.infernalexp.init.modEntityType, add a new entity. This should be done in the format:
 
 ```
 public static final RegistryObject<EntityType<[mob class name]>> [mob name (uppercase)] = ENTITY_TYPES.register("[mob name (lowercase)]",
@@ -129,7 +129,7 @@ In the above code, \[mob class name] refers to the name of your class, e.g. Glow
 
 make your entity class public if it is not already
 
-in com.nekomaster1000.Infernal.client.entity.render, make a new class name [your mob]Renderer
+in com.nekomaster1000.infernalexp.client.entity.render, make a new class name [your mob]Renderer
 
 place the following code in your class:
 
@@ -149,7 +149,7 @@ public class [file name] extends MobRenderer<[mob class name], [model class name
 }
 ```
 
-in com.nekomaster1000.Infernal.InfernalExpansion.java:
+in com.nekomaster1000.infernalexp.InfernalExpansion.java:
 
 add a new line under deferredworkqueue.runLater
 
@@ -159,7 +159,7 @@ template:
 GlobalEntityTypeAttributes.put(ModEntityType.[mob name (uppercase)].get(), [mob class name].setCustomAttributes().create());
 ```
 
-In com.nekomaster1000.Infernal.util.ClientEventBusSubscriber.java:
+In com.nekomaster1000.infernalexp.util.ClientEventBusSubscriber.java:
 
 add a new line in OnClientSetup
 

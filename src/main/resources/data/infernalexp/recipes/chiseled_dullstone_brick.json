@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "x",
+    "x"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "infernalexp:dullstone_brick_slab"
+    }
+  },
+  "result":
+  {
+    "item": "infernalexp:chiseled_dullstone_brick",
+    "count": 1
+  }
+}
