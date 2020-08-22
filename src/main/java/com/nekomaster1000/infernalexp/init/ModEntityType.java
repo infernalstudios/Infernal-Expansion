@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.entities.*;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
@@ -38,5 +39,20 @@ public class ModEntityType {
             () -> EntityType.Builder.create(EmbodyEntity::new, EntityClassification.MONSTER)
                     .size(0.8f, 0.9f)// Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "embody").toString()));
+
+    public static final RegistryObject<EntityType<BasaltGiantEntity>> BASALT_GIANT = ENTITY_TYPES.register("basalt_giant",
+            () -> EntityType.Builder.create(BasaltGiantEntity::new, EntityClassification.MONSTER)
+                    .size(3.0f, 2.0f)// Hitbox Size
+                    .build(new ResourceLocation(InfernalExpansion.MOD_ID, "basalt_giant").toString()));
+
+    //public static final RegistryObject<EntityType<BasaltGiantEntity>> BASALT_GIANT =
+    //        register("basalt_giant", BasaltGiantEntity::new, EntityClassification.CREATURE, 3.0f, 2.0f);
+
+    private static <T extends Entity> RegistryObject<EntityType<T>> register(
+            String key, EntityType.IFactory<T> factoryIn, EntityClassification classificationIn, float size1, float size2) {
+        return ENTITY_TYPES.register(key, () -> EntityType.Builder.create(factoryIn, classificationIn)
+                .size(size1, size2)
+                .build(new ResourceLocation(InfernalExpansion.MOD_ID, key).toString()));
+    }
 
 }

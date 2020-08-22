@@ -24,6 +24,7 @@ public class ModItems {
     public static final RegistryObject<ModSpawnEggItem> PYRNO_SPAWN_EGG = ITEMS.register("pyrno_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.PYRNO, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<ModSpawnEggItem> WARPBEETLE_SPAWN_EGG = ITEMS.register("warpbeetle_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.WARPBEETLE, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<ModSpawnEggItem> EMBODY_SPAWN_EGG = ITEMS.register("embody_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.EMBODY, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
+    public static final RegistryObject<ModSpawnEggItem> BASALT_GIANT_SPAWN_EGG = ITEMS.register("basalt_giant_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.BASALT_GIANT, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
 
 
     // Block items
