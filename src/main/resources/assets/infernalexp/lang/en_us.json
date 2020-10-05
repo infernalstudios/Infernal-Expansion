@@ -60,5 +60,7 @@
   "entity.infernalexp.pyrno": "Pyrno",
   "entity.infernalexp.warpbeetle": "Warpbeetle",
   "entity.infernalexp.embody": "Embody",
-  "entity.infernalexp.basalt_giant": "Basalt Giant"
+  "entity.infernalexp.basalt_giant": "Basalt Giant",
+
+  "biome.infernalexp.glowstone_canyon": "Glowstone Canyon"
 }

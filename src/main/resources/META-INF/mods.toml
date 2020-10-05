@@ -1,7 +1,7 @@
 modLoader="javafml" #mandatory
 
 # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
-loaderVersion="[34,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+loaderVersion="[32,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
 
 # A URL to refer people to when problems occur with this mod
 issueTrackerURL="http://my.issue.tracker/" #optional
@@ -13,7 +13,7 @@ issueTrackerURL="http://my.issue.tracker/" #optional
 modId="infernalexp" #mandatory
 
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
-version="1.16.3-1.0.0" #mandatory
+version="1.16.2-0.0.4" #mandatory
 
  # A display name for the mod
 displayName="Infernal Expansion" #mandatory
@@ -31,16 +31,16 @@ logoFile="examplemod.png" #optional
 credits="Mocha Loca for models and textures (among others) + everyone in the Discord for offering ideas!" #optional
 
 # A text field displayed in the mod UI
-authors="nekomaster1000 and DiamantFarmer" #optional
+authors="nekomaster1000" #optional
 
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-A nether overhaul mod
+A Nether overhaul mod!
 Contributors:
 Nekomaster1000
-DiamantFarmer
 Scout/Merxlc
-BaconKami
+BaconKami (!!!)
+Minecraft Worldgen Discord server
 '''
 
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
@@ -50,7 +50,7 @@ BaconKami
     # Does this dependency have to exist - if not, ordering below must be specified
     mandatory=true #mandatory
     # The version range of the dependency
-    versionRange="[34,)" #mandatory
+    versionRange="[32,)" #mandatory
     # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
     ordering="NONE"
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
@@ -59,6 +59,6 @@ BaconKami
 [[dependencies.infernalexp]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.3]"
+    versionRange="[1.16.1]"
     ordering="NONE"
     side="BOTH"
