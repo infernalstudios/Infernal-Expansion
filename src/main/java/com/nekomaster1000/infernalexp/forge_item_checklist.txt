@@ -1,0 +1,98 @@
+FORGE MOBS IMPLEMENTED
+(TO DO:) need to ground mobs so they don't spawn in the sky
+(TO DO:) nerf the spawn rate oh my goodness
+
+voline (done!)
+
+glowsquito
+(needs - hitbox correction, ai correction, animations)
+
+pyrno
+(needs - rideability like horse by two people, horn attack akin to hoglin)
+
+warpbeetle
+(needs - jump/fly animation and ai)
+
+embody
+(needs - knockback reduction)
+
+basalt giant
+(needs - drastic hitbox correction, ai, animations)
+
+FORGE BLOCKS AND ITEMS IMPLEMENTED
+
+//glowstone
+dimstone
+dullstone
+
+smooth glowstone
+smooth dimstone
+smooth dullstone
+
+glowstone brick
+dimstone brick
+dullstone brick
+
+chiseled glowstone brick
+chiseled dimstone brick
+chiseled dullstone brick
+
+smooth glowstone slab
+smooth glowstone stairs
+
+smooth dimstone slab
+smooth dimstone stairs
+
+smooth dullstone slab
+smooth dullstone stairs
+
+glowstone brick slab
+glowstone brick stairs
+
+dimstone brick slab
+dimstone brick stairs
+
+dullstone brick slab
+dullstone brick stairs
+
+glowdust
+glowdust sand
+glowdust sandstone
+cut glowdust sandstone
+chiseled glowdust sandstone
+smooth glowdust sandstone
+glowdust sandstone slab
+glowdust sandstone stairs
+cut glowdust sandstone slab
+smooth glowdust sandstone slab
+smooth glowdust sandstone stairs
+glowdust sandstone wall
+
+glimmering blackstone
+
+glowcoal
+glownuggets
+
+(TO DO:) glow torch
+(TO DO:) glow lantern
+(TO DO:) glow campfire
+(TO DO:) glow fire (yellow fire created atop glowdust)
+
+glowsquito spawn egg
+voline spawn egg
+pyrno spawn egg
+warpbeetle spawn egg
+embody spawn egg
+basalt giant spawn egg
+
+frostitten sword
+frostitten pickaxe
+frostitten axe
+frostitten shovel
+frostitten hoe
+
+FORGE BIOMES IMPLEMENTED
+
+glowstone canyon
+(TO DO:) needs to be implemented in the nether
+(TO DO:) needs custom surface features (blackstone mounds)
