@@ -169,5 +169,34 @@ template:
 RenderingRegistry.registerEntityRenderingHandler(ModEntityType.[entity name(caps)].get(), [entity]Renderer::new);
 ```
 
+In com.nekomaster1000.infernalexp.world.gen.ModEntityPlacement.java:
+
+add a new line in spawnPlacement
+
+[placement-type] is the possible locations for your mob to spawn:
+
+```
+ON_GROUND,
+IN_WATER,
+IN_LAVA,
+NO_RESTRICTIONS
+```
+
+[heightmap-type] is the type of heightmap to use when checking for possible spawn locations:
+
+```
+MOTION_BLOCKING: The highest block that blocks motion or contains a fluid.
+MOTION_BLOCKING_NO_LEAVES: The highest block that blocks motion or contains a fluid and is not in the minecraft:leaves tag.
+OCEAN_FLOOR: The highest non-air block, solid block.
+OCEAN_FLOOR_WG: The highest block that is neither air nor contains a fluid, for worldgen.
+WORLD_SURFACE: The highest non-air block.
+WORLD_SURFACE_WG: The highest non-air block, for worldgen.
+```
+
+template:
+
+```
+EntitySpawnPlacementRegistry.register(ModEntityType.[entity name(caps)].get(), EntitySpawnPlacementRegistry.PlacementType.[placement-type], Heightmap.Type.[heightmap-type], MobEntity::canSpawnOn);
+```
 
 Enjoy your entity! you can change it's behaviour in it's class.

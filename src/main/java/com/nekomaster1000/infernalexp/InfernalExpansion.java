@@ -3,6 +3,8 @@ package com.nekomaster1000.infernalexp;
 //Entities are found in src.main.java.world.gen.ModEntitySpawns
 
 import com.nekomaster1000.infernalexp.init.*;
+import com.nekomaster1000.infernalexp.world.gen.ModEntityPlacement;
+import com.nekomaster1000.infernalexp.world.gen.ModEntitySpawns;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
@@ -42,7 +44,7 @@ public class InfernalExpansion
         ModBlocks.BLOCKS.register(modEventBus);
         ModEntityType.ENTITY_TYPES.register(modEventBus);
         ModPaintings.PAINTING_TYPES.register(modEventBus);
-        ModSurfaceBuilder.SURFACE_BUILDERS.register(modEventBus);
+        //ModSurfaceBuilder.SURFACE_BUILDERS.register(modEventBus);
         //ModBiomes.BIOMES.register(modEventBus);
         ModBiomes.register(modEventBus);
 
@@ -53,6 +55,7 @@ public class InfernalExpansion
     private void commonSetup(final FMLCommonSetupEvent event)
     {
         ModBiomes.setupBiomes();
+        ModEntityPlacement.spawnPlacement();
     }
 
     private void clientSetup(final FMLClientSetupEvent event)

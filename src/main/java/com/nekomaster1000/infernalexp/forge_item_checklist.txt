@@ -1,6 +1,8 @@
 FORGE MOBS IMPLEMENTED
-(TO DO:) need to ground mobs so they don't spawn in the sky
 (TO DO:) nerf the spawn rate oh my goodness
+
+need to ground mobs so they don't spawn in the sky
+(done!)
 
 voline (done!)
 
