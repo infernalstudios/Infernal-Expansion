@@ -38,6 +38,9 @@
   "block.infernalexp.smooth_glowdust_sandstone_stairs": "Smooth Glowdust Sandstone Stairs",
   "block.infernalexp.glowdust_sandstone_wall": "Glowdust Sandstone Wall",
   "block.infernalexp.glimmering_blackstone": "Glimmering Blackstone",
+  "block.infernalexp.lantern_glow": "Glow Lantern",
+  "block.infernalexp.torch_glow": "Glow Torch",
+  "block.infernalexp.campfire_glow": "Glow Campfire",
 
   "item.infernalexp.glowcoal": "Glowcoal",
   "item.infernalexp.glownuggets": "Glownuggets",

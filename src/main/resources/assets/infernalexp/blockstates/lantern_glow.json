@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "infernalexp:block/lantern_glow"
+    },
+    "hanging=true": {
+      "model": "infernalexp:block/lantern_glow_hanging"
+    }
+  }
+}

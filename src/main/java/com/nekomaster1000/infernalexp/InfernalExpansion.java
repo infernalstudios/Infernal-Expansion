@@ -5,6 +5,11 @@ package com.nekomaster1000.infernalexp;
 import com.nekomaster1000.infernalexp.events.EventHandler;
 import com.nekomaster1000.infernalexp.init.*;
 import com.nekomaster1000.infernalexp.world.gen.ModEntityPlacement;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -56,6 +61,10 @@ public class InfernalExpansion
 
     private void clientSetup(final FMLClientSetupEvent event)
     {
+        RenderTypeLookup.setRenderLayer(ModBlocks.GLOW_TORCH.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.GLOW_WALL_TORCH.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.GLOW_CAMPFIRE.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.GLOW_LANTERN.get(), RenderType.getCutout());
     }
 
     @SubscribeEvent

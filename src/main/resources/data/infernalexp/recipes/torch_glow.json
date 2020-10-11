@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "X": [
+      {
+        "item": "infernalexp:glowcoal"
+      }
+    ]
+  },
+  "result": {
+    "item": "infernalexp:torch_glow",
+    "count": 4
+  }
+}

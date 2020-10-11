@@ -1,0 +1,6 @@
+{
+  "parent": "block/template_torch",
+  "textures": {
+    "torch": "infernalexp:blocks/torch_glow"
+  }
+}
