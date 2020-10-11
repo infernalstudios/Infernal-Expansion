@@ -2,17 +2,12 @@ package com.nekomaster1000.infernalexp;
 
 //Entities are found in src.main.java.world.gen.ModEntitySpawns
 
+import com.nekomaster1000.infernalexp.events.EventHandler;
 import com.nekomaster1000.infernalexp.init.*;
 import com.nekomaster1000.infernalexp.world.gen.ModEntityPlacement;
-import com.nekomaster1000.infernalexp.world.gen.ModEntitySpawns;
-import net.minecraft.entity.EntitySpawnPlacementRegistry;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -35,6 +30,7 @@ public class InfernalExpansion
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        MinecraftForge.EVENT_BUS.register(new EventHandler());
 
         modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(EventPriority.LOWEST, this::commonSetup);
