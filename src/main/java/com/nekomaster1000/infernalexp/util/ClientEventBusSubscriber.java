@@ -20,6 +20,7 @@ public class ClientEventBusSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.VOLINE.get(), VolineRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.PYRNO.get(), PyrnoRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.WARPBEETLE.get(), WarpbeetleRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityType.CEROBEETLE.get(), CerobeetleRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.EMBODY.get(), EmbodyRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.BASALT_GIANT.get(), BasaltGiantRenderer::new);
     }

@@ -34,6 +34,7 @@ public class ModEntitySpawns {
 
             GlobalEntityTypeAttributes.put(ModEntityType.PYRNO.get(), PyrnoEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(ModEntityType.WARPBEETLE.get(), WarpbeetleEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put(ModEntityType.CEROBEETLE.get(), CerobeetleEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(ModEntityType.EMBODY.get(), EmbodyEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(ModEntityType.BASALT_GIANT.get(), EmbodyEntity.setCustomAttributes().create());
 

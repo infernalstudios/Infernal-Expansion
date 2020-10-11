@@ -35,6 +35,11 @@ public class ModEntityType {
             .size(0.5f, 0.5f) // Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "warpbeetle").toString()));
 
+    public static final RegistryObject<EntityType<CerobeetleEntity>> CEROBEETLE = ENTITY_TYPES.register("cerobeetle",
+            () -> EntityType.Builder.create(CerobeetleEntity::new, EntityClassification.CREATURE)
+            .size(2.0f, 2.0f) // Hitbox Size
+                    .build(new ResourceLocation(InfernalExpansion.MOD_ID, "cerobeetle").toString()));
+
     public static final RegistryObject<EntityType<EmbodyEntity>> EMBODY = ENTITY_TYPES.register("embody",
             () -> EntityType.Builder.create(EmbodyEntity::new, EntityClassification.MONSTER)
                     .size(0.8f, 0.9f)// Hitbox Size
