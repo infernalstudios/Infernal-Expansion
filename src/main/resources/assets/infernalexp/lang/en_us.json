@@ -58,6 +58,7 @@
   "item.infernalexp.cerobeetle_spawn_egg": "Cerobeetle Spawn Egg",
   "item.infernalexp.embody_spawn_egg": "Embody Spawn Egg",
   "item.infernalexp.basalt_giant_spawn_egg": "Basalt Giant Spawn Egg",
+  "item.infernalexp.basalt_titan_spawn_egg": "Basalt Titan Spawn Egg",
 
   "entity.infernalexp.glowsquito": "Glowsquito",
   "entity.infernalexp.voline": "Voline",
@@ -65,6 +66,7 @@
   "entity.infernalexp.warpbeetle": "Warpbeetle",
   "entity.infernalexp.embody": "Embody",
   "entity.infernalexp.basalt_giant": "Basalt Giant",
+  "entity.infernalexp.basalt_titan": "Basalt Titan",
 
   "biome.infernalexp.glowstone_canyon": "Glowstone Canyon"
 }

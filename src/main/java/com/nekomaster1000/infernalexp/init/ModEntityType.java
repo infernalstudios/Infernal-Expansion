@@ -17,12 +17,12 @@ public class ModEntityType {
     // Entity Types
     public static final RegistryObject<EntityType<GlowsquitoEntity>> GLOWSQUITO = ENTITY_TYPES.register("glowsquito",
             () -> EntityType.Builder.create(GlowsquitoEntity::new, EntityClassification.CREATURE)
-                    .size(0.5f, 0.5f)// Hitbox Size
+                    .size(0.8f, 0.5f)// Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "glowsquito").toString()));
 
     public static final RegistryObject<EntityType<VolineEntity>> VOLINE = ENTITY_TYPES.register("voline",
             () -> EntityType.Builder.create(VolineEntity::new, EntityClassification.CREATURE)
-                    .size(0.5f, 0.5f) // Hitbox Size
+                    .size(0.8f, 0.8f) // Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "voline").toString()));
 
     public static final RegistryObject<EntityType<PyrnoEntity>> PYRNO = ENTITY_TYPES.register("pyrno",
@@ -47,8 +47,13 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<BasaltGiantEntity>> BASALT_GIANT = ENTITY_TYPES.register("basalt_giant",
             () -> EntityType.Builder.create(BasaltGiantEntity::new, EntityClassification.MONSTER)
-                    .size(3.0f, 2.0f)// Hitbox Size
+                    .size(2.6f, 4.3f)// Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "basalt_giant").toString()));
+
+    public static final RegistryObject<EntityType<BasaltTitanEntity>> BASALT_TITAN = ENTITY_TYPES.register("basalt_titan",
+            () -> EntityType.Builder.create(BasaltTitanEntity::new, EntityClassification.MONSTER)
+                    .size(5.0f, 8.5f)// Hitbox Size
+                    .build(new ResourceLocation(InfernalExpansion.MOD_ID, "basalt_titan").toString()));
 
     //public static final RegistryObject<EntityType<BasaltGiantEntity>> BASALT_GIANT =
     //        register("basalt_giant", BasaltGiantEntity::new, EntityClassification.CREATURE, 3.0f, 2.0f);

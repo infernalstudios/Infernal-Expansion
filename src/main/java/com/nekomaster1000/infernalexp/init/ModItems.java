@@ -27,6 +27,7 @@ public class ModItems {
     public static final RegistryObject<ModSpawnEggItem> CEROBEETLE_SPAWN_EGG = ITEMS.register("cerobeetle_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.CEROBEETLE, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<ModSpawnEggItem> EMBODY_SPAWN_EGG = ITEMS.register("embody_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.EMBODY, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<ModSpawnEggItem> BASALT_GIANT_SPAWN_EGG = ITEMS.register("basalt_giant_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.BASALT_GIANT, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
+    public static final RegistryObject<ModSpawnEggItem> BASALT_TITAN_SPAWN_EGG = ITEMS.register("basalt_titan_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.BASALT_TITAN, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
 
 
     // Block items
@@ -63,7 +64,7 @@ public class ModItems {
     public static final RegistryObject<Item> GLOWDUST_SANDSTONE_SLAB = ITEMS.register("glowdust_sandstone_slab", () -> new BlockItemBase(ModBlocks.GLOWDUST_SANDSTONE_SLAB.get()));
     public static final RegistryObject<Item> GLOWDUST_SANDSTONE_STAIRS = ITEMS.register("glowdust_sandstone_stairs", () -> new BlockItemBase(ModBlocks.GLOWDUST_SANDSTONE_STAIRS.get()));
     public static final RegistryObject<Item> CUT_GLOWDUST_SANDSTONE_SLAB = ITEMS.register("cut_glowdust_sandstone_slab", () -> new BlockItemBase(ModBlocks.CUT_GLOWDUST_SANDSTONE_SLAB.get()));
-    public static final RegistryObject<Item> SMOOTH__GLOWDUST_SANDSTONE_SLAB = ITEMS.register("smooth_glowdust_sandstone_slab", () -> new BlockItemBase(ModBlocks.SMOOTH_GLOWDUST_SANDSTONE_SLAB.get()));
+    public static final RegistryObject<Item> SMOOTH_GLOWDUST_SANDSTONE_SLAB = ITEMS.register("smooth_glowdust_sandstone_slab", () -> new BlockItemBase(ModBlocks.SMOOTH_GLOWDUST_SANDSTONE_SLAB.get()));
     public static final RegistryObject<Item> SMOOTH_GLOWDUST_SANDSTONE_STAIRS = ITEMS.register("smooth_glowdust_sandstone_stairs", () -> new BlockItemBase(ModBlocks.SMOOTH_GLOWDUST_SANDSTONE_STAIRS.get()));
     public static final RegistryObject<Item> GLOWDUST_SANDSTONE_WALL = ITEMS.register("glowdust_sandstone_wall", () -> new BlockItemBase(ModBlocks.GLOWDUST_SANDSTONE_WALL.get()));
 

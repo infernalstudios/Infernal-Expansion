@@ -13,6 +13,7 @@ public class VolineRenderer extends MobRenderer<VolineEntity, VolineModel<Voline
 
     public VolineRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new VolineModel<>(), 0.7f);
+        this.addLayer(new VolineGlowLayer(this));
     }
 
     @Override
