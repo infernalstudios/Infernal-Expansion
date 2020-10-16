@@ -1,4 +1,4 @@
-package com.nekomaster1000.infernalexp.mixin;
+package com.nekomaster1000.infernalexp.mixin.common;
 
 import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeProvider;
 import net.minecraft.util.registry.Registry;
