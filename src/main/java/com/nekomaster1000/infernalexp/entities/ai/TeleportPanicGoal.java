@@ -5,8 +5,6 @@ import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.goal.PanicGoal;
 import net.minecraft.util.math.vector.Vector3d;
 
-import java.util.Random;
-
 public class TeleportPanicGoal extends PanicGoal {
 
     public TeleportPanicGoal(CreatureEntity creature, double speedIn) {
@@ -35,7 +33,6 @@ public class TeleportPanicGoal extends PanicGoal {
             this.randPosY = vector3d.y;
             this.randPosZ = vector3d.z;
 
-            System.out.println(this.randPosX + " " + this.randPosZ);
             return true;
         }
     }

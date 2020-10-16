@@ -6,7 +6,7 @@ import com.nekomaster1000.infernalexp.items.ItemBase;
 import com.nekomaster1000.infernalexp.util.ModItemTier;
 import com.nekomaster1000.infernalexp.util.ModSpawnEggItem;
 import net.minecraft.item.*;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -81,4 +81,10 @@ public class ModItems {
     public static final RegistryObject<AxeItem> FROSTBITTEN_AXE = ITEMS.register("frostbitten_axe", () -> new AxeItem(ModItemTier.FROSTBITTEN_NETHERITE, 4, -3.1F, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<ShovelItem> FROSTBITTEN_SHOVEL = ITEMS.register("frostbitten_shovel", () -> new ShovelItem(ModItemTier.FROSTBITTEN_NETHERITE, -1, -2.4F, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<HoeItem> FROSTBITTEN_HOE = ITEMS.register("frostbitten_hoe", () -> new HoeItem(ModItemTier.FROSTBITTEN_NETHERITE, -2, -1.0F, new Item.Properties().group(InfernalExpansion.TAB)));
+
+    public static void register(IEventBus eventBus) {
+        ITEMS.register(eventBus);
+        InfernalExpansion.LOGGER.info("Infernal Expansion: Items Registered!");
+    }
+
 }

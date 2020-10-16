@@ -81,6 +81,6 @@ public class BasaltGiantEntity extends CreatureEntity implements IAngerable {
 
     @Override
     public void func_230258_H__() {
-        this.setAngerTime(RANGED_INT.func_233018_a_(this.rand));
+        this.setAngerTime(RANGED_INT.getRandomWithinRange(this.rand));
     }
 }

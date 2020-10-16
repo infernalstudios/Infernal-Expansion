@@ -6,6 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -65,4 +66,8 @@ public class ModEntityType {
                 .build(new ResourceLocation(InfernalExpansion.MOD_ID, key).toString()));
     }
 
+    public static void register(IEventBus eventBus) {
+        ENTITY_TYPES.register(eventBus);
+        InfernalExpansion.LOGGER.info("Infernal Expansion: Entity Types Registered!");
+    }
 }

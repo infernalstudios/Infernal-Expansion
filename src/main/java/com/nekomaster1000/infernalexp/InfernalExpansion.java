@@ -2,15 +2,17 @@ package com.nekomaster1000.infernalexp;
 
 //Entities are found in src.main.java.world.gen.ModEntitySpawns
 
-import com.nekomaster1000.infernalexp.events.EventHandler;
 import com.nekomaster1000.infernalexp.init.*;
+import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeCatch;
+import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeProvider;
 import com.nekomaster1000.infernalexp.world.gen.ModEntityPlacement;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -20,6 +22,7 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 @Mod("infernalexp")
 public class InfernalExpansion
 {
@@ -30,28 +33,29 @@ public class InfernalExpansion
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        MinecraftForge.EVENT_BUS.register(new EventHandler());
-
         modEventBus.addListener(this::clientSetup);
-        modEventBus.addListener(EventPriority.LOWEST, this::commonSetup);
+        modEventBus.addListener(this::commonSetup);
 
         //Registering deferred registers to the mod bus
-        ModItems.ITEMS.register(modEventBus);
-        ModBlocks.BLOCKS.register(modEventBus);
-        ModEntityType.ENTITY_TYPES.register(modEventBus);
-        ModPaintings.PAINTING_TYPES.register(modEventBus);
+        ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
+        ModEntityType.register(modEventBus);
+        ModPaintings.register(modEventBus);
         //ModSurfaceBuilder.SURFACE_BUILDERS.register(modEventBus);
-        //ModBiomes.BIOMES.register(modEventBus);
         ModBiomes.register(modEventBus);
-        ModTileEntityTypes.TILE_ENTITY_TYPES.register(modEventBus);
+        ModTileEntityTypes.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(new ModEvents());
 
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
-        ModBiomes.setupBiomes();
+        ModNetherBiomeCatch.netherBiomeCollection();
+        Registry.register(Registry.BIOME_PROVIDER_CODEC, new ResourceLocation(MOD_ID, "infernalexp_nether"), ModNetherBiomeProvider.MOD_NETHER_CODEC);
+
+        //Places entity spawn locations on the ground
         ModEntityPlacement.spawnPlacement();
     }
 
@@ -64,9 +68,7 @@ public class InfernalExpansion
     }
 
     @SubscribeEvent
-    public void onServerStarting(FMLServerStartingEvent event)
-    {
-    }
+    public void onServerStarting(FMLServerStartingEvent event) { }
 
     public static final ItemGroup TAB = new ItemGroup("InfernalTab") {
 

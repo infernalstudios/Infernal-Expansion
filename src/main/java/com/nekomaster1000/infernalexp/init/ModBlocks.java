@@ -5,12 +5,9 @@ import com.nekomaster1000.infernalexp.blocks.GlowCampfireBlock;
 import com.nekomaster1000.infernalexp.blocks.GlowdustBlock;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.particles.BasicParticleType;
-import net.minecraft.particles.BlockParticleData;
-import net.minecraft.particles.ParticleType;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -74,5 +71,10 @@ public class ModBlocks {
 
     public static AbstractBlock.Properties getProperties(Block block) {
         return AbstractBlock.Properties.from(block);
+    }
+
+    public static void register(IEventBus eventBus) {
+        BLOCKS.register(eventBus);
+        InfernalExpansion.LOGGER.info("Infernal Expansion: Blocks Registered!");
     }
 }

@@ -18,9 +18,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
-import java.util.Vector;
-
 public class WarpbeetleEntity extends CreatureEntity {
+
+    public float shellRotationMultiplier = 0.0F;
 
     public WarpbeetleEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
         super(type, worldIn);

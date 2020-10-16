@@ -108,19 +108,29 @@ public class WarpbeetleModel<T extends WarpbeetleEntity> extends EntityModel<T> 
         this.right_leg_3.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
 
         if (!entityIn.isOnGround()) {
-            float wingRotation = MathHelper.cos(ageInTicks * 2.1F) * (float)Math.PI * 0.15F + 1.0F;
+            entityIn.shellRotationMultiplier += 0.1F;
 
-            setRotationAngle(left_shield, 1.2F, -0.4F, 0.9F);
-            setRotationAngle(right_shield, 1.2F, 0.4F, -0.9F);
+            if (entityIn.shellRotationMultiplier > 1.0F) {
+                entityIn.shellRotationMultiplier = 1.0F;
+            }
+
+            float wingRotation = MathHelper.cos(ageInTicks * 2.1F) * (float) Math.PI * 0.15F + 1.0F;
 
             setRotationAngle(left_wing, wingRotation, 0.5F, 0.3F);
             setRotationAngle(right_wing, wingRotation, -0.5F, -0.3F);
         } else {
-            setRotationAngle(left_shield, 0F, 0F, 0F);
-            setRotationAngle(right_shield, 0F, 0F, 0F);
+            entityIn.shellRotationMultiplier -= 0.1F;
+
+            if (entityIn.shellRotationMultiplier < 0.0F) {
+                entityIn.shellRotationMultiplier = 0.0F;
+            }
+
             setRotationAngle(left_wing, 0.0F, 0.0F, 0.0F);
             setRotationAngle(right_wing, 0.0F, 0.0F, 0.0F);
         }
+
+        setRotationAngle(left_shield, 1.2F * entityIn.shellRotationMultiplier, -0.4F * entityIn.shellRotationMultiplier, 0.9F * entityIn.shellRotationMultiplier);
+        setRotationAngle(right_shield, 1.2F * entityIn.shellRotationMultiplier, 0.4F * entityIn.shellRotationMultiplier, -0.9F * entityIn.shellRotationMultiplier);
     }
 
 

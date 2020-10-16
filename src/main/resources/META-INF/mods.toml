@@ -3,6 +3,8 @@ modLoader="javafml" #mandatory
 # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
 loaderVersion="[32,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
 
+license="LGPLv3"
+
 # A URL to refer people to when problems occur with this mod
 issueTrackerURL="http://my.issue.tracker/" #optional
 
@@ -59,6 +61,6 @@ side="BOTH"
 [[dependencies.infernalexp]]
 modId="minecraft"
 mandatory=true
-versionRange="[1.16.1]"
+versionRange="[1.16.3]"
 ordering="NONE"
 side="BOTH"

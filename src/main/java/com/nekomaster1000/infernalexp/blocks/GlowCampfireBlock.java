@@ -1,7 +1,6 @@
 package com.nekomaster1000.infernalexp.blocks;
 
 import com.nekomaster1000.infernalexp.tileentities.GlowCampfireTileEntity;
-import com.nekomaster1000.infernalexp.tileentities.renderer.GlowCampfireTileEntityRenderer;
 import net.minecraft.block.*;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -23,7 +22,6 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tileentity.CampfireTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
@@ -165,7 +163,7 @@ public class GlowCampfireBlock extends ContainerBlock implements IWaterLoggable 
     public static void extinguish(IWorld world, BlockPos pos, BlockState state) {
         if (world.isRemote()) {
             for(int i = 0; i < 20; ++i) {
-                spawnSmokeParticles(world.getWorld(), pos, state.get(SIGNAL_FIRE), true);
+                spawnSmokeParticles((World)world, pos, state.get(SIGNAL_FIRE), true);
             }
         }
 
