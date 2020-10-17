@@ -22,7 +22,7 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 public class GlowstoneCanyonBiome extends ModBiomeBuilder implements BiomeTools {
     static final ConfiguredSurfaceBuilder SURFACE_BUILDER = BiomeHelper.newConfiguredSurfaceBuilder("glowstone_canyon", new ConfiguredSurfaceBuilder<>(SurfaceBuilder.DEFAULT, new SurfaceBuilderConfig(
             ModBlocks.GLOWDUST_SAND.get().getDefaultState(),
-            ModBlocks.GLOWDUST_SANDSTONE.get().getDefaultState(),
+            ModBlocks.GLOWDUST_SAND.get().getDefaultState(),
             Blocks.GLOWSTONE.getDefaultState()
     )));
     static final Biome.RainType PRECIPITATION = Biome.RainType.RAIN;
@@ -32,9 +32,9 @@ public class GlowstoneCanyonBiome extends ModBiomeBuilder implements BiomeTools 
     static final float SCALE = 0.2F;
     static final float TEMPERATURE = 2.0F;
     static final float DOWNFALL = 0.0F;
-    static final int WATER_COLOR = 13060890;
-    static final int WATER_FOG_COLOR = 11546126;
-    static final int FOG_COLOR = 16106038;
+    static final int WATER_COLOR = 13408563;
+    static final int WATER_FOG_COLOR = 10053120;
+    static final int FOG_COLOR = 10316320;
     static final String PARENT = null;
     static final MobSpawnInfo.Builder SPAWN_SETTINGS = new MobSpawnInfo.Builder();
     static final BiomeGenerationSettings.Builder GENERATION_SETTINGS = (new BiomeGenerationSettings.Builder()).withSurfaceBuilder(SURFACE_BUILDER);
@@ -57,10 +57,10 @@ public class GlowstoneCanyonBiome extends ModBiomeBuilder implements BiomeTools 
         GENERATION_SETTINGS.withStructure(StructureFeatures.field_244134_E);
         GENERATION_SETTINGS.withStructure(StructureFeatures.field_244149_o);
         GENERATION_SETTINGS.withCarver(GenerationStage.Carving.AIR, ConfiguredCarvers.field_243772_f);
-        GENERATION_SETTINGS.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.DELTA);
+        //GENERATION_SETTINGS.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.DELTA);
         GENERATION_SETTINGS.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA);
+        GENERATION_SETTINGS.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA_DOUBLE);
         GENERATION_SETTINGS.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.BLACKSTONE_BLOBS);
-        GENERATION_SETTINGS.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.SPRING_LAVA_DOUBLE);
         GENERATION_SETTINGS.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.PATCH_FIRE);
         GENERATION_SETTINGS.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.PATCH_SOUL_FIRE);
         GENERATION_SETTINGS.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.GLOWSTONE);
@@ -70,6 +70,6 @@ public class GlowstoneCanyonBiome extends ModBiomeBuilder implements BiomeTools 
 
         DefaultBiomeFeatures.withCommonNetherBlocks(GENERATION_SETTINGS);
 
-        SPAWN_SETTINGS.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityType.EMBODY.get(), 1, 1, 3));
+        //SPAWN_SETTINGS.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityType.EMBODY.get(), 1, 1, 3));
     }
 }

@@ -7,83 +7,69 @@ import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 
 public class GlowsquitoModel<T extends GlowsquitoEntity> extends EntityModel<T> {
-    private final ModelRenderer glowsquito;
-    private final ModelRenderer head;
-    private final ModelRenderer body;
-    private final ModelRenderer left_wing;
-    private final ModelRenderer right_wing;
-    private final ModelRenderer leg_1;
-    private final ModelRenderer leg_2;
-    private final ModelRenderer leg_3;
-    private final ModelRenderer leg_4;
-    private final ModelRenderer leg_5;
-    private final ModelRenderer leg_6;
+    private final ModelRenderer Head;
+    private final ModelRenderer Stinger;
+    private final ModelRenderer Body;
+    private final ModelRenderer LeftWing;
+    private final ModelRenderer RightWing;
+    private final ModelRenderer Butt;
+    private final ModelRenderer LeftArm;
+    private final ModelRenderer RightArm;
+    private final ModelRenderer LeftLeg;
+    private final ModelRenderer RightLeg;
 
     public GlowsquitoModel() {
         textureWidth = 64;
         textureHeight = 64;
 
-        glowsquito = new ModelRenderer(this);
-        glowsquito.setRotationPoint(0.0F, 24.0F, 0.0F);
+        Head = new ModelRenderer(this);
+        Head.setRotationPoint(0.0F, 19.6F, -4.0F);
+        Head.setTextureOffset(26, 19).addBox(-2.0F, -2.6F, -4.0F, 4.0F, 4.0F, 4.0F, 0.0F, false);
 
+        Stinger = new ModelRenderer(this);
+        Stinger.setRotationPoint(0.0F, 0.4F, -4.0F);
+        Head.addChild(Stinger);
+        setRotationAngle(Stinger, 0.3927F, 0.0F, 0.0F);
+        Stinger.setTextureOffset(17, 23).addBox(-0.5F, 0.0F, -6.5F, 1.0F, 0.0F, 7.0F, 0.0F, false);
 
-        head = new ModelRenderer(this);
-        head.setRotationPoint(0.0F, -6.0F, -4.0F);
-        glowsquito.addChild(head);
-        head.setTextureOffset(21, 0).addBox(-2.0F, -2.0F, -4.0F, 4.0F, 4.0F, 4.0F, 0.0F, false);
-        head.setTextureOffset(0, 0).addBox(-0.5F, 2.0F, -4.0F, 1.0F, 4.0F, 0.0F, 0.0F, false);
+        Body = new ModelRenderer(this);
+        Body.setRotationPoint(0.0F, 19.5F, -4.0F);
+        setRotationAngle(Body, -0.3491F, 0.0F, 0.0F);
+        Body.setTextureOffset(0, 17).addBox(-3.0F, -4.5F, -0.636F, 6.0F, 5.0F, 6.0F, 0.0F, false);
 
-        body = new ModelRenderer(this);
-        body.setRotationPoint(0.0F, -7.0F, -1.0F);
-        glowsquito.addChild(body);
-        body.setTextureOffset(23, 23).addBox(-2.0F, -2.0F, -3.0F, 4.0F, 4.0F, 3.0F, 0.0F, false);
-        body.setTextureOffset(0, 0).addBox(-3.0F, -3.0F, 0.0F, 6.0F, 7.0F, 9.0F, 0.0F, false);
+        LeftWing = new ModelRenderer(this);
+        LeftWing.setRotationPoint(3.0F, -4.5F, 0.0F);
+        Body.addChild(LeftWing);
+        setRotationAngle(LeftWing, 1.1781F, 0.0F, 0.0F);
+        LeftWing.setTextureOffset(12, 17).addBox(0.0F, -0.01F, -0.6F, 6.0F, 0.0F, 6.0F, 0.0F, false);
 
-        left_wing = new ModelRenderer(this);
-        left_wing.setRotationPoint(0.0F, -3.0F, 1.0F);
-        body.addChild(left_wing);
-        left_wing.setTextureOffset(8, 16).addBox(0.0F, 0.0F, 0.0F, 4.0F, 0.0F, 10.0F, 0.0F, false);
+        RightWing = new ModelRenderer(this);
+        RightWing.setRotationPoint(-3.0F, -4.5F, 0.0F);
+        Body.addChild(RightWing);
+        setRotationAngle(RightWing, 1.1781F, 0.0F, 0.0F);
+        RightWing.setTextureOffset(20, 0).addBox(-6.0F, -0.01F, -0.6F, 6.0F, 0.0F, 6.0F, 0.0F, false);
 
-        right_wing = new ModelRenderer(this);
-        right_wing.setRotationPoint(0.0F, -3.0F, 1.0F);
-        body.addChild(right_wing);
-        right_wing.setTextureOffset(0, 16).addBox(-4.0F, 0.0F, 0.0F, 4.0F, 0.0F, 10.0F, 0.0F, false);
+        Butt = new ModelRenderer(this);
+        Butt.setRotationPoint(0.0F, -2.2782F, 6.1213F);
+        Body.addChild(Butt);
+        setRotationAngle(Butt, -0.3927F, 0.0F, 0.0F);
+        Butt.setTextureOffset(0, 0).addBox(-4.0F, -3.2218F, -1.6213F, 8.0F, 7.0F, 10.0F, 0.0F, false);
 
-        leg_1 = new ModelRenderer(this);
-        leg_1.setRotationPoint(2.0F, -1.0F, -2.0F);
-        body.addChild(leg_1);
-        setRotationAngle(leg_1, 0.0F, 0.0F, -0.3491F);
-        leg_1.setTextureOffset(0, 25).addBox(0.0F, 0.0F, 0.0F, 0.0F, 10.0F, 1.0F, 0.0F, false);
+        LeftArm = new ModelRenderer(this);
+        LeftArm.setRotationPoint(3.0F, 19.0F, -3.5F);
+        LeftArm.setTextureOffset(0, 28).addBox(0.01F, 0.0F, -0.5F, 0.0F, 8.0F, 1.0F, 0.0F, false);
 
-        leg_2 = new ModelRenderer(this);
-        leg_2.setRotationPoint(3.0F, -1.0F, 2.0F);
-        body.addChild(leg_2);
-        setRotationAngle(leg_2, 0.0F, 0.0F, -0.3491F);
-        leg_2.setTextureOffset(8, 15).addBox(0.0F, 0.0F, 0.0F, 0.0F, 10.0F, 1.0F, 0.0F, false);
+        RightArm = new ModelRenderer(this);
+        RightArm.setRotationPoint(-3.0F, 19.0F, -3.5F);
+        RightArm.setTextureOffset(4, 28).addBox(-0.01F, 0.0F, -0.5F, 0.0F, 8.0F, 1.0F, 0.0F, false);
 
-        leg_3 = new ModelRenderer(this);
-        leg_3.setRotationPoint(3.0F, -1.0F, 5.0F);
-        body.addChild(leg_3);
-        setRotationAngle(leg_3, 0.0F, 0.0F, -0.3491F);
-        leg_3.setTextureOffset(6, 15).addBox(0.0F, 0.0F, 0.0F, 0.0F, 10.0F, 1.0F, 0.0F, false);
+        LeftLeg = new ModelRenderer(this);
+        LeftLeg.setRotationPoint(3.0F, 21.0F, -1.5F);
+        LeftLeg.setTextureOffset(4, 0).addBox(0.01F, -1.5F, -0.5F, 0.0F, 8.0F, 1.0F, 0.0F, false);
 
-        leg_4 = new ModelRenderer(this);
-        leg_4.setRotationPoint(-2.0F, -1.0F, -2.0F);
-        body.addChild(leg_4);
-        setRotationAngle(leg_4, 0.0F, 0.0F, 0.3491F);
-        leg_4.setTextureOffset(4, 15).addBox(0.0F, 0.0F, 0.0F, 0.0F, 10.0F, 1.0F, 0.0F, false);
-
-        leg_5 = new ModelRenderer(this);
-        leg_5.setRotationPoint(-3.0F, -1.0F, 2.0F);
-        body.addChild(leg_5);
-        setRotationAngle(leg_5, 0.0F, 0.0F, 0.3491F);
-        leg_5.setTextureOffset(2, 15).addBox(0.0F, 0.0F, 0.0F, 0.0F, 10.0F, 1.0F, 0.0F, false);
-
-        leg_6 = new ModelRenderer(this);
-        leg_6.setRotationPoint(-3.0F, -1.0F, 5.0F);
-        body.addChild(leg_6);
-        setRotationAngle(leg_6, 0.0F, 0.0F, 0.3491F);
-        leg_6.setTextureOffset(0, 15).addBox(0.0F, 0.0F, 0.0F, 0.0F, 10.0F, 1.0F, 0.0F, false);
+        RightLeg = new ModelRenderer(this);
+        RightLeg.setRotationPoint(-3.0F, 21.0F, -1.5F);
+        RightLeg.setTextureOffset(0, 0).addBox(-0.01F, -1.5F, -0.5F, 0.0F, 8.0F, 1.0F, 0.0F, false);
     }
 
     @Override
@@ -94,7 +80,12 @@ public class GlowsquitoModel<T extends GlowsquitoEntity> extends EntityModel<T> 
 
     @Override
     public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
-        glowsquito.render(matrixStack, buffer, packedLight, packedOverlay);
+        Head.render(matrixStack, buffer, packedLight, packedOverlay);
+        Body.render(matrixStack, buffer, packedLight, packedOverlay);
+        LeftArm.render(matrixStack, buffer, packedLight, packedOverlay);
+        RightArm.render(matrixStack, buffer, packedLight, packedOverlay);
+        LeftLeg.render(matrixStack, buffer, packedLight, packedOverlay);
+        RightLeg.render(matrixStack, buffer, packedLight, packedOverlay);
     }
 
     public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {

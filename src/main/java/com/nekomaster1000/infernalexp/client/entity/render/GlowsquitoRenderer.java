@@ -9,10 +9,12 @@ import net.minecraft.util.ResourceLocation;
 
 public class GlowsquitoRenderer extends MobRenderer<GlowsquitoEntity, GlowsquitoModel<GlowsquitoEntity>> {
 
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/glowsquito.png");
+    protected static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity" +
+            "/glowsquitoid.png");
 
     public GlowsquitoRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new GlowsquitoModel<>(), 0.7f);
+        this.addLayer(new GlowsquitoGlowLayer(this));
     }
 
     @Override

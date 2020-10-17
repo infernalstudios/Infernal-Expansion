@@ -1,11 +1,6 @@
 {
   "variants": {
     "": [
-      { "model": "infernalexp:block/glimmering_blackstone/0" },
-      { "model": "infernalexp:block/glimmering_blackstone/1" },
-      { "model": "infernalexp:block/glimmering_blackstone/2" },
-      { "model": "infernalexp:block/glimmering_blackstone/3" },
-      { "model": "infernalexp:block/glimmering_blackstone/4" },
       { "model": "infernalexp:block/glimmering_blackstone/5" },
       { "model": "infernalexp:block/glimmering_blackstone/6" },
       { "model": "infernalexp:block/glimmering_blackstone/7" },

@@ -12,6 +12,7 @@ public class BasaltTitanRenderer extends MobRenderer<BasaltTitanEntity, BasaltTi
 
     public BasaltTitanRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new BasaltTitanModel<>(), 0.7f);
+        this.addLayer(new BasaltGiantGlowLayer(this));
     }
 
     @Override
