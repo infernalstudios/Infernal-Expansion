@@ -15,6 +15,7 @@ public class ModEntityPlacement {
         EntitySpawnPlacementRegistry.register(ModEntityType.CEROBEETLE.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, CerobeetleEntity::canSpawnOn);
         EntitySpawnPlacementRegistry.register(ModEntityType.EMBODY.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, EmbodyEntity::canSpawnOn);
         EntitySpawnPlacementRegistry.register(ModEntityType.BASALT_GIANT.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BasaltGiantEntity::canSpawnOn);
+        EntitySpawnPlacementRegistry.register(ModEntityType.SKELETAL_PIGLIN.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SkeletalPiglinEntity::canSpawnOn);
     }
 
 }

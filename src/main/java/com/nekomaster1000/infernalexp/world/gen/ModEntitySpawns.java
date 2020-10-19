@@ -32,6 +32,7 @@ public class ModEntitySpawns {
             GlobalEntityTypeAttributes.put(ModEntityType.EMBODY.get(), EmbodyEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(ModEntityType.BASALT_GIANT.get(), BasaltGiantEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(ModEntityType.BASALT_TITAN.get(), BasaltTitanEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put(ModEntityType.SKELETAL_PIGLIN.get(), SkeletalPiglinEntity.setCustomAttributes().create());
 
             //Biomes.NETHER_WASTES.getSpawns(EntityClassification.MONSTER).add(new Biome.SpawnListEntry(ModEntityType.VOLINE.get(), 1, 1, 3));
             //Biomes.WARPED_FOREST.getSpawns(EntityClassification.CREATURE).add(new Biome.SpawnListEntry(ModEntityType.WARPBEETLE.get(), 2, 1, 1));
