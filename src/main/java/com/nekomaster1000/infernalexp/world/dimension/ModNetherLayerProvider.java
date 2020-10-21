@@ -15,7 +15,7 @@ public class ModNetherLayerProvider {
 
         IAreaFactory<LazyArea> netherFactory = ModNetherMasterLayer.INSTANCE.apply(randomProvider.apply(1000L));
 
-        for (int netherBiomeSize = 0; netherBiomeSize <= 1; netherBiomeSize++) {
+        for (int netherBiomeSize = 0; netherBiomeSize <= 3; netherBiomeSize++) {
             netherFactory = ZoomLayer.NORMAL.apply(randomProvider.apply(1000L + netherBiomeSize), netherFactory);
         }
 

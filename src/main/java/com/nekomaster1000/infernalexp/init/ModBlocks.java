@@ -3,6 +3,7 @@ package com.nekomaster1000.infernalexp.init;
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.blocks.GlowCampfireBlock;
 import com.nekomaster1000.infernalexp.blocks.GlowdustBlock;
+import com.nekomaster1000.infernalexp.blocks.LuminousFungusBlock;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.particles.ParticleTypes;
@@ -61,12 +62,18 @@ public class ModBlocks {
     public static final RegistryObject<Block> GLOW_WALL_TORCH = BLOCKS.register("torch_glow_wall", () -> new WallTorchBlock(getProperties(ModBlocks.GLOW_TORCH.get()).lootFrom(GLOW_TORCH.get()), ParticleTypes.CRIT));
     public static final RegistryObject<Block> GLOW_CAMPFIRE = BLOCKS.register("campfire_glow", () -> new GlowCampfireBlock(true, 2, getProperties(Blocks.CAMPFIRE)));
 
+    // Foliage
+    public static final RegistryObject<Block> LUMINOUS_FUNGUS = BLOCKS.register("luminous_fungus", () -> new LuminousFungusBlock(getProperties(Material.PLANTS).doesNotBlockMovement().sound(SoundType.PLANT)));
+
     public static AbstractBlock.Properties getProperties(Material materialIn, float hardnessAndResistanceIn) {
         return getProperties(materialIn, hardnessAndResistanceIn, hardnessAndResistanceIn);
     }
 
     public static AbstractBlock.Properties getProperties(Material materialIn, float hardnessIn, float resistanceIn) {
         return AbstractBlock.Properties.create(materialIn).hardnessAndResistance(hardnessIn, resistanceIn);
+    }
+    public static AbstractBlock.Properties getProperties(Material materialIn) {
+        return AbstractBlock.Properties.create(materialIn).zeroHardnessAndResistance();
     }
 
     public static AbstractBlock.Properties getProperties(Block block) {

@@ -1,13 +1,11 @@
 package com.nekomaster1000.infernalexp.world.biome.netherbiomes;
 
-import com.nekomaster1000.infernalexp.init.ModBlocks;
-import com.nekomaster1000.infernalexp.init.ModEntityType;
+import com.nekomaster1000.infernalexp.init.ModSurfaceBuilder;
 import com.nekomaster1000.infernalexp.world.biome.BiomeHelper;
 import com.nekomaster1000.infernalexp.world.biome.BiomeTools;
 import com.nekomaster1000.infernalexp.world.biome.ModBiomeBuilder;
-import net.minecraft.block.Blocks;
+import com.nekomaster1000.infernalexp.world.gen.features.ModConfiguredFeatures;
 import net.minecraft.client.audio.BackgroundMusicTracks;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.biome.*;
@@ -16,15 +14,9 @@ import net.minecraft.world.gen.carver.ConfiguredCarvers;
 import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.feature.structure.StructureFeatures;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 
 public class GlowstoneCanyonBiome extends ModBiomeBuilder implements BiomeTools {
-    static final ConfiguredSurfaceBuilder SURFACE_BUILDER = BiomeHelper.newConfiguredSurfaceBuilder("glowstone_canyon", new ConfiguredSurfaceBuilder<>(SurfaceBuilder.DEFAULT, new SurfaceBuilderConfig(
-            ModBlocks.GLOWDUST_SAND.get().getDefaultState(),
-            ModBlocks.GLOWDUST_SAND.get().getDefaultState(),
-            Blocks.GLOWSTONE.getDefaultState()
-    )));
+    static final ConfiguredSurfaceBuilder<?> SURFACE_BUILDER = BiomeHelper.newConfiguredSurfaceBuilder("glowstone_canyon", new ConfiguredSurfaceBuilder(ModSurfaceBuilder.GLOWSTONE_CANYON_SURFACE_BUILDER, ModSurfaceBuilder.ModSurfaceBuilderConfig.GLOWSTONE_CANYON_CONFIG));
     static final Biome.RainType PRECIPITATION = Biome.RainType.RAIN;
     static final Biome.TemperatureModifier TEMPERATURE_MODIFIER = Biome.TemperatureModifier.NONE;
     static final Biome.Category CATEGORY = Biome.Category.NETHER;
@@ -58,6 +50,8 @@ public class GlowstoneCanyonBiome extends ModBiomeBuilder implements BiomeTools 
         GENERATION_SETTINGS.withStructure(StructureFeatures.field_244149_o);
         GENERATION_SETTINGS.withCarver(GenerationStage.Carving.AIR, ConfiguredCarvers.field_243772_f);
         //GENERATION_SETTINGS.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.DELTA);
+        GENERATION_SETTINGS.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.GLOWSPIKE);
+        GENERATION_SETTINGS.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.LUMINOUS_FUNGUS);
         GENERATION_SETTINGS.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA);
         GENERATION_SETTINGS.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA_DOUBLE);
         GENERATION_SETTINGS.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.BLACKSTONE_BLOBS);

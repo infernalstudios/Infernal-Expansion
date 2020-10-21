@@ -17,16 +17,15 @@ public class ModBiomes
 
     public static final RegistryObject<Biome> GLOWSTONE_CANYON = registerNetherBiome("glowstone_canyon", () -> new GlowstoneCanyonBiome().getBiome());
 
-    public static void register(IEventBus eventBus) {
-        BIOMES.register(eventBus);
-        InfernalExpansion.LOGGER.info("Infernal Expansion: Biomes Registered!");
-    }
-
     private static RegistryObject<Biome> registerNetherBiome(String name, Supplier<Biome> biome) {
         ModNetherBiomeCatch.netherBiomeList.add(InfernalExpansion.MOD_ID + ":" + name);
         return BIOMES.register(name, biome);
     }
 
+    public static void register(IEventBus eventBus) {
+        BIOMES.register(eventBus);
+        InfernalExpansion.LOGGER.info("Infernal Expansion: Biomes Registered!");
+    }
 }
 
 

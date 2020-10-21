@@ -37,13 +37,12 @@ public class InfernalExpansion
         modEventBus.addListener(this::commonSetup);
 
         //Registering deferred registers to the mod bus
-        ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModItems.register(modEventBus);
         ModEntityType.register(modEventBus);
         ModPaintings.register(modEventBus);
-        //ModSurfaceBuilder.SURFACE_BUILDERS.register(modEventBus);
-        ModBiomes.register(modEventBus);
         ModTileEntityTypes.register(modEventBus);
+        ModBiomes.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new ModEvents());
