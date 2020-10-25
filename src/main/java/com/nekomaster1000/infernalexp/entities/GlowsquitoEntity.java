@@ -1,17 +1,25 @@
 package com.nekomaster1000.infernalexp.entities;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.FlyingEntity;
 import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.controller.FlyingMovementController;
 import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.EatGrassGoal;
 import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.BeeEntity;
+import net.minecraft.entity.passive.IFlyingAnimal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.pathfinding.FlyingPathNavigator;
+import net.minecraft.pathfinding.PathNavigator;
+import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
@@ -20,28 +28,58 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.Random;
 
-public class GlowsquitoEntity extends FlyingEntity {
+// Extends AnimalEntity and implements IFlyingAnimal like BeeEntity class
+public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
 
     private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.CARROT, Items.POTATO, Items.BEETROOT);
 
     private EatGrassGoal eatGrassGoal;
     private int hogTimer;
 
-    public GlowsquitoEntity(EntityType<? extends FlyingEntity> type, World worldIn) {
+    public GlowsquitoEntity(EntityType<? extends AnimalEntity> type, World worldIn) {
         super(type, worldIn);
+        this.moveController = new FlyingMovementController(this, 20, true); // Flying entity
+        this.setPathPriority(PathNodeType.DANGER_FIRE, -1.0F);
+        this.setPathPriority(PathNodeType.WATER, -1.0F);
+        this.setPathPriority(PathNodeType.WATER_BORDER, 16.0F);
     }
 
     //func_233666_p_ ---> registerAttributes()
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return MobEntity.func_233666_p_()
                 .createMutableAttribute(Attributes.MAX_HEALTH, 10.0D)
+                .createMutableAttribute(Attributes.FLYING_SPEED, 0.6D) // Required for flying entity
                 .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.25D);
+    }
+
+
+    protected PathNavigator createNavigator(World worldIn) {
+        FlyingPathNavigator flyingpathnavigator = new FlyingPathNavigator(this, worldIn) {
+            public boolean canEntityStandOnPos(BlockPos pos) {
+                return !this.world.getBlockState(pos.down()).isAir();
+            }
+
+            public void tick() {
+                super.tick();
+            }
+        };
+        flyingpathnavigator.setCanOpenDoors(false);
+        flyingpathnavigator.setCanSwim(false);
+        flyingpathnavigator.setCanEnterDoors(true);
+        return flyingpathnavigator;
+    }
+
+    // Entity won't take fall damage
+    public boolean onLivingFall(float distance, float damageMultiplier) {
+        return false;
     }
 
     static class LookAroundGoal extends Goal {
@@ -110,9 +148,6 @@ public class GlowsquitoEntity extends FlyingEntity {
         }
     }
 
-
-
-
     static class RandomFlyGoal extends Goal {
         private final GlowsquitoEntity parentEntity;
 
@@ -157,17 +192,57 @@ public class GlowsquitoEntity extends FlyingEntity {
         }
     }
 
+    // Simple goal for wandering around. Modified from Vanilla's BeeEntity WanderGoal subclass
+    class WanderGoal extends Goal {
+        WanderGoal() {
+            this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE));
+        }
 
+        /**
+         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
+         * method as well.
+         */
+        public boolean shouldExecute() {
+            return GlowsquitoEntity.this.navigator.noPath() && GlowsquitoEntity.this.rand.nextInt(10) == 0;
+        }
+
+        /**
+         * Returns whether an in-progress EntityAIBase should continue executing
+         */
+        public boolean shouldContinueExecuting() {
+            return GlowsquitoEntity.this.navigator.hasPath();
+        }
+
+        /**
+         * Execute a one shot task or start executing a continuous task
+         */
+        public void startExecuting() {
+            Vector3d vector3d = this.getRandomLocation();
+            if (vector3d != null) {
+                GlowsquitoEntity.this.navigator.setPath(GlowsquitoEntity.this.navigator.getPathToPos(new BlockPos(vector3d), 1), 1.0D);
+            }
+
+        }
+
+        @Nullable
+        private Vector3d getRandomLocation() {
+            Vector3d vector3d;
+            vector3d = GlowsquitoEntity.this.getLook(0.0F);
+
+            Vector3d vector3d2 = RandomPositionGenerator.findAirTarget(GlowsquitoEntity.this, 8, 7, vector3d, ((float)Math.PI / 2F), 2, 1);
+            return vector3d2 != null ? vector3d2 : RandomPositionGenerator.findGroundTarget(GlowsquitoEntity.this, 8, 4, -2, vector3d, (double)((float)Math.PI / 2F));
+        }
+    }
 
     //GOALS
     @Override
     protected void registerGoals() {
         super.registerGoals();
         this.eatGrassGoal = new EatGrassGoal(this);
-        this.goalSelector.addGoal(5, new GlowsquitoEntity.RandomFlyGoal(this));
-        this.goalSelector.addGoal(7, new GlowsquitoEntity.LookAroundGoal(this));
-        this.goalSelector.addGoal(5, this.eatGrassGoal);
-
+        //this.goalSelector.addGoal(5, new GlowsquitoEntity.RandomFlyGoal(this));
+        this.goalSelector.addGoal(8, new GlowsquitoEntity.WanderGoal());
+        //this.goalSelector.addGoal(7, new GlowsquitoEntity.LookAroundGoal(this));
+        //this.goalSelector.addGoal(5, this.eatGrassGoal);
     }
 
     @Override
@@ -198,11 +273,16 @@ public class GlowsquitoEntity extends FlyingEntity {
     }
 
     @Override
+    public AgeableEntity func_241840_a(ServerWorld p_241840_1_, AgeableEntity p_241840_2_) {
+        return null;
+    }
+
+    @Override
     public void livingTick() {
+        super.livingTick();
         if (this.world.isRemote) {
             this.hogTimer = Math.max(0, this.hogTimer - 1);
         }
-        super.livingTick();
     }
 
     @OnlyIn(Dist.CLIENT)
