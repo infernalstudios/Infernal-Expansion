@@ -15,7 +15,7 @@ public class ModBiomes
 {
     public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, InfernalExpansion.MOD_ID);
 
-    public static final RegistryObject<Biome> GLOWSTONE_CANYON = registerNetherBiome("glowstone_canyon", () -> new GlowstoneCanyonBiome().getBiome());
+    public static final RegistryObject<Biome> GLOWSTONE_CANYON = registerNetherBiome("glowstone_canyon", () -> new GlowstoneCanyonBiome().build());
 
     private static RegistryObject<Biome> registerNetherBiome(String name, Supplier<Biome> biome) {
         ModNetherBiomeCatch.netherBiomeList.add(InfernalExpansion.MOD_ID + ":" + name);
