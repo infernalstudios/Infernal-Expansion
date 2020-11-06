@@ -12,16 +12,16 @@ import net.minecraft.world.gen.feature.NoFeatureConfig;
 
 import java.util.Random;
 
-public class GlowSpikeFeature extends ModFeature {
+public class GlowSpikeSmallFeature extends ModFeature {
 
     private static final int minDiameter = 3;
-    private static final int maxDiameter = 7;
-    private static final int minHeight = 12;
+    private static final int maxDiameter = 5;
+    private static final int minHeight = 8;
     private static final int maxHeight = 24;
     private static final int maxXOffset = 7;
     private static final int maxZOffset = 7;
 
-    public GlowSpikeFeature(Codec<NoFeatureConfig> codec) {
+    public GlowSpikeSmallFeature(Codec<NoFeatureConfig> codec) {
         super(codec);
     }
 
@@ -48,7 +48,7 @@ public class GlowSpikeFeature extends ModFeature {
     }
 
     /**
-     * Places a line of blocks from the startPos to the endPos. It uses the appropriate blocks to make a {@link GlowSpikeFeature}
+     * Places a line of blocks from the startPos to the endPos. It uses the appropriate blocks to make a {@link GlowSpikeSmallFeature}
      * @param world World blocks are to be placed in
      * @param startPos Start position
      * @param endPos End position

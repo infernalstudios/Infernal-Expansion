@@ -1,19 +1,19 @@
 {
-  "type": "minecraft:block",
-  "pools": [
+  "type": "minecraft:item",
+  "conditions": [
     {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "infernalexp:glowdust_sand"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ]
+      "condition": "minecraft:match_tool",
+      "predicate": {
+        "enchantments": [
+          {
+            "enchantment": "minecraft:silk_touch",
+            "levels": {
+              "min": 1
+            }
+          }
+        ]
+      }
     }
-  ]
-}
+  ],
+  "name": "infernalexp:glowdust_sand"
+},

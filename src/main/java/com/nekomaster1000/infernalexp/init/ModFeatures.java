@@ -1,7 +1,7 @@
 package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
-import com.nekomaster1000.infernalexp.world.gen.features.GlowSpikeFeature;
+import com.nekomaster1000.infernalexp.world.gen.features.GlowSpikeLargeFeature;
 import com.nekomaster1000.infernalexp.world.gen.features.LuminousFungusFeature;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -11,7 +11,8 @@ import net.minecraft.world.gen.feature.NoFeatureConfig;
 
 public class ModFeatures {
 
-    public static final Feature<NoFeatureConfig> GLOWSPIKE = registerFeature("glowspike", new GlowSpikeFeature(NoFeatureConfig.field_236558_a_));
+    public static final Feature<NoFeatureConfig> GLOWSPIKE = registerFeature("glowspike", new GlowSpikeLargeFeature(NoFeatureConfig.field_236558_a_));
+    public static final Feature<NoFeatureConfig> GLOWSPIKELARGE = registerFeature("glowspikelarge", new GlowSpikeLargeFeature(NoFeatureConfig.field_236558_a_));
     public static final Feature<NoFeatureConfig> LUMINOUS_FUNGUS = registerFeature("luminous_fungus", new LuminousFungusFeature(NoFeatureConfig.field_236558_a_));
 
     public static <C extends IFeatureConfig, F extends Feature<C>> F registerFeature(String registryName, F feature) {

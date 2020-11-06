@@ -73,7 +73,7 @@ public class InfernalExpansion
 
         @Override
         public ItemStack createIcon() {
-            return new ItemStack(ModItems.DIMROCKS.get());
+            return new ItemStack(ModItems.DULLROCKS.get());
         }
 
     };
