@@ -23,7 +23,7 @@ public class ModEvents {
         }
     }
 
-    //Mob Spawning in pre-existing
+    //Mob Spawning in pre-existing biomes
     @SubscribeEvent
     public void onBiomeLoad(BiomeLoadingEvent event) {
         if (event.getName().toString().equals("minecraft:nether_wastes")) {

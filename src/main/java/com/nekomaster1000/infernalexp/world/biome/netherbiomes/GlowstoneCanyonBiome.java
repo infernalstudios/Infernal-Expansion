@@ -59,11 +59,13 @@ public class GlowstoneCanyonBiome extends ModBiome {
 
     @Override
     protected void configureGeneration(BiomeGenerationSettings.Builder generation) {
-        generation.withStructure(StructureFeatures.field_244134_E);
-        generation.withStructure(StructureFeatures.field_244149_o);
+        generation.withStructure(StructureFeatures.RUINED_PORTAL_NETHER);
+        generation.withStructure(StructureFeatures.FORTRESS);
         generation.withCarver(GenerationStage.Carving.AIR, ConfiguredCarvers.field_243772_f);
         //generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.DELTA);
-        generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.GLOWSPIKE);
+        generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ModConfiguredFeatures.GLOWSPIKE);
+        generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ModConfiguredFeatures.GLOWSPIKELARGE);
+        generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ModConfiguredFeatures.HANGING_CRIMSON_FUNGUS);
         generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.LUMINOUS_FUNGUS);
         generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA);
         generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA_DOUBLE);

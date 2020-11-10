@@ -18,32 +18,46 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
     }
 
     @Override
-    public void buildSurface(Random random, IChunk chunkIn, Biome biomeIn, int x, int z, int startHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, SurfaceBuilderConfig config) {
-        BlockPos.Mutable block = new BlockPos.Mutable();
+    public void buildSurface(Random random, IChunk chunk, Biome biomeIn, int x, int z, int startHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, SurfaceBuilderConfig config) {
+        BlockPos.Mutable pos = new BlockPos.Mutable();
 
         int xPos = x & 15;
         int zPos = z & 15;
 
         for (int yPos = 125; yPos >= seaLevel; yPos--) {
-            block.setPos(xPos, yPos, zPos);
+            pos.setPos(xPos, yPos, zPos);
 
-            BlockState currentBlockToReplace = chunkIn.getBlockState(block);
-            BlockState checkForAir = chunkIn.getBlockState(block.up());
+            BlockState currentBlockToReplace = chunk.getBlockState(pos);
+            BlockState checkForAir = chunk.getBlockState(pos.up());
 
+            // Replace netherrack with correct blocks for the glowstone canyon
             if (currentBlockToReplace == Blocks.NETHERRACK.getDefaultState() && checkForAir != Blocks.AIR.getDefaultState()) {
-                chunkIn.setBlockState(block, ModBlocks.DULLSTONE.get().getDefaultState(), false);
+                chunk.setBlockState(pos, ModBlocks.DULLSTONE.get().getDefaultState(), false);
             } else if (currentBlockToReplace == Blocks.NETHERRACK.getDefaultState()) {
-                chunkIn.setBlockState(block, config.getTop(), false);
+                chunk.setBlockState(pos, config.getTop(), false);
 
-                for (int offset = 1; offset <= 3; offset++) {
-                    if (chunkIn.getBlockState(block.down(offset)) == Blocks.NETHERRACK.getDefaultState()) {
-                        chunkIn.setBlockState(block.down(offset), config.getUnder(), false);
+                //Checks to see if it should place a glowdust layer
+                glowdustLayerCheck: for (int xCheck = -1; xCheck <= 1; xCheck++) {
+                    for (int zCheck = -1; zCheck <= 1; zCheck++) {
+                        if (chunk.getBlockState(pos.add(xCheck, 1, zCheck)) == ModBlocks.GLOWDUST_SAND.get().getDefaultState()) {
+                            chunk.setBlockState(pos.up(), ModBlocks.GLOWDUST.get().getDefaultState(), false);
+                            break glowdustLayerCheck;
+                        }
                     }
                 }
 
+                for (int offset = 1; offset <= 3; offset++) {
+                    if (chunk.getBlockState(pos.down(offset)) == Blocks.NETHERRACK.getDefaultState()) {
+                        chunk.setBlockState(pos.down(offset), config.getUnder(), false);
+                    }
+                }
+
+                // Build terrain down to bedrock
                 if (yPos <= 63) {
-                    for (int offset = 4; offset <= yPos; offset++) {
-                        chunkIn.setBlockState(block.down(offset), ModBlocks.DULLSTONE.get().getDefaultState(), false);
+                    if (chunk.getBlockState(pos.down(1)) == config.getUnder() && chunk.getBlockState(pos.down(2)) == config.getUnder()) {
+                        for (int offset = 3; offset <= yPos; offset++) {
+                            chunk.setBlockState(pos.down(offset), ModBlocks.DULLSTONE.get().getDefaultState(), false);
+                        }
                     }
                 }
             }

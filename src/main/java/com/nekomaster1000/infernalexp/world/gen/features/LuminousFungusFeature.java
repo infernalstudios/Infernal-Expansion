@@ -16,7 +16,7 @@ public class LuminousFungusFeature extends Feature<NoFeatureConfig> {
     }
 
     @Override
-    public boolean func_241855_a(ISeedReader worldIn, ChunkGenerator generator, Random random, BlockPos pos, NoFeatureConfig config) {
+    public boolean generate(ISeedReader worldIn, ChunkGenerator generator, Random random, BlockPos pos, NoFeatureConfig config) {
         if (!worldIn.isAirBlock(pos) || worldIn.getBlockState(pos.down()).getBlock() != ModBlocks.GLOWDUST_SAND.get()) {
             return false;
         } else {
