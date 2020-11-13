@@ -47,8 +47,8 @@ public class ModEntityType {
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "embody").toString()));
 
     public static final RegistryObject<EntityType<BasaltGiantEntity>> BASALT_GIANT = ENTITY_TYPES.register("basalt_giant",
-            () -> EntityType.Builder.create(BasaltGiantEntity::new, EntityClassification.MONSTER)
-                    .size(2.6f, 4.3f)// Hitbox Size
+            () -> EntityType.Builder.<BasaltGiantEntity>create(BasaltGiantEntity::new, EntityClassification.MONSTER)
+                    .size(1.2f, 4.3f)// Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "basalt_giant").toString()));
 
     public static final RegistryObject<EntityType<BasaltTitanEntity>> BASALT_TITAN = ENTITY_TYPES.register("basalt_titan",
@@ -58,15 +58,11 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<SkeletalPiglinEntity>> SKELETAL_PIGLIN = ENTITY_TYPES.register("skeletal_piglin",
             () -> EntityType.Builder.create(SkeletalPiglinEntity::new, EntityClassification.MONSTER)
-                .size(0.8f, 2.0f) // Hitbox Size
-                .build(new ResourceLocation(InfernalExpansion.MOD_ID, "skeletal_piglin").toString())
+                    .size(0.8f, 2.0f) // Hitbox Size
+                    .build(new ResourceLocation(InfernalExpansion.MOD_ID, "skeletal_piglin").toString())
     );
 
-    //public static final RegistryObject<EntityType<BasaltGiantEntity>> BASALT_GIANT =
-    //        register("basalt_giant", BasaltGiantEntity::new, EntityClassification.CREATURE, 3.0f, 2.0f);
-
-    private static <T extends Entity> RegistryObject<EntityType<T>> register(
-            String key, EntityType.IFactory<T> factoryIn, EntityClassification classificationIn, float size1, float size2) {
+    private static <T extends Entity> RegistryObject<EntityType<T>> register(String key, EntityType.IFactory<T> factoryIn, EntityClassification classificationIn, float size1, float size2) {
         return ENTITY_TYPES.register(key, () -> EntityType.Builder.create(factoryIn, classificationIn)
                 .size(size1, size2)
                 .build(new ResourceLocation(InfernalExpansion.MOD_ID, key).toString()));

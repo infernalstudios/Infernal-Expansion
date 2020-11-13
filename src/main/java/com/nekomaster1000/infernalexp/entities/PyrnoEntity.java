@@ -32,7 +32,8 @@ public class PyrnoEntity extends HoglinEntity {
         public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return MobEntity.func_233666_p_()
         .createMutableAttribute(Attributes.MAX_HEALTH, 30.0D)
-        .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5D);
+        .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5D)
+        .createMutableAttribute(Attributes.ATTACK_DAMAGE, 4.0D);
         }
 
         //BEHAVIOUR

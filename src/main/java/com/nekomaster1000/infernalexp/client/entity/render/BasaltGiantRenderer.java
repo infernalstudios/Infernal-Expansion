@@ -11,7 +11,7 @@ public class BasaltGiantRenderer extends MobRenderer<BasaltGiantEntity, BasaltGi
     public static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/basalt_giant.png");
 
     public BasaltGiantRenderer(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn, new BasaltGiantModel<>(), 0.7f);
+        super(renderManagerIn, new BasaltGiantModel<>(), 0.7F);
         this.addLayer(new BasaltGiantGlowLayer(this));
     }
 
