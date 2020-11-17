@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "infernalexp:block/rubble"
+      },
+      {
+        "model": "infernalexp:block/rubble",
+        "y": 90
+      },
+      {
+        "model": "infernalexp:block/rubble",
+        "y": 180
+      },
+      {
+        "model": "infernalexp:block/rubble",
+        "y": 270
+      }
+    ]
+  }
+}
