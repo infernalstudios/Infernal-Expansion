@@ -37,9 +37,11 @@ _  _ ____ ___  ____
 |\/| |  | |__] [__
 |  | |__| |__] ___]
 
-Glowsquito - Needs Attack
-Embody - Speed increase, knock-back reduction
-Basalt Giant - Needs AI and Animations
+Shroomloin - Needs poison-inducing explosion
+Warpbeetle - Needs Unique Sounds
+Glowsquito - Needs Attack, Unique Sounds
+Embody - Speed increase, knock-back reduction, Sounds
+Basalt Giant - Needs AI and Animations, Sounds
 Blindsight - TBA
 Glaw - TBA (entity more than a mob)
 
