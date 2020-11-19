@@ -22,7 +22,7 @@ public class ModSurfaceBuilder {
     public static class ModSurfaceBuilderConfig {
          public static final SurfaceBuilderConfig GLOWSTONE_CANYON_CONFIG = new SurfaceBuilderConfig(
                 ModBlocks.GLOWDUST_SAND.get().getDefaultState(),
-                ModBlocks.GLOWDUST_SANDSTONE.get().getDefaultState(),
+                ModBlocks.GLOWDUST_STONE.get().getDefaultState(),
                 Blocks.GLOWSTONE.getDefaultState());
 
          public static final SurfaceBuilderConfig DELTA_SHORES_CONFIG = new SurfaceBuilderConfig(

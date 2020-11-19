@@ -67,9 +67,9 @@ public class ShroomloinEntity extends MonsterEntity {
         this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
     }
 
-    public boolean isImmuneToFire() {
-        return true;
-    }
+//    public boolean isImmuneToFire() {
+//    return true;
+//    }
 
 }
 
