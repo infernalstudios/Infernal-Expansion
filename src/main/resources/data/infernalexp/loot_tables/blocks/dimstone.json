@@ -5,13 +5,71 @@
       "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "infernalexp:dimstone"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "enchantments": [
+                      {
+                        "enchantment": "minecraft:silk_touch",
+                        "levels": {
+                          "min": 1
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "name": "infernalexp:dimstone"
+            },
+            {
+              "type": "minecraft:group",
+              "children": [
+                {
+                  "type": "minecraft:item",
+                  "conditions": [
+                    {
+                      "condition": "minecraft:survives_explosion"
+                    }
+                  ],
+                  "functions": [
+                    {
+                      "function": "minecraft:set_count",
+                      "count": {
+                        "min": 1.0,
+                        "max": 2.0,
+                        "type": "minecraft:uniform"
+                      }
+                    }
+                  ],
+                  "name": "minecraft:glowstone_dust"
+                },
+                {
+                  "type": "minecraft:item",
+                  "conditions": [
+                    {
+                      "condition": "minecraft:survives_explosion"
+                    }
+                  ],
+                  "functions": [
+                    {
+                      "function": "minecraft:set_count",
+                      "count": {
+                        "min": 1.0,
+                        "max": 2.0,
+                        "type": "minecraft:uniform"
+                      }
+                    }
+                  ],
+                  "name": "infernalexp:glownuggets"
+                }
+                ]
+            }
+          ]
         }
       ]
     }
