@@ -67,7 +67,9 @@ public class InfernalExpansion
     }
 
     @SubscribeEvent
-    public void onServerStarting(FMLServerStartingEvent event) { }
+    public void onServerStarting(FMLServerStartingEvent event) {
+        ModCommands.registerCommands(event.getServer().getCommandManager().getDispatcher());
+    }
 
     public static final ItemGroup TAB = new ItemGroup("InfernalTab") {
 

@@ -12,8 +12,8 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 
 import java.util.Random;
 
-public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> {
-    public GlowstoneCanyonSurfaceBuilder(Codec<SurfaceBuilderConfig> p_i232136_1_) {
+public class DeltaShoresSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> {
+    public DeltaShoresSurfaceBuilder(Codec<SurfaceBuilderConfig> p_i232136_1_) {
         super(p_i232136_1_);
     }
 
@@ -32,7 +32,7 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
 
             // Replace netherrack with correct blocks for the glowstone canyon
             if (currentBlockToReplace == Blocks.NETHERRACK.getDefaultState() && checkForAir != Blocks.AIR.getDefaultState()) {
-                chunk.setBlockState(pos, ModBlocks.DULLSTONE.get().getDefaultState(), false);
+                chunk.setBlockState(pos, Blocks.BASALT.getDefaultState(), false);
             } else if (currentBlockToReplace == Blocks.NETHERRACK.getDefaultState()) {
                 chunk.setBlockState(pos, config.getTop(), false);
 
@@ -56,7 +56,7 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
                 if (yPos <= 63) {
                     if (chunk.getBlockState(pos.down(1)) == config.getUnder() && chunk.getBlockState(pos.down(2)) == config.getUnder()) {
                         for (int offset = 3; offset <= yPos; offset++) {
-                            chunk.setBlockState(pos.down(offset), ModBlocks.DULLSTONE.get().getDefaultState(), false);
+                            chunk.setBlockState(pos.down(offset), Blocks.BASALT.getDefaultState(), false);
                         }
                     }
                 }

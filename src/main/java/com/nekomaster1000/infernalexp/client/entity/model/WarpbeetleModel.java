@@ -99,7 +99,7 @@ public class WarpbeetleModel<T extends WarpbeetleEntity> extends EntityModel<T> 
     }
 
     @Override
-    public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setRotationAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.left_leg_1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
         this.left_leg_2.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
         this.left_leg_3.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
@@ -107,11 +107,11 @@ public class WarpbeetleModel<T extends WarpbeetleEntity> extends EntityModel<T> 
         this.right_leg_2.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
         this.right_leg_3.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
 
-        if (!entityIn.isOnGround()) {
-            entityIn.shellRotationMultiplier += 0.1F;
+        if (!entity.isOnGround()) {
+            entity.shellRotationMultiplier += 0.1F;
 
-            if (entityIn.shellRotationMultiplier > 1.0F) {
-                entityIn.shellRotationMultiplier = 1.0F;
+            if (entity.shellRotationMultiplier > 1.0F) {
+                entity.shellRotationMultiplier = 1.0F;
             }
 
             float wingRotation = MathHelper.cos(ageInTicks * 2.1F) * (float) Math.PI * 0.15F + 1.0F;
@@ -119,18 +119,18 @@ public class WarpbeetleModel<T extends WarpbeetleEntity> extends EntityModel<T> 
             setRotationAngle(left_wing, wingRotation, 0.5F, 0.3F);
             setRotationAngle(right_wing, wingRotation, -0.5F, -0.3F);
         } else {
-            entityIn.shellRotationMultiplier -= 0.1F;
+            entity.shellRotationMultiplier -= 0.1F;
 
-            if (entityIn.shellRotationMultiplier < 0.0F) {
-                entityIn.shellRotationMultiplier = 0.0F;
+            if (entity.shellRotationMultiplier < 0.0F) {
+                entity.shellRotationMultiplier = 0.0F;
             }
 
             setRotationAngle(left_wing, 0.0F, 0.0F, 0.0F);
             setRotationAngle(right_wing, 0.0F, 0.0F, 0.0F);
         }
 
-        setRotationAngle(left_shield, 1.2F * entityIn.shellRotationMultiplier, -0.4F * entityIn.shellRotationMultiplier, 0.9F * entityIn.shellRotationMultiplier);
-        setRotationAngle(right_shield, 1.2F * entityIn.shellRotationMultiplier, 0.4F * entityIn.shellRotationMultiplier, -0.9F * entityIn.shellRotationMultiplier);
+        setRotationAngle(left_shield, 1.2F * entity.shellRotationMultiplier, -0.4F * entity.shellRotationMultiplier, 0.9F * entity.shellRotationMultiplier);
+        setRotationAngle(right_shield, 1.2F * entity.shellRotationMultiplier, 0.4F * entity.shellRotationMultiplier, -0.9F * entity.shellRotationMultiplier);
     }
 
 

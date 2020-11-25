@@ -25,7 +25,9 @@
   "block.infernalexp.dimstone_brick_stairs": "Dimstone Brick Stairs",
   "block.infernalexp.dullstone_brick_slab": "Dullstone Brick Slab",
   "block.infernalexp.dullstone_brick_stairs": "Dullstone Brick Stairs",
+
   "block.infernalexp.glowdust_sand": "Glowdust Sand",
+  "block.infernalexp.glowdust_stone": "Glowdust Stone",
   "block.infernalexp.glowdust_sandstone": "Glowdust Sandstone",
   "block.infernalexp.cut_glowdust_sandstone": "Cut Glowdust Sandstone",
   "block.infernalexp.chiseled_glowdust_sandstone": "Chiseled Glowdust Sandstone",
@@ -38,6 +40,8 @@
   "block.infernalexp.smooth_glowdust_sandstone_stairs": "Smooth Glowdust Sandstone Stairs",
   "block.infernalexp.glowdust_sandstone_wall": "Glowdust Sandstone Wall",
   "block.infernalexp.glimmering_blackstone": "Glimmering Blackstone",
+  "block.infernalexp.silt": "Basalt Silt",
+  "block.infernalexp.rubble": "Blackstone Rubble",
   "block.infernalexp.lantern_glow": "Glow Lantern",
   "block.infernalexp.torch_glow": "Glow Torch",
   "block.infernalexp.campfire_glow": "Glow Campfire",
@@ -52,22 +56,27 @@
   "item.infernalexp.frostbitten_shovel": "Frostbitten Netherite Shovel",
   "item.infernalexp.frostbitten_hoe": "Frostbitten Netherite Hoe",
 
-  "item.infernalexp.glowsquito_spawn_egg": "Glowsquito Spawn Egg",
   "item.infernalexp.voline_spawn_egg": "Voline Spawn Egg",
-  "item.infernalexp.pyrno_spawn_egg": "Pyrno Spawn Egg",
+  "item.infernalexp.shroomloin_spawn_egg": "Shroomloin Spawn Egg",
   "item.infernalexp.warpbeetle_spawn_egg": "Warpbeetle Spawn Egg",
   "item.infernalexp.cerobeetle_spawn_egg": "Cerobeetle Spawn Egg",
   "item.infernalexp.embody_spawn_egg": "Embody Spawn Egg",
   "item.infernalexp.basalt_giant_spawn_egg": "Basalt Giant Spawn Egg",
   "item.infernalexp.basalt_titan_spawn_egg": "Basalt Titan Spawn Egg",
+  "item.infernalexp.glowsquito_spawn_egg": "Glowsquito Spawn Egg",
+  "item.infernalexp.skeletal_piglin_spawn_egg": "Skeletal Piglin Spawn Egg",
+  "item.infernalexp.pyrno_spawn_egg": "Pyrno Spawn Egg",
 
-  "entity.infernalexp.glowsquito": "Glowsquito",
   "entity.infernalexp.voline": "Voline",
-  "entity.infernalexp.pyrno": "Pyrno",
+  "entity.infernalexp.shroomloin": "Shroomloin",
   "entity.infernalexp.warpbeetle": "Warpbeetle",
   "entity.infernalexp.embody": "Embody",
   "entity.infernalexp.basalt_giant": "Basalt Giant",
   "entity.infernalexp.basalt_titan": "Basalt Titan",
+  "entity.infernalexp.glowsquito": "Glowsquito",
+  "entity.infernalexp.skeletal_piglin": "Skeletal Piglin",
+  "entity.infernalexp.pyrno": "Pyrno",
 
-  "biome.infernalexp.glowstone_canyon": "Glowstone Canyon"
+  "biome.infernalexp.glowstone_canyon": "Glowstone Canyon",
+  "biome.infernalexp.delta_shores": "Delta Shores"
 }

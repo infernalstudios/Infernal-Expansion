@@ -2,7 +2,7 @@
   "parent": "block/cube_bottom_top",
   "textures": {
     "top": "infernalexp:blocks/glowdust_sandstone_top",
-    "bottom": "infernalexp:blocks/glowdust_sandstone_bottom",
+    "bottom": "infernalexp:blocks/glowdust_stone",
     "side": "infernalexp:blocks/glowdust_sandstone"
   }
 }

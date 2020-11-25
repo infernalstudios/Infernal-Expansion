@@ -21,6 +21,7 @@ public class ModItems {
 
     // Spawn Eggs
     public static final RegistryObject<ModSpawnEggItem> GLOWSQUITO_SPAWN_EGG = ITEMS.register("glowsquito_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.GLOWSQUITO, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
+    public static final RegistryObject<ModSpawnEggItem> SHROOMLOIN_SPAWN_EGG = ITEMS.register("shroomloin_spawn_egg",() -> new ModSpawnEggItem(ModEntityType.SHROOMLOIN, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<ModSpawnEggItem> VOLINE_SPAWN_EGG = ITEMS.register("voline_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.VOLINE, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<ModSpawnEggItem> PYRNO_SPAWN_EGG = ITEMS.register("pyrno_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.PYRNO, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<ModSpawnEggItem> WARPBEETLE_SPAWN_EGG = ITEMS.register("warpbeetle_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.WARPBEETLE, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
@@ -28,6 +29,7 @@ public class ModItems {
     public static final RegistryObject<ModSpawnEggItem> EMBODY_SPAWN_EGG = ITEMS.register("embody_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.EMBODY, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<ModSpawnEggItem> BASALT_GIANT_SPAWN_EGG = ITEMS.register("basalt_giant_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.BASALT_GIANT, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<ModSpawnEggItem> BASALT_TITAN_SPAWN_EGG = ITEMS.register("basalt_titan_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.BASALT_TITAN, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
+    public static final RegistryObject<ModSpawnEggItem> SKELETAL_PIGLIN_SPAWN_EGG = ITEMS.register("skeletal_piglin_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.SKELETAL_PIGLIN, 0xF0A5A2, 0xA9672B,new Item.Properties().group(InfernalExpansion.TAB)));
 
 
     // Block items
@@ -58,6 +60,7 @@ public class ModItems {
     public static final RegistryObject<Item> GLOWDUST = ITEMS.register("glowdust", () -> new BlockItemBase(ModBlocks.GLOWDUST.get()));
     public static final RegistryObject<Item> GLOWDUST_SAND = ITEMS.register("glowdust_sand", () -> new BlockItemBase(ModBlocks.GLOWDUST_SAND.get()));
     public static final RegistryObject<Item> GLOWDUST_SANDSTONE = ITEMS.register("glowdust_sandstone", () -> new BlockItemBase(ModBlocks.GLOWDUST_SANDSTONE.get()));
+    public static final RegistryObject<Item> GLOWDUST_STONE = ITEMS.register("glowdust_stone", () -> new BlockItemBase(ModBlocks.GLOWDUST_STONE.get()));
     public static final RegistryObject<Item> CUT_GLOWDUST_SANDSTONE = ITEMS.register("cut_glowdust_sandstone", () -> new BlockItemBase(ModBlocks.CUT_GLOWDUST_SANDSTONE.get()));
     public static final RegistryObject<Item> CHISELED_GLOWDUST_SANDSTONE = ITEMS.register("chiseled_glowdust_sandstone", () -> new BlockItemBase(ModBlocks.CHISELED_GLOWDUST_SANDSTONE.get()));
     public static final RegistryObject<Item> SMOOTH_GLOWDUST_SANDSTONE = ITEMS.register("smooth_glowdust_sandstone", () -> new BlockItemBase(ModBlocks.SMOOTH_GLOWDUST_SANDSTONE.get()));
@@ -69,6 +72,8 @@ public class ModItems {
     public static final RegistryObject<Item> GLOWDUST_SANDSTONE_WALL = ITEMS.register("glowdust_sandstone_wall", () -> new BlockItemBase(ModBlocks.GLOWDUST_SANDSTONE_WALL.get()));
 
     public static final RegistryObject<Item> GLIMMERING_BLACKSTONE = ITEMS.register("glimmering_blackstone", () -> new BlockItemBase(ModBlocks.GLIMMERING_BLACKSTONE.get()));
+    public static final RegistryObject<Item> SILT = ITEMS.register("silt", () -> new BlockItemBase(ModBlocks.SILT.get()));
+    public static final RegistryObject<Item> RUBBLE = ITEMS.register("rubble", () -> new BlockItemBase(ModBlocks.RUBBLE.get()));
 
     public static final RegistryObject<Item> GLOW_LANTERN = ITEMS.register("lantern_glow", () -> new BlockItemBase(ModBlocks.GLOW_LANTERN.get()));
     public static final RegistryObject<Item> GLOW_TORCH = ITEMS.register("torch_glow", () -> new WallOrFloorItem(ModBlocks.GLOW_TORCH.get(), ModBlocks.GLOW_WALL_TORCH.get(), (new Item.Properties()).group(InfernalExpansion.TAB)));

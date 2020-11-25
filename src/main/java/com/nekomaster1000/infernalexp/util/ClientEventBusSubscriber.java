@@ -22,15 +22,16 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 public class ClientEventBusSubscriber {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityType.GLOWSQUITO.get(), GlowsquitoRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.VOLINE.get(), VolineRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityType.PYRNO.get(), PyrnoRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityType.SHROOMLOIN.get(), ShroomloinRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.WARPBEETLE.get(), WarpbeetleRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.CEROBEETLE.get(), CerobeetleRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.EMBODY.get(), EmbodyRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.BASALT_GIANT.get(), BasaltGiantRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.BASALT_TITAN.get(), BasaltTitanRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityType.GLOWSQUITO.get(), GlowsquitoRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.SKELETAL_PIGLIN.get(), SkeletalPiglinRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityType.PYRNO.get(), PyrnoRenderer::new);
 
         ClientRegistry.bindTileEntityRenderer(ModTileEntityTypes.GLOW_CAMPFIRE_TILE_ENTITY.get(), GlowCampfireTileEntityRenderer::new);
 

@@ -44,7 +44,8 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> GLOWDUST = BLOCKS.register("glowdust", () -> new GlowdustBlock(getProperties(Blocks.SAND).setLightLevel(value -> 8).setRequiresTool().harvestTool(ToolType.SHOVEL).hardnessAndResistance(0.1f)));
     public static final RegistryObject<Block> GLOWDUST_SAND = BLOCKS.register("glowdust_sand", () -> new SandBlock(0xFFC267, getProperties(GLOWDUST.get())));
-    public static final RegistryObject<Block> GLOWDUST_SANDSTONE = BLOCKS.register("glowdust_sandstone",            () -> new Block(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
+    public static final RegistryObject<Block> GLOWDUST_STONE = BLOCKS.register("glowdust_stone", () -> new Block(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 9)));
+    public static final RegistryObject<Block> GLOWDUST_SANDSTONE = BLOCKS.register("glowdust_sandstone", () -> new Block(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 9)));
     public static final RegistryObject<Block> CUT_GLOWDUST_SANDSTONE = BLOCKS.register("cut_glowdust_sandstone", () -> new Block(getProperties(GLOWDUST_SANDSTONE.get())));
     public static final RegistryObject<Block> CHISELED_GLOWDUST_SANDSTONE = BLOCKS.register("chiseled_glowdust_sandstone", () -> new Block(getProperties(GLOWDUST_SANDSTONE.get())));
     public static final RegistryObject<Block> SMOOTH_GLOWDUST_SANDSTONE = BLOCKS.register("smooth_glowdust_sandstone", () -> new Block(getProperties(GLOWDUST_SANDSTONE.get())));
@@ -56,6 +57,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> GLOWDUST_SANDSTONE_WALL = BLOCKS.register("glowdust_sandstone_wall", () -> new WallBlock(getProperties(GLOWDUST_SANDSTONE.get())));
 
     public static final RegistryObject<Block> GLIMMERING_BLACKSTONE = BLOCKS.register("glimmering_blackstone",            () -> new Block(getProperties(Blocks.BLACKSTONE).setLightLevel(value -> 6)));
+    public static final RegistryObject<Block> SILT = BLOCKS.register("silt", () -> new Block(getProperties(Blocks.SAND)));
+    public static final RegistryObject<Block> RUBBLE = BLOCKS.register("rubble",  () -> new Block(getProperties(Blocks.GRAVEL)));
+
 
     public static final RegistryObject<Block> GLOW_LANTERN = BLOCKS.register("lantern_glow", () -> new LanternBlock(getProperties(Blocks.LANTERN)));
     public static final RegistryObject<Block> GLOW_TORCH = BLOCKS.register("torch_glow",  () -> new TorchBlock(getProperties(Blocks.TORCH), ParticleTypes.CRIT));

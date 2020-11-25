@@ -23,13 +23,26 @@ public class ModEvents {
         }
     }
 
-    //Mob Spawning in pre-existing
+    //Mob Spawning in pre-existing biomes
     @SubscribeEvent
     public void onBiomeLoad(BiomeLoadingEvent event) {
+
         if (event.getName().toString().equals("minecraft:nether_wastes")) {
             event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(ModEntityType.VOLINE.get(), 50, 1, 3));
+
+        } else if (event.getName().toString().equals("minecraft:crimson_forest")) {
+            event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(ModEntityType.SHROOMLOIN.get(), 10, 1, 3));
+
         } else if (event.getName().toString().equals("minecraft:warped_forest")) {
-            event.getSpawns().withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityType.WARPBEETLE.get(), 5000, 1, 1));
+            event.getSpawns().withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityType.WARPBEETLE.get(), 500, 1, 1));
+
+        } else if (event.getName().toString().equals("minecraft:basalt_deltas")) {
+            event.getSpawns().withSpawner(EntityClassification.MONSTER,
+                    new MobSpawnInfo.Spawners(ModEntityType.BASALT_GIANT.get(), 50, 1, 1));
+
+        } else if (event.getName().toString().equals("minecraft:basalt_deltas")) {
+            event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(ModEntityType.GLOWSQUITO.get(), 5, 1, 8));
+
         } else if (event.getName().toString().equals("minecraft:soul_sand_valley")) {
             event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(ModEntityType.EMBODY.get(), 20, 1, 5));
         }

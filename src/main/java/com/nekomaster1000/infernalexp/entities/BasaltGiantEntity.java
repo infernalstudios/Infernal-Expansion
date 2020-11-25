@@ -1,40 +1,70 @@
 package com.nekomaster1000.infernalexp.entities;
 
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.IAngerable;
-import net.minecraft.entity.MobEntity;
+import com.nekomaster1000.infernalexp.util.RegistryHandler;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.RangedInteger;
-import net.minecraft.util.TickRangeConverter;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class BasaltGiantEntity extends CreatureEntity implements IAngerable {
+public class BasaltGiantEntity extends CreatureEntity implements IEntityAdditionalSpawnData, IAngerable {
     private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.BASALT, Items.POLISHED_BASALT);
     private static final RangedInteger RANGED_INT = TickRangeConverter.convertRange(20, 39);
     private int angerTime;
     private UUID angerTarget;
 
+    // Constant values for entity scaling
+    private static final float BASE_ENTITY_HEIGHT = 5.0F;
+    private static final float MIN_ENTITY_HEIGHT = 4.0F;
+    private static final float MAX_ENTITY_HEIGHT = 6.0F;
 
-    public BasaltGiantEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
+    private static final DataParameter<Float> SIZE_SCALAR = EntityDataManager.createKey(BasaltGiantEntity.class, DataSerializers.FLOAT);
+
+    public BasaltGiantEntity(EntityType<? extends BasaltGiantEntity> type, World worldIn) {
         super(type, worldIn);
+
+        // Get a random size scale value resulting in a height between the MIN and MAX values specified above
+        float size = rand.nextFloat();
+        size /= BASE_ENTITY_HEIGHT / (MAX_ENTITY_HEIGHT - MIN_ENTITY_HEIGHT);
+        size += MIN_ENTITY_HEIGHT / BASE_ENTITY_HEIGHT;
+
+        this.dataManager.set(SIZE_SCALAR, size);
+    }
+
+    public BasaltGiantEntity(EntityType<? extends BasaltGiantEntity> type, World worldIn, float sizeScalar) {
+        super(type, worldIn);
+        if (sizeScalar != 1)
+            this.dataManager.set(SIZE_SCALAR, sizeScalar);
+    }
+
+    @Override
+    protected void registerData() {
+        super.registerData();
+
+        this.dataManager.register(SIZE_SCALAR, 1.0F);
     }
 
     //ATTRIBUTES
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return MobEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.MAX_HEALTH, 50.0D)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 2.0D)
+                .createMutableAttribute(Attributes.MAX_HEALTH, 40.0D)
+                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3.0D)
                 .createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE, 30.0D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.15D);
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.40D);
     }
 
     //BEHAVIOUR
@@ -47,12 +77,40 @@ public class BasaltGiantEntity extends CreatureEntity implements IAngerable {
         this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
     }
 
+    public float getSizeScalar() {
+        return this.dataManager.get(SIZE_SCALAR);
+    }
+
+
+    @Override
+    public void writeSpawnData(PacketBuffer buffer) {
+        buffer.writeFloat(getSizeScalar());
+    }
+
+    @Override
+    public void readSpawnData(PacketBuffer buffer) {
+        this.dataManager.set(SIZE_SCALAR, buffer.readFloat());
+    }
+
     //EXP POINTS
     @Override
     protected int getExperiencePoints(PlayerEntity player) {
         return 2 + this.world.rand.nextInt(2);
     }
 
+    //SOUNDS
+    @Override
+    protected SoundEvent getAmbientSound() { return RegistryHandler.voline_ambient; }
+    @Override
+    protected SoundEvent getDeathSound() { return RegistryHandler.voline_hurt; }
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return RegistryHandler.voline_hurt;
+    }
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState blockIn) {
+        this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
+    }
 
     public boolean isImmuneToFire() {
         return true;

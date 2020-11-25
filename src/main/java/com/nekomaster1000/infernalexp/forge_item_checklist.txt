@@ -1,28 +1,4 @@
-FORGE MOBS IMPLEMENTED
-(TO DO:) nerf the spawn rate oh my goodness
-
-embody
-(needs - knockback reduction, speed increase)
-
-basalt giant
-(needs - drastic hitbox correction, ai, animations)
-
-/* ALPHA 2 (focus on this way later)
-pyrno
-(needs - rideability like horse by two people, horn attack akin to hoglin)
-
-warpbeetle
-(needs - rideability, flyability, horn attack) */
-
-
 FORGE BLOCKS AND ITEMS IMPLEMENTED
-
-TO DO:
-give dimstone, dullstone and glowdust functioning silk touch compatability
-
-dimstone - drops either dullrocks or glowstone dust randomly, drops itself with silk touch
-dullstone - drops dullrocks, drops itself with silk touch
-glowdust - drops nothing, drops itself with silk touch
 
 //glowstone
 dimstone
@@ -72,16 +48,24 @@ smooth glowdust sandstone stairs
 glowdust sandstone wall
 
 glimmering blackstone
+basalt silt
+blackstone rubble
+-----------------
 
 glowcoal
 dullrocks
 
+-----------------
+
 glowsquito spawn egg
 voline spawn egg
-pyrno spawn egg
-warpbeetle spawn egg
 embody spawn egg
+warpbeetle spawn egg
+cerobeetle
+pyrno spawn egg
 basalt giant spawn egg
+
+-----------------
 
 frostitten sword
 frostitten pickaxe
@@ -89,8 +73,9 @@ frostitten axe
 frostitten shovel
 frostitten hoe
 
+------------------
+
 FORGE BIOMES IMPLEMENTED
 
 glowstone canyon
-(TO DO:) needs to be implemented in the nether
-(TO DO:) needs custom surface features (blackstone mounds)
+delta shores

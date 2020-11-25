@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "infernalexp:block/silt"
+      },
+      {
+        "model": "infernalexp:block/silt",
+        "y": 90
+      },
+      {
+        "model": "infernalexp:block/silt",
+        "y": 180
+      },
+      {
+        "model": "infernalexp:block/silt",
+        "y": 270
+      }
+    ]
+  }
+}

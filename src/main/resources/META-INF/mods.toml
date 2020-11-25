@@ -37,12 +37,23 @@ authors="nekomaster1000" #optional
 
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-A Nether overhaul mod!
-Contributors:
-Nekomaster1000
-Scout/Merxlc
-BaconKami (!!!)
-Minecraft Worldgen Discord server
+A Vanilla+ mod that expands the Nether beyond the Nether Update, introducing new biomes, blocks, mobs, and more!
+Directors:
+- Nekomaster1000
+- LiveVoxel
+- JonahFuses
+
+Coders:
+- BaconKami
+- Merxlc
+- CaelTheQuail
+- Dayton_10
+- HellionGames
+
+Main Artists:
+- Nekomaster1000
+- Sheddmer/Mocha
+- GLaDOS Edition
 '''
 
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
