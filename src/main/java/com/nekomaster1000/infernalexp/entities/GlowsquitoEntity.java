@@ -1,5 +1,6 @@
 package com.nekomaster1000.infernalexp.entities;
 
+import com.nekomaster1000.infernalexp.entities.ai.TargetWithEffectGoal;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityType;
@@ -13,8 +14,8 @@ import net.minecraft.entity.ai.goal.EatGrassGoal;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.entity.passive.IFlyingAnimal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
@@ -58,6 +59,7 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return MobEntity.func_233666_p_()
                 .createMutableAttribute(Attributes.MAX_HEALTH, 10.0D)
+                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.0D)
                 .createMutableAttribute(Attributes.FLYING_SPEED, 0.6D) // Required for flying entity
                 .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.25D);
     }
@@ -242,13 +244,17 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
         super.registerGoals();
 
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 0.6D, true));
-        this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
 
         this.eatGrassGoal = new EatGrassGoal(this);
+
+        this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 0.8D, true));
+        this.goalSelector.addGoal(1, new MoveTowardsTargetGoal(this, 0.8D, 32.0F));
         //this.goalSelector.addGoal(5, new GlowsquitoEntity.RandomFlyGoal(this));
         this.goalSelector.addGoal(8, new GlowsquitoEntity.WanderGoal());
         //this.goalSelector.addGoal(7, new GlowsquitoEntity.LookAroundGoal(this));
         //this.goalSelector.addGoal(5, this.eatGrassGoal);
+        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, PlayerEntity.class, true, false, 24));
     }
 
     @Override

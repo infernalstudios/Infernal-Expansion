@@ -64,6 +64,7 @@ public class InfernalExpansion
         RenderTypeLookup.setRenderLayer(ModBlocks.GLOW_WALL_TORCH.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.GLOW_CAMPFIRE.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.GLOW_LANTERN.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.GLOW_FIRE.get(), RenderType.getCutout());
     }
 
     @SubscribeEvent

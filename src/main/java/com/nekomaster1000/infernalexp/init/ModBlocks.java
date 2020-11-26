@@ -66,6 +66,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> GLOW_TORCH = BLOCKS.register("torch_glow",  () -> new TorchBlock(getProperties(Blocks.TORCH), ParticleTypes.CRIT));
     public static final RegistryObject<Block> GLOW_WALL_TORCH = BLOCKS.register("torch_glow_wall", () -> new WallTorchBlock(getProperties(ModBlocks.GLOW_TORCH.get()).lootFrom(GLOW_TORCH.get()), ParticleTypes.CRIT));
     public static final RegistryObject<Block> GLOW_CAMPFIRE = BLOCKS.register("campfire_glow", () -> new GlowCampfireBlock(true, 2, getProperties(Blocks.CAMPFIRE)));
+    public static final RegistryObject<Block> GLOW_FIRE = BLOCKS.register("fire_glow", () -> new FireBlock(getProperties(Blocks.FIRE)));
 
     // Foliage
     public static final RegistryObject<Block> LUMINOUS_FUNGUS = BLOCKS.register("luminous_fungus", () -> new LuminousFungusBlock(getProperties(Material.PLANTS).setLightLevel(value -> 13).doesNotBlockMovement().sound(SoundType.PLANT)));

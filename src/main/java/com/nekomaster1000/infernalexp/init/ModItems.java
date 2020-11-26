@@ -78,6 +78,7 @@ public class ModItems {
     public static final RegistryObject<Item> GLOW_LANTERN = ITEMS.register("lantern_glow", () -> new BlockItemBase(ModBlocks.GLOW_LANTERN.get()));
     public static final RegistryObject<Item> GLOW_TORCH = ITEMS.register("torch_glow", () -> new WallOrFloorItem(ModBlocks.GLOW_TORCH.get(), ModBlocks.GLOW_WALL_TORCH.get(), (new Item.Properties()).group(InfernalExpansion.TAB)));
     public static final RegistryObject<Item> GLOW_CAMPFIRE = ITEMS.register("campfire_glow", () -> new BlockItemBase(ModBlocks.GLOW_CAMPFIRE.get()));
+    public static final RegistryObject<Item> GLOW_FIRE = ITEMS.register("fire_glow", () -> new BlockItemBase(ModBlocks.GLOW_FIRE.get()));
 
     public static final RegistryObject<Item> LUMINOUS_FUNGUS = ITEMS.register("luminous_fungus", () -> new BlockItemBase(ModBlocks.LUMINOUS_FUNGUS.get()));
     public static final RegistryObject<Item> DULLTHORNS = ITEMS.register("dullthorns",           () -> new BlockItemBase(ModBlocks.DULLTHORNS.get()));

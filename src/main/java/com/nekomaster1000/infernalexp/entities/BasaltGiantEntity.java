@@ -73,10 +73,17 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new TemptGoal(this, 0.6D, TEMPTATION_ITEMS, false));
-// this doesn't work...  this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, MagmaCubeEntity.class, true));
         this.goalSelector.addGoal(1, new LookAtGoal(this, PlayerEntity.class, 8.0f));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
         this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 0.6D, true));
+        this.goalSelector.addGoal(1, new MoveTowardsTargetGoal(this, 0.6D, 32.0F));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 0.6D, TEMPTATION_ITEMS, false));
+        this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 8.0f));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
+        this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
+        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, MagmaCubeEntity.class, true, false));
     }
 
     public float getSizeScalar() {

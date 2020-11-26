@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_fire_up",
+  "textures": {
+    "fire": "infernalexp:blocks/fire_1_glow"
+  }
+}
