@@ -36,6 +36,7 @@ public class ClientEventBusSubscriber {
         ClientRegistry.bindTileEntityRenderer(ModTileEntityTypes.GLOW_CAMPFIRE_TILE_ENTITY.get(), GlowCampfireTileEntityRenderer::new);
 
         RenderTypeLookup.setRenderLayer(ModBlocks.LUMINOUS_FUNGUS.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.DULLTHORNS.get(), RenderType.getCutout());
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)

@@ -1,6 +1,7 @@
 package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
+import com.nekomaster1000.infernalexp.blocks.DullthornsBlock;
 import com.nekomaster1000.infernalexp.blocks.GlowCampfireBlock;
 import com.nekomaster1000.infernalexp.blocks.GlowdustBlock;
 import com.nekomaster1000.infernalexp.blocks.LuminousFungusBlock;
@@ -44,8 +45,8 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> GLOWDUST = BLOCKS.register("glowdust",            () -> new GlowdustBlock(getProperties(Blocks.SAND).setLightLevel(value -> 8)));
     public static final RegistryObject<Block> GLOWDUST_SAND = BLOCKS.register("glowdust_sand", () -> new SandBlock(0xFFC267, getProperties(GLOWDUST.get())));
-    public static final RegistryObject<Block> GLOWDUST_STONE = BLOCKS.register("glowdust_stone", () -> new Block(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 9)));
-    public static final RegistryObject<Block> GLOWDUST_SANDSTONE = BLOCKS.register("glowdust_sandstone", () -> new Block(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 9)));
+    public static final RegistryObject<Block> GLOWDUST_STONE = BLOCKS.register("glowdust_stone",            () -> new Block(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
+    public static final RegistryObject<Block> GLOWDUST_SANDSTONE = BLOCKS.register("glowdust_sandstone",            () -> new Block(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
     public static final RegistryObject<Block> CUT_GLOWDUST_SANDSTONE = BLOCKS.register("cut_glowdust_sandstone", () -> new Block(getProperties(GLOWDUST_SANDSTONE.get())));
     public static final RegistryObject<Block> CHISELED_GLOWDUST_SANDSTONE = BLOCKS.register("chiseled_glowdust_sandstone", () -> new Block(getProperties(GLOWDUST_SANDSTONE.get())));
     public static final RegistryObject<Block> SMOOTH_GLOWDUST_SANDSTONE = BLOCKS.register("smooth_glowdust_sandstone", () -> new Block(getProperties(GLOWDUST_SANDSTONE.get())));
@@ -67,7 +68,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> GLOW_CAMPFIRE = BLOCKS.register("campfire_glow", () -> new GlowCampfireBlock(true, 2, getProperties(Blocks.CAMPFIRE)));
 
     // Foliage
-    public static final RegistryObject<Block> LUMINOUS_FUNGUS = BLOCKS.register("luminous_fungus", () -> new LuminousFungusBlock(getProperties(Material.PLANTS).doesNotBlockMovement().sound(SoundType.PLANT)));
+    public static final RegistryObject<Block> LUMINOUS_FUNGUS = BLOCKS.register("luminous_fungus", () -> new LuminousFungusBlock(getProperties(Material.PLANTS).setLightLevel(value -> 13).doesNotBlockMovement().sound(SoundType.PLANT)));
+    public static final RegistryObject<Block> DULLTHORNS = BLOCKS.register("dullthorns",           () -> new CactusBlock(AbstractBlock.Properties.create(Material.CACTUS).setLightLevel(value -> 3).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0.1F).sound(SoundType.CLOTH)));
 
     public static AbstractBlock.Properties getProperties(Material materialIn, float hardnessAndResistanceIn) {
         return getProperties(materialIn, hardnessAndResistanceIn, hardnessAndResistanceIn);

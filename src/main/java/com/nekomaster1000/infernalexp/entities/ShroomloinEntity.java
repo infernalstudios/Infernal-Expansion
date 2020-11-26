@@ -3,19 +3,24 @@ package com.nekomaster1000.infernalexp.entities;
 import com.nekomaster1000.infernalexp.init.ModItems;
 import com.nekomaster1000.infernalexp.util.RegistryHandler;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 
 public class ShroomloinEntity extends MonsterEntity {
@@ -31,7 +36,7 @@ public class ShroomloinEntity extends MonsterEntity {
         return MobEntity.func_233666_p_()
                 .createMutableAttribute(Attributes.MAX_HEALTH, 10.0D)
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.0D)
-                .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 30.0D)
+                .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 2.0D)
                 .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.6D);
     }
 
@@ -45,7 +50,48 @@ public class ShroomloinEntity extends MonsterEntity {
         this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
         this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0f));
         this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
+
+//        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal(this, PlayerEntity.class, 10, true, false, this::func_233680_b_));
+//?        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
     }
+
+
+
+    //
+
+    /**
+     * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
+     * method as well.
+     */
+
+    /*
+    public boolean shouldExecute() {
+        int i = this.goalOwner.getRevengeTimer();
+        LivingEntity livingentity = this.goalOwner.getRevengeTarget();
+        if (i != this.revengeTimerOld && livingentity != null) {
+            if (livingentity.getType() == EntityType.PLAYER && this.goalOwner.world.getGameRules().getBoolean(GameRules.UNIVERSAL_ANGER)) {
+                return false;
+            } else {
+                for(Class<?> oclass : this.excludedReinforcementTypes) {
+                    if (oclass.isAssignableFrom(livingentity.getClass())) {
+                        return false;
+                    }
+                }
+
+                return this.isSuitableTarget(livingentity, field_220795_a);
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public HurtByTargetGoal setCallsForHelp(Class<?>... reinforcementTypes) {
+        this.entityCallsForHelp = true;
+        this.reinforcementTypes = reinforcementTypes;
+        return this;
+    }
+
+    */
 
     //EXP POINTS
     @Override

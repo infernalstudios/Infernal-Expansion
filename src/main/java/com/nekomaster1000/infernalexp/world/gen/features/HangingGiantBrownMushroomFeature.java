@@ -13,8 +13,8 @@ import net.minecraft.world.gen.feature.NoFeatureConfig;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class HangingCrimsonFungusFeature extends Feature<NoFeatureConfig> {
-    public HangingCrimsonFungusFeature(Codec<NoFeatureConfig> codec) {
+public class HangingGiantBrownMushroomFeature extends Feature<NoFeatureConfig> {
+    public HangingGiantBrownMushroomFeature(Codec<NoFeatureConfig> codec) {
         super(codec);
     }
 
@@ -29,13 +29,14 @@ public class HangingCrimsonFungusFeature extends Feature<NoFeatureConfig> {
             int size = minSize + random.nextInt(maxSize - minSize);
 
             for (int y = 0; y <= size; y++) {
-                world.setBlockState(pos.down(y), Blocks.CRIMSON_HYPHAE.getDefaultState(), 10);
+                world.setBlockState(pos.down(y), Blocks.MUSHROOM_STEM.getDefaultState(), 10);
             }
 
             ArrayList<BlockPos> points = ShapeUtil.generateSolidCircle((float) (size / 2) + 1);
 
             for (BlockPos point : points) {
-                world.setBlockState(pos.add(point.getX(), point.getY() - size, point.getZ()), Blocks.NETHER_WART_BLOCK.getDefaultState(), 10);
+                world.setBlockState(pos.add(point.getX(), point.getY() - size, point.getZ()),
+                        Blocks.BROWN_MUSHROOM_BLOCK.getDefaultState(), 10);
             }
 
             return true;

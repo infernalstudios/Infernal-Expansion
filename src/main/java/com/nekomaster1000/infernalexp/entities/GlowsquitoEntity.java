@@ -11,6 +11,8 @@ import net.minecraft.entity.ai.controller.FlyingMovementController;
 import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.EatGrassGoal;
 import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.entity.passive.IFlyingAnimal;
@@ -238,6 +240,10 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
     @Override
     protected void registerGoals() {
         super.registerGoals();
+
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 0.6D, true));
+        this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+
         this.eatGrassGoal = new EatGrassGoal(this);
         //this.goalSelector.addGoal(5, new GlowsquitoEntity.RandomFlyGoal(this));
         this.goalSelector.addGoal(8, new GlowsquitoEntity.WanderGoal());

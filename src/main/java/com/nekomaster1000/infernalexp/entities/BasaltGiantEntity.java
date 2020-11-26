@@ -6,6 +6,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.monster.MagmaCubeEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
@@ -72,6 +73,7 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new TemptGoal(this, 0.6D, TEMPTATION_ITEMS, false));
+// this doesn't work...  this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, MagmaCubeEntity.class, true));
         this.goalSelector.addGoal(1, new LookAtGoal(this, PlayerEntity.class, 8.0f));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
         this.goalSelector.addGoal(3, new LookRandomlyGoal(this));

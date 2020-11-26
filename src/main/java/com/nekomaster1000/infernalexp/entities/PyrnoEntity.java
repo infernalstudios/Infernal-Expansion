@@ -6,10 +6,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.TemptGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.HoglinEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
@@ -41,6 +38,7 @@ public class PyrnoEntity extends HoglinEntity {
         protected void registerGoals() {
                 super.registerGoals();
                 this.goalSelector.addGoal(0, new TemptGoal(this, 0.5D, TEMPTATION_ITEMS, false));
+// this doesn't work...  this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, VolineEntity.class, true));
                 this.goalSelector.addGoal(1, new WaterAvoidingRandomWalkingGoal(this, 0.5D));
                 this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0f));
                 this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
