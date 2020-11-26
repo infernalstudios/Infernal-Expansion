@@ -12,8 +12,54 @@
             }
           }
         ]
-      }
+      },
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "enchantments": [
+                      {
+                        "enchantment": "minecraft:silk_touch",
+                        "levels": {
+                          "min": 1
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "name": "infernalexp:glowdust_sand"
+            },
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "condition": "minecraft:survives_explosion"
+                }
+              ],
+              "functions": [
+                {
+                  "function": "minecraft:set_count",
+                  "count": {
+                    "min": 2.0,
+                    "max": 5.0,
+                    "type": "minecraft:uniform"
+                  }
+                }
+              ],
+              "name": "minecraft:glowstone_dust"
+            }
+          ]
+        }
+      ]
     }
   ],
   "name": "infernalexp:glowdust_sand"
-},
+}

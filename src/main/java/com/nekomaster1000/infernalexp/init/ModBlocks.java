@@ -43,7 +43,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> DULLSTONE_BRICK_SLAB = BLOCKS.register("dullstone_brick_slab", () -> new SlabBlock(getProperties(DULLSTONE_BRICK.get())));
     public static final RegistryObject<Block> DULLSTONE_BRICK_STAIRS = BLOCKS.register("dullstone_brick_stairs", () -> new StairsBlock(() -> DULLSTONE_BRICK.get().getDefaultState(), getProperties(DULLSTONE_BRICK.get())));
 
-    public static final RegistryObject<Block> GLOWDUST = BLOCKS.register("glowdust",            () -> new GlowdustBlock(getProperties(Blocks.SAND).setLightLevel(value -> 8)));
+    public static final RegistryObject<Block> GLOWDUST = BLOCKS.register("glowdust", () -> new GlowdustBlock(getProperties(Blocks.SAND).setLightLevel(value -> 8).setRequiresTool().harvestTool(ToolType.SHOVEL).hardnessAndResistance(0.1f)));
     public static final RegistryObject<Block> GLOWDUST_SAND = BLOCKS.register("glowdust_sand", () -> new SandBlock(0xFFC267, getProperties(GLOWDUST.get())));
     public static final RegistryObject<Block> GLOWDUST_STONE = BLOCKS.register("glowdust_stone",            () -> new Block(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
     public static final RegistryObject<Block> GLOWDUST_SANDSTONE = BLOCKS.register("glowdust_sandstone",            () -> new Block(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
