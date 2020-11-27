@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import com.nekomaster1000.infernalexp.init.ModBlocks;
 import com.nekomaster1000.infernalexp.util.ShapeUtil;
 import com.nekomaster1000.infernalexp.world.gen.features.config.GlowSpikeFeatureConfig;
-import com.nekomaster1000.infernalexp.util.Vec3d;
+import com.sun.javafx.geom.Vec3d;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
@@ -59,7 +59,7 @@ public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
         Vec3d vec2 = new Vec3d(endPos.getX(), endPos.getY(), endPos.getZ());
 
         Vec3d diffVec = new Vec3d(vec2.x - vec1.x, vec2.y - vec1.y, vec2.z - vec1.z);
-        Vec3d incVec = new Vec3d(diffVec.x / diffVec.length(), diffVec.y / diffVec.length(), diffVec.z / diffVec.length());
+        Vec3d incVec = new Vec3d((int) diffVec.x / diffVec.length(), (int) diffVec.y / diffVec.length(), (int) diffVec.z / diffVec.length());
 
         int lineLength = (int) diffVec.length();
 
