@@ -20,16 +20,16 @@ public class ModItems {
     public static final RegistryObject<Item> DULLROCKS = ITEMS.register("glownuggets", ItemBase::new);
 
     // Spawn Eggs
-    public static final RegistryObject<ModSpawnEggItem> GLOWSQUITO_SPAWN_EGG = ITEMS.register("glowsquito_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.GLOWSQUITO, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
-    public static final RegistryObject<ModSpawnEggItem> SHROOMLOIN_SPAWN_EGG = ITEMS.register("shroomloin_spawn_egg",() -> new ModSpawnEggItem(ModEntityType.SHROOMLOIN, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
-    public static final RegistryObject<ModSpawnEggItem> VOLINE_SPAWN_EGG = ITEMS.register("voline_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.VOLINE, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
-    public static final RegistryObject<ModSpawnEggItem> PYRNO_SPAWN_EGG = ITEMS.register("pyrno_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.PYRNO, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
-    public static final RegistryObject<ModSpawnEggItem> WARPBEETLE_SPAWN_EGG = ITEMS.register("warpbeetle_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.WARPBEETLE, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
-    public static final RegistryObject<ModSpawnEggItem> CEROBEETLE_SPAWN_EGG = ITEMS.register("cerobeetle_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.CEROBEETLE, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
-    public static final RegistryObject<ModSpawnEggItem> EMBODY_SPAWN_EGG = ITEMS.register("embody_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.EMBODY, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
-    public static final RegistryObject<ModSpawnEggItem> BASALT_GIANT_SPAWN_EGG = ITEMS.register("basalt_giant_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.BASALT_GIANT, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
-    public static final RegistryObject<ModSpawnEggItem> BASALT_TITAN_SPAWN_EGG = ITEMS.register("basalt_titan_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.BASALT_TITAN, 0xF0A5A2, 0xA9672B, new Item.Properties().group(InfernalExpansion.TAB)));
-    public static final RegistryObject<ModSpawnEggItem> SKELETAL_PIGLIN_SPAWN_EGG = ITEMS.register("skeletal_piglin_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.SKELETAL_PIGLIN, 0xF0A5A2, 0xA9672B,new Item.Properties().group(InfernalExpansion.TAB)));
+    public static final RegistryObject<ModSpawnEggItem> GLOWSQUITO_SPAWN_EGG = ITEMS.register("glowsquito_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.GLOWSQUITO, 0x3D3E4C, 0xFBDA74, new Item.Properties().group(InfernalExpansion.TAB)));
+    public static final RegistryObject<ModSpawnEggItem> SHROOMLOIN_SPAWN_EGG = ITEMS.register("shroomloin_spawn_egg",() -> new ModSpawnEggItem(ModEntityType.SHROOMLOIN, 0x854242, 0xFF6500, new Item.Properties().group(InfernalExpansion.TAB)));
+    public static final RegistryObject<ModSpawnEggItem> VOLINE_SPAWN_EGG = ITEMS.register("voline_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.VOLINE, 0x2E2631, 0x652833, new Item.Properties().group(InfernalExpansion.TAB)));
+    public static final RegistryObject<ModSpawnEggItem> PYRNO_SPAWN_EGG = ITEMS.register("pyrno_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.PYRNO, 0x5D514B, 0xFEE15E, new Item.Properties().group(InfernalExpansion.TAB)));
+    public static final RegistryObject<ModSpawnEggItem> WARPBEETLE_SPAWN_EGG = ITEMS.register("warpbeetle_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.WARPBEETLE, 0x72EA95, 0x2D3860, new Item.Properties().group(InfernalExpansion.TAB)));
+    public static final RegistryObject<ModSpawnEggItem> CEROBEETLE_SPAWN_EGG = ITEMS.register("cerobeetle_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.CEROBEETLE, 0x73EB96, 0x409089, new Item.Properties().group(InfernalExpansion.TAB)));
+    public static final RegistryObject<ModSpawnEggItem> EMBODY_SPAWN_EGG = ITEMS.register("embody_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.EMBODY, 0x796152, 0x6DEDF1, new Item.Properties().group(InfernalExpansion.TAB)));
+    public static final RegistryObject<ModSpawnEggItem> BASALT_GIANT_SPAWN_EGG = ITEMS.register("basalt_giant_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.BASALT_GIANT, 0x656467, 0x272936, new Item.Properties().group(InfernalExpansion.TAB)));
+    public static final RegistryObject<ModSpawnEggItem> BASALT_TITAN_SPAWN_EGG = ITEMS.register("basalt_titan_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.BASALT_TITAN, 0x272936, 0x656467, new Item.Properties().group(InfernalExpansion.TAB)));
+    public static final RegistryObject<ModSpawnEggItem> SKELETAL_PIGLIN_SPAWN_EGG = ITEMS.register("skeletal_piglin_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.SKELETAL_PIGLIN, 0xCBC9C9, 0x423C3C,new Item.Properties().group(InfernalExpansion.TAB)));
 
 
     // Block items
