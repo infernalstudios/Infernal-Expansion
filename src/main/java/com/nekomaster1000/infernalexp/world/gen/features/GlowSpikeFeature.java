@@ -64,6 +64,10 @@ public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
         int lineLength = (int) diffVec.length();
 
         for (int i = 0; i <= lineLength; i++) {
+        	if (vec1.y > 128 || world.getBlockState(new BlockPos(vec1.x, vec1.y, vec1.z)).equals(Blocks.BEDROCK.getDefaultState())) {
+        		continue;
+        	}
+        	
             float percentage = (float) i / lineLength;
 
             if (percentage <= 0.33) {
