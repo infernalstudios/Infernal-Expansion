@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import com.nekomaster1000.infernalexp.init.ModBlocks;
 import com.nekomaster1000.infernalexp.util.ShapeUtil;
 import com.nekomaster1000.infernalexp.world.gen.features.config.GlowSpikeFeatureConfig;
-import com.sun.javafx.geom.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
@@ -55,11 +55,11 @@ public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
      * @param endPos   End position
      */
     private void placeLine(ISeedReader world, BlockPos startPos, BlockPos endPos, GlowSpikeFeatureConfig config) {
-        Vec3d vec1 = new Vec3d(startPos.getX(), startPos.getY(), startPos.getZ());
-        Vec3d vec2 = new Vec3d(endPos.getX(), endPos.getY(), endPos.getZ());
+        Vector3d vec1 = new Vector3d(startPos.getX(), startPos.getY(), startPos.getZ());
+        Vector3d vec2 = new Vector3d(endPos.getX(), endPos.getY(), endPos.getZ());
 
-        Vec3d diffVec = new Vec3d(vec2.x - vec1.x, vec2.y - vec1.y, vec2.z - vec1.z);
-        Vec3d incVec = new Vec3d((int) diffVec.x / diffVec.length(), (int) diffVec.y / diffVec.length(), (int) diffVec.z / diffVec.length());
+        Vector3d diffVec = vec2.subtract(vec1);
+        Vector3d incVec = new Vector3d((int) diffVec.x / diffVec.length(), (int) diffVec.y / diffVec.length(), (int) diffVec.z / diffVec.length());
 
         int lineLength = (int) diffVec.length();
 
@@ -77,7 +77,7 @@ public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
             } else {
                 world.setBlockState(new BlockPos(vec1.x, vec1.y, vec1.z), ModBlocks.DULLSTONE.get().getDefaultState(), 10);
             }
-            vec1.add(incVec);
+            vec1 = vec1.add(incVec);
         }
     }
 }
