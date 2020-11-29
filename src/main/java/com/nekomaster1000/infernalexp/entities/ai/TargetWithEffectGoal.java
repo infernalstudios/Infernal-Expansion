@@ -9,6 +9,11 @@ import net.minecraft.potion.Effect;
 import javax.annotation.Nullable;
 import java.util.function.Predicate;
 
+/**
+ * This goal allows a Mob to target a Player who has a potion effect. The constructor is similar to the basic
+ * TargetNearestAttackable goal, but adds the input of an integer representing the ID number of the potion effect that
+ * should be targeted.
+ */
 public class TargetWithEffectGoal extends NearestAttackableTargetGoal {
     private int potionId;
 
