@@ -35,7 +35,7 @@ public class WarpbeetleEntity extends CreatureEntity {
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return MobEntity.func_233666_p_()
                 .createMutableAttribute(Attributes.MAX_HEALTH, 10.0D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.25D);
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4D);
     }
 
     //BEHAVIOUR

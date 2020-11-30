@@ -22,7 +22,7 @@ public class EmbodyEntity extends MonsterEntity {
                 .createMutableAttribute(Attributes.MAX_HEALTH, 5.0D)
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 2.0D)
                 .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 2.0D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.35D);
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.50D);
     }
 
     //BEHAVIOUR
