@@ -72,7 +72,6 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new TemptGoal(this, 0.6D, TEMPTATION_ITEMS, false));
         this.goalSelector.addGoal(1, new LookAtGoal(this, PlayerEntity.class, 8.0f));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
         this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
