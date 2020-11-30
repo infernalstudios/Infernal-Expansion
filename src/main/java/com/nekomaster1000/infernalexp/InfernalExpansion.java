@@ -58,13 +58,7 @@ public class InfernalExpansion
         ModEntityPlacement.spawnPlacement();
     }
 
-    private void clientSetup(final FMLClientSetupEvent event)
-    {
-        RenderTypeLookup.setRenderLayer(ModBlocks.GLOW_TORCH.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.GLOW_WALL_TORCH.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.GLOW_CAMPFIRE.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.GLOW_LANTERN.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.GLOW_FIRE.get(), RenderType.getCutout());
+    private void clientSetup(final FMLClientSetupEvent event) {
     }
 
     @SubscribeEvent
