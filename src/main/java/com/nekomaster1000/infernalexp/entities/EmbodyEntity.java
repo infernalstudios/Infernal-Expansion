@@ -1,5 +1,6 @@
 package com.nekomaster1000.infernalexp.entities;
 
+import com.nekomaster1000.infernalexp.util.RegistryHandler;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -7,6 +8,8 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
 public class EmbodyEntity extends MonsterEntity {
@@ -36,12 +39,19 @@ public class EmbodyEntity extends MonsterEntity {
         this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
     }
 
-    //EXP POINTS
+    //SOUNDS
+    @Override
+    protected SoundEvent getAmbientSound() { return RegistryHandler.embody_ambient; }
+    @Override
+    protected SoundEvent getDeathSound() { return RegistryHandler.embody_death; }
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) { return RegistryHandler.embody_hurt; }
+
+        //EXP POINTS
     @Override
     protected int getExperiencePoints(PlayerEntity player) {
         return 1 + this.world.rand.nextInt(2);
     }
-
 
     public boolean isImmuneToFire() {
         return true;

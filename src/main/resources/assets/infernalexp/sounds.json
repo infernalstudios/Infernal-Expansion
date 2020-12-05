@@ -1,12 +1,48 @@
 {
-  "volinehurt": {
-    "category": "block",
-    "subtitle": "infernalexp.subtitle.voline_hurt",
-    "sounds": [ "infernalexp:voline_hurt" ]
-  },
   "volineambient": {
     "category": "block",
-    "subtitle": "infernalexp.subtitle.voline_ambient",
+    "subtitle": "Voline vibes.",
     "sounds": [ "infernalexp:voline_ambient" ]
+  },
+  "volinehurt": {
+    "category": "block",
+    "subtitle": "Voline yelps!",
+    "sounds": [ "infernalexp:voline_hurt" ]
+  },
+
+
+  "basaltgiantambient": {
+    "category": "block",
+    "subtitle": "Basalt Giant grunts",
+    "sounds": [ "infernalexp:basalt_giant_ambient" ]
+  },
+  "basaltgianthurt": {
+    "category": "block",
+    "subtitle": "Basalt Giant roars in pain",
+    "sounds": [ "infernalexp:basalt_giant_hurt" ]
+  },
+    "basaltgiantdead": {
+      "category": "block",
+      "subtitle": "Basalt Giant's roar dies",
+      "sounds": [ "infernalexp:basalt_giant_death" ]
+  },
+
+
+  "embodyambient": {
+    "category": "block",
+    "subtitle": "Embody hisses",
+    "sounds": [ "infernalexp:embody_ambient" ]
+  },
+  "embodyhurt": {
+    "category": "block",
+    "subtitle": "Embody hisses in pain",
+    "sounds": [ "infernalexp:embody_hurt" ]
+  },
+  "embodydead": {
+    "category": "block",
+    "subtitle": "Embody withers away",
+    "sounds": [ "infernalexp:embody_death" ]
+
   }
+
 }

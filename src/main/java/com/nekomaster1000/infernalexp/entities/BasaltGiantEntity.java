@@ -108,13 +108,12 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
 
     //SOUNDS
     @Override
-    protected SoundEvent getAmbientSound() { return RegistryHandler.voline_ambient; }
+    protected SoundEvent getAmbientSound() { return RegistryHandler.basalt_giant_ambient; }
     @Override
-    protected SoundEvent getDeathSound() { return RegistryHandler.voline_hurt; }
+    protected SoundEvent getDeathSound() {        return RegistryHandler.basalt_giant_death; }
     @Override
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return RegistryHandler.voline_hurt;
-    }
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) { return RegistryHandler.basalt_giant_hurt; }
+
     @Override
     protected void playStepSound(BlockPos pos, BlockState blockIn) {
         this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
