@@ -198,11 +198,24 @@ public class ShroomloinEntity extends MonsterEntity{
     private void explode() {
         if (!this.world.isRemote) {
             this.dead = true;
-            this.world.createExplosion(this, this.getPosX(), this.getPosY() + 0.6, this.getPosZ(), 0.0F, Explosion.Mode.NONE);
+            this.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 1.0F, 0.5F);
+            this.spawnExplosionCloud();
             this.remove();
             this.spawnLingeringCloud();
         }
 
+    }
+
+    private void spawnExplosionCloud(){
+        AreaEffectCloudEntity areaeffectcloudentity = new AreaEffectCloudEntity(this.world, this.getPosX(), this.getPosY() + 0.6, this.getPosZ());
+        areaeffectcloudentity.setRadius(3.0F);
+        areaeffectcloudentity.setWaitTime(0);
+        areaeffectcloudentity.setDuration(10);
+        areaeffectcloudentity.setRadiusPerTick(0);
+        areaeffectcloudentity.setPotion(Potion.getPotionTypeForName("strong_poison"));
+        areaeffectcloudentity.setParticleData(ParticleTypes.EXPLOSION);
+
+        this.world.addEntity(areaeffectcloudentity);
     }
 
     private void spawnLingeringCloud() {
@@ -212,15 +225,18 @@ public class ShroomloinEntity extends MonsterEntity{
             areaeffectcloudentity.setWaitTime(10);
             areaeffectcloudentity.setDuration(areaeffectcloudentity.getDuration() / 2);
             areaeffectcloudentity.setRadiusPerTick(-areaeffectcloudentity.getRadius() / (float)areaeffectcloudentity.getDuration());
-            areaeffectcloudentity.setPotion(Potion.getPotionTypeForName("poison"));
+            areaeffectcloudentity.setPotion(Potion.getPotionTypeForName("long_poison"));
             areaeffectcloudentity.setColor(0xFF8B3E);
 
             this.world.addEntity(areaeffectcloudentity);
-
     }
 
     public boolean hasIgnited() {
         return this.dataManager.get(IGNITED);
+    }
+
+    public void becomeAngryAt(LivingEntity entity) {
+        this.setAttackTarget(entity);
     }
 
 //    public boolean isImmuneToFire() {
