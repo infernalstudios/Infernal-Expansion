@@ -111,11 +111,16 @@ public class BasaltGiantModel<T extends BasaltGiantEntity> extends EntityModel<B
 
     @Override
     public void setRotationAngles(BasaltGiantEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        int i = entity.getAttackTimer();
+
+        if(i <= 0){
+            this.RightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        }
+
         sizeScalar = entity.getSizeScalar(); // Get size scalar value for this instance of the entity
 
         this.LeftArm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.0F * limbSwingAmount;
         this.RightArm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.0F * limbSwingAmount;
-        this.RightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
         this.LeftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
         this.Torso2.rotateAngleX = MathHelper.cos(limbSwing * 0.3332F) * 0.25F * limbSwingAmount;
         this.Head.rotateAngleX = MathHelper.cos(limbSwing * 0.1551F) * 0.15F * limbSwingAmount;
@@ -131,6 +136,15 @@ public class BasaltGiantModel<T extends BasaltGiantEntity> extends EntityModel<B
         // Render the entity using the scaling/translation matrices supplied above
         Body.render(matrixStack, buffer, packedLight, packedOverlay);
         matrixStack.pop(); // Leave the MatrixStack as we received it
+    }
+
+    public void setLivingAnimations(BasaltGiantEntity entity, float limbSwing, float limbSwingAmount, float partialTick) {
+        int i = entity.getAttackTimer();
+
+        if (i > 0) {
+            this.RightLeg.rotateAngleX = -0.9F + 0.9F * MathHelper.func_233021_e_((float)i - partialTick, 10.0F);
+            this.Jaw.rotateAngleX = 0.375F - 0.375F * MathHelper.func_233021_e_((float)i - partialTick, 10.0F);
+        }
     }
 
     public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {

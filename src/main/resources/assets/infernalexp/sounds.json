@@ -21,7 +21,7 @@
     "subtitle": "Basalt Giant roars in pain",
     "sounds": [ "infernalexp:basalt_giant_hurt" ]
   },
-    "basaltgiantdead": {
+    "basaltgiantdeath": {
       "category": "block",
       "subtitle": "Basalt Giant's roar dies",
       "sounds": [ "infernalexp:basalt_giant_death" ]
@@ -38,7 +38,7 @@
     "subtitle": "Embody hisses in pain",
     "sounds": [ "infernalexp:embody_hurt" ]
   },
-  "embodydead": {
+  "embodydeath": {
     "category": "block",
     "subtitle": "Embody withers away",
     "sounds": [ "infernalexp:embody_death" ]

@@ -14,17 +14,27 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.particles.BlockParticleData;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
 
+import static net.minecraft.util.math.MathHelper.cos;
+import static net.minecraft.util.math.MathHelper.sin;
+
 public class BasaltGiantEntity extends CreatureEntity implements IEntityAdditionalSpawnData, IAngerable {
     private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.BASALT, Items.POLISHED_BASALT);
     private static final RangedInteger RANGED_INT = TickRangeConverter.convertRange(20, 39);
+    private int attackTimer;
     private int angerTime;
     private UUID angerTarget;
 
@@ -64,23 +74,69 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
         return MobEntity.func_233666_p_()
                 .createMutableAttribute(Attributes.MAX_HEALTH, 40.0D)
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3.0D)
+                .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 3.0D)
                 .createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE, 30.0D)
                 .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.40D);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public void handleStatusUpdate(byte id) {
+        if (id == 4) {
+            this.attackTimer = 10;
+            this.playSound(RegistryHandler.basalt_giant_hurt, 1.0F, 1.0F);
+        }else {
+            super.handleStatusUpdate(id);
+        }
+
+    }
+
+    public void livingTick() {
+        super.livingTick();
+        if (this.attackTimer > 0) {
+            --this.attackTimer;
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public int getAttackTimer() {
+        return this.attackTimer;
+    }
+
+    public boolean attackEntityAsMob(Entity entityIn) {
+        this.attackTimer = 10;
+        this.world.setEntityState(this, (byte)4);
+        float f = this.getAttackDamage();
+        float f1 = (int)f > 0 ? f / 2.0F + (float)this.rand.nextInt((int)f) : f;
+        float f2 = (float)this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
+        boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), f1);
+        if (flag) {
+            ((LivingEntity)entityIn).applyKnockback(f2 * 0.5F, (double)MathHelper.sin(this.rotationYaw * ((float)Math.PI / 180F)), (double)(-MathHelper.cos(this.rotationYaw * ((float)Math.PI / 180F))));
+            entityIn.setMotion(entityIn.getMotion().mul(1.0D, 2.5D, 1.0D));
+            this.setMotion(this.getMotion().mul(0.6D, 1.0D, 0.6D));
+            this.applyEnchantments(this, entityIn);
+        }
+
+        this.playSound(RegistryHandler.basalt_giant_hurt, 1.0F, 1.0F);
+        return flag;
+    }
+
+    private float getAttackDamage() {
+        return (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE);
     }
 
     //BEHAVIOUR
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new LookAtGoal(this, PlayerEntity.class, 8.0f));
-        this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
-        this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 0.6D, true));
         this.goalSelector.addGoal(1, new MoveTowardsTargetGoal(this, 0.6D, 32.0F));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 0.6D, TEMPTATION_ITEMS, false));
-        this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 8.0f));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
-        this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0f));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
+        this.goalSelector.addGoal(4, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(5, new TemptGoal(this, 0.6D, TEMPTATION_ITEMS, false));
+        this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 8.0f));
+        this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
+        this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, MagmaCubeEntity.class, true, false));
     }
@@ -110,7 +166,7 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
     @Override
     protected SoundEvent getAmbientSound() { return RegistryHandler.basalt_giant_ambient; }
     @Override
-    protected SoundEvent getDeathSound() {        return RegistryHandler.basalt_giant_death; }
+    protected SoundEvent getDeathSound() { return RegistryHandler.basalt_giant_death; }
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) { return RegistryHandler.basalt_giant_hurt; }
 
