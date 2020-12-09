@@ -1,16 +1,20 @@
 package com.nekomaster1000.infernalexp.entities;
 
 import com.nekomaster1000.infernalexp.util.RegistryHandler;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 public class EmbodyEntity extends MonsterEntity {
 
@@ -19,13 +23,22 @@ public class EmbodyEntity extends MonsterEntity {
         super(type, worldIn);
     }
 
+    @Nullable
+    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+        this.func_230273_eI_();
+        return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    }
+
     //ATTRIBUTES
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return MobEntity.func_233666_p_()
                 .createMutableAttribute(Attributes.MAX_HEALTH, 5.0D)
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 2.0D)
-                .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 2.0D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.50D);
+                .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 2.0D);
+    }
+
+    protected void func_230273_eI_() {
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(this.getModifiedMovementSpeed());
     }
 
     //BEHAVIOUR
@@ -37,6 +50,11 @@ public class EmbodyEntity extends MonsterEntity {
         this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
         this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0f));
         this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
+    }
+
+    protected double getModifiedMovementSpeed() {
+        //Change the last value in the next line in order to adjust the range of speed they can vary between
+        return ((double)0.45F + this.rand.nextDouble() * 0.3D + this.rand.nextDouble() * 0.3D + this.rand.nextDouble() * 0.3D) * 0.35D;
     }
 
     //SOUNDS
