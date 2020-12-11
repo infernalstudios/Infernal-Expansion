@@ -7,6 +7,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.MagmaCubeEntity;
+import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
@@ -73,17 +74,17 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return MobEntity.func_233666_p_()
                 .createMutableAttribute(Attributes.MAX_HEALTH, 40.0D)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3.0D)
-                .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 3.0D)
+                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 12.0D)
+                .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 5.0D)
                 .createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE, 30.0D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.40D);
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.45D);
     }
 
     @OnlyIn(Dist.CLIENT)
     public void handleStatusUpdate(byte id) {
         if (id == 4) {
             this.attackTimer = 10;
-            this.playSound(RegistryHandler.basalt_giant_hurt, 1.0F, 1.0F);
+            this.playSound(RegistryHandler.basalt_giant_death, 1.0F, 1.0F);
         }else {
             super.handleStatusUpdate(id);
         }
@@ -112,11 +113,11 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
         if (flag) {
             ((LivingEntity)entityIn).applyKnockback(f2 * 0.5F, (double)MathHelper.sin(this.rotationYaw * ((float)Math.PI / 180F)), (double)(-MathHelper.cos(this.rotationYaw * ((float)Math.PI / 180F))));
             entityIn.setMotion(entityIn.getMotion().mul(1.0D, 2.5D, 1.0D));
-            this.setMotion(this.getMotion().mul(0.6D, 1.0D, 0.6D));
+            this.setMotion(this.getMotion().mul(0.6D, 1.0D, 1.6D));
             this.applyEnchantments(this, entityIn);
         }
 
-        this.playSound(RegistryHandler.basalt_giant_hurt, 1.0F, 1.0F);
+        this.playSound(RegistryHandler.basalt_giant_death, 1.0F, 1.0F);
         return flag;
     }
 
@@ -129,6 +130,7 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 0.6D, true));
+        this.goalSelector.addGoal(1, new SwimGoal(this));
         this.goalSelector.addGoal(1, new MoveTowardsTargetGoal(this, 0.6D, 32.0F));
         this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0f));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
@@ -139,6 +141,7 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, MagmaCubeEntity.class, true, false));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, SkeletonEntity.class, true, false));
     }
 
     public float getSizeScalar() {

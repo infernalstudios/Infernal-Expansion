@@ -1,16 +1,17 @@
 package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
-import com.nekomaster1000.infernalexp.entities.ShroomloinEntity;
+import com.nekomaster1000.infernalexp.entities.*;
 import com.nekomaster1000.infernalexp.entities.ai.AvoidBlockGoal;
 import net.minecraft.block.Blocks;
-import com.nekomaster1000.infernalexp.entities.EmbodyEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.monster.MagmaCubeEntity;
+import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.monster.SlimeEntity;
+import net.minecraft.entity.monster.piglin.PiglinBruteEntity;
 import net.minecraftforge.event.world.BlockEvent;
 import com.nekomaster1000.infernalexp.entities.EmbodyEntity;
-import com.nekomaster1000.infernalexp.entities.WarpbeetleEntity;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
@@ -29,10 +30,38 @@ public class ModEvents {
 
     @SubscribeEvent
     public void onEntityJoin(EntityJoinWorldEvent event) {
+
+        //
+        //RUN AWAY!!
+        //
+
         if (event.getEntity() instanceof PiglinEntity || event.getEntity() instanceof HoglinEntity) {
             ((CreatureEntity) event.getEntity()).goalSelector.addGoal(4, new AvoidEntityGoal<>((CreatureEntity) event.getEntity(), WarpbeetleEntity.class, 16.0F, 1.2D, 1.2D));
             ((CreatureEntity) event.getEntity()).goalSelector.addGoal(4, new AvoidEntityGoal<>((CreatureEntity) event.getEntity(), EmbodyEntity.class, 16.0F, 1.2D, 1.2D));
         }
+
+        //
+        //ATTACK!!
+        //
+
+        //Skeleton attacks Basalt Giants
+        if (event.getEntity() instanceof SkeletonEntity) {
+            ((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
+                    new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(), BasaltGiantEntity.class,true, false));
+        }
+
+        //Piglins attack Skeletons
+        if (event.getEntity() instanceof PiglinEntity|| event.getEntity() instanceof PiglinBruteEntity)  {
+            ((CreatureEntity) event.getEntity()).goalSelector.addGoal(2, new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(), SkeletonEntity.class,true, false));
+        }
+
+        //Skeletons attack Piglins
+        if (event.getEntity() instanceof SkeletonEntity) {
+            ((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
+                    new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(), PiglinEntity.class,true,false));
+        }
+
+        //...
 
         // Please add Magma Cubes being scared of Glow Torches/Lanterns/Campfires here.
         if (event.getEntity() instanceof MagmaCubeEntity) {
