@@ -72,6 +72,7 @@ public class ModItems {
     public static final RegistryObject<Item> GLOWDUST_SANDSTONE_WALL = ITEMS.register("glowdust_sandstone_wall", () -> new BlockItemBase(ModBlocks.GLOWDUST_SANDSTONE_WALL.get()));
 
     public static final RegistryObject<Item> GLIMMERING_BLACKSTONE = ITEMS.register("glimmering_blackstone", () -> new BlockItemBase(ModBlocks.GLIMMERING_BLACKSTONE.get()));
+    public static final RegistryObject<Item> CRUMBLING_BLACKSTONE = ITEMS.register("crumbling_blackstone", () -> new BlockItemBase(ModBlocks.CRUMBLING_BLACKSTONE.get()));
     public static final RegistryObject<Item> SILT = ITEMS.register("silt", () -> new BlockItemBase(ModBlocks.SILT.get()));
     public static final RegistryObject<Item> RUBBLE = ITEMS.register("rubble", () -> new BlockItemBase(ModBlocks.RUBBLE.get()));
 

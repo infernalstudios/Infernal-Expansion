@@ -100,12 +100,12 @@ public class WarpbeetleModel<T extends WarpbeetleEntity> extends EntityModel<T> 
 
     @Override
     public void setRotationAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.left_leg_1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-        this.left_leg_2.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-        this.left_leg_3.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-        this.right_leg_1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-        this.right_leg_2.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-        this.right_leg_3.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        this.left_leg_1.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F) * 1.4F * limbSwingAmount;
+        this.left_leg_2.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        this.left_leg_3.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F) * 1.4F * limbSwingAmount;
+        this.right_leg_1.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        this.right_leg_2.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F) * 1.4F * limbSwingAmount;
+        this.right_leg_3.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
 
         if (!entity.isOnGround()) {
             entity.shellRotationMultiplier += 0.1F;

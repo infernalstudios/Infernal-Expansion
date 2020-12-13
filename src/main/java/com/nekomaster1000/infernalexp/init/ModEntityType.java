@@ -34,7 +34,7 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<CerobeetleEntity>> CEROBEETLE = ENTITY_TYPES.register("cerobeetle",
             () -> EntityType.Builder.create(CerobeetleEntity::new, EntityClassification.CREATURE)
-            .size(2.0f, 2.0f) // Hitbox Size
+            .size(2.0f, 1.5f) // Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "cerobeetle").toString()));
 
     public static final RegistryObject<EntityType<EmbodyEntity>> EMBODY = ENTITY_TYPES.register("embody",

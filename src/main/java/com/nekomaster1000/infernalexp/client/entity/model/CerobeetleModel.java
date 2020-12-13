@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.nekomaster1000.infernalexp.entities.CerobeetleEntity;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.util.math.MathHelper;
 
 public class CerobeetleModel<T extends CerobeetleEntity> extends EntityModel<T> {
     private final ModelRenderer body;
@@ -91,9 +92,40 @@ public class CerobeetleModel<T extends CerobeetleEntity> extends EntityModel<T> 
     }
 
     @Override
-    public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        //previously the render function, render code was moved to a method below
+    public void setRotationAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        this.left_leg_1.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F) * 1.4F * limbSwingAmount;
+        this.left_leg_2.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        this.left_leg_3.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F) * 1.4F * limbSwingAmount;
+        this.right_leg_1.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        this.right_leg_2.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F) * 1.4F * limbSwingAmount;
+        this.right_leg_3.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+
+        if (!entity.isOnGround()) {
+            entity.shellRotationMultiplier += 0.1F;
+
+            if (entity.shellRotationMultiplier > 1.0F) {
+                entity.shellRotationMultiplier = 1.0F;
+            }
+
+            float wingRotation = MathHelper.cos(ageInTicks * 2.1F) * (float) Math.PI * 0.15F + 1.0F;
+
+            setRotationAngle(left_wing, wingRotation, 0.5F, 0.3F);
+            setRotationAngle(right_wing, wingRotation, -0.5F, -0.3F);
+        } else {
+            entity.shellRotationMultiplier -= 0.1F;
+
+            if (entity.shellRotationMultiplier < 0.0F) {
+                entity.shellRotationMultiplier = 0.0F;
+            }
+
+            setRotationAngle(left_wing, 0.0F, 0.0F, 0.0F);
+            setRotationAngle(right_wing, 0.0F, 0.0F, 0.0F);
+        }
+
+        setRotationAngle(left_shield, 1.2F * entity.shellRotationMultiplier, -0.4F * entity.shellRotationMultiplier, 0.9F * entity.shellRotationMultiplier);
+        setRotationAngle(right_shield, 1.2F * entity.shellRotationMultiplier, 0.4F * entity.shellRotationMultiplier, -0.9F * entity.shellRotationMultiplier);
     }
+
 
     @Override
     public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){

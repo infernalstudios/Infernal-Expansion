@@ -21,10 +21,43 @@
     "subtitle": "Basalt Giant roars in pain",
     "sounds": [ "infernalexp:basalt_giant_hurt" ]
   },
-    "basaltgiantdeath": {
-      "category": "block",
-      "subtitle": "Basalt Giant's roar dies",
-      "sounds": [ "infernalexp:basalt_giant_death" ]
+  "basaltgiantdeath": {
+    "category": "block",
+    "subtitle": "Basalt Giant's roar dies",
+    "sounds": [ "infernalexp:basalt_giant_death" ]
+  },
+
+
+  "warpbeetleambient": {
+    "category": "block",
+    "subtitle": "Warpbeetle squeaks",
+    "sounds": [ "infernalexp:warpbeetle_ambient" ]
+  },
+  "warpbeetlehurt": {
+    "category": "block",
+    "subtitle": "Warpbeetle squeaks in pain",
+    "sounds": [ "infernalexp:warpbeetle_hurt" ]
+  },
+  "warpbeetledeath": {
+    "category": "block",
+    "subtitle": "Warpbeetle dies",
+    "sounds": [ "infernalexp:warpbeetle_death" ]
+  },
+
+  "cerobeetleambient": {
+    "category": "block",
+    "subtitle": "Cerobeetle squeaks",
+    "sounds": [ "infernalexp:cerobeetle_ambient" ]
+  },
+  "cerobeetlehurt": {
+    "category": "block",
+    "subtitle": "Cerobeetle squeaks in pain",
+    "sounds": [ "infernalexp:cerobeetle_hurt" ]
+  },
+  "cerobeetledeath": {
+    "category": "block",
+    "subtitle": "Cerobeetle dies",
+    "sounds": [ "infernalexp:cerobeetle_death" ]
   },
 
 

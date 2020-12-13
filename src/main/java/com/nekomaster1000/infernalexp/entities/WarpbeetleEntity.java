@@ -1,6 +1,7 @@
 package com.nekomaster1000.infernalexp.entities;
 
 import com.nekomaster1000.infernalexp.entities.ai.TeleportPanicGoal;
+import com.nekomaster1000.infernalexp.util.RegistryHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
@@ -69,13 +70,12 @@ public class WarpbeetleEntity extends CreatureEntity {
 
     //SOUNDS
     @Override
-    protected SoundEvent getAmbientSound() { return SoundEvents.ENTITY_PIG_AMBIENT; }
+    protected SoundEvent getAmbientSound() { return RegistryHandler.warpbeetle_ambient; }
     @Override
-    protected SoundEvent getDeathSound() { return SoundEvents.ENTITY_PIG_DEATH; }
+    protected SoundEvent getDeathSound() { return RegistryHandler.warpbeetle_death; }
     @Override
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.ENTITY_PIG_HURT;
-    }
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) { return RegistryHandler.warpbeetle_hurt; }
+
     @Override
     protected void playStepSound(BlockPos pos, BlockState blockIn) {
         this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
