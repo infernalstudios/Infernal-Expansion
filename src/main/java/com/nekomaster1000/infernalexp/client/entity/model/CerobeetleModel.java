@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.client.entity.model;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.nekomaster1000.infernalexp.entities.BasaltGiantEntity;
 import com.nekomaster1000.infernalexp.entities.CerobeetleEntity;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
@@ -92,7 +93,13 @@ public class CerobeetleModel<T extends CerobeetleEntity> extends EntityModel<T> 
     }
 
     @Override
-    public void setRotationAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setRotationAngles(CerobeetleEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+/*
+            int i = entity.getAttackTimer();
+            if(i <= 0){
+            this.head.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+         }
+*/
         this.left_leg_1.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F) * 1.4F * limbSwingAmount;
         this.left_leg_2.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
         this.left_leg_3.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F) * 1.4F * limbSwingAmount;
@@ -111,6 +118,10 @@ public class CerobeetleModel<T extends CerobeetleEntity> extends EntityModel<T> 
 
             setRotationAngle(left_wing, wingRotation, 0.5F, 0.3F);
             setRotationAngle(right_wing, wingRotation, -0.5F, -0.3F);
+            setRotationAngle(left_wing2, wingRotation, 0.4F, 0.2F);
+            setRotationAngle(right_wing2, wingRotation, -0.4F, -0.2F);
+
+
         } else {
             entity.shellRotationMultiplier -= 0.1F;
 
@@ -120,6 +131,9 @@ public class CerobeetleModel<T extends CerobeetleEntity> extends EntityModel<T> 
 
             setRotationAngle(left_wing, 0.0F, 0.0F, 0.0F);
             setRotationAngle(right_wing, 0.0F, 0.0F, 0.0F);
+            setRotationAngle(left_wing2, 0.0F, 0.0F, 0.0F);
+            setRotationAngle(right_wing2, 0.0F, -0.0F, -0.0F);
+
         }
 
         setRotationAngle(left_shield, 1.2F * entity.shellRotationMultiplier, -0.4F * entity.shellRotationMultiplier, 0.9F * entity.shellRotationMultiplier);
@@ -143,6 +157,14 @@ public class CerobeetleModel<T extends CerobeetleEntity> extends EntityModel<T> 
         right_leg_1.render(matrixStack, buffer, packedLight, packedOverlay);
         right_leg_2.render(matrixStack, buffer, packedLight, packedOverlay);
         right_leg_3.render(matrixStack, buffer, packedLight, packedOverlay);
+    }
+
+    public void setLivingAnimations(CerobeetleEntity entity, float limbSwing, float limbSwingAmount, float partialTick) {
+
+        int i = entity.getAttackTimer();
+        if (i > 0) {
+            this.head.rotateAngleX = -0.9F + 0.9F * MathHelper.func_233021_e_((float)i - partialTick, 10.0F);
+        }
     }
 
     public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {

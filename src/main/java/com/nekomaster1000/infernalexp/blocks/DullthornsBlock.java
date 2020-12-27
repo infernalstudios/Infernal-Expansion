@@ -27,7 +27,16 @@ public class DullthornsBlock extends BushBlock {
 
     @Override
     protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
-        return state.isIn(ModBlocks.GLOWDUST_SAND.get()) || state.isIn(Blocks.SAND) || state.isIn(Blocks.RED_SAND) || state.isIn(ModBlocks.DULLSTONE.get());
+        return
+                state.isIn(ModBlocks.GLOWDUST_SAND.get()) || state.isIn(Blocks.SAND) || state.isIn(Blocks.RED_SAND)
+                        || state.isIn(Blocks.GRASS) || state.isIn(Blocks.GRASS_BLOCK) ||
+                        state.isIn(Blocks.DIRT) || state.isIn(Blocks.COARSE_DIRT) || state.isIn(Blocks.FARMLAND) ||
+                        state.isIn(Blocks.PODZOL) || state.isIn(Blocks.MYCELIUM) ||
+                        state.isIn(Blocks.CRIMSON_NYLIUM) || state.isIn(Blocks.WARPED_NYLIUM) ||
+                        state.isIn(Blocks.SOUL_SAND) || state.isIn(Blocks.SOUL_SOIL) ||
+                        state.isIn(Blocks.GLOWSTONE) || state.isIn(ModBlocks.DIMSTONE.get()) ||
+                        state.isIn(ModBlocks.DULLSTONE.get())
+                ;
     }
 
     @Override

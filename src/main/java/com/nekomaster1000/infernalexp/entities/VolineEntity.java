@@ -1,14 +1,20 @@
 package com.nekomaster1000.infernalexp.entities;
 
+import com.nekomaster1000.infernalexp.entities.ai.TargetWithEffectGoal;
 import com.nekomaster1000.infernalexp.init.ModItems;
 import com.nekomaster1000.infernalexp.util.RegistryHandler;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.monster.piglin.AbstractPiglinEntity;
+import net.minecraft.entity.monster.piglin.PiglinBruteEntity;
+import net.minecraft.entity.monster.piglin.PiglinEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
@@ -31,8 +37,8 @@ public class VolineEntity extends MonsterEntity {
         return MobEntity.func_233666_p_()
                 .createMutableAttribute(Attributes.MAX_HEALTH, 10.0D)
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.0D)
-                .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 2.5D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.6D);
+                .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.5D)
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5D);
     }
 
     //BEHAVIOUR
@@ -41,10 +47,15 @@ public class VolineEntity extends MonsterEntity {
         super.registerGoals();
         this.goalSelector.addGoal(0, new TemptGoal(this, 0.6D, TEMPTATION_ITEMS, false));
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 0.6D, true));
-        this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, MonsterEntity.class, true, false, 12));
+        this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, CreatureEntity.class, true, false, 12));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
         this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0f));
         this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(4, new AvoidEntityGoal(this, AbstractPiglinEntity.class, 16.0F, 1.0D, 0.8D));
+        this.goalSelector.addGoal(5, new PanicGoal(this, 0.9D));
     }
 
     //EXP POINTS

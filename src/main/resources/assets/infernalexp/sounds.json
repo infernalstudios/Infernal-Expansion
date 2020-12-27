@@ -11,6 +11,23 @@
   },
 
 
+  "shroomloinambient": {
+    "category": "block",
+    "subtitle": "Voline hisses.",
+    "sounds": [ "infernalexp:shroomloin_ambient" ]
+  },
+  "shroomloinhurt": {
+    "category": "block",
+    "subtitle": "Shroomloin hisses!",
+    "sounds": [ "infernalexp:shroomloin_hurt" ]
+  },
+  "shroomloindeath": {
+    "category": "block",
+    "subtitle": "Shroomloin screeches!",
+    "sounds": [ "infernalexp:shroomloin_death2" ]
+  },
+
+
   "basaltgiantambient": {
     "category": "block",
     "subtitle": "Basalt Giant grunts",
@@ -58,6 +75,11 @@
     "category": "block",
     "subtitle": "Cerobeetle dies",
     "sounds": [ "infernalexp:cerobeetle_death" ]
+  },
+  "cerobeetleroar": {
+    "category": "block",
+    "subtitle": "Cerobeetle dies",
+    "sounds": [ "infernalexp:cerobeetle_roar" ]
   },
 
 

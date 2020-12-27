@@ -2,9 +2,7 @@ package com.nekomaster1000.infernalexp.entities;
 
 import com.nekomaster1000.infernalexp.entities.ai.TargetWithEffectGoal;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -22,6 +20,8 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.pathfinding.FlyingPathNavigator;
 import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.pathfinding.PathNodeType;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
@@ -59,8 +59,10 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
         return MobEntity.func_233666_p_()
                 .createMutableAttribute(Attributes.MAX_HEALTH, 10.0D)
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.0D)
-                .createMutableAttribute(Attributes.FLYING_SPEED, 0.6D) // Required for flying entity
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.25D);
+                .createMutableAttribute(Attributes.FLYING_SPEED, 0.6D)
+                // Required for flying entity, doesn't seem to affect actual movement speed
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5D);
+                // Turning this up makes them bounce on the ground like crazy, how do we fix that?
     }
 
 
@@ -275,6 +277,18 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
     @Override
     protected void playStepSound(BlockPos pos, BlockState blockIn) {
         this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
+    }
+
+    public boolean attackEntityAsMob(Entity entityIn) {
+        if (!super.attackEntityAsMob(entityIn)) {
+            return false;
+        } else {
+            if (entityIn instanceof LivingEntity) {
+                ((LivingEntity)entityIn).addPotionEffect(new EffectInstance(Effects.GLOWING, 600));
+            }
+
+            return true;
+        }
     }
 
     @Override

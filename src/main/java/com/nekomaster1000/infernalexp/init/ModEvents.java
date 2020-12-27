@@ -4,18 +4,13 @@ import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.entities.*;
 import com.nekomaster1000.infernalexp.entities.ai.AvoidBlockGoal;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.monster.MagmaCubeEntity;
-import net.minecraft.entity.monster.SkeletonEntity;
-import net.minecraft.entity.monster.SlimeEntity;
+import net.minecraft.entity.monster.*;
 import net.minecraft.entity.monster.piglin.PiglinBruteEntity;
 import net.minecraftforge.event.world.BlockEvent;
 import com.nekomaster1000.infernalexp.entities.EmbodyEntity;
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.entity.monster.HoglinEntity;
 import net.minecraft.entity.monster.piglin.PiglinEntity;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -35,62 +30,159 @@ public class ModEvents {
         //RUN AWAY!!
         //
 
+        //Piglins fear Warpbeetles and Embodies
         if (event.getEntity() instanceof PiglinEntity || event.getEntity() instanceof HoglinEntity) {
-            ((CreatureEntity) event.getEntity()).goalSelector.addGoal(4, new AvoidEntityGoal<>((CreatureEntity) event.getEntity(), WarpbeetleEntity.class, 16.0F, 1.2D, 1.2D));
-            ((CreatureEntity) event.getEntity()).goalSelector.addGoal(4, new AvoidEntityGoal<>((CreatureEntity) event.getEntity(), EmbodyEntity.class, 16.0F, 1.2D, 1.2D));
+            ((CreatureEntity) event.getEntity()).goalSelector.addGoal(4,
+                    new AvoidEntityGoal<>((CreatureEntity) event.getEntity(),
+                            WarpbeetleEntity.class, 16.0F, 1.2D, 1.2D));
+
+            ((CreatureEntity) event.getEntity()).goalSelector.addGoal(4,
+                    new AvoidEntityGoal<>((CreatureEntity) event.getEntity(),
+                            EmbodyEntity.class, 16.0F, 1.2D, 1.2D));
         }
+
 
         //
         //ATTACK!!
         //
 
-        //Skeleton attacks Basalt Giants
-        if (event.getEntity() instanceof SkeletonEntity) {
-            ((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
-                    new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(), BasaltGiantEntity.class,true, false));
+        //Spiders attack Warp beetles
+        if (event.getEntity() instanceof SpiderEntity|| event.getEntity() instanceof CaveSpiderEntity)  {
+            ((CreatureEntity) event.getEntity()).goalSelector.addGoal(4,
+                    new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
+                            WarpbeetleEntity.class,true, false));
         }
 
-        //Piglins attack Skeletons
+
+        //Skeletons attacks Piglins, Brutes, Embodies & Basalt Giants
+        if (event.getEntity() instanceof SkeletonEntity) {
+
+            ((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
+                    new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
+                            PiglinEntity.class,true,false));
+
+            ((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
+                    new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
+                            PiglinBruteEntity.class,true,false));
+
+            ((CreatureEntity) event.getEntity()).goalSelector.addGoal(3,
+                    new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
+                            EmbodyEntity.class,true, false));
+
+            ((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
+                    new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
+                            BasaltGiantEntity.class,true, false));
+        }
+
+
+        //Piglins attack Skeletons & Voline
         if (event.getEntity() instanceof PiglinEntity|| event.getEntity() instanceof PiglinBruteEntity)  {
-            ((CreatureEntity) event.getEntity()).goalSelector.addGoal(2, new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(), SkeletonEntity.class,true, false));
+
+            ((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
+                    new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
+                            SkeletonEntity.class,true, false));
+
+            ((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
+                    new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
+                            VolineEntity.class,true, false));
         }
 
-        //Skeletons attack Piglins
-        if (event.getEntity() instanceof SkeletonEntity) {
-            ((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
-                    new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(), PiglinEntity.class,true,false));
+
+        //Ghasts attack Voline, Embodies, Skeletons & Glowsquitos
+
+        if (event.getEntity() instanceof GhastEntity)  {
+
+            ((FlyingEntity) event.getEntity()).targetSelector.addGoal(2,
+                    new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
+                            VolineEntity.class,true, false));
+
+            ((FlyingEntity) event.getEntity()).targetSelector.addGoal(3,
+                    new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
+                            EmbodyEntity.class,true, false));
+
+            ((FlyingEntity) event.getEntity()).targetSelector.addGoal(3,
+                    new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
+                            SkeletonEntity.class,true, false));
+
+            ((FlyingEntity) event.getEntity()).targetSelector.addGoal(4,
+                    new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
+                            GlowsquitoEntity.class,true, false));
         }
+
 
         //...
 
         // Please add Magma Cubes being scared of Glow Torches/Lanterns/Campfires here.
         if (event.getEntity() instanceof MagmaCubeEntity) {
-            ((SlimeEntity) event.getEntity()).goalSelector.addGoal(0, new AvoidBlockGoal((SlimeEntity) event.getEntity(), ModBlocks.GLOW_TORCH.get(), 16.0F, 1.2D, 1.2D));
+            ((SlimeEntity) event.getEntity()).goalSelector.addGoal(0,
+                    new AvoidBlockGoal((SlimeEntity) event.getEntity(), ModBlocks.GLOW_TORCH.get(),
+                            16.0F, 1.2D, 1.2D));
         }
 
 }
 
     //Mob Spawning in pre-existing biomes
+        //Note: Comment-out Glowsquito, Cerobeetle and Skeletal Piglin before release.
     @SubscribeEvent
     public void onBiomeLoad(BiomeLoadingEvent event) {
 
         if (event.getName().toString().equals("minecraft:nether_wastes")) {
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(ModEntityType.VOLINE.get(), 50, 1, 3));
+            event.getSpawns().withSpawner(EntityClassification.MONSTER,
+                    new MobSpawnInfo.Spawners(ModEntityType.VOLINE.get(), 50, 1, 3));
+
 
         } else if (event.getName().toString().equals("minecraft:crimson_forest")) {
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(ModEntityType.SHROOMLOIN.get(), 20, 1, 2));
+            event.getSpawns().withSpawner(EntityClassification.MONSTER,
+                    new MobSpawnInfo.Spawners(ModEntityType.SHROOMLOIN.get(), 5, 1, 3));
+
+            event.getSpawns().withSpawner(EntityClassification.MONSTER,
+                    new MobSpawnInfo.Spawners(ModEntityType.VOLINE.get(), 1, 1, 5));
+
 
         } else if (event.getName().toString().equals("minecraft:warped_forest")) {
-            event.getSpawns().withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityType.WARPBEETLE.get(), 50, 1, 1));
+            event.getSpawns().withSpawner(EntityClassification.MONSTER,
+                    new MobSpawnInfo.Spawners(ModEntityType.WARPBEETLE.get(), 5, 1, 1));
+
+            event.getSpawns().withSpawner(EntityClassification.MONSTER,
+                    new MobSpawnInfo.Spawners(ModEntityType.CEROBEETLE.get(), 1, 1, 1));
+
 
         } else if (event.getName().toString().equals("minecraft:basalt_deltas")) {
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(ModEntityType.BASALT_GIANT.get(), 50, 1, 1));
+            event.getSpawns().withSpawner(EntityClassification.MONSTER,
+                    new MobSpawnInfo.Spawners(ModEntityType.BASALT_GIANT.get(), 30, 1, 1));
 
-        } else if (event.getName().toString().equals("minecraft:basalt_deltas")) {
-            event.getSpawns().withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityType.GLOWSQUITO.get(), 5, 1, 8));
+            event.getSpawns().withSpawner(EntityClassification.MONSTER,
+                    new MobSpawnInfo.Spawners(ModEntityType.GLOWSQUITO.get(), 1, 5, 10));
+
 
         } else if (event.getName().toString().equals("minecraft:soul_sand_valley")) {
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(ModEntityType.EMBODY.get(), 50, 1, 5));
+            event.getSpawns().withSpawner(EntityClassification.MONSTER,
+                    new MobSpawnInfo.Spawners(ModEntityType.EMBODY.get(), 60, 1, 5));
+
+            event.getSpawns().withSpawner(EntityClassification.MONSTER,
+                    new MobSpawnInfo.Spawners(ModEntityType.SKELETAL_PIGLIN.get(), 10, 1, 1));
+
+
+            //Mob Spawning in new biomes
+
+        } else if (event.getName().toString().equals("infernalexp:glowstone_canyon")) {
+            event.getSpawns().withSpawner(EntityClassification.MONSTER,
+                    new MobSpawnInfo.Spawners(ModEntityType.GLOWSQUITO.get(), 100, 1, 1));
+
+            event.getSpawns().withSpawner(EntityClassification.MONSTER,
+                    new MobSpawnInfo.Spawners(ModEntityType.SKELETAL_PIGLIN.get(), 20, 1, 1));
+
+            //event.getSpawns().withSpawner(EntityClassification.MONSTER,
+            //        new MobSpawnInfo.Spawners(EntityType.GHAST, 20, 1, 1));
+                        // Not spawning?
+
+        } else if (event.getName().toString().equals("infernalexp:delta_shores")) {
+
+            event.getSpawns().withSpawner(EntityClassification.MONSTER,
+                    new MobSpawnInfo.Spawners(ModEntityType.BASALT_GIANT.get(), 5, 1, 1));
+
+            event.getSpawns().withSpawner(EntityClassification.MONSTER,
+                    new MobSpawnInfo.Spawners(ModEntityType.SKELETAL_PIGLIN.get(), 10, 1, 3));
         }
     }
 

@@ -18,7 +18,7 @@ public class ModEntityType {
     // Entity Types
 
     public static final RegistryObject<EntityType<VolineEntity>> VOLINE = ENTITY_TYPES.register("voline",
-            () -> EntityType.Builder.create(VolineEntity::new, EntityClassification.CREATURE)
+            () -> EntityType.Builder.create(VolineEntity::new, EntityClassification.MONSTER)
                     .size(0.8f, 0.8f) // Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "voline").toString()));
 
@@ -28,12 +28,12 @@ public class ModEntityType {
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "shroomloin").toString()));
 
     public static final RegistryObject<EntityType<WarpbeetleEntity>> WARPBEETLE = ENTITY_TYPES.register("warpbeetle",
-            () -> EntityType.Builder.create(WarpbeetleEntity::new, EntityClassification.CREATURE)
+            () -> EntityType.Builder.create(WarpbeetleEntity::new, EntityClassification.MONSTER)
             .size(0.5f, 0.5f) // Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "warpbeetle").toString()));
 
     public static final RegistryObject<EntityType<CerobeetleEntity>> CEROBEETLE = ENTITY_TYPES.register("cerobeetle",
-            () -> EntityType.Builder.create(CerobeetleEntity::new, EntityClassification.CREATURE)
+            () -> EntityType.Builder.create(CerobeetleEntity::new, EntityClassification.MONSTER)
             .size(2.0f, 1.5f) // Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "cerobeetle").toString()));
 
@@ -53,7 +53,7 @@ public class ModEntityType {
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "basalt_titan").toString()));
 
     public static final RegistryObject<EntityType<GlowsquitoEntity>> GLOWSQUITO = ENTITY_TYPES.register("glowsquito",
-            () -> EntityType.Builder.create(GlowsquitoEntity::new, EntityClassification.CREATURE)
+            () -> EntityType.Builder.create(GlowsquitoEntity::new, EntityClassification.MONSTER)
                     .size(0.8f, 0.5f)// Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "glowsquito").toString()));
 
@@ -63,7 +63,7 @@ public class ModEntityType {
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "skeletal_piglin").toString()));
 
     public static final RegistryObject<EntityType<PyrnoEntity>> PYRNO = ENTITY_TYPES.register("pyrno",
-            () -> EntityType.Builder.create(PyrnoEntity::new, EntityClassification.CREATURE)
+            () -> EntityType.Builder.create(PyrnoEntity::new, EntityClassification.MONSTER)
                     .size(1.5f, 1.5f) // Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "pyrno").toString()));
     ;

@@ -111,8 +111,8 @@ public class BasaltGiantModel<T extends BasaltGiantEntity> extends EntityModel<B
 
     @Override
     public void setRotationAngles(BasaltGiantEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        int i = entity.getAttackTimer();
 
+        int i = entity.getAttackTimer();
         if(i <= 0){
             this.RightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
         }
@@ -139,8 +139,8 @@ public class BasaltGiantModel<T extends BasaltGiantEntity> extends EntityModel<B
     }
 
     public void setLivingAnimations(BasaltGiantEntity entity, float limbSwing, float limbSwingAmount, float partialTick) {
-        int i = entity.getAttackTimer();
 
+        int i = entity.getAttackTimer();
         if (i > 0) {
             this.RightLeg.rotateAngleX = -0.9F + 0.9F * MathHelper.func_233021_e_((float)i - partialTick, 10.0F);
             this.Jaw.rotateAngleX = 0.375F - 0.375F * MathHelper.func_233021_e_((float)i - partialTick, 10.0F);

@@ -33,7 +33,7 @@ import static net.minecraft.util.math.MathHelper.cos;
 import static net.minecraft.util.math.MathHelper.sin;
 
 public class BasaltGiantEntity extends CreatureEntity implements IEntityAdditionalSpawnData, IAngerable {
-    private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.BASALT, Items.POLISHED_BASALT);
+//    private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.BASALT, Items.POLISHED_BASALT);
     private static final RangedInteger RANGED_INT = TickRangeConverter.convertRange(20, 39);
     private int attackTimer;
     private int angerTime;
@@ -80,6 +80,8 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
                 .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.45D);
     }
 
+    //---
+    //Retaliating
     @OnlyIn(Dist.CLIENT)
     public void handleStatusUpdate(byte id) {
         if (id == 4) {
@@ -124,6 +126,7 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
     private float getAttackDamage() {
         return (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE);
     }
+    //---
 
     //BEHAVIOUR
     @Override
@@ -131,17 +134,15 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
         super.registerGoals();
         this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 0.6D, true));
         this.goalSelector.addGoal(1, new SwimGoal(this));
-        this.goalSelector.addGoal(1, new MoveTowardsTargetGoal(this, 0.6D, 32.0F));
-        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0f));
-        this.goalSelector.addGoal(3, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
+        this.goalSelector.addGoal(1, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
+        this.goalSelector.addGoal(2, new MoveTowardsTargetGoal(this, 0.6D, 32.0F));
+        this.goalSelector.addGoal(3, new LookAtGoal(this, PlayerEntity.class, 8.0f));
         this.goalSelector.addGoal(4, new LookRandomlyGoal(this));
-        this.goalSelector.addGoal(5, new TemptGoal(this, 0.6D, TEMPTATION_ITEMS, false));
-        this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 8.0f));
-        this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
-        this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
+//        this.goalSelector.addGoal(5, new TemptGoal(this, 0.6D, TEMPTATION_ITEMS, false));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, MagmaCubeEntity.class, true, false));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, SkeletonEntity.class, true, false));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, SkeletonEntity.class, true, false));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, MagmaCubeEntity.class, true, false));
+
     }
 
     public float getSizeScalar() {

@@ -5,8 +5,11 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.monster.AbstractSkeletonEntity;
 import net.minecraft.entity.monster.MagmaCubeEntity;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.monster.SkeletonEntity;
+import net.minecraft.entity.monster.piglin.AbstractPiglinEntity;
 import net.minecraft.entity.monster.piglin.PiglinBruteEntity;
 import net.minecraft.entity.monster.piglin.PiglinEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -49,17 +52,34 @@ public class EmbodyEntity extends MonsterEntity {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 0.6D, true));
-        this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+//        this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, SkeletonEntity.class, true, false));
+        this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, AbstractSkeletonEntity.class, true, false));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, AbstractPiglinEntity.class, true, false));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
         this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0f));
         this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PiglinEntity.class, true, false));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PiglinBruteEntity.class, true, false));
-    }
+            }
 
     protected double getModifiedMovementSpeed() {
         //Change the last value in the next line in order to adjust the range of speed they can vary between
         return ((double)0.45F + this.rand.nextDouble() * 0.3D + this.rand.nextDouble() * 0.3D + this.rand.nextDouble() * 0.3D) * 0.50D;
+    }
+
+    public boolean isImmuneToFire() {
+        return true;
+    }
+
+    public boolean isBurning() {
+        return false;
+    }
+
+    public boolean isWaterSensitive() { return true;}
+
+    //EXP POINTS
+    @Override
+    protected int getExperiencePoints(PlayerEntity player) {
+        return 1 + this.world.rand.nextInt(2);
     }
 
     //SOUNDS
@@ -69,15 +89,5 @@ public class EmbodyEntity extends MonsterEntity {
     protected SoundEvent getDeathSound() { return RegistryHandler.embody_death; }
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) { return RegistryHandler.embody_hurt; }
-
-        //EXP POINTS
-    @Override
-    protected int getExperiencePoints(PlayerEntity player) {
-        return 1 + this.world.rand.nextInt(2);
-    }
-
-    public boolean isImmuneToFire() {
-        return true;
-    }
 
 }

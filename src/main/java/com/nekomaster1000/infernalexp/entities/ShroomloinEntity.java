@@ -153,26 +153,6 @@ public class ShroomloinEntity extends MonsterEntity{
 
     */
 
-    //EXP POINTS
-    @Override
-    protected int getExperiencePoints(PlayerEntity player) {
-        return 1 + this.world.rand.nextInt(4);
-    }
-
-    //SOUNDS
-    @Override
-    protected SoundEvent getAmbientSound() { return RegistryHandler.voline_ambient; }
-    @Override
-    protected SoundEvent getDeathSound() { return RegistryHandler.voline_hurt; }
-    @Override
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return RegistryHandler.voline_hurt;
-    }
-    @Override
-    protected void playStepSound(BlockPos pos, BlockState blockIn) {
-        this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
-    }
-
     @OnlyIn(Dist.CLIENT)
     public float getShroomloinFlashIntensity(float partialTicks) {
         return MathHelper.lerp(partialTicks, (float)this.lastActiveTime, (float)this.timeSinceIgnited) / (float)(this.fuseTime - 2);
@@ -242,6 +222,26 @@ public class ShroomloinEntity extends MonsterEntity{
 //    public boolean isImmuneToFire() {
 //    return true;
 //    }
+
+    //EXP POINTS
+    @Override
+    protected int getExperiencePoints(PlayerEntity player) {
+        return 1 + this.world.rand.nextInt(4);
+    }
+
+    //SOUNDS
+    @Override
+    protected SoundEvent getAmbientSound() { return RegistryHandler.shroomloin_ambient; }
+    @Override
+    protected SoundEvent getDeathSound() { return RegistryHandler.shroomloin_death; }
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return RegistryHandler.shroomloin_hurt;
+    }
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState blockIn) {
+        this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
+    }
 
 }
 

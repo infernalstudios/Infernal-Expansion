@@ -37,11 +37,12 @@ authors="nekomaster1000" #optional
 
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-A Vanilla+ mod that expands the Nether beyond the Nether Update, introducing new biomes, blocks, mobs, and more!
+A  community-driven Vanilla+ mod that expands the Nether beyond the Nether Update,
+introducing new biomes, blocks, mobs, and more!
+
 Directors:
 - Nekomaster1000
 - LiveVoxel
-- JonahFuses
 
 Coders:
 - BaconKami
