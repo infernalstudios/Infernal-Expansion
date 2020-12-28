@@ -57,8 +57,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> SMOOTH_GLOWDUST_SANDSTONE_STAIRS = BLOCKS.register("smooth_glowdust_sandstone_stairs", () -> new StairsBlock(() -> SMOOTH_GLOWDUST_SANDSTONE.get().getDefaultState(), getProperties(SMOOTH_GLOWDUST_SANDSTONE.get())));
     public static final RegistryObject<Block> GLOWDUST_SANDSTONE_WALL = BLOCKS.register("glowdust_sandstone_wall", () -> new WallBlock(getProperties(GLOWDUST_SANDSTONE.get())));
 
-    public static final RegistryObject<Block> GLIMMERING_BLACKSTONE = BLOCKS.register("glimmering_blackstone",            () -> new Block(getProperties(Blocks.BLACKSTONE).setLightLevel(value -> 6)));
     public static final RegistryObject<Block> CRUMBLING_BLACKSTONE = BLOCKS.register("crumbling_blackstone",            () -> new Block(getProperties(Blocks.NETHERRACK)));
+    public static final RegistryObject<Block> GLIMMERING_BLACKSTONE = BLOCKS.register("glimmering_blackstone",            () -> new Block(getProperties(Blocks.BLACKSTONE).setLightLevel(value -> 6)));
     public static final RegistryObject<Block> SILT = BLOCKS.register("silt", () -> new Block(getProperties(Blocks.SAND)));
     public static final RegistryObject<Block> RUBBLE = BLOCKS.register("rubble",  () -> new Block(getProperties(Blocks.GRAVEL)));
 

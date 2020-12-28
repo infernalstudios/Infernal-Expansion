@@ -29,7 +29,7 @@ public class RegistryHandler {
     static ResourceLocation location02 = new ResourceLocation(InfernalExpansion.MOD_ID, "shroomloinhurt");
     public static SoundEvent shroomloin_hurt = new SoundEvent(location02);
 
-    static ResourceLocation location03 = new ResourceLocation(InfernalExpansion.MOD_ID, "shroomloindeath2");
+    static ResourceLocation location03 = new ResourceLocation(InfernalExpansion.MOD_ID, "shroomloindeath");
     public static SoundEvent shroomloin_death = new SoundEvent(location03);
 
 //...

@@ -15,7 +15,7 @@ issueTrackerURL="http://my.issue.tracker/" #optional
 modId="infernalexp" #mandatory
 
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
-version="1.16.2-0.0.4" #mandatory
+version="Alpha 0.5 - For 1.16.3/4" #mandatory
 
 # A display name for the mod
 displayName="Infernal Expansion" #mandatory
@@ -30,7 +30,7 @@ displayURL="https://discord.gg/UYGSn94" #optional
 logoFile="examplemod.png" #optional
 
 # A text field displayed in the mod UI
-credits="Mocha Loca for models and textures (among others) + everyone in the Discord for offering ideas!" #optional
+credits="See the description!" #optional
 
 # A text field displayed in the mod UI
 authors="nekomaster1000" #optional

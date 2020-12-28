@@ -284,7 +284,8 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
             return false;
         } else {
             if (entityIn instanceof LivingEntity) {
-                ((LivingEntity)entityIn).addPotionEffect(new EffectInstance(Effects.GLOWING, 600));
+                ((LivingEntity)entityIn).addPotionEffect(new EffectInstance(Effects.GLOWING, 600)); //30s
+                ((LivingEntity)entityIn).addPotionEffect(new EffectInstance(Effects.POISON, 100)); //5s
             }
 
             return true;

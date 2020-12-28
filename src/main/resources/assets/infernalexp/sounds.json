@@ -24,7 +24,7 @@
   "shroomloindeath": {
     "category": "block",
     "subtitle": "Shroomloin screeches!",
-    "sounds": [ "infernalexp:shroomloin_death2" ]
+    "sounds": [ "infernalexp:shroomloin_death" ]
   },
 
 

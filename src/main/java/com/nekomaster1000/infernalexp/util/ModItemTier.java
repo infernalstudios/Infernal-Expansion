@@ -1,3 +1,4 @@
+/*
 package com.nekomaster1000.infernalexp.util;
 
 import com.nekomaster1000.infernalexp.init.ModItems;
@@ -57,3 +58,5 @@ public enum ModItemTier implements IItemTier {
         return repairMaterial.get();
     }
 }
+
+ */
