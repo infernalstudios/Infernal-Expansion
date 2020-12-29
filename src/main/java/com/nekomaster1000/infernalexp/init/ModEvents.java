@@ -10,6 +10,13 @@ import net.minecraft.entity.monster.*;
 import net.minecraft.entity.monster.piglin.PiglinBruteEntity;
 import net.minecraftforge.event.world.BlockEvent;
 import com.nekomaster1000.infernalexp.entities.EmbodyEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.monster.MagmaCubeEntity;
+import net.minecraft.entity.monster.SlimeEntity;
+import net.minecraft.entity.projectile.ArrowEntity;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.monster.piglin.PiglinEntity;
 import net.minecraft.world.biome.MobSpawnInfo;
@@ -47,10 +54,10 @@ public class ModEvents {
         //
 
         //Spiders attack Warp beetles
-        if (event.getEntity() instanceof SpiderEntity|| event.getEntity() instanceof CaveSpiderEntity)  {
+        if (event.getEntity() instanceof SpiderEntity || event.getEntity() instanceof CaveSpiderEntity) {
             ((CreatureEntity) event.getEntity()).goalSelector.addGoal(4,
                     new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
-                            WarpbeetleEntity.class,true, false));
+                            WarpbeetleEntity.class, true, false));
         }
 
 
@@ -59,67 +66,70 @@ public class ModEvents {
 
             ((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
                     new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
-                            PiglinEntity.class,true,false));
+                            PiglinEntity.class, true, false));
 
             ((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
                     new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
-                            PiglinBruteEntity.class,true,false));
+                            PiglinBruteEntity.class, true, false));
 
             ((CreatureEntity) event.getEntity()).goalSelector.addGoal(3,
                     new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
-                            EmbodyEntity.class,true, false));
+                            EmbodyEntity.class, true, false));
 
             ((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
                     new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
-                            BasaltGiantEntity.class,true, false));
+                            BasaltGiantEntity.class, true, false));
         }
 
 
         //Piglins attack Skeletons & Voline
-        if (event.getEntity() instanceof PiglinEntity|| event.getEntity() instanceof PiglinBruteEntity)  {
+        if (event.getEntity() instanceof PiglinEntity || event.getEntity() instanceof PiglinBruteEntity) {
 
             ((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
                     new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
-                            SkeletonEntity.class,true, false));
+                            SkeletonEntity.class, true, false));
 
             ((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
                     new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
-                            VolineEntity.class,true, false));
+                            VolineEntity.class, true, false));
         }
 
 
         //Ghasts attack Voline, Embodies, Skeletons & Glowsquitos
 
-        if (event.getEntity() instanceof GhastEntity)  {
+        if (event.getEntity() instanceof GhastEntity) {
 
             ((FlyingEntity) event.getEntity()).targetSelector.addGoal(2,
                     new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
-                            VolineEntity.class,true, false));
+                            VolineEntity.class, true, false));
 
             ((FlyingEntity) event.getEntity()).targetSelector.addGoal(3,
                     new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
-                            EmbodyEntity.class,true, false));
+                            EmbodyEntity.class, true, false));
 
             ((FlyingEntity) event.getEntity()).targetSelector.addGoal(3,
                     new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
-                            SkeletonEntity.class,true, false));
+                            SkeletonEntity.class, true, false));
 
             ((FlyingEntity) event.getEntity()).targetSelector.addGoal(4,
                     new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
-                            GlowsquitoEntity.class,true, false));
+                            GlowsquitoEntity.class, true, false));
         }
 
 
         //...
 
-        // Please add Magma Cubes being scared of Glow Torches/Lanterns/Campfires here.
+        // Please add Magma Cubes being scared of Glow Torches/Lanterns/Campfires here. PUSHED TO RELEASE 2
+
+        /*
         if (event.getEntity() instanceof MagmaCubeEntity) {
             ((SlimeEntity) event.getEntity()).goalSelector.addGoal(0,
                     new AvoidBlockGoal((SlimeEntity) event.getEntity(), ModBlocks.GLOW_TORCH.get(),
-                            16.0F, 1.2D, 1.2D));
+                            16.0F));
+            ((SlimeEntity) event.getEntity()).goalSelector.addGoal(0, new AvoidBlockGoal((SlimeEntity) event.getEntity(), ModBlocks.GLOW_TORCH.get(), 16.0F));
         }
-
-}
+         */
+    }
 
     //Mob Spawning in pre-existing biomes
         //Note: Comment-out Glowsquito, Cerobeetle and Skeletal Piglin before release.
@@ -186,6 +196,7 @@ public class ModEvents {
         }
     }
 
+    //Blocks being broken
     @SubscribeEvent
     public void onBlockBreak(BlockEvent.BreakEvent event){
         if(event.getState().equals(Blocks.CRIMSON_FUNGUS.getDefaultState())  || event.getState().equals(Blocks.NETHER_WART_BLOCK.getDefaultState())) {

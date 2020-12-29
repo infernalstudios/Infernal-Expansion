@@ -6,22 +6,22 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.monster.HoglinTasks;
+import net.minecraft.entity.monster.IFlinging;
 import net.minecraft.entity.monster.MagmaCubeEntity;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.particles.BlockParticleData;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
@@ -29,10 +29,7 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-import static net.minecraft.util.math.MathHelper.cos;
-import static net.minecraft.util.math.MathHelper.sin;
-
-public class BasaltGiantEntity extends CreatureEntity implements IEntityAdditionalSpawnData, IAngerable {
+public class BasaltGiantEntity extends CreatureEntity implements IEntityAdditionalSpawnData, IAngerable{
 //    private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.BASALT, Items.POLISHED_BASALT);
     private static final RangedInteger RANGED_INT = TickRangeConverter.convertRange(20, 39);
     private int attackTimer;
@@ -55,6 +52,8 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
         size += MIN_ENTITY_HEIGHT / BASE_ENTITY_HEIGHT;
 
         this.dataManager.set(SIZE_SCALAR, size);
+
+        this.stepHeight = 2.0f;
     }
 
     public BasaltGiantEntity(EntityType<? extends BasaltGiantEntity> type, World worldIn, float sizeScalar) {
@@ -75,7 +74,7 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
         return MobEntity.func_233666_p_()
                 .createMutableAttribute(Attributes.MAX_HEALTH, 40.0D)
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 12.0D)
-                .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 5.0D)
+                .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 2.0D)
                 .createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE, 30.0D)
                 .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.45D);
     }
@@ -108,24 +107,39 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
     public boolean attackEntityAsMob(Entity entityIn) {
         this.attackTimer = 10;
         this.world.setEntityState(this, (byte)4);
-        float f = this.getAttackDamage();
+        float f = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
         float f1 = (int)f > 0 ? f / 2.0F + (float)this.rand.nextInt((int)f) : f;
-        float f2 = (float)this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
-        boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), f1);
-        if (flag) {
-            ((LivingEntity)entityIn).applyKnockback(f2 * 0.5F, (double)MathHelper.sin(this.rotationYaw * ((float)Math.PI / 180F)), (double)(-MathHelper.cos(this.rotationYaw * ((float)Math.PI / 180F))));
-            entityIn.setMotion(entityIn.getMotion().mul(1.0D, 2.5D, 1.0D));
-            this.setMotion(this.getMotion().mul(0.6D, 1.0D, 1.6D));
-            this.applyEnchantments(this, entityIn);
+        float f2 = (float) this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
+
+        if(entityIn instanceof PlayerEntity && ((PlayerEntity) entityIn).getActiveItemStack().isShield((PlayerEntity) entityIn)){
+            attackFling(entityIn, f2*3, 2.0);
+            entityIn.velocityChanged = true;
         }
 
-        this.playSound(RegistryHandler.basalt_giant_death, 1.0F, 1.0F);
+        boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), f1);
+
+        if (flag) {
+            attackFling(entityIn, f2, 0.6);
+        }
+
+        this.playSound(RegistryHandler.basalt_giant_hurt, 1.0F, 1.0F);
         return flag;
     }
 
-    private float getAttackDamage() {
-        return (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE);
+    private void attackFling(Entity entityIn, float f2, double height) {
+        ((LivingEntity) entityIn).applyKnockback(f2, (double) MathHelper.sin(this.rotationYaw * ((float)Math.PI / 180F)), (double)(-MathHelper.cos(this.rotationYaw * ((float)Math.PI / 180F))));
+        entityIn.setMotion(entityIn.getMotion().add(0.0D, height, 0.0D));
+        this.applyEnchantments(this, entityIn);
     }
+
+    @Override
+    public boolean attackEntityFrom(DamageSource source, float amount) {
+        if(source.getImmediateSource() instanceof ArrowEntity){
+            return false;
+        }
+        return super.attackEntityFrom(source, amount);
+    }
+
     //---
 
     //BEHAVIOUR

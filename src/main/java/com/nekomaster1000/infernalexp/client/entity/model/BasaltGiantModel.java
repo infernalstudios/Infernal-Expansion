@@ -1,14 +1,16 @@
 package com.nekomaster1000.infernalexp.client.entity.model;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.nekomaster1000.infernalexp.entities.BasaltGiantEntity;
 import net.minecraft.client.renderer.entity.model.EntityModel;
+import net.minecraft.client.renderer.entity.model.SegmentedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
 
 @SuppressWarnings("FieldCanBeLocal")
-public class BasaltGiantModel<T extends BasaltGiantEntity> extends EntityModel<BasaltGiantEntity> {
+public class BasaltGiantModel<T extends BasaltGiantEntity> extends SegmentedModel<T> {
 
     public float sizeScalar;
 
@@ -110,11 +112,12 @@ public class BasaltGiantModel<T extends BasaltGiantEntity> extends EntityModel<B
     }
 
     @Override
-    public void setRotationAngles(BasaltGiantEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setRotationAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 
         int i = entity.getAttackTimer();
         if(i <= 0){
             this.RightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+            this.Jaw.rotateAngleX = 0.0F;
         }
 
         sizeScalar = entity.getSizeScalar(); // Get size scalar value for this instance of the entity
@@ -138,9 +141,12 @@ public class BasaltGiantModel<T extends BasaltGiantEntity> extends EntityModel<B
         matrixStack.pop(); // Leave the MatrixStack as we received it
     }
 
-    public void setLivingAnimations(BasaltGiantEntity entity, float limbSwing, float limbSwingAmount, float partialTick) {
+    public Iterable<ModelRenderer> getParts() {
+        return ImmutableList.of(this.Body, this.Head, this.Jaw, this.Torso, this.Torso2, this.LeftArm, this.LeftArmJoint, this.RightArm, this.RightArmJoint, this.LeftLeg, this.LeftLegJoint, this.RightLeg, this.RightLegJoint);
+    }
 
-        int i = entity.getAttackTimer();
+    public void setLivingAnimations(T entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
+        int i = entityIn.getAttackTimer();
         if (i > 0) {
             this.RightLeg.rotateAngleX = -0.9F + 0.9F * MathHelper.func_233021_e_((float)i - partialTick, 10.0F);
             this.Jaw.rotateAngleX = 0.375F - 0.375F * MathHelper.func_233021_e_((float)i - partialTick, 10.0F);

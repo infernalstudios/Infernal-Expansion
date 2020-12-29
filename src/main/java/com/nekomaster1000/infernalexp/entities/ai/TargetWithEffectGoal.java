@@ -45,10 +45,7 @@ public class TargetWithEffectGoal extends NearestAttackableTargetGoal {
     @Override
     protected void findNearestTarget() {
         super.findNearestTarget();
-        if(isSuitableTarget(this.nearestTarget, this.targetEntitySelector)) {
-            super.findNearestTarget();
-        }
-        else{
+        if(!isSuitableTarget(this.nearestTarget, this.targetEntitySelector)) {
             this.nearestTarget = null;
         }
     }
