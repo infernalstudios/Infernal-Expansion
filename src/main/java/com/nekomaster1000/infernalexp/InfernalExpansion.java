@@ -42,7 +42,7 @@ public class InfernalExpansion
         ModEntityType.register(modEventBus);
         ModPaintings.register(modEventBus);
         ModTileEntityTypes.register(modEventBus);
-        ModBiomes.register(modEventBus);
+        //ModBiomes.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new ModEvents());

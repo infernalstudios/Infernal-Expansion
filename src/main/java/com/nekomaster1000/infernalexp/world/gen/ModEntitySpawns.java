@@ -19,13 +19,13 @@ public class ModEntitySpawns {
         GlobalEntityTypeAttributes.put(ModEntityType.VOLINE.get(), VolineEntity.setCustomAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityType.SHROOMLOIN.get(), ShroomloinEntity.setCustomAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityType.WARPBEETLE.get(), WarpbeetleEntity.setCustomAttributes().create());
-        GlobalEntityTypeAttributes.put(ModEntityType.CEROBEETLE.get(), CerobeetleEntity.setCustomAttributes().create());
+        //GlobalEntityTypeAttributes.put(ModEntityType.CEROBEETLE.get(), CerobeetleEntity.setCustomAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityType.EMBODY.get(), EmbodyEntity.setCustomAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityType.BASALT_GIANT.get(), BasaltGiantEntity.setCustomAttributes().create());
-        GlobalEntityTypeAttributes.put(ModEntityType.BASALT_TITAN.get(), BasaltTitanEntity.setCustomAttributes().create());
-        GlobalEntityTypeAttributes.put(ModEntityType.GLOWSQUITO.get(), GlowsquitoEntity.setCustomAttributes().create());
-        GlobalEntityTypeAttributes.put(ModEntityType.SKELETAL_PIGLIN.get(), SkeletalPiglinEntity.setCustomAttributes().create());
-        GlobalEntityTypeAttributes.put(ModEntityType.PYRNO.get(), PyrnoEntity.setCustomAttributes().create());
+        //GlobalEntityTypeAttributes.put(ModEntityType.BASALT_TITAN.get(), BasaltTitanEntity.setCustomAttributes().create());
+        //GlobalEntityTypeAttributes.put(ModEntityType.GLOWSQUITO.get(), GlowsquitoEntity.setCustomAttributes().create());
+        //GlobalEntityTypeAttributes.put(ModEntityType.SKELETAL_PIGLIN.get(), SkeletalPiglinEntity.setCustomAttributes().create());
+        //GlobalEntityTypeAttributes.put(ModEntityType.PYRNO.get(), PyrnoEntity.setCustomAttributes().create());
 
         }
     }

@@ -14,6 +14,7 @@ import java.util.function.Supplier;
 
 public class ModBiomes
 {
+    /*
     public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, InfernalExpansion.MOD_ID);
 
     public static final RegistryObject<Biome> GLOWSTONE_CANYON = registerNetherBiome("glowstone_canyon", () -> new GlowstoneCanyonBiome().build());
@@ -28,6 +29,7 @@ public class ModBiomes
         BIOMES.register(eventBus);
         InfernalExpansion.LOGGER.info("Infernal Expansion: Biomes Registered!");
     }
+     */
 }
 
 

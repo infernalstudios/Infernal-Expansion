@@ -153,29 +153,35 @@ public class ModEvents {
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
                     new MobSpawnInfo.Spawners(ModEntityType.WARPBEETLE.get(), 5, 1, 1));
 
+            /*
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
                     new MobSpawnInfo.Spawners(ModEntityType.CEROBEETLE.get(), 1, 1, 1));
+             */
 
 
         } else if (event.getName().toString().equals("minecraft:basalt_deltas")) {
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
                     new MobSpawnInfo.Spawners(ModEntityType.BASALT_GIANT.get(), 30, 1, 1));
 
+            /*
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
                     new MobSpawnInfo.Spawners(ModEntityType.GLOWSQUITO.get(), 1, 5, 10));
+             */
 
 
         } else if (event.getName().toString().equals("minecraft:soul_sand_valley")) {
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
                     new MobSpawnInfo.Spawners(ModEntityType.EMBODY.get(), 60, 1, 5));
-
+            /*
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
                     new MobSpawnInfo.Spawners(ModEntityType.SKELETAL_PIGLIN.get(), 10, 1, 1));
-
+            */
 
             //Mob Spawning in new biomes
 
-        } else if (event.getName().toString().equals("infernalexp:glowstone_canyon")) {
+        }
+        /*
+        else if (event.getName().toString().equals("infernalexp:glowstone_canyon")) {
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
                     new MobSpawnInfo.Spawners(ModEntityType.GLOWSQUITO.get(), 100, 1, 1));
 
@@ -194,6 +200,7 @@ public class ModEvents {
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
                     new MobSpawnInfo.Spawners(ModEntityType.SKELETAL_PIGLIN.get(), 10, 1, 3));
         }
+         */
     }
 
     //Blocks being broken
