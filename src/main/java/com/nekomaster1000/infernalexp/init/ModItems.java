@@ -6,6 +6,8 @@ import com.nekomaster1000.infernalexp.items.ItemBase;
 //import com.nekomaster1000.infernalexp.util.ModItemTier;
 import com.nekomaster1000.infernalexp.util.ModSpawnEggItem;
 import net.minecraft.item.*;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -18,7 +20,14 @@ public class ModItems {
     // Items
     public static final RegistryObject<Item> GLOWCOAL = ITEMS.register("glowcoal", ItemBase::new);
     public static final RegistryObject<Item> DULLROCKS = ITEMS.register("glownuggets", ItemBase::new);
+/*
+    // Foods
+    public static final Food BLINDSIGHT_TONGUE = (new Food.Builder()).hunger(2).saturation(0.8F)
+            .effect (new EffectInstance(Effects.GLOWING, 100, 0), 1.0F)
+            .effect (new EffectInstance(Effects.JUMP_BOOST, 100, 0), 1.0F).build();
 
+            ...I don't know how to add foods ;;
+*/
     // Spawn Eggs
     public static final RegistryObject<ModSpawnEggItem> VOLINE_SPAWN_EGG = ITEMS.register("voline_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.VOLINE, 0x2E2631, 0x652833, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<ModSpawnEggItem> SHROOMLOIN_SPAWN_EGG = ITEMS.register("shroomloin_spawn_egg",() -> new ModSpawnEggItem(ModEntityType.SHROOMLOIN, 0x854242, 0xFF6500, new Item.Properties().group(InfernalExpansion.TAB)));
@@ -26,7 +35,7 @@ public class ModItems {
 //  public static final RegistryObject<ModSpawnEggItem> CEROBEETLE_SPAWN_EGG = ITEMS.register("cerobeetle_spawn_egg",() -> new ModSpawnEggItem(ModEntityType.CEROBEETLE, 0x73EB96, 0x409089, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<ModSpawnEggItem> EMBODY_SPAWN_EGG = ITEMS.register("embody_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.EMBODY, 0x796152, 0x6DEDF1, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<ModSpawnEggItem> BASALT_GIANT_SPAWN_EGG = ITEMS.register("basalt_giant_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.BASALT_GIANT, 0x656467, 0x272936, new Item.Properties().group(InfernalExpansion.TAB)));
-//  public static final RegistryObject<ModSpawnEggItem> BASALT_TITAN_SPAWN_EGG = ITEMS.register("basalt_titan_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.BASALT_TITAN, 0x272936, 0x656467, new Item.Properties().group(InfernalExpansion.TAB)));
+    public static final RegistryObject<ModSpawnEggItem> BLACKSTONE_DWARF_SPAWN_EGG = ITEMS.register ( "blackstone_dwarf_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.BLACKSTONE_DWARF, 0x272936, 0xC29202, new Item.Properties().group(InfernalExpansion.TAB)));
 //  public static final RegistryObject<ModSpawnEggItem> SKELETAL_PIGLIN_SPAWN_EGG = ITEMS.register("skeletal_piglin_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.SKELETAL_PIGLIN, 0xCBC9C9, 0x423C3C,new Item.Properties().group(InfernalExpansion.TAB)));
 //  public static final RegistryObject<ModSpawnEggItem> GLOWSQUITO_SPAWN_EGG = ITEMS.register("glowsquito_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.GLOWSQUITO, 0x3D3E4C, 0xFBDA74, new Item.Properties().group(InfernalExpansion.TAB)));
 //  public static final RegistryObject<ModSpawnEggItem> PYRNO_SPAWN_EGG = ITEMS.register("pyrno_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.PYRNO, 0x5D514B, 0xFEE15E, new Item.Properties().group(InfernalExpansion.TAB)));

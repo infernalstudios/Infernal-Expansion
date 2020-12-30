@@ -132,7 +132,6 @@ public class ModEvents {
     }
 
     //Mob Spawning in pre-existing biomes
-        //Note: Comment-out Glowsquito, Cerobeetle and Skeletal Piglin before release.
     @SubscribeEvent
     public void onBiomeLoad(BiomeLoadingEvent event) {
 
@@ -153,16 +152,16 @@ public class ModEvents {
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
                     new MobSpawnInfo.Spawners(ModEntityType.WARPBEETLE.get(), 5, 1, 1));
 
-            event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                    new MobSpawnInfo.Spawners(ModEntityType.CEROBEETLE.get(), 1, 1, 1));
+        //    event.getSpawns().withSpawner(EntityClassification.MONSTER,
+        //            new MobSpawnInfo.Spawners(ModEntityType.CEROBEETLE.get(), 1, 1, 1));
 
 
         } else if (event.getName().toString().equals("minecraft:basalt_deltas")) {
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
                     new MobSpawnInfo.Spawners(ModEntityType.BASALT_GIANT.get(), 30, 1, 1));
 
-            event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                    new MobSpawnInfo.Spawners(ModEntityType.GLOWSQUITO.get(), 1, 5, 10));
+            //event.getSpawns().withSpawner(EntityClassification.MONSTER,
+            //        new MobSpawnInfo.Spawners(ModEntityType.GLOWSQUITO.get(), 1, 5, 10));
 
 
         } else if (event.getName().toString().equals("minecraft:soul_sand_valley")) {
@@ -184,7 +183,7 @@ public class ModEvents {
 
             //event.getSpawns().withSpawner(EntityClassification.MONSTER,
             //        new MobSpawnInfo.Spawners(EntityType.GHAST, 20, 1, 1));
-                        // Not spawning?
+            // Not spawning for some reason?
 
         } else if (event.getName().toString().equals("infernalexp:delta_shores")) {
 

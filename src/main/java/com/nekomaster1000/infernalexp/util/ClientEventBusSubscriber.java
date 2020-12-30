@@ -28,7 +28,7 @@ public class ClientEventBusSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.CEROBEETLE.get(), CerobeetleRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.EMBODY.get(), EmbodyRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.BASALT_GIANT.get(), BasaltGiantRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityType.BASALT_TITAN.get(), BasaltTitanRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityType.BLACKSTONE_DWARF.get(), BlackstoneDwarfRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.GLOWSQUITO.get(), GlowsquitoRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.SKELETAL_PIGLIN.get(), SkeletalPiglinRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.PYRNO.get(), PyrnoRenderer::new);

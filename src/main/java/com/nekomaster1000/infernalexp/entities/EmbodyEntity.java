@@ -39,7 +39,7 @@ public class EmbodyEntity extends MonsterEntity {
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return MobEntity.func_233666_p_()
                 .createMutableAttribute(Attributes.MAX_HEALTH, 5.0D)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 2.0D)
+                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 4.0D)
                 .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 2.0D);
     }
 
@@ -52,7 +52,6 @@ public class EmbodyEntity extends MonsterEntity {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 0.6D, true));
-//        this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, SkeletonEntity.class, true, false));
         this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, AbstractSkeletonEntity.class, true, false));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, AbstractPiglinEntity.class, true, false));

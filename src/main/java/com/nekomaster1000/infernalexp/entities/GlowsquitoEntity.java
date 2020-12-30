@@ -12,6 +12,7 @@ import net.minecraft.entity.ai.goal.EatGrassGoal;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.IFlyingAnimal;
 import net.minecraft.entity.player.PlayerEntity;
@@ -255,7 +256,9 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
         //this.goalSelector.addGoal(7, new GlowsquitoEntity.LookAroundGoal(this));
         //this.goalSelector.addGoal(5, this.eatGrassGoal);
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, PlayerEntity.class, true, false, 24));
+        this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, CreatureEntity.class, true, false, 24));
+        this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, MonsterEntity.class, true, false, 24));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, BlackstoneDwarfEntity.class, true));
     }
 
     @Override
