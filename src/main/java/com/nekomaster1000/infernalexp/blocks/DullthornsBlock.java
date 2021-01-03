@@ -38,7 +38,7 @@ public class DullthornsBlock extends BushBlock {
                         state.isIn(Blocks.CRIMSON_NYLIUM) || state.isIn(Blocks.WARPED_NYLIUM) ||
                         state.isIn(Blocks.SOUL_SAND) || state.isIn(Blocks.SOUL_SOIL) ||
                         state.isIn(Blocks.GLOWSTONE) || state.isIn(ModBlocks.DIMSTONE.get()) ||
-                        state.isIn(ModBlocks.DULLSTONE.get())
+                        state.isIn(ModBlocks.DULLSTONE.get()) || state.isIn(ModBlocks.DULLTHORNS.get())
                 ;
     }
 
