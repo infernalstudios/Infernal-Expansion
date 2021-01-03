@@ -21,7 +21,7 @@ import static net.minecraft.block.CactusBlock.AGE;
 import static net.minecraft.block.LecternBlock.COLLISION_SHAPE;
 
 public class DullthornsBlock extends BushBlock {
-    protected static final VoxelShape SHAPE = Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 10.0D, 11.0D);
+    protected static final VoxelShape SHAPE = Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 15.0D, 11.0D);
 
     public DullthornsBlock(Properties properties) {
         super(properties);
