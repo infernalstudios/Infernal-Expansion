@@ -3,6 +3,9 @@ package com.nekomaster1000.infernalexp.blocks;
 import com.nekomaster1000.infernalexp.init.ModBlocks;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -85,6 +88,10 @@ public class DullthornsBlock extends BushBlock {
     @Override
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
         entityIn.attackEntityFrom(DamageSource.CACTUS, 1.0F);
+        if (entityIn instanceof LivingEntity && entityIn.isAlive()) {
+            LivingEntity livingEntity = (LivingEntity) entityIn;
+            livingEntity.addPotionEffect(new EffectInstance(Effects.GLOWING, 300, 0));
+        }
     }
 
     @Override
