@@ -25,7 +25,7 @@ public class DullthornsBlock extends BushBlock {
 
     public DullthornsBlock(Properties properties) {
         super(properties);
-            this.setDefaultState(this.stateContainer.getBaseState().with(AGE, Integer.valueOf(0)));
+        //this.setDefaultState(this.stateContainer.getBaseState().with(AGE, Integer.valueOf(0)));
 }
 
     @Override
@@ -87,10 +87,12 @@ public class DullthornsBlock extends BushBlock {
 
     @Override
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
-        entityIn.attackEntityFrom(DamageSource.CACTUS, 1.0F);
-        if (entityIn instanceof LivingEntity && entityIn.isAlive()) {
-            LivingEntity livingEntity = (LivingEntity) entityIn;
-            livingEntity.addPotionEffect(new EffectInstance(Effects.GLOWING, 300, 0));
+        if (!worldIn.isRemote()) {
+            if (entityIn instanceof LivingEntity && entityIn.isAlive()) {
+                LivingEntity livingEntity = (LivingEntity) entityIn;
+                livingEntity.addPotionEffect(new EffectInstance(Effects.GLOWING, 300, 0));
+            }
+            entityIn.attackEntityFrom(DamageSource.CACTUS, 1.0F);
         }
     }
 

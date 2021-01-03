@@ -71,7 +71,7 @@ public class ModBlocks {
 
     // Foliage
     public static final RegistryObject<Block> LUMINOUS_FUNGUS = BLOCKS.register("luminous_fungus", () -> new LuminousFungusBlock(getProperties(Material.PLANTS).setLightLevel(value -> 13).doesNotBlockMovement().sound(SoundType.PLANT)));
-    public static final RegistryObject<Block> DULLTHORNS = BLOCKS.register("dullthorns",           () -> new CactusBlock(AbstractBlock.Properties.create(Material.CACTUS).setLightLevel(value -> 3).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0.1F).sound(SoundType.CLOTH)));
+    public static final RegistryObject<Block> DULLTHORNS = BLOCKS.register("dullthorns", () -> new DullthornsBlock(AbstractBlock.Properties.create(Material.CACTUS).setLightLevel(value -> 3).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0.1F).sound(SoundType.CLOTH)));
 
     public static AbstractBlock.Properties getProperties(Material materialIn, float hardnessAndResistanceIn) {
         return getProperties(materialIn, hardnessAndResistanceIn, hardnessAndResistanceIn);
