@@ -211,10 +211,10 @@ public class ModEvents {
                     event.getPlayer().getBoundingBox().grow(32.0D));
             for(int j = 0; j < list.size(); j++)
             {
-                Entity entity1 = (Entity)list.get(j);
-                if(entity1 instanceof ShroomloinEntity)
+                Entity entity = (Entity)list.get(j);
+                if(entity instanceof ShroomloinEntity)
                 {
-                    ShroomloinEntity shroomloinEntity = (ShroomloinEntity) entity1;
+                    ShroomloinEntity shroomloinEntity = (ShroomloinEntity) entity;
                     shroomloinEntity.becomeAngryAt(event.getPlayer());
                 }
             }
