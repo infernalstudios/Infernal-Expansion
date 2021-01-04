@@ -3,6 +3,9 @@ package com.nekomaster1000.infernalexp.blocks;
 import com.nekomaster1000.infernalexp.init.ModBlocks;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -18,11 +21,11 @@ import static net.minecraft.block.CactusBlock.AGE;
 import static net.minecraft.block.LecternBlock.COLLISION_SHAPE;
 
 public class DullthornsBlock extends BushBlock {
-    protected static final VoxelShape SHAPE = Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 10.0D, 11.0D);
+    protected static final VoxelShape SHAPE = Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 15.0D, 11.0D);
 
     public DullthornsBlock(Properties properties) {
         super(properties);
-            this.setDefaultState(this.stateContainer.getBaseState().with(AGE, Integer.valueOf(0)));
+        //this.setDefaultState(this.stateContainer.getBaseState().with(AGE, Integer.valueOf(0)));
 }
 
     @Override
@@ -35,7 +38,7 @@ public class DullthornsBlock extends BushBlock {
                         state.isIn(Blocks.CRIMSON_NYLIUM) || state.isIn(Blocks.WARPED_NYLIUM) ||
                         state.isIn(Blocks.SOUL_SAND) || state.isIn(Blocks.SOUL_SOIL) ||
                         state.isIn(Blocks.GLOWSTONE) || state.isIn(ModBlocks.DIMSTONE.get()) ||
-                        state.isIn(ModBlocks.DULLSTONE.get())
+                        state.isIn(ModBlocks.DULLSTONE.get()) || state.isIn(ModBlocks.DULLTHORNS.get())
                 ;
     }
 
@@ -84,7 +87,13 @@ public class DullthornsBlock extends BushBlock {
 
     @Override
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
-        entityIn.attackEntityFrom(DamageSource.CACTUS, 1.0F);
+        if (!worldIn.isRemote()) {
+            if (entityIn instanceof LivingEntity && entityIn.isAlive()) {
+                LivingEntity livingEntity = (LivingEntity) entityIn;
+                livingEntity.addPotionEffect(new EffectInstance(Effects.GLOWING, 300, 0));
+            }
+            entityIn.attackEntityFrom(DamageSource.CACTUS, 1.0F);
+        }
     }
 
     @Override
