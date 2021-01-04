@@ -1,9 +1,14 @@
 package com.nekomaster1000.infernalexp.entities.ai;
 
+import com.nekomaster1000.infernalexp.entities.ShroomloinEntity;
 import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.goal.PanicGoal;
 import net.minecraft.util.math.vector.Vector3d;
+
+import java.util.List;
 
 public class TeleportPanicGoal extends PanicGoal {
 
@@ -16,6 +21,7 @@ public class TeleportPanicGoal extends PanicGoal {
         this.creature.attemptTeleport(this.randPosX, this.randPosY, this.randPosZ, true); //Final parameter determines whether or not purple enderman particles appear on teleport
         this.creature.setMotion(0.0D, 0.0D, 0.0D);
         this.creature.setRevengeTarget(null);
+        removeTargeting();
     }
 
     @Override
@@ -34,6 +40,20 @@ public class TeleportPanicGoal extends PanicGoal {
             this.randPosZ = vector3d.z;
 
             return true;
+        }
+    }
+
+    private void removeTargeting(){
+        List<?> list = this.creature.world.getEntitiesWithinAABB(CreatureEntity.class,
+                this.creature.getBoundingBox().grow(32.0D));
+
+        for(int j = 0; j < list.size(); j++)
+        {
+            CreatureEntity entity1 = (CreatureEntity)list.get(j);
+            if(entity1.getAttackTarget() == this.creature)
+            {
+                entity1.setAttackTarget(null);
+            }
         }
     }
 }

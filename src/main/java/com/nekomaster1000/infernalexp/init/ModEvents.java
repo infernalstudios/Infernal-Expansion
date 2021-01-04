@@ -58,7 +58,8 @@ public class ModEvents {
             ((CreatureEntity) event.getEntity()).goalSelector.addGoal(4,
                     new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
                             WarpbeetleEntity.class, true, false));
-        }
+
+           }
 
 
         //Skeletons attacks Piglins, Brutes, Embodies & Basalt Giants
