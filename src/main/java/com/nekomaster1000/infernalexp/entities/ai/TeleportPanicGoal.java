@@ -49,10 +49,10 @@ public class TeleportPanicGoal extends PanicGoal {
 
         for(int j = 0; j < list.size(); j++)
         {
-            CreatureEntity entity1 = (CreatureEntity)list.get(j);
-            if(entity1.getAttackTarget() == this.creature)
+            CreatureEntity entity = (CreatureEntity)list.get(j);
+            if(entity.getAttackTarget() == this.creature)
             {
-                entity1.setAttackTarget(null);
+                entity.setAttackTarget(null);
             }
         }
     }
