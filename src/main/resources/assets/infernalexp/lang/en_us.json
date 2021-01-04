@@ -27,7 +27,7 @@
   "block.infernalexp.dullstone_brick_stairs": "Dullstone Brick Stairs",
 
   "block.infernalexp.glowdust_sand": "Glowdust Sand",
-  "block.infernalexp.glowdust_stone": "Glowdust Stone",
+  "block.infernalexp.glowdust_stone": "Glowdust Rock",
   "block.infernalexp.glowdust_sandstone": "Glowdust Sandstone",
   "block.infernalexp.cut_glowdust_sandstone": "Cut Glowdust Sandstone",
   "block.infernalexp.chiseled_glowdust_sandstone": "Chiseled Glowdust Sandstone",
@@ -43,13 +43,13 @@
   "block.infernalexp.crumbling_blackstone": "Crumbling Blackstone",
   "block.infernalexp.silt": "Basalt Silt",
   "block.infernalexp.rubble": "Blackstone Rubble",
-  "block.infernalexp.lantern_glow": "Glow Lantern",
-  "block.infernalexp.torch_glow": "Glow Torch",
-  "block.infernalexp.campfire_glow": "Glow Campfire",
+  "block.infernalexp.lantern_glow": "Glowstone Lantern",
+  "block.infernalexp.torch_glow": "Glowstone Torch",
+  "block.infernalexp.campfire_glow": "Glowstone Campfire",
   "block.infernalexp.luminous_fungus": "Luminous Fungus",
   "block.infernalexp.dullthorns": "Dullthorns",
 
-  "item.infernalexp.glowcoal": "Glowcoal",
+  "item.infernalexp.glowcoal": "Glowstone Coke",
   "item.infernalexp.glownuggets": "Dullrocks",
 
   "item.infernalexp.frostbitten_sword": "Frostbitten Netherite Sword",

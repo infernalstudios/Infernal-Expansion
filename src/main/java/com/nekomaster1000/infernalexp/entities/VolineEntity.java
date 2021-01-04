@@ -26,7 +26,7 @@ import net.minecraft.world.World;
 
 public class VolineEntity extends MonsterEntity {
 
-    public static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(ModItems.DULLROCKS.get(), Items.MAGMA_CREAM);
+    public static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems (Items.MAGMA_CREAM);
 
     public VolineEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);

@@ -19,7 +19,7 @@ public class ModEntityType {
 
     public static final RegistryObject<EntityType<VolineEntity>> VOLINE = ENTITY_TYPES.register("voline",
             () -> EntityType.Builder.create(VolineEntity::new, EntityClassification.MONSTER)
-                    .size(0.8f, 0.8f) // Hitbox Size
+                    .size(0.6f, 0.8f) // Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "voline").toString()));
 
     public static final RegistryObject<EntityType<ShroomloinEntity>> SHROOMLOIN = ENTITY_TYPES.register("shroomloin",
@@ -47,8 +47,7 @@ public class ModEntityType {
                     .size(1.2f, 4.3f)// Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "basalt_giant").toString()));
 
-    public static final RegistryObject<EntityType<BlackstoneDwarfEntity>> BLACKSTONE_DWARF = ENTITY_TYPES.register(
-            "blackstone_dwarf",
+    public static final RegistryObject<EntityType<BlackstoneDwarfEntity>> BLACKSTONE_DWARF = ENTITY_TYPES.register("blackstone_dwarf",
             () -> EntityType.Builder.create(BlackstoneDwarfEntity::new, EntityClassification.MONSTER)
                     .size(1.2f, 4.0f)// Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "blackstone_dwarf").toString()));
