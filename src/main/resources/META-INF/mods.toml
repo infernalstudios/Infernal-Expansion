@@ -15,13 +15,13 @@ issueTrackerURL="http://my.issue.tracker/" #optional
 modId="infernalexp" #mandatory
 
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
-version="Alpha 0.5 - For 1.16.3/4" #mandatory
+version="Release 1.1 For 1.16.3/4" #mandatory
 
 # A display name for the mod
 displayName="Infernal Expansion" #mandatory
 
 # A URL to query for updates for this mod. See the JSON update specification <here>
-updateJSONURL="http://myurl.me/" #optional
+#updateJSONURL="http://myurl.me/" #optional
 
 # A URL for the "homepage" for this mod, displayed in the mod UI
 displayURL="https://discord.gg/UYGSn94" #optional
