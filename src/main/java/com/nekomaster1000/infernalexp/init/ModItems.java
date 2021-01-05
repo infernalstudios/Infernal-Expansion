@@ -3,7 +3,6 @@ package com.nekomaster1000.infernalexp.init;
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.blocks.BlockItemBase;
 import com.nekomaster1000.infernalexp.items.ItemBase;
-//import com.nekomaster1000.infernalexp.util.ModItemTier;
 import com.nekomaster1000.infernalexp.util.ModSpawnEggItem;
 import net.minecraft.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -23,13 +22,8 @@ public class ModItems {
     public static final RegistryObject<ModSpawnEggItem> VOLINE_SPAWN_EGG = ITEMS.register("voline_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.VOLINE, 0x2E2631, 0x652833, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<ModSpawnEggItem> SHROOMLOIN_SPAWN_EGG = ITEMS.register("shroomloin_spawn_egg",() -> new ModSpawnEggItem(ModEntityType.SHROOMLOIN, 0x854242, 0xFF6500, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<ModSpawnEggItem> WARPBEETLE_SPAWN_EGG = ITEMS.register("warpbeetle_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.WARPBEETLE, 0x72EA95, 0x2D3860, new Item.Properties().group(InfernalExpansion.TAB)));
-//  public static final RegistryObject<ModSpawnEggItem> CEROBEETLE_SPAWN_EGG = ITEMS.register("cerobeetle_spawn_egg",() -> new ModSpawnEggItem(ModEntityType.CEROBEETLE, 0x73EB96, 0x409089, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<ModSpawnEggItem> EMBODY_SPAWN_EGG = ITEMS.register("embody_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.EMBODY, 0x796152, 0x6DEDF1, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<ModSpawnEggItem> BASALT_GIANT_SPAWN_EGG = ITEMS.register("basalt_giant_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.BASALT_GIANT, 0x656467, 0x272936, new Item.Properties().group(InfernalExpansion.TAB)));
-//  public static final RegistryObject<ModSpawnEggItem> BASALT_TITAN_SPAWN_EGG = ITEMS.register("basalt_titan_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.BASALT_TITAN, 0x272936, 0x656467, new Item.Properties().group(InfernalExpansion.TAB)));
-//  public static final RegistryObject<ModSpawnEggItem> SKELETAL_PIGLIN_SPAWN_EGG = ITEMS.register("skeletal_piglin_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.SKELETAL_PIGLIN, 0xCBC9C9, 0x423C3C,new Item.Properties().group(InfernalExpansion.TAB)));
-//  public static final RegistryObject<ModSpawnEggItem> GLOWSQUITO_SPAWN_EGG = ITEMS.register("glowsquito_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.GLOWSQUITO, 0x3D3E4C, 0xFBDA74, new Item.Properties().group(InfernalExpansion.TAB)));
-//  public static final RegistryObject<ModSpawnEggItem> PYRNO_SPAWN_EGG = ITEMS.register("pyrno_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.PYRNO, 0x5D514B, 0xFEE15E, new Item.Properties().group(InfernalExpansion.TAB)));
 
     // Block items
     public static final RegistryObject<Item> DIMSTONE = ITEMS.register("dimstone", () -> new BlockItemBase(ModBlocks.DIMSTONE.get()));
@@ -78,20 +72,10 @@ public class ModItems {
     public static final RegistryObject<Item> GLOW_LANTERN = ITEMS.register("lantern_glow", () -> new BlockItemBase(ModBlocks.GLOW_LANTERN.get()));
     public static final RegistryObject<Item> GLOW_TORCH = ITEMS.register("torch_glow", () -> new WallOrFloorItem(ModBlocks.GLOW_TORCH.get(), ModBlocks.GLOW_WALL_TORCH.get(), (new Item.Properties()).group(InfernalExpansion.TAB)));
     public static final RegistryObject<Item> GLOW_CAMPFIRE = ITEMS.register("campfire_glow", () -> new BlockItemBase(ModBlocks.GLOW_CAMPFIRE.get()));
-//  public static final RegistryObject<Item> GLOW_FIRE = ITEMS.register("fire_glow", () -> new BlockItemBase (ModBlocks.GLOW_FIRE.get()));
 
     public static final RegistryObject<Item> LUMINOUS_FUNGUS = ITEMS.register("luminous_fungus", () -> new BlockItemBase(ModBlocks.LUMINOUS_FUNGUS.get()));
     public static final RegistryObject<Item> DULLTHORNS = ITEMS.register("dullthorns",           () -> new BlockItemBase(ModBlocks.DULLTHORNS.get()));
 
-/*
-    // Tools
-    public static final RegistryObject<SwordItem> FROSTBITTEN_SWORD = ITEMS.register("frostbitten_sword", () -> new SwordItem(ModItemTier.FROSTBITTEN_NETHERITE, 2, -2.4F, new Item.Properties().group(InfernalExpansion.TAB)));
-    public static final RegistryObject<PickaxeItem> FROSTBITTEN_PICKAXE = ITEMS.register("frostbitten_pickaxe", () -> new PickaxeItem(ModItemTier.FROSTBITTEN_NETHERITE, 1, -2.4F, new Item.Properties().group(InfernalExpansion.TAB)));
-    public static final RegistryObject<AxeItem> FROSTBITTEN_AXE = ITEMS.register("frostbitten_axe", () -> new AxeItem(ModItemTier.FROSTBITTEN_NETHERITE, 4, -3.1F, new Item.Properties().group(InfernalExpansion.TAB)));
-    public static final RegistryObject<ShovelItem> FROSTBITTEN_SHOVEL = ITEMS.register("frostbitten_shovel", () -> new ShovelItem(ModItemTier.FROSTBITTEN_NETHERITE, -1, -2.4F, new Item.Properties().group(InfernalExpansion.TAB)));
-    public static final RegistryObject<HoeItem> FROSTBITTEN_HOE = ITEMS.register("frostbitten_hoe", () -> new HoeItem(ModItemTier.FROSTBITTEN_NETHERITE, -2, -1.0F, new Item.Properties().group(InfernalExpansion.TAB)));
-
- */
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
         InfernalExpansion.LOGGER.info("Infernal Expansion: Items Registered!");

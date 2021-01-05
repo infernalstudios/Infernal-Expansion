@@ -46,21 +46,6 @@ public class RegistryHandler {
 
 //...
 
-    //CEROBEETLE
-    static ResourceLocation location11 = new ResourceLocation(InfernalExpansion.MOD_ID, "cerobeetleambient");
-    public static SoundEvent cerobeetle_ambient = new SoundEvent(location11);
-
-    static ResourceLocation location12 = new ResourceLocation(InfernalExpansion.MOD_ID, "cerobeetlehurt");
-    public static SoundEvent cerobeetle_hurt = new SoundEvent(location12);
-
-    static ResourceLocation location13 = new ResourceLocation(InfernalExpansion.MOD_ID, "cerobeetledeath");
-    public static SoundEvent cerobeetle_death = new SoundEvent(location13);
-
-    static ResourceLocation location14 = new ResourceLocation(InfernalExpansion.MOD_ID, "cerobeetledeath");
-    public static SoundEvent cerobeetle_roar = new SoundEvent(location14);
-
-//...
-
     //EMBODY
     static ResourceLocation location16 = new ResourceLocation(InfernalExpansion.MOD_ID, "embodyambient");
     public static SoundEvent embody_ambient = new SoundEvent(location16);
@@ -82,89 +67,4 @@ public class RegistryHandler {
 
     static ResourceLocation location23 = new ResourceLocation(InfernalExpansion.MOD_ID, "basaltgiantdeath");
     public static SoundEvent basalt_giant_death = new SoundEvent(location23);
-
-//...
-
-    //SKELETAL PIGLIN
-    static ResourceLocation location26 = new ResourceLocation(InfernalExpansion.MOD_ID, "skeletalpiglinambient");
-    public static SoundEvent skeletal_piglin_ambient = new SoundEvent(location26);
-
-    static ResourceLocation location27 = new ResourceLocation(InfernalExpansion.MOD_ID, "skeletalpiglinhurt");
-    public static SoundEvent skeletal_piglin_hurt = new SoundEvent(location27);
-
-    static ResourceLocation location28 = new ResourceLocation(InfernalExpansion.MOD_ID, "skeletalpiglindeath");
-    public static SoundEvent skeletal_piglin_death = new SoundEvent(location28);
-
-//...
-
-    //GLOWSQUITO
-    static ResourceLocation location31 = new ResourceLocation(InfernalExpansion.MOD_ID, "glowsquitoambient");
-    public static SoundEvent glowsquito_ambient = new SoundEvent(location31);
-
-    static ResourceLocation location32 = new ResourceLocation(InfernalExpansion.MOD_ID, "glowsquitohurt");
-    public static SoundEvent glowsquito_hurt = new SoundEvent(location32);
-
-    static ResourceLocation location33 = new ResourceLocation(InfernalExpansion.MOD_ID, "glowsquitodeath");
-    public static SoundEvent glowsquito_death = new SoundEvent(location33);
-
-//...
-
-    //BLINDSIGHT
-    static ResourceLocation location36 = new ResourceLocation(InfernalExpansion.MOD_ID, "blindsightambient");
-    public static SoundEvent blindsight_ambient = new SoundEvent(location36);
-
-    static ResourceLocation location37 = new ResourceLocation(InfernalExpansion.MOD_ID, "blindsighthurt");
-    public static SoundEvent blindsight_hurt = new SoundEvent(location37);
-
-    static ResourceLocation location38 = new ResourceLocation(InfernalExpansion.MOD_ID, "blindsightdeath");
-    public static SoundEvent blindsight_death = new SoundEvent(location38);
-
-//...
-
-    //BLACKSTONE_DWARF
-    static ResourceLocation location86 = new ResourceLocation(InfernalExpansion.MOD_ID, "dwarfambient");
-    public static SoundEvent blackstone_dwarf_ambient = new SoundEvent(location36);
-
-    static ResourceLocation location87 = new ResourceLocation(InfernalExpansion.MOD_ID, "dwarfhurt");
-    public static SoundEvent blackstone_dwarf_hurt = new SoundEvent(location37);
-
-    static ResourceLocation location88 = new ResourceLocation(InfernalExpansion.MOD_ID, "dwarfdeath");
-    public static SoundEvent blackstone_dwarf_death = new SoundEvent(location38);
-
-//...
-
-    //GLAW
-    static ResourceLocation location41 = new ResourceLocation(InfernalExpansion.MOD_ID, "glawambient");
-    public static SoundEvent glaw_ambient = new SoundEvent(location41);
-
-    static ResourceLocation location42 = new ResourceLocation(InfernalExpansion.MOD_ID, "glawhurt");
-    public static SoundEvent glaw_hurt = new SoundEvent(location42);
-
-    static ResourceLocation location43 = new ResourceLocation(InfernalExpansion.MOD_ID, "glawdeath");
-    public static SoundEvent glaw_death = new SoundEvent(location43);
-
-//...
-
-    //SMOLT
-    static ResourceLocation location46 = new ResourceLocation(InfernalExpansion.MOD_ID, "smoltambient");
-    public static SoundEvent smolt_ambient = new SoundEvent(location46);
-
-    static ResourceLocation location47 = new ResourceLocation(InfernalExpansion.MOD_ID, "smolthurt");
-    public static SoundEvent smolt_hurt = new SoundEvent(location47);
-
-    static ResourceLocation location48 = new ResourceLocation(InfernalExpansion.MOD_ID, "smoltdeath");
-    public static SoundEvent smolt_death = new SoundEvent(location48);
-
-//...
-
-    //PYRNO
-    static ResourceLocation location51 = new ResourceLocation(InfernalExpansion.MOD_ID, "pyrnoambient");
-    public static SoundEvent pyrno_ambient = new SoundEvent(location51);
-
-    static ResourceLocation location52 = new ResourceLocation(InfernalExpansion.MOD_ID, "pyrnohurt");
-    public static SoundEvent pyrno_hurt = new SoundEvent(location52);
-
-    static ResourceLocation location53 = new ResourceLocation(InfernalExpansion.MOD_ID, "pyrnodeath");
-    public static SoundEvent pyrno_death = new SoundEvent(location53);
-
 }

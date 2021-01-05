@@ -3,15 +3,9 @@ package com.nekomaster1000.infernalexp;
 //Entities are found in src.main.java.world.gen.ModEntitySpawns
 
 import com.nekomaster1000.infernalexp.init.*;
-import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeCatch;
-import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeProvider;
 import com.nekomaster1000.infernalexp.world.gen.ModEntityPlacement;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -42,7 +36,6 @@ public class InfernalExpansion
         ModEntityType.register(modEventBus);
         ModPaintings.register(modEventBus);
         ModTileEntityTypes.register(modEventBus);
-        //ModBiomes.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new ModEvents());
@@ -51,9 +44,6 @@ public class InfernalExpansion
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
-        ModNetherBiomeCatch.netherBiomeCollection();
-        Registry.register(Registry.BIOME_PROVIDER_CODEC, new ResourceLocation(MOD_ID, "infernalexp_nether"), ModNetherBiomeProvider.MOD_NETHER_CODEC);
-
         //Places entity spawn locations on the ground
         ModEntityPlacement.spawnPlacement();
     }

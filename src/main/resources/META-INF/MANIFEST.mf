@@ -1,1 +1,0 @@
-MixinConnector: com.nekomaster1000.infernalexp.mixin.MixinConnector

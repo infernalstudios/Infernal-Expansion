@@ -2,7 +2,6 @@ package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.entities.*;
-import com.nekomaster1000.infernalexp.entities.ai.AvoidBlockGoal;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
@@ -11,10 +10,6 @@ import net.minecraft.entity.monster.piglin.PiglinBruteEntity;
 import net.minecraftforge.event.world.BlockEvent;
 import com.nekomaster1000.infernalexp.entities.EmbodyEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.monster.MagmaCubeEntity;
-import net.minecraft.entity.monster.SlimeEntity;
-import net.minecraft.entity.projectile.ArrowEntity;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
@@ -110,29 +105,10 @@ public class ModEvents {
             ((FlyingEntity) event.getEntity()).targetSelector.addGoal(3,
                     new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
                             SkeletonEntity.class, true, false));
-
-            ((FlyingEntity) event.getEntity()).targetSelector.addGoal(4,
-                    new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
-                            GlowsquitoEntity.class, true, false));
         }
-
-
-        //...
-
-        // Please add Magma Cubes being scared of Glow Torches/Lanterns/Campfires here. PUSHED TO RELEASE 2
-
-        /*
-        if (event.getEntity() instanceof MagmaCubeEntity) {
-            ((SlimeEntity) event.getEntity()).goalSelector.addGoal(0,
-                    new AvoidBlockGoal((SlimeEntity) event.getEntity(), ModBlocks.GLOW_TORCH.get(),
-                            16.0F));
-            ((SlimeEntity) event.getEntity()).goalSelector.addGoal(0, new AvoidBlockGoal((SlimeEntity) event.getEntity(), ModBlocks.GLOW_TORCH.get(), 16.0F));
-        }
-         */
     }
 
     //Mob Spawning in pre-existing biomes
-        //Note: Comment-out Glowsquito, Cerobeetle and Skeletal Piglin before release.
     @SubscribeEvent
     public void onBiomeLoad(BiomeLoadingEvent event) {
 
@@ -153,54 +129,15 @@ public class ModEvents {
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
                     new MobSpawnInfo.Spawners(ModEntityType.WARPBEETLE.get(), 5, 1, 1));
 
-            /*
-            event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                    new MobSpawnInfo.Spawners(ModEntityType.CEROBEETLE.get(), 1, 1, 1));
-             */
-
 
         } else if (event.getName().toString().equals("minecraft:basalt_deltas")) {
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
                     new MobSpawnInfo.Spawners(ModEntityType.BASALT_GIANT.get(), 30, 1, 1));
 
-            /*
-            event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                    new MobSpawnInfo.Spawners(ModEntityType.GLOWSQUITO.get(), 1, 5, 10));
-             */
-
-
         } else if (event.getName().toString().equals("minecraft:soul_sand_valley")) {
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
                     new MobSpawnInfo.Spawners(ModEntityType.EMBODY.get(), 60, 1, 5));
-            /*
-            event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                    new MobSpawnInfo.Spawners(ModEntityType.SKELETAL_PIGLIN.get(), 10, 1, 1));
-            */
-
-            //Mob Spawning in new biomes
-
         }
-        /*
-        else if (event.getName().toString().equals("infernalexp:glowstone_canyon")) {
-            event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                    new MobSpawnInfo.Spawners(ModEntityType.GLOWSQUITO.get(), 100, 1, 1));
-
-            event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                    new MobSpawnInfo.Spawners(ModEntityType.SKELETAL_PIGLIN.get(), 20, 1, 1));
-
-            //event.getSpawns().withSpawner(EntityClassification.MONSTER,
-            //        new MobSpawnInfo.Spawners(EntityType.GHAST, 20, 1, 1));
-                        // Not spawning?
-
-        } else if (event.getName().toString().equals("infernalexp:delta_shores")) {
-
-            event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                    new MobSpawnInfo.Spawners(ModEntityType.BASALT_GIANT.get(), 5, 1, 1));
-
-            event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                    new MobSpawnInfo.Spawners(ModEntityType.SKELETAL_PIGLIN.get(), 10, 1, 3));
-        }
-         */
     }
 
     //Blocks being broken
