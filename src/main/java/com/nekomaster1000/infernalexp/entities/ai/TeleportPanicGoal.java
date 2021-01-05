@@ -6,6 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.goal.PanicGoal;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.util.math.vector.Vector3d;
 
 import java.util.List;
@@ -53,6 +54,11 @@ public class TeleportPanicGoal extends PanicGoal {
             if(entity.getAttackTarget() == this.creature)
             {
                 entity.setAttackTarget(null);
+                entity.goalSelector.getRunningGoals().forEach(runningGoal -> {
+                    if (runningGoal.getGoal() instanceof MeleeAttackGoal) {
+                        runningGoal.resetTask();
+                    };
+                });
             }
         }
     }
