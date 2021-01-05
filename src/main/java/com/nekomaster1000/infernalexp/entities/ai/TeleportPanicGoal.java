@@ -53,7 +53,6 @@ public class TeleportPanicGoal extends PanicGoal {
             CreatureEntity entity = (CreatureEntity)list.get(j);
             if(entity.getAttackTarget() == this.creature)
             {
-                entity.setAttackTarget(null);
                 entity.goalSelector.getRunningGoals().forEach(runningGoal -> {
                     if (runningGoal.getGoal() instanceof MeleeAttackGoal) {
                         runningGoal.resetTask();
