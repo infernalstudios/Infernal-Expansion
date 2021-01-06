@@ -27,7 +27,7 @@ displayName="Infernal Expansion" #mandatory
 displayURL="https://discord.gg/UYGSn94" #optional
 
 # A file name (in the root of the mod JAR) containing a logo for display
-logoFile="examplemod.png" #optional
+logoFile="Infernal_Expansion_Logo.png" #optional
 
 # A text field displayed in the mod UI
 credits="See the description!" #optional

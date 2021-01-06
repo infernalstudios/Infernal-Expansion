@@ -13,7 +13,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = 'forge-1.0.0'
+version = 'forge-1.1.0'
 group = 'com.nekomaster1000.Infernal' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'infernal-expansion'
 
