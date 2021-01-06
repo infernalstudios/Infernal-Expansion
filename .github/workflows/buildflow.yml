@@ -1,0 +1,24 @@
+name: Build JAR
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@master
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: Gradle Build
+        uses: OrangeLabs-moe/gradle-actions@v5.0-openjdk-8
+        with:
+          args: build
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Generated JAR
+          path: build/reobfJar/output.jar
