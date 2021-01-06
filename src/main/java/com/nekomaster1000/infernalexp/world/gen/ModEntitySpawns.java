@@ -15,7 +15,6 @@ public class ModEntitySpawns {
 
     @SubscribeEvent
     public static void spawnEntities(FMLLoadCompleteEvent event) {
-
         GlobalEntityTypeAttributes.put(ModEntityType.VOLINE.get(), VolineEntity.setCustomAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityType.SHROOMLOIN.get(), ShroomloinEntity.setCustomAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityType.WARPBEETLE.get(), WarpbeetleEntity.setCustomAttributes().create());
@@ -26,6 +25,6 @@ public class ModEntitySpawns {
         GlobalEntityTypeAttributes.put(ModEntityType.GLOWSQUITO.get(), GlowsquitoEntity.setCustomAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityType.SKELETAL_PIGLIN.get(), SkeletalPiglinEntity.setCustomAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityType.PYRNO.get(), PyrnoEntity.setCustomAttributes().create());
-
+        GlobalEntityTypeAttributes.put(ModEntityType.BLINDSIGHT.get(), BlindsightEntity.setCustomAttributes().create());
         }
     }

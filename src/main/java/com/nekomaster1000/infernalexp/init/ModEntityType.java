@@ -66,6 +66,11 @@ public class ModEntityType {
             () -> EntityType.Builder.create(PyrnoEntity::new, EntityClassification.MONSTER)
                     .size(1.5f, 1.5f) // Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "pyrno").toString()));
+
+    public static final RegistryObject<EntityType<BlindsightEntity>> BLINDSIGHT = ENTITY_TYPES.register("blindsight",
+            () -> EntityType.Builder.create(BlindsightEntity::new, EntityClassification.MONSTER)
+                    .size(1.0F, 0.8F) //Hitbox Size
+                    .build(new ResourceLocation(InfernalExpansion.MOD_ID, "blindsight").toString()));
     ;
 
     private static <T extends Entity> RegistryObject<EntityType<T>> register(String key, EntityType.IFactory<T> factoryIn, EntityClassification classificationIn, float size1, float size2) {

@@ -32,6 +32,7 @@ public class ClientEventBusSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.GLOWSQUITO.get(), GlowsquitoRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.SKELETAL_PIGLIN.get(), SkeletalPiglinRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityType.PYRNO.get(), PyrnoRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityType.BLINDSIGHT.get(), BlindsightRenderer::new);
 
         ClientRegistry.bindTileEntityRenderer(ModTileEntityTypes.GLOW_CAMPFIRE_TILE_ENTITY.get(), GlowCampfireTileEntityRenderer::new);
 

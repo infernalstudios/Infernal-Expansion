@@ -18,7 +18,7 @@ public class ModEntityPlacement {
         EntitySpawnPlacementRegistry.register(ModEntityType.GLOWSQUITO.get(), EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, GlowsquitoEntity::canSpawnOn);
         EntitySpawnPlacementRegistry.register(ModEntityType.SKELETAL_PIGLIN.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SkeletalPiglinEntity::canSpawnOn);
         EntitySpawnPlacementRegistry.register(ModEntityType.PYRNO.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PyrnoEntity::canSpawnOn);
-
+        EntitySpawnPlacementRegistry.register(ModEntityType.BLINDSIGHT.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BlindsightEntity::canSpawnOn);
     }
 
 }
