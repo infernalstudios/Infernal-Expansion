@@ -20,11 +20,14 @@ public class ModItems {
     // Items
     public static final RegistryObject<Item> GLOWCOAL = ITEMS.register("glowcoal", ItemBase::new);
     public static final RegistryObject<Item> DULLROCKS = ITEMS.register("glownuggets", ItemBase::new);
+    public static final RegistryObject<Item> BLINDSIGHT_TONGUE = ITEMS.register("blindsight_tongue", ItemBase::new);
 
     // Foods
     public static final RegistryObject<SoupItem> BLINDSIGHT_TONGUE_STEW = ITEMS.register("blindsight_tongue_stew",
             () -> new SoupItem(new Item.Properties().maxStackSize(1).group(InfernalExpansion.TAB)
-                    .food(new Food.Builder().hunger(6).saturation(0.6F).effect(new EffectInstance(Effects.JUMP_BOOST, 1200, 0), 1.0F).build())));
+                    .food(new Food.Builder().hunger(6).saturation(0.6F)
+                            .effect(() -> new EffectInstance(Effects.JUMP_BOOST, 1200, 0), 1.0F)
+                            .build())));
 
 
     // Spawn Eggs

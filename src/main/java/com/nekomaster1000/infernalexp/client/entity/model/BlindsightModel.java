@@ -5,13 +5,14 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.nekomaster1000.infernalexp.entities.BlindsightEntity;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.util.math.MathHelper;
 
 public class BlindsightModel<T extends BlindsightEntity> extends EntityModel<T> {
 	private final ModelRenderer all;
 	private final ModelRenderer Body;
 	private final ModelRenderer Head;
-	private final ModelRenderer roof_r1;
-	private final ModelRenderer Jaw;
+	private final ModelRenderer MouthRoof;
+	private final ModelRenderer LowerJaw;
 	private final ModelRenderer FrontLeftLeg;
 	private final ModelRenderer FrontRightLeg;
 	private final ModelRenderer BackLeftLeg;
@@ -35,17 +36,17 @@ public class BlindsightModel<T extends BlindsightEntity> extends EntityModel<T> 
 		Body.addChild(Head);
 		Head.setTextureOffset(0, 0).addBox(-8.0F, -8.0F, -12.0F, 16.0F, 8.0F, 12.0F, 0.0F, false);
 
-		roof_r1 = new ModelRenderer(this);
-		roof_r1.setRotationPoint(0.0F, 6.0F, -8.0F);
-		Head.addChild(roof_r1);
-		setRotationAngle(roof_r1, -1.5708F, 0.0F, 0.0F);
-		roof_r1.setTextureOffset(0, 41).addBox(-8.0F, -8.0F, -7.0F, 16.0F, 12.0F, 0.0F, 0.0F, false);
+		MouthRoof = new ModelRenderer(this);
+		MouthRoof.setRotationPoint(0.0F, 6.0F, -8.0F);
+		Head.addChild(MouthRoof);
+		setRotationAngle(MouthRoof, -1.5708F, 0.0F, 0.0F);
+		MouthRoof.setTextureOffset(0, 41).addBox(-8.0F, -8.0F, -7.0F, 16.0F, 12.0F, 0.0F, 0.0F, false);
 
-		Jaw = new ModelRenderer(this);
-		Jaw.setRotationPoint(0.0F, 0.0F, 0.0F);
-		Body.addChild(Jaw);
-		Jaw.setTextureOffset(0, 20).addBox(-8.0F, -1.0F, -12.0F, 16.0F, 3.0F, 12.0F, 0.0F, false);
-		Jaw.setTextureOffset(4, 41).addBox(-8.0F, 0.0F, -12.0F, 16.0F, 0.0F, 12.0F, 0.0F, false);
+		LowerJaw = new ModelRenderer(this);
+		LowerJaw.setRotationPoint(0.0F, 0.0F, 0.0F);
+		Body.addChild(LowerJaw);
+		LowerJaw.setTextureOffset(0, 20).addBox(-8.0F, -1.0F, -12.0F, 16.0F, 3.0F, 12.0F, 0.0F, false);
+		LowerJaw.setTextureOffset(4, 41).addBox(-8.0F, 0.0F, -12.0F, 16.0F, 0.0F, 12.0F, 0.0F, false);
 
 		FrontLeftLeg = new ModelRenderer(this);
 		FrontLeftLeg.setRotationPoint(6.0F, -2.0F, -3.0F);
@@ -70,7 +71,11 @@ public class BlindsightModel<T extends BlindsightEntity> extends EntityModel<T> 
 
 	@Override
 	public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	}
 
+	@Override
+	public void setLivingAnimations(T entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
+		this.Head.rotateAngleX = -MathHelper.abs(MathHelper.cos(0.4662F * limbSwing) * 1.2F * limbSwingAmount);
 	}
 
 	@Override

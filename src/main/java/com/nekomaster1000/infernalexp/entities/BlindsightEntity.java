@@ -4,9 +4,13 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.monster.SlimeEntity;
+import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
@@ -16,31 +20,33 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
+import java.util.EnumSet;
+
 public class BlindsightEntity extends MonsterEntity {
 
     public BlindsightEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
+        this.moveController = new BlindsightEntity.MoveHelperController(this);
     }
 
     //ATTRIBUTES
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return MobEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.MAX_HEALTH, 10.0D)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.0D)
+                .createMutableAttribute(Attributes.MAX_HEALTH, 14.0D)
+                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 4.0D)
                 .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.5D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5D);
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.6D);
     }
 
     //BEHAVIOUR
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 0.6D, true));
-        this.goalSelector.addGoal(1, new BlindsightEntity.LeapGoal(this, 6.0D));
-        this.goalSelector.addGoal(2, new RandomWalkingGoal(this, 0.5d));
-        this.goalSelector.addGoal(2, new SwimGoal(this));
-        this.goalSelector.addGoal(3, new LookAtGoal(this, PlayerEntity.class, 8.0f));
-        this.goalSelector.addGoal(4, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(0, new BlindsightEntity.FloatGoal(this));
+        this.goalSelector.addGoal(1, new BlindsightEntity.AttackGoal(this));
+        this.goalSelector.addGoal(2, new BlindsightEntity.LeapGoal(this, 6.0D));
+        this.goalSelector.addGoal(3, new BlindsightEntity.FaceRandomGoal(this));
+        this.goalSelector.addGoal(5, new BlindsightEntity.HopGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new BlindsightEntity.TargetGlowsquitoGoal(this, true, false));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true, false));
@@ -54,20 +60,36 @@ public class BlindsightEntity extends MonsterEntity {
 
     //SOUNDS
     @Override
-    protected SoundEvent getAmbientSound() { return null; }
+    protected SoundEvent getAmbientSound() {
+        return null;
+    }
+
     @Override
-    protected SoundEvent getDeathSound() { return null; }
+    protected SoundEvent getDeathSound() {
+        return null;
+    }
+
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return null;
     }
+
     @Override
     protected void playStepSound(BlockPos pos, BlockState blockIn) {
-        this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);;
+        this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
+        ;
     }
 
     public boolean isImmuneToFire() {
         return true;
+    }
+
+    protected int getJumpDelay() {
+        return this.rand.nextInt(20) + 10;
+    }
+
+    protected SoundEvent getJumpSound() {
+        return SoundEvents.ENTITY_SLIME_JUMP;
     }
 
     @Override
@@ -76,6 +98,23 @@ public class BlindsightEntity extends MonsterEntity {
             return false;
         }
         return super.attackEntityFrom(source, amount);
+    }
+
+    public void applyEntityCollision(Entity entityIn) {
+        super.applyEntityCollision(entityIn);
+        if (entityIn instanceof GlowsquitoEntity || entityIn instanceof PlayerEntity) {
+            this.dealDamage((LivingEntity) entityIn);
+        }
+    }
+
+    protected void dealDamage(LivingEntity entityIn) {
+        if (this.isAlive()) {
+            if (this.canEntityBeSeen(entityIn) && entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE))) {
+                this.playSound(SoundEvents.ENTITY_SLIME_ATTACK, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+                this.applyEnchantments(this, entityIn);
+            }
+        }
+
     }
 
     static class LeapGoal extends Goal {
@@ -90,7 +129,7 @@ public class BlindsightEntity extends MonsterEntity {
         }
 
         @Override
-        public boolean shouldExecute(){
+        public boolean shouldExecute() {
             if (this.leaper.isBeingRidden()) {
                 return false;
             } else {
@@ -101,8 +140,8 @@ public class BlindsightEntity extends MonsterEntity {
                     double d0 = this.leapTarget.getPosY() - this.leaper.getPosY();
                     double d1 = this.leapTarget.getPosX() - this.leaper.getPosX();
                     double d2 = this.leapTarget.getPosZ() - this.leaper.getPosZ();
-                    double d3 = MathHelper.sqrt(d1*d1 + d2*d2);
-                    if (!(d0 < 1.0D) && !(d0 > this.maxJumpHeight) && !(d3 > 3.0D)){
+                    double d3 = MathHelper.sqrt(d1 * d1 + d2 * d2);
+                    if (!(d0 < 1.0D) && !(d0 > this.maxJumpHeight) && !(d3 > 3.0D)) {
                         if (!this.leaper.isOnGround()) {
                             return false;
                         } else {
@@ -127,7 +166,7 @@ public class BlindsightEntity extends MonsterEntity {
         }
     }
 
-    static class TargetGlowsquitoGoal extends NearestAttackableTargetGoal<GlowsquitoEntity>{
+    static class TargetGlowsquitoGoal extends NearestAttackableTargetGoal<GlowsquitoEntity> {
 
         public TargetGlowsquitoGoal(MobEntity goalOwnerIn, boolean checkSight, boolean nearbyOnlyIn) {
             super(goalOwnerIn, GlowsquitoEntity.class, checkSight, nearbyOnlyIn);
@@ -139,5 +178,191 @@ public class BlindsightEntity extends MonsterEntity {
         }
     }
 
+    static class HopGoal extends Goal {
+        private final BlindsightEntity blindsight;
+
+        public HopGoal(BlindsightEntity blindsightIn) {
+            this.blindsight = blindsightIn;
+            this.setMutexFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
+        }
+
+        /**
+         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
+         * method as well.
+         */
+        public boolean shouldExecute() {
+            return !this.blindsight.isPassenger();
+        }
+
+        /**
+         * Keep ticking a continuous task that has already been started
+         */
+        public void tick() {
+            ((BlindsightEntity.MoveHelperController) this.blindsight.getMoveHelper()).setSpeed(1.0D);
+        }
+    }
+
+    public static class MoveHelperController extends MovementController {
+        private float yRot;
+        private int jumpDelay;
+        private final BlindsightEntity blindsight;
+
+        public MoveHelperController(BlindsightEntity blindsightIn) {
+            super(blindsightIn);
+            this.blindsight = blindsightIn;
+            this.yRot = 180.0F * blindsightIn.rotationYaw / (float) Math.PI;
+        }
+
+        public void setDirection(float yRotIn) {
+            this.yRot = yRotIn;
+        }
+
+        public void setSpeed(double speedIn) {
+            this.speed = speedIn;
+            this.action = MovementController.Action.MOVE_TO;
+        }
+
+        public void tick() {
+            this.mob.rotationYaw = this.limitAngle(this.mob.rotationYaw, this.yRot, 90.0F);
+            this.mob.rotationYawHead = this.mob.rotationYaw;
+            this.mob.renderYawOffset = this.mob.rotationYaw;
+            if (this.action != MovementController.Action.MOVE_TO) {
+                this.mob.setMoveForward(0.0F);
+            } else {
+                this.action = MovementController.Action.WAIT;
+                if (this.mob.isOnGround()) {
+                    this.mob.setAIMoveSpeed((float) (this.speed * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));
+                    if (this.jumpDelay-- <= 0) {
+                        this.jumpDelay = this.blindsight.getJumpDelay() / 3;
+
+                        this.blindsight.getJumpController().setJumping();
+                        this.blindsight.playSound(this.blindsight.getJumpSound(), this.blindsight.getSoundVolume(), 1.5F);
+                    } else {
+                        this.blindsight.moveStrafing = 0.0F;
+                        this.blindsight.moveForward = 0.0F;
+                        this.mob.setAIMoveSpeed(0.0F);
+                    }
+                } else {
+                    this.mob.setAIMoveSpeed((float) (this.speed * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));
+                }
+
+            }
+        }
+    }
+
+    static class AttackGoal extends Goal {
+        private final BlindsightEntity blindsight;
+        private int growTieredTimer;
+
+        public AttackGoal(BlindsightEntity blindsightIn) {
+            this.blindsight = blindsightIn;
+            this.setMutexFlags(EnumSet.of(Goal.Flag.LOOK));
+        }
+
+        /**
+         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
+         * method as well.
+         */
+        public boolean shouldExecute() {
+            LivingEntity livingentity = this.blindsight.getAttackTarget();
+            if (livingentity == null) {
+                return false;
+            } else if (!livingentity.isAlive()) {
+                return false;
+            } else {
+                return this.blindsight.getMoveHelper() instanceof BlindsightEntity.MoveHelperController;
+            }
+        }
+
+        /**
+         * Execute a one shot task or start executing a continuous task
+         */
+        public void startExecuting() {
+            this.growTieredTimer = 300;
+            super.startExecuting();
+        }
+
+        /**
+         * Returns whether an in-progress EntityAIBase should continue executing
+         */
+        public boolean shouldContinueExecuting() {
+            LivingEntity livingentity = this.blindsight.getAttackTarget();
+            if (livingentity == null) {
+                return false;
+            } else if (!livingentity.isAlive()) {
+                return false;
+            } else {
+                return --this.growTieredTimer > 0;
+            }
+        }
+
+        /**
+         * Keep ticking a continuous task that has already been started
+         */
+        public void tick() {
+            this.blindsight.faceEntity(this.blindsight.getAttackTarget(), 10.0F, 10.0F);
+            ((BlindsightEntity.MoveHelperController) this.blindsight.getMoveHelper()).setDirection(this.blindsight.rotationYaw);
+        }
+    }
+
+    static class FaceRandomGoal extends Goal {
+        private final BlindsightEntity blindsight;
+        private float chosenDegrees;
+        private int nextRandomizeTime;
+
+        public FaceRandomGoal(BlindsightEntity blindsightIn) {
+            this.blindsight = blindsightIn;
+            this.setMutexFlags(EnumSet.of(Goal.Flag.LOOK));
+        }
+
+        /**
+         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
+         * method as well.
+         */
+        public boolean shouldExecute() {
+            return this.blindsight.getAttackTarget() == null && (this.blindsight.onGround || this.blindsight.isInWater() || this.blindsight.isInLava() || this.blindsight.isPotionActive(Effects.LEVITATION)) && this.blindsight.getMoveHelper() instanceof BlindsightEntity.MoveHelperController;
+        }
+
+        /**
+         * Keep ticking a continuous task that has already been started
+         */
+        public void tick() {
+            if (--this.nextRandomizeTime <= 0) {
+                this.nextRandomizeTime = 40 + this.blindsight.getRNG().nextInt(60);
+                this.chosenDegrees = (float) this.blindsight.getRNG().nextInt(360);
+            }
+
+            ((BlindsightEntity.MoveHelperController)this.blindsight.getMoveHelper()).setDirection(this.chosenDegrees);
+        }
+    }
+
+    static class FloatGoal extends Goal {
+        private final BlindsightEntity blindsight;
+
+        public FloatGoal(BlindsightEntity blindsightIn) {
+            this.blindsight = blindsightIn;
+            this.setMutexFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
+            blindsightIn.getNavigator().setCanSwim(true);
+        }
+
+        /**
+         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
+         * method as well.
+         */
+        public boolean shouldExecute() {
+            return (this.blindsight.isInWater() || this.blindsight.isInLava()) && this.blindsight.getMoveHelper() instanceof BlindsightEntity.MoveHelperController;
+        }
+
+        /**
+         * Keep ticking a continuous task that has already been started
+         */
+        public void tick() {
+            if (this.blindsight.getRNG().nextFloat() < 0.8F) {
+                this.blindsight.getJumpController().setJumping();
+            }
+
+            ((BlindsightEntity.MoveHelperController) this.blindsight.getMoveHelper()).setSpeed(1.2D);
+        }
+    }
 }
 

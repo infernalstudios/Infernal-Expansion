@@ -6,6 +6,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.state.IntegerProperty;
+import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -21,11 +24,13 @@ import static net.minecraft.block.CactusBlock.AGE;
 import static net.minecraft.block.LecternBlock.COLLISION_SHAPE;
 
 public class DullthornsBlock extends BushBlock {
+    public static final IntegerProperty AGE = BlockStateProperties.AGE_0_15;
+    protected static final VoxelShape COLLISION_SHAPE = Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 15.0D, 11.0D);
     protected static final VoxelShape SHAPE = Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 15.0D, 11.0D);
 
     public DullthornsBlock(Properties properties) {
         super(properties);
-        //this.setDefaultState(this.stateContainer.getBaseState().with(AGE, Integer.valueOf(0)));
+        this.setDefaultState(this.stateContainer.getBaseState().with(AGE, Integer.valueOf(0)));
 }
 
     @Override
@@ -82,7 +87,8 @@ public class DullthornsBlock extends BushBlock {
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return COLLISION_SHAPE;
+        Vector3d vector3d = state.getOffset(worldIn, pos);
+        return COLLISION_SHAPE.withOffset(vector3d.x, vector3d.y, vector3d.z);
     }
 
     @Override
@@ -107,5 +113,7 @@ public class DullthornsBlock extends BushBlock {
         return OffsetType.XZ;
     }
 
-
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+        builder.add(AGE);
+    }
 }
