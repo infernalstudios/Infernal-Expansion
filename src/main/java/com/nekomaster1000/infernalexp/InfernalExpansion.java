@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp;
 
 //Entities are found in src.main.java.world.gen.ModEntitySpawns
 
+import com.nekomaster1000.infernalexp.config.ConfigHolder;
 import com.nekomaster1000.infernalexp.init.*;
 import com.nekomaster1000.infernalexp.world.gen.ModEntityPlacement;
 import net.minecraft.item.ItemGroup;
@@ -9,7 +10,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
@@ -25,7 +28,8 @@ public class InfernalExpansion
 
     public InfernalExpansion()
     {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        final ModLoadingContext modLoadingContext = ModLoadingContext.get();
+        final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(this::commonSetup);
@@ -37,9 +41,12 @@ public class InfernalExpansion
         ModPaintings.register(modEventBus);
         ModTileEntityTypes.register(modEventBus);
 
+        //Registering Configs
+        modLoadingContext.registerConfig(ModConfig.Type.CLIENT, ConfigHolder.CLIENT_SPEC);
+        modLoadingContext.registerConfig(ModConfig.Type.SERVER, ConfigHolder.SERVER_SPEC);
+
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new ModEvents());
-
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
