@@ -44,7 +44,8 @@ public class GlowstoneCanyonBiome extends ModBiome {
                 .setAmbientSound(SoundEvents.AMBIENT_BASALT_DELTAS_LOOP)
                 .setMoodSound(new MoodSoundAmbience(SoundEvents.AMBIENT_BASALT_DELTAS_MOOD, 8000, 8, 2.0D))
                 .setAdditionsSound(new SoundAdditionsAmbience(SoundEvents.AMBIENT_BASALT_DELTAS_ADDITIONS, 0.0111D))
-                .setMusic(BackgroundMusicTracks.getDefaultBackgroundMusicSelector(SoundEvents.MUSIC_NETHER_BASALT_DELTAS));
+                .setMusic(BackgroundMusicTracks.getDefaultBackgroundMusicSelector(SoundEvents.MUSIC_NETHER_BASALT_DELTAS))
+                .setParticle(new ParticleEffectAmbience(ParticleTypes.CRIT, 0.1F));
     }
 
     @Override
