@@ -1,29 +1,29 @@
 {
   "volineambient": {
     "category": "block",
-    "subtitle": "Voline vibes.",
+    "subtitle": "Voline chatters",
     "sounds": [ "infernalexp:voline_ambient" ]
   },
   "volinehurt": {
     "category": "block",
-    "subtitle": "Voline yelps!",
+    "subtitle": "Voline hurts",
     "sounds": [ "infernalexp:voline_hurt" ]
   },
 
 
   "shroomloinambient": {
     "category": "block",
-    "subtitle": "Voline hisses.",
+    "subtitle": "Voline hisses",
     "sounds": [ "infernalexp:shroomloin_ambient" ]
   },
   "shroomloinhurt": {
     "category": "block",
-    "subtitle": "Shroomloin hisses!",
+    "subtitle": "Shroomloin hurts",
     "sounds": [ "infernalexp:shroomloin_hurt" ]
   },
   "shroomloindeath": {
     "category": "block",
-    "subtitle": "Shroomloin screeches!",
+    "subtitle": "Shroomloin dies",
     "sounds": [ "infernalexp:shroomloin_death" ]
   },
 
@@ -35,12 +35,12 @@
   },
   "basaltgianthurt": {
     "category": "block",
-    "subtitle": "Basalt Giant roars in pain",
+    "subtitle": "Basalt Giant hurts",
     "sounds": [ "infernalexp:basalt_giant_hurt" ]
   },
   "basaltgiantdeath": {
     "category": "block",
-    "subtitle": "Basalt Giant's roar dies",
+    "subtitle": "Basalt Giant dies",
     "sounds": [ "infernalexp:basalt_giant_death" ]
   },
 
@@ -52,7 +52,7 @@
   },
   "warpbeetlehurt": {
     "category": "block",
-    "subtitle": "Warpbeetle squeaks in pain",
+    "subtitle": "Warpbeetle hurts",
     "sounds": [ "infernalexp:warpbeetle_hurt" ]
   },
   "warpbeetledeath": {
@@ -68,7 +68,7 @@
   },
   "cerobeetlehurt": {
     "category": "block",
-    "subtitle": "Cerobeetle squeaks in pain",
+    "subtitle": "Cerobeetle hurts",
     "sounds": [ "infernalexp:cerobeetle_hurt" ]
   },
   "cerobeetledeath": {
@@ -90,12 +90,12 @@
   },
   "embodyhurt": {
     "category": "block",
-    "subtitle": "Embody hisses in pain",
+    "subtitle": "Embody hurts",
     "sounds": [ "infernalexp:embody_hurt" ]
   },
   "embodydeath": {
     "category": "block",
-    "subtitle": "Embody withers away",
+    "subtitle": "Embody dies",
     "sounds": [ "infernalexp:embody_death" ]
 
   }
