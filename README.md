@@ -1,6 +1,5 @@
 <h1 align="center">
-	<img src="./src/main/resources/Infernal_Expansion_Logo.png">
-	Infernal Expansion
+	<img src="./src/main/resources/Infernal_Expansion_Logo.png" width="50%">
 </h1>
 
 # How to run
