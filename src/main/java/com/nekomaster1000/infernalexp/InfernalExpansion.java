@@ -4,14 +4,12 @@ package com.nekomaster1000.infernalexp;
 
 import com.nekomaster1000.infernalexp.config.ConfigHelper;
 import com.nekomaster1000.infernalexp.config.ConfigHolder;
-import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
-import com.nekomaster1000.infernalexp.config.ServerConfig;
 import com.nekomaster1000.infernalexp.init.*;
 import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeCatch;
 import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeProvider;
 import com.nekomaster1000.infernalexp.world.gen.ModEntityPlacement;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.FlowerPotBlock;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -70,6 +68,11 @@ public class InfernalExpansion
 
         //Places entity spawn locations on the ground
         ModEntityPlacement.spawnPlacement();
+
+        //Register New Flowers to be Able to Place in Pots
+        FlowerPotBlock flowerPot = (FlowerPotBlock) Blocks.FLOWER_POT;
+        flowerPot.addPlant(ModBlocks.DULLTHORNS.getId(), ModBlocks.POTTED_DULLTHORNS);
+        flowerPot.addPlant(ModBlocks.LUMINOUS_FUNGUS.getId(), ModBlocks.POTTED_LUMINOUS_FUNGUS);
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
