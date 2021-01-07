@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "infernalexp:glowdust_sand"
+  },
+  "result": "infernalexp:glowdust_stone",
+  "experience": 0.0,
+  "cookingtime": 200
+}
