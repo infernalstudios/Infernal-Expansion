@@ -23,7 +23,16 @@ import net.minecraft.world.World;
 
 public class VolineEntity extends MonsterEntity {
 
-    public static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(ModItems.DULLROCKS.get(), Items.MAGMA_CREAM);
+    public static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems
+            (       Items.GOLD_NUGGET,
+                    Items.GOLD_INGOT,
+                    Items.GOLD_BLOCK,
+                    Items.GOLD_ORE,
+                    Items.NETHER_GOLD_ORE,
+                    Items.MAGMA_CREAM,
+                    Items.POTION,
+                    Items.SPLASH_POTION,
+                    Items.LINGERING_POTION);
 
     public VolineEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);

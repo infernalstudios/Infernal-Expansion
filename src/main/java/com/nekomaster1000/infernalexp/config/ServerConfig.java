@@ -94,7 +94,7 @@ public class ServerConfig {
                 .define("piglinAttackSkeleton", true);
 
         piglinAttackVoline = builder
-                .comment("Determines if Piglins will attack Volines")
+                .comment("Determines if Piglins will attack Voline")
                 .translation(InfernalExpansion.MOD_ID + ".config.piglinAttackVoline")
                 .define("piglinAttackVoline", true);
 
@@ -104,7 +104,7 @@ public class ServerConfig {
                 .define("bruteAttackSkeleton", true);
 
         bruteAttackVoline = builder
-                .comment("Determines if Piglin Brutes will attack Volines")
+                .comment("Determines if Piglin Brutes will attack Voline")
                 .translation(InfernalExpansion.MOD_ID + ".config.bruteAttackVoline")
                 .define("bruteAttackVoline", true);
 
@@ -114,7 +114,7 @@ public class ServerConfig {
                 .define("ghastAttackEmbody", true);
 
         ghastAttackVoline = builder
-                .comment("Determines if Ghasts will shoot at Volines")
+                .comment("Determines if Ghasts will shoot at Voline")
                 .translation(InfernalExpansion.MOD_ID + ".config.ghastAttackVoline")
                 .define("ghastAttackVoline", false);
 
@@ -132,7 +132,7 @@ public class ServerConfig {
         builder.push("Toggle Spawns");
 
         volineInWastes = builder
-                .comment("Determines if Volines will spawn in Nether Wastes")
+                .comment("Determines if Voline will spawn in Nether Wastes")
                 .translation(InfernalExpansion.MOD_ID + ".config.volineInWastes")
                 .define("volineInWastes", true);
 
@@ -142,7 +142,7 @@ public class ServerConfig {
                 .define("shroomloinInCrimson", true);
 
         volineInCrimson = builder
-                .comment("Determines if Volines will spawn in Crimson Forests")
+                .comment("Determines if Voline will spawn in Crimson Forests")
                 .translation(InfernalExpansion.MOD_ID + ".config.volineInCrimson")
                 .define("volineInCrimson", true);
 
@@ -167,7 +167,7 @@ public class ServerConfig {
         builder.push("Spawn Rates");
 
         volineWastesRate = builder
-                .comment("Determines the rate at which Volines spawn in the Nether Wastes")
+                .comment("Determines the rate at which Voline spawn in the Nether Wastes")
                 .translation(InfernalExpansion.MOD_ID + ".config.volineWastesRate")
                 .defineInRange("volineWastesRate", 50, 0, Integer.MAX_VALUE);
 
@@ -177,7 +177,7 @@ public class ServerConfig {
                 .defineInRange("shroomloinCrimsonRate", 5, 0, Integer.MAX_VALUE);
 
         volineCrimsonRate = builder
-                .comment("Determines the rate at which Volines spawn in the Crimson Forests")
+                .comment("Determines the rate at which Voline spawn in the Crimson Forests")
                 .translation(InfernalExpansion.MOD_ID + ".config.volineCrimsonRate")
                 .defineInRange("volineCrimsonRate", 1, 0, Integer.MAX_VALUE);
 
