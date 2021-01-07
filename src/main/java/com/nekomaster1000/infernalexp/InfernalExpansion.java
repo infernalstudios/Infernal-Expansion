@@ -37,6 +37,11 @@ public class InfernalExpansion
         final ModLoadingContext modLoadingContext = ModLoadingContext.get();
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        //Registering Configs
+        modLoadingContext.registerConfig(ModConfig.Type.CLIENT, ConfigHolder.CLIENT_SPEC);
+        modLoadingContext.registerConfig(ModConfig.Type.SERVER, ConfigHolder.SERVER_SPEC);
+
+
         modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(this::commonSetup);
 
@@ -47,10 +52,6 @@ public class InfernalExpansion
         ModPaintings.register(modEventBus);
         ModTileEntityTypes.register(modEventBus);
         ModBiomes.register(modEventBus);
-
-        //Registering Configs
-        modLoadingContext.registerConfig(ModConfig.Type.CLIENT, ConfigHolder.CLIENT_SPEC);
-        modLoadingContext.registerConfig(ModConfig.Type.SERVER, ConfigHolder.SERVER_SPEC);
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new ModEvents());

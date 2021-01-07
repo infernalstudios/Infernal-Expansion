@@ -1,7 +1,6 @@
 package com.nekomaster1000.infernalexp.config;
 
 import net.minecraftforge.fml.config.ModConfig;
-import sun.security.krb5.Config;
 
 public final class ConfigHelper {
 

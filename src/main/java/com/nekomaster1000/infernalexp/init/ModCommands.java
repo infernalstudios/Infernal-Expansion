@@ -17,8 +17,14 @@ public class ModCommands {
             ServerPlayerEntity player = command.getSource().asPlayer();
 
             if (player.hasPermissionLevel(3)) {
-                player.teleport(command.getSource().getServer().getWorld(World.THE_NETHER), player.getPosX(), player.getPosY(), player.getPosZ(), player.getYaw(0.0F), player.getPitch(0.0F));
-                return 1;
+                if(player.getEntityWorld().getDimensionKey() ==  World.THE_NETHER) {
+                    player.teleport(command.getSource().getServer().getWorld(World.OVERWORLD), player.getPosX(), player.getPosY(), player.getPosZ(), player.getYaw(0.0F), player.getPitch(0.0F));
+                    return 1;
+                }
+                else{
+                    player.teleport(command.getSource().getServer().getWorld(World.THE_NETHER), player.getPosX(), player.getPosY(), player.getPosZ(), player.getYaw(0.0F), player.getPitch(0.0F));
+                    return 1;
+                }
             } else {
                 player.sendMessage(new StringTextComponent("You aren't a high enough permission level to use that command."), player.getUniqueID());
                 return 0;
