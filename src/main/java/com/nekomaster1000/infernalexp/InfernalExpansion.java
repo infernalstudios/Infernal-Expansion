@@ -2,7 +2,10 @@ package com.nekomaster1000.infernalexp;
 
 //Entities are found in src.main.java.world.gen.ModEntitySpawns
 
+import com.nekomaster1000.infernalexp.config.ConfigHelper;
 import com.nekomaster1000.infernalexp.config.ConfigHolder;
+import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
+import com.nekomaster1000.infernalexp.config.ServerConfig;
 import com.nekomaster1000.infernalexp.init.*;
 import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeCatch;
 import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeProvider;
@@ -37,11 +40,6 @@ public class InfernalExpansion
         final ModLoadingContext modLoadingContext = ModLoadingContext.get();
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        //Registering Configs
-        modLoadingContext.registerConfig(ModConfig.Type.CLIENT, ConfigHolder.CLIENT_SPEC);
-        modLoadingContext.registerConfig(ModConfig.Type.SERVER, ConfigHolder.SERVER_SPEC);
-
-
         modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(this::commonSetup);
 
@@ -55,6 +53,14 @@ public class InfernalExpansion
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new ModEvents());
+
+        //Registering Configs
+        modLoadingContext.registerConfig(ModConfig.Type.CLIENT, ConfigHolder.CLIENT_SPEC);
+        modLoadingContext.registerConfig(ModConfig.Type.SERVER, ConfigHolder.SERVER_SPEC);
+
+        //Baking Configs
+        ConfigHelper.bakeClient(null);
+        ConfigHelper.bakeServer(null);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
