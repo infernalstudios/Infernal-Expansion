@@ -1,6 +1,7 @@
-# Infernal-Mod
-Infernal Expansion mod
-
+<h1 align="center">
+	<img src="./src/main/resources/Infernal_Expansion_Logo.png">
+	Infernal Expansion
+</h1>
 
 # How to run
 
