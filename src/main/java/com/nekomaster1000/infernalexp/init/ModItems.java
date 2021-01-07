@@ -6,6 +6,7 @@ import com.nekomaster1000.infernalexp.items.Glowcoal;
 import com.nekomaster1000.infernalexp.items.ItemBase;
 //import com.nekomaster1000.infernalexp.util.ModItemTier;
 import com.nekomaster1000.infernalexp.util.ModSpawnEggItem;
+import net.minecraft.block.Block;
 import net.minecraft.item.*;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -53,6 +54,9 @@ public class ModItems {
     public static final RegistryObject<Item> GLOWSTONE_BRICK = ITEMS.register("glowstone_brick", () -> new BlockItemBase(ModBlocks.GLOWSTONE_BRICK.get()));
     public static final RegistryObject<Item> DIMSTONE_BRICK = ITEMS.register("dimstone_brick", () -> new BlockItemBase(ModBlocks.DIMSTONE_BRICK.get()));
     public static final RegistryObject<Item> DULLSTONE_BRICK = ITEMS.register("dullstone_brick", () -> new BlockItemBase(ModBlocks.DULLSTONE_BRICK.get()));
+    public static final RegistryObject<Item> CRACKED_GLOWSTONE_BRICK = ITEMS.register("cracked_glowstone_brick", () -> new BlockItemBase(ModBlocks.CRACKED_GLOWSTONE_BRICK.get()));
+    public static final RegistryObject<Item> CRACKED_DIMSTONE_BRICK = ITEMS.register("cracked_dimstone_brick", () -> new BlockItemBase(ModBlocks.CRACKED_DIMSTONE_BRICK.get()));
+    public static final RegistryObject<Item> CRACKED_DULLSTONE_BRICK = ITEMS.register("cracked_dullstone_brick", () -> new BlockItemBase(ModBlocks.CRACKED_DULLSTONE_BRICK.get()));
     public static final RegistryObject<Item> CHISELED_GLOWSTONE_BRICK = ITEMS.register("chiseled_glowstone_brick", () -> new BlockItemBase(ModBlocks.CHISELED_GLOWSTONE_BRICK.get()));
     public static final RegistryObject<Item> CHISELED_DIMSTONE_BRICK = ITEMS.register("chiseled_dimstone_brick", () -> new BlockItemBase(ModBlocks.CHISELED_DIMSTONE_BRICK.get()));
     public static final RegistryObject<Item> CHISELED_DULLSTONE_BRICK = ITEMS.register("chiseled_dullstone_brick", () -> new BlockItemBase(ModBlocks.CHISELED_DULLSTONE_BRICK.get()));

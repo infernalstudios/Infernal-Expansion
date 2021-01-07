@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "infernalexp:dimstone_brick"
+  },
+  "result": "infernalexp:cracked_dimstone_brick",
+  "experience": 0.0,
+  "cookingtime": 200
+}

@@ -116,7 +116,7 @@ public class ServerConfig {
         ghastAttackVoline = builder
                 .comment("Determines if Ghasts will shoot at Volines")
                 .translation(InfernalExpansion.MOD_ID + ".config.ghastAttackVoline")
-                .define("ghastAttackVoline", true);
+                .define("ghastAttackVoline", false);
 
         ghastAttackSkeleton = builder
                 .comment("Determines if Ghasts will shoot at Skeletons")

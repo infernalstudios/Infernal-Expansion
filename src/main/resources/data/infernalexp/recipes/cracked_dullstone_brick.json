@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "infernalexp:dullstone_brick"
+  },
+  "result": "infernalexp:cracked_dullstone_brick",
+  "experience": 0.0,
+  "cookingtime": 200
+}

@@ -27,6 +27,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> GLOWSTONE_BRICK = BLOCKS.register("glowstone_brick", () -> new Block(getProperties(SMOOTH_GLOWSTONE.get())));
     public static final RegistryObject<Block> DIMSTONE_BRICK = BLOCKS.register("dimstone_brick", () -> new Block(getProperties(SMOOTH_DIMSTONE.get())));
     public static final RegistryObject<Block> DULLSTONE_BRICK = BLOCKS.register("dullstone_brick", () -> new Block(getProperties(SMOOTH_DULLSTONE.get())));
+    public static final RegistryObject<Block> CRACKED_GLOWSTONE_BRICK = BLOCKS.register("cracked_glowstone_brick", () -> new Block(getProperties(SMOOTH_GLOWSTONE.get())));
+    public static final RegistryObject<Block> CRACKED_DIMSTONE_BRICK = BLOCKS.register("cracked_dimstone_brick", () -> new Block(getProperties(SMOOTH_DIMSTONE.get())));
+    public static final RegistryObject<Block> CRACKED_DULLSTONE_BRICK = BLOCKS.register("cracked_dullstone_brick", () -> new Block(getProperties(SMOOTH_DULLSTONE.get())));
     public static final RegistryObject<Block> CHISELED_GLOWSTONE_BRICK = BLOCKS.register("chiseled_glowstone_brick", () -> new Block(getProperties(SMOOTH_GLOWSTONE.get())));
     public static final RegistryObject<Block> CHISELED_DIMSTONE_BRICK = BLOCKS.register("chiseled_dimstone_brick", () -> new Block(getProperties(SMOOTH_DIMSTONE.get())));
     public static final RegistryObject<Block> CHISELED_DULLSTONE_BRICK = BLOCKS.register("chiseled_dullstone_brick", () -> new Block(getProperties(SMOOTH_DULLSTONE.get())));
