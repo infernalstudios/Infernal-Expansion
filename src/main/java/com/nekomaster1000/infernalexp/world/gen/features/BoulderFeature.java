@@ -18,12 +18,12 @@ public class BoulderFeature extends Feature<BlockStateFeatureConfig> {
 
     @Override
     public boolean generate(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos, BlockStateFeatureConfig config) {
+        int rad = new int[]{1, 1, 2, 2, 2, 2, 3}[rand.nextInt(7)];
 
-        if (!world.isAirBlock(pos) || world.getBlockState(pos.down()).getBlock() != ModBlocks.GLOWDUST_SAND.get() || world.isAirBlock(pos.down(2))) {
+        if (!world.isAirBlock(pos) || world.getBlockState(pos.down()).getBlock() != ModBlocks.GLOWDUST_SAND.get() || world.isAirBlock(pos.down(rad)) || rand.nextInt(3) == 2) {
             return false;
         } else {
-            int rad = rand.nextInt(2) + 1;
-            placeSphere(world, rand, pos.down(Math.floorDiv(rad, 2)), rad, config);
+            placeSphere(world, rand, pos.down(Math.floorDiv(rad, 3)), rad, config);
             return true;
         }
     }
