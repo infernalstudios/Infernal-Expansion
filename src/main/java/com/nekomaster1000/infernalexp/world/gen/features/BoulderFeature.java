@@ -2,17 +2,12 @@ package com.nekomaster1000.infernalexp.world.gen.features;
 
 import com.mojang.serialization.Codec;
 import com.nekomaster1000.infernalexp.init.ModBlocks;
-import com.nekomaster1000.infernalexp.util.ShapeUtil;
-import com.nekomaster1000.infernalexp.world.gen.features.config.GlowSpikeFeatureConfig;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.BlockStateFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class BoulderFeature extends Feature<BlockStateFeatureConfig> {
