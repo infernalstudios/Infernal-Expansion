@@ -40,6 +40,13 @@ description='''
 A  community-driven Vanilla+ mod that expands the Nether beyond the Nether Update,
 introducing new biomes, blocks, mobs, and more!
 
+For configs, go to your .minecraft folder. Client based configs will be in .minecraft/config.
+Server based configs will be in .minecraft/saves/your_save/serverconfig.
+Editing any mob spawning configs will require a reload of the world to take effect.
+Mob behavior config changes should apply to any mobs that spawn after the change is made.
+Reloading the world is not necessary for these changes to take effect.
+It is never necessary to restart the game for changes to take effect.
+
 Directors:
 - Nekomaster1000
 - LiveVoxel

@@ -10,6 +10,9 @@
   "block.infernalexp.glowstone_brick": "Glowstone Bricks",
   "block.infernalexp.dimstone_brick": "Dimstone Bricks",
   "block.infernalexp.dullstone_brick": "Dullstone Bricks",
+  "block.infernalexp.cracked_glowstone_brick": "Cracked Glowstone Bricks",
+  "block.infernalexp.cracked_dimstone_brick": "Cracked Dimstone Bricks",
+  "block.infernalexp.cracked_dullstone_brick": "Cracked Dullstone Bricks",
   "block.infernalexp.chiseled_glowstone_brick": "Chiseled Glowstone Bricks",
   "block.infernalexp.chiseled_dimstone_brick":  "Chiseled Dimstone Brick",
   "block.infernalexp.chiseled_dullstone_brick": "Chiseled Dullstone Brick",
@@ -50,6 +53,13 @@
   "block.infernalexp.dullthorns": "Dullthorns",
 
   "item.infernalexp.glowcoal": "Glowstone Coke",
+  "block.infernalexp.lantern_glow": "Glowlight Lantern",
+  "block.infernalexp.torch_glow": "Glowlight Torch",
+  "block.infernalexp.campfire_glow": "Glowlight Campfire",
+  "block.infernalexp.luminous_fungus": "Luminous Fungus",
+  "block.infernalexp.dullthorns": "Dullthorns",
+
+  "item.infernalexp.glowcoal": "Glowcoke",
   "item.infernalexp.glownuggets": "Dullrocks",
   "item.infernalexp.blindsight_tongue": "Blindsight Tongue",
 
