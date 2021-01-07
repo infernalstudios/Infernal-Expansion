@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.blocks.BlockItemBase;
+import com.nekomaster1000.infernalexp.items.Glowcoal;
 import com.nekomaster1000.infernalexp.items.ItemBase;
 //import com.nekomaster1000.infernalexp.util.ModItemTier;
 import com.nekomaster1000.infernalexp.util.ModSpawnEggItem;
@@ -18,7 +19,7 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, InfernalExpansion.MOD_ID);
 
     // Items
-    public static final RegistryObject<Item> GLOWCOAL = ITEMS.register("glowcoal", ItemBase::new);
+    public static final RegistryObject<Item> GLOWCOAL = ITEMS.register("glowcoal", Glowcoal::new);
     public static final RegistryObject<Item> DULLROCKS = ITEMS.register("glownuggets", ItemBase::new);
     public static final RegistryObject<Item> BLINDSIGHT_TONGUE = ITEMS.register("blindsight_tongue", ItemBase::new);
 
