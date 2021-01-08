@@ -5,8 +5,11 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.Heightmap;
+import net.minecraft.world.spawner.WorldEntitySpawner;
 
 public class ModCommands {
 
@@ -18,13 +21,15 @@ public class ModCommands {
 
             if (player.hasPermissionLevel(3)) {
                 if(player.getEntityWorld().getDimensionKey() ==  World.THE_NETHER) {
-                    player.teleport(command.getSource().getServer().getWorld(World.OVERWORLD), player.getPosX(), player.getPosY(), player.getPosZ(), player.getYaw(0.0F), player.getPitch(0.0F));
-                    return 1;
+                    int yValue = player.getServer().getWorld(World.OVERWORLD).getChunk(player.getPosition()).getTopBlockY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (int) player.getPosX(), (int) player.getPosZ());
+                    player.teleport(command.getSource().getServer().getWorld(World.OVERWORLD), player.getPosX(), yValue + 1, player.getPosZ(), player.getYaw(0.0F), player.getPitch(0.0F));
+
                 }
                 else{
-                    player.teleport(command.getSource().getServer().getWorld(World.THE_NETHER), player.getPosX(), player.getPosY(), player.getPosZ(), player.getYaw(0.0F), player.getPitch(0.0F));
-                    return 1;
+                    int yValue = player.getServer().getWorld(World.THE_NETHER).getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, player.getPosition()).getY();
+                    player.teleport(command.getSource().getServer().getWorld(World.THE_NETHER), player.getPosX(), yValue + 1, player.getPosZ(), player.getYaw(0.0F), player.getPitch(0.0F));
                 }
+                return 1;
             } else {
                 player.sendMessage(new StringTextComponent("You aren't a high enough permission level to use that command."), player.getUniqueID());
                 return 0;
