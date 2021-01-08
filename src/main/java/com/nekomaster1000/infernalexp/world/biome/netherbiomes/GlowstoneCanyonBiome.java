@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.world.biome.netherbiomes;
 
 import com.nekomaster1000.infernalexp.init.ModConfiguredFeatures;
 import com.nekomaster1000.infernalexp.init.ModEntityType;
+import com.nekomaster1000.infernalexp.init.ModParticleTypes;
 import com.nekomaster1000.infernalexp.init.ModSurfaceBuilder;
 import com.nekomaster1000.infernalexp.world.biome.BiomeHelper;
 import com.nekomaster1000.infernalexp.world.biome.ModBiome;
@@ -45,7 +46,7 @@ public class GlowstoneCanyonBiome extends ModBiome {
                 .setMoodSound(new MoodSoundAmbience(SoundEvents.AMBIENT_BASALT_DELTAS_MOOD, 8000, 8, 2.0D))
                 .setAdditionsSound(new SoundAdditionsAmbience(SoundEvents.AMBIENT_BASALT_DELTAS_ADDITIONS, 0.0111D))
                 .setMusic(BackgroundMusicTracks.getDefaultBackgroundMusicSelector(SoundEvents.MUSIC_NETHER_BASALT_DELTAS))
-                .setParticle(new ParticleEffectAmbience(ParticleTypes.CRIT, 0.1F));
+                .setParticle(new ParticleEffectAmbience(ModParticleTypes.GLOWSTONE_SPARKLE.get(), 0.1F));
     }
 
     @Override

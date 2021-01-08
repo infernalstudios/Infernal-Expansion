@@ -4,8 +4,8 @@ import com.nekomaster1000.infernalexp.InfernalExpansion;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class Glowcoal extends Item {
-    public Glowcoal() {
+public class GlowcoalItem extends Item {
+    public GlowcoalItem() {
         super(new Item.Properties().group(InfernalExpansion.TAB));
     }
 
