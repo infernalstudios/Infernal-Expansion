@@ -1,15 +1,77 @@
 <h1 align="center">Contribution Guide</h1>
 
 ## Table of Contents:
+ - [Workspace Setup](#workspace-setup)
+  - [IntelliJ](#intellij)
+  - [Eclipse](#eclipse)
  - [Code Style Guide](#code-style-guide)
  - [Development Guide](#development-guide)
    - [Entities](#entities)
 
 ---
 
+## Workspace Setup
+
+For all of these, you'll need:
+ - Java SE Development Kit 8: _[Link to OpenJDK Download](https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot)_
+ - Git:  _[Official Download Link](https://git-scm.com/downloads)_
+  _Most Linux and MacOS systems have Git installed by default._
+
+### IntelliJ
+
+Prerequesites:
+ - IntelliJ IDEA: _[Download Link](https://www.jetbrains.com/idea/download/)_
+
+1. Clone this repository using Git: `git clone https://github.com/nekomaster1000/Infernal-Expansion`
+2. Open IntelliJ and select 'open'
+3. Navigate to the cloned repository and select 'build.gradle'
+4. Open it as a project.
+5. You will have to build the project, might take a while.
+6. Once you have opened it in IntelliJ, open the terminal. This can be found on the bottom left, and once you click it a small terminal should pop up.
+  Here, type `gradlew genIntellijRuns` or `./gradlew genIntellijRuns` if you're on Linux or MacOS. Wait for it to complete.
+7. Navigate to the file named InfernalExpansion.java in IntelliJ and double click it to open it.
+8. Select the button named 'Edit Configurations' in the top right. you should be taken to a page with two options on the left - Application and Templates;
+  Select 'Application', and from the options that appear select 'Run Client'.
+9. Return to the project and click the green arrow in the top left, IntelliJ will now compile and run the project.
+
+### Eclipse
+
+Prerequesites:
+ - Eclipse IDE: _[Download Link](https://www.eclipse.org/downloads/)_
+
+1. Open Eclipse
+2. Navigate to File > Import
+3. Choose Git > Projects from Git > Clone URI
+4. Under Location, paste `https://github.com/infernalexp/Infernal-Expansion.git` in URI
+5. Click next, and skip branch selection
+6. Choose a directory where the project files will be stored, click next
+7. Choose Import as general project, click next and finish.
+8. Open a terminal in your cloned directory and run `gradlew genEclipseRuns` or `./gradlew genEclipseRuns` if you're on Linux or MacOS. Wait for it to complete.
+9. Select the project, click 'Run' at the top, and select 'runClient'. Eclipse will now compile and run the project.
+
 ## Code Style Guide
 
-WIP
+This project uses the Google Java Style Guide, with the exception that we use 4 spaces to indent instead of 2: [View Here](https://google.github.io/styleguide/javaguide.html)
+Short code examples:
+
+```java
+if (condition) {
+    doSomething();
+} else if (anotherCondition) {
+    doAnotherThing();
+}
+```
+```java
+public class HelloWorld {
+    public HelloWorld(String person) {
+        System.out.println(HelloWorld.generateGreeting(person) + "\nHave a lovely day!");
+    }
+
+    static String generateGreeting(String person) {
+        return "Hello, " + person + "!";
+    }
+}
+```
 
 ## Development Guide
 
