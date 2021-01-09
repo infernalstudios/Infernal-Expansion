@@ -1,6 +1,16 @@
 name: Build JAR
 on:
   workflow_dispatch:
+  push:
+    branches: [ master, release-1.2 ]
+    paths:
+      - 'src/**'
+      - 'build.gradle'
+  pull_request:
+    branches: [ master, release-1.2 ]
+    paths:
+      - 'src/**'
+      - 'build.gradle'
 jobs:
   build:
     runs-on: ubuntu-20.04

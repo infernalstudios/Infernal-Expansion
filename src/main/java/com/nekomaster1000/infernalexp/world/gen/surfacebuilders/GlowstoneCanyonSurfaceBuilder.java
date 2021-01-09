@@ -36,7 +36,7 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
             } else if (currentBlockToReplace == Blocks.NETHERRACK.getDefaultState()) {
                 chunk.setBlockState(pos, config.getTop(), false);
 
-                //Checks to see if it should place a glowdust layer
+                // Checks to see if it should place a glowdust layer
                 glowdustLayerCheck: for (int xCheck = -1; xCheck <= 1; xCheck++) {
                     for (int zCheck = -1; zCheck <= 1; zCheck++) {
                         if (chunk.getBlockState(pos.add(xCheck, 1, zCheck)) == ModBlocks.GLOWDUST_SAND.get().getDefaultState()) {
@@ -46,6 +46,7 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
                     }
                 }
 
+                // Replace netherrack with glowdust rock/stone
                 for (int offset = 1; offset <= 3; offset++) {
                     if (chunk.getBlockState(pos.down(offset)) == Blocks.NETHERRACK.getDefaultState()) {
                         chunk.setBlockState(pos.down(offset), config.getUnder(), false);
@@ -56,10 +57,39 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
                 if (yPos <= 63) {
                     if (chunk.getBlockState(pos.down(1)) == config.getUnder() && chunk.getBlockState(pos.down(2)) == config.getUnder()) {
                         for (int offset = 3; offset <= yPos; offset++) {
-                            chunk.setBlockState(pos.down(offset), ModBlocks.DULLSTONE.get().getDefaultState(), false);
+                            float percentage = (((float) offset / yPos) - 0.05f) + (random.nextFloat() * 0.1f);
+
+                            if (percentage <= 0.15 && random.nextInt(10) == 1) {
+                                chunk.setBlockState(pos.down(offset), ModBlocks.DIMSTONE.get().getDefaultState(), false);
+                            } else if (percentage <= 0.15) {
+                                chunk.setBlockState(pos.down(offset), ModBlocks.GLOWDUST_STONE.get().getDefaultState(), false);
+                            } else {
+                                chunk.setBlockState(pos.down(offset), ModBlocks.DULLSTONE.get().getDefaultState(), false);
+                            }
                         }
                     }
                 }
+            }
+        }
+
+        // Add specs of dimstone to low areas of dullstone, this needs to be refactored because putting this code here is stupid.
+        // It should probably go where all the netherrack is replaced with dullstone or where the terrain is built down.
+        for (int yPos = 50; yPos > 0; yPos--) {
+            pos.setPos(xPos, yPos, zPos);
+
+            if (chunk.getBlockState(pos) == ModBlocks.DULLSTONE.get().getDefaultState()) {
+                if (random.nextInt(50) == 1) {
+                    chunk.setBlockState(pos, ModBlocks.DIMSTONE.get().getDefaultState(), false);
+                }
+//                I tried to make patches of dimstone. It looked like shit, specs look way better
+//                else if (chunk.getBlockState(pos.east()) == ModBlocks.DIMSTONE.get().getDefaultState() && random.nextInt(8) <= 6 ||
+//                        chunk.getBlockState(pos.west()) == ModBlocks.DIMSTONE.get().getDefaultState() && random.nextInt(8) <= 6 ||
+//                        chunk.getBlockState(pos.north()) == ModBlocks.DIMSTONE.get().getDefaultState() && random.nextInt(8) <= 6 ||
+//                        chunk.getBlockState(pos.south()) == ModBlocks.DIMSTONE.get().getDefaultState() && random.nextInt(8) <= 6 ||
+//                        chunk.getBlockState(pos.up()) == ModBlocks.DIMSTONE.get().getDefaultState() && random.nextInt(8) == 1 ||
+//                        chunk.getBlockState(pos.down()) == ModBlocks.DIMSTONE.get().getDefaultState() && random.nextInt(8) == 1) {
+//                    chunk.setBlockState(pos, ModBlocks.DIMSTONE.get().getDefaultState(), false);
+//                }
             }
         }
     }
