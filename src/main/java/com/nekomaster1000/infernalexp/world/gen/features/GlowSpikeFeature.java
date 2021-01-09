@@ -51,7 +51,7 @@ public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
 
         	// finds what percentage of the line has been built and then adds some randomness to it to make for a
             // more gradual change between blocks
-            float percentage = (((float) i / line.size()) - 0.1f) + (random.nextFloat() * 0.2f);
+            float percentage = (((float) i / line.size()) - config.blockDitheringAmount / 2) + (random.nextFloat() * config.blockDitheringAmount);
 
             if (percentage <= 0.33) {
                 if (config.darkAtTop)
