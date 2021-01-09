@@ -12,7 +12,8 @@ public class GlowSpikeFeatureConfig implements IFeatureConfig {
                 Codec.INT.fieldOf("min_height").forGetter((config) -> config.minHeight),
                 Codec.INT.fieldOf("max_height").forGetter((config) -> config.maxHeight),
                 Codec.INT.fieldOf("max_x_offset").forGetter((config) -> config.maxXOffset),
-                Codec.INT.fieldOf("max_z_offset").forGetter((config) -> config.maxZOffset))
+                Codec.INT.fieldOf("max_z_offset").forGetter((config) -> config.maxZOffset),
+                Codec.BOOL.fieldOf("dark_at_top").forGetter((config) -> config.darkAtTop))
                 .apply(builder, GlowSpikeFeatureConfig::new);
     });
 
@@ -22,13 +23,15 @@ public class GlowSpikeFeatureConfig implements IFeatureConfig {
     public final int maxHeight;
     public final int maxXOffset;
     public final int maxZOffset;
+    public final boolean darkAtTop;
 
-    public GlowSpikeFeatureConfig(int minDiameter, int maxDiameter, int minHeight, int maxHeight, int maxXOffset, int maxZOffset) {
+    public GlowSpikeFeatureConfig(int minDiameter, int maxDiameter, int minHeight, int maxHeight, int maxXOffset, int maxZOffset, boolean darkAtTop) {
         this.minDiameter = minDiameter;
         this.maxDiameter = maxDiameter;
         this.minHeight = minHeight;
         this.maxHeight = maxHeight;
         this.maxXOffset = maxXOffset;
         this.maxZOffset = maxZOffset;
+        this.darkAtTop = darkAtTop;
     }
 }
