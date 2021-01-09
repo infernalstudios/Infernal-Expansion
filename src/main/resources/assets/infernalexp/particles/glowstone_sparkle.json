@@ -1,5 +1,12 @@
 {
   "textures": [
-    "infernalexp:glowstone_sparkle_0"
+    "infernalexp:glowstone_sparkle_0",
+    "infernalexp:glowstone_sparkle_1",
+    "infernalexp:glowstone_sparkle_2",
+    "infernalexp:glowstone_sparkle_3",
+    "infernalexp:glowstone_sparkle_4",
+    "infernalexp:glowstone_sparkle_5",
+    "infernalexp:glowstone_sparkle_6",
+    "infernalexp:glowstone_sparkle_7"
   ]
 }

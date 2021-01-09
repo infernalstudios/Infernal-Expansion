@@ -1,24 +1,21 @@
 package com.nekomaster1000.infernalexp.client.particle;
 
-import com.nekomaster1000.infernalexp.InfernalExpansion;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particles.BasicParticleType;
-import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class GlowstoneSparkleParticle extends SpriteTexturedParticle {
 
-    protected GlowstoneSparkleParticle(ClientWorld clientWorld, double x, double y, double z, double motionX, double motionY, double motionZ) {
-        super(clientWorld, x, y, z, motionX, motionY, motionZ);
-        InfernalExpansion.LOGGER.info("Infernal Expansion: Particle Constructed!");
-    }
-
-    @Override
-    public IParticleRenderType getRenderType() {
-        return IParticleRenderType.PARTICLE_SHEET_LIT;
+    private GlowstoneSparkleParticle(ClientWorld world, double x, double y, double z, double motionX, double motionY, double motionZ) {
+        super(world, x, y, z);
+        this.motionX = (motionX + rand.nextFloat() - 0.5) / 3;
+        this.motionY = (motionY + rand.nextFloat() - 0.5) / 3;
+        this.motionZ = (motionZ + rand.nextFloat() - 0.5) / 3;
+        this.particleScale *= 0.75F;
+        this.maxAge = 60 + this.rand.nextInt(12);
     }
 
     public void move(double x, double y, double z) {
@@ -26,23 +23,28 @@ public class GlowstoneSparkleParticle extends SpriteTexturedParticle {
         this.resetPositionToBB();
     }
 
-    public float getScale(float scaleFactor) {
-        float lvt_2_1_ = ((float)this.age + scaleFactor) / (float)this.maxAge;
-        return this.particleScale * (1.0F - lvt_2_1_ * lvt_2_1_ * 0.5F);
+    public void tick() {
+        this.prevPosX = this.posX;
+        this.prevPosY = this.posY;
+        this.prevPosZ = this.posZ;
+        if (this.age++ >= this.maxAge) {
+            this.setExpired();
+        } else {
+            this.posX += this.motionX;
+            this.posY += this.motionY;
+            this.posZ += this.motionZ;
+            if (this.motionX > 0.1) this.motionX *= 0.9;
+            if (this.motionY > 0.1) this.motionY *= 0.9;
+            if (this.motionZ > 0.1) this.motionZ *= 0.9;
+        }
+    }
+
+    public IParticleRenderType getRenderType() {
+        return IParticleRenderType.PARTICLE_SHEET_LIT;
     }
 
     public int getBrightnessForRender(float partialTick) {
-        float lvt_2_1_ = ((float)this.age + partialTick) / (float)this.maxAge;
-        lvt_2_1_ = MathHelper.clamp(lvt_2_1_, 0.0F, 1.0F);
-        int lvt_3_1_ = super.getBrightnessForRender(partialTick);
-        int lvt_4_1_ = lvt_3_1_ & 255;
-        int lvt_5_1_ = lvt_3_1_ >> 16 & 255;
-        lvt_4_1_ += (int)(lvt_2_1_ * 15.0F * 16.0F);
-        if (lvt_4_1_ > 240) {
-            lvt_4_1_ = 240;
-        }
-
-        return lvt_4_1_ | lvt_5_1_ << 16;
+        return 15728880;
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -51,14 +53,12 @@ public class GlowstoneSparkleParticle extends SpriteTexturedParticle {
 
         public Factory(IAnimatedSprite spriteSet) {
             this.spriteSet = spriteSet;
-            InfernalExpansion.LOGGER.info("Infernal Expansion: Particle Factory Constructed!");
         }
 
         public Particle makeParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            GlowstoneSparkleParticle lvt_15_1_ = new GlowstoneSparkleParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed);
-            lvt_15_1_.selectSpriteRandomly(this.spriteSet);
-            InfernalExpansion.LOGGER.info("Infernal Expansion: Particle Selected!");
-            return lvt_15_1_;
+            GlowstoneSparkleParticle glowstoneSparkleParticle = new GlowstoneSparkleParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed);
+            glowstoneSparkleParticle.selectSpriteRandomly(this.spriteSet);
+            return glowstoneSparkleParticle;
         }
     }
 }
