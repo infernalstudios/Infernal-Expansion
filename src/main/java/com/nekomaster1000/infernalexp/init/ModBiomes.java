@@ -3,10 +3,7 @@ package com.nekomaster1000.infernalexp.init;
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.world.biome.netherbiomes.DeltaShoresSubBiome;
 import com.nekomaster1000.infernalexp.world.biome.netherbiomes.GlowstoneCanyonBiome;
-import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeCatch;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.ParticleEffectAmbience;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -22,7 +19,6 @@ public class ModBiomes
     public static final RegistryObject<Biome> DELTA_SHORES = registerNetherBiome("delta_shores",         () -> new DeltaShoresSubBiome().build());
 
     private static RegistryObject<Biome> registerNetherBiome(String name, Supplier<Biome> biome) {
-        ModNetherBiomeCatch.netherBiomeList.add(InfernalExpansion.MOD_ID + ":" + name);
         return BIOMES.register(name, biome);
     }
 
