@@ -16,13 +16,6 @@ import java.util.Random;
 
 public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
 
-    private static final int minDiameter = 3;
-    private static final int maxDiameter = 5;
-    private static final int minHeight = 8;
-    private static final int maxHeight = 24;
-    private static final int maxXOffset = 7;
-    private static final int maxZOffset = 7;
-
     public GlowSpikeFeature(Codec<GlowSpikeFeatureConfig> codec) {
         super(codec);
     }
@@ -40,7 +33,7 @@ public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
             ArrayList<BlockPos> points = ShapeUtil.generateSolidCircle((float) diameter / 2);
 
             for (BlockPos point : points) {
-                placeLine(world, pos.add(point.getX(), 0, point.getZ()), pos.add(xOffset, height, zOffset), config);
+                placeLine(world, pos.add(point.getX(), 0, point.getZ()), pos.add(xOffset, height, zOffset), random, config);
             }
 
             return true;
@@ -54,7 +47,7 @@ public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
      * @param startPos Start position
      * @param endPos   End position
      */
-    private void placeLine(ISeedReader world, BlockPos startPos, BlockPos endPos, GlowSpikeFeatureConfig config) {
+    private void placeLine(ISeedReader world, BlockPos startPos, BlockPos endPos, Random random, GlowSpikeFeatureConfig config) {
         Vector3d vec1 = new Vector3d(startPos.getX(), startPos.getY(), startPos.getZ());
         Vector3d vec2 = new Vector3d(endPos.getX(), endPos.getY(), endPos.getZ());
 
@@ -67,15 +60,23 @@ public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
         	if (vec1.y > 128 || world.getBlockState(new BlockPos(vec1.x, vec1.y, vec1.z)).equals(Blocks.BEDROCK.getDefaultState())) {
         		continue;
         	}
-        	
-            float percentage = (float) i / lineLength;
+
+        	// finds what percentage of the line has been built and then adds some randomness to it to make for a
+            // more gradual change between blocks
+            float percentage = (((float) i / lineLength) - 0.1f) + (random.nextFloat() * 0.2f);
 
             if (percentage <= 0.33) {
-                world.setBlockState(new BlockPos(vec1.x, vec1.y, vec1.z), Blocks.GLOWSTONE.getDefaultState(), 10);
+                if (config.darkAtTop)
+                    world.setBlockState(new BlockPos(vec1.x, vec1.y, vec1.z), Blocks.GLOWSTONE.getDefaultState(), 10);
+                else
+                    world.setBlockState(new BlockPos(vec1.x, vec1.y, vec1.z), ModBlocks.DULLSTONE.get().getDefaultState(), 10);
             } else if (percentage > 0.33 && percentage <= 0.66) {
                 world.setBlockState(new BlockPos(vec1.x, vec1.y, vec1.z), ModBlocks.DIMSTONE.get().getDefaultState(), 10);
             } else {
-                world.setBlockState(new BlockPos(vec1.x, vec1.y, vec1.z), ModBlocks.DULLSTONE.get().getDefaultState(), 10);
+                if (config.darkAtTop)
+                    world.setBlockState(new BlockPos(vec1.x, vec1.y, vec1.z), ModBlocks.DULLSTONE.get().getDefaultState(), 10);
+                else
+                    world.setBlockState(new BlockPos(vec1.x, vec1.y, vec1.z), Blocks.GLOWSTONE.getDefaultState(), 10);
             }
             vec1 = vec1.add(incVec);
         }
