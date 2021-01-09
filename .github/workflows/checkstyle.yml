@@ -1,0 +1,20 @@
+name: Check Code Style
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [ master, release-1.2 ]
+    paths:
+      - 'src/**'
+jobs:
+  check-style:
+    runs-on: ubuntu-20.04
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@master
+
+      - name: Check Style
+        uses: dbelyaev/action-checkstyle@v0.3.2
+        with:
+          workdir: ./src/main/java
+          level: warning
