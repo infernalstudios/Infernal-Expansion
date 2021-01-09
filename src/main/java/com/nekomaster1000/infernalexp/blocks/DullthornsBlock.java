@@ -1,5 +1,6 @@
 package com.nekomaster1000.infernalexp.blocks;
 
+import com.nekomaster1000.infernalexp.entities.BlindsightEntity;
 import com.nekomaster1000.infernalexp.init.ModBlocks;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
@@ -94,7 +95,7 @@ public class DullthornsBlock extends BushBlock {
     @Override
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
         if (!worldIn.isRemote()) {
-            if (entityIn instanceof LivingEntity && entityIn.isAlive()) {
+            if (entityIn instanceof LivingEntity && entityIn.isAlive() && !(entityIn instanceof BlindsightEntity) ) {
                 LivingEntity livingEntity = (LivingEntity) entityIn;
                 livingEntity.addPotionEffect(new EffectInstance(Effects.GLOWING, 300, 0));
             }
