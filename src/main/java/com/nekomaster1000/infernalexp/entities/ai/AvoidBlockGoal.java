@@ -7,19 +7,17 @@ import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.util.EntityPredicates;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
 
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
 public class AvoidBlockGoal extends Goal {
 
     protected final SlimeEntity entity;
-    protected Vector3d avoidBlockVector;
-    protected Vector3d runAwayVector;
+    protected Optional<BlockPos> avoidBlockPos;
     protected final float avoidDistance;
-    protected float desiredDirection;
     protected final SlimeEntity.MoveHelperController controller;
     protected final Block avoidBlock;
 
@@ -35,26 +33,14 @@ public class AvoidBlockGoal extends Goal {
         this.avoidDistance = distance;
         this.controller = (SlimeEntity.MoveHelperController) entityIn.getMoveHelper();
         this.setMutexFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
-        //this.builtTargetSelector = (new EntityPredicate()).setDistance((double)distance).setCustomPredicate(p_i48859_9_.and(targetPredicate));
     }
 
     @Override
     public boolean shouldExecute() {
-        Optional<BlockPos> avoidBlockPos = BlockPos.getClosestMatchingPosition(this.entity.getPosition(), 8, 4, (pos) -> this.entity.world.getBlockState(pos).equals(this.avoidBlock.getDefaultState()));
+        this.avoidBlockPos = BlockPos.getClosestMatchingPosition(this.entity.getPosition(), (int)this.avoidDistance, 4, (pos) -> this.entity.world.getBlockState(pos).equals(this.avoidBlock.getDefaultState()));
 
         if (avoidBlockPos.isPresent()) {
-            this.avoidBlockVector = new Vector3d(avoidBlockPos.get().getX(), avoidBlockPos.get().getY(), avoidBlockPos.get().getZ());
-            //this.runAwayVector = this.avoidBlockVector.crossProduct(this.entity.getPositionVec().inverse());
-
-            this.runAwayVector = RandomPositionGeneratorTest.findRandomTargetBlockAwayFrom(this.entity, 16, 7, this.avoidBlockVector);
-
-            if (this.runAwayVector == null) {
-                return false;
-            } else if (this.avoidBlockVector.distanceTo(this.runAwayVector) < this.avoidBlockVector.distanceTo(this.entity.getPositionVec())) {
-                return false;
-            } else {
-                return true;
-            }
+            return true;
         } else {
             return false;
         }
@@ -67,43 +53,48 @@ public class AvoidBlockGoal extends Goal {
 
     @Override
     public boolean shouldContinueExecuting() {
-        return avoidBlockVector.isWithinDistanceOf(this.entity.getPositionVec(), avoidDistance);
+        this.avoidBlockPos = BlockPos.getClosestMatchingPosition(this.entity.getPosition(), (int)this.avoidDistance, 4, (pos) -> this.entity.world.getBlockState(pos).equals(this.avoidBlock.getDefaultState()));
+
+        return this.avoidBlockPos.isPresent() && this.entity.getDistanceSq(this.avoidBlockPos.get().getX(),
+                this.avoidBlockPos.get().getY(), this.avoidBlockPos.get().getZ()) <= this.avoidDistance;
     }
 
     @Override
     public void resetTask() {
-        this.avoidBlockVector = null;
+        this.avoidBlockPos = null;
     }
 
     @Override
     public void tick() {
-        this.updateClosestBlock();
-        this.faceAwayFromBlock();
-        System.out.println(this.runAwayVector);
+        faceAway();
         this.controller.setSpeed(1.0);
     }
 
-    private void faceAwayFromBlock(){
-        double d0 = this.runAwayVector.getX() - this.entity.getPosX();
-        double d2 = this.runAwayVector.getZ() - this.entity.getPosZ();
-        double d1 = (this.runAwayVector.getY() / 2.0D - this.entity.getPosYEye());
+    private void faceAway(){
+        double d0 = this.avoidBlockPos.get().getX() - this.entity.getPosX();
+        double d2 = this.avoidBlockPos.get().getZ() - this.entity.getPosZ();
+        double d1 = (this.avoidBlockPos.get().getY() + this.entity.getBoundingBox().maxY) / 2.0D - this.entity.getPosYEye();
 
         double d3 = MathHelper.sqrt(d0 * d0 + d2 * d2);
-        this.desiredDirection = (float)(-(MathHelper.atan2(d1, d3) * (double)(180F / (float)Math.PI)));
+        float f = (float)(MathHelper.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F;
+        float f1 = (float)(-(MathHelper.atan2(d1, d3) * (double)(180F / (float)Math.PI)));
+        this.entity.rotationPitch = updateRotation(this.entity.rotationPitch, f1, 10.0F);
+        this.entity.rotationYaw = updateRotation(this.entity.rotationYaw, f + 180.0F, 10.0F);
 
-        this.controller.setDirection(this.desiredDirection,false);
+        this.controller.setDirection(this.entity.rotationYaw, false);
     }
 
-    private void updateClosestBlock(){
-        Optional<BlockPos> avoidBlockPos = BlockPos.getClosestMatchingPosition(this.entity.getPosition(), 8, 4, (pos) -> this.entity.world.getBlockState(pos).equals(this.avoidBlock.getDefaultState()));
-
-        if (avoidBlockPos.isPresent()) {
-            this.avoidBlockVector = new Vector3d(avoidBlockPos.get().getX(), avoidBlockPos.get().getY(), avoidBlockPos.get().getZ());
-
-            do {
-                this.runAwayVector = RandomPositionGeneratorTest.findRandomTargetBlockAwayFrom(this.entity, 16, 7, this.avoidBlockVector);
-            } while (runAwayVector == null);
+    private float updateRotation(float angle, float targetAngle, float maxIncrease) {
+        float f = MathHelper.wrapDegrees(targetAngle - angle);
+        if (f > maxIncrease) {
+            f = maxIncrease;
         }
 
+        if (f < -maxIncrease) {
+            f = -maxIncrease;
+        }
+
+        return angle + f;
     }
+
 }

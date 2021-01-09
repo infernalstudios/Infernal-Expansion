@@ -6,6 +6,7 @@ import com.nekomaster1000.infernalexp.config.ConfigHolder;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.entities.*;
 import com.nekomaster1000.infernalexp.entities.ai.AvoidBlockGoal;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
@@ -29,6 +30,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Mod.EventBusSubscriber(modid = InfernalExpansion.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -173,19 +175,29 @@ public class ModEvents {
             }
         }
 
-
-        //...
-
-        // Please add Magma Cubes being scared of Glow Torches/Lanterns/Campfires here. PUSHED TO RELEASE 2
-
-        /*
         if (event.getEntity() instanceof MagmaCubeEntity) {
+
             ((SlimeEntity) event.getEntity()).goalSelector.addGoal(0,
                     new AvoidBlockGoal((SlimeEntity) event.getEntity(), ModBlocks.GLOW_TORCH.get(),
                             16.0F));
-            ((SlimeEntity) event.getEntity()).goalSelector.addGoal(0, new AvoidBlockGoal((SlimeEntity) event.getEntity(), ModBlocks.GLOW_TORCH.get(), 16.0F));
+
+            ((SlimeEntity) event.getEntity()).goalSelector.addGoal(0,
+                    new AvoidBlockGoal((SlimeEntity) event.getEntity(), ModBlocks.GLOW_WALL_TORCH.get(),
+                            16.0F));
+
+            ((SlimeEntity) event.getEntity()).goalSelector.addGoal(0,
+                    new AvoidBlockGoal((SlimeEntity) event.getEntity(), ModBlocks.GLOW_LANTERN.get(),
+                            16.0F));
+
+            ((SlimeEntity) event.getEntity()).goalSelector.addGoal(0,
+                    new AvoidBlockGoal((SlimeEntity) event.getEntity(), ModBlocks.GLOW_CAMPFIRE.get(),
+                            16.0F));
+
+            ((SlimeEntity) event.getEntity()).goalSelector.addGoal(0,
+                    new AvoidBlockGoal((SlimeEntity) event.getEntity(), ModBlocks.GLOW_FIRE.get(),
+                            16.0F));
         }
-         */
+
     }
 
     //Mob Spawning in pre-existing biomes
