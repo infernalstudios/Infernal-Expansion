@@ -10,7 +10,7 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class HangingGiantBrownMushroomFeature extends Feature<NoFeatureConfig> {
@@ -32,7 +32,7 @@ public class HangingGiantBrownMushroomFeature extends Feature<NoFeatureConfig> {
                 world.setBlockState(pos.down(y), Blocks.MUSHROOM_STEM.getDefaultState(), 10);
             }
 
-            ArrayList<BlockPos> points = ShapeUtil.generateSolidCircle((float) (size / 2) + 1);
+            List<BlockPos> points = ShapeUtil.generateSolidCircle((float) (size / 2) + 1);
 
             for (BlockPos point : points) {
                 world.setBlockState(pos.add(point.getX(), point.getY() - size, point.getZ()),
