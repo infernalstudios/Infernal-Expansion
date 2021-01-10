@@ -5,6 +5,7 @@ import com.nekomaster1000.infernalexp.init.ModBlocks;
 import com.nekomaster1000.infernalexp.util.ShapeUtil;
 import com.nekomaster1000.infernalexp.world.gen.features.config.GlowSpikeFeatureConfig;
 import net.minecraft.block.Blocks;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
@@ -30,6 +31,14 @@ public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
             return false;
         } else {
             List<BlockPos> points = ShapeUtil.generateSolidCircle((float) diameter / 2);
+
+            for (BlockPos point : points) {
+                BlockPos pointPos = new BlockPos(pos.getX() + point.getX(), pos.getY(), pos.getZ() + point.getZ());
+
+                if (world.getBlockState(pointPos.down()).getBlock() != ModBlocks.GLOWDUST_SAND.get()) {
+                    return generate(world, generator, random, pos.down(), config);
+                }
+            }
 
             for (BlockPos point : points) {
                 placeGlowSpikeLine(world, pos.add(point.getX(), 0, point.getZ()), pos.add(xOffset, height, zOffset), random, config);
