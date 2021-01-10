@@ -36,10 +36,10 @@ public class LuminousFungusFeature extends Feature<NoFeatureConfig> {
 
         for (int j = 0; j < 96; j++) {
             BlockState state = ModBlocks.LUMINOUS_FUNGUS.get().getDefaultState().with(LuminousFungusBlock.FACE, face);
-            BlockPos blockpos = pos.add(random.nextInt(20) - random.nextInt(40), random.nextInt(4) - random.nextInt(8), random.nextInt(20) - random.nextInt(40));
+            BlockPos blockpos = pos.add(random.nextInt(10) - random.nextInt(20), random.nextInt(4) - random.nextInt(8), random.nextInt(10) - random.nextInt(20));
 
             if (world.isAirBlock(blockpos) && state.isValidPosition(world, blockpos) && (world.getBlockState(blockpos.up()) == ModBlocks.DULLSTONE.get().getDefaultState() || world.getBlockState(blockpos.down()) == ModBlocks.GLOWDUST_SAND.get().getDefaultState())) {
-                world.setBlockState(blockpos, state, 10);
+                world.setBlockState(blockpos, state, 2);
                 i++;
             }
 
