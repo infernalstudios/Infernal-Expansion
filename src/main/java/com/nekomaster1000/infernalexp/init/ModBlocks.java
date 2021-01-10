@@ -44,9 +44,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> DULLSTONE_BRICK_STAIRS = BLOCKS.register("dullstone_brick_stairs", () -> new StairsBlock(() -> DULLSTONE_BRICK.get().getDefaultState(), getProperties(DULLSTONE_BRICK.get())));
 
     public static final RegistryObject<Block> GLOWDUST = BLOCKS.register("glowdust", () -> new GlowdustBlock(getProperties(Blocks.SAND).setLightLevel(value -> 8).setRequiresTool().harvestTool(ToolType.SHOVEL).hardnessAndResistance(0.2f)));
-    public static final RegistryObject<Block> GLOWDUST_SAND = BLOCKS.register("glowdust_sand", () -> new SandBlock(0xFFC267, getProperties(GLOWDUST.get()).hardnessAndResistance(0.5F)));
-    public static final RegistryObject<Block> GLOWDUST_STONE = BLOCKS.register("glowdust_stone",            () -> new Block(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
-    public static final RegistryObject<Block> GLOWDUST_SANDSTONE = BLOCKS.register("glowdust_sandstone",            () -> new Block(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
+    public static final RegistryObject<Block> GLOWDUST_SAND = BLOCKS.register("glowdust_sand", () -> new GlowSandBlockBase(0xFFC267, getProperties(GLOWDUST.get()).hardnessAndResistance(0.5F)));
+    public static final RegistryObject<Block> GLOWDUST_STONE = BLOCKS.register("glowdust_stone",            () -> new GlowBlockBase(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
+    public static final RegistryObject<Block> GLOWDUST_SANDSTONE = BLOCKS.register("glowdust_sandstone",            () -> new GlowBlockBase(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
     public static final RegistryObject<Block> CUT_GLOWDUST_SANDSTONE = BLOCKS.register("cut_glowdust_sandstone", () -> new Block(getProperties(GLOWDUST_SANDSTONE.get())));
     public static final RegistryObject<Block> CHISELED_GLOWDUST_SANDSTONE = BLOCKS.register("chiseled_glowdust_sandstone", () -> new Block(getProperties(GLOWDUST_SANDSTONE.get())));
     public static final RegistryObject<Block> SMOOTH_GLOWDUST_SANDSTONE = BLOCKS.register("smooth_glowdust_sandstone", () -> new Block(getProperties(GLOWDUST_SANDSTONE.get())));
@@ -67,7 +67,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> GLOW_TORCH = BLOCKS.register("torch_glow",  () -> new TorchBlock(getProperties(Blocks.TORCH), ParticleTypes.CRIT));
     public static final RegistryObject<Block> GLOW_WALL_TORCH = BLOCKS.register("torch_glow_wall", () -> new WallTorchBlock(getProperties(ModBlocks.GLOW_TORCH.get()).lootFrom(GLOW_TORCH.get()), ParticleTypes.CRIT));
     public static final RegistryObject<Block> GLOW_CAMPFIRE = BLOCKS.register("campfire_glow", () -> new GlowCampfireBlock(true, 2, getProperties(Blocks.CAMPFIRE)));
-    public static final RegistryObject<Block> GLOW_FIRE = BLOCKS.register("fire_glow", () -> new FireBlock(getProperties(Blocks.FIRE)));
+    public static final RegistryObject<Block> GLOW_FIRE = BLOCKS.register("fire_glow", () -> new GlowFireBlock(getProperties(Blocks.FIRE)));
 
     // Foliage
     public static final RegistryObject<Block> LUMINOUS_FUNGUS = BLOCKS.register("luminous_fungus", () -> new LuminousFungusBlock(getProperties(Material.PLANTS).setLightLevel(value -> 13).doesNotBlockMovement().sound(SoundType.PLANT)));
