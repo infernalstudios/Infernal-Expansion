@@ -1,10 +1,7 @@
 package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
-import com.nekomaster1000.infernalexp.blocks.DullthornsBlock;
-import com.nekomaster1000.infernalexp.blocks.GlowCampfireBlock;
-import com.nekomaster1000.infernalexp.blocks.GlowdustBlock;
-import com.nekomaster1000.infernalexp.blocks.LuminousFungusBlock;
+import com.nekomaster1000.infernalexp.blocks.*;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.particles.ParticleTypes;
@@ -60,7 +57,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> SMOOTH_GLOWDUST_SANDSTONE_STAIRS = BLOCKS.register("smooth_glowdust_sandstone_stairs", () -> new StairsBlock(() -> SMOOTH_GLOWDUST_SANDSTONE.get().getDefaultState(), getProperties(SMOOTH_GLOWDUST_SANDSTONE.get())));
     public static final RegistryObject<Block> GLOWDUST_SANDSTONE_WALL = BLOCKS.register("glowdust_sandstone_wall", () -> new WallBlock(getProperties(GLOWDUST_SANDSTONE.get())));
 
-    public static final RegistryObject<Block> CRUMBLING_BLACKSTONE = BLOCKS.register("crumbling_blackstone",            () -> new Block(getProperties(Blocks.NETHERRACK)));
+    public static final RegistryObject<Block> CRUMBLING_BLACKSTONE = BLOCKS.register("crumbling_blackstone",            () -> new CrumblingBlackstoneBlock(AbstractBlock.Properties.from(Blocks.NETHERRACK)));
     public static final RegistryObject<Block> GLIMMERING_BLACKSTONE = BLOCKS.register("glimmering_blackstone",            () -> new Block(getProperties(Blocks.BLACKSTONE).setLightLevel(value -> 6)));
     public static final RegistryObject<Block> SILT = BLOCKS.register("silt", () -> new Block(getProperties(Blocks.SAND)));
     public static final RegistryObject<Block> RUBBLE = BLOCKS.register("rubble",  () -> new Block(getProperties(Blocks.GRAVEL)));
