@@ -6,31 +6,27 @@ import com.nekomaster1000.infernalexp.config.ConfigHolder;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.entities.*;
 import com.nekomaster1000.infernalexp.entities.ai.AvoidBlockGoal;
-import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.*;
+import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.FlyingEntity;
+import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.monster.piglin.PiglinBruteEntity;
-import net.minecraftforge.event.world.BlockEvent;
-import com.nekomaster1000.infernalexp.entities.EmbodyEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.monster.MagmaCubeEntity;
-import net.minecraft.entity.monster.SlimeEntity;
-import net.minecraft.entity.projectile.ArrowEntity;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.monster.piglin.PiglinEntity;
 import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Mod.EventBusSubscriber(modid = InfernalExpansion.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -296,5 +292,16 @@ public class ModEvents {
                 }
             }
         }
+    }
+
+    // Register features and surface builders
+    @SubscribeEvent
+    public static void registerFeatures(RegistryEvent.Register<Feature<?>> event) {
+        ModFeatures.features.forEach(feature -> event.getRegistry().register(feature));
+    }
+
+    @SubscribeEvent
+    public static void registerSurfaceBuilders(RegistryEvent.Register<SurfaceBuilder<?>> event) {
+        ModSurfaceBuilders.surfaceBuilders.forEach(surfaceBuilder -> event.getRegistry().register(surfaceBuilder));
     }
 }

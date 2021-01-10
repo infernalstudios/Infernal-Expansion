@@ -3,7 +3,7 @@ package com.nekomaster1000.infernalexp.world.biome.netherbiomes;
 import com.nekomaster1000.infernalexp.init.ModConfiguredFeatures;
 import com.nekomaster1000.infernalexp.init.ModEntityType;
 import com.nekomaster1000.infernalexp.init.ModParticleTypes;
-import com.nekomaster1000.infernalexp.init.ModSurfaceBuilder;
+import com.nekomaster1000.infernalexp.init.ModSurfaceBuilders;
 import com.nekomaster1000.infernalexp.world.biome.BiomeHelper;
 import com.nekomaster1000.infernalexp.world.biome.ModBiome;
 import net.minecraft.client.audio.BackgroundMusicTracks;
@@ -56,7 +56,7 @@ public class GlowstoneCanyonBiome extends ModBiome {
 
     @Override
     protected ConfiguredSurfaceBuilder<?> configureSurfaceBuilder() {
-        return BiomeHelper.newConfiguredSurfaceBuilder("glowstone_canyon", new ConfiguredSurfaceBuilder(ModSurfaceBuilder.GLOWSTONE_CANYON_SURFACE_BUILDER, ModSurfaceBuilder.ModSurfaceBuilderConfig.GLOWSTONE_CANYON_CONFIG));
+        return BiomeHelper.newConfiguredSurfaceBuilder("glowstone_canyon", new ConfiguredSurfaceBuilder(ModSurfaceBuilders.GLOWSTONE_CANYON_SURFACE_BUILDER, ModSurfaceBuilders.ModSurfaceBuilderConfig.GLOWSTONE_CANYON_CONFIG));
     }
 
     @Override
