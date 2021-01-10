@@ -51,28 +51,37 @@ Prerequesites:
 
 ## Code Style Guide
 
-This project uses the Google Java Style Guide, with the exception that we use 4 spaces to indent instead of 2: [View Here](https://google.github.io/styleguide/javaguide.html)
-Short code examples:
+This project uses the Google Java Style Guide: [View Here](https://google.github.io/styleguide/javaguide.html)
 
-```java
-if (condition) {
-    doSomething();
-} else if (anotherCondition) {
-    doAnotherThing();
+In short, when writing if, for and while statements and such, we use: ```java
+if (statement) {
+    someCode();
+    double x = player.getPos().getX();
+} else if (anotherStatement) {
+    someOtherCode();
+    double z = player.getPos().getZ();
+} else {
+    throw new NullPointerException();
 }
-```
-```java
-public class HelloWorld {
-    public HelloWorld(String person) {
-        System.out.println(HelloWorld.generateGreeting(person) + "\nHave a lovely day!");
-    }
-
-    static String generateGreeting(String person) {
-        return "Hello, " + person + "!";
-    }
+``` instead of ```java
+if(statement) {
+    someCode();
 }
-```
+else{
+    someOtherCode();
+}
+``` _I'm looking at you, Hellion_
 
+If possible, we encourage [line breaks](https://google.github.io/styleguide/javaguide.html#s4.5-line-wrapping).
+
+Some other things to note:
+ - We use 4 spaces instead of 2 for indentation, overrides [4.2](https://google.github.io/styleguide/javaguide.html#s4.2-block-indentation).
+ - 4.1 [Brace styling](https://google.github.io/styleguide/javaguide.html#s4.1-braces).
+ - 4.6.1 [Vertical whitespace](https://google.github.io/styleguide/javaguide.html#s4.6.1-vertical-whitespace).
+ - 4.8.7 [Order of modifiers](https://google.github.io/styleguide/javaguide.html#s4.8.7-modifiers).
+ - 5.2 [Identifier naming](https://google.github.io/styleguide/javaguide.html#s5.2-specific-identifier-names).
+ - 7 [Javadoc](https://google.github.io/styleguide/javaguide.html#s7-javadoc). *This is very short*
+ 
 ## Development Guide
 
 ### Entities
