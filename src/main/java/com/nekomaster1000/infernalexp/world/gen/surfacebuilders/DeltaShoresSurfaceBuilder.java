@@ -56,7 +56,13 @@ public class DeltaShoresSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConf
                 if (yPos <= 63) {
                     if (chunk.getBlockState(pos.down(1)) == config.getUnder() && chunk.getBlockState(pos.down(2)) == config.getUnder()) {
                         for (int offset = 3; offset <= yPos; offset++) {
-                            chunk.setBlockState(pos.down(offset), Blocks.BASALT.getDefaultState(), false);
+                            float percentage = (((float) offset / yPos) - 0.05f) + (random.nextFloat() * 0.1f);
+
+                            if (percentage <= 0.15) {
+                                chunk.setBlockState(pos.down(offset), ModBlocks.SILT.get().getDefaultState(), false);
+                            } else {
+                                chunk.setBlockState(pos.down(offset), Blocks.BASALT.getDefaultState(), false);
+                            }
                         }
                     }
                 }

@@ -27,6 +27,25 @@
     },
     "face=floor,facing=west": {
       "model": "infernalexp:block/luminous_fungus"
+    },
+    "face=wall,facing=east": {
+      "model": "infernalexp:block/luminous_fungus",
+      "y": 90,
+      "x": 90
+    },
+    "face=wall,facing=north": {
+      "model": "infernalexp:block/luminous_fungus",
+      "x": 90
+    },
+    "face=wall,facing=south": {
+      "model": "infernalexp:block/luminous_fungus",
+      "y": 180,
+      "x": 90
+    },
+    "face=wall,facing=west": {
+      "model": "infernalexp:block/luminous_fungus",
+      "y": 270,
+      "x": 90
     }
   }
 }
