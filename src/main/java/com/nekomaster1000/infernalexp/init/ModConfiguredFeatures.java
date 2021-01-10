@@ -24,7 +24,12 @@ public class ModConfiguredFeatures {
 //            LUMINOUS_FUNGUS)).withPlacement(Placement.field_242897_C.configure(new FeatureSpreadConfig(15))));
 
     public static ConfiguredFeature<?, ?> registerConfiguredFeature(String registryName, ConfiguredFeature<?, ?> configuredFeature) {
-        return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(InfernalExpansion.MOD_ID, registryName), configuredFeature);
+        ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, registryName);
+
+        if (WorldGenRegistries.CONFIGURED_FEATURE.containsKey(resourceLocation))
+            throw new IllegalStateException("Configured Feature ID: \"" + resourceLocation.toString() + "\" is already in the registry!");
+
+        return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, resourceLocation, configuredFeature);
     }
 
 }

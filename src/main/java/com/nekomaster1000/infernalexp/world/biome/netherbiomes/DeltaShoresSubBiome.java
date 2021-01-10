@@ -1,8 +1,7 @@
 package com.nekomaster1000.infernalexp.world.biome.netherbiomes;
 
-import com.nekomaster1000.infernalexp.init.ModConfiguredFeatures;
 import com.nekomaster1000.infernalexp.init.ModEntityType;
-import com.nekomaster1000.infernalexp.init.ModSurfaceBuilder;
+import com.nekomaster1000.infernalexp.init.ModSurfaceBuilders;
 import com.nekomaster1000.infernalexp.world.biome.BiomeHelper;
 import com.nekomaster1000.infernalexp.world.biome.ModBiome;
 import net.minecraft.client.audio.BackgroundMusicTracks;
@@ -14,7 +13,6 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.carver.ConfiguredCarvers;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.structure.StructureFeatures;
-import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 
 public class DeltaShoresSubBiome extends ModBiome {
@@ -54,7 +52,7 @@ public class DeltaShoresSubBiome extends ModBiome {
     }
 
     @Override
-    protected ConfiguredSurfaceBuilder<?> configureSurfaceBuilder() { return BiomeHelper.newConfiguredSurfaceBuilder("delta_shores", new ConfiguredSurfaceBuilder(ModSurfaceBuilder.DELTA_SHORES_SURFACE_BUILDER, ModSurfaceBuilder.ModSurfaceBuilderConfig.DELTA_SHORES_CONFIG));
+    protected ConfiguredSurfaceBuilder<?> configureSurfaceBuilder() { return BiomeHelper.newConfiguredSurfaceBuilder("delta_shores", new ConfiguredSurfaceBuilder(ModSurfaceBuilders.DELTA_SHORES_SURFACE_BUILDER, ModSurfaceBuilders.ModSurfaceBuilderConfig.DELTA_SHORES_CONFIG));
     }
 
     @Override
