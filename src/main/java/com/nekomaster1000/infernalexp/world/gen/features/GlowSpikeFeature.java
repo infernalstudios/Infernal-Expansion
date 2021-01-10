@@ -5,7 +5,6 @@ import com.nekomaster1000.infernalexp.init.ModBlocks;
 import com.nekomaster1000.infernalexp.util.ShapeUtil;
 import com.nekomaster1000.infernalexp.world.gen.features.config.GlowSpikeFeatureConfig;
 import net.minecraft.block.Blocks;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
@@ -49,7 +48,7 @@ public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
     }
 
     private void placeGlowSpikeLine(ISeedReader world, BlockPos startPos, BlockPos endPos, Random random, GlowSpikeFeatureConfig config) {
-        List<BlockPos> line = ShapeUtil.placeLine(startPos, endPos);
+        List<BlockPos> line = ShapeUtil.generateLine(startPos, endPos);
 
         for (int i = 0; i < line.size(); i++) {
             BlockPos pos = line.get(i);

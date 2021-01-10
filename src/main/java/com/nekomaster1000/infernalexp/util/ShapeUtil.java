@@ -52,7 +52,7 @@ public class ShapeUtil {
      * @param startPos Start position
      * @param endPos   End position
      */
-    public static List<BlockPos> placeLine(BlockPos startPos, BlockPos endPos) {
+    public static List<BlockPos> generateLine(BlockPos startPos, BlockPos endPos) {
         List<BlockPos> posList = new ArrayList<>();
 
         Vector3d vec1 = new Vector3d(startPos.getX(), startPos.getY(), startPos.getZ());
