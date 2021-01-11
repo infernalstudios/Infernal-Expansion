@@ -15,26 +15,26 @@ import java.util.function.Predicate;
  * should be targeted.
  */
 public class TargetWithEffectGoal extends NearestAttackableTargetGoal {
-    private int potionId;
+    private Effect effect;
 
-    public TargetWithEffectGoal(MobEntity goalOwnerIn, Class targetClassIn, boolean checkSight, int potionId) {
+    public TargetWithEffectGoal(MobEntity goalOwnerIn, Class targetClassIn, boolean checkSight, Effect effect) {
         super(goalOwnerIn, targetClassIn, checkSight);
-        this.potionId = potionId;
+        this.effect = effect;
     }
 
-    public TargetWithEffectGoal(MobEntity goalOwnerIn, Class targetClassIn, boolean checkSight, boolean nearbyOnlyIn, int potionId) {
+    public TargetWithEffectGoal(MobEntity goalOwnerIn, Class targetClassIn, boolean checkSight, boolean nearbyOnlyIn, Effect effect) {
         super(goalOwnerIn, targetClassIn, checkSight, nearbyOnlyIn);
-        this.potionId = potionId;
+        this.effect = effect;
     }
 
-    public TargetWithEffectGoal(MobEntity goalOwnerIn, Class targetClassIn, int targetChanceIn, boolean checkSight, boolean nearbyOnlyIn, Predicate targetPredicate, int potionId) {
+    public TargetWithEffectGoal(MobEntity goalOwnerIn, Class targetClassIn, int targetChanceIn, boolean checkSight, boolean nearbyOnlyIn, Predicate targetPredicate, Effect effect) {
         super(goalOwnerIn, targetClassIn, targetChanceIn, checkSight, nearbyOnlyIn, targetPredicate);
-        this.potionId = potionId;
+        this.effect = effect;
     }
 
     @Override
     protected boolean isSuitableTarget(@Nullable LivingEntity potentialTarget, EntityPredicate targetPredicate) {
-        if(super.isSuitableTarget(potentialTarget, targetPredicate) && potentialTarget.isPotionActive(Effect.get(this.potionId))){
+        if(super.isSuitableTarget(potentialTarget, targetPredicate) && potentialTarget.isPotionActive(this.effect)){
             return true;
         }
         else{

@@ -44,6 +44,7 @@ public class InfernalExpansion
         ModParticleTypes.PARTICLES.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModItems.register(modEventBus);
+        ModEffects.register(modEventBus);
         ModEntityType.register(modEventBus);
         ModPaintings.register(modEventBus);
         ModTileEntityTypes.register(modEventBus);

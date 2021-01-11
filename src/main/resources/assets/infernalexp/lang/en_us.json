@@ -95,5 +95,7 @@
   "entity.infernalexp.blindsight": "Blindsight",
 
   "biome.infernalexp.glowstone_canyon": "Glowstone Canyon",
-  "biome.infernalexp.delta_shores": "Delta Shores"
+  "biome.infernalexp.delta_shores": "Delta Shores",
+
+  "effect.infernalexp.luminous": "Luminous"
 }

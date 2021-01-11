@@ -5,6 +5,7 @@ import com.nekomaster1000.infernalexp.blocks.BlockItemBase;
 import com.nekomaster1000.infernalexp.items.GlowcoalItem;
 import com.nekomaster1000.infernalexp.items.ItemBase;
 //import com.nekomaster1000.infernalexp.util.ModItemTier;
+import com.nekomaster1000.infernalexp.items.SlurpSoupItem;
 import com.nekomaster1000.infernalexp.util.ModSpawnEggItem;
 import net.minecraft.item.*;
 import net.minecraft.potion.EffectInstance;
@@ -25,7 +26,7 @@ public class ModItems {
 
     // Foods
     public static final RegistryObject<SoupItem> BLINDSIGHT_TONGUE_STEW = ITEMS.register("blindsight_tongue_stew",
-            () -> new SoupItem(new Item.Properties().maxStackSize(1).group(InfernalExpansion.TAB)
+            () -> new SlurpSoupItem(new Item.Properties().maxStackSize(1).group(InfernalExpansion.TAB)
                     .food(new Food.Builder().hunger(6).saturation(0.6F)
                             .effect(() -> new EffectInstance(Effects.JUMP_BOOST, 1200, 0), 1.0F)
                             .build())));
