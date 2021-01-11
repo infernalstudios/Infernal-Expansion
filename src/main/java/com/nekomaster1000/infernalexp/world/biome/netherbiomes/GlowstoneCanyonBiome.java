@@ -46,7 +46,7 @@ public class GlowstoneCanyonBiome extends ModBiome {
                 .setMoodSound(new MoodSoundAmbience(SoundEvents.AMBIENT_BASALT_DELTAS_MOOD, 8000, 8, 2.0D))
                 .setAdditionsSound(new SoundAdditionsAmbience(SoundEvents.AMBIENT_BASALT_DELTAS_ADDITIONS, 0.0111D))
                 .setMusic(BackgroundMusicTracks.getDefaultBackgroundMusicSelector(SoundEvents.MUSIC_NETHER_BASALT_DELTAS))
-                .setParticle(new ParticleEffectAmbience(ModParticleTypes.GLOWSTONE_SPARKLE.get(), 0.0025F));
+                .setParticle(new ParticleEffectAmbience(ModParticleTypes.GLOWSTONE_SPARKLE.get(), 0.0075F));
     }
 
     @Override
@@ -65,7 +65,7 @@ public class GlowstoneCanyonBiome extends ModBiome {
         generation.withStructure(StructureFeatures.FORTRESS);
         generation.withCarver(GenerationStage.Carving.AIR, ConfiguredCarvers.field_243772_f);
         //generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.DELTA);
-        generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ModConfiguredFeatures.BLACKSTONE_BOULDER);
+        //generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ModConfiguredFeatures.BLACKSTONE_BOULDER);
         generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ModConfiguredFeatures.GLOWSPIKE);
         generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ModConfiguredFeatures.GLOWSPIKELARGE);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_STRUCTURES, ModConfiguredFeatures.GLOWSTONE_RAVINE);
@@ -90,6 +90,6 @@ public class GlowstoneCanyonBiome extends ModBiome {
     @Override
     protected void configureSpawns(MobSpawnInfo.Builder spawns) {
         spawns.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityType.GLOWSQUITO.get(), 100, 1, 3));
-        spawns.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(ModEntityType.BLINDSIGHT.get(), 100, 1, 5));
+        spawns.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(ModEntityType.BLINDSIGHT.get(), 10, 1, 1));
     }
 }

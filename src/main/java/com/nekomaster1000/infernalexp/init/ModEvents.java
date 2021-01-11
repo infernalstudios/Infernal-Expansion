@@ -253,7 +253,7 @@ public class ModEvents {
 
 
             //Mob Spawning in new biomes
-
+/*
         } else if (event.getName().toString().equals("infernalexp:glowstone_canyon")) {
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
                     new MobSpawnInfo.Spawners(ModEntityType.GLOWSQUITO.get(), 100, 1, 1));
@@ -264,14 +264,14 @@ public class ModEvents {
             //event.getSpawns().withSpawner(EntityClassification.MONSTER,
             //        new MobSpawnInfo.Spawners(EntityType.GHAST, 20, 1, 1));
             // Not spawning for some reason?
-
+*/
         } else if (event.getName().toString().equals("infernalexp:delta_shores")) {
 
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                    new MobSpawnInfo.Spawners(ModEntityType.BASALT_GIANT.get(), 5, 1, 1));
+                    new MobSpawnInfo.Spawners(ModEntityType.BASALT_GIANT.get(), 4, 1, 1));
 
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                    new MobSpawnInfo.Spawners(ModEntityType.SKELETAL_PIGLIN.get(), 10, 1, 3));
+                    new MobSpawnInfo.Spawners(ModEntityType.SKELETAL_PIGLIN.get(), 6, 1, 1));
 
         }
     }
