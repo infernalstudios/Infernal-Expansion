@@ -53,7 +53,9 @@ Prerequesites:
 
 This project uses the Google Java Style Guide: [View Here](https://google.github.io/styleguide/javaguide.html)
 
-In short, when writing if, for and while statements and such, we use: ```java
+In short, when writing if, for and while statements and such, we use:
+```java
+// This is preferred
 if (statement) {
     someCode();
     double x = player.getPos().getX();
@@ -63,14 +65,18 @@ if (statement) {
 } else {
     throw new NullPointerException();
 }
-``` instead of ```java
+``` 
+
+```java
+// Do not do this (I'm looking at you, Hellion)
 if(statement) {
     someCode();
 }
 else{
     someOtherCode();
 }
-``` _I'm looking at you, Hellion_
+```
+_This is example code_
 
 If possible, we encourage [line breaks](https://google.github.io/styleguide/javaguide.html#s4.5-line-wrapping).
 
