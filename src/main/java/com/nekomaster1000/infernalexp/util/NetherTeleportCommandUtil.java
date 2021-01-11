@@ -19,43 +19,62 @@ public class NetherTeleportCommandUtil {
      * @param pos Position to spread the search from
      * @return Safe position to teleport to.
      */
-    
    public static BlockPos getSafePosition(ServerWorld world, BlockPos pos) {
       Direction direction = Direction.getFacingFromAxis(Direction.AxisDirection.POSITIVE, Direction.Axis.X);
-      double d0 = -1.0D;
-      BlockPos blockpos = null;
-      double d1 = -1.0D;
-      BlockPos blockpos1 = null;
+      double shortestDistToOpen = -1.0D; // The shortest distance^2 found to an "open" area where a portal will fit
+      double shortestDistToFit = -1.0D;  // The shortest distance^2 found to ANY area where a portal will fit
+      BlockPos safePos = null;
+      BlockPos tempPos = null;
       WorldBorder worldborder = world.getWorldBorder();
-      int i = world.func_234938_ad_() - 1;
-      BlockPos.Mutable blockpos$mutable = pos.toMutable();
+      int dimHeight = world.func_234938_ad_(); // Logical height of the world
+      BlockPos.Mutable mutablePos = pos.toMutable();
 
-      for(BlockPos.Mutable blockpos$mutable1 : BlockPos.func_243514_a(pos, 16, Direction.EAST, Direction.SOUTH)) {
-         int j = Math.min(i, world.getHeight(Heightmap.Type.MOTION_BLOCKING, blockpos$mutable1.getX(), blockpos$mutable1.getZ()));
-         if (worldborder.contains(blockpos$mutable1) && worldborder.contains(blockpos$mutable1.move(direction, 1))) {
-            blockpos$mutable1.move(direction.getOpposite(), 1);
+      // For each BlockPos in a 16x16 area to the Southeast?
+      for(BlockPos.Mutable currentPos : BlockPos.func_243514_a(pos, 16, Direction.EAST, Direction.SOUTH)) {
 
-            for(int l = j; l >= 0; --l) {
-               blockpos$mutable1.setY(l);
-               if (world.isAirBlock(blockpos$mutable1)) {
-                  int i1;
-                  for(i1 = l; l > 0 && world.isAirBlock(blockpos$mutable1.move(Direction.DOWN)); --l) {
+         int minDimHeight = Math.min(dimHeight - 1, world.getHeight(Heightmap.Type.MOTION_BLOCKING, currentPos.getX(), currentPos.getZ()));
+
+         if (worldborder.contains(currentPos) && worldborder.contains(currentPos.move(direction, 1))) {
+            currentPos.move(direction.getOpposite(), 1);
+
+            for(int height = minDimHeight; height >= 0; height--) {
+
+               currentPos.setY(height);
+               if (world.isAirBlock(currentPos)) {
+
+                  int currentHeight = height;
+
+                  // Find the height where there isn't air
+                  while (height > 0 && world.isAirBlock(currentPos.move(Direction.DOWN))) {
+                     height--;
                   }
 
-                  if (l + 4 <= i) {
-                     int j1 = i1 - l;
-                     if (j1 <= 0 || j1 >= 3) {
-                        blockpos$mutable1.setY(l);
-                        if (NetherTeleportCommandUtil.checkRegionForPlacement(world, blockpos$mutable1, blockpos$mutable, direction, 0)) {
-                           double d2 = pos.distanceSq(blockpos$mutable1);
-                           if (NetherTeleportCommandUtil.checkRegionForPlacement(world, blockpos$mutable1, blockpos$mutable, direction, -1) && checkRegionForPlacement(world, blockpos$mutable1, blockpos$mutable, direction, 1) && (d0 == -1.0D || d0 > d2)) {
-                              d0 = d2;
-                              blockpos = blockpos$mutable1.toImmutable();
+                  // If height is low-enough from dimension height to place a portal
+                  if (height + 4 <= dimHeight - 1) {
+
+                     int deltaHeight = currentHeight - height;
+
+                     if (deltaHeight <= 0 || deltaHeight >= 3) {
+                        currentPos.setY(height);
+
+                        // If currentPos is valid for placement
+                        if (NetherTeleportCommandUtil.checkRegionForPlacement(world, currentPos, mutablePos, direction, 0)) {
+
+                           // Calculate distance^2 to current position
+                           double currentDist = pos.distanceSq(currentPos);
+
+                           // If positions next to current position are valid for placement and currentPos is closer than the next-closest open position, then...
+                           //   this area is likely an "open" area and now the closest to the original position we were looking at
+                           if (NetherTeleportCommandUtil.checkRegionForPlacement(world, currentPos, mutablePos, direction, -1) && checkRegionForPlacement(world, currentPos, mutablePos, direction, 1) && (shortestDistToOpen == -1.0D || shortestDistToOpen > currentDist)) {
+                              shortestDistToOpen = currentDist;
+                              safePos = currentPos.toImmutable();
                            }
 
-                           if (d0 == -1.0D && (d1 == -1.0D || d1 > d2)) {
-                              d1 = d2;
-                              blockpos1 = blockpos$mutable1.toImmutable();
+                           // If no "open" area has been found, then...
+                           //   this is the closest place to the original position where it can fit
+                           if (shortestDistToOpen == -1.0D && (shortestDistToFit == -1.0D || shortestDistToFit > currentDist)) {
+                              shortestDistToFit = currentDist;
+                              tempPos = currentPos.toImmutable();
                            }
                         }
                      }
@@ -65,33 +84,47 @@ public class NetherTeleportCommandUtil {
          }
       }
 
-      if (d0 == -1.0D && d1 != -1.0D) {
-         blockpos = blockpos1;
-         d0 = d1;
+      // If no "open" area was found, use the closest area where a portal will fit
+      if (shortestDistToOpen == -1.0D && shortestDistToFit != -1.0D) {
+         safePos = tempPos;
+         shortestDistToOpen = shortestDistToFit;
       }
 
-      if (d0 == -1.0D) {
-         blockpos = (new BlockPos(pos.getX(), MathHelper.clamp(pos.getY(), 70, world.func_234938_ad_() - 10), pos.getZ())).toImmutable();
-         if (!worldborder.contains(blockpos)) {
+      // If the portal will fit nowhere, return the original position (clamped to between y 70 and dimension height - 10) as the best candidate, unless it's not in the world border
+      if (shortestDistToOpen == -1.0D) {
+         safePos = (new BlockPos(pos.getX(), MathHelper.clamp(pos.getY(), 70, dimHeight - 10), pos.getZ())).toImmutable();
+         // If the original position is not in the world border, return that there is NO safe position for a portal
+         if (!worldborder.contains(safePos)) {
             return null;
          }
       }
 
-
-      return blockpos;
+      return safePos;
    }
 
+   /**
+    * Checks whether the area around the provided position is large enough to place a Nether Portal
+    * @param world
+    * @param originalPos
+    * @param offsetPos
+    * @param directionIn
+    * @param offsetScale
+    * @return
+    */
    private static boolean checkRegionForPlacement(ServerWorld world, BlockPos originalPos, BlockPos.Mutable offsetPos, Direction directionIn, int offsetScale) {
       Direction direction = directionIn.rotateY();
 
-      for(int i = -1; i < 3; ++i) {
-         for(int j = -1; j < 4; ++j) {
-            offsetPos.setAndOffset(originalPos, directionIn.getXOffset() * i + direction.getXOffset() * offsetScale, j, directionIn.getZOffset() * i + direction.getZOffset() * offsetScale);
-            if (j < 0 && !world.getBlockState(offsetPos).getMaterial().isSolid()) {
+      for(int x = -1; x < 3; ++x) { // For width of a Nether portal
+         for(int y = -1; y < 4; ++y) { // For height of a Nether portal
+            offsetPos.setAndOffset(originalPos, directionIn.getXOffset() * x + direction.getXOffset() * offsetScale, y, directionIn.getZOffset() * x + direction.getZOffset() * offsetScale);
+
+            // If no solid ground beneath offsetPos, return false
+            if (y < 0 && !world.getBlockState(offsetPos).getMaterial().isSolid()) {
                return false;
             }
 
-            if (j >= 0 && !world.isAirBlock(offsetPos)) {
+            // If no air within region, return false
+            if (y >= 0 && !world.isAirBlock(offsetPos)) {
                return false;
             }
          }
