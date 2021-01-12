@@ -17,6 +17,7 @@ import net.minecraft.entity.monster.*;
 import net.minecraft.entity.monster.piglin.PiglinBruteEntity;
 import net.minecraft.entity.monster.piglin.PiglinEntity;
 import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.world.gen.carver.WorldCarver;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.event.RegistryEvent;
@@ -303,5 +304,10 @@ public class ModEvents {
     @SubscribeEvent
     public static void registerSurfaceBuilders(RegistryEvent.Register<SurfaceBuilder<?>> event) {
         ModSurfaceBuilders.surfaceBuilders.forEach(surfaceBuilder -> event.getRegistry().register(surfaceBuilder));
+    }
+
+    @SubscribeEvent
+    public static void registerWorldCarvers(RegistryEvent.Register<WorldCarver<?>> event) {
+        ModCarvers.carvers.forEach(carver -> event.getRegistry().register(carver));
     }
 }

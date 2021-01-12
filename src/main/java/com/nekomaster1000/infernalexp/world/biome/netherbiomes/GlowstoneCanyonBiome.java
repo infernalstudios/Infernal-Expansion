@@ -1,9 +1,6 @@
 package com.nekomaster1000.infernalexp.world.biome.netherbiomes;
 
-import com.nekomaster1000.infernalexp.init.ModConfiguredFeatures;
-import com.nekomaster1000.infernalexp.init.ModEntityType;
-import com.nekomaster1000.infernalexp.init.ModParticleTypes;
-import com.nekomaster1000.infernalexp.init.ModSurfaceBuilders;
+import com.nekomaster1000.infernalexp.init.*;
 import com.nekomaster1000.infernalexp.world.biome.BiomeHelper;
 import com.nekomaster1000.infernalexp.world.biome.ModBiome;
 import net.minecraft.client.audio.BackgroundMusicTracks;
@@ -65,10 +62,10 @@ public class GlowstoneCanyonBiome extends ModBiome {
         generation.withStructure(StructureFeatures.FORTRESS);
         generation.withCarver(GenerationStage.Carving.AIR, ConfiguredCarvers.field_243772_f);
         //generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.DELTA);
+        generation.withCarver(GenerationStage.Carving.AIR, ModCarvers.CONFIGURED_GLOWSTONE_RAVINE);
         generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ModConfiguredFeatures.BLACKSTONE_BOULDER);
         generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ModConfiguredFeatures.GLOWSPIKE);
         generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ModConfiguredFeatures.GLOWSPIKELARGE);
-        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_STRUCTURES, ModConfiguredFeatures.GLOWSTONE_RAVINE);
         generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ModConfiguredFeatures.HANGING_GIANT_BROWN_MUSHROOM);
         generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.LUMINOUS_FUNGUS);
         generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.DULLTHORNS);
