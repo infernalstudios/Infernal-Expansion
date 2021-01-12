@@ -30,21 +30,11 @@ public class DeltaShoresSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConf
             BlockState currentBlockToReplace = chunk.getBlockState(pos);
             BlockState checkForAir = chunk.getBlockState(pos.up());
 
-            // Replace netherrack with correct blocks for the glowstone canyon
+            // Replace netherrack with correct blocks for the delta shores
             if (currentBlockToReplace == Blocks.NETHERRACK.getDefaultState() && checkForAir != Blocks.AIR.getDefaultState()) {
                 chunk.setBlockState(pos, Blocks.BASALT.getDefaultState(), false);
             } else if (currentBlockToReplace == Blocks.NETHERRACK.getDefaultState()) {
                 chunk.setBlockState(pos, config.getTop(), false);
-
-                //Checks to see if it should place a glowdust layer
-                glowdustLayerCheck: for (int xCheck = -1; xCheck <= 1; xCheck++) {
-                    for (int zCheck = -1; zCheck <= 1; zCheck++) {
-                        if (chunk.getBlockState(pos.add(xCheck, 1, zCheck)) == ModBlocks.GLOWDUST_SAND.get().getDefaultState()) {
-                            chunk.setBlockState(pos.up(), ModBlocks.GLOWDUST.get().getDefaultState(), false);
-                            break glowdustLayerCheck;
-                        }
-                    }
-                }
 
                 for (int offset = 1; offset <= 3; offset++) {
                     if (chunk.getBlockState(pos.down(offset)) == Blocks.NETHERRACK.getDefaultState()) {

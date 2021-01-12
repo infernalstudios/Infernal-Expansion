@@ -29,7 +29,7 @@ public class ModSurfaceBuilders {
 
          public static final SurfaceBuilderConfig DELTA_SHORES_CONFIG = new SurfaceBuilderConfig(
                 ModBlocks.SILT.get().getDefaultState(),
-                ModBlocks.RUBBLE.get().getDefaultState(),
+                ModBlocks.SILT.get().getDefaultState(),
                 Blocks.BASALT.getDefaultState()
         );
     }

@@ -69,7 +69,7 @@ public class DullthornsBlock extends BushBlock {
             for(i = 1; worldIn.getBlockState(pos.down(i)).isIn(this); ++i) {
             }
 
-            if (i < 3) {
+            if (i < 9) {
                 int j = state.get(AGE);
                 if(net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, blockpos, state, true)) {
                     if (j == 15) {

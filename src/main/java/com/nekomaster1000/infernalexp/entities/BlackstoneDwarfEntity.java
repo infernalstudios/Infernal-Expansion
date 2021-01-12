@@ -38,7 +38,8 @@ public class BlackstoneDwarfEntity extends CreatureEntity implements IAngerable 
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 5.0D)
                 .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 2.0D)
                 .createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE, 10.0D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.40D);
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.40D)
+                .createMutableAttribute(Attributes.FOLLOW_RANGE, 4.0D);
     }
 
     //---

@@ -32,10 +32,10 @@ public class BlindsightEntity extends MonsterEntity {
     //ATTRIBUTES
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return MobEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.MAX_HEALTH, 14.0D)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 4.0D)
+                .createMutableAttribute(Attributes.MAX_HEALTH, 16.0D)
+                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3.0D)
                 .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.5D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.6D);
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.9D);
     }
 
     //BEHAVIOUR
@@ -80,9 +80,11 @@ public class BlindsightEntity extends MonsterEntity {
         ;
     }
 
+/*
     public boolean isImmuneToFire() {
         return true;
     }
+*/
 
     protected int getJumpDelay() {
         return this.rand.nextInt(20) + 10;

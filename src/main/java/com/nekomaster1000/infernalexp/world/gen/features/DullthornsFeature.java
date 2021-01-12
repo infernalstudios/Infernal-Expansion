@@ -17,7 +17,7 @@ public class DullthornsFeature extends Feature<NoFeatureConfig> {
 
     @Override
     public boolean generate(ISeedReader worldIn, ChunkGenerator generator, Random random, BlockPos pos, NoFeatureConfig config) {
-        int height = random.nextInt(3) + 1;
+        int height = random.nextInt(9) + 1;
         if (!worldIn.isAirBlock(pos) || worldIn.getBlockState(pos.down()).getBlock() != ModBlocks.GLOWDUST_SAND.get()) {
             return false;
         } else {
