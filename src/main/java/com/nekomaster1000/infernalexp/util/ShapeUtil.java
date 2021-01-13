@@ -47,6 +47,28 @@ public class ShapeUtil {
     }
 
     /**
+     * Generates an array of BlockPos that creates a solid sphere
+     * @param radius Radius of the generated solid sphere
+     * @return Returns an ArrayList of BlockPos
+     */
+    public static List<BlockPos> generateSolidSphere(float radius) {
+        List<BlockPos> posList = new ArrayList<>();
+
+        // Checks distance away from the center to see if the point is within the circle
+        for (int x = (int) -radius; x < radius; x++) {
+            for (int y = (int) -radius; y < radius; y++) {
+                for (int z = (int) -radius; z < radius; z++) {
+                    if (Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2) <= Math.pow(radius, 2)) {
+                        posList.add(new BlockPos(x, y, z));
+                    }
+                }
+            }
+        }
+
+        return posList;
+    }
+
+    /**
      * Returns a line of blocks from the startPos to the endPos.
      *
      * @param startPos Start position

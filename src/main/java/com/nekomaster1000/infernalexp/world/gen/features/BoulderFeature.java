@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.world.gen.features;
 
 import com.mojang.serialization.Codec;
 import com.nekomaster1000.infernalexp.init.ModBlocks;
+import com.nekomaster1000.infernalexp.util.ShapeUtil;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
@@ -31,19 +32,12 @@ public class BoulderFeature extends Feature<BlockStateFeatureConfig> {
     private void placeSphere(ISeedReader world, Random random, BlockPos pos, int radius, BlockStateFeatureConfig config) {
 
         // Checks to see if block is within radius to the center of the sphere, if so, fill in blocks
-        for (int x = pos.getX() - radius; x < pos.getX() + radius; x++) {
-            for (int y = pos.getY() - (radius+1); y < pos.getY() + (radius+1); y++) {
-                for (int z = pos.getZ() - radius; z < pos.getZ() + radius; z++) {
-                    float formula = (float) (Math.pow(x - pos.getX(), 2) + Math.pow(y - pos.getY() + 1, 2) + Math.pow(z - pos.getZ(), 2));
 
-                    if (formula <= Math.pow(radius, 2)) {
-                        world.setBlockState(new BlockPos(x, y, z), config.state, 2);
+        for (BlockPos point : ShapeUtil.generateSolidSphere(radius)) {
+            world.setBlockState(pos.add(point), config.state, 2);
 
-                        // Add some randomness so that the boulders aren't perfect
-                        randomNoise(world, random, pos, config);
-                    }
-                }
-            }
+            // Add some randomness so that the boulders aren't perfect
+            randomNoise(world, random, pos, config);
         }
     }
 
