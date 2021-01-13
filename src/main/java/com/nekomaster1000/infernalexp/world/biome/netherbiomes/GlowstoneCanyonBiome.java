@@ -67,6 +67,7 @@ public class GlowstoneCanyonBiome extends ModBiome {
         generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ModConfiguredFeatures.GLOWSPIKE);
         generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ModConfiguredFeatures.GLOWSPIKELARGE);
         generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ModConfiguredFeatures.HANGING_GIANT_BROWN_MUSHROOM);
+        generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ModConfiguredFeatures.GLOWDUST_SINK_HOLE);
         generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.LUMINOUS_FUNGUS);
         generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.DULLTHORNS);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, ModConfiguredFeatures.GLOWCANYON_BLACKSTONE_BLOBS);
