@@ -26,6 +26,7 @@ public class LuminousFungusFeature extends Feature<NoFeatureConfig> {
 
         int pickFacing = random.nextInt(3);
 
+        // Pick whether the fungus will spawn on the ceiling or on the floor and set the amount to spawn appropriately
         if (pickFacing == 0) {
             face = AttachFace.CEILING;
             amount = 4;
@@ -34,15 +35,19 @@ public class LuminousFungusFeature extends Feature<NoFeatureConfig> {
             amount = 10;
         }
 
-        for (int j = 0; j < 96; j++) {
+        // Try to place luminous fungus 128 times
+        for (int j = 0; j < 128; j++) {
+            // Randomize the location of the next luminous fungus to be placed
             BlockState state = ModBlocks.LUMINOUS_FUNGUS.get().getDefaultState().with(LuminousFungusBlock.FACE, face);
             BlockPos blockpos = pos.add(random.nextInt(10) - random.nextInt(20), random.nextInt(4) - random.nextInt(8), random.nextInt(10) - random.nextInt(20));
 
+            // If the randomly chosen location is valid, then place the fungus
             if (world.isAirBlock(blockpos) && state.isValidPosition(world, blockpos) && (world.getBlockState(blockpos.up()) == ModBlocks.DULLSTONE.get().getDefaultState() || world.getBlockState(blockpos.down()) == ModBlocks.GLOWDUST_SAND.get().getDefaultState())) {
                 world.setBlockState(blockpos, state, 2);
                 i++;
             }
 
+            // If we have placed the max amount of luminous fungus, then return
             if (i >= amount)
                 return true;
         }

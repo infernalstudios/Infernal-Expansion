@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 
-public class GlowSpikeFeatureConfig implements IFeatureConfig {
+public class    GlowSpikeFeatureConfig implements IFeatureConfig {
     public static final Codec<GlowSpikeFeatureConfig> CODEC = RecordCodecBuilder.create((builder) -> {
         return builder.group(
                 Codec.INT.fieldOf("min_diameter").forGetter((config) -> config.minDiameter),

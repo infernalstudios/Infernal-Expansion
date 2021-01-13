@@ -26,13 +26,12 @@ public class GlowstoneRavineCarver extends CanyonWorldCarver {
 
     @Override
     public boolean carveRegion(IChunk chunk, Function<BlockPos, Biome> biomePos, Random random, int seaLevel, int chunkXOffset, int chunkZOffset, int chunkX, int chunkZ, BitSet carvingMask, ProbabilityConfig config) {
+        // Generate length, width, position, yaw and pitch
         int ravineLength = (this.func_222704_c() * 2 - 1) * 16;
-        double x = chunkXOffset * 16 + random.nextInt(16);
-//        double y = random.nextInt(random.nextInt(40) + 8) + 20;
-        double z = chunkZOffset * 16 + random.nextInt(16);
 
+        double x = chunkXOffset * 16 + random.nextInt(16);
+        double z = chunkZOffset * 16 + random.nextInt(16);
         double y = findYPos(chunk, random, x, z);
-//        if (y == 0) return false;
 
         float yaw = random.nextFloat() * 6.2831855F;
         float pitch = (random.nextFloat() - 0.5F) * 2.0F / 8.0F;
@@ -69,9 +68,9 @@ public class GlowstoneRavineCarver extends CanyonWorldCarver {
             float deltaXZ = MathHelper.cos(pitch);
             float deltaY = MathHelper.sin(pitch);
 
-            x += (double)(MathHelper.cos(yaw) * deltaXZ);
-            y += (double)deltaY;
-            z += (double)(MathHelper.sin(yaw) * deltaXZ);
+            x += MathHelper.cos(yaw) * deltaXZ;
+            y += deltaY;
+            z += MathHelper.sin(yaw) * deltaXZ;
 
             pitch *= 0.7F;
             pitch += pitchChange * 0.05F;

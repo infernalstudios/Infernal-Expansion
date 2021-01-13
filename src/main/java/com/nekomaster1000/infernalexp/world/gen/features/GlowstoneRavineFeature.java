@@ -12,6 +12,9 @@ import net.minecraft.world.gen.feature.NoFeatureConfig;
 
 import java.util.*;
 
+// This has been replaced GlowstoneRavineCarver because of the size limitation of features
+
+@Deprecated
 public class GlowstoneRavineFeature extends Feature<NoFeatureConfig> {
     public GlowstoneRavineFeature(Codec<NoFeatureConfig> codec) {
         super(codec);
@@ -66,22 +69,6 @@ public class GlowstoneRavineFeature extends Feature<NoFeatureConfig> {
                 for (int y = 0; y < 10; y++) {
                     world.setBlockState(point.down(y), Blocks.AIR.getDefaultState(), 2);
                 }
-            }
-
-            // Place blackstone pillar to find the canyons easier when testing
-            for (int i = 0; i < 4; i++) {
-                world.setBlockState(pos.up(i), Blocks.BLACKSTONE.getDefaultState(), 2);
-            }
-
-            for (BlockPos sidePoint : sidePoints) {
-                for (int i = 0; i < 4; i++) {
-                    world.setBlockState(sidePoint.up(i), Blocks.DIAMOND_BLOCK.getDefaultState(), 2);
-                    world.setBlockState(endPos.up(i), Blocks.GOLD_BLOCK.getDefaultState(), 2);
-                }
-            }
-
-            for (BlockPos centerPoint : centerLine) {
-                world.setBlockState(centerPoint, Blocks.EMERALD_BLOCK.getDefaultState(), 2);
             }
 
             return true;
