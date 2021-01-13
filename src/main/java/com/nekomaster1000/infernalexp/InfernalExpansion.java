@@ -5,6 +5,7 @@ package com.nekomaster1000.infernalexp;
 import com.nekomaster1000.infernalexp.config.ConfigHelper;
 import com.nekomaster1000.infernalexp.config.ConfigHolder;
 import com.nekomaster1000.infernalexp.init.*;
+import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeCollector;
 import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeProvider;
 import com.nekomaster1000.infernalexp.world.gen.ModEntityPlacement;
 import net.minecraft.block.Blocks;
@@ -63,6 +64,7 @@ public class InfernalExpansion
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
+        ModNetherBiomeCollector.netherBiomeCollection();
         Registry.register(Registry.BIOME_PROVIDER_CODEC, new ResourceLocation(MOD_ID, "infernalexp_nether"), ModNetherBiomeProvider.MOD_NETHER_CODEC);
 
         //Places entity spawn locations on the ground
