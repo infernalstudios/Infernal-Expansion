@@ -8,9 +8,10 @@
     "defaultRequire": 1
   },
   "mixins": [
-    "common.MixinDimensionType"
+    "common.MixinDimensionType",
+    "common.MixinWorldRenderer"
   ],
   "client": [
-    "client.MixinMinecraft"
+    "client.MixinMinecraft",
   ]
 }
