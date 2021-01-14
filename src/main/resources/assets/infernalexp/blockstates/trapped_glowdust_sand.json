@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "": [
+      { "model": "infernalexp:block/trapped_glowdust_sand" },
+      { "model": "infernalexp:block/trapped_glowdust_sand", "x": 90 },
+      { "model": "infernalexp:block/trapped_glowdust_sand", "x": 180 },
+      { "model": "infernalexp:block/trapped_glowdust_sand", "x": 270 },
+      { "model": "infernalexp:block/trapped_glowdust_sand", "y": 90 },
+      { "model": "infernalexp:block/trapped_glowdust_sand", "y": 90, "x": 90 },
+      { "model": "infernalexp:block/trapped_glowdust_sand", "y": 90, "x": 180 },
+      { "model": "infernalexp:block/trapped_glowdust_sand", "y": 90, "x": 270 },
+      { "model": "infernalexp:block/trapped_glowdust_sand", "y": 180 },
+      { "model": "infernalexp:block/trapped_glowdust_sand", "y": 180, "x": 90 },
+      { "model": "infernalexp:block/trapped_glowdust_sand", "y": 180, "x": 180 },
+      { "model": "infernalexp:block/trapped_glowdust_sand", "y": 180, "x": 270 },
+      { "model": "infernalexp:block/trapped_glowdust_sand", "y": 270 },
+      { "model": "infernalexp:block/trapped_glowdust_sand", "y": 270, "x": 90 },
+      { "model": "infernalexp:block/trapped_glowdust_sand", "y": 270, "x": 180 },
+      { "model": "infernalexp:block/trapped_glowdust_sand", "y": 270, "x": 270 }
+    ]
+  }
+}

@@ -12,7 +12,7 @@ public class ModTileEntityTypes {
 
     public static final DeferredRegister<TileEntityType<?>> TILE_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, InfernalExpansion.MOD_ID);
 
-    public static final RegistryObject<TileEntityType<GlowCampfireTileEntity>> GLOW_CAMPFIRE_TILE_ENTITY = TILE_ENTITY_TYPES.register("glow_campfire_tile_entity", () -> TileEntityType.Builder.create(GlowCampfireTileEntity::new, ModBlocks.GLOW_CAMPFIRE.get()).build(null));
+    public static final RegistryObject<TileEntityType<GlowCampfireTileEntity>> GLOW_CAMPFIRE = TILE_ENTITY_TYPES.register("glow_campfire", () -> TileEntityType.Builder.create(GlowCampfireTileEntity::new, ModBlocks.GLOW_CAMPFIRE.get()).build(null));
 
     public static void register(IEventBus eventBus) {
         TILE_ENTITY_TYPES.register(eventBus);

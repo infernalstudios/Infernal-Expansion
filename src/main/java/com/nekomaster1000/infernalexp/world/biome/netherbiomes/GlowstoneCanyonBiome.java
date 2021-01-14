@@ -87,7 +87,7 @@ public class GlowstoneCanyonBiome extends ModBiome {
 
     @Override
     protected void configureSpawns(MobSpawnInfo.Builder spawns) {
-        spawns.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityType.GLOWSQUITO.get(), 100, 1, 3));
-        spawns.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(ModEntityType.BLINDSIGHT.get(), 10, 1, 1));
+        spawns.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.GLOWSQUITO.get(), 100, 1, 3));
+        spawns.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(ModEntityTypes.BLINDSIGHT.get(), 10, 1, 1));
     }
 }

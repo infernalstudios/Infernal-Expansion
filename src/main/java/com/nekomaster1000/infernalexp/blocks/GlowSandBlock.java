@@ -9,9 +9,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
-public class GlowSandBlockBase extends SandBlock {
+public class GlowSandBlock extends SandBlock {
 
-    public GlowSandBlockBase(int dustColorIn, Properties properties) {
+    public GlowSandBlock(int dustColorIn, Properties properties) {
         super(dustColorIn, properties);
     }
 

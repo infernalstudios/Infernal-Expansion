@@ -3,7 +3,7 @@ package com.nekomaster1000.infernalexp.util;
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.client.entity.render.*;
 import com.nekomaster1000.infernalexp.init.ModBlocks;
-import com.nekomaster1000.infernalexp.init.ModEntityType;
+import com.nekomaster1000.infernalexp.init.ModEntityTypes;
 import com.nekomaster1000.infernalexp.init.ModTileEntityTypes;
 import com.nekomaster1000.infernalexp.tileentities.renderer.GlowCampfireTileEntityRenderer;
 import net.minecraft.client.renderer.RenderType;
@@ -22,19 +22,19 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 public class ClientEventBusSubscriber {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityType.VOLINE.get(), VolineRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityType.SHROOMLOIN.get(), ShroomloinRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityType.WARPBEETLE.get(), WarpbeetleRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityType.CEROBEETLE.get(), CerobeetleRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityType.EMBODY.get(), EmbodyRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityType.BASALT_GIANT.get(), BasaltGiantRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityType.BLACKSTONE_DWARF.get(), BlackstoneDwarfRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityType.GLOWSQUITO.get(), GlowsquitoRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityType.SKELETAL_PIGLIN.get(), SkeletalPiglinRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityType.PYRNO.get(), PyrnoRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityType.BLINDSIGHT.get(), BlindsightRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.VOLINE.get(), VolineRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.SHROOMLOIN.get(), ShroomloinRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WARPBEETLE.get(), WarpbeetleRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.CEROBEETLE.get(), CerobeetleRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.EMBODY.get(), EmbodyRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.BASALT_GIANT.get(), BasaltGiantRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.BLACKSTONE_DWARF.get(), BlackstoneDwarfRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.GLOWSQUITO.get(), GlowsquitoRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.SKELETAL_PIGLIN.get(), SkeletalPiglinRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.PYRNO.get(), PyrnoRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.BLINDSIGHT.get(), BlindsightRenderer::new);
 
-        ClientRegistry.bindTileEntityRenderer(ModTileEntityTypes.GLOW_CAMPFIRE_TILE_ENTITY.get(), GlowCampfireTileEntityRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntityTypes.GLOW_CAMPFIRE.get(), GlowCampfireTileEntityRenderer::new);
 
         RenderTypeLookup.setRenderLayer(ModBlocks.LUMINOUS_FUNGUS.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.DULLTHORNS.get(), RenderType.getCutout());

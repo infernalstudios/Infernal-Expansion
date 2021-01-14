@@ -1,6 +1,6 @@
 package com.nekomaster1000.infernalexp.world.biome.netherbiomes;
 
-import com.nekomaster1000.infernalexp.init.ModEntityType;
+import com.nekomaster1000.infernalexp.init.ModEntityTypes;
 import com.nekomaster1000.infernalexp.init.ModSurfaceBuilders;
 import com.nekomaster1000.infernalexp.world.biome.BiomeHelper;
 import com.nekomaster1000.infernalexp.world.biome.ModBiome;
@@ -93,6 +93,6 @@ public class DeltaShoresSubBiome extends ModBiome {
 
     @Override
     protected void configureSpawns(MobSpawnInfo.Builder spawns) {
-        spawns.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityType.GLOWSQUITO.get(), 1, 1, 3));
+        spawns.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.GLOWSQUITO.get(), 1, 1, 3));
     }
 }

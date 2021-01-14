@@ -23,7 +23,7 @@ public class ModFeatures {
     public static final Feature<NoFeatureConfig> LUMINOUS_FUNGUS = registerFeature("luminous_fungus", new LuminousFungusFeature(NoFeatureConfig.field_236558_a_));
     public static final Feature<NoFeatureConfig> DULLTHORNS = registerFeature("dullthorns", new DullthornsFeature(NoFeatureConfig.field_236558_a_));
     public static final Feature<BlockStateFeatureConfig> BOULDER = registerFeature("blackstone_boulder", new BoulderFeature(BlockStateFeatureConfig.field_236455_a_));
-    public static final Feature<BlockStateFeatureConfig> SINK_HOLE = registerFeature("sink_hole", new SinkHoleFeature(BlockStateFeatureConfig.field_236455_a_));
+    public static final Feature<NoFeatureConfig> GLOWDUST_SINK_HOLE = registerFeature("glowdust_sink_hole", new SinkHoleFeature(NoFeatureConfig.field_236558_a_));
 
     public static <C extends IFeatureConfig, F extends Feature<C>> F registerFeature(String registryName, F feature) {
         ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, registryName);

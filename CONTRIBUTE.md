@@ -166,7 +166,7 @@ Some other things to note:
     _Replace any `mob name` according to the syntax/case._
     `mob name` refers to stuff like `MobNameEntity`, `MOB_NAME`, `mob_name`, etc, and should be renamed to something like `GlowsquitoEntity`, `BASALT_GIANT` and `voline`, respectively.
 
-10. In `com.nekomaster1000.infernalexp.init.ModEntityType`, add a new entity. This should be done in the format:
+10. In `com.nekomaster1000.infernalexp.init.ModEntityTypes`, add a new entity. This should be done in the format:
     ```java
     public static final RegistryObject<EntityType<MobNameEntity>> MOB_NAME = ENTITY_TYPES.register("mob_name",
         () -> EntityType.Builder.create(MobNameEntity::new, EntityClassification.CREATURE)

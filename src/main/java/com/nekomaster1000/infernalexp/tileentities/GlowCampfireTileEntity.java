@@ -29,7 +29,7 @@ public class GlowCampfireTileEntity extends TileEntity implements IClearable, IT
     private final int[] cookingTotalTimes = new int[4];
 
     public GlowCampfireTileEntity() {
-        super(ModTileEntityTypes.GLOW_CAMPFIRE_TILE_ENTITY.get());
+        super(ModTileEntityTypes.GLOW_CAMPFIRE.get());
         System.out.println("glow campfire tile entity registered");
     }
 
