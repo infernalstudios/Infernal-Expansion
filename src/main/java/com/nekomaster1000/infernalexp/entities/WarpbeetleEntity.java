@@ -28,10 +28,7 @@ public class WarpbeetleEntity extends CreatureEntity {
         super(type, worldIn);
     }
 
-    public static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.WARPED_FUNGUS, Items.CRIMSON_FUNGUS);
-
-
-
+    public static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.CRIMSON_FUNGUS);
 
     //ATTRIBUTES
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {

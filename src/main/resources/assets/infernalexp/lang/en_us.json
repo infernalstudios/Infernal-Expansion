@@ -30,8 +30,9 @@
   "block.infernalexp.dullstone_brick_stairs": "Dullstone Brick Stairs",
 
   "block.infernalexp.glowdust_sand": "Glowdust Sand",
-  "block.infernalexp.trapped_glowdust_sand": "Trapped Glowdust Sand",
-  "block.infernalexp.glowdust_stone": "Glowdust Rock",
+  "block.infernalexp.glowdust_stone": "Glowdust Stone",
+  "block.infernalexp.glowdust_stone_bricks": "Glowdust Stone Bricks",
+  "block.infernalexp.trapped_glowdust_sand": "Glowdust Gravel",
   "block.infernalexp.glowdust_sandstone": "Glowdust Sandstone",
   "block.infernalexp.cut_glowdust_sandstone": "Cut Glowdust Sandstone",
   "block.infernalexp.chiseled_glowdust_sandstone": "Chiseled Glowdust Sandstone",

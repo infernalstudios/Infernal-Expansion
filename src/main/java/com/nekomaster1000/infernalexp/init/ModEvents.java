@@ -45,7 +45,6 @@ public class ModEvents {
         }
     }
 
-
     @SubscribeEvent
     public void onEntityJoin(EntityJoinWorldEvent event) {
 
@@ -280,7 +279,13 @@ public class ModEvents {
     //Blocks being broken
     @SubscribeEvent
     public void onBlockBreak(BlockEvent.BreakEvent event){
-        if(event.getState().equals(Blocks.CRIMSON_FUNGUS.getDefaultState())  || event.getState().equals(Blocks.NETHER_WART_BLOCK.getDefaultState())) {
+        if(event.getState().equals(Blocks.CRIMSON_FUNGUS.getDefaultState())
+                || event.getState().equals(Blocks.CRIMSON_ROOTS.getDefaultState())
+                || event.getState().equals(Blocks.CRIMSON_STEM.getDefaultState())
+                || event.getState().equals(Blocks.STRIPPED_CRIMSON_STEM.getDefaultState())
+                || event.getState().equals(Blocks.WEEPING_VINES.getDefaultState())
+                || event.getState().equals(Blocks.WEEPING_VINES_PLANT.getDefaultState())
+                || event.getState().equals(Blocks.NETHER_WART_BLOCK.getDefaultState())) {
             List<?> list = event.getPlayer().world.getEntitiesWithinAABB(ShroomloinEntity.class,
                     event.getPlayer().getBoundingBox().grow(32.0D));
             for(int j = 0; j < list.size(); j++)
