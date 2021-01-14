@@ -6,6 +6,9 @@ import com.nekomaster1000.infernalexp.config.ConfigHolder;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.entities.*;
 import com.nekomaster1000.infernalexp.entities.ai.AvoidBlockGoal;
+import com.nekomaster1000.infernalexp.util.RegistryHandler;
+
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
@@ -16,6 +19,11 @@ import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.monster.piglin.PiglinBruteEntity;
 import net.minecraft.entity.monster.piglin.PiglinEntity;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.carver.WorldCarver;
 import net.minecraft.world.gen.feature.Feature;
@@ -24,6 +32,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.world.NoteBlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -297,6 +306,32 @@ public class ModEvents {
                     shroomloinEntity.becomeAngryAt(event.getPlayer());
                 }
             }
+        }
+    }
+    
+    // Custom note block sounds
+    @SubscribeEvent
+    public void noteBlockPlayed(NoteBlockEvent.Play event) {
+        World world = (World) event.getWorld();
+        BlockPos noteBlockPos = event.getPos();
+        SoundEvent sound = null;
+        Block blockUnder = world.getBlockState(noteBlockPos.down()).getBlock();
+        if (blockUnder == Blocks.GILDED_BLACKSTONE) {
+            sound = RegistryHandler.cymbal;
+        } else if (blockUnder == Blocks.ANCIENT_DEBRIS) {
+            sound = RegistryHandler.electric_guitar;
+        } else if (blockUnder == Blocks.SOUL_SOIL) {
+            sound = RegistryHandler.choir;
+        } else if (blockUnder == ModBlocks.DIMSTONE.get()) {
+            sound = RegistryHandler.saxophone;
+        } else if (blockUnder == Blocks.CRYING_OBSIDIAN) {
+            sound = RegistryHandler.violin;
+        }
+        
+        if (sound != null) {
+            float pitch = (float) Math.pow(2.0, (event.getVanillaNoteId() - 12) / 12.0); // Math to get correct pitch
+            world.playSound(null, noteBlockPos, sound, SoundCategory.RECORDS, 1F, pitch);
+            event.setCanceled(true);
         }
     }
 

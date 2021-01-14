@@ -98,6 +98,32 @@
     "subtitle": "Embody dies",
     "sounds": [ "infernalexp:embody_death" ]
 
+  },
+
+  "cymbal": {
+    "category": "record",
+    "subtitle": "infernalexp.subtitle.cymbal",
+    "sounds": [ "infernalexp:cymbal" ]
+  },
+  "saxophone": {
+    "category": "record",
+    "subtitle": "infernalexp.subtitle.saxophone",
+    "sounds": [ "infernalexp:saxophone" ]
+  },
+  "electric_guitar": {
+    "category": "record",
+    "subtitle": "infernalexp.subtitle.electric_guitar",
+    "sounds": [ "infernalexp:electric_guitar" ]
+  },
+  "violin": {
+    "category": "record",
+    "subtitle": "infernalexp.subtitle.violin",
+    "sounds": [ "infernalexp:violin" ]
+  },
+  "choir": {
+    "category": "record",
+    "subtitle": "infernalexp.subtitle.choir",
+    "sounds": [ "infernalexp:choir" ]
   }
 
 }

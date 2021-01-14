@@ -166,5 +166,23 @@ public class RegistryHandler {
 
     static ResourceLocation location53 = new ResourceLocation(InfernalExpansion.MOD_ID, "pyrnodeath");
     public static SoundEvent pyrno_death = new SoundEvent(location53);
+    
+//...
+    
+    // NOTEBLOCK SOUNDS
+    static ResourceLocation location61 = new ResourceLocation(InfernalExpansion.MOD_ID, "cymbal");
+    public static SoundEvent cymbal = new SoundEvent(location61);
+    
+    static ResourceLocation location62 = new ResourceLocation(InfernalExpansion.MOD_ID, "saxophone");
+    public static SoundEvent saxophone = new SoundEvent(location62);
+
+    static ResourceLocation location63 = new ResourceLocation(InfernalExpansion.MOD_ID, "electric_guitar");
+    public static SoundEvent electric_guitar = new SoundEvent(location63);
+
+    static ResourceLocation location64 = new ResourceLocation(InfernalExpansion.MOD_ID, "violin");
+    public static SoundEvent violin = new SoundEvent(location64);
+
+    static ResourceLocation location65 = new ResourceLocation(InfernalExpansion.MOD_ID, "choir");
+    public static SoundEvent choir = new SoundEvent(location65);
 
 }
