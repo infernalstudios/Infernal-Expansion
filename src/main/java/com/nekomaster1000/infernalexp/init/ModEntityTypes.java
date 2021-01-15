@@ -71,7 +71,6 @@ public class ModEntityTypes {
             () -> EntityType.Builder.create(BlindsightEntity::new, EntityClassification.MONSTER)
                     .size(1.0F, 0.8F) //Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "blindsight").toString()));
-    ;
 
     private static <T extends Entity> RegistryObject<EntityType<T>> register(String key, EntityType.IFactory<T> factoryIn, EntityClassification classificationIn, float size1, float size2) {
         return ENTITY_TYPES.register(key, () -> EntityType.Builder.create(factoryIn, classificationIn)

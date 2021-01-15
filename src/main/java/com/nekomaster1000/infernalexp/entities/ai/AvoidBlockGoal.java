@@ -39,11 +39,7 @@ public class AvoidBlockGoal extends Goal {
     public boolean shouldExecute() {
         this.avoidBlockPos = BlockPos.getClosestMatchingPosition(this.entity.getPosition(), (int)this.avoidDistance, 4, (pos) -> this.entity.world.getBlockState(pos).equals(this.avoidBlock.getDefaultState()));
 
-        if (avoidBlockPos.isPresent()) {
-            return true;
-        } else {
-            return false;
-        }
+        return avoidBlockPos.isPresent();
     }
 
     @Override

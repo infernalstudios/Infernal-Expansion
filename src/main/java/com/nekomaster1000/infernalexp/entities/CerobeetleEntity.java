@@ -91,7 +91,7 @@ public class CerobeetleEntity extends CreatureEntity {
         float f2 = (float)this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
         boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), f1);
         if (flag) {
-            ((LivingEntity)entityIn).applyKnockback(f2 * 0.5F, (double) MathHelper.sin(this.rotationYaw * ((float)Math.PI / 180F)), (double)(-MathHelper.cos(this.rotationYaw * ((float)Math.PI / 180F))));
+            ((LivingEntity)entityIn).applyKnockback(f2 * 0.5F, MathHelper.sin(this.rotationYaw * ((float)Math.PI / 180F)), -MathHelper.cos(this.rotationYaw * ((float)Math.PI / 180F)));
             entityIn.setMotion(entityIn.getMotion().mul(1.0D, 2.5D, 1.0D));
             this.setMotion(this.getMotion().mul(0.6D, 1.0D, 1.6D));
             //Don't touch above line - Multiplies Vertical knock-back by 1X that of the Horizontal knock-back

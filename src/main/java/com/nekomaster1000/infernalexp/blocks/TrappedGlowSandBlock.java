@@ -41,7 +41,7 @@ public class TrappedGlowSandBlock extends GlowSandBlock {
 
     public void startFalling(ServerWorld world, BlockPos pos) {
         if ((world.isAirBlock(pos.down()) || canFallThrough(world.getBlockState(pos.down())) && pos.getY() >= 0)) {
-            FallingBlockEntity fallingblockentity = new FallingBlockEntity(world, (double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, world.getBlockState(pos));
+            FallingBlockEntity fallingblockentity = new FallingBlockEntity(world, (double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, world.getBlockState(pos));
             this.onStartFalling(fallingblockentity);
             world.addEntity(fallingblockentity);
         }

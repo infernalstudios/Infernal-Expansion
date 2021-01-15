@@ -56,7 +56,7 @@ public class TeleportPanicGoal extends PanicGoal {
                 entity.goalSelector.getRunningGoals().forEach(runningGoal -> {
                     if (runningGoal.getGoal() instanceof MeleeAttackGoal) {
                         runningGoal.resetTask();
-                    };
+                    }
                 });
             }
         }

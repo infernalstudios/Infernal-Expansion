@@ -70,7 +70,7 @@ public class GlowCampfireTileEntity extends TileEntity implements IClearable, IT
                         return campfireRecipe.getCraftingResult(iinventory);
                     }).orElse(itemstack);
                     BlockPos blockpos = this.getPos();
-                    InventoryHelper.spawnItemStack(this.world, (double)blockpos.getX(), (double)blockpos.getY(), (double)blockpos.getZ(), itemstack1);
+                    InventoryHelper.spawnItemStack(this.world, blockpos.getX(), blockpos.getY(), blockpos.getZ(), itemstack1);
                     this.inventory.set(i, ItemStack.EMPTY);
                     this.inventoryChanged();
                 }

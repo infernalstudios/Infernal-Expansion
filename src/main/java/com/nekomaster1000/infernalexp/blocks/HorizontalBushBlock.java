@@ -46,7 +46,7 @@ public class HorizontalBushBlock extends HorizontalFaceBlock implements net.mine
     }
 
     public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
-        return type == PathType.AIR && !this.canCollide ? true : super.allowsMovement(state, worldIn, pos, type);
+        return type == PathType.AIR && !this.canCollide || super.allowsMovement(state, worldIn, pos, type);
     }
 
     @Override

@@ -15,7 +15,7 @@ import java.util.function.Predicate;
  * should be targeted.
  */
 public class TargetWithEffectGoal extends NearestAttackableTargetGoal {
-    private Effect effect;
+    private final Effect effect;
 
     public TargetWithEffectGoal(MobEntity goalOwnerIn, Class targetClassIn, boolean checkSight, Effect effect) {
         super(goalOwnerIn, targetClassIn, checkSight);
@@ -34,12 +34,7 @@ public class TargetWithEffectGoal extends NearestAttackableTargetGoal {
 
     @Override
     protected boolean isSuitableTarget(@Nullable LivingEntity potentialTarget, EntityPredicate targetPredicate) {
-        if(super.isSuitableTarget(potentialTarget, targetPredicate) && potentialTarget.isPotionActive(this.effect)){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return super.isSuitableTarget(potentialTarget, targetPredicate) && potentialTarget.isPotionActive(this.effect);
     }
 
     @Override

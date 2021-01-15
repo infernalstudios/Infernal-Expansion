@@ -153,7 +153,7 @@ public class GlowCampfireBlock extends ContainerBlock implements IWaterLoggable 
 
             if (this.smokey && rand.nextInt(5) == 0) {
                 for(int i = 0; i < rand.nextInt(1) + 1; ++i) {
-                    worldIn.addParticle(ParticleTypes.LAVA, (double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, (double)(rand.nextFloat() / 2.0F), 5.0E-5D, (double)(rand.nextFloat() / 2.0F));
+                    worldIn.addParticle(ParticleTypes.LAVA, (double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, rand.nextFloat() / 2.0F, 5.0E-5D, rand.nextFloat() / 2.0F);
                 }
             }
 
@@ -179,7 +179,7 @@ public class GlowCampfireBlock extends ContainerBlock implements IWaterLoggable 
             boolean flag = state.get(LIT);
             if (flag) {
                 if (!worldIn.isRemote()) {
-                    worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    worldIn.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 }
 
                 extinguish(worldIn, pos, state);

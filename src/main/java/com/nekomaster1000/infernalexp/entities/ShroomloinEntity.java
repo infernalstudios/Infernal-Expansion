@@ -43,7 +43,7 @@ public class ShroomloinEntity extends MonsterEntity{
     private static final DataParameter<Boolean> IGNITED = EntityDataManager.createKey(ShroomloinEntity.class, DataSerializers.BOOLEAN);
     private int lastActiveTime;
     private int timeSinceIgnited;
-    private int fuseTime = 30;
+    private final int fuseTime = 30;
 
    // public static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(ModItems.DULLROCKS.get(), Items.MAGMA_CREAM);
 

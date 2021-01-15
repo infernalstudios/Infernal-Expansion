@@ -90,7 +90,7 @@ public class BlackstoneDwarfEntity extends CreatureEntity implements IAngerable 
     }
 
     private void attackFling(Entity entityIn, float f2, double height) {
-        ((LivingEntity) entityIn).applyKnockback(f2, (double) MathHelper.sin(this.rotationYaw * ((float)Math.PI / 180F)), (double)(-MathHelper.cos(this.rotationYaw * ((float)Math.PI / 180F))));
+        ((LivingEntity) entityIn).applyKnockback(f2, MathHelper.sin(this.rotationYaw * ((float)Math.PI / 180F)), -MathHelper.cos(this.rotationYaw * ((float)Math.PI / 180F)));
         entityIn.setMotion(entityIn.getMotion().add(0.0D, height, 0.0D));
         this.applyEnchantments(this, entityIn);
     }
