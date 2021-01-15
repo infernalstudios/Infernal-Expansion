@@ -38,12 +38,12 @@ public class ModItems {
     public static final RegistryObject<ModSpawnEggItem> WARPBEETLE_SPAWN_EGG = ITEMS.register("warpbeetle_spawn_egg", () -> new ModSpawnEggItem(ModEntityTypes.WARPBEETLE, 0x72EA95, 0x2D3860, new Item.Properties().group(InfernalExpansion.TAB)));
 //  public static final RegistryObject<ModSpawnEggItem> CEROBEETLE_SPAWN_EGG = ITEMS.register("cerobeetle_spawn_egg",() -> new ModSpawnEggItem(ModEntityType.CEROBEETLE, 0x73EB96, 0x409089, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<ModSpawnEggItem> EMBODY_SPAWN_EGG = ITEMS.register("embody_spawn_egg", () -> new ModSpawnEggItem(ModEntityTypes.EMBODY, 0x796152, 0x6DEDF1, new Item.Properties().group(InfernalExpansion.TAB)));
-    public static final RegistryObject<ModSpawnEggItem> BASALT_GIANT_SPAWN_EGG = ITEMS.register("basalt_giant_spawn_egg", () -> new ModSpawnEggItem(ModEntityTypes.BASALT_GIANT, 0x656467, 0x272936, new Item.Properties().group(InfernalExpansion.TAB)));
-    public static final RegistryObject<ModSpawnEggItem> BLACKSTONE_DWARF_SPAWN_EGG = ITEMS.register ( "blackstone_dwarf_spawn_egg", () -> new ModSpawnEggItem(ModEntityTypes.BLACKSTONE_DWARF, 0x272936, 0xC29202, new Item.Properties().group(InfernalExpansion.TAB)));
+    public static final RegistryObject<ModSpawnEggItem> BASALT_GIANT_SPAWN_EGG = ITEMS.register("basalt_giant_spawn_egg", () -> new ModSpawnEggItem(ModEntityTypes.BASALT_GIANT, 0x545454, 0xe36412, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<ModSpawnEggItem> SKELETAL_PIGLIN_SPAWN_EGG = ITEMS.register("skeletal_piglin_spawn_egg", () -> new ModSpawnEggItem(ModEntityTypes.SKELETAL_PIGLIN, 0xCBC9C9, 0x423C3C,new Item.Properties().group(InfernalExpansion.TAB)));
-    public static final RegistryObject<ModSpawnEggItem> GLOWSQUITO_SPAWN_EGG = ITEMS.register("glowsquito_spawn_egg", () -> new ModSpawnEggItem(ModEntityTypes.GLOWSQUITO, 0x3D3E4C, 0xFBDA74, new Item.Properties().group(InfernalExpansion.TAB)));
+    public static final RegistryObject<ModSpawnEggItem> GLOWSQUITO_SPAWN_EGG = ITEMS.register("glowsquito_spawn_egg", () -> new ModSpawnEggItem(ModEntityTypes.GLOWSQUITO, 0x383948, 0xe5c092, new Item.Properties().group(InfernalExpansion.TAB)));
+    public static final RegistryObject<ModSpawnEggItem> BLACKSTONE_DWARF_SPAWN_EGG = ITEMS.register ( "blackstone_dwarf_spawn_egg", () -> new ModSpawnEggItem(ModEntityTypes.BLACKSTONE_DWARF, 0x1a1a1c, 0x36313f, new Item.Properties().group(InfernalExpansion.TAB)));
+    public static final RegistryObject<ModSpawnEggItem> BLINDSIGHT_SPAWN_EGG = ITEMS.register("blindsight_spawn_egg", () -> new ModSpawnEggItem(ModEntityTypes.BLINDSIGHT, 0x312c36, 0xfbda74, new Item.Properties().group(InfernalExpansion.TAB)));
 //  public static final RegistryObject<ModSpawnEggItem> PYRNO_SPAWN_EGG = ITEMS.register("pyrno_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.PYRNO, 0x5D514B, 0xFEE15E, new Item.Properties().group(InfernalExpansion.TAB)));
-    public static final RegistryObject<ModSpawnEggItem> BLINDSIGHT_SPAWN_EGG = ITEMS.register("blindsight_spawn_egg", () -> new ModSpawnEggItem(ModEntityTypes.BLINDSIGHT, 0x3D3E4C, 0x3D3E4C, new Item.Properties().group(InfernalExpansion.TAB)));
 
     // Block items
     public static final RegistryObject<Item> DIMSTONE = ITEMS.register("dimstone",                                  () -> new BlockItemBase(ModBlocks.DIMSTONE.get()));
@@ -77,6 +77,8 @@ public class ModItems {
     public static final RegistryObject<Item> GLOWDUST_SAND = ITEMS.register("glowdust_sand",            () -> new BlockItemBase(ModBlocks.GLOWDUST_SAND.get()));
     public static final RegistryObject<Item> GLOWDUST_STONE = ITEMS.register("glowdust_stone",              () -> new BlockItemBase(ModBlocks.GLOWDUST_STONE.get()));
     public static final RegistryObject<Item> GLOWDUST_STONE_BRICKS = ITEMS.register("glowdust_stone_bricks",    () -> new BlockItemBase(ModBlocks.GLOWDUST_STONE_BRICKS.get()));
+    public static final RegistryObject<Item> GLOWDUST_STONE_BRICK_SLAB = ITEMS.register("glowdust_stone_brick_slab",        () -> new BlockItemBase(ModBlocks.GLOWDUST_STONE_BRICK_SLAB.get()));
+    public static final RegistryObject<Item> GLOWDUST_STONE_BRICK_STAIRS = ITEMS.register("glowdust_stone_brick_stairs",    () -> new BlockItemBase(ModBlocks.GLOWDUST_STONE_BRICK_STAIRS.get()));
     public static final RegistryObject<Item> TRAPPED_GLOWDUST_SAND = ITEMS.register("trapped_glowdust_sand",        () -> new BlockItemBase(ModBlocks.TRAPPED_GLOWDUST_SAND.get()));
     public static final RegistryObject<Item> GLOWDUST_SANDSTONE = ITEMS.register("glowdust_sandstone",                  () -> new BlockItemBase(ModBlocks.GLOWDUST_SANDSTONE.get()));
     public static final RegistryObject<Item> CUT_GLOWDUST_SANDSTONE = ITEMS.register("cut_glowdust_sandstone",              () -> new BlockItemBase(ModBlocks.CUT_GLOWDUST_SANDSTONE.get()));

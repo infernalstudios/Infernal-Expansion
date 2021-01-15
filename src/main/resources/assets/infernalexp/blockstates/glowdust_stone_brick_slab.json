@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "infernalexp:block/glowdust_stone_brick_slab"
+    },
+    "type=double": {
+      "model": "infernalexp:block/glowdust_stone_bricks"
+    },
+    "type=top": {
+      "model": "infernalexp:block/glowdust_stone_brick_slab_top"
+    }
+  }
+}

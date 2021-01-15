@@ -5,13 +5,58 @@
       "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "infernalexp:rubble"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "enchantments": [
+                      {
+                        "enchantment": "minecraft:silk_touch",
+                        "levels": {
+                          "min": 1
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "name": "infernalexp:rubble"
+            },
+            {
+              "type": "minecraft:alternatives",
+              "conditions": [
+                {
+                  "condition": "minecraft:survives_explosion"
+                }
+              ],
+              "children": [
+                {
+                  "type": "minecraft:item",
+                  "conditions": [
+                    {
+                      "condition": "minecraft:table_bonus",
+                      "enchantment": "minecraft:fortune",
+                      "chances": [
+                        0.05,
+                        0.10,
+                        0.20,
+                        0.80
+                      ]
+                    }
+                  ],
+                  "name": "infernalexp:rubble"
+                },
+                {
+                  "type": "minecraft:item",
+                  "name": "infernalexp:rubble"
+                }
+              ]
+            }
+          ]
         }
       ]
     }
