@@ -1,5 +1,6 @@
 package com.nekomaster1000.infernalexp.world.biome.netherbiomes;
 
+import com.nekomaster1000.infernalexp.init.ModConfiguredFeatures;
 import com.nekomaster1000.infernalexp.init.ModEntityTypes;
 import com.nekomaster1000.infernalexp.init.ModSurfaceBuilders;
 import com.nekomaster1000.infernalexp.world.biome.BiomeHelper;
@@ -70,6 +71,7 @@ public class DeltaShoresSubBiome extends ModBiome {
         generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.SMALL_BASALT_COLUMNS);
         generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA);
         generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA_DOUBLE);
+        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, ModConfiguredFeatures.SHORES_RUBBLE_ORE);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.PATCH_FIRE);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.PATCH_SOUL_FIRE);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.GLOWSTONE);
