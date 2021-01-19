@@ -12,7 +12,7 @@ public class GlowstoneSparkleParticle extends SpriteTexturedParticle {
     private GlowstoneSparkleParticle(ClientWorld world, double x, double y, double z, double motionX, double motionY, double motionZ) {
         super(world, x, y, z);
         this.motionX = (motionX + rand.nextFloat() - 0.5) / 3;
-        this.motionY = (motionY + rand.nextFloat() - 0.5) / 3;
+        this.motionY = (motionY + rand.nextFloat()) / 5;
         this.motionZ = (motionZ + rand.nextFloat() - 0.5) / 3;
         this.particleScale *= 0.75F;
         this.maxAge = 60 + this.rand.nextInt(12);
@@ -58,6 +58,7 @@ public class GlowstoneSparkleParticle extends SpriteTexturedParticle {
         public Particle makeParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             GlowstoneSparkleParticle glowstoneSparkleParticle = new GlowstoneSparkleParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed);
             glowstoneSparkleParticle.selectSpriteRandomly(this.spriteSet);
+            glowstoneSparkleParticle.multiplyParticleScaleBy(0.5F);
             return glowstoneSparkleParticle;
         }
     }
