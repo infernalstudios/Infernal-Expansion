@@ -213,7 +213,8 @@ public class ModEvents {
 
             if(InfernalExpansionConfig.volineInWastes) {
                 event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                        new MobSpawnInfo.Spawners(ModEntityTypes.VOLINE.get(), InfernalExpansionConfig.volineWastesRate, 1, 3));
+                        new MobSpawnInfo.Spawners(ModEntityTypes.VOLINE.get(),
+                                InfernalExpansionConfig.volineWastesRate, 1, 3));
             }
 
 
@@ -221,12 +222,14 @@ public class ModEvents {
 
             if(InfernalExpansionConfig.shroomloinInCrimson) {
                 event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                        new MobSpawnInfo.Spawners(ModEntityTypes.SHROOMLOIN.get(), InfernalExpansionConfig.shroomloinCrimsonRate, 1, 3));
+                        new MobSpawnInfo.Spawners(ModEntityTypes.SHROOMLOIN.get(),
+                                InfernalExpansionConfig.shroomloinCrimsonRate, 1, 3));
             }
 
             if(InfernalExpansionConfig.volineInCrimson) {
                 event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                        new MobSpawnInfo.Spawners(ModEntityTypes.VOLINE.get(), InfernalExpansionConfig.volineCrimsonRate, 1, 5));
+                        new MobSpawnInfo.Spawners(ModEntityTypes.VOLINE.get(),
+                                InfernalExpansionConfig.volineCrimsonRate, 1, 5));
             }
 
         } else if (event.getName().toString().equals("minecraft:warped_forest")) {
@@ -236,14 +239,16 @@ public class ModEvents {
 
             if(InfernalExpansionConfig.warpbeetleInWarped) {
                 event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                        new MobSpawnInfo.Spawners(ModEntityTypes.WARPBEETLE.get(), InfernalExpansionConfig.warpbeetleWarpedRate, 1, 1));
+                        new MobSpawnInfo.Spawners(ModEntityTypes.WARPBEETLE.get(),
+                                InfernalExpansionConfig.warpbeetleWarpedRate, 1, 1));
             }
 
         } else if (event.getName().toString().equals("minecraft:basalt_deltas")) {
 
             if(InfernalExpansionConfig.giantInDeltas) {
                 event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                        new MobSpawnInfo.Spawners(ModEntityTypes.BASALT_GIANT.get(), InfernalExpansionConfig.giantDeltasRate, 1, 1));
+                        new MobSpawnInfo.Spawners(ModEntityTypes.BASALT_GIANT.get(),
+                                InfernalExpansionConfig.giantDeltasRate, 1, 1));
             }
 
             //event.getSpawns().withSpawner(EntityClassification.MONSTER,
@@ -254,7 +259,8 @@ public class ModEvents {
 
             if(InfernalExpansionConfig.embodyInSSV) {
                 event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                        new MobSpawnInfo.Spawners(ModEntityTypes.EMBODY.get(), InfernalExpansionConfig.embodySSVRate, 1, 5));
+                        new MobSpawnInfo.Spawners(ModEntityTypes.EMBODY.get(),
+                                InfernalExpansionConfig.embodySSVRate, 1, 5));
             }
 
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
@@ -262,18 +268,24 @@ public class ModEvents {
 
 
             //Mob Spawning in new biomes
-/*
+
         } else if (event.getName().toString().equals("infernalexp:glowstone_canyon")) {
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                    new MobSpawnInfo.Spawners(ModEntityType.GLOWSQUITO.get(), 100, 1, 1));
+                    new MobSpawnInfo.Spawners(ModEntityTypes.GLOWSQUITO.get(), 80, 1, 10));
 
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                    new MobSpawnInfo.Spawners(ModEntityType.SKELETAL_PIGLIN.get(), 20, 1, 1));
+                    new MobSpawnInfo.Spawners(ModEntityTypes.BLINDSIGHT.get(), 10, 1, 1));
+
+            event.getSpawns().withSpawner(EntityClassification.MONSTER,
+                    new MobSpawnInfo.Spawners(ModEntityTypes.SKELETAL_PIGLIN.get(), 10, 1, 1));
+
+            event.getSpawns().withSpawner(EntityClassification.MONSTER,
+                    new MobSpawnInfo.Spawners(ModEntityTypes.BLACKSTONE_DWARF.get(), 1, 1, 1));
 
             //event.getSpawns().withSpawner(EntityClassification.MONSTER,
             //        new MobSpawnInfo.Spawners(EntityType.GHAST, 20, 1, 1));
             // Not spawning for some reason?
-*/
+
         } else if (event.getName().toString().equals("infernalexp:delta_shores")) {
 
             event.getSpawns().withSpawner(EntityClassification.MONSTER,

@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_bottom_top",
+  "textures": {
+    "top": "infernalexp:blocks/crimson_fungus_cap_top",
+    "bottom": "infernalexp:blocks/crimson_fungus_cap_bottom",
+    "side": "infernalexp:blocks/crimson_fungus_cap_side"
+  }
+}

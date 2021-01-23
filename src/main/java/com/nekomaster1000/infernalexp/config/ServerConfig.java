@@ -184,7 +184,7 @@ public class ServerConfig {
         warpbeetleWarpedRate = builder
                 .comment("Determines the rate at which Warpbeetles spawn in the Warped Forests")
                 .translation(InfernalExpansion.MOD_ID + ".config.warpbeetleWarpedRate")
-                .defineInRange("warpbeetleWarpedRate", 5, 0, Integer.MAX_VALUE);
+                .defineInRange("warpbeetleWarpedRate", 1, 0, Integer.MAX_VALUE);
 
         giantDeltasRate = builder
                 .comment("Determines the rate at which Basalt Giants spawn in the Basalt Deltas")
