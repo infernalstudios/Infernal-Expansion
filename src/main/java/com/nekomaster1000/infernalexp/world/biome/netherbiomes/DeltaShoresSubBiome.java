@@ -1,6 +1,5 @@
 package com.nekomaster1000.infernalexp.world.biome.netherbiomes;
 
-import com.nekomaster1000.infernalexp.init.ModConfiguredFeatures;
 import com.nekomaster1000.infernalexp.init.ModEntityTypes;
 import com.nekomaster1000.infernalexp.init.ModSurfaceBuilders;
 import com.nekomaster1000.infernalexp.world.biome.BiomeHelper;
@@ -12,7 +11,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.carver.ConfiguredCarvers;
-import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.feature.structure.StructureFeatures;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 
@@ -54,7 +53,7 @@ public class DeltaShoresSubBiome extends ModBiome {
 
     @Override
     protected ConfiguredSurfaceBuilder<?> configureSurfaceBuilder() { return BiomeHelper.newConfiguredSurfaceBuilder
-            ("delta_shores", new ConfiguredSurfaceBuilder(ModSurfaceBuilders.DELTA_SHORES_SURFACE_BUILDER,
+            ("delta_shores", new ConfiguredSurfaceBuilder(ModSurfaceBuilders.DELTA_SHORES_SURFACE_BUILDER.get(),
                     ModSurfaceBuilders.ModSurfaceBuilderConfig.DELTA_SHORES_CONFIG));
     }
 
@@ -71,7 +70,7 @@ public class DeltaShoresSubBiome extends ModBiome {
         generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.SMALL_BASALT_COLUMNS);
         generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA);
         generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA_DOUBLE);
-        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, ModConfiguredFeatures.SHORES_RUBBLE_ORE);
+//        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, ModConfiguredFeatures.SHORES_RUBBLE_ORE);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.PATCH_FIRE);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.PATCH_SOUL_FIRE);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.GLOWSTONE);
