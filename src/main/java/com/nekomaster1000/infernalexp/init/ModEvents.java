@@ -23,6 +23,10 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.world.gen.carver.WorldCarver;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.BlockEvent;
@@ -339,5 +343,21 @@ public class ModEvents {
             world.playSound(null, noteBlockPos, sound, SoundCategory.RECORDS, 1F, pitch);
             event.setCanceled(true);
         }
+    }
+
+    // Register features and surface builders
+    @SubscribeEvent
+    public static void registerFeatures(RegistryEvent.Register<Feature<?>> event) {
+        ModFeatures.features.forEach(feature -> event.getRegistry().register(feature));
+    }
+
+    @SubscribeEvent
+    public static void registerSurfaceBuilders(RegistryEvent.Register<SurfaceBuilder<?>> event) {
+        ModSurfaceBuilders.surfaceBuilders.forEach(surfaceBuilder -> event.getRegistry().register(surfaceBuilder));
+    }
+
+    @SubscribeEvent
+    public static void registerWorldCarvers(RegistryEvent.Register<WorldCarver<?>> event) {
+        ModCarvers.carvers.forEach(carver -> event.getRegistry().register(carver));
     }
 }

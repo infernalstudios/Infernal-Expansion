@@ -1,6 +1,6 @@
 package com.nekomaster1000.infernalexp.world.biome.netherbiomes;
 
-import com.nekomaster1000.infernalexp.init.ModConfiguredCarvers;
+import com.nekomaster1000.infernalexp.init.ModCarvers;
 import com.nekomaster1000.infernalexp.init.ModConfiguredFeatures;
 import com.nekomaster1000.infernalexp.init.ModParticleTypes;
 import com.nekomaster1000.infernalexp.init.ModSurfaceBuilders;
@@ -55,7 +55,7 @@ public class GlowstoneCanyonBiome extends ModBiome {
 
     @Override
     protected ConfiguredSurfaceBuilder<?> configureSurfaceBuilder() {
-        return BiomeHelper.newConfiguredSurfaceBuilder("glowstone_canyon", new ConfiguredSurfaceBuilder(ModSurfaceBuilders.GLOWSTONE_CANYON_SURFACE_BUILDER.get(), ModSurfaceBuilders.ModSurfaceBuilderConfig.GLOWSTONE_CANYON_CONFIG));
+        return BiomeHelper.newConfiguredSurfaceBuilder("glowstone_canyon", new ConfiguredSurfaceBuilder(ModSurfaceBuilders.GLOWSTONE_CANYON_SURFACE_BUILDER, ModSurfaceBuilders.ModSurfaceBuilderConfig.GLOWSTONE_CANYON_CONFIG));
     }
 
     @Override
@@ -64,7 +64,7 @@ public class GlowstoneCanyonBiome extends ModBiome {
         generation.withStructure(StructureFeatures.FORTRESS);
         generation.withCarver(GenerationStage.Carving.AIR, ConfiguredCarvers.field_243772_f);
         //generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.DELTA);
-        generation.withCarver(GenerationStage.Carving.AIR, ModConfiguredCarvers.CONFIGURED_GLOWSTONE_RAVINE);
+        generation.withCarver(GenerationStage.Carving.AIR, ModCarvers.CONFIGURED_GLOWSTONE_RAVINE);
 //        generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ModConfiguredFeatures.BLACKSTONE_BOULDER);
         generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ModConfiguredFeatures.GLOWSPIKE);
         generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ModConfiguredFeatures.GLOWSPIKELARGE);

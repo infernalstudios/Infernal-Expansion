@@ -33,12 +33,10 @@ public class InfernalExpansion
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "infernalexp";
 
-    private final IEventBus modEventBus;
-
     public InfernalExpansion()
     {
         final ModLoadingContext modLoadingContext = ModLoadingContext.get();
-        modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(this::commonSetup);
@@ -51,10 +49,7 @@ public class InfernalExpansion
         ModEntityTypes.register(modEventBus);
         ModPaintings.register(modEventBus);
         ModTileEntityTypes.register(modEventBus);
-        ModFeatures.register(modEventBus);
-        ModCarvers.register(modEventBus);
-        ModSurfaceBuilders.register(modEventBus);
-
+        ModBiomes.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new ModEvents());
 
@@ -69,10 +64,6 @@ public class InfernalExpansion
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
-        // Register biomes after everything else in a thread safe environment
-        event.enqueueWork(() -> (Runnable) () -> ModBiomes.register(modEventBus));
-
-
         ModNetherBiomeCollector.netherBiomeCollection();
         Registry.register(Registry.BIOME_PROVIDER_CODEC, new ResourceLocation(MOD_ID, "infernalexp_nether"), ModNetherBiomeProvider.MOD_NETHER_CODEC);
 
@@ -85,7 +76,8 @@ public class InfernalExpansion
         flowerPot.addPlant(ModBlocks.LUMINOUS_FUNGUS.getId(), ModBlocks.POTTED_LUMINOUS_FUNGUS);
     }
 
-    private void clientSetup(final FMLClientSetupEvent event) { }
+    private void clientSetup(final FMLClientSetupEvent event) {
+    }
 
     @SubscribeEvent
     public void onServerStarting(FMLServerStartingEvent event) {
