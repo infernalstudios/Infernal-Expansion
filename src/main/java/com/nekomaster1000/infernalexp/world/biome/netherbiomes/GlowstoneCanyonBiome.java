@@ -1,10 +1,12 @@
 package com.nekomaster1000.infernalexp.world.biome.netherbiomes;
 
-import com.nekomaster1000.infernalexp.init.*;
+import com.nekomaster1000.infernalexp.init.ModConfiguredCarvers;
+import com.nekomaster1000.infernalexp.init.ModConfiguredFeatures;
+import com.nekomaster1000.infernalexp.init.ModParticleTypes;
+import com.nekomaster1000.infernalexp.init.ModSurfaceBuilders;
 import com.nekomaster1000.infernalexp.world.biome.BiomeHelper;
 import com.nekomaster1000.infernalexp.world.biome.ModBiome;
 import net.minecraft.client.audio.BackgroundMusicTracks;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.biome.*;
@@ -72,8 +74,8 @@ public class GlowstoneCanyonBiome extends ModBiome {
         generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.DULLTHORNS);
         generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA);
         generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA_DOUBLE);
-//        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, ModConfiguredFeatures.CANYON_BLACKSTONE_ORE);
-//        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, ModConfiguredFeatures.CANYON_CRUMBLING_BLACKSTONE_ORE);
+        //generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES,ModConfiguredFeatures.CANYON_BLACKSTONE_ORE);
+        //generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES,ModConfiguredFeatures.CANYON_CRUMBLING_BLACKSTONE_ORE);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.BLACKSTONE_BLOBS);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.PATCH_FIRE);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.PATCH_SOUL_FIRE);
@@ -87,7 +89,10 @@ public class GlowstoneCanyonBiome extends ModBiome {
 
     @Override
     protected void configureSpawns(MobSpawnInfo.Builder spawns) {
-        spawns.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.GLOWSQUITO.get(), 100, 1, 3));
-        spawns.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(ModEntityTypes.BLINDSIGHT.get(), 2, 1, 1));
+        //spawns.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(ModEntityTypes.GLOWSQUITO.get(), 1, 1, 3));
+        //spawns.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(ModEntityTypes.BLINDSIGHT.get(), 100, 1, 1));
+
+        //It doesn't work properly. Glowsquitos don't spawn at all and Blindsights spawn en-masse regardless of if
+        // they're set to 1 or 100. Putting spawning for new biomes back in ModEvents for now.
     }
 }

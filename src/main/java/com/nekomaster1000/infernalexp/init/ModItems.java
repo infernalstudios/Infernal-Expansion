@@ -7,6 +7,9 @@ import com.nekomaster1000.infernalexp.items.ItemBase;
 //import com.nekomaster1000.infernalexp.util.ModItemTier;
 import com.nekomaster1000.infernalexp.items.SlurpSoupItem;
 import com.nekomaster1000.infernalexp.util.ModSpawnEggItem;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -91,14 +94,19 @@ public class ModItems {
     public static final RegistryObject<Item> SMOOTH_GLOWDUST_SANDSTONE_STAIRS = ITEMS.register("smooth_glowdust_sandstone_stairs",  () -> new BlockItemBase(ModBlocks.SMOOTH_GLOWDUST_SANDSTONE_STAIRS.get()));
     public static final RegistryObject<Item> GLOWDUST_SANDSTONE_WALL = ITEMS.register("glowdust_sandstone_wall",                    () -> new BlockItemBase(ModBlocks.GLOWDUST_SANDSTONE_WALL.get()));
 
-    public static final RegistryObject<Item> CRUMBLING_BLACKSTONE = ITEMS.register("crumbling_blackstone", () -> new BlockItemBase(ModBlocks.CRUMBLING_BLACKSTONE.get()));
+    public static final RegistryObject<Item> CRUMBLING_BLACKSTONE = ITEMS.register("crumbling_blackstone",  () -> new BlockItemBase(ModBlocks.CRUMBLING_BLACKSTONE.get()));
     public static final RegistryObject<Item> GLIMMERING_BLACKSTONE = ITEMS.register("glimmering_blackstone", () -> new BlockItemBase(ModBlocks.GLIMMERING_BLACKSTONE.get()));
     public static final RegistryObject<Item> SILT = ITEMS.register("silt", () -> new BlockItemBase(ModBlocks.SILT.get()));
     public static final RegistryObject<Item> RUBBLE = ITEMS.register("rubble", () -> new BlockItemBase(ModBlocks.RUBBLE.get()));
 
-    public static final RegistryObject<Item> GLOW_LANTERN = ITEMS.register("lantern_glow", () -> new BlockItemBase(ModBlocks.GLOW_LANTERN.get()));
-    public static final RegistryObject<Item> GLOW_TORCH = ITEMS.register("torch_glow", () -> new WallOrFloorItem(ModBlocks.GLOW_TORCH.get(), ModBlocks.GLOW_WALL_TORCH.get(), (new Item.Properties()).group(InfernalExpansion.TAB)));
-    public static final RegistryObject<Item> GLOW_CAMPFIRE = ITEMS.register("campfire_glow", () -> new BlockItemBase(ModBlocks.GLOW_CAMPFIRE.get()));
+//    public static final RegistryObject<Item> BASALT_IRON_ORE = ITEMS.register("basalt_iron_ore", () -> new BlockItemBase(ModBlocks.BASALT_IRON_ORE.get()));
+
+    public static final RegistryObject<Item> CRIMSON_FUNGUS_CAP = ITEMS.register("crimson_fungus_cap", () -> new BlockItemBase(ModBlocks.CRIMSON_FUNGUS_CAP.get()));
+    public static final RegistryObject<Item> WARPED_FUNGUS_CAP = ITEMS.register("warped_fungus_cap", () -> new BlockItemBase(ModBlocks.WARPED_FUNGUS_CAP.get()));
+
+    public static final RegistryObject<Item> GLOW_LANTERN = ITEMS.register("lantern_glow",      () -> new BlockItemBase(ModBlocks.GLOW_LANTERN.get()));
+    public static final RegistryObject<Item> GLOW_TORCH = ITEMS.register("torch_glow",          () -> new WallOrFloorItem(ModBlocks.GLOW_TORCH.get(), ModBlocks.GLOW_WALL_TORCH.get(), (new Item.Properties()).group(InfernalExpansion.TAB)));
+    public static final RegistryObject<Item> GLOW_CAMPFIRE = ITEMS.register("campfire_glow",    () -> new BlockItemBase(ModBlocks.GLOW_CAMPFIRE.get()));
 
     public static final RegistryObject<Item> LUMINOUS_FUNGUS = ITEMS.register("luminous_fungus", () -> new BlockItemBase(ModBlocks.LUMINOUS_FUNGUS.get()));
     public static final RegistryObject<Item> DULLTHORNS = ITEMS.register("dullthorns",           () -> new BlockItemBase(ModBlocks.DULLTHORNS.get()));
