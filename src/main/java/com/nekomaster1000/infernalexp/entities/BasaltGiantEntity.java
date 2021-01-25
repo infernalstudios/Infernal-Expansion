@@ -1,5 +1,6 @@
 package com.nekomaster1000.infernalexp.entities;
 
+import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.util.RegistryHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -154,7 +155,9 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
 //        this.goalSelector.addGoal(5, new TemptGoal(this, 0.6D, TEMPTATION_ITEMS, false));
 
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, SkeletonEntity.class, true, false));
+        if (InfernalExpansionConfig.skeletonAttackGiant) {
+            this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, SkeletonEntity.class, true, false));
+        }
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, MagmaCubeEntity.class, true, false));
 
     }

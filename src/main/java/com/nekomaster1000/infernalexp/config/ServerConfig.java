@@ -79,12 +79,12 @@ public class ServerConfig {
                 .define("skeletonAttackBrute", true);
 
         skeletonAttackEmbody = builder
-                .comment("Determines if Skeletons will attack Embodies")
+                .comment("Determines if Skeletons and Embodies will fight")
                 .translation(InfernalExpansion.MOD_ID + ".config.skeletonAttackEmbody")
                 .define("skeletonAttackEmbody", true);
 
         skeletonAttackGiant = builder
-                .comment("Determines if Skeletons will attack Basalt Giants")
+                .comment("Determines if Skeletons and Basalt Giants will fight")
                 .translation(InfernalExpansion.MOD_ID + ".config.skeletonAttackGiant")
                 .define("skeletonAttackGiant", true);
 
@@ -111,7 +111,7 @@ public class ServerConfig {
         ghastAttackEmbody = builder
                 .comment("Determines if Ghasts will shoot at Embodies")
                 .translation(InfernalExpansion.MOD_ID + ".config.ghastAttackEmbody")
-                .define("ghastAttackEmbody", true);
+                .define("ghastAttackEmbody", false);
 
         ghastAttackVoline = builder
                 .comment("Determines if Ghasts will shoot at Volines")
@@ -121,7 +121,7 @@ public class ServerConfig {
         ghastAttackSkeleton = builder
                 .comment("Determines if Ghasts will shoot at Skeletons")
                 .translation(InfernalExpansion.MOD_ID + ".config.ghastAttackSkeleton")
-                .define("ghastAttackSkeleton", true);
+                .define("ghastAttackSkeleton", false);
 
         builder.pop();
 
