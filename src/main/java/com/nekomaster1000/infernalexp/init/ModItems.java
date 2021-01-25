@@ -31,8 +31,9 @@ public class ModItems {
     public static final RegistryObject<SoupItem> BLINDSIGHT_TONGUE_STEW = ITEMS.register("blindsight_tongue_stew",
             () -> new SlurpSoupItem(new Item.Properties().maxStackSize(1).group(InfernalExpansion.TAB)
                     .food(new Food.Builder().hunger(6).saturation(0.6F)
-                            .effect(() -> new EffectInstance(Effects.JUMP_BOOST, 1200, 1), 1.0F)
-                            .build())));
+                            .effect(() ->
+                                    new EffectInstance(Effects.JUMP_BOOST, 1200, 1), 1.0F)
+                                            .build())));
 
 
     // Spawn Eggs
@@ -111,7 +112,9 @@ public class ModItems {
     public static final RegistryObject<Item> LUMINOUS_FUNGUS = ITEMS.register("luminous_fungus", () -> new BlockItemBase(ModBlocks.LUMINOUS_FUNGUS.get()));
     public static final RegistryObject<Item> DULLTHORNS = ITEMS.register("dullthorns",           () -> new BlockItemBase(ModBlocks.DULLTHORNS.get()));
 
-/*
+    public static final RegistryObject<Item> SHROOMLIGHT_FUNGUS = ITEMS.register("shroomlight_fungus",      () -> new BlockItemBase(ModBlocks.SHROOMLIGHT_FUNGUS.get()));
+
+    /*
     // Tools
     public static final RegistryObject<SwordItem> FROSTBITTEN_SWORD = ITEMS.register("frostbitten_sword", () -> new SwordItem(ModItemTier.FROSTBITTEN_NETHERITE, 2, -2.4F, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<PickaxeItem> FROSTBITTEN_PICKAXE = ITEMS.register("frostbitten_pickaxe", () -> new PickaxeItem(ModItemTier.FROSTBITTEN_NETHERITE, 1, -2.4F, new Item.Properties().group(InfernalExpansion.TAB)));

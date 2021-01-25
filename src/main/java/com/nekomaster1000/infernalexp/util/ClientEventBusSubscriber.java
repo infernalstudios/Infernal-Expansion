@@ -47,6 +47,8 @@ public class ClientEventBusSubscriber {
         RenderTypeLookup.setRenderLayer(ModBlocks.GLOW_CAMPFIRE.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.GLOW_LANTERN.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.GLOW_FIRE.get(), RenderType.getCutout());
+
+        RenderTypeLookup.setRenderLayer(ModBlocks.SHROOMLIGHT_FUNGUS.get(), RenderType.getCutout());
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)

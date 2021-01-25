@@ -28,9 +28,9 @@ public class PyrnoEntity extends HoglinEntity {
         //ATTRIBUTES
         public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return MobEntity.func_233666_p_()
-        .createMutableAttribute(Attributes.MAX_HEALTH, 30.0D)
+        .createMutableAttribute(Attributes.MAX_HEALTH, 50.0D)
         .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5D)
-        .createMutableAttribute(Attributes.ATTACK_DAMAGE, 4.0D);
+        .createMutableAttribute(Attributes.ATTACK_DAMAGE, 5.0D);
         }
 
         //BEHAVIOUR
@@ -38,7 +38,6 @@ public class PyrnoEntity extends HoglinEntity {
         protected void registerGoals() {
                 super.registerGoals();
                 this.goalSelector.addGoal(0, new TemptGoal(this, 0.5D, TEMPTATION_ITEMS, false));
-// this doesn't work...  this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, VolineEntity.class, true));
                 this.goalSelector.addGoal(1, new WaterAvoidingRandomWalkingGoal(this, 0.5D));
                 this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0f));
                 this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
