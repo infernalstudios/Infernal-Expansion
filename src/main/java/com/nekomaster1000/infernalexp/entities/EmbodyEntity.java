@@ -1,5 +1,6 @@
 package com.nekomaster1000.infernalexp.entities;
 
+import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.util.RegistryHandler;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -53,7 +54,9 @@ public class EmbodyEntity extends MonsterEntity {
         super.registerGoals();
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 0.6D, true));
 //        this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, SkeletonEntity.class, true, false));
-        this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, AbstractSkeletonEntity.class, true, false));
+        if (InfernalExpansionConfig.skeletonAttackEmbody) {
+            this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, AbstractSkeletonEntity.class, true, false));
+        }
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, AbstractPiglinEntity.class, true, false));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
