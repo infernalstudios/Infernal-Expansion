@@ -1,10 +1,12 @@
 package com.nekomaster1000.infernalexp.world.biome.netherbiomes;
 
-import com.nekomaster1000.infernalexp.init.*;
+import com.nekomaster1000.infernalexp.init.ModCarvers;
+import com.nekomaster1000.infernalexp.init.ModConfiguredFeatures;
+import com.nekomaster1000.infernalexp.init.ModParticleTypes;
+import com.nekomaster1000.infernalexp.init.ModSurfaceBuilders;
 import com.nekomaster1000.infernalexp.world.biome.BiomeHelper;
 import com.nekomaster1000.infernalexp.world.biome.ModBiome;
 import net.minecraft.client.audio.BackgroundMusicTracks;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.biome.*;

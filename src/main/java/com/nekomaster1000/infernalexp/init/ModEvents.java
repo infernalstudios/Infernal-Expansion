@@ -7,7 +7,6 @@ import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.entities.*;
 import com.nekomaster1000.infernalexp.entities.ai.AvoidBlockGoal;
 import com.nekomaster1000.infernalexp.util.RegistryHandler;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.CreatureEntity;
@@ -22,7 +21,6 @@ import net.minecraft.entity.monster.piglin.PiglinEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.carver.WorldCarver;
