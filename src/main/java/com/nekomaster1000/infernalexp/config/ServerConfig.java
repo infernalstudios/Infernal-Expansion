@@ -1,6 +1,7 @@
 package com.nekomaster1000.infernalexp.config;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
+
 import net.minecraftforge.common.ForgeConfigSpec;
 
 public class ServerConfig {

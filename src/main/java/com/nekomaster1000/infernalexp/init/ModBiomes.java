@@ -1,15 +1,16 @@
 package com.nekomaster1000.infernalexp.init;
 
+import java.util.function.Supplier;
+
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.world.biome.netherbiomes.DeltaShoresSubBiome;
 import com.nekomaster1000.infernalexp.world.biome.netherbiomes.GlowstoneCanyonBiome;
+
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.function.Supplier;
 
 public class ModBiomes
 {

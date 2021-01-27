@@ -1,11 +1,12 @@
 package com.nekomaster1000.infernalexp.blocks;
 
+import javax.annotation.Nullable;
+
 import com.nekomaster1000.infernalexp.init.ModBlocks;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SnowBlock;
 import net.minecraft.item.BlockItemUseContext;
-
-import javax.annotation.Nullable;
 
 public class GlowdustBlock extends SnowBlock {
 

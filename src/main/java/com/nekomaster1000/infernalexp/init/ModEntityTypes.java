@@ -1,7 +1,18 @@
 package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
-import com.nekomaster1000.infernalexp.entities.*;
+import com.nekomaster1000.infernalexp.entities.BasaltGiantEntity;
+import com.nekomaster1000.infernalexp.entities.BlackstoneDwarfEntity;
+import com.nekomaster1000.infernalexp.entities.BlindsightEntity;
+import com.nekomaster1000.infernalexp.entities.CerobeetleEntity;
+import com.nekomaster1000.infernalexp.entities.EmbodyEntity;
+import com.nekomaster1000.infernalexp.entities.GlowsquitoEntity;
+import com.nekomaster1000.infernalexp.entities.PyrnoEntity;
+import com.nekomaster1000.infernalexp.entities.ShroomloinEntity;
+import com.nekomaster1000.infernalexp.entities.SkeletalPiglinEntity;
+import com.nekomaster1000.infernalexp.entities.VolineEntity;
+import com.nekomaster1000.infernalexp.entities.WarpbeetleEntity;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;

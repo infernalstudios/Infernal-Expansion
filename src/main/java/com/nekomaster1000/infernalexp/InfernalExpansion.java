@@ -1,13 +1,26 @@
 package com.nekomaster1000.infernalexp;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 //Entities are found in src.main.java.world.gen.ModEntitySpawns
 
 import com.nekomaster1000.infernalexp.config.ConfigHelper;
 import com.nekomaster1000.infernalexp.config.ConfigHolder;
-import com.nekomaster1000.infernalexp.init.*;
+import com.nekomaster1000.infernalexp.init.ModBiomes;
+import com.nekomaster1000.infernalexp.init.ModBlocks;
+import com.nekomaster1000.infernalexp.init.ModCommands;
+import com.nekomaster1000.infernalexp.init.ModEffects;
+import com.nekomaster1000.infernalexp.init.ModEntityTypes;
+import com.nekomaster1000.infernalexp.init.ModEvents;
+import com.nekomaster1000.infernalexp.init.ModItems;
+import com.nekomaster1000.infernalexp.init.ModPaintings;
+import com.nekomaster1000.infernalexp.init.ModParticleTypes;
+import com.nekomaster1000.infernalexp.init.ModTileEntityTypes;
 import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeCollector;
 import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeProvider;
 import com.nekomaster1000.infernalexp.world.gen.ModEntityPlacement;
+
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowerPotBlock;
 import net.minecraft.item.ItemGroup;
@@ -24,8 +37,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 @Mod("infernalexp")
 public class InfernalExpansion

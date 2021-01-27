@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.world.gen.features.config;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+
 import net.minecraft.world.gen.feature.IFeatureConfig;
 
 public class    GlowSpikeFeatureConfig implements IFeatureConfig {

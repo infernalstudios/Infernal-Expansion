@@ -1,13 +1,14 @@
 package com.nekomaster1000.infernalexp.entities.ai;
 
+import java.util.function.Predicate;
+
+import javax.annotation.Nullable;
+
 import net.minecraft.entity.EntityPredicate;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.potion.Effect;
-
-import javax.annotation.Nullable;
-import java.util.function.Predicate;
 
 /**
  * This goal allows a Mob to target a Player who has a potion effect. The constructor is similar to the basic

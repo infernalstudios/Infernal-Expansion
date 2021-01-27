@@ -1,15 +1,16 @@
 package com.nekomaster1000.infernalexp.world.gen.features;
 
+import java.util.Random;
+
 import com.mojang.serialization.Codec;
 import com.nekomaster1000.infernalexp.init.ModBlocks;
 import com.nekomaster1000.infernalexp.util.ShapeUtil;
+
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.BlockStateFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
-
-import java.util.Random;
 
 public class BoulderFeature extends Feature<BlockStateFeatureConfig> {
 

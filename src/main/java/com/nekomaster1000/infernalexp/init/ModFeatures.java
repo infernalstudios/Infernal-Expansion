@@ -1,17 +1,24 @@
 package com.nekomaster1000.infernalexp.init;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.nekomaster1000.infernalexp.InfernalExpansion;
-import com.nekomaster1000.infernalexp.world.gen.features.*;
+import com.nekomaster1000.infernalexp.world.gen.features.BoulderFeature;
+import com.nekomaster1000.infernalexp.world.gen.features.DullthornsFeature;
+import com.nekomaster1000.infernalexp.world.gen.features.GlowSpikeFeature;
+import com.nekomaster1000.infernalexp.world.gen.features.GlowstoneRavineFeature;
+import com.nekomaster1000.infernalexp.world.gen.features.HangingGiantBrownMushroomFeature;
+import com.nekomaster1000.infernalexp.world.gen.features.LuminousFungusFeature;
+import com.nekomaster1000.infernalexp.world.gen.features.SinkHoleFeature;
 import com.nekomaster1000.infernalexp.world.gen.features.config.GlowSpikeFeatureConfig;
+
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.feature.BlockStateFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ModFeatures {
 

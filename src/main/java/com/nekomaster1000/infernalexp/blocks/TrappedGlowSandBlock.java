@@ -1,15 +1,16 @@
 package com.nekomaster1000.infernalexp.blocks;
 
+import java.util.Random;
+
 import com.nekomaster1000.infernalexp.init.ModBlocks;
 import com.nekomaster1000.infernalexp.init.ModEntityTypes;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.FallingBlockEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-
-import java.util.Random;
 
 public class TrappedGlowSandBlock extends GlowSandBlock {
     public TrappedGlowSandBlock(int dustColorIn, Properties properties) {

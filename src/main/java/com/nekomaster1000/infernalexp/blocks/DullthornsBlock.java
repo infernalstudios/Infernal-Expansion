@@ -1,8 +1,14 @@
 package com.nekomaster1000.infernalexp.blocks;
 
+import java.util.Random;
+
 import com.nekomaster1000.infernalexp.entities.BlindsightEntity;
 import com.nekomaster1000.infernalexp.init.ModBlocks;
-import net.minecraft.block.*;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.BushBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.EffectInstance;
@@ -18,11 +24,6 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-
-import java.util.Random;
-
-import static net.minecraft.block.CactusBlock.AGE;
-import static net.minecraft.block.LecternBlock.COLLISION_SHAPE;
 
 public class DullthornsBlock extends BushBlock {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_0_15;

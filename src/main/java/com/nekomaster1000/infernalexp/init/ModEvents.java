@@ -1,12 +1,20 @@
 package com.nekomaster1000.infernalexp.init;
 
+import java.util.List;
+
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.config.ConfigHelper;
 import com.nekomaster1000.infernalexp.config.ConfigHolder;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
-import com.nekomaster1000.infernalexp.entities.*;
+import com.nekomaster1000.infernalexp.entities.BasaltGiantEntity;
+import com.nekomaster1000.infernalexp.entities.EmbodyEntity;
+import com.nekomaster1000.infernalexp.entities.GlowsquitoEntity;
+import com.nekomaster1000.infernalexp.entities.ShroomloinEntity;
+import com.nekomaster1000.infernalexp.entities.VolineEntity;
+import com.nekomaster1000.infernalexp.entities.WarpbeetleEntity;
 import com.nekomaster1000.infernalexp.entities.ai.AvoidBlockGoal;
 import com.nekomaster1000.infernalexp.util.RegistryHandler;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.CreatureEntity;
@@ -15,7 +23,12 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.FlyingEntity;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.monster.*;
+import net.minecraft.entity.monster.GhastEntity;
+import net.minecraft.entity.monster.HoglinEntity;
+import net.minecraft.entity.monster.MagmaCubeEntity;
+import net.minecraft.entity.monster.SkeletonEntity;
+import net.minecraft.entity.monster.SlimeEntity;
+import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.entity.monster.piglin.PiglinBruteEntity;
 import net.minecraft.entity.monster.piglin.PiglinEntity;
 import net.minecraft.util.SoundCategory;
@@ -34,8 +47,6 @@ import net.minecraftforge.event.world.NoteBlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-
-import java.util.List;
 
 @Mod.EventBusSubscriber(modid = InfernalExpansion.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModEvents {

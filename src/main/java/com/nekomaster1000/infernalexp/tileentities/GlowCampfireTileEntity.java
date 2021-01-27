@@ -1,9 +1,19 @@
 package com.nekomaster1000.infernalexp.tileentities;
 
+import java.util.Optional;
+import java.util.Random;
+
+import javax.annotation.Nullable;
+
 import com.nekomaster1000.infernalexp.blocks.GlowCampfireBlock;
 import com.nekomaster1000.infernalexp.init.ModTileEntityTypes;
+
 import net.minecraft.block.BlockState;
-import net.minecraft.inventory.*;
+import net.minecraft.inventory.IClearable;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CampfireCookingRecipe;
 import net.minecraft.item.crafting.IRecipeType;
@@ -18,10 +28,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
-import java.util.Optional;
-import java.util.Random;
 
 public class GlowCampfireTileEntity extends TileEntity implements IClearable, ITickableTileEntity {
     private final NonNullList<ItemStack> inventory = NonNullList.withSize(4, ItemStack.EMPTY);

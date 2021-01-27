@@ -1,8 +1,28 @@
 package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
-import com.nekomaster1000.infernalexp.blocks.*;
-import net.minecraft.block.*;
+import com.nekomaster1000.infernalexp.blocks.CrumblingBlackstoneBlock;
+import com.nekomaster1000.infernalexp.blocks.DullthornsBlock;
+import com.nekomaster1000.infernalexp.blocks.GlowBlockBase;
+import com.nekomaster1000.infernalexp.blocks.GlowCampfireBlock;
+import com.nekomaster1000.infernalexp.blocks.GlowFireBlock;
+import com.nekomaster1000.infernalexp.blocks.GlowSandBlock;
+import com.nekomaster1000.infernalexp.blocks.GlowdustBlock;
+import com.nekomaster1000.infernalexp.blocks.LuminousFungusBlock;
+import com.nekomaster1000.infernalexp.blocks.ShroomlightFungusBlock;
+import com.nekomaster1000.infernalexp.blocks.TrappedGlowSandBlock;
+
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.FlowerPotBlock;
+import net.minecraft.block.LanternBlock;
+import net.minecraft.block.SlabBlock;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.StairsBlock;
+import net.minecraft.block.TorchBlock;
+import net.minecraft.block.WallBlock;
+import net.minecraft.block.WallTorchBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraftforge.common.ToolType;

@@ -1,7 +1,11 @@
 package com.nekomaster1000.infernalexp.init;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.world.gen.carvers.GlowstoneRavineCarver;
+
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
@@ -9,9 +13,6 @@ import net.minecraft.world.gen.carver.ConfiguredCarver;
 import net.minecraft.world.gen.carver.ICarverConfig;
 import net.minecraft.world.gen.carver.WorldCarver;
 import net.minecraft.world.gen.feature.ProbabilityConfig;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ModCarvers {
 

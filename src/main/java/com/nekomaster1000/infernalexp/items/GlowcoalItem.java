@@ -1,6 +1,7 @@
 package com.nekomaster1000.infernalexp.items;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
+
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 

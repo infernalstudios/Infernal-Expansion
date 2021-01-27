@@ -1,8 +1,13 @@
 package com.nekomaster1000.infernalexp.world.gen.carvers;
 
+import java.util.BitSet;
+import java.util.Random;
+import java.util.function.Function;
+
 import com.google.common.collect.ImmutableSet;
 import com.mojang.serialization.Codec;
 import com.nekomaster1000.infernalexp.init.ModBlocks;
+
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -10,10 +15,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.carver.CanyonWorldCarver;
 import net.minecraft.world.gen.feature.ProbabilityConfig;
-
-import java.util.BitSet;
-import java.util.Random;
-import java.util.function.Function;
 
 public class GlowstoneRavineCarver extends CanyonWorldCarver {
 

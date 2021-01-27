@@ -1,6 +1,7 @@
 package com.nekomaster1000.infernalexp.world.biome;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
+
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;

@@ -3,6 +3,7 @@ package com.nekomaster1000.infernalexp.tileentities.renderer;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.nekomaster1000.infernalexp.blocks.GlowCampfireBlock;
 import com.nekomaster1000.infernalexp.tileentities.GlowCampfireTileEntity;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;

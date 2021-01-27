@@ -3,6 +3,7 @@ package com.nekomaster1000.infernalexp.init;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import com.nekomaster1000.infernalexp.util.NetherTeleportCommandUtil;
+
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;

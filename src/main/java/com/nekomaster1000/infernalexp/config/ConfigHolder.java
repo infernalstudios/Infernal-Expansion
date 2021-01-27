@@ -1,7 +1,8 @@
 package com.nekomaster1000.infernalexp.config;
 
-import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
+
+import net.minecraftforge.common.ForgeConfigSpec;
 
 //Don't touch this Class
 public class ConfigHolder {

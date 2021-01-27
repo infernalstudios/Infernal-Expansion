@@ -3,6 +3,7 @@ package com.nekomaster1000.infernalexp.client.entity.render;
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.client.entity.model.EmbodyModel;
 import com.nekomaster1000.infernalexp.entities.EmbodyEntity;
+
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;

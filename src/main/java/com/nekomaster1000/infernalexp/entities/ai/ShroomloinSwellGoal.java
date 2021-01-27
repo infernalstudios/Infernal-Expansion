@@ -1,10 +1,11 @@
 package com.nekomaster1000.infernalexp.entities.ai;
 
+import java.util.EnumSet;
+
 import com.nekomaster1000.infernalexp.entities.ShroomloinEntity;
+
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
-
-import java.util.EnumSet;
 
 public class ShroomloinSwellGoal extends Goal{
     private final ShroomloinEntity swellingShroomloin;

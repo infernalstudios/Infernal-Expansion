@@ -1,13 +1,13 @@
 package com.nekomaster1000.infernalexp.world.dimension;
 
+import java.util.function.LongFunction;
+
 import net.minecraft.world.gen.IExtendedNoiseRandom;
 import net.minecraft.world.gen.LazyAreaLayerContext;
 import net.minecraft.world.gen.area.IAreaFactory;
 import net.minecraft.world.gen.area.LazyArea;
-import net.minecraft.world.gen.layer.ZoomLayer;
 import net.minecraft.world.gen.layer.Layer;
-
-import java.util.function.LongFunction;
+import net.minecraft.world.gen.layer.ZoomLayer;
 
 public class ModNetherLayerProvider {
     public static Layer stackLayers(long seed) {

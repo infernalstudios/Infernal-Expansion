@@ -1,9 +1,9 @@
 package com.nekomaster1000.infernalexp.world.dimension;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
 import net.minecraft.world.gen.INoiseRandom;
 import net.minecraft.world.gen.layer.traits.IAreaTransformer0;
-
-import javax.annotation.ParametersAreNonnullByDefault;
 
 public enum ModNetherMasterLayer implements IAreaTransformer0 {
     INSTANCE;

@@ -1,7 +1,17 @@
 package com.nekomaster1000.infernalexp.world.gen;
 
-import com.nekomaster1000.infernalexp.entities.*;
+import com.nekomaster1000.infernalexp.entities.BasaltGiantEntity;
+import com.nekomaster1000.infernalexp.entities.BlackstoneDwarfEntity;
+import com.nekomaster1000.infernalexp.entities.BlindsightEntity;
+import com.nekomaster1000.infernalexp.entities.CerobeetleEntity;
+import com.nekomaster1000.infernalexp.entities.EmbodyEntity;
+import com.nekomaster1000.infernalexp.entities.GlowsquitoEntity;
+import com.nekomaster1000.infernalexp.entities.PyrnoEntity;
+import com.nekomaster1000.infernalexp.entities.SkeletalPiglinEntity;
+import com.nekomaster1000.infernalexp.entities.VolineEntity;
+import com.nekomaster1000.infernalexp.entities.WarpbeetleEntity;
 import com.nekomaster1000.infernalexp.init.ModEntityTypes;
+
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.world.gen.Heightmap;
 

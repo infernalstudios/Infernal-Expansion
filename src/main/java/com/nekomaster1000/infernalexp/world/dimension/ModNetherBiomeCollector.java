@@ -1,12 +1,12 @@
 package com.nekomaster1000.infernalexp.world.dimension;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.INoiseRandom;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistry;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ModNetherBiomeCollector {
     public static final ForgeRegistry<Biome> biomeRegistry = ((ForgeRegistry<Biome>) ForgeRegistries.BIOMES);

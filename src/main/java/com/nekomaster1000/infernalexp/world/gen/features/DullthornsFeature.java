@@ -1,14 +1,15 @@
 package com.nekomaster1000.infernalexp.world.gen.features;
 
+import java.util.Random;
+
 import com.mojang.serialization.Codec;
 import com.nekomaster1000.infernalexp.init.ModBlocks;
+
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
-
-import java.util.Random;
 
 public class DullthornsFeature extends Feature<NoFeatureConfig> {
     public DullthornsFeature(Codec<NoFeatureConfig> codec) {

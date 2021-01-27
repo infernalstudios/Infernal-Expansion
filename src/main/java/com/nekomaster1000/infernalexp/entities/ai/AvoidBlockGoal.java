@@ -1,5 +1,9 @@
 package com.nekomaster1000.infernalexp.entities.ai;
 
+import java.util.EnumSet;
+import java.util.Optional;
+import java.util.function.Predicate;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
@@ -7,11 +11,6 @@ import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.util.EntityPredicates;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Predicate;
 
 public class AvoidBlockGoal extends Goal {
 
