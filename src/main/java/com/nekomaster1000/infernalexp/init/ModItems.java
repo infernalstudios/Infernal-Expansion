@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.blocks.BlockItemBase;
+import com.nekomaster1000.infernalexp.items.AscusBombItem;
 import com.nekomaster1000.infernalexp.items.GlowcoalItem;
 import com.nekomaster1000.infernalexp.items.ItemBase;
 //import com.nekomaster1000.infernalexp.util.ModItemTier;
@@ -114,6 +115,7 @@ public class ModItems {
     public static final RegistryObject<Item> DULLTHORNS = ITEMS.register("dullthorns",           () -> new BlockItemBase(ModBlocks.DULLTHORNS.get()));
 
     public static final RegistryObject<Item> SHROOMLIGHT_FUNGUS = ITEMS.register("shroomlight_fungus",      () -> new BlockItemBase(ModBlocks.SHROOMLIGHT_FUNGUS.get()));
+    public static final RegistryObject<Item> ASCUS_BOMB = ITEMS.register("ascus_bomb", AscusBombItem::new);
 
     /*
     // Tools

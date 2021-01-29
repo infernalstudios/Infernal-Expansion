@@ -16,9 +16,10 @@ import com.nekomaster1000.infernalexp.init.ModBlocks;
 import com.nekomaster1000.infernalexp.init.ModEntityTypes;
 import com.nekomaster1000.infernalexp.init.ModTileEntityTypes;
 import com.nekomaster1000.infernalexp.tileentities.renderer.GlowCampfireTileEntityRenderer;
-
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.RegistryEvent;
@@ -44,6 +45,7 @@ public class ClientEventBusSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.SKELETAL_PIGLIN.get(), SkeletalPiglinRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.PYRNO.get(), PyrnoRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.BLINDSIGHT.get(), BlindsightRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.ASCUS_BOMB.get(), manager -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
 
         ClientRegistry.bindTileEntityRenderer(ModTileEntityTypes.GLOW_CAMPFIRE.get(), GlowCampfireTileEntityRenderer::new);
 
