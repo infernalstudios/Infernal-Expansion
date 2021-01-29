@@ -8,13 +8,12 @@ import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.server.ServerWorld;
 
 public class NetherTeleportCommandUtil {
-
-    //TODO: Refactor this to readable code
     
+	// Taken from obfuscated Minecraft Forge code (net.minecraft.world.Teleporter), removed nether portal creation logic and modified to fit player teleportation.
+	
     /**
      * Finds a safe* position in given world around a coordinate.
      * * - Not in block and not in lava. Can be over lava though.
-     * Taken from obfuscated Minecraft Forge code (net.minecraft.world.Teleporter), removed nether portal creation logic.
      * @param world World to search in
      * @param pos Position to spread the search from
      * @return Safe position to teleport to.
@@ -65,7 +64,7 @@ public class NetherTeleportCommandUtil {
 
                            // If positions next to current position are valid for placement and currentPos is closer than the next-closest open position, then...
                            //   this area is likely an "open" area and now the closest to the original position we were looking at
-                           if (NetherTeleportCommandUtil.checkRegionForPlacement(world, currentPos, mutablePos, direction, -1) && checkRegionForPlacement(world, currentPos, mutablePos, direction, 1) && (shortestDistToOpen == -1.0D || shortestDistToOpen > currentDist)) {
+                           if (NetherTeleportCommandUtil.checkRegionForPlacement(world, currentPos, mutablePos, direction, -1) && NetherTeleportCommandUtil.checkRegionForPlacement(world, currentPos, mutablePos, direction, 1) && (shortestDistToOpen == -1.0D || shortestDistToOpen > currentDist)) {
                               shortestDistToOpen = currentDist;
                               safePos = currentPos.toImmutable();
                            }
@@ -103,7 +102,7 @@ public class NetherTeleportCommandUtil {
    }
 
    /**
-    * Checks whether the area around the provided position is large enough to place a Nether Portal
+    * Checks whether the area around the provided position is large enough to teleport a player
     * @param world
     * @param originalPos
     * @param offsetPos
@@ -114,8 +113,8 @@ public class NetherTeleportCommandUtil {
    private static boolean checkRegionForPlacement(ServerWorld world, BlockPos originalPos, BlockPos.Mutable offsetPos, Direction directionIn, int offsetScale) {
       Direction direction = directionIn.rotateY();
 
-      for(int x = -1; x < 3; ++x) { // For width of a Nether portal
-         for(int y = -1; y < 4; ++y) { // For height of a Nether portal
+      for(int x = -1; x < 1; ++x) {
+         for(int y = -1; y < 2; ++y) {
             offsetPos.setAndOffset(originalPos, directionIn.getXOffset() * x + direction.getXOffset() * offsetScale, y, directionIn.getZOffset() * x + direction.getZOffset() * offsetScale);
 
             // If no solid ground beneath offsetPos, return false
