@@ -2,7 +2,7 @@ package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.client.particle.GlowstoneSparkleParticle;
-
+import com.nekomaster1000.infernalexp.client.particle.InfectionParticle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.particles.BasicParticleType;
@@ -22,6 +22,7 @@ public class ModParticleTypes {
     public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, InfernalExpansion.MOD_ID);
 
     public static final RegistryObject<BasicParticleType> GLOWSTONE_SPARKLE = PARTICLES.register("glowstone_sparkle", () -> new BasicParticleType(false));
+    public static final RegistryObject<BasicParticleType> INFECTION = PARTICLES.register("infection", () -> new BasicParticleType(false));
 
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
@@ -29,6 +30,8 @@ public class ModParticleTypes {
         ParticleManager particleManager = Minecraft.getInstance().particles;
 
         particleManager.registerFactory(ModParticleTypes.GLOWSTONE_SPARKLE.get(), GlowstoneSparkleParticle.Factory::new);
+        particleManager.registerFactory(ModParticleTypes.INFECTION.get(), InfectionParticle.Factory::new);
+
         InfernalExpansion.LOGGER.info("Infernal Expansion: Particles Registered!");
     }
 }

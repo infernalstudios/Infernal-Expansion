@@ -1,12 +1,12 @@
 package com.nekomaster1000.infernalexp.entities.ai;
 
-import java.util.List;
-
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.PanicGoal;
 import net.minecraft.util.math.vector.Vector3d;
+
+import java.util.List;
 
 public class TeleportPanicGoal extends PanicGoal {
 
@@ -41,15 +41,12 @@ public class TeleportPanicGoal extends PanicGoal {
         }
     }
 
-    private void removeTargeting(){
-        List<?> list = this.creature.world.getEntitiesWithinAABB(CreatureEntity.class,
+    private void removeTargeting() {
+        List<CreatureEntity> list = this.creature.world.getEntitiesWithinAABB(CreatureEntity.class,
                 this.creature.getBoundingBox().grow(32.0D));
 
-        for(int j = 0; j < list.size(); j++)
-        {
-            CreatureEntity entity = (CreatureEntity)list.get(j);
-            if(entity.getAttackTarget() == this.creature)
-            {
+        for (CreatureEntity entity : list) {
+            if (entity.getAttackTarget() == this.creature) {
                 entity.goalSelector.getRunningGoals().forEach(runningGoal -> {
                     if (runningGoal.getGoal() instanceof MeleeAttackGoal) {
                         runningGoal.resetTask();

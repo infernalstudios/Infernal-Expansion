@@ -1,6 +1,7 @@
 package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
+import com.nekomaster1000.infernalexp.entities.AscusBombEntity;
 import com.nekomaster1000.infernalexp.entities.BasaltGiantEntity;
 import com.nekomaster1000.infernalexp.entities.BlackstoneDwarfEntity;
 import com.nekomaster1000.infernalexp.entities.BlindsightEntity;
@@ -12,7 +13,6 @@ import com.nekomaster1000.infernalexp.entities.ShroomloinEntity;
 import com.nekomaster1000.infernalexp.entities.SkeletalPiglinEntity;
 import com.nekomaster1000.infernalexp.entities.VolineEntity;
 import com.nekomaster1000.infernalexp.entities.WarpbeetleEntity;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -82,6 +82,11 @@ public class ModEntityTypes {
             () -> EntityType.Builder.create(BlindsightEntity::new, EntityClassification.MONSTER)
                     .size(1.0F, 0.8F) //Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "blindsight").toString()));
+
+    public static final RegistryObject<EntityType<AscusBombEntity>> ASCUS_BOMB = ENTITY_TYPES.register("ascus_bomb",
+            () -> EntityType.Builder.<AscusBombEntity>create(AscusBombEntity::new, EntityClassification.MISC)
+                    .size(0.25f, 0.25f).trackingRange(4).func_233608_b_(10)
+                    .build(new ResourceLocation(InfernalExpansion.MOD_ID, "ascus_bomb").toString()));
 
     private static <T extends Entity> RegistryObject<EntityType<T>> register(String key, EntityType.IFactory<T> factoryIn, EntityClassification classificationIn, float size1, float size2) {
         return ENTITY_TYPES.register(key, () -> EntityType.Builder.create(factoryIn, classificationIn)

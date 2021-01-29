@@ -1,7 +1,5 @@
 package com.nekomaster1000.infernalexp.init;
 
-import java.util.List;
-
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.config.ConfigHelper;
 import com.nekomaster1000.infernalexp.config.ConfigHolder;
@@ -14,13 +12,13 @@ import com.nekomaster1000.infernalexp.entities.VolineEntity;
 import com.nekomaster1000.infernalexp.entities.WarpbeetleEntity;
 import com.nekomaster1000.infernalexp.entities.ai.AvoidBlockGoal;
 import com.nekomaster1000.infernalexp.util.RegistryHandler;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.FlyingEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.monster.GhastEntity;
@@ -41,12 +39,16 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.NoteBlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+
+import java.util.List;
+import java.util.Objects;
 
 @Mod.EventBusSubscriber(modid = InfernalExpansion.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModEvents {
@@ -370,5 +372,18 @@ public class ModEvents {
     @SubscribeEvent
     public static void registerWorldCarvers(RegistryEvent.Register<WorldCarver<?>> event) {
         ModCarvers.carvers.forEach(carver -> event.getRegistry().register(carver));
+    }
+
+    @SubscribeEvent
+    public void onLivingEntityUpdate(LivingEvent.LivingUpdateEvent event) {
+        LivingEntity entity = event.getEntityLiving();
+
+        if (entity.isPotionActive(ModEffects.INFECTION.get())) {
+            if ((Objects.requireNonNull(entity.getActivePotionEffect(ModEffects.INFECTION.get())).getDuration() & 10) == 0) {
+                for (int i = 0; i < 1; i++) {
+                    entity.world.addParticle(ModParticleTypes.INFECTION.get(), entity.getPosXRandom(entity.getBoundingBox().getXSize()), entity.getPosYRandom(), entity.getPosZRandom(entity.getBoundingBox().getZSize()), 0, 0, 0);
+                }
+            }
+        }
     }
 }
