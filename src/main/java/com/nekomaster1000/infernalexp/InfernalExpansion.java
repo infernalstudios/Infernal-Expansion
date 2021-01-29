@@ -81,6 +81,7 @@ public class InfernalExpansion
         FlowerPotBlock flowerPot = (FlowerPotBlock) Blocks.FLOWER_POT;
         flowerPot.addPlant(ModBlocks.DULLTHORNS.getId(), ModBlocks.POTTED_DULLTHORNS);
         flowerPot.addPlant(ModBlocks.LUMINOUS_FUNGUS.getId(), ModBlocks.POTTED_LUMINOUS_FUNGUS);
+        flowerPot.addPlant(ModBlocks.SHROOMLIGHT_FUNGUS.getId(), ModBlocks.POTTED_SHROOMLIGHT_FUNGUS);
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {

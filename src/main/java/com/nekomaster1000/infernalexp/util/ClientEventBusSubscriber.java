@@ -54,6 +54,7 @@ public class ClientEventBusSubscriber {
 
         RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_LUMINOUS_FUNGUS.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_DULLTHORNS.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_SHROOMLIGHT_FUNGUS.get(), RenderType.getCutout());
 
         RenderTypeLookup.setRenderLayer(ModBlocks.GLOW_TORCH.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.GLOW_WALL_TORCH.get(), RenderType.getCutout());
