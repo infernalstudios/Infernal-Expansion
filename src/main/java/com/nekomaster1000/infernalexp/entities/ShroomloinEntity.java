@@ -1,11 +1,13 @@
 package com.nekomaster1000.infernalexp.entities;
 
 import com.nekomaster1000.infernalexp.entities.ai.ShroomloinSwellGoal;
+import com.nekomaster1000.infernalexp.init.ModEffects;
+import com.nekomaster1000.infernalexp.init.ModItems;
 import com.nekomaster1000.infernalexp.util.RegistryHandler;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -13,26 +15,28 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.potion.Effect;
+import net.minecraft.potion.Effects;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class ShroomloinEntity extends MonsterEntity{
+public class ShroomloinEntity extends MonsterEntity implements IRangedAttackMob {
     private static final DataParameter<Integer> STATE = EntityDataManager.createKey(ShroomloinEntity.class, DataSerializers.VARINT);
     private static final DataParameter<Boolean> IGNITED = EntityDataManager.createKey(ShroomloinEntity.class, DataSerializers.BOOLEAN);
     private int lastActiveTime;
@@ -65,29 +69,30 @@ public class ShroomloinEntity extends MonsterEntity{
      */
     public void tick() {
         if (this.isAlive()) {
-            if(this.isPotionActive(Effect.get(19))){
-                this.removeActivePotionEffect(Effect.get(19));
+            if (this.isPotionActive(ModEffects.INFECTION.get()) || this.isPotionActive(Effects.POISON)) {
+                this.removeActivePotionEffect(ModEffects.INFECTION.get());
+                this.removeActivePotionEffect(Effects.POISON);
             }
 
-            this.lastActiveTime = this.timeSinceIgnited;
-            if (this.hasIgnited()) {
-                this.setShroomloinState(1);
-            }
-
-            int i = this.getShroomloinState();
-            if (i > 0 && this.timeSinceIgnited == 0) {
-                this.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
-            }
-
-            this.timeSinceIgnited += i;
-            if (this.timeSinceIgnited < 0) {
-                this.timeSinceIgnited = 0;
-            }
-
-            if (this.timeSinceIgnited >= this.fuseTime) {
-                this.timeSinceIgnited = this.fuseTime;
-                this.explode();
-            }
+//            this.lastActiveTime = this.timeSinceIgnited;
+//            if (this.hasIgnited()) {
+//                this.setShroomloinState(1);
+//            }
+//
+//            int i = this.getShroomloinState();
+//            if (i > 0 && this.timeSinceIgnited == 0) {
+//                this.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
+//            }
+//
+//            this.timeSinceIgnited += i;
+//            if (this.timeSinceIgnited < 0) {
+//                this.timeSinceIgnited = 0;
+//            }
+//
+//            if (this.timeSinceIgnited >= this.fuseTime) {
+//                this.timeSinceIgnited = this.fuseTime;
+//                this.explode();
+//            }
         }
 
         super.tick();
@@ -99,7 +104,7 @@ public class ShroomloinEntity extends MonsterEntity{
         super.registerGoals();
         //this.goalSelector.addGoal(0, new TemptGoal(this, 0.6D, TEMPTATION_ITEMS, false));
         this.goalSelector.addGoal(0, new ShroomloinSwellGoal(this));
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 0.6D, true));
+        this.goalSelector.addGoal(1, new RangedAttackGoal(this, 1, 60, 10));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
         this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0f));
         this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
@@ -237,5 +242,22 @@ public class ShroomloinEntity extends MonsterEntity{
         this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
     }
 
+    @Override
+    public void attackEntityWithRangedAttack(LivingEntity target, float distanceFactor) {
+        Vector3d vector3d = target.getMotion();
+        double x = target.getPosX() + vector3d.x - this.getPosX();
+        double y = target.getPosYEye() - 1.1 - this.getPosY();
+        double z = target.getPosZ() + vector3d.z - this.getPosZ();
+
+        float distance = MathHelper.sqrt(x * x + z * z);
+
+        AscusBombEntity ascusBombEntity = new AscusBombEntity(this.world, this);
+
+        ascusBombEntity.setItem(new ItemStack(ModItems.ASCUS_BOMB.get()));
+        ascusBombEntity.rotationPitch -= -20;
+        ascusBombEntity.shoot(x, y + (distance * 0.2), z, 0.75f, 8);
+
+        this.world.addEntity(ascusBombEntity);
+    }
 }
 
