@@ -57,13 +57,13 @@
 
   "item.infernalexp.voline_spawn_egg": "Oeuf spawner de Voline",
   "item.infernalexp.shroomloin_spawn_egg": "Oeuf spawner de Champiboom",
-  "item.infernalexp.warpbeetle_spawn_egg": "Oeuf spawner de scarabé biscornue",
+  "item.infernalexp.warpbeetle_spawn_egg": "Oeuf spawner de scarabée tordu",
   "item.infernalexp.embody_spawn_egg": "Oeuf spawner d'Incarné",
   "item.infernalexp.basalt_giant_spawn_egg": "Oeuf spawner de géant de basalte",
 
   "entity.infernalexp.voline": "Voline",
   "entity.infernalexp.shroomloin": "Champiboom",
-  "entity.infernalexp.warpbeetle": "Scarabé biscornue",
+  "entity.infernalexp.warpbeetle": "Scarabée tordu",
   "entity.infernalexp.embody": "Incarné",
   "entity.infernalexp.basalt_giant": "Géant de basalte"
 }
