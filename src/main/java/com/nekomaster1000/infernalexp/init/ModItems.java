@@ -56,7 +56,7 @@ public class ModItems {
     public static final RegistryObject<Item> DULLSTONE = ITEMS.register("dullstone",                                () -> new BlockItemBase(ModBlocks.DULLSTONE.get()));
     public static final RegistryObject<Item> SMOOTH_GLOWSTONE = ITEMS.register("smooth_glowstone",                  () -> new BlockItemBase(ModBlocks.SMOOTH_GLOWSTONE.get()));
     public static final RegistryObject<Item> SMOOTH_DIMSTONE = ITEMS.register("smooth_dimstone",                    () -> new BlockItemBase(ModBlocks.SMOOTH_DIMSTONE.get()));
-    public static final RegistryObject<Item> SMOOTH_DULLSTONE_ = ITEMS.register("smooth_dullstone",                 () -> new BlockItemBase(ModBlocks.SMOOTH_DULLSTONE.get()));
+    public static final RegistryObject<Item> SMOOTH_DULLSTONE = ITEMS.register("smooth_dullstone",                 () -> new BlockItemBase(ModBlocks.SMOOTH_DULLSTONE.get()));
     public static final RegistryObject<Item> GLOWSTONE_BRICK = ITEMS.register("glowstone_brick",                    () -> new BlockItemBase(ModBlocks.GLOWSTONE_BRICK.get()));
     public static final RegistryObject<Item> DIMSTONE_BRICK = ITEMS.register("dimstone_brick",                      () -> new BlockItemBase(ModBlocks.DIMSTONE_BRICK.get()));
     public static final RegistryObject<Item> DULLSTONE_BRICK = ITEMS.register("dullstone_brick",                    () -> new BlockItemBase(ModBlocks.DULLSTONE_BRICK.get()));
