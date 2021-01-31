@@ -63,6 +63,8 @@ public class ClientEventBusSubscriber {
         RenderTypeLookup.setRenderLayer(ModBlocks.GLOW_FIRE.get(), RenderType.getCutout());
 
         RenderTypeLookup.setRenderLayer(ModBlocks.SHROOMLIGHT_FUNGUS.get(), RenderType.getCutout());
+
+        RenderTypeLookup.setRenderLayer(ModBlocks.BURIED_BONE.get(), RenderType.getCutout());
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)

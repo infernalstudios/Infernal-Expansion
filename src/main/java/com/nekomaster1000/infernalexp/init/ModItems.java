@@ -109,22 +109,24 @@ public class ModItems {
 
     public static final RegistryObject<Item> BASALT_IRON_ORE = ITEMS.register("basalt_iron_ore", () -> new BlockItemBase(ModBlocks.BASALT_IRON_ORE.get()));
 
-    public static final RegistryObject<Item> DULLTHORNS_BLOCK = ITEMS.register("dullthorns_block", () -> new BlockItemBase(ModBlocks.DULLTHORNS_BLOCK.get()));
-   
-    public static final RegistryObject<Item> CRIMSON_FUNGUS_CAP = ITEMS.register("crimson_fungus_cap", () -> new BlockItemBase(ModBlocks.CRIMSON_FUNGUS_CAP.get()));
-    public static final RegistryObject<Item> WARPED_FUNGUS_CAP = ITEMS.register("warped_fungus_cap", () -> new BlockItemBase(ModBlocks.WARPED_FUNGUS_CAP.get()));
-    public static final RegistryObject<Item> LUMINOUS_FUNGUS_CAP = ITEMS.register("luminous_fungus_cap", () -> new BlockItemBase(ModBlocks.LUMINOUS_FUNGUS_CAP.get()));
+    public static final RegistryObject<Item> CRIMSON_FUNGUS_CAP = ITEMS.register("crimson_fungus_cap",  () -> new BlockItemBase(ModBlocks.CRIMSON_FUNGUS_CAP.get()));
+    public static final RegistryObject<Item> WARPED_FUNGUS_CAP = ITEMS.register("warped_fungus_cap",    () -> new BlockItemBase(ModBlocks.WARPED_FUNGUS_CAP.get()));
+    public static final RegistryObject<Item> LUMINOUS_FUNGUS_CAP = ITEMS.register("luminous_fungus_cap",    () -> new BlockItemBase(ModBlocks.LUMINOUS_FUNGUS_CAP.get()));
 
     public static final RegistryObject<Item> GLOW_LANTERN = ITEMS.register("lantern_glow",      () -> new BlockItemBase(ModBlocks.GLOW_LANTERN.get()));
     public static final RegistryObject<Item> GLOW_TORCH = ITEMS.register("torch_glow",          () -> new WallOrFloorItem(ModBlocks.GLOW_TORCH.get(), ModBlocks.GLOW_WALL_TORCH.get(), (new Item.Properties()).group(InfernalExpansion.TAB)));
     public static final RegistryObject<Item> GLOW_CAMPFIRE = ITEMS.register("campfire_glow",    () -> new BlockItemBase(ModBlocks.GLOW_CAMPFIRE.get()));
 
-    public static final RegistryObject<Item> LUMINOUS_FUNGUS = ITEMS.register("luminous_fungus", () -> new BlockItemBase(ModBlocks.LUMINOUS_FUNGUS.get()));
-    public static final RegistryObject<Item> DULLTHORNS = ITEMS.register("dullthorns",           () -> new BlockItemBase(ModBlocks.DULLTHORNS.get()));
-
     public static final RegistryObject<Item> SHROOMLIGHT_FUNGUS = ITEMS.register("shroomlight_fungus",      () -> new BlockItemBase(ModBlocks.SHROOMLIGHT_FUNGUS.get()));
+    public static final RegistryObject<Item> LUMINOUS_FUNGUS = ITEMS.register("luminous_fungus",    () -> new BlockItemBase(ModBlocks.LUMINOUS_FUNGUS.get()));
+
+    public static final RegistryObject<Item> DULLTHORNS = ITEMS.register("dullthorns",              () -> new BlockItemBase(ModBlocks.DULLTHORNS.get()));
+    public static final RegistryObject<Item> DULLTHORNS_BLOCK = ITEMS.register("dullthorns_block",  () -> new BlockItemBase(ModBlocks.DULLTHORNS_BLOCK.get()));
+
+    public static final RegistryObject<Item> BURIED_BONE = ITEMS.register("buried_bone", () -> new BlockItemBase(ModBlocks.BURIED_BONE.get()));
+
     public static final RegistryObject<Item> ASCUS_BOMB = ITEMS.register("ascus_bomb", AscusBombItem::new);
-    
+
     // Record Discs
     public static final RegistryObject<Item> MUSIC_DISC_SOUL_SPUNK = ITEMS.register("music_disc_soul_spunk", () -> new MusicDiscItem(8, () -> RegistryHandler.MUSIC_DISC_SOUL_SPUNK, new Item.Properties().group(InfernalExpansion.TAB).rarity(Rarity.RARE).maxStackSize(1)));
 
