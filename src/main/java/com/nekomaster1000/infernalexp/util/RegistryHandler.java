@@ -182,5 +182,26 @@ public class RegistryHandler {
 
     static ResourceLocation location65 = new ResourceLocation(InfernalExpansion.MOD_ID, "choir");
     public static SoundEvent choir = new SoundEvent(location65);
+    
+//...
+    
+    // GLOWSTONE CANYON
+    static ResourceLocation location66 = new ResourceLocation(InfernalExpansion.MOD_ID, "ambient.glowstone_canyon.loop");
+    public static SoundEvent AMBIENT_GLOWSTONE_CANYON_LOOP = new SoundEvent(location66);
+    
+    static ResourceLocation location67 = new ResourceLocation(InfernalExpansion.MOD_ID, "ambient.glowstone_canyon.mood");
+    public static SoundEvent AMBIENT_GLOWSTONE_CANYON_MOOD = new SoundEvent(location67);
 
+    static ResourceLocation location68 = new ResourceLocation(InfernalExpansion.MOD_ID, "ambient.glowstone_canyon.additions");
+    public static SoundEvent AMBIENT_GLOWSTONE_CANYON_ADDITIONS = new SoundEvent(location68);
+
+    static ResourceLocation location69 = new ResourceLocation(InfernalExpansion.MOD_ID, "music.nether.glowstone_canyon");
+    public static SoundEvent MUSIC_NETHER_GLOWSTONE_CANYON = new SoundEvent(location69);
+    
+//...
+    
+    // RECORD DISCS
+    static ResourceLocation location70 = new ResourceLocation(InfernalExpansion.MOD_ID, "record.soul_spunk");
+    public static SoundEvent MUSIC_DISC_SOUL_SPUNK = new SoundEvent(location70);
+    
 }

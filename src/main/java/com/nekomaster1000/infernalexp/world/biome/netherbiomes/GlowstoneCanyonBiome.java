@@ -4,12 +4,12 @@ import com.nekomaster1000.infernalexp.init.ModCarvers;
 import com.nekomaster1000.infernalexp.init.ModConfiguredFeatures;
 import com.nekomaster1000.infernalexp.init.ModParticleTypes;
 import com.nekomaster1000.infernalexp.init.ModSurfaceBuilders;
+import com.nekomaster1000.infernalexp.util.RegistryHandler;
 import com.nekomaster1000.infernalexp.world.biome.BiomeHelper;
 import com.nekomaster1000.infernalexp.world.biome.ModBiome;
 
 import net.minecraft.client.audio.BackgroundMusicTracks;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeAmbience;
 import net.minecraft.world.biome.BiomeGenerationSettings;
@@ -49,10 +49,10 @@ public class GlowstoneCanyonBiome extends ModBiome {
                 .setFogColor(-2916568)
                 .withSkyColor(BiomeHelper.calcSkyColor(2.0f))
                 .setParticle(new ParticleEffectAmbience(ParticleTypes.WHITE_ASH, 0.118093334F))
-                .setAmbientSound(SoundEvents.AMBIENT_BASALT_DELTAS_LOOP)
-                .setMoodSound(new MoodSoundAmbience(SoundEvents.AMBIENT_BASALT_DELTAS_MOOD, 8000, 8, 2.0D))
-                .setAdditionsSound(new SoundAdditionsAmbience(SoundEvents.AMBIENT_BASALT_DELTAS_ADDITIONS, 0.0111D))
-                .setMusic(BackgroundMusicTracks.getDefaultBackgroundMusicSelector(SoundEvents.MUSIC_NETHER_BASALT_DELTAS))
+                .setAmbientSound(RegistryHandler.AMBIENT_GLOWSTONE_CANYON_LOOP)
+                .setMoodSound(new MoodSoundAmbience(RegistryHandler.AMBIENT_GLOWSTONE_CANYON_MOOD, 8000, 8, 2.0D))
+                .setAdditionsSound(new SoundAdditionsAmbience(RegistryHandler.AMBIENT_GLOWSTONE_CANYON_ADDITIONS, 0.0111D))
+                .setMusic(BackgroundMusicTracks.getDefaultBackgroundMusicSelector(RegistryHandler.MUSIC_NETHER_GLOWSTONE_CANYON))
                 .setParticle(new ParticleEffectAmbience(ModParticleTypes.GLOWSTONE_SPARKLE.get(), 0.005F));
     }
 
@@ -80,11 +80,12 @@ public class GlowstoneCanyonBiome extends ModBiome {
         generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ModConfiguredFeatures.DULLSTONE_DEATH_PIT);
         generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.LUMINOUS_FUNGUS);
         generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.DULLTHORNS);
+//        generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.DULLTHORNS_TREE);
         generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA);
         generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA_DOUBLE);
         //generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES,ModConfiguredFeatures.CANYON_BLACKSTONE_ORE);
         //generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES,ModConfiguredFeatures.CANYON_CRUMBLING_BLACKSTONE_ORE);
-        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.BLACKSTONE_BLOBS);
+//        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.BLACKSTONE_BLOBS);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.PATCH_FIRE);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.PATCH_SOUL_FIRE);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.GLOWSTONE);
