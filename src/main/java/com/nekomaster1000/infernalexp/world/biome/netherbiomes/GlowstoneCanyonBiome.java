@@ -50,7 +50,7 @@ public class GlowstoneCanyonBiome extends ModBiome {
                 .withSkyColor(BiomeHelper.calcSkyColor(2.0f))
                 .setParticle(new ParticleEffectAmbience(ParticleTypes.WHITE_ASH, 0.118093334F))
                 .setAmbientSound(RegistryHandler.AMBIENT_GLOWSTONE_CANYON_LOOP)
-                .setMoodSound(new MoodSoundAmbience(RegistryHandler.AMBIENT_GLOWSTONE_CANYON_MOOD, 8000, 8, 2.0D))
+                .setMoodSound(new MoodSoundAmbience(RegistryHandler.AMBIENT_GLOWSTONE_CANYON_MOOD, 2500, 4, 2.0D))
                 .setAdditionsSound(new SoundAdditionsAmbience(RegistryHandler.AMBIENT_GLOWSTONE_CANYON_ADDITIONS, 0.0111D))
                 .setMusic(BackgroundMusicTracks.getDefaultBackgroundMusicSelector(RegistryHandler.MUSIC_NETHER_GLOWSTONE_CANYON))
                 .setParticle(new ParticleEffectAmbience(ModParticleTypes.GLOWSTONE_SPARKLE.get(), 0.005F));
