@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "xxx",
+    "xox",
+    "xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:iron_nugget"
+    },
+    "o":
+    {
+      "item": "minecraft:basalt"
+    }
+  },
+  "result":
+  {
+    "item": "infernalexp:basalt_iron_ore",
+    "count": 1
+  }
+}

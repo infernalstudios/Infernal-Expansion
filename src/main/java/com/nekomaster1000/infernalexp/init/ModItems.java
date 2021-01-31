@@ -102,7 +102,7 @@ public class ModItems {
     public static final RegistryObject<Item> SILT = ITEMS.register("silt", () -> new BlockItemBase(ModBlocks.SILT.get()));
     public static final RegistryObject<Item> RUBBLE = ITEMS.register("rubble", () -> new BlockItemBase(ModBlocks.RUBBLE.get()));
 
-//    public static final RegistryObject<Item> BASALT_IRON_ORE = ITEMS.register("basalt_iron_ore", () -> new BlockItemBase(ModBlocks.BASALT_IRON_ORE.get()));
+    public static final RegistryObject<Item> BASALT_IRON_ORE = ITEMS.register("basalt_iron_ore", () -> new BlockItemBase(ModBlocks.BASALT_IRON_ORE.get()));
 
     public static final RegistryObject<Item> CRIMSON_FUNGUS_CAP = ITEMS.register("crimson_fungus_cap", () -> new BlockItemBase(ModBlocks.CRIMSON_FUNGUS_CAP.get()));
     public static final RegistryObject<Item> WARPED_FUNGUS_CAP = ITEMS.register("warped_fungus_cap", () -> new BlockItemBase(ModBlocks.WARPED_FUNGUS_CAP.get()));

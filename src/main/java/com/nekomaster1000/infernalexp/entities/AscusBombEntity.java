@@ -51,7 +51,9 @@ public class AscusBombEntity extends ProjectileItemEntity implements IRendersAsI
         super.onImpact(result);
 
         for (int i = 0; i < 16; i++) {
-            this.world.addParticle(ModParticleTypes.INFECTION.get(), this.getPosXRandom(5), this.getPosYRandom(), this.getPosZRandom(5), 0, 0, 0);
+            this.world.addParticle(ModParticleTypes.INFECTION.get(),
+                    this.getPosXRandom(5), this.getPosYRandom(),
+                    this.getPosZRandom(5), 0, 0, 0);
         }
 
         if (!this.world.isRemote) {
