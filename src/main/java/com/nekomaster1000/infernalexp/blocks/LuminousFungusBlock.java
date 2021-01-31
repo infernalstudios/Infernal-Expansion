@@ -1,10 +1,14 @@
 package com.nekomaster1000.infernalexp.blocks;
 
+import java.util.Random;
+
 import com.nekomaster1000.infernalexp.init.ModBlocks;
+import com.nekomaster1000.infernalexp.init.ModConfiguredFeatures;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.IGrowable;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.AttachFace;
 import net.minecraft.util.Direction;
@@ -14,8 +18,11 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
+import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.HugeFungusConfig;
+import net.minecraft.world.server.ServerWorld;
 
-public class LuminousFungusBlock extends HorizontalBushBlock {
+public class LuminousFungusBlock extends HorizontalBushBlock implements IGrowable {
     protected static final VoxelShape FLOOR_SHAPE = Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 10.0D, 11.0D);
     protected static final VoxelShape CEILING_SHAPE = Block.makeCuboidShape(5.0D, 6.0D, 5.0D, 11.0D, 16.0D, 11.0D);
 
@@ -69,4 +76,24 @@ public class LuminousFungusBlock extends HorizontalBushBlock {
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builderIn) {
         builderIn.add(HORIZONTAL_FACING, FACE);
     }
+    
+	/**
+	 * Whether this IGrowable can grow
+	 */
+	@Override
+	public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
+		Block block = ((HugeFungusConfig) (ModConfiguredFeatures.DULLTHORN_TREE_PLANTED).config).field_236303_f_.getBlock();
+		Block block1 = worldIn.getBlockState(pos.down()).getBlock();
+		return block1 == block;
+	}
+
+	@Override
+	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) {
+		return (double) rand.nextFloat() < 0.4D;
+	}
+
+	@Override
+	public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
+		ModConfiguredFeatures.DULLTHORN_TREE_PLANTED.generate(worldIn, worldIn.getChunkProvider().getChunkGenerator(), rand, pos);
+	}
 }
