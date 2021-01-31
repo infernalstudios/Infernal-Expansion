@@ -8,7 +8,9 @@
     "defaultRequire": 1
   },
   "mixins": [
-    "common.MixinDimensionType"
+    "common.MixinDimensionType",
+    "common.MixinNoiseChunkGenerator",
+    "common.MixinSurfaceBuilder"
   ],
   "client": [
     "client.MixinMinecraft"

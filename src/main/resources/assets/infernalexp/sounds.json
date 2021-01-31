@@ -1,129 +1,403 @@
 {
-  "volineambient": {
-    "category": "block",
-    "subtitle": "Voline chatters",
-    "sounds": [ "infernalexp:voline_ambient" ]
-  },
-  "volinehurt": {
-    "category": "block",
-    "subtitle": "Voline hurts",
-    "sounds": [ "infernalexp:voline_hurt" ]
-  },
-
-
-  "shroomloinambient": {
-    "category": "block",
-    "subtitle": "Voline hisses",
-    "sounds": [ "infernalexp:shroomloin_ambient" ]
-  },
-  "shroomloinhurt": {
-    "category": "block",
-    "subtitle": "Shroomloin hurts",
-    "sounds": [ "infernalexp:shroomloin_hurt" ]
-  },
-  "shroomloindeath": {
-    "category": "block",
-    "subtitle": "Shroomloin dies",
-    "sounds": [ "infernalexp:shroomloin_death" ]
-  },
-
-
-  "basaltgiantambient": {
-    "category": "block",
-    "subtitle": "Basalt Giant grunts",
-    "sounds": [ "infernalexp:basalt_giant_ambient" ]
-  },
-  "basaltgianthurt": {
-    "category": "block",
-    "subtitle": "Basalt Giant hurts",
-    "sounds": [ "infernalexp:basalt_giant_hurt" ]
-  },
-  "basaltgiantdeath": {
-    "category": "block",
-    "subtitle": "Basalt Giant dies",
-    "sounds": [ "infernalexp:basalt_giant_death" ]
-  },
-
-
-  "warpbeetleambient": {
-    "category": "block",
-    "subtitle": "Warpbeetle squeaks",
-    "sounds": [ "infernalexp:warpbeetle_ambient" ]
-  },
-  "warpbeetlehurt": {
-    "category": "block",
-    "subtitle": "Warpbeetle hurts",
-    "sounds": [ "infernalexp:warpbeetle_hurt" ]
-  },
-  "warpbeetledeath": {
-    "category": "block",
-    "subtitle": "Warpbeetle dies",
-    "sounds": [ "infernalexp:warpbeetle_death" ]
-  },
-
-  "cerobeetleambient": {
-    "category": "block",
-    "subtitle": "Cerobeetle squeaks",
-    "sounds": [ "infernalexp:cerobeetle_ambient" ]
-  },
-  "cerobeetlehurt": {
-    "category": "block",
-    "subtitle": "Cerobeetle hurts",
-    "sounds": [ "infernalexp:cerobeetle_hurt" ]
-  },
-  "cerobeetledeath": {
-    "category": "block",
-    "subtitle": "Cerobeetle dies",
-    "sounds": [ "infernalexp:cerobeetle_death" ]
-  },
-  "cerobeetleroar": {
-    "category": "block",
-    "subtitle": "Cerobeetle dies",
-    "sounds": [ "infernalexp:cerobeetle_roar" ]
-  },
-
-
-  "embodyambient": {
-    "category": "block",
-    "subtitle": "Embody hisses",
-    "sounds": [ "infernalexp:embody_ambient" ]
-  },
-  "embodyhurt": {
-    "category": "block",
-    "subtitle": "Embody hurts",
-    "sounds": [ "infernalexp:embody_hurt" ]
-  },
-  "embodydeath": {
-    "category": "block",
-    "subtitle": "Embody dies",
-    "sounds": [ "infernalexp:embody_death" ]
-
-  },
-
-  "cymbal": {
-    "category": "record",
-    "subtitle": "infernalexp.subtitle.cymbal",
-    "sounds": [ "infernalexp:cymbal" ]
-  },
-  "saxophone": {
-    "category": "record",
-    "subtitle": "infernalexp.subtitle.saxophone",
-    "sounds": [ "infernalexp:saxophone" ]
-  },
-  "electric_guitar": {
-    "category": "record",
-    "subtitle": "infernalexp.subtitle.electric_guitar",
-    "sounds": [ "infernalexp:electric_guitar" ]
-  },
-  "violin": {
-    "category": "record",
-    "subtitle": "infernalexp.subtitle.violin",
-    "sounds": [ "infernalexp:violin" ]
-  },
-  "choir": {
-    "category": "record",
-    "subtitle": "infernalexp.subtitle.choir",
-    "sounds": [ "infernalexp:choir" ]
-  }
-
+	"volineambient": {
+		"category": "block",
+		"subtitle": "Voline chatters",
+		"sounds": [
+			"infernalexp:voline_ambient"
+		]
+	},
+	"volinehurt": {
+		"category": "block",
+		"subtitle": "Voline hurts",
+		"sounds": [
+			"infernalexp:voline_hurt"
+		]
+	},
+	"shroomloinambient": {
+		"category": "block",
+		"subtitle": "Voline hisses",
+		"sounds": [
+			"infernalexp:shroomloin_ambient"
+		]
+	},
+	"shroomloinhurt": {
+		"category": "block",
+		"subtitle": "Shroomloin hurts",
+		"sounds": [
+			"infernalexp:shroomloin_hurt"
+		]
+	},
+	"shroomloindeath": {
+		"category": "block",
+		"subtitle": "Shroomloin dies",
+		"sounds": [
+			"infernalexp:shroomloin_death"
+		]
+	},
+	"basaltgiantambient": {
+		"category": "block",
+		"subtitle": "Basalt Giant grunts",
+		"sounds": [
+			"infernalexp:basalt_giant_ambient"
+		]
+	},
+	"basaltgianthurt": {
+		"category": "block",
+		"subtitle": "Basalt Giant hurts",
+		"sounds": [
+			"infernalexp:basalt_giant_hurt"
+		]
+	},
+	"basaltgiantdeath": {
+		"category": "block",
+		"subtitle": "Basalt Giant dies",
+		"sounds": [
+			"infernalexp:basalt_giant_death"
+		]
+	},
+	"warpbeetleambient": {
+		"category": "block",
+		"subtitle": "Warpbeetle squeaks",
+		"sounds": [
+			"infernalexp:warpbeetle_ambient"
+		]
+	},
+	"warpbeetlehurt": {
+		"category": "block",
+		"subtitle": "Warpbeetle hurts",
+		"sounds": [
+			"infernalexp:warpbeetle_hurt"
+		]
+	},
+	"warpbeetledeath": {
+		"category": "block",
+		"subtitle": "Warpbeetle dies",
+		"sounds": [
+			"infernalexp:warpbeetle_death"
+		]
+	},
+	"cerobeetleambient": {
+		"category": "block",
+		"subtitle": "Cerobeetle squeaks",
+		"sounds": [
+			"infernalexp:cerobeetle_ambient"
+		]
+	},
+	"cerobeetlehurt": {
+		"category": "block",
+		"subtitle": "Cerobeetle hurts",
+		"sounds": [
+			"infernalexp:cerobeetle_hurt"
+		]
+	},
+	"cerobeetledeath": {
+		"category": "block",
+		"subtitle": "Cerobeetle dies",
+		"sounds": [
+			"infernalexp:cerobeetle_death"
+		]
+	},
+	"cerobeetleroar": {
+		"category": "block",
+		"subtitle": "Cerobeetle dies",
+		"sounds": [
+			"infernalexp:cerobeetle_roar"
+		]
+	},
+	"embodyambient": {
+		"category": "block",
+		"subtitle": "Embody hisses",
+		"sounds": [
+			"infernalexp:embody_ambient"
+		]
+	},
+	"embodyhurt": {
+		"category": "block",
+		"subtitle": "Embody hurts",
+		"sounds": [
+			"infernalexp:embody_hurt"
+		]
+	},
+	"embodydeath": {
+		"category": "block",
+		"subtitle": "Embody dies",
+		"sounds": [
+			"infernalexp:embody_death"
+		]
+	},
+	"cymbal": {
+		"category": "record",
+		"subtitle": "infernalexp.subtitle.cymbal",
+		"sounds": [
+			"infernalexp:cymbal"
+		]
+	},
+	"saxophone": {
+		"category": "record",
+		"subtitle": "infernalexp.subtitle.saxophone",
+		"sounds": [
+			"infernalexp:saxophone"
+		]
+	},
+	"electric_guitar": {
+		"category": "record",
+		"subtitle": "infernalexp.subtitle.electric_guitar",
+		"sounds": [
+			"infernalexp:electric_guitar"
+		]
+	},
+	"violin": {
+		"category": "record",
+		"subtitle": "infernalexp.subtitle.violin",
+		"sounds": [
+			"infernalexp:violin"
+		]
+	},
+	"choir": {
+		"category": "record",
+		"subtitle": "infernalexp.subtitle.choir",
+		"sounds": [
+			"infernalexp:choir"
+		]
+	},
+	"ambient.glowstone_canyon.loop": {
+		"sounds": [
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/ambience",
+				"stream": true,
+				"volume": 0.2
+			}
+		]
+	},
+	"ambient.glowstone_canyon.additions": {
+		"sounds": [
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/chime1",
+				"weight": 40,
+				"volume": 0.2
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/chime2",
+				"weight": 40,
+				"volume": 0.25
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/chime3",
+				"weight": 40,
+				"volume": 0.2
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/chime4",
+				"weight": 40,
+				"volume": 0.25
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/chime5",
+				"weight": 40,
+				"volume": 0.3
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/chime6",
+				"weight": 40,
+				"volume": 0.3
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/chime7",
+				"weight": 40,
+				"volume": 0.2
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/with1",
+				"weight": 25,
+				"volume": 0.7
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/with2",
+				"weight": 25,
+				"volume": 0.6
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/with3",
+				"weight": 25,
+				"volume": 0.6
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/with4",
+				"weight": 25,
+				"volume": 0.5
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/with5",
+				"weight": 25,
+				"volume": 0.4
+			},
+			{
+				"name": "ambient/nether/soulsand_valley/wind1",
+				"weight": 25,
+				"volume": 0.4
+			},
+			{
+				"name": "ambient/nether/soulsand_valley/wind2",
+				"weight": 25,
+				"volume": 0.5
+			},
+			{
+				"name": "ambient/nether/soulsand_valley/wind3",
+				"weight": 25,
+				"volume": 0.5
+			},
+			{
+				"name": "ambient/nether/soulsand_valley/wind4",
+				"weight": 25,
+				"volume": 0.6
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_pluck1",
+				"weight": 20,
+				"volume": 0.2
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_pluck2",
+				"weight": 20,
+				"volume": 0.2
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_pluck3",
+				"weight": 20,
+				"volume": 0.15
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_pluck4",
+				"weight": 20,
+				"volume": 0.2
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_pluck5",
+				"weight": 20,
+				"volume": 0.2
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_pluck6",
+				"weight": 20,
+				"volume": 0.3
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_strum1",
+				"weight": 25,
+				"volume": 0.25
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_strum2",
+				"weight": 25,
+				"volume": 0.15
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_strum3",
+				"weight": 25,
+				"volume": 0.2
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_strum4",
+				"weight": 25,
+				"volume": 0.2
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/somber_pluck1",
+				"weight": 20,
+				"volume": 0.15
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/somber_pluck2",
+				"weight": 20,
+				"volume": 0.2
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/somber_pluck3",
+				"weight": 20,
+				"volume": 0.1
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/somber_pluck4",
+				"weight": 20,
+				"volume": 0.2
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/somber_strum1",
+				"weight": 30,
+				"volume": 0.2
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/somber_strum2",
+				"weight": 30,
+				"volume": 0.15
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/somber_strum3",
+				"weight": 30,
+				"volume": 0.3
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/somber_strum4",
+				"weight": 30,
+				"volume": 0.2
+			}
+		]
+	},
+	"ambient.glowstone_canyon.mood": {
+		"sounds": [
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/mood1",
+				"volume": 0.5
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/mood2",
+				"volume": 0.5
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/mood3",
+				"volume": 0.5
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/mood4",
+				"volume": 0.5
+			},
+			{
+				"name": "infernalexp:ambient/nether/glowstone_canyon/mood5",
+				"volume": 0.5
+			}
+		]
+	},
+	"music.nether.glowstone_canyon": {
+		"sounds": [
+			{
+				"name": "infernalexp:music/nether/glowstone_canyon/splow",
+				"stream": true,
+				"weight": 6
+			},
+			{
+				"name": "music/game/nether/nether1",
+				"stream": true
+			},
+			{
+				"name": "music/game/nether/nether2",
+				"stream": true
+			},
+			{
+				"name": "music/game/nether/nether3",
+				"stream": true
+			},
+			{
+				"name": "music/game/nether/nether4",
+				"stream": true
+			}
+		]
+	},
+	"record.soul_spunk": {
+		"sounds": [
+			{
+				"name": "infernalexp:record/soul_spunk",
+				"stream": true
+			}
+		]
+	}
 }

@@ -14,6 +14,7 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureSpread;
 import net.minecraft.world.gen.feature.FeatureSpreadConfig;
 import net.minecraft.world.gen.feature.Features;
+import net.minecraft.world.gen.feature.HugeFungusConfig;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.placement.Placement;
 
@@ -21,6 +22,7 @@ public class ModConfiguredFeatures {
 
     public static ConfiguredFeature<?, ?> GLOWSPIKE = registerConfiguredFeature("glowspike",                                        ModFeatures.GLOWSPIKE.withConfiguration(new GlowSpikeFeatureConfig(3, 5, 8, 24, 7, 7, 0.3f, true)).withPlacement(Features.Placements.PATCH_PLACEMENT.func_242731_b(120)));
     public static ConfiguredFeature<?, ?> GLOWSPIKELARGE = registerConfiguredFeature("glowspikelarge",                              ModFeatures.GLOWSPIKE.withConfiguration(new GlowSpikeFeatureConfig(4, 7, 12, 98, 12, 12, 0.2f, false)).withPlacement(Features.Placements.PATCH_PLACEMENT.func_242731_b(120)));
+    public static ConfiguredFeature<?, ?> DULLTHORN_TREE_PLANTED = registerConfiguredFeature("dullthorn_tree_planted",              Feature.HUGE_FUNGUS.withConfiguration(new HugeFungusConfig(ModBlocks.GLOWDUST_SAND.get().getDefaultState(), ModBlocks.DULLTHORNS_BLOCK.get().getDefaultState(), ModBlocks.LUMINOUS_WART_BLOCK.get().getDefaultState(), ModBlocks.LUMINOUS_WART_BLOCK.get().getDefaultState(), true)));
     public static ConfiguredFeature<?, ?> GLOWSTONE_RAVINE = registerConfiguredFeature("glowstone_ravine",                          ModFeatures.GLOWSTONE_RAVINE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Features.Placements.PATCH_PLACEMENT.func_242731_b(120)));
     public static ConfiguredFeature<?, ?> HANGING_GIANT_BROWN_MUSHROOM = registerConfiguredFeature("hanging_giant_brown_mushroom",  ModFeatures.HANGING_GIANT_BROWN_MUSHROOM.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Features.Placements.PATCH_PLACEMENT.func_242731_b(120)));
     public static ConfiguredFeature<?, ?> DULLSTONE_DEATH_PIT = registerConfiguredFeature("dullstone_death_pit",                    ModFeatures.DULLSTONE_DEATH_PIT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Features.Placements.PATCH_PLACEMENT.func_242731_b(90)));
