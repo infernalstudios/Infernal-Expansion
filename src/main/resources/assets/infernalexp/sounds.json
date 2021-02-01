@@ -3,161 +3,161 @@
 		"category": "block",
 		"subtitle": "Voline chatters",
 		"sounds": [
-			"infernalexp:voline_ambient"
+			"infernalexp:entity/voline/voline_ambient"
 		]
 	},
 	"volinehurt": {
 		"category": "block",
 		"subtitle": "Voline hurts",
 		"sounds": [
-			"infernalexp:voline_hurt"
+			"infernalexp:entity/voline/voline_hurt"
 		]
 	},
 	"shroomloinambient": {
 		"category": "block",
 		"subtitle": "Voline hisses",
 		"sounds": [
-			"infernalexp:shroomloin_ambient"
+			"infernalexp:entity/shroomloin/shroomloin_ambient"
 		]
 	},
 	"shroomloinhurt": {
 		"category": "block",
 		"subtitle": "Shroomloin hurts",
 		"sounds": [
-			"infernalexp:shroomloin_hurt"
+			"infernalexp:entity/shroomloin/shroomloin_hurt"
 		]
 	},
 	"shroomloindeath": {
 		"category": "block",
 		"subtitle": "Shroomloin dies",
 		"sounds": [
-			"infernalexp:shroomloin_death"
+			"infernalexp:entity/shroomloin/shroomloin_death"
 		]
 	},
 	"basaltgiantambient": {
 		"category": "block",
 		"subtitle": "Basalt Giant grunts",
 		"sounds": [
-			"infernalexp:basalt_giant_ambient"
+			"infernalexp:entity/basalt_giant/basalt_giant_ambient"
 		]
 	},
 	"basaltgianthurt": {
 		"category": "block",
 		"subtitle": "Basalt Giant hurts",
 		"sounds": [
-			"infernalexp:basalt_giant_hurt"
+			"infernalexp:entity/basalt_giant/basalt_giant_hurt"
 		]
 	},
 	"basaltgiantdeath": {
 		"category": "block",
 		"subtitle": "Basalt Giant dies",
 		"sounds": [
-			"infernalexp:basalt_giant_death"
+			"infernalexp:entity/basalt_giant/basalt_giant_death"
 		]
 	},
 	"warpbeetleambient": {
 		"category": "block",
 		"subtitle": "Warpbeetle squeaks",
 		"sounds": [
-			"infernalexp:warpbeetle_ambient"
+			"infernalexp:entity/warpbeetle/warpbeetle_ambient"
 		]
 	},
 	"warpbeetlehurt": {
 		"category": "block",
 		"subtitle": "Warpbeetle hurts",
 		"sounds": [
-			"infernalexp:warpbeetle_hurt"
+			"infernalexp:entity/warpbeetle/warpbeetle_hurt"
 		]
 	},
 	"warpbeetledeath": {
 		"category": "block",
 		"subtitle": "Warpbeetle dies",
 		"sounds": [
-			"infernalexp:warpbeetle_death"
+			"infernalexp:entity/warpbeetle/warpbeetle_death"
 		]
 	},
 	"cerobeetleambient": {
 		"category": "block",
 		"subtitle": "Cerobeetle squeaks",
 		"sounds": [
-			"infernalexp:cerobeetle_ambient"
+			"infernalexp:entity/cerobeetle/cerobeetle_ambient"
 		]
 	},
 	"cerobeetlehurt": {
 		"category": "block",
 		"subtitle": "Cerobeetle hurts",
 		"sounds": [
-			"infernalexp:cerobeetle_hurt"
+			"infernalexp:entity/cerobeetle/cerobeetle_hurt"
 		]
 	},
 	"cerobeetledeath": {
 		"category": "block",
 		"subtitle": "Cerobeetle dies",
 		"sounds": [
-			"infernalexp:cerobeetle_death"
+			"infernalexp:entity/cerobeetle/cerobeetle_death"
 		]
 	},
 	"cerobeetleroar": {
 		"category": "block",
 		"subtitle": "Cerobeetle dies",
 		"sounds": [
-			"infernalexp:cerobeetle_roar"
+			"infernalexp:entity/cerobeetle/cerobeetle_roar"
 		]
 	},
 	"embodyambient": {
 		"category": "block",
 		"subtitle": "Embody hisses",
 		"sounds": [
-			"infernalexp:embody_ambient"
+			"infernalexp:entity/embody/embody_ambient"
 		]
 	},
 	"embodyhurt": {
 		"category": "block",
 		"subtitle": "Embody hurts",
 		"sounds": [
-			"infernalexp:embody_hurt"
+			"infernalexp:entity/embody/embody_hurt"
 		]
 	},
 	"embodydeath": {
 		"category": "block",
 		"subtitle": "Embody dies",
 		"sounds": [
-			"infernalexp:embody_death"
+			"infernalexp:entity/embody/embody_death"
 		]
 	},
 	"cymbal": {
 		"category": "record",
 		"subtitle": "infernalexp.subtitle.cymbal",
 		"sounds": [
-			"infernalexp:cymbal"
+			"infernalexp:record/cymbal"
 		]
 	},
 	"saxophone": {
 		"category": "record",
 		"subtitle": "infernalexp.subtitle.saxophone",
 		"sounds": [
-			"infernalexp:saxophone"
+			"infernalexp:record/saxophone"
 		]
 	},
 	"electric_guitar": {
 		"category": "record",
 		"subtitle": "infernalexp.subtitle.electric_guitar",
 		"sounds": [
-			"infernalexp:electric_guitar"
+			"infernalexp:record/electric_guitar"
 		]
 	},
 	"violin": {
 		"category": "record",
 		"subtitle": "infernalexp.subtitle.violin",
 		"sounds": [
-			"infernalexp:violin"
+			"infernalexp:record/violin"
 		]
 	},
 	"choir": {
 		"category": "record",
 		"subtitle": "infernalexp.subtitle.choir",
 		"sounds": [
-			"infernalexp:choir"
+			"infernalexp:record/choir"
 		]
 	},
 	"ambient.glowstone_canyon.loop": {
@@ -370,7 +370,7 @@
 	"music.nether.glowstone_canyon": {
 		"sounds": [
 			{
-				"name": "infernalexp:music/nether/glowstone_canyon/splow",
+				"name": "infernalexp:music/nether/glowstone_canyon/spindle",
 				"stream": true,
 				"weight": 6
 			},
