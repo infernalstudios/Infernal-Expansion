@@ -173,62 +173,62 @@
 		"sounds": [
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/chime1",
-				"weight": 40,
-				"volume": 0.2
+				"weight": 20,
+				"volume": 0.05
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/chime2",
-				"weight": 40,
-				"volume": 0.25
+				"weight": 20,
+				"volume": 0.05
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/chime3",
-				"weight": 40,
-				"volume": 0.2
+				"weight": 20,
+				"volume": 0.1
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/chime4",
-				"weight": 40,
-				"volume": 0.25
+				"weight": 20,
+				"volume": 0.05
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/chime5",
-				"weight": 40,
-				"volume": 0.3
+				"weight": 20,
+				"volume": 0.05
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/chime6",
-				"weight": 40,
-				"volume": 0.3
+				"weight": 20,
+				"volume": 0.1
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/chime7",
-				"weight": 40,
-				"volume": 0.2
+				"weight": 20,
+				"volume": 0.05
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/with1",
-				"weight": 25,
+				"weight": 30,
 				"volume": 0.7
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/with2",
-				"weight": 25,
+				"weight": 30,
 				"volume": 0.6
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/with3",
-				"weight": 25,
+				"weight": 30,
 				"volume": 0.6
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/with4",
-				"weight": 25,
+				"weight": 30,
 				"volume": 0.5
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/with5",
-				"weight": 25,
+				"weight": 30,
 				"volume": 0.4
 			},
 			{
@@ -253,92 +253,92 @@
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_pluck1",
-				"weight": 20,
+				"weight": 40,
 				"volume": 0.2
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_pluck2",
-				"weight": 20,
+				"weight": 40,
 				"volume": 0.2
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_pluck3",
-				"weight": 20,
+				"weight": 40,
 				"volume": 0.15
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_pluck4",
-				"weight": 20,
+				"weight": 40,
 				"volume": 0.2
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_pluck5",
-				"weight": 20,
+				"weight": 40,
 				"volume": 0.2
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_pluck6",
-				"weight": 20,
+				"weight": 40,
 				"volume": 0.3
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_strum1",
-				"weight": 25,
+				"weight": 35,
 				"volume": 0.25
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_strum2",
-				"weight": 25,
+				"weight": 35,
 				"volume": 0.15
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_strum3",
-				"weight": 25,
+				"weight": 35,
 				"volume": 0.2
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_strum4",
-				"weight": 25,
+				"weight": 35,
 				"volume": 0.2
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/somber_pluck1",
-				"weight": 20,
+				"weight": 50,
 				"volume": 0.15
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/somber_pluck2",
-				"weight": 20,
+				"weight": 50,
 				"volume": 0.2
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/somber_pluck3",
-				"weight": 20,
+				"weight": 50,
 				"volume": 0.1
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/somber_pluck4",
-				"weight": 20,
+				"weight": 50,
 				"volume": 0.2
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/somber_strum1",
-				"weight": 30,
+				"weight": 45,
 				"volume": 0.2
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/somber_strum2",
-				"weight": 30,
+				"weight": 45,
 				"volume": 0.15
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/somber_strum3",
-				"weight": 30,
+				"weight": 45,
 				"volume": 0.3
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/somber_strum4",
-				"weight": 30,
+				"weight": 45,
 				"volume": 0.2
 			}
 		]
