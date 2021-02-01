@@ -85,9 +85,9 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> BASALT_IRON_ORE = BLOCKS.register("basalt_iron_ore",        () -> new Block(AbstractBlock.Properties.from(Blocks.NETHER_GOLD_ORE)));
 
-    public static final RegistryObject<Block> CRIMSON_FUNGUS_CAP = BLOCKS.register("crimson_fungus_cap",  () -> new Block(AbstractBlock.Properties.from(Blocks.NETHER_WART_BLOCK)));
-    public static final RegistryObject<Block> WARPED_FUNGUS_CAP = BLOCKS.register("warped_fungus_cap",    () -> new Block(AbstractBlock.Properties.from(Blocks.WARPED_WART_BLOCK)));
-    public static final RegistryObject<Block> LUMINOUS_FUNGUS_CAP = BLOCKS.register("luminous_fungus_cap",() -> new Block(AbstractBlock.Properties.from(Blocks.NETHER_WART_BLOCK).setLightLevel(value -> 14)));
+    public static final RegistryObject<Block> CRIMSON_FUNGUS_CAP = BLOCKS.register("crimson_fungus_cap",  () -> new FungusCapBlock(AbstractBlock.Properties.from(Blocks.NETHER_WART_BLOCK)));
+    public static final RegistryObject<Block> WARPED_FUNGUS_CAP = BLOCKS.register("warped_fungus_cap",    () -> new FungusCapBlock(AbstractBlock.Properties.from(Blocks.WARPED_WART_BLOCK)));
+    public static final RegistryObject<Block> LUMINOUS_FUNGUS_CAP = BLOCKS.register("luminous_fungus_cap",() -> new FungusCapBlock(AbstractBlock.Properties.from(Blocks.NETHER_WART_BLOCK).setLightLevel(value -> 14)));
 
     public static final RegistryObject<Block> GLOW_LANTERN = BLOCKS.register("lantern_glow",        () -> new LanternBlock(getProperties(Blocks.LANTERN)));
     public static final RegistryObject<Block> GLOW_TORCH = BLOCKS.register("torch_glow",            () -> new TorchBlock(getProperties(Blocks.TORCH), ParticleTypes.CRIT));
