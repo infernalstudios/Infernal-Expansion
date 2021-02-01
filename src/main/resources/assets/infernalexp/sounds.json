@@ -165,7 +165,7 @@
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/ambience",
 				"stream": true,
-				"volume": 0.1
+				"volume": 0.2
 			}
 		]
 	},
@@ -209,22 +209,22 @@
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/with1",
 				"weight": 50,
-				"volume": 0.7
+				"volume": 0.3
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/with2",
 				"weight": 50,
-				"volume": 0.6
+				"volume": 0.2
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/with3",
 				"weight": 50,
-				"volume": 0.6
+				"volume": 0.2
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/with4",
 				"weight": 50,
-				"volume": 0.5
+				"volume": 0.3
 			},
 			{
 				"name": "infernalexp:ambient/nether/glowstone_canyon/with5",
