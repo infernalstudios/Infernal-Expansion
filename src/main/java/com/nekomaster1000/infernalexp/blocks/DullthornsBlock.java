@@ -88,9 +88,8 @@ public class DullthornsBlock extends BushBlock {
     }
 
     @Override
-    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        Vector3d vector3d = state.getOffset(worldIn, pos);
-        return COLLISION_SHAPE.withOffset(vector3d.x, vector3d.y, vector3d.z);
+    public boolean isLadder(BlockState state, net.minecraft.world.IWorldReader world, BlockPos pos, net.minecraft.entity.LivingEntity entity) {
+       return true;
     }
 
     @Override
