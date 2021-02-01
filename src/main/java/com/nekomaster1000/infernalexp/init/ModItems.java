@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.blocks.BlockItemBase;
+import com.nekomaster1000.infernalexp.blocks.DullthornsBlockItem;
 import com.nekomaster1000.infernalexp.items.AscusBombItem;
 import com.nekomaster1000.infernalexp.items.GlowcoalItem;
 import com.nekomaster1000.infernalexp.items.ItemBase;
@@ -120,7 +121,7 @@ public class ModItems {
     public static final RegistryObject<Item> SHROOMLIGHT_FUNGUS = ITEMS.register("shroomlight_fungus",      () -> new BlockItemBase(ModBlocks.SHROOMLIGHT_FUNGUS.get()));
     public static final RegistryObject<Item> LUMINOUS_FUNGUS = ITEMS.register("luminous_fungus",    () -> new BlockItemBase(ModBlocks.LUMINOUS_FUNGUS.get()));
 
-    public static final RegistryObject<Item> DULLTHORNS = ITEMS.register("dullthorns",              () -> new BlockItemBase(ModBlocks.DULLTHORNS.get()));
+    public static final RegistryObject<Item> DULLTHORNS = ITEMS.register("dullthorns",              () -> new DullthornsBlockItem(ModBlocks.DULLTHORNS.get()));
     public static final RegistryObject<Item> DULLTHORNS_BLOCK = ITEMS.register("dullthorns_block",  () -> new BlockItemBase(ModBlocks.DULLTHORNS_BLOCK.get()));
 
     public static final RegistryObject<Item> BURIED_BONE = ITEMS.register("buried_bone", () -> new BlockItemBase(ModBlocks.BURIED_BONE.get()));
