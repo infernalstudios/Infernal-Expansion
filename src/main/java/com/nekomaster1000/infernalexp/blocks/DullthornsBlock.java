@@ -11,6 +11,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.BushBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.pathfinding.PathType;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.state.IntegerProperty;
@@ -102,6 +103,11 @@ public class DullthornsBlock extends BushBlock {
             }
             entityIn.attackEntityFrom(DamageSource.CACTUS, 1.0F);
         }
+    }
+    
+    @Override
+    public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
+    	return false;
     }
 
     @Override
