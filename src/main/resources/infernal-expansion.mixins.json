@@ -10,7 +10,8 @@
   "mixins": [
     "common.MixinDimensionType",
     "common.MixinNoiseChunkGenerator",
-    "common.MixinSurfaceBuilder"
+    "common.MixinSurfaceBuilder",
+    "common.MixinShearsItem"
   ],
   "client": [
     "client.MixinMinecraft"
