@@ -107,7 +107,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> SHROOMLIGHT_FUNGUS = BLOCKS.register("shroomlight_fungus",                        () -> new ShroomlightFungusBlock(getProperties(Material.PLANTS).setLightLevel(value -> 13).doesNotBlockMovement().sound(SoundType.PLANT)));
     public static final RegistryObject<FlowerPotBlock> POTTED_SHROOMLIGHT_FUNGUS = BLOCKS.register("potted_shroomlight_fungus", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, SHROOMLIGHT_FUNGUS, getProperties(Blocks.FLOWER_POT)));
 
-    public static final RegistryObject<Block> BURIED_BONE = BLOCKS.register("buried_bone",   () -> new BuriedBoneBlock(getProperties(Material.PLANTS).doesNotBlockMovement().sound(SoundType.PLANT)));
+    public static final RegistryObject<BuriedBoneBlock> BURIED_BONE = BLOCKS.register("buried_bone",   () -> new BuriedBoneBlock(getProperties(Material.PLANTS).doesNotBlockMovement().sound(SoundType.BONE)));
     public static final RegistryObject<FlowerPotBlock> POTTED_BURIED_BONE = BLOCKS.register("potted_buried_bone", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, BURIED_BONE, getProperties(Blocks.FLOWER_POT)));
 
     public static AbstractBlock.Properties getProperties(Material materialIn, float hardnessAndResistanceIn) {

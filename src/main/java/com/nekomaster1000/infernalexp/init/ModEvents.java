@@ -13,6 +13,7 @@ import com.nekomaster1000.infernalexp.entities.WarpbeetleEntity;
 import com.nekomaster1000.infernalexp.entities.ai.AvoidBlockGoal;
 import com.nekomaster1000.infernalexp.util.RegistryHandler;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
@@ -29,6 +30,10 @@ import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.entity.monster.piglin.PiglinBruteEntity;
 import net.minecraft.entity.monster.piglin.PiglinEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -37,9 +42,12 @@ import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.carver.WorldCarver;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
+import net.minecraftforge.common.util.BlockSnapshot;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.NoteBlockEvent;
@@ -357,7 +365,34 @@ public class ModEvents {
             event.setCanceled(true);
         }
     }
+    
+    @SubscribeEvent
+    public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        ItemStack heldItemStack = event.getItemStack();
+        if (heldItemStack.getItem() == Items.BONE) {
+            World world = event.getWorld();
+            Direction placedirection = event.getFace();
+            BlockPos pos = event.getPos().offset(placedirection);
+            BlockState blockstate = ModBlocks.BURIED_BONE.get().getPlaceableState(world, pos, placedirection);
+            if (blockstate != null) {
+                PlayerEntity player = event.getPlayer();
+                player.swingArm(event.getHand());
+                if (!world.isAirBlock(pos) && !world.isRemote() && world.getBlockState(pos).getFluidState().isEmpty()) {
+                    world.destroyBlock(pos, true);
+                }
+                world.setBlockState(pos, blockstate, 3);
+                world.playSound(player, pos, blockstate.getSoundType().getPlaceSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+                if (!player.isCreative()) {
+                    heldItemStack.shrink(1);
+                }
+                ForgeEventFactory.onBlockPlace(player, BlockSnapshot.create(world.getDimensionKey(), world, pos), placedirection);
+            }
+        }
+        
+    }
 
+    
+    
     // Register features and surface builders
     @SubscribeEvent
     public static void registerFeatures(RegistryEvent.Register<Feature<?>> event) {

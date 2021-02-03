@@ -124,8 +124,6 @@ public class ModItems {
     public static final RegistryObject<Item> DULLTHORNS = ITEMS.register("dullthorns",              () -> new DullthornsBlockItem(ModBlocks.DULLTHORNS.get()));
     public static final RegistryObject<Item> DULLTHORNS_BLOCK = ITEMS.register("dullthorns_block",  () -> new BlockItemBase(ModBlocks.DULLTHORNS_BLOCK.get()));
 
-    public static final RegistryObject<Item> BURIED_BONE = ITEMS.register("buried_bone", () -> new BlockItemBase(ModBlocks.BURIED_BONE.get()));
-
     public static final RegistryObject<Item> ASCUS_BOMB = ITEMS.register("ascus_bomb", AscusBombItem::new);
 
     // Record Discs
