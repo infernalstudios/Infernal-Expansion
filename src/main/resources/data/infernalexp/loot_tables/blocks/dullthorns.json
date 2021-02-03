@@ -3,18 +3,58 @@
   "pools": [
     {
       "rolls": 1,
+      "bonus_rolls": 0,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "infernalexp:dullthorns"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:match_tool",
-          "predicate": {
-            "item": "minecraft:shears"
-          }
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "name": "infernalexp:dullthorns",
+              "conditions": [
+                {
+                  "condition": "minecraft:alternative",
+                  "terms": [
+                    {
+                      "condition": "minecraft:match_tool",
+                      "predicate": {
+                        "item": "minecraft:shears"
+                      }
+                    },
+                    {
+                      "condition": "minecraft:match_tool",
+                      "predicate": {
+                        "enchantments": [
+                          {
+                            "enchantment": "minecraft:silk_touch",
+                            "levels": {
+                              "min": 1
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "infernalexp:dullthorns",
+              "conditions": [
+                {
+                  "condition": "minecraft:table_bonus",
+                  "enchantment": "minecraft:fortune",
+                  "chances": [
+                    0.15,
+                    0.33,
+                    0.55,
+                    0.77
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     }
