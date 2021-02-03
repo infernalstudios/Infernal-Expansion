@@ -39,6 +39,10 @@ public class ServerConfig {
     final ForgeConfigSpec.IntValue warpbeetleWarpedRate;
     final ForgeConfigSpec.IntValue giantDeltasRate;
     final ForgeConfigSpec.IntValue embodySSVRate;
+    
+    //Bonemeal Behaviour
+    final ForgeConfigSpec.DoubleValue shroomlightGrowChance;
+    final ForgeConfigSpec.BooleanValue isShroomlightGrowable;
 
     ServerConfig(final ForgeConfigSpec.Builder builder){
         //Mob Interactions
@@ -164,7 +168,7 @@ public class ServerConfig {
 
         builder.pop();
 
-        //Spawn Rates
+      //Spawn Rates
         builder.push("Spawn Rates");
 
         volineWastesRate = builder
@@ -198,6 +202,21 @@ public class ServerConfig {
                 .defineInRange("embodySSVRate", 60, 0, Integer.MAX_VALUE);
 
         builder.pop();
+        
+        builder.pop();
+
+        //Bonemeal Behaviour
+        builder.push("Bonemeal Behaviour");
+        
+        isShroomlightGrowable = builder
+                .comment("Determines if a shroomlight tear will grow when a shroomlight is bonemealed (overrides shroomlightGrowChance)")
+                .translation(InfernalExpansion.MOD_ID + ".config.isShroomlightGrowable")
+                .define("isShroomlightGrowable", true);
+        
+        shroomlightGrowChance = builder
+                .comment("Determines the chance a shroomlight tear will grow when a shroomlight is bonemealed")
+                .translation(InfernalExpansion.MOD_ID + ".config.shroomlightGrowChance")
+                .defineInRange("shroomlightGrowChance", 1.0D, 0.0D, 1.0D);
 
         builder.pop();
     }

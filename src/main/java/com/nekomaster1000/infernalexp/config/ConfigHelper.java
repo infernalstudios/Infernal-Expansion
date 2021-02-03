@@ -44,5 +44,10 @@ public final class ConfigHelper {
         InfernalExpansionConfig.warpbeetleWarpedRate = ConfigHolder.SERVER.warpbeetleWarpedRate.get();
         InfernalExpansionConfig.giantDeltasRate = ConfigHolder.SERVER.giantDeltasRate.get();
         InfernalExpansionConfig.embodySSVRate = ConfigHolder.SERVER.embodySSVRate.get();
+        
+        //Bonemeal Behaviour
+        InfernalExpansionConfig.isShroomlightGrowable = ConfigHolder.SERVER.isShroomlightGrowable.get();
+        InfernalExpansionConfig.shroomlightGrowChance = ConfigHolder.SERVER.shroomlightGrowChance.get();
+        
     }
 }

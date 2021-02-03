@@ -1,6 +1,7 @@
 package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
+import com.nekomaster1000.infernalexp.blocks.HorizontalBushBlock;
 import com.nekomaster1000.infernalexp.config.ConfigHelper;
 import com.nekomaster1000.infernalexp.config.ConfigHolder;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
@@ -33,6 +34,7 @@ import net.minecraft.entity.monster.piglin.PiglinEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.state.properties.AttachFace;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
@@ -47,10 +49,12 @@ import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.NoteBlockEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -369,13 +373,14 @@ public class ModEvents {
     @SubscribeEvent
     public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         ItemStack heldItemStack = event.getItemStack();
+        World world = event.getWorld();
+        BlockPos pos = event.getPos();
+        Direction face = event.getFace();
+        PlayerEntity player = event.getPlayer();
         if (heldItemStack.getItem() == Items.BONE) {
-            World world = event.getWorld();
-            Direction placedirection = event.getFace();
-            BlockPos pos = event.getPos().offset(placedirection);
-            BlockState blockstate = ModBlocks.BURIED_BONE.get().getPlaceableState(world, pos, placedirection);
+            pos = pos.offset(face);
+            BlockState blockstate = ModBlocks.BURIED_BONE.get().getPlaceableState(world, pos, face);
             if (blockstate != null) {
-                PlayerEntity player = event.getPlayer();
                 player.swingArm(event.getHand());
                 if (!world.isAirBlock(pos) && !world.isRemote() && world.getBlockState(pos).getFluidState().isEmpty()) {
                     world.destroyBlock(pos, true);
@@ -385,10 +390,25 @@ public class ModEvents {
                 if (!player.isCreative()) {
                     heldItemStack.shrink(1);
                 }
-                ForgeEventFactory.onBlockPlace(player, BlockSnapshot.create(world.getDimensionKey(), world, pos), placedirection);
+                ForgeEventFactory.onBlockPlace(player, BlockSnapshot.create(world.getDimensionKey(), world, pos), face);
             }
         }
-        
+    }
+    
+    @SubscribeEvent
+    public void onApplyBonemeal(BonemealEvent event) {
+        Block block = event.getBlock().getBlock();
+        World world = event.getWorld();
+        BlockPos pos = event.getPos();
+        if (block == Blocks.SHROOMLIGHT && InfernalExpansionConfig.isShroomlightGrowable) {
+            pos = pos.down();
+            if (world.isAirBlock(pos)) {
+                event.setResult(Event.Result.ALLOW);
+                if (world.getRandom().nextDouble() < InfernalExpansionConfig.shroomlightGrowChance && !world.isRemote()) {
+                    world.setBlockState(pos, ModBlocks.SHROOMLIGHT_FUNGUS.get().getDefaultState().with(HorizontalBushBlock.FACE, AttachFace.CEILING), 3);
+                }
+            }
+        }
     }
 
     

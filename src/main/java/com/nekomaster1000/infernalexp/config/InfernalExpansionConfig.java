@@ -40,5 +40,9 @@ public final class InfernalExpansionConfig {
     public static int warpbeetleWarpedRate;
     public static int giantDeltasRate;
     public static int embodySSVRate;
+    
+    //Bonemeal Behaviour
+    public static boolean isShroomlightGrowable;
+    public static double shroomlightGrowChance;
 
 }
