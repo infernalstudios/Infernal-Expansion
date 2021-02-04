@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.nekomaster1000.infernalexp.entities.BlindsightEntity;
 import com.nekomaster1000.infernalexp.init.ModBlocks;
+import com.nekomaster1000.infernalexp.init.ModEffects;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -13,7 +14,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.pathfinding.PathType;
 import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -98,7 +98,7 @@ public class DullthornsBlock extends BushBlock {
         if (!worldIn.isRemote()) {
             if (entityIn instanceof LivingEntity && entityIn.isAlive() && !(entityIn instanceof BlindsightEntity) ) {
                 LivingEntity livingEntity = (LivingEntity) entityIn;
-                livingEntity.addPotionEffect(new EffectInstance(Effects.GLOWING, 300, 0));
+                livingEntity.addPotionEffect(new EffectInstance(ModEffects.LUMINOUS.get(), 200, 0, true, true));
             }
             entityIn.attackEntityFrom(DamageSource.CACTUS, 1.0F);
         }

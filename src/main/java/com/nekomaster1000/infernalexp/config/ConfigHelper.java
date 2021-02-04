@@ -6,7 +6,8 @@ public final class ConfigHelper {
 
     //Client
     public static void bakeClient(final ModConfig config){
-
+        //Luminous Effect
+        InfernalExpansionConfig.luminousRefreshRate = ConfigHolder.CLIENT.luminousRefreshRate.get();
     }
 
     //Server

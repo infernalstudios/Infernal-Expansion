@@ -2,6 +2,8 @@ package com.nekomaster1000.infernalexp.entities;
 
 import java.util.EnumSet;
 
+import com.nekomaster1000.infernalexp.init.ModEffects;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -15,6 +17,7 @@ import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
@@ -114,6 +117,7 @@ public class BlindsightEntity extends MonsterEntity {
     protected void dealDamage(LivingEntity entityIn) {
         if (this.isAlive()) {
             if (this.canEntityBeSeen(entityIn) && entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE))) {
+                entityIn.addPotionEffect(new EffectInstance(ModEffects.LUMINOUS.get(), 600, 0, true, true));
                 this.playSound(SoundEvents.ENTITY_SLIME_ATTACK, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
                 this.applyEnchantments(this, entityIn);
             }

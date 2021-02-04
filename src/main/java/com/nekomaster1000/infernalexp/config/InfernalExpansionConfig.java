@@ -4,6 +4,8 @@ public final class InfernalExpansionConfig {
 
     //Client
 
+    //Luminous Effect
+    public static int luminousRefreshRate;
 
     //Server
 

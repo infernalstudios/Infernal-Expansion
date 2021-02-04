@@ -6,6 +6,7 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import com.nekomaster1000.infernalexp.entities.ai.TargetWithEffectGoal;
+import com.nekomaster1000.infernalexp.init.ModEffects;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.AgeableEntity;
@@ -265,8 +266,8 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
         //this.goalSelector.addGoal(7, new GlowsquitoEntity.LookAroundGoal(this));
         //this.goalSelector.addGoal(5, this.eatGrassGoal);
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, CreatureEntity.class, true, false, Effects.GLOWING));
-        this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, MonsterEntity.class, true, false, Effects.GLOWING));
+        this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, CreatureEntity.class, true, false, ModEffects.LUMINOUS.get()));
+        this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, MonsterEntity.class, true, false, ModEffects.LUMINOUS.get()));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, BlackstoneDwarfEntity.class, true));
     }
 
@@ -296,7 +297,7 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
             return false;
         } else {
             if (entityIn instanceof LivingEntity) {
-                ((LivingEntity)entityIn).addPotionEffect(new EffectInstance(Effects.GLOWING, 600)); //30s
+                ((LivingEntity)entityIn).addPotionEffect(new EffectInstance(ModEffects.LUMINOUS.get(), 600, 0, true, true)); //30s
                 ((LivingEntity)entityIn).addPotionEffect(new EffectInstance(Effects.POISON, 100)); //5s
             }
 

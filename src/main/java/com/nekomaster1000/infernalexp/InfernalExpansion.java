@@ -1,5 +1,6 @@
 package com.nekomaster1000.infernalexp;
 
+import com.nekomaster1000.infernalexp.client.InfernalExpansionClient;
 import com.nekomaster1000.infernalexp.config.ConfigHelper;
 import com.nekomaster1000.infernalexp.config.ConfigHolder;
 import com.nekomaster1000.infernalexp.init.ModBiomes;
@@ -21,9 +22,11 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -85,6 +88,7 @@ public class InfernalExpansion
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> InfernalExpansionClient.init());
     }
 
     @SubscribeEvent

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import com.google.common.collect.ImmutableMap;
 import com.nekomaster1000.infernalexp.init.ModBlocks;
+import com.nekomaster1000.infernalexp.init.ModEffects;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
@@ -19,7 +20,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
@@ -161,7 +161,7 @@ public class GlowFireBlock extends AbstractFireBlock {
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
         super.onEntityCollision(state, worldIn, pos, entityIn);
         if (entityIn instanceof LivingEntity) {
-            EffectInstance effect = new EffectInstance(Effects.GLOWING, 100);
+            EffectInstance effect = new EffectInstance(ModEffects.LUMINOUS.get(), 100, 0, true, true);
             ((LivingEntity) entityIn).addPotionEffect(effect);
         }
 
