@@ -10,8 +10,7 @@
   "mixins": [
     "common.MixinDimensionType",
     "common.MixinNoiseChunkGenerator",
-    "common.MixinSurfaceBuilder",
-    "common.MixinShearsItem"
+    "common.MixinSurfaceBuilder"
   ],
   "client": [
     "client.MixinIBlockReader"

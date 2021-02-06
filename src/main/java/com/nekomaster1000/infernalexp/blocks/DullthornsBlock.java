@@ -1,17 +1,17 @@
 package com.nekomaster1000.infernalexp.blocks;
 
-import java.util.Random;
-
 import com.nekomaster1000.infernalexp.entities.BlindsightEntity;
 import com.nekomaster1000.infernalexp.init.ModBlocks;
 import com.nekomaster1000.infernalexp.init.ModEffects;
-
+import com.nekomaster1000.infernalexp.init.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.BushBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathType;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.state.IntegerProperty;
@@ -25,16 +25,34 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.IForgeShearable;
 
-public class DullthornsBlock extends BushBlock {
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
+public class DullthornsBlock extends BushBlock implements IForgeShearable {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_0_15;
-    protected static final VoxelShape COLLISION_SHAPE = Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 15.0D, 11.0D);
     protected static final VoxelShape SHAPE = Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 15.0D, 11.0D);
 
     public DullthornsBlock(Properties properties) {
         super(properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(AGE, Integer.valueOf(0)));
-}
+    }
+
+    @Override
+    public boolean isShearable(@Nonnull ItemStack item, World world, BlockPos pos) {
+        return true;
+    }
+
+    @Nonnull
+    @Override
+    public List<ItemStack> onSheared(@Nullable PlayerEntity player, @Nonnull ItemStack item, World world, BlockPos pos, int fortune) {
+        return new ArrayList<>(Collections.singleton(new ItemStack(ModItems.DULLTHORNS.get())));
+    }
 
     @Override
     protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
