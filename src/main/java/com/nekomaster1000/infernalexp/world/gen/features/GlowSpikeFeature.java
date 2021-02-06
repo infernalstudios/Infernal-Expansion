@@ -1,18 +1,17 @@
 package com.nekomaster1000.infernalexp.world.gen.features;
 
-import java.util.List;
-import java.util.Random;
-
 import com.mojang.serialization.Codec;
 import com.nekomaster1000.infernalexp.init.ModBlocks;
 import com.nekomaster1000.infernalexp.util.ShapeUtil;
 import com.nekomaster1000.infernalexp.world.gen.features.config.GlowSpikeFeatureConfig;
-
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
+
+import java.util.List;
+import java.util.Random;
 
 public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
 
@@ -28,7 +27,7 @@ public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
         int xOffset = -config.maxXOffset + random.nextInt(config.maxXOffset * 2);
         int zOffset = -config.maxZOffset + random.nextInt(config.maxZOffset * 2);
 
-        if (!world.isAirBlock(pos) || world.getBlockState(pos.down()).getBlock() != ModBlocks.GLOWDUST_SAND.get()) {
+        if ((!world.isAirBlock(pos) || world.getBlockState(pos).getBlock() != Blocks.LAVA) || (world.getBlockState(pos.down()).getBlock() != ModBlocks.GLOWDUST_SAND.get() || world.getBlockState(pos.down()).getBlock() != ModBlocks.DULLSTONE.get())) {
             return false;
         } else {
             List<BlockPos> points = ShapeUtil.generateSolidCircle((float) diameter / 2);
@@ -37,7 +36,7 @@ public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
             for (BlockPos point : points) {
                 BlockPos pointPos = new BlockPos(pos.getX() + point.getX(), pos.getY(), pos.getZ() + point.getZ());
 
-                if (world.getBlockState(pointPos.down()).getBlock() != ModBlocks.GLOWDUST_SAND.get()) {
+                if (world.getBlockState(pointPos.down()).getBlock() != ModBlocks.GLOWDUST_SAND.get() || world.getBlockState(pointPos.down()).getBlock() != ModBlocks.DULLSTONE.get()) {
                     return generate(world, generator, random, pos.down(), config);
                 }
             }

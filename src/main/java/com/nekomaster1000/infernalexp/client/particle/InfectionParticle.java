@@ -7,6 +7,7 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.SpriteTexturedParticle;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particles.BasicParticleType;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -19,7 +20,7 @@ public class InfectionParticle extends SpriteTexturedParticle {
     private final IAnimatedSprite spriteWithAge;
 
     protected InfectionParticle(ClientWorld world, double x, double y, double z, double motionX, double motionY, double motionZ, IAnimatedSprite spriteWithAge) {
-        super(world, x, y, z, 0.5 - random.nextDouble(), motionY, 0.5 - random.nextDouble());
+        super(world, x, y, z, 0.5 - Math.random(), motionY, 0.5 - Math.random());
 
         this.spriteWithAge = spriteWithAge;
         this.motionY *= -0.1;
@@ -33,9 +34,11 @@ public class InfectionParticle extends SpriteTexturedParticle {
         this.maxAge = (int) (16 / (Math.random() * 0.8 + 0.2));
         this.canCollide = false;
         this.selectSpriteWithAge(spriteWithAge);
+
+        this.particleRed = 0.5f;
+        this.particleGreen = (float) Math.random() * 0.1f;
+        this.particleBlue = (float) Math.random() * 0.1f;
     }
-
-
 
     @Override
     public IParticleRenderType getRenderType() {
@@ -68,6 +71,8 @@ public class InfectionParticle extends SpriteTexturedParticle {
                 this.motionX *= 0.7;
                 this.motionZ *= 0.7;
             }
+
+            this.particleRed = 0.7f + (0.2f * MathHelper.sin(this.age / 10f));
         }
     }
 
@@ -83,7 +88,7 @@ public class InfectionParticle extends SpriteTexturedParticle {
         @Override
         public Particle makeParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             InfectionParticle infectionParticle = new InfectionParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, this.spriteSet);
-            infectionParticle.setColor(0.8f, 0, 0);
+//            infectionParticle.setColor(0.8f, 0, 0);
 
             return infectionParticle;
         }
