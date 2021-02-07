@@ -3,7 +3,7 @@ package com.nekomaster1000.infernalexp.world.gen.features;
 import java.util.Random;
 
 import com.mojang.serialization.Codec;
-import com.nekomaster1000.infernalexp.init.ModBlocks;
+import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.util.ShapeUtil;
 
 import net.minecraft.block.Blocks;
@@ -23,7 +23,7 @@ public class SinkHoleFeature extends Feature<NoFeatureConfig> {
 
     @Override
     public boolean generate(ISeedReader world, ChunkGenerator generator, Random random, BlockPos pos, NoFeatureConfig config) {
-        if (!world.isAirBlock(pos) || world.getBlockState(pos.down()).getBlock() != ModBlocks.GLOWDUST_SAND.get()) {
+        if (!world.isAirBlock(pos) || world.getBlockState(pos.down()).getBlock() != IEBlocks.GLOWDUST_SAND.get()) {
             return false;
         } else {
             int radius = minRadius + random.nextInt(maxRadius - minRadius);
@@ -37,13 +37,13 @@ public class SinkHoleFeature extends Feature<NoFeatureConfig> {
             // Build the walls down a few blocks so if the sink hole spawns on a slope it isn't open from the side
             for (BlockPos point : ShapeUtil.generateSolidCircle(radius + 1)) {
                 for (int y = 0; y < 3; y++) {
-                    world.setBlockState(pos.add(point).down(y + 1), ModBlocks.GLOWDUST_SAND.get().getDefaultState(), 2);
+                    world.setBlockState(pos.add(point).down(y + 1), IEBlocks.GLOWDUST_SAND.get().getDefaultState(), 2);
                 }
             }
 
             // Dig down by depth
             for (BlockPos point : ShapeUtil.generateSolidCircle(radius)) {
-                world.setBlockState(pos.add(point).down(), ModBlocks.TRAPPED_GLOWDUST_SAND.get().getDefaultState(), 2);
+                world.setBlockState(pos.add(point).down(), IEBlocks.TRAPPED_GLOWDUST_SAND.get().getDefaultState(), 2);
 
                 for (int y = 2; y < depth; y++) {
                     if (world.getBlockState(pos.add(point).down(y)) != Blocks.LAVA.getDefaultState())
@@ -59,8 +59,8 @@ public class SinkHoleFeature extends Feature<NoFeatureConfig> {
             // Create fairy ring of luminous fungus around sinkhole
 //            for (BlockPos point : ShapeUtil.generateCircle(radius + 2)) {
 //                for (int y = -5; y < 5; y++) {
-//                    if (ModBlocks.LUMINOUS_FUNGUS.get().getDefaultState().isValidPosition(world, pos.add(point).down(y))) {
-//                        world.setBlockState(pos.add(point).down(y), ModBlocks.LUMINOUS_FUNGUS.get().getDefaultState(), 2);
+//                    if (IEBlocks.LUMINOUS_FUNGUS.get().getDefaultState().isValidPosition(world, pos.add(point).down(y))) {
+//                        world.setBlockState(pos.add(point).down(y), IEBlocks.LUMINOUS_FUNGUS.get().getDefaultState(), 2);
 //                        break;
 //                    }
 //                }

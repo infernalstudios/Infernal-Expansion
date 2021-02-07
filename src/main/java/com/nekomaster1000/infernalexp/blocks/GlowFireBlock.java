@@ -6,8 +6,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.ImmutableMap;
-import com.nekomaster1000.infernalexp.init.ModBlocks;
-import com.nekomaster1000.infernalexp.init.ModEffects;
+import com.nekomaster1000.infernalexp.init.IEBlocks;
+import com.nekomaster1000.infernalexp.init.IEEffects;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
@@ -154,14 +154,14 @@ public class GlowFireBlock extends AbstractFireBlock {
 
     public static BlockState getFireForPlacement(IBlockReader reader, BlockPos pos) {
         BlockPos blockPos = pos.down();
-        return ModBlocks.GLOW_FIRE.get().getDefaultState();
+        return IEBlocks.GLOW_FIRE.get().getDefaultState();
     }
 
     @Override
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
         super.onEntityCollision(state, worldIn, pos, entityIn);
         if (entityIn instanceof LivingEntity) {
-            EffectInstance effect = new EffectInstance(ModEffects.LUMINOUS.get(), 100, 0, true, true);
+            EffectInstance effect = new EffectInstance(IEEffects.LUMINOUS.get(), 100, 0, true, true);
             ((LivingEntity) entityIn).addPotionEffect(effect);
         }
 

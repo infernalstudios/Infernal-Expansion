@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.nekomaster1000.infernalexp.init.ModEffects;
+import com.nekomaster1000.infernalexp.init.IEEffects;
 
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.GameRenderer;
@@ -42,7 +42,7 @@ public abstract class MixinWorldRenderer {
 
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/WorldRenderer;renderEntity(Lnet/minecraft/entity/Entity;DDDFLcom/mojang/blaze3d/matrix/MatrixStack;Lnet/minecraft/client/renderer/IRenderTypeBuffer;)V", shift = At.Shift.BEFORE), method = "updateCameraAndRender", locals = LocalCapture.CAPTURE_FAILHARD)
     private void onUpdateAndCameraRender(MatrixStack matrixStackIn, float partialTicks, long finishTimeNano, boolean drawBlockOutline, ActiveRenderInfo activeRenderInfoIn, GameRenderer gameRendererIn, LightTexture lightmapIn, Matrix4f projectionIn, CallbackInfo ci, IProfiler iprofiler, Vector3d vector3d, double d0, double d1, double d2, Matrix4f matrix4f, boolean flag, ClippingHelper clippinghelper, float f, boolean flag1, int i, int j, long k, long l, long i1, long j1, long k1, long l1, boolean flag2, IRenderTypeBuffer.Impl irendertypebuffer$impl, Iterator var39, Entity entity, IRenderTypeBuffer irendertypebuffer) {
-        if (this.isRenderEntityOutlines() && entity instanceof LivingEntity && ((LivingEntity) entity).isPotionActive(ModEffects.LUMINOUS.get())) {
+        if (this.isRenderEntityOutlines() && entity instanceof LivingEntity && ((LivingEntity) entity).isPotionActive(IEEffects.LUMINOUS.get())) {
             changeIRenderTypeBuffer(irendertypebuffer);
         }
 

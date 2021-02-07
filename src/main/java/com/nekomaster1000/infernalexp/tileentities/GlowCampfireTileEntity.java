@@ -6,7 +6,7 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import com.nekomaster1000.infernalexp.blocks.GlowCampfireBlock;
-import com.nekomaster1000.infernalexp.init.ModTileEntityTypes;
+import com.nekomaster1000.infernalexp.init.IETileEntityTypes;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.inventory.IClearable;
@@ -35,7 +35,7 @@ public class GlowCampfireTileEntity extends TileEntity implements IClearable, IT
     private final int[] cookingTotalTimes = new int[4];
 
     public GlowCampfireTileEntity() {
-        super(ModTileEntityTypes.GLOW_CAMPFIRE.get());
+        super(IETileEntityTypes.GLOW_CAMPFIRE.get());
         System.out.println("glow campfire tile entity registered");
     }
 

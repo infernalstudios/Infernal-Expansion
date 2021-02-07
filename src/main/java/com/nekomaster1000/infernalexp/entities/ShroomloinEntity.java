@@ -1,8 +1,8 @@
 package com.nekomaster1000.infernalexp.entities;
 
 import com.nekomaster1000.infernalexp.entities.ai.ShroomloinSwellGoal;
-import com.nekomaster1000.infernalexp.init.ModEffects;
-import com.nekomaster1000.infernalexp.init.ModItems;
+import com.nekomaster1000.infernalexp.init.IEEffects;
+import com.nekomaster1000.infernalexp.init.IEItems;
 import com.nekomaster1000.infernalexp.util.RegistryHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.AreaEffectCloudEntity;
@@ -43,7 +43,7 @@ public class ShroomloinEntity extends MonsterEntity implements IRangedAttackMob 
     private int timeSinceIgnited;
     private final int fuseTime = 30;
 
-   // public static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(ModItems.DULLROCKS.get(), Items.MAGMA_CREAM);
+   // public static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(IEItems.DULLROCKS.get(), Items.MAGMA_CREAM);
 
     public ShroomloinEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
@@ -69,8 +69,8 @@ public class ShroomloinEntity extends MonsterEntity implements IRangedAttackMob 
      */
     public void tick() {
         if (this.isAlive()) {
-            if (this.isPotionActive(ModEffects.INFECTION.get()) || this.isPotionActive(Effects.POISON)) {
-                this.removeActivePotionEffect(ModEffects.INFECTION.get());
+            if (this.isPotionActive(IEEffects.INFECTION.get()) || this.isPotionActive(Effects.POISON)) {
+                this.removeActivePotionEffect(IEEffects.INFECTION.get());
                 this.removeActivePotionEffect(Effects.POISON);
             }
 
@@ -253,7 +253,7 @@ public class ShroomloinEntity extends MonsterEntity implements IRangedAttackMob 
 
         AscusBombEntity ascusBombEntity = new AscusBombEntity(this.world, this);
 
-        ascusBombEntity.setItem(new ItemStack(ModItems.ASCUS_BOMB.get()));
+        ascusBombEntity.setItem(new ItemStack(IEItems.ASCUS_BOMB.get()));
         ascusBombEntity.rotationPitch -= -20;
         ascusBombEntity.shoot(x, y + (distance * 0.2), z, 0.75f, 8);
 

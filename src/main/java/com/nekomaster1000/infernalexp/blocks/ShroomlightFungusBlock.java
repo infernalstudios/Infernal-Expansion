@@ -1,6 +1,6 @@
 package com.nekomaster1000.infernalexp.blocks;
 
-import com.nekomaster1000.infernalexp.init.ModBlocks;
+import com.nekomaster1000.infernalexp.init.IEBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -31,7 +31,7 @@ public class ShroomlightFungusBlock extends HorizontalBushBlock {
                 state.isIn(Blocks.DIRT) || state.isIn(Blocks.COARSE_DIRT) || state.isIn(Blocks.FARMLAND) ||
                 state.isIn(Blocks.PODZOL) || state.isIn(Blocks.MYCELIUM) ||
                 state.isIn(Blocks.CRIMSON_NYLIUM) || state.isIn(Blocks.WARPED_NYLIUM) ||
-                state.isIn(ModBlocks.CRIMSON_FUNGUS_CAP.get()) || state.isIn(ModBlocks.WARPED_FUNGUS_CAP.get()) ||
+                state.isIn(IEBlocks.CRIMSON_FUNGUS_CAP.get()) || state.isIn(IEBlocks.WARPED_FUNGUS_CAP.get()) ||
                 state.isIn(Blocks.NETHER_WART_BLOCK) || state.isIn(Blocks.WARPED_WART_BLOCK) ||
                 state.isIn(Blocks.SHROOMLIGHT) || state.isIn(Blocks.SOUL_SOIL)
                 ;

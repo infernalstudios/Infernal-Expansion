@@ -1,7 +1,7 @@
 package com.nekomaster1000.infernalexp.world.biome.netherbiomes;
 
-import com.nekomaster1000.infernalexp.init.ModEntityTypes;
-import com.nekomaster1000.infernalexp.init.ModSurfaceBuilders;
+import com.nekomaster1000.infernalexp.init.IEEntityTypes;
+import com.nekomaster1000.infernalexp.init.IESurfaceBuilders;
 import com.nekomaster1000.infernalexp.world.biome.BiomeHelper;
 import com.nekomaster1000.infernalexp.world.biome.ModBiome;
 
@@ -61,8 +61,8 @@ public class DeltaShoresSubBiome extends ModBiome {
 
     @Override
     protected ConfiguredSurfaceBuilder<?> configureSurfaceBuilder() { return BiomeHelper.newConfiguredSurfaceBuilder
-            ("delta_shores", new ConfiguredSurfaceBuilder(ModSurfaceBuilders.DELTA_SHORES_SURFACE_BUILDER,
-                    ModSurfaceBuilders.ModSurfaceBuilderConfig.DELTA_SHORES_CONFIG));
+            ("delta_shores", new ConfiguredSurfaceBuilder(IESurfaceBuilders.DELTA_SHORES_SURFACE_BUILDER,
+                    IESurfaceBuilders.ModSurfaceBuilderConfig.DELTA_SHORES_CONFIG));
     }
 
     @Override
@@ -78,7 +78,7 @@ public class DeltaShoresSubBiome extends ModBiome {
         generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.SMALL_BASALT_COLUMNS);
         generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA);
         generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA_DOUBLE);
-        //generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, ModConfiguredFeatures.SHORES_RUBBLE_ORE);
+        //generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.SHORES_RUBBLE_ORE);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.PATCH_FIRE);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.PATCH_SOUL_FIRE);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.GLOWSTONE);
@@ -102,6 +102,6 @@ public class DeltaShoresSubBiome extends ModBiome {
 
     @Override
     protected void configureSpawns(MobSpawnInfo.Builder spawns) {
-        spawns.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.GLOWSQUITO.get(), 1, 1, 3));
+        spawns.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(IEEntityTypes.GLOWSQUITO.get(), 1, 1, 3));
     }
 }

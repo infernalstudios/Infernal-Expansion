@@ -1,9 +1,9 @@
 package com.nekomaster1000.infernalexp.blocks;
 
 import com.nekomaster1000.infernalexp.entities.BlindsightEntity;
-import com.nekomaster1000.infernalexp.init.ModBlocks;
-import com.nekomaster1000.infernalexp.init.ModEffects;
-import com.nekomaster1000.infernalexp.init.ModItems;
+import com.nekomaster1000.infernalexp.init.IEBlocks;
+import com.nekomaster1000.infernalexp.init.IEEffects;
+import com.nekomaster1000.infernalexp.init.IEItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -51,20 +51,20 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
     @Nonnull
     @Override
     public List<ItemStack> onSheared(@Nullable PlayerEntity player, @Nonnull ItemStack item, World world, BlockPos pos, int fortune) {
-        return new ArrayList<>(Collections.singleton(new ItemStack(ModItems.DULLTHORNS.get())));
+        return new ArrayList<>(Collections.singleton(new ItemStack(IEItems.DULLTHORNS.get())));
     }
 
     @Override
     protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
         return
-                state.isIn(ModBlocks.GLOWDUST_SAND.get()) || state.isIn(Blocks.SAND) || state.isIn(Blocks.RED_SAND)
+                state.isIn(IEBlocks.GLOWDUST_SAND.get()) || state.isIn(Blocks.SAND) || state.isIn(Blocks.RED_SAND)
                         || state.isIn(Blocks.GRASS) || state.isIn(Blocks.GRASS_BLOCK) ||
                         state.isIn(Blocks.DIRT) || state.isIn(Blocks.COARSE_DIRT) || state.isIn(Blocks.FARMLAND) ||
                         state.isIn(Blocks.PODZOL) || state.isIn(Blocks.MYCELIUM) ||
                         state.isIn(Blocks.CRIMSON_NYLIUM) || state.isIn(Blocks.WARPED_NYLIUM) ||
                         state.isIn(Blocks.SOUL_SAND) || state.isIn(Blocks.SOUL_SOIL) ||
-                        state.isIn(Blocks.GLOWSTONE) || state.isIn(ModBlocks.DIMSTONE.get()) ||
-                        state.isIn(ModBlocks.DULLSTONE.get()) || state.isIn(ModBlocks.DULLTHORNS.get())
+                        state.isIn(Blocks.GLOWSTONE) || state.isIn(IEBlocks.DIMSTONE.get()) ||
+                        state.isIn(IEBlocks.DULLSTONE.get()) || state.isIn(IEBlocks.DULLTHORNS.get())
                 ;
     }
 
@@ -116,7 +116,7 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
         if (!worldIn.isRemote()) {
             if (entityIn instanceof LivingEntity && entityIn.isAlive() && !(entityIn instanceof BlindsightEntity) ) {
                 LivingEntity livingEntity = (LivingEntity) entityIn;
-                livingEntity.addPotionEffect(new EffectInstance(ModEffects.LUMINOUS.get(), 200, 0, true, true));
+                livingEntity.addPotionEffect(new EffectInstance(IEEffects.LUMINOUS.get(), 200, 0, true, true));
             }
             entityIn.attackEntityFrom(DamageSource.CACTUS, 1.0F);
         }

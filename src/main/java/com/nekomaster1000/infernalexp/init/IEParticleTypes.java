@@ -17,7 +17,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 @Mod.EventBusSubscriber(modid = InfernalExpansion.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class ModParticleTypes {
+public class IEParticleTypes {
 
     public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, InfernalExpansion.MOD_ID);
 
@@ -29,8 +29,8 @@ public class ModParticleTypes {
     public static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
         ParticleManager particleManager = Minecraft.getInstance().particles;
 
-        particleManager.registerFactory(ModParticleTypes.GLOWSTONE_SPARKLE.get(), GlowstoneSparkleParticle.Factory::new);
-        particleManager.registerFactory(ModParticleTypes.INFECTION.get(), InfectionParticle.Factory::new);
+        particleManager.registerFactory(IEParticleTypes.GLOWSTONE_SPARKLE.get(), GlowstoneSparkleParticle.Factory::new);
+        particleManager.registerFactory(IEParticleTypes.INFECTION.get(), InfectionParticle.Factory::new);
 
         InfernalExpansion.LOGGER.info("Infernal Expansion: Particles Registered!");
     }

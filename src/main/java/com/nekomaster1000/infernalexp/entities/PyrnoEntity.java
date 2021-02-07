@@ -1,6 +1,6 @@
 package com.nekomaster1000.infernalexp.entities;
 
-import com.nekomaster1000.infernalexp.init.ModItems;
+import com.nekomaster1000.infernalexp.init.IEItems;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
@@ -23,7 +23,7 @@ import net.minecraft.world.World;
 
 public class PyrnoEntity extends HoglinEntity {
 
-        public static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(ModItems.GLOWCOAL.get(), Items.MAGMA_CREAM);
+        public static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(IEItems.GLOWCOAL.get(), Items.MAGMA_CREAM);
 
         public PyrnoEntity(EntityType<? extends HoglinEntity> type, World worldIn) {
         super(type, worldIn);

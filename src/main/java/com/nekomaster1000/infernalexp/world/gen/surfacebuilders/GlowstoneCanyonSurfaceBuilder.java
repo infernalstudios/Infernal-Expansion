@@ -4,7 +4,7 @@ import java.util.Random;
 
 import com.mojang.serialization.Codec;
 import com.nekomaster1000.infernalexp.access.SurfaceBuilderModifyNoise;
-import com.nekomaster1000.infernalexp.init.ModBlocks;
+import com.nekomaster1000.infernalexp.init.IEBlocks;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -35,14 +35,14 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
 			BlockState currentBlockToReplace = chunk.getBlockState(pos);
 			BlockState checkForAir = chunk.getBlockState(pos.up());
 
-			if (currentBlockToReplace == ModBlocks.DULLSTONE.get().getDefaultState() && checkForAir == Blocks.AIR.getDefaultState()) {
+			if (currentBlockToReplace == IEBlocks.DULLSTONE.get().getDefaultState() && checkForAir == Blocks.AIR.getDefaultState()) {
 				chunk.setBlockState(pos, config.getTop(), false);
 
 				// Checks to see if it should place a glowdust layer
 				glowdustLayerCheck: for (int xCheck = -1; xCheck <= 1; xCheck++) {
 					for (int zCheck = -1; zCheck <= 1; zCheck++) {
-						if (chunk.getBlockState(pos.add(xCheck, 1, zCheck)) == ModBlocks.GLOWDUST_SAND.get().getDefaultState()) {
-							chunk.setBlockState(pos.up(), ModBlocks.GLOWDUST.get().getDefaultState(), false);
+						if (chunk.getBlockState(pos.add(xCheck, 1, zCheck)) == IEBlocks.GLOWDUST_SAND.get().getDefaultState()) {
+							chunk.setBlockState(pos.up(), IEBlocks.GLOWDUST.get().getDefaultState(), false);
 							break glowdustLayerCheck;
 						}
 					}
@@ -50,7 +50,7 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
 
 				// Replace dullstone with glowdust rock/stone
 				for (int offset = 1; offset <= 3; offset++) {
-					if (chunk.getBlockState(pos.down(offset)) == ModBlocks.DULLSTONE.get().getDefaultState()) {
+					if (chunk.getBlockState(pos.down(offset)) == IEBlocks.DULLSTONE.get().getDefaultState()) {
 						chunk.setBlockState(pos.down(offset), config.getUnder(), false);
 					}
 				}
@@ -63,11 +63,11 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
 								float percentage = (((float) offset / yPos) - 0.05f) + (random.nextFloat() * 0.1f);
 
 								if (percentage <= 0.15 && random.nextInt(10) == 1) {
-									chunk.setBlockState(pos.down(offset), ModBlocks.DIMSTONE.get().getDefaultState(), false);
+									chunk.setBlockState(pos.down(offset), IEBlocks.DIMSTONE.get().getDefaultState(), false);
 								} else if (percentage <= 0.15) {
-									chunk.setBlockState(pos.down(offset), ModBlocks.GLOWDUST_STONE.get().getDefaultState(), false);
+									chunk.setBlockState(pos.down(offset), IEBlocks.GLOWDUST_STONE.get().getDefaultState(), false);
 								} else {
-									chunk.setBlockState(pos.down(offset), ModBlocks.DULLSTONE.get().getDefaultState(), false);
+									chunk.setBlockState(pos.down(offset), IEBlocks.DULLSTONE.get().getDefaultState(), false);
 								}
 							}
 						}
@@ -85,18 +85,18 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
 				int yPos = 50; yPos > 0; yPos--) {
 			pos.setPos(xPos, yPos, zPos);
 
-			if (chunk.getBlockState(pos) == ModBlocks.DULLSTONE.get().getDefaultState()) {
+			if (chunk.getBlockState(pos) == IEBlocks.DULLSTONE.get().getDefaultState()) {
 				if (random.nextInt(50) == 1) {
-					chunk.setBlockState(pos, ModBlocks.DIMSTONE.get().getDefaultState(), false);
+					chunk.setBlockState(pos, IEBlocks.DIMSTONE.get().getDefaultState(), false);
 				}
 //                I tried to make patches of dimstone. It looked like shit, specs look way better
-//                else if (chunk.getBlockState(pos.east()) == ModBlocks.DIMSTONE.get().getDefaultState() && random.nextInt(8) <= 6 ||
-//                        chunk.getBlockState(pos.west()) == ModBlocks.DIMSTONE.get().getDefaultState() && random.nextInt(8) <= 6 ||
-//                        chunk.getBlockState(pos.north()) == ModBlocks.DIMSTONE.get().getDefaultState() && random.nextInt(8) <= 6 ||
-//                        chunk.getBlockState(pos.south()) == ModBlocks.DIMSTONE.get().getDefaultState() && random.nextInt(8) <= 6 ||
-//                        chunk.getBlockState(pos.up()) == ModBlocks.DIMSTONE.get().getDefaultState() && random.nextInt(8) == 1 ||
-//                        chunk.getBlockState(pos.down()) == ModBlocks.DIMSTONE.get().getDefaultState() && random.nextInt(8) == 1) {
-//                    chunk.setBlockState(pos, ModBlocks.DIMSTONE.get().getDefaultState(), false);
+//                else if (chunk.getBlockState(pos.east()) == IEBlocks.DIMSTONE.get().getDefaultState() && random.nextInt(8) <= 6 ||
+//                        chunk.getBlockState(pos.west()) == IEBlocks.DIMSTONE.get().getDefaultState() && random.nextInt(8) <= 6 ||
+//                        chunk.getBlockState(pos.north()) == IEBlocks.DIMSTONE.get().getDefaultState() && random.nextInt(8) <= 6 ||
+//                        chunk.getBlockState(pos.south()) == IEBlocks.DIMSTONE.get().getDefaultState() && random.nextInt(8) <= 6 ||
+//                        chunk.getBlockState(pos.up()) == IEBlocks.DIMSTONE.get().getDefaultState() && random.nextInt(8) == 1 ||
+//                        chunk.getBlockState(pos.down()) == IEBlocks.DIMSTONE.get().getDefaultState() && random.nextInt(8) == 1) {
+//                    chunk.setBlockState(pos, IEBlocks.DIMSTONE.get().getDefaultState(), false);
 //                }
 			}
 		}
@@ -105,7 +105,7 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
 	@Override
 	public BlockState modifyNoise(NoiseChunkGenerator chunkGenerator, BlockPos pos, Random random, BlockState chosen, IWorld world, StructureManager structureManager, IChunk chunk) {
 		if (chosen.getBlock() == Blocks.NETHERRACK) {
-			return ModBlocks.DULLSTONE.get().getDefaultState();
+			return IEBlocks.DULLSTONE.get().getDefaultState();
 		}
 		return chosen;
 	}

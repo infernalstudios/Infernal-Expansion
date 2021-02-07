@@ -3,7 +3,7 @@ package com.nekomaster1000.infernalexp.world.gen.features;
 import java.util.Random;
 
 import com.mojang.serialization.Codec;
-import com.nekomaster1000.infernalexp.init.ModBlocks;
+import com.nekomaster1000.infernalexp.init.IEBlocks;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
@@ -20,12 +20,12 @@ public class DullthornsFeature extends Feature<NoFeatureConfig> {
     public boolean generate(ISeedReader worldIn, ChunkGenerator generator, Random random, BlockPos pos, NoFeatureConfig config) {
         int height = random.nextInt(9) + 1;
 
-        if (!worldIn.isAirBlock(pos) || worldIn.getBlockState(pos.down()).getBlock() != ModBlocks.GLOWDUST_SAND.get()) {
+        if (!worldIn.isAirBlock(pos) || worldIn.getBlockState(pos.down()).getBlock() != IEBlocks.GLOWDUST_SAND.get()) {
             return false;
         } else {
             // Generate dullthorns up "height" blocks unless there is something in the way
             for (int i = 0; i < height; i++) {
-                if (worldIn.isAirBlock(pos.up(i))) worldIn.setBlockState(pos.up(i), ModBlocks.DULLTHORNS.get().getDefaultState(), 10);
+                if (worldIn.isAirBlock(pos.up(i))) worldIn.setBlockState(pos.up(i), IEBlocks.DULLTHORNS.get().getDefaultState(), 10);
             }
             return true;
         }

@@ -1,7 +1,7 @@
 /*
 package com.nekomaster1000.infernalexp.util;
 
-import com.nekomaster1000.infernalexp.init.ModItems;
+import com.nekomaster1000.infernalexp.init.IEItems;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.crafting.Ingredient;
 
@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 
 public enum ModItemTier implements IItemTier {
     FROSTBITTEN_NETHERITE(4, 2024, 9.0F, 5.0F, 25, () -> {
-        return Ingredient.fromItems(ModItems.FROSTBITTEN_SWORD.get());
+        return Ingredient.fromItems(IEItems.FROSTBITTEN_SWORD.get());
     });
 
     private final int harvestLevel;

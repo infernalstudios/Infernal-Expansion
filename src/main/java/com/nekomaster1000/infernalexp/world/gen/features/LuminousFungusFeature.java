@@ -4,7 +4,7 @@ import java.util.Random;
 
 import com.mojang.serialization.Codec;
 import com.nekomaster1000.infernalexp.blocks.LuminousFungusBlock;
-import com.nekomaster1000.infernalexp.init.ModBlocks;
+import com.nekomaster1000.infernalexp.init.IEBlocks;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.state.properties.AttachFace;
@@ -39,11 +39,11 @@ public class LuminousFungusFeature extends Feature<NoFeatureConfig> {
         // Try to place luminous fungus 128 times
         for (int j = 0; j < 128; j++) {
             // Randomize the location of the next luminous fungus to be placed
-            BlockState state = ModBlocks.LUMINOUS_FUNGUS.get().getDefaultState().with(LuminousFungusBlock.FACE, face);
+            BlockState state = IEBlocks.LUMINOUS_FUNGUS.get().getDefaultState().with(LuminousFungusBlock.FACE, face);
             BlockPos blockpos = pos.add(random.nextInt(10) - random.nextInt(20), random.nextInt(4) - random.nextInt(8), random.nextInt(10) - random.nextInt(20));
 
             // If the randomly chosen location is valid, then place the fungus
-            if (world.isAirBlock(blockpos) && state.isValidPosition(world, blockpos) && (world.getBlockState(blockpos.up()) == ModBlocks.DULLSTONE.get().getDefaultState() || world.getBlockState(blockpos.down()) == ModBlocks.GLOWDUST_SAND.get().getDefaultState())) {
+            if (world.isAirBlock(blockpos) && state.isValidPosition(world, blockpos) && (world.getBlockState(blockpos.up()) == IEBlocks.DULLSTONE.get().getDefaultState() || world.getBlockState(blockpos.down()) == IEBlocks.GLOWDUST_SAND.get().getDefaultState())) {
                 world.setBlockState(blockpos, state, 2);
                 i++;
             }

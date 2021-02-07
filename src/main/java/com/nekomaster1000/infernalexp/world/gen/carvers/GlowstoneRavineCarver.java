@@ -6,7 +6,7 @@ import java.util.function.Function;
 
 import com.google.common.collect.ImmutableSet;
 import com.mojang.serialization.Codec;
-import com.nekomaster1000.infernalexp.init.ModBlocks;
+import com.nekomaster1000.infernalexp.init.IEBlocks;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -20,7 +20,7 @@ public class GlowstoneRavineCarver extends CanyonWorldCarver {
 
     public GlowstoneRavineCarver(Codec<ProbabilityConfig> p_i231916_1_) {
         super(p_i231916_1_);
-        this.carvableBlocks = ImmutableSet.of(Blocks.BLACKSTONE, Blocks.GLOWSTONE, ModBlocks.DULLSTONE.get(), ModBlocks.DIMSTONE.get(), ModBlocks.GLOWDUST_SAND.get(), ModBlocks.GLOWDUST_STONE.get(), ModBlocks.GLOWDUST.get(), ModBlocks.CRUMBLING_BLACKSTONE.get());
+        this.carvableBlocks = ImmutableSet.of(Blocks.BLACKSTONE, Blocks.GLOWSTONE, IEBlocks.DULLSTONE.get(), IEBlocks.DIMSTONE.get(), IEBlocks.GLOWDUST_SAND.get(), IEBlocks.GLOWDUST_STONE.get(), IEBlocks.GLOWDUST.get(), IEBlocks.CRUMBLING_BLACKSTONE.get());
     }
 
     private final float[] heightToHorizontalStretchFactor = new float[256];
@@ -101,7 +101,7 @@ public class GlowstoneRavineCarver extends CanyonWorldCarver {
 
             // If there are multiple levels in current part of biome, add some randomness to which level the ravine generates on with a bias towards generating on the bottom levels
             if (random.nextInt(3) != 0) {
-                if (chunk.getBlockState(new BlockPos(x, yCheck, z)) == ModBlocks.GLOWDUST_SAND.get().getDefaultState()) {
+                if (chunk.getBlockState(new BlockPos(x, yCheck, z)) == IEBlocks.GLOWDUST_SAND.get().getDefaultState()) {
                     return yCheck - 5;
                 }
             }

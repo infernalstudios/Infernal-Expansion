@@ -11,7 +11,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class ModEffects {
+public class IEEffects {
     public static final DeferredRegister<Effect> EFFECTS = DeferredRegister.create(ForgeRegistries.POTIONS, InfernalExpansion.MOD_ID);
 
     public static final RegistryObject<Effect> LUMINOUS = EFFECTS.register("luminous", () -> new EffectBase(EffectType.NEUTRAL, 0xDCBC82));

@@ -7,7 +7,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.ResourceLocation;
 
-public class ModTags {
+public class IETags {
 
     public static class Blocks {
 

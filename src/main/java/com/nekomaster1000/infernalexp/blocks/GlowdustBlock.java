@@ -2,7 +2,7 @@ package com.nekomaster1000.infernalexp.blocks;
 
 import javax.annotation.Nullable;
 
-import com.nekomaster1000.infernalexp.init.ModBlocks;
+import com.nekomaster1000.infernalexp.init.IEBlocks;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SnowBlock;
@@ -24,7 +24,7 @@ public class GlowdustBlock extends SnowBlock {
                 return blockstate.with(LAYERS, Integer.valueOf(Math.min(8, i + 1)));
             }
             else {
-                return ModBlocks.GLOWDUST_SAND.get().getDefaultState();
+                return IEBlocks.GLOWDUST_SAND.get().getDefaultState();
             }
         } else {
             return super.getStateForPlacement(context);

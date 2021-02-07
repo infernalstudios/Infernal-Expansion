@@ -1,6 +1,6 @@
 package com.nekomaster1000.infernalexp.effects;
 
-import com.nekomaster1000.infernalexp.init.ModEffects;
+import com.nekomaster1000.infernalexp.init.IEEffects;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
@@ -19,15 +19,15 @@ public class InfectionEffect extends Effect {
         }
 
         for (LivingEntity entity : entityLivingBaseIn.getEntityWorld().getEntitiesWithinAABB(LivingEntity.class, entityLivingBaseIn.getBoundingBox().grow(3))) {
-            if (!entity.isPotionActive(ModEffects.INFECTION.get())) {
-                entity.addPotionEffect(new EffectInstance(ModEffects.INFECTION.get(), 300));
+            if (!entity.isPotionActive(IEEffects.INFECTION.get())) {
+                entity.addPotionEffect(new EffectInstance(IEEffects.INFECTION.get(), 300));
             }
         }
     }
 
     @Override
     public boolean isReady(int duration, int amplifier) {
-        if (this == ModEffects.INFECTION.get()) {
+        if (this == IEEffects.INFECTION.get()) {
             // This number (50 right now) determines how often the performEffect will be called. The lower the number the more often performEffect will be called
             int j = 50 >> amplifier;
             if (j > 0) {

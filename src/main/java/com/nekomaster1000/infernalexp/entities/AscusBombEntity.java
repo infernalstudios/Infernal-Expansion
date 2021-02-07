@@ -1,9 +1,9 @@
 package com.nekomaster1000.infernalexp.entities;
 
-import com.nekomaster1000.infernalexp.init.ModEffects;
-import com.nekomaster1000.infernalexp.init.ModEntityTypes;
-import com.nekomaster1000.infernalexp.init.ModItems;
-import com.nekomaster1000.infernalexp.init.ModParticleTypes;
+import com.nekomaster1000.infernalexp.init.IEEffects;
+import com.nekomaster1000.infernalexp.init.IEEntityTypes;
+import com.nekomaster1000.infernalexp.init.IEItems;
+import com.nekomaster1000.infernalexp.init.IEParticleTypes;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
@@ -33,12 +33,12 @@ public class AscusBombEntity extends ProjectileItemEntity implements IRendersAsI
     }
 
     public AscusBombEntity(World world, LivingEntity livingEntity) {
-        super(ModEntityTypes.ASCUS_BOMB.get(), livingEntity, world);
+        super(IEEntityTypes.ASCUS_BOMB.get(), livingEntity, world);
     }
 
     @Override
     protected Item getDefaultItem() {
-        return ModItems.ASCUS_BOMB.get();
+        return IEItems.ASCUS_BOMB.get();
     }
 
     @Override
@@ -51,7 +51,7 @@ public class AscusBombEntity extends ProjectileItemEntity implements IRendersAsI
         super.onImpact(result);
 
         for (int i = 0; i < 16; i++) {
-            this.world.addParticle(ModParticleTypes.INFECTION.get(),
+            this.world.addParticle(IEParticleTypes.INFECTION.get(),
                     this.getPosXRandom(5), this.getPosYRandom(),
                     this.getPosZRandom(5), 0, 0, 0);
         }
@@ -75,7 +75,7 @@ public class AscusBombEntity extends ProjectileItemEntity implements IRendersAsI
 
                         int duration = (int) (durationMultiplier * 300 + 0.5);
 
-                        livingEntity.addPotionEffect(new EffectInstance(ModEffects.INFECTION.get(), duration));
+                        livingEntity.addPotionEffect(new EffectInstance(IEEffects.INFECTION.get(), duration));
                     }
                 }
             }

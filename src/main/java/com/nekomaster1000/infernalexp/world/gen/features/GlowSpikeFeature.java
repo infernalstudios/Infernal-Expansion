@@ -1,7 +1,7 @@
 package com.nekomaster1000.infernalexp.world.gen.features;
 
 import com.mojang.serialization.Codec;
-import com.nekomaster1000.infernalexp.init.ModBlocks;
+import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.util.ShapeUtil;
 import com.nekomaster1000.infernalexp.world.gen.features.config.GlowSpikeFeatureConfig;
 import net.minecraft.block.Blocks;
@@ -27,7 +27,7 @@ public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
         int xOffset = -config.maxXOffset + random.nextInt(config.maxXOffset * 2);
         int zOffset = -config.maxZOffset + random.nextInt(config.maxZOffset * 2);
 
-        if ((!world.isAirBlock(pos) || world.getBlockState(pos).getBlock() != Blocks.LAVA) || (world.getBlockState(pos.down()).getBlock() != ModBlocks.GLOWDUST_SAND.get() || world.getBlockState(pos.down()).getBlock() != ModBlocks.DULLSTONE.get())) {
+        if ((!world.isAirBlock(pos) || world.getBlockState(pos).getBlock() != Blocks.LAVA) || (world.getBlockState(pos.down()).getBlock() != IEBlocks.GLOWDUST_SAND.get() || world.getBlockState(pos.down()).getBlock() != IEBlocks.DULLSTONE.get())) {
             return false;
         } else {
             List<BlockPos> points = ShapeUtil.generateSolidCircle((float) diameter / 2);
@@ -36,7 +36,7 @@ public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
             for (BlockPos point : points) {
                 BlockPos pointPos = new BlockPos(pos.getX() + point.getX(), pos.getY(), pos.getZ() + point.getZ());
 
-                if (world.getBlockState(pointPos.down()).getBlock() != ModBlocks.GLOWDUST_SAND.get() || world.getBlockState(pointPos.down()).getBlock() != ModBlocks.DULLSTONE.get()) {
+                if (world.getBlockState(pointPos.down()).getBlock() != IEBlocks.GLOWDUST_SAND.get() || world.getBlockState(pointPos.down()).getBlock() != IEBlocks.DULLSTONE.get()) {
                     return generate(world, generator, random, pos.down(), config);
                 }
             }
@@ -70,12 +70,12 @@ public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
                 if (config.darkAtTop)
                     world.setBlockState(pos, Blocks.GLOWSTONE.getDefaultState(), 2);
                 else
-                    world.setBlockState(new BlockPos(pos), ModBlocks.DULLSTONE.get().getDefaultState(), 2);
+                    world.setBlockState(new BlockPos(pos), IEBlocks.DULLSTONE.get().getDefaultState(), 2);
             } else if (percentage > 0.33 && percentage <= 0.66) {
-                world.setBlockState(new BlockPos(pos), ModBlocks.DIMSTONE.get().getDefaultState(), 2);
+                world.setBlockState(new BlockPos(pos), IEBlocks.DIMSTONE.get().getDefaultState(), 2);
             } else {
                 if (config.darkAtTop)
-                    world.setBlockState(new BlockPos(pos), ModBlocks.DULLSTONE.get().getDefaultState(), 2);
+                    world.setBlockState(new BlockPos(pos), IEBlocks.DULLSTONE.get().getDefaultState(), 2);
                 else
                     world.setBlockState(new BlockPos(pos), Blocks.GLOWSTONE.getDefaultState(), 2);
             }

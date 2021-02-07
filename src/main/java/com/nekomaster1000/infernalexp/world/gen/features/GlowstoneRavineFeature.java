@@ -7,7 +7,7 @@ import java.util.Random;
 import java.util.Set;
 
 import com.mojang.serialization.Codec;
-import com.nekomaster1000.infernalexp.init.ModBlocks;
+import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.util.ShapeUtil;
 
 import net.minecraft.block.Blocks;
@@ -29,7 +29,7 @@ public class GlowstoneRavineFeature extends Feature<NoFeatureConfig> {
     public boolean generate(ISeedReader world, ChunkGenerator generator, Random random, BlockPos pos, NoFeatureConfig config) {
         BlockPos endPos = pos.add((40 + random.nextInt(20)) * (random.nextInt(2) == 0 ? -1 : 1), 0, (40 + random.nextInt(20)) * (random.nextInt(2) == 0 ? -1 : 1));
 
-        if (!world.isAirBlock(pos) || world.getBlockState(pos.down()) != ModBlocks.GLOWDUST_SAND.get().getDefaultState() || world.getBlockState(endPos.down()) == Blocks.LAVA.getDefaultState()) {
+        if (!world.isAirBlock(pos) || world.getBlockState(pos.down()) != IEBlocks.GLOWDUST_SAND.get().getDefaultState() || world.getBlockState(endPos.down()) == Blocks.LAVA.getDefaultState()) {
             return false;
         } else {
             List<BlockPos> centerLine = ShapeUtil.generateLine(pos, endPos);

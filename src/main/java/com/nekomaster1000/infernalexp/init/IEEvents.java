@@ -66,7 +66,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Mod.EventBusSubscriber(modid = InfernalExpansion.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class ModEvents {
+public class IEEvents {
 
     //Called When Config is Changed
     @SubscribeEvent
@@ -209,23 +209,23 @@ public class ModEvents {
         if (event.getEntity() instanceof MagmaCubeEntity) {
 
             ((SlimeEntity) event.getEntity()).goalSelector.addGoal(0,
-                    new AvoidBlockGoal((SlimeEntity) event.getEntity(), ModBlocks.GLOW_TORCH.get(),
+                    new AvoidBlockGoal((SlimeEntity) event.getEntity(), IEBlocks.GLOW_TORCH.get(),
                             16.0F));
 
             ((SlimeEntity) event.getEntity()).goalSelector.addGoal(0,
-                    new AvoidBlockGoal((SlimeEntity) event.getEntity(), ModBlocks.GLOW_WALL_TORCH.get(),
+                    new AvoidBlockGoal((SlimeEntity) event.getEntity(), IEBlocks.GLOW_WALL_TORCH.get(),
                             16.0F));
 
             ((SlimeEntity) event.getEntity()).goalSelector.addGoal(0,
-                    new AvoidBlockGoal((SlimeEntity) event.getEntity(), ModBlocks.GLOW_LANTERN.get(),
+                    new AvoidBlockGoal((SlimeEntity) event.getEntity(), IEBlocks.GLOW_LANTERN.get(),
                             16.0F));
 
             ((SlimeEntity) event.getEntity()).goalSelector.addGoal(0,
-                    new AvoidBlockGoal((SlimeEntity) event.getEntity(), ModBlocks.GLOW_CAMPFIRE.get(),
+                    new AvoidBlockGoal((SlimeEntity) event.getEntity(), IEBlocks.GLOW_CAMPFIRE.get(),
                             16.0F));
 
             ((SlimeEntity) event.getEntity()).goalSelector.addGoal(0,
-                    new AvoidBlockGoal((SlimeEntity) event.getEntity(), ModBlocks.GLOW_FIRE.get(),
+                    new AvoidBlockGoal((SlimeEntity) event.getEntity(), IEBlocks.GLOW_FIRE.get(),
                             16.0F));
         }
 
@@ -239,7 +239,7 @@ public class ModEvents {
 
             if(InfernalExpansionConfig.volineInWastes) {
                 event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                        new MobSpawnInfo.Spawners(ModEntityTypes.VOLINE.get(),
+                        new MobSpawnInfo.Spawners(IEEntityTypes.VOLINE.get(),
                                 InfernalExpansionConfig.volineWastesRate, 1, 3));
             }
 
@@ -248,13 +248,13 @@ public class ModEvents {
 
             if(InfernalExpansionConfig.shroomloinInCrimson) {
                 event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                        new MobSpawnInfo.Spawners(ModEntityTypes.SHROOMLOIN.get(),
+                        new MobSpawnInfo.Spawners(IEEntityTypes.SHROOMLOIN.get(),
                                 InfernalExpansionConfig.shroomloinCrimsonRate, 1, 3));
             }
 
             if(InfernalExpansionConfig.volineInCrimson) {
                 event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                        new MobSpawnInfo.Spawners(ModEntityTypes.VOLINE.get(),
+                        new MobSpawnInfo.Spawners(IEEntityTypes.VOLINE.get(),
                                 InfernalExpansionConfig.volineCrimsonRate, 1, 5));
             }
 
@@ -265,7 +265,7 @@ public class ModEvents {
 
             if(InfernalExpansionConfig.warpbeetleInWarped) {
                 event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                        new MobSpawnInfo.Spawners(ModEntityTypes.WARPBEETLE.get(),
+                        new MobSpawnInfo.Spawners(IEEntityTypes.WARPBEETLE.get(),
                                 InfernalExpansionConfig.warpbeetleWarpedRate, 1, 1));
             }
 
@@ -273,7 +273,7 @@ public class ModEvents {
 
             if(InfernalExpansionConfig.giantInDeltas) {
                 event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                        new MobSpawnInfo.Spawners(ModEntityTypes.BASALT_GIANT.get(),
+                        new MobSpawnInfo.Spawners(IEEntityTypes.BASALT_GIANT.get(),
                                 InfernalExpansionConfig.giantDeltasRate, 1, 1));
             }
 
@@ -285,28 +285,28 @@ public class ModEvents {
 
             if(InfernalExpansionConfig.embodyInSSV) {
                 event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                        new MobSpawnInfo.Spawners(ModEntityTypes.EMBODY.get(),
+                        new MobSpawnInfo.Spawners(IEEntityTypes.EMBODY.get(),
                                 InfernalExpansionConfig.embodySSVRate, 1, 5));
             }
 
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                    new MobSpawnInfo.Spawners(ModEntityTypes.SKELETAL_PIGLIN.get(), 10, 1, 1));
+                    new MobSpawnInfo.Spawners(IEEntityTypes.SKELETAL_PIGLIN.get(), 10, 1, 1));
 
 
             //Mob Spawning in new biomes
 
         } else if (event.getName().toString().equals("infernalexp:glowstone_canyon")) {
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                    new MobSpawnInfo.Spawners(ModEntityTypes.GLOWSQUITO.get(), 80, 1, 10));
+                    new MobSpawnInfo.Spawners(IEEntityTypes.GLOWSQUITO.get(), 80, 1, 10));
 
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                    new MobSpawnInfo.Spawners(ModEntityTypes.BLINDSIGHT.get(), 10, 1, 1));
+                    new MobSpawnInfo.Spawners(IEEntityTypes.BLINDSIGHT.get(), 10, 1, 1));
 
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                    new MobSpawnInfo.Spawners(ModEntityTypes.SKELETAL_PIGLIN.get(), 10, 1, 1));
+                    new MobSpawnInfo.Spawners(IEEntityTypes.SKELETAL_PIGLIN.get(), 10, 1, 1));
 
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                    new MobSpawnInfo.Spawners(ModEntityTypes.BLACKSTONE_DWARF.get(), 1, 1, 1));
+                    new MobSpawnInfo.Spawners(IEEntityTypes.BLACKSTONE_DWARF.get(), 1, 1, 1));
 
             //event.getSpawns().withSpawner(EntityClassification.MONSTER,
             //        new MobSpawnInfo.Spawners(EntityType.GHAST, 20, 1, 1));
@@ -315,10 +315,10 @@ public class ModEvents {
         } else if (event.getName().toString().equals("infernalexp:delta_shores")) {
 
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                    new MobSpawnInfo.Spawners(ModEntityTypes.BASALT_GIANT.get(), 4, 1, 1));
+                    new MobSpawnInfo.Spawners(IEEntityTypes.BASALT_GIANT.get(), 4, 1, 1));
 
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                    new MobSpawnInfo.Spawners(ModEntityTypes.SKELETAL_PIGLIN.get(), 6, 1, 1));
+                    new MobSpawnInfo.Spawners(IEEntityTypes.SKELETAL_PIGLIN.get(), 6, 1, 1));
 
         }
     }
@@ -360,7 +360,7 @@ public class ModEvents {
             sound = RegistryHandler.electric_guitar;
         } else if (blockUnder == Blocks.SOUL_SOIL) {
             sound = RegistryHandler.choir;
-        } else if (blockUnder == ModBlocks.DIMSTONE.get()) {
+        } else if (blockUnder == IEBlocks.DIMSTONE.get()) {
             sound = RegistryHandler.saxophone;
         } else if (blockUnder == Blocks.CRYING_OBSIDIAN) {
             sound = RegistryHandler.violin;
@@ -382,7 +382,7 @@ public class ModEvents {
         PlayerEntity player = event.getPlayer();
         if (heldItemStack.getItem() == Items.BONE) {
             pos = pos.offset(face);
-            BlockState blockstate = ModBlocks.BURIED_BONE.get().getPlaceableState(world, pos, face);
+            BlockState blockstate = IEBlocks.BURIED_BONE.get().getPlaceableState(world, pos, face);
             if (blockstate != null) {
                 player.swingArm(event.getHand());
                 if (!world.isAirBlock(pos) && !world.isRemote() && world.getBlockState(pos).getFluidState().isEmpty()) {
@@ -408,7 +408,7 @@ public class ModEvents {
             if (world.isAirBlock(pos)) {
                 event.setResult(Event.Result.ALLOW);
                 if (world.getRandom().nextDouble() < InfernalExpansionConfig.shroomlightGrowChance && !world.isRemote()) {
-                    world.setBlockState(pos, ModBlocks.SHROOMLIGHT_FUNGUS.get().getDefaultState().with(HorizontalBushBlock.FACE, AttachFace.CEILING), 3);
+                    world.setBlockState(pos, IEBlocks.SHROOMLIGHT_FUNGUS.get().getDefaultState().with(HorizontalBushBlock.FACE, AttachFace.CEILING), 3);
                 }
             }
         }
@@ -417,17 +417,17 @@ public class ModEvents {
     // Register features and surface builders
     @SubscribeEvent
     public static void registerFeatures(RegistryEvent.Register<Feature<?>> event) {
-        ModFeatures.features.forEach(feature -> event.getRegistry().register(feature));
+        IEFeatures.features.forEach(feature -> event.getRegistry().register(feature));
     }
 
     @SubscribeEvent
     public static void registerSurfaceBuilders(RegistryEvent.Register<SurfaceBuilder<?>> event) {
-        ModSurfaceBuilders.surfaceBuilders.forEach(surfaceBuilder -> event.getRegistry().register(surfaceBuilder));
+        IESurfaceBuilders.surfaceBuilders.forEach(surfaceBuilder -> event.getRegistry().register(surfaceBuilder));
     }
 
     @SubscribeEvent
     public static void registerWorldCarvers(RegistryEvent.Register<WorldCarver<?>> event) {
-        ModCarvers.carvers.forEach(carver -> event.getRegistry().register(carver));
+        IECarvers.carvers.forEach(carver -> event.getRegistry().register(carver));
     }
 
     @SubscribeEvent
@@ -435,7 +435,7 @@ public class ModEvents {
         List<EffectInstance> effects = new ArrayList<>(event.getEffects());
 
         for (EffectInstance effectInstance : effects) {
-            if (effectInstance.getPotion() == ModEffects.INFECTION.get()) {
+            if (effectInstance.getPotion() == IEEffects.INFECTION.get()) {
                 if (effects.size() == 1) {
                     event.shouldHideParticles(true);
                 }
@@ -452,10 +452,10 @@ public class ModEvents {
     public void onLivingEntityUpdate(LivingEvent.LivingUpdateEvent event) {
         LivingEntity entity = event.getEntityLiving();
 
-        if (entity.isPotionActive(ModEffects.INFECTION.get())) {
-            if ((Objects.requireNonNull(entity.getActivePotionEffect(ModEffects.INFECTION.get())).getDuration() & 10) == 0 && Objects.requireNonNull(entity.getActivePotionEffect(ModEffects.INFECTION.get())).doesShowParticles()) {
+        if (entity.isPotionActive(IEEffects.INFECTION.get())) {
+            if ((Objects.requireNonNull(entity.getActivePotionEffect(IEEffects.INFECTION.get())).getDuration() & 10) == 0 && Objects.requireNonNull(entity.getActivePotionEffect(IEEffects.INFECTION.get())).doesShowParticles()) {
                 for (int i = 0; i < 1; i++) {
-                    entity.world.addParticle(ModParticleTypes.INFECTION.get(), entity.getPosXRandom(entity.getBoundingBox().getXSize()), entity.getPosYRandom(), entity.getPosZRandom(entity.getBoundingBox().getZSize()), 0, 0, 0);
+                    entity.world.addParticle(IEParticleTypes.INFECTION.get(), entity.getPosXRandom(entity.getBoundingBox().getXSize()), entity.getPosYRandom(), entity.getPosZRandom(entity.getBoundingBox().getZSize()), 0, 0, 0);
                 }
             }
         }

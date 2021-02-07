@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.border.WorldBorder;
 import net.minecraft.world.server.ServerWorld;
 
-public class ModCommands {
+public class IECommands {
 
     private static void dimensionTeleportCommand(CommandDispatcher<CommandSource> dispatcher) {
         String commandString = "ntp";

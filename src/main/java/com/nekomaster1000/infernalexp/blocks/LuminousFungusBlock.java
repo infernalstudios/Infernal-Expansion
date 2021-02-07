@@ -2,8 +2,8 @@ package com.nekomaster1000.infernalexp.blocks;
 
 import java.util.Random;
 
-import com.nekomaster1000.infernalexp.init.ModBlocks;
-import com.nekomaster1000.infernalexp.init.ModConfiguredFeatures;
+import com.nekomaster1000.infernalexp.init.IEBlocks;
+import com.nekomaster1000.infernalexp.init.IEConfiguredFeatures;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -34,13 +34,13 @@ public class LuminousFungusBlock extends HorizontalBushBlock implements IGrowabl
     @Override
     protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
         return
-                state.isIn(ModBlocks.GLOWDUST_SAND.get()) || state.isIn(Blocks.SAND) || state.isIn(Blocks.RED_SAND)
+                state.isIn(IEBlocks.GLOWDUST_SAND.get()) || state.isIn(Blocks.SAND) || state.isIn(Blocks.RED_SAND)
                 || state.isIn(Blocks.GRASS) || state.isIn(Blocks.GRASS_BLOCK) ||
                 state.isIn(Blocks.DIRT) || state.isIn(Blocks.COARSE_DIRT) || state.isIn(Blocks.FARMLAND) ||
                 state.isIn(Blocks.PODZOL) || state.isIn(Blocks.MYCELIUM) ||
                 state.isIn(Blocks.CRIMSON_NYLIUM) || state.isIn(Blocks.WARPED_NYLIUM) ||
-                state.isIn(Blocks.SOUL_SOIL) || state.isIn(Blocks.GLOWSTONE) || state.isIn(ModBlocks.DIMSTONE.get()) ||
-                state.isIn(ModBlocks.DULLSTONE.get()) || state.isIn(ModBlocks.DULLTHORNS.get())
+                state.isIn(Blocks.SOUL_SOIL) || state.isIn(Blocks.GLOWSTONE) || state.isIn(IEBlocks.DIMSTONE.get()) ||
+                state.isIn(IEBlocks.DULLSTONE.get()) || state.isIn(IEBlocks.DULLTHORNS.get())
                 ;
     }
 
@@ -82,7 +82,7 @@ public class LuminousFungusBlock extends HorizontalBushBlock implements IGrowabl
 	 */
 	@Override
 	public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
-		Block block = ((HugeFungusConfig) (ModConfiguredFeatures.DULLTHORN_TREE_PLANTED).config).field_236303_f_.getBlock();
+		Block block = ((HugeFungusConfig) (IEConfiguredFeatures.DULLTHORN_TREE_PLANTED).config).field_236303_f_.getBlock();
 		Block block1 = worldIn.getBlockState(pos.down()).getBlock();
 		return block1 == block;
 	}
@@ -94,6 +94,6 @@ public class LuminousFungusBlock extends HorizontalBushBlock implements IGrowabl
 
 	@Override
 	public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
-		ModConfiguredFeatures.DULLTHORN_TREE_PLANTED.generate(worldIn, worldIn.getChunkProvider().getChunkGenerator(), rand, pos);
+		IEConfiguredFeatures.DULLTHORN_TREE_PLANTED.generate(worldIn, worldIn.getChunkProvider().getChunkGenerator(), rand, pos);
 	}
 }

@@ -1,6 +1,6 @@
 package com.nekomaster1000.infernalexp.blocks;
 
-import com.nekomaster1000.infernalexp.init.ModBlocks;
+import com.nekomaster1000.infernalexp.init.IEBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -37,7 +37,7 @@ public class BuriedBoneBlock extends HorizontalBushBlock {
                 world.getBlockState(pos).getBlock() instanceof NetherRootsBlock ||
                 world.getBlockState(pos).getBlock() instanceof NetherSproutsBlock ||
                 !world.getBlockState(pos).getFluidState().isEmpty()) &&
-                world.getBlockState(pos).getBlock() != ModBlocks.BURIED_BONE.get()) {
+                world.getBlockState(pos).getBlock() != IEBlocks.BURIED_BONE.get()) {
             if (placeSide.getAxis() != Axis.Y) {
                 placeSide = Direction.UP;
             }
@@ -63,7 +63,7 @@ public class BuriedBoneBlock extends HorizontalBushBlock {
     @Override
     protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
         return
-                state.isIn(ModBlocks.GLOWDUST_SAND.get()) || state.isIn(Blocks.SAND) || state.isIn(Blocks.RED_SAND) ||
+                state.isIn(IEBlocks.GLOWDUST_SAND.get()) || state.isIn(Blocks.SAND) || state.isIn(Blocks.RED_SAND) ||
                 state.isIn(Blocks.GRASS_BLOCK) || state.isIn(Blocks.DIRT) || state.isIn(Blocks.COARSE_DIRT) ||
                 state.isIn(Blocks.PODZOL) || state.isIn(Blocks.MYCELIUM) || state.isIn(Blocks.NETHERRACK) ||
                 state.isIn(Blocks.CRIMSON_NYLIUM) || state.isIn(Blocks.WARPED_NYLIUM) || state.isIn(Blocks.WARPED_WART_BLOCK) ||

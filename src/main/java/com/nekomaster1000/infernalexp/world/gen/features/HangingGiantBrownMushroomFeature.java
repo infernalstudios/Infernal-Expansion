@@ -3,7 +3,7 @@ package com.nekomaster1000.infernalexp.world.gen.features;
 import java.util.Random;
 
 import com.mojang.serialization.Codec;
-import com.nekomaster1000.infernalexp.init.ModBlocks;
+import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.util.ShapeUtil;
 
 import net.minecraft.block.Blocks;
@@ -23,7 +23,7 @@ public class HangingGiantBrownMushroomFeature extends Feature<NoFeatureConfig> {
 
     @Override
     public boolean generate(ISeedReader world, ChunkGenerator chunk, Random random, BlockPos pos, NoFeatureConfig config) {
-        if (!world.isAirBlock(pos) || world.getBlockState(pos.up()) != ModBlocks.DULLSTONE.get().getDefaultState()) {
+        if (!world.isAirBlock(pos) || world.getBlockState(pos.up()) != IEBlocks.DULLSTONE.get().getDefaultState()) {
             return false;
         } else {
             // Generate size between minSize and maxSize

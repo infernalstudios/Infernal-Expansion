@@ -4,7 +4,7 @@ import java.util.Random;
 
 import com.mojang.serialization.Codec;
 import com.nekomaster1000.infernalexp.access.SurfaceBuilderModifyNoise;
-import com.nekomaster1000.infernalexp.init.ModBlocks;
+import com.nekomaster1000.infernalexp.init.IEBlocks;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -52,7 +52,7 @@ public class DeltaShoresSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConf
 								float percentage = (((float) offset / yPos) - 0.05f) + (random.nextFloat() * 0.1f);
 
 								if (percentage <= 0.15) {
-									chunk.setBlockState(pos.down(offset), ModBlocks.SILT.get().getDefaultState(), false);
+									chunk.setBlockState(pos.down(offset), IEBlocks.SILT.get().getDefaultState(), false);
 								} else {
 									chunk.setBlockState(pos.down(offset), Blocks.BASALT.getDefaultState(), false);
 								}

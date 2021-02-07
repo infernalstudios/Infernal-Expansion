@@ -13,7 +13,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 
-public class ModSurfaceBuilders {
+public class IESurfaceBuilders {
 
     public static List<SurfaceBuilder<?>> surfaceBuilders = new ArrayList<>();
 
@@ -24,13 +24,13 @@ public class ModSurfaceBuilders {
     // Surface Builder Configs
     public static class ModSurfaceBuilderConfig {
          public static final SurfaceBuilderConfig GLOWSTONE_CANYON_CONFIG = new SurfaceBuilderConfig(
-                ModBlocks.GLOWDUST_SAND.get().getDefaultState(),
-                ModBlocks.GLOWDUST_STONE.get().getDefaultState(),
+                IEBlocks.GLOWDUST_SAND.get().getDefaultState(),
+                IEBlocks.GLOWDUST_STONE.get().getDefaultState(),
                 Blocks.GLOWSTONE.getDefaultState());
 
          public static final SurfaceBuilderConfig DELTA_SHORES_CONFIG = new SurfaceBuilderConfig(
-                ModBlocks.SILT.get().getDefaultState(),
-                ModBlocks.SILT.get().getDefaultState(),
+                IEBlocks.SILT.get().getDefaultState(),
+                IEBlocks.SILT.get().getDefaultState(),
                 Blocks.BASALT.getDefaultState()
         );
     }

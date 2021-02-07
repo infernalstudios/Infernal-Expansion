@@ -2,8 +2,8 @@ package com.nekomaster1000.infernalexp.blocks;
 
 import java.util.Random;
 
-import com.nekomaster1000.infernalexp.init.ModBlocks;
-import com.nekomaster1000.infernalexp.init.ModEntityTypes;
+import com.nekomaster1000.infernalexp.init.IEBlocks;
+import com.nekomaster1000.infernalexp.init.IEEntityTypes;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -25,13 +25,13 @@ public class TrappedGlowSandBlock extends GlowSandBlock {
     @Override
     public void onEntityWalk(World world, BlockPos pos, Entity entity) {
         // Check if the world is the server
-        if (!world.isRemote() && entity.getType() != ModEntityTypes.BLINDSIGHT.get()) {
+        if (!world.isRemote() && entity.getType() != IEEntityTypes.BLINDSIGHT.get()) {
 
             // Update all trapped blocks within a 3 block range
             for (int x = -updateRadius; x <= updateRadius; x++) {
                 for (int y = -updateRadius; y <= updateRadius; y++) {
                     for (int z = -updateRadius; z <= updateRadius; z++) {
-                        if (world.getBlockState(pos.add(x, y, z)) == ModBlocks.TRAPPED_GLOWDUST_SAND.get().getDefaultState()) {
+                        if (world.getBlockState(pos.add(x, y, z)) == IEBlocks.TRAPPED_GLOWDUST_SAND.get().getDefaultState()) {
                             ((TrappedGlowSandBlock) world.getBlockState(pos.add(x, y, z)).getBlock()).startFalling((ServerWorld) world, pos.add(x, y, z));
                         }
                     }

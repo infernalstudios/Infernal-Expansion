@@ -1,7 +1,7 @@
 //package com.nekomaster1000.infernalexp.world.biome;
 //
 //import com.google.common.collect.ImmutableList;
-//import com.nekomaster1000.infernalexp.init.ModBlocks;
+//import com.nekomaster1000.infernalexp.init.IEBlocks;
 //import net.minecraft.block.Blocks;
 //import net.minecraft.client.audio.BackgroundMusicTracks;
 //import net.minecraft.particles.ParticleTypes;
@@ -25,8 +25,8 @@
 //    {
 //        super(new Builder()
 //                .surfaceBuilder(SurfaceBuilder.DEFAULT, new SurfaceBuilderConfig(
-//                        ModBlocks.GLOWDUST_SAND.get().getDefaultState(),
-//                        ModBlocks.GLOWDUST_SANDSTONE.get().getDefaultState(),
+//                        IEBlocks.GLOWDUST_SAND.get().getDefaultState(),
+//                        IEBlocks.GLOWDUST_SANDSTONE.get().getDefaultState(),
 //                        Blocks.GLOWSTONE.getDefaultState()
 //                ))
 //                .precipitation(RainType.NONE)

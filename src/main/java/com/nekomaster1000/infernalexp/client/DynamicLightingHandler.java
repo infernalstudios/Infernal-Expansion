@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
-import com.nekomaster1000.infernalexp.init.ModEffects;
+import com.nekomaster1000.infernalexp.init.IEEffects;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
@@ -39,9 +39,9 @@ public class DynamicLightingHandler {
     }
 
     public static boolean shouldGlow(LivingEntity entity) {
-        EffectInstance effect = entity.getActivePotionEffect(ModEffects.LUMINOUS.get());
+        EffectInstance effect = entity.getActivePotionEffect(IEEffects.LUMINOUS.get());
         if (effect != null) {
-            return effect.getPotion() == ModEffects.LUMINOUS.get();
+            return effect.getPotion() == IEEffects.LUMINOUS.get();
         }            
         return false;
     }

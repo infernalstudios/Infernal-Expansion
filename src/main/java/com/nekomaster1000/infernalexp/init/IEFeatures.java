@@ -20,7 +20,7 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
-public class ModFeatures {
+public class IEFeatures {
 
     public static List<Feature<?>> features = new ArrayList<>();
 

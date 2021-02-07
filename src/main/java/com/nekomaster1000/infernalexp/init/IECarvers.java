@@ -14,7 +14,7 @@ import net.minecraft.world.gen.carver.ICarverConfig;
 import net.minecraft.world.gen.carver.WorldCarver;
 import net.minecraft.world.gen.feature.ProbabilityConfig;
 
-public class ModCarvers {
+public class IECarvers {
 
     public static List<WorldCarver<ProbabilityConfig>> carvers = new ArrayList<>();
 
