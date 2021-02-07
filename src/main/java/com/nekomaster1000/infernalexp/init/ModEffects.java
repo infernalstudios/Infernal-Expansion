@@ -15,7 +15,7 @@ public class ModEffects {
     public static final DeferredRegister<Effect> EFFECTS = DeferredRegister.create(ForgeRegistries.POTIONS, InfernalExpansion.MOD_ID);
 
     public static final RegistryObject<Effect> LUMINOUS = EFFECTS.register("luminous", () -> new EffectBase(EffectType.NEUTRAL, 0xDCBC82));
-    public static final RegistryObject<Effect> INFECTION = EFFECTS.register("infection", () -> new InfectionEffect(EffectType.HARMFUL, 0x126378));
+    public static final RegistryObject<Effect> INFECTION = EFFECTS.register("infection", () -> new InfectionEffect(EffectType.HARMFUL, 12856114));
 
     public static void register(IEventBus eventBus) {
         EFFECTS.register(eventBus);

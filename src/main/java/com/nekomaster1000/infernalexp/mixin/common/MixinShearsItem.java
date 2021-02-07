@@ -16,6 +16,5 @@ public class MixinShearsItem {
     @Inject(method = "getDestroySpeed", at = @At("HEAD"), cancellable = true)
     private void getDestroySpeed(ItemStack stack, BlockState state, CallbackInfoReturnable<Float> ci) {
         if (state.isIn(ModBlocks.DULLTHORNS.get())) ci.setReturnValue(15.0F);
-        return;
     }
 }

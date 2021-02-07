@@ -75,7 +75,7 @@ public class AscusBombEntity extends ProjectileItemEntity implements IRendersAsI
 
                         int duration = (int) (durationMultiplier * 300 + 0.5);
 
-                        livingEntity.addPotionEffect(new EffectInstance(ModEffects.INFECTION.get(), duration, 0, false, false));
+                        livingEntity.addPotionEffect(new EffectInstance(ModEffects.INFECTION.get(), duration));
                     }
                 }
             }

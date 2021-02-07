@@ -20,7 +20,7 @@ public class InfectionEffect extends Effect {
 
         for (LivingEntity entity : entityLivingBaseIn.getEntityWorld().getEntitiesWithinAABB(LivingEntity.class, entityLivingBaseIn.getBoundingBox().grow(3))) {
             if (!entity.isPotionActive(ModEffects.INFECTION.get())) {
-                entity.addPotionEffect(new EffectInstance(ModEffects.INFECTION.get(), 300, 0, false, false));
+                entity.addPotionEffect(new EffectInstance(ModEffects.INFECTION.get(), 300));
             }
         }
     }

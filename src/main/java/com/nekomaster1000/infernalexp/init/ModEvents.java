@@ -31,6 +31,7 @@ import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.entity.monster.piglin.PiglinBruteEntity;
 import net.minecraft.entity.monster.piglin.PiglinEntity;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -51,6 +52,7 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.living.PotionColorCalculationEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.NoteBlockEvent;
@@ -59,6 +61,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -369,7 +372,7 @@ public class ModEvents {
             event.setCanceled(true);
         }
     }
-    
+
     @SubscribeEvent
     public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         ItemStack heldItemStack = event.getItemStack();
@@ -394,7 +397,7 @@ public class ModEvents {
             }
         }
     }
-    
+
     @SubscribeEvent
     public void onApplyBonemeal(BonemealEvent event) {
         Block block = event.getBlock().getBlock();
@@ -411,8 +414,6 @@ public class ModEvents {
         }
     }
 
-    
-    
     // Register features and surface builders
     @SubscribeEvent
     public static void registerFeatures(RegistryEvent.Register<Feature<?>> event) {
@@ -430,11 +431,29 @@ public class ModEvents {
     }
 
     @SubscribeEvent
+    public void onPotionColorCalculate(PotionColorCalculationEvent event) {
+        List<EffectInstance> effects = new ArrayList<>(event.getEffects());
+
+        for (EffectInstance effectInstance : effects) {
+            if (effectInstance.getPotion() == ModEffects.INFECTION.get()) {
+                if (effects.size() == 1) {
+                    event.shouldHideParticles(true);
+                }
+
+//                effects.remove(effectInstance);
+                break;
+            }
+        }
+
+
+    }
+
+    @SubscribeEvent
     public void onLivingEntityUpdate(LivingEvent.LivingUpdateEvent event) {
         LivingEntity entity = event.getEntityLiving();
 
         if (entity.isPotionActive(ModEffects.INFECTION.get())) {
-            if ((Objects.requireNonNull(entity.getActivePotionEffect(ModEffects.INFECTION.get())).getDuration() & 10) == 0) {
+            if ((Objects.requireNonNull(entity.getActivePotionEffect(ModEffects.INFECTION.get())).getDuration() & 10) == 0 && Objects.requireNonNull(entity.getActivePotionEffect(ModEffects.INFECTION.get())).doesShowParticles()) {
                 for (int i = 0; i < 1; i++) {
                     entity.world.addParticle(ModParticleTypes.INFECTION.get(), entity.getPosXRandom(entity.getBoundingBox().getXSize()), entity.getPosYRandom(), entity.getPosZRandom(entity.getBoundingBox().getZSize()), 0, 0, 0);
                 }
