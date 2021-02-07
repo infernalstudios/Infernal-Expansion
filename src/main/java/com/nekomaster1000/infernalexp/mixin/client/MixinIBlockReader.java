@@ -15,11 +15,10 @@ public interface MixinIBlockReader {
     @Overwrite
     default int getLightValue(BlockPos pos) {
         if (DynamicLightingHandler.LIGHT_SOURCES.containsKey(pos) && DynamicLightingHandler.LIGHT_SOURCES.get(pos).shouldKeep)
-            return 15;
+            return 10;
         return this.getBlockState(pos).getLightValue((IBlockReader) (Object) this, pos);
     }
 
     @Shadow
     BlockState getBlockState(BlockPos pos);
-
 }

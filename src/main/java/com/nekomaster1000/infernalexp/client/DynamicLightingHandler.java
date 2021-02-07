@@ -21,13 +21,19 @@ public class DynamicLightingHandler {
     public static void tick(LivingEntity entity) {
         if (entity != null && MinecraftInstance.player != null && MinecraftInstance.player.ticksExisted % InfernalExpansionConfig.luminousRefreshRate == 0) {
             if (shouldGlow(entity)) {
-                LIGHT_SOURCES.put(entity.getPosition().up((int) entity.getEyeHeight()), new LightData());                
+                LIGHT_SOURCES.put(entity.getPosition(), new LightData());                
             }
-
             if (entity == MinecraftInstance.player) {
-                LIGHT_SOURCES.forEach((pos, data) -> MinecraftInstance.world.getChunkProvider().getLightManager().checkBlock(pos));
+                LIGHT_SOURCES.forEach((pos, data) -> {
+                    if (data.time == 0) {
+                        data.shouldKeep = false;
+                    }
+                    if (data.time == 20 || !data.shouldKeep) {
+                        MinecraftInstance.world.getChunkProvider().getLightManager().checkBlock(pos);                        
+                    }
+                    data.time -= InfernalExpansionConfig.luminousRefreshRate;
+                });
                 LIGHT_SOURCES.entrySet().removeIf(entry -> !entry.getValue().shouldKeep);
-                LIGHT_SOURCES.forEach((pos, data) -> data.shouldKeep = false);
             }
         }
     }
@@ -36,11 +42,12 @@ public class DynamicLightingHandler {
         EffectInstance effect = entity.getActivePotionEffect(ModEffects.LUMINOUS.get());
         if (effect != null) {
             return effect.getPotion() == ModEffects.LUMINOUS.get();
-        }
+        }            
         return false;
     }
     
     public static class LightData {
         public boolean shouldKeep = true;
+        public int time = 20;
     }
 }
