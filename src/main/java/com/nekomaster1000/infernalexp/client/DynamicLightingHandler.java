@@ -8,7 +8,6 @@ import com.nekomaster1000.infernalexp.init.IEEffects;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -38,12 +37,8 @@ public class DynamicLightingHandler {
         }
     }
 
-    public static boolean shouldGlow(LivingEntity entity) {
-        EffectInstance effect = entity.getActivePotionEffect(IEEffects.LUMINOUS.get());
-        if (effect != null) {
-            return effect.getPotion() == IEEffects.LUMINOUS.get();
-        }            
-        return false;
+    public static boolean shouldGlow(LivingEntity entity) {       
+        return entity.isPotionActive(IEEffects.LUMINOUS.get());
     }
     
     public static class LightData {
