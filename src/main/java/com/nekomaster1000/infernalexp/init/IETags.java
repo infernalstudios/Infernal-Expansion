@@ -13,6 +13,7 @@ public class IETags {
 
         public static final ITag.INamedTag<Block> BASE_STONE_CANYON = tag("base_stone_canyon");
         public static final ITag.INamedTag<Block> BASE_STONE_SHORES = tag("base_stone_shores");
+        public static final ITag.INamedTag<Block> GLOW_FIRE_BASE_BLOCKS = tag("glow_fire_base_blocks");
 
         private static ITag.INamedTag<Block> tag(String name) {
             return BlockTags.createOptional(new ResourceLocation(InfernalExpansion.MOD_ID, name));

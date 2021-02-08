@@ -62,12 +62,12 @@ public class IEBlocks {
     public static final RegistryObject<Block> GLOWDUST = BLOCKS.register("glowdust", () -> new GlowdustBlock(getProperties(Blocks.SAND).setLightLevel(value -> 8).setRequiresTool().harvestTool(ToolType.SHOVEL).hardnessAndResistance(0.2f)));
     public static final RegistryObject<Block> GLOWDUST_SAND = BLOCKS.register("glowdust_sand",          () -> new GlowSandBlock(0xFFC267, getProperties(GLOWDUST.get()).hardnessAndResistance(0.5F)));
     public static final RegistryObject<Block> LUMINOUS_WART_BLOCK = BLOCKS.register("luminous_wart_block",          () -> new Block(getProperties(Blocks.NETHER_WART_BLOCK).setLightLevel(value -> 14)));
-    public static final RegistryObject<Block> GLOWDUST_STONE = BLOCKS.register("glowdust_stone",                () -> new GlowBlockBase(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
-    public static final RegistryObject<Block> GLOWDUST_STONE_BRICKS = BLOCKS.register("glowdust_stone_bricks",  () -> new GlowBlockBase(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
-    public static final RegistryObject<Block> GLOWDUST_STONE_BRICK_SLAB = BLOCKS.register("glowdust_stone_brick_slab",      () -> new GlowBlockBase(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
-    public static final RegistryObject<Block> GLOWDUST_STONE_BRICK_STAIRS = BLOCKS.register("glowdust_stone_brick_stairs",  () -> new GlowBlockBase(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
+    public static final RegistryObject<Block> GLOWDUST_STONE = BLOCKS.register("glowdust_stone",                () -> new Block(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
+    public static final RegistryObject<Block> GLOWDUST_STONE_BRICKS = BLOCKS.register("glowdust_stone_bricks",  () -> new Block(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
+    public static final RegistryObject<Block> GLOWDUST_STONE_BRICK_SLAB = BLOCKS.register("glowdust_stone_brick_slab",      () -> new Block(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
+    public static final RegistryObject<Block> GLOWDUST_STONE_BRICK_STAIRS = BLOCKS.register("glowdust_stone_brick_stairs",  () -> new Block(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
     public static final RegistryObject<Block> TRAPPED_GLOWDUST_SAND = BLOCKS.register("trapped_glowdust_sand",  () -> new TrappedGlowSandBlock(0xFFC267, getProperties(GLOWDUST.get()).hardnessAndResistance(0.2F).setLightLevel(value -> 4)));
-    public static final RegistryObject<Block> GLOWDUST_SANDSTONE = BLOCKS.register("glowdust_sandstone",                    () -> new GlowBlockBase(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
+    public static final RegistryObject<Block> GLOWDUST_SANDSTONE = BLOCKS.register("glowdust_sandstone",                    () -> new Block(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
     public static final RegistryObject<Block> CUT_GLOWDUST_SANDSTONE = BLOCKS.register("cut_glowdust_sandstone",            () -> new Block(getProperties(GLOWDUST_SANDSTONE.get())));
     public static final RegistryObject<Block> CHISELED_GLOWDUST_SANDSTONE = BLOCKS.register("chiseled_glowdust_sandstone",  () -> new Block(getProperties(GLOWDUST_SANDSTONE.get())));
     public static final RegistryObject<Block> SMOOTH_GLOWDUST_SANDSTONE = BLOCKS.register("smooth_glowdust_sandstone",      () -> new Block(getProperties(GLOWDUST_SANDSTONE.get())));

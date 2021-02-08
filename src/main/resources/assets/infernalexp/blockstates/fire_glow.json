@@ -1,13 +1,6 @@
 {
   "multipart": [
     {
-      "when": {
-        "up": "false",
-        "west": "false",
-        "east": "false",
-        "south": "false",
-        "north": "false"
-      },
       "apply": [
         {
           "model": "infernalexp:block/fire_glow_floor0"
@@ -18,20 +11,6 @@
       ]
     },
     {
-      "when": {
-        "OR": [
-          {
-            "north": "true"
-          },
-          {
-            "up": "false",
-            "west": "false",
-            "east": "false",
-            "south": "false",
-            "north": "false"
-          }
-        ]
-      },
       "apply": [
         {
           "model": "infernalexp:block/fire_glow_side0"
@@ -48,20 +27,6 @@
       ]
     },
     {
-      "when": {
-        "OR": [
-          {
-            "east": "true"
-          },
-          {
-            "up": "false",
-            "west": "false",
-            "east": "false",
-            "south": "false",
-            "north": "false"
-          }
-        ]
-      },
       "apply": [
         {
           "model": "infernalexp:block/fire_glow_side0",
@@ -82,20 +47,6 @@
       ]
     },
     {
-      "when": {
-        "OR": [
-          {
-            "south": "true"
-          },
-          {
-            "up": "false",
-            "west": "false",
-            "east": "false",
-            "south": "false",
-            "north": "false"
-          }
-        ]
-      },
       "apply": [
         {
           "model": "infernalexp:block/fire_glow_side0",
@@ -116,20 +67,6 @@
       ]
     },
     {
-      "when": {
-        "OR": [
-          {
-            "west": "true"
-          },
-          {
-            "up": "false",
-            "west": "false",
-            "east": "false",
-            "south": "false",
-            "north": "false"
-          }
-        ]
-      },
       "apply": [
         {
           "model": "infernalexp:block/fire_glow_side0",
@@ -146,25 +83,6 @@
         {
           "model": "infernalexp:block/fire_glow_side_alt1",
           "y": 270
-        }
-      ]
-    },
-    {
-      "when": {
-        "up": "true"
-      },
-      "apply": [
-        {
-          "model": "infernalexp:block/fire_glow_up0"
-        },
-        {
-          "model": "infernalexp:block/fire_glow_up1"
-        },
-        {
-          "model": "infernalexp:block/fire_glow_up_alt0"
-        },
-        {
-          "model": "infernalexp:block/fire_glow_up_alt1"
         }
       ]
     }
