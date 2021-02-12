@@ -43,6 +43,9 @@ public class ServerConfig {
     //Bonemeal Behaviour
     final ForgeConfigSpec.DoubleValue shroomlightGrowChance;
     final ForgeConfigSpec.BooleanValue isShroomlightGrowable;
+    
+    //Luminous Fungus
+    final ForgeConfigSpec.DoubleValue luminousFungusActivateDistance;
 
     ServerConfig(final ForgeConfigSpec.Builder builder){
         //Mob Interactions
@@ -205,7 +208,7 @@ public class ServerConfig {
         
         builder.pop();
 
-        //Bonemeal Behaviour
+      //Bonemeal Behaviour
         builder.push("Bonemeal Behaviour");
         
         isShroomlightGrowable = builder
@@ -217,6 +220,15 @@ public class ServerConfig {
                 .comment("Determines the chance a shroomlight tear will grow when a shroomlight is bonemealed")
                 .translation(InfernalExpansion.MOD_ID + ".config.shroomlightGrowChance")
                 .defineInRange("shroomlightGrowChance", 1.0D, 0.0D, 1.0D);
+
+        builder.pop();
+        
+        builder.push("Luminous Fungus");
+        
+        luminousFungusActivateDistance = builder
+                .comment("Determines the distance an entity has to be from a luminous fungus for it to activate (larger values have performance impact)")
+                .translation(InfernalExpansion.MOD_ID + ".config.luminousFungusActivateDistance")
+                .defineInRange("luminousFungusActivateDistance", 4.0D, 0.0D, Double.MAX_VALUE);
 
         builder.pop();
     }

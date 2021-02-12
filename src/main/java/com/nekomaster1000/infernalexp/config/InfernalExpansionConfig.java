@@ -46,5 +46,8 @@ public final class InfernalExpansionConfig {
     //Bonemeal Behaviour
     public static boolean isShroomlightGrowable;
     public static double shroomlightGrowChance;
+    
+    //Luminous Fungus
+    public static double luminousFungusActivateDistance;
 
 }

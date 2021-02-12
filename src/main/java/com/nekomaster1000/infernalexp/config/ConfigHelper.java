@@ -50,5 +50,7 @@ public final class ConfigHelper {
         InfernalExpansionConfig.isShroomlightGrowable = ConfigHolder.SERVER.isShroomlightGrowable.get();
         InfernalExpansionConfig.shroomlightGrowChance = ConfigHolder.SERVER.shroomlightGrowChance.get();
         
+        InfernalExpansionConfig.luminousFungusActivateDistance = ConfigHolder.SERVER.luminousFungusActivateDistance.get();
+        
     }
 }
