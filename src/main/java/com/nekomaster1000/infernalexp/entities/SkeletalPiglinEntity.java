@@ -1,33 +1,33 @@
 package com.nekomaster1000.infernalexp.entities;
 
-import java.util.UUID;
-
-import javax.annotation.Nullable;
-
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.IAngerable;
-import net.minecraft.entity.MobEntity;
+import com.nekomaster1000.infernalexp.init.IEBiomes;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.PanicGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.RangedInteger;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.TickRangeConverter;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.*;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biomes;
+
+import javax.annotation.Nullable;
+import java.util.Random;
+import java.util.UUID;
 
 public class SkeletalPiglinEntity extends MonsterEntity implements IAngerable {
 
     private static final RangedInteger RANGED_INT = TickRangeConverter.convertRange(20, 39);
     private int angerTime;
     private UUID angerTarget;
+    protected final Random rand = new Random();
 
     public SkeletalPiglinEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
@@ -40,6 +40,14 @@ public class SkeletalPiglinEntity extends MonsterEntity implements IAngerable {
                 .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5D);
     }
 
+    public CreatureAttribute getCreatureAttribute() {
+        return CreatureAttribute.UNDEAD;
+    }
+
+    protected boolean shouldBurnInDay() {
+        return true;
+    }
+
     // BEHAVIOR
     @Override
     protected void registerGoals() {
@@ -48,6 +56,36 @@ public class SkeletalPiglinEntity extends MonsterEntity implements IAngerable {
         this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0f));
         this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(4, new AvoidEntityGoal(this, EmbodyEntity.class, 16.0F, 0.85D, 1.1D));
+    }
+
+    /**
+     * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons
+     * use this to react to sunlight and start to burn.
+     */
+    public void livingTick() {
+        if (this.isAlive()) {
+            boolean flag = this.shouldBurnInDay() && this.isInDaylight();
+            if (flag) {
+                ItemStack itemstack = this.getItemStackFromSlot(EquipmentSlotType.HEAD);
+                if (!itemstack.isEmpty()) {
+                    if (itemstack.isDamageable()) {
+                        itemstack.setDamage(itemstack.getDamage() + this.rand.nextInt(2));
+                        if (itemstack.getDamage() >= itemstack.getMaxDamage()) {
+                            this.sendBreakAnimation(EquipmentSlotType.HEAD);
+                            this.setItemStackToSlot(EquipmentSlotType.HEAD, ItemStack.EMPTY);
+                        }
+                    }
+
+                    flag = false;
+                }
+
+                if (flag) {
+                    this.setFire(8);
+                }
+            }
+        }
+
+        super.livingTick();
     }
 
     // EXPERIENCE POINTS
@@ -97,5 +135,37 @@ public class SkeletalPiglinEntity extends MonsterEntity implements IAngerable {
     @Override
     public void func_230258_H__() {
         this.setAngerTime(RANGED_INT.getRandomWithinRange(this.rand));
+    }
+
+    @Nullable
+    @Override
+    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+        float f = difficultyIn.getClampedAdditionalDifficulty();
+        this.setCanPickUpLoot(this.rand.nextFloat() < 0.55F * f);
+
+        if (world.getBiome(this.getPosition()).getRegistryName().equals(IEBiomes.GLOWSTONE_CANYON.get().getRegistryName())) {
+            getShovelType(Items.GOLDEN_SHOVEL, Items.IRON_SHOVEL, Items.STONE_SHOVEL);
+        } else if (world.getBiome(this.getPosition()).getRegistryName().equals(IEBiomes.DELTA_SHORES.get().getRegistryName())) {
+            getShovelType(Items.IRON_SHOVEL, Items.STONE_SHOVEL, Items.GOLDEN_SHOVEL);
+        } else if (world.getBiome(this.getPosition()).getRegistryName().equals(Biomes.SOUL_SAND_VALLEY.getLocation())) {
+            getShovelType(Items.STONE_SHOVEL, Items.GOLDEN_SHOVEL, Items.IRON_SHOVEL);
+        }
+
+        return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    }
+
+    private void getShovelType(Item primaryShovel, Item secondaryShovel, Item tertiaryShovel) {
+        int shovelChance = this.rand.nextInt(10);
+
+        if (shovelChance <= 6) {
+            shovelChance = this.rand.nextInt(10);
+            if (shovelChance <= 7) {
+                this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(primaryShovel));
+            } else if (shovelChance <= 8) {
+                this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(secondaryShovel));
+            } else {
+                this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(tertiaryShovel));
+            }
+        }
     }
 }

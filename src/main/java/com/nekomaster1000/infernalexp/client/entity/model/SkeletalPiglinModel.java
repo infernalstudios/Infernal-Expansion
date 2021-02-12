@@ -1,14 +1,13 @@
 package com.nekomaster1000.infernalexp.client.entity.model;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.nekomaster1000.infernalexp.entities.SkeletalPiglinEntity;
-
-import net.minecraft.client.renderer.entity.model.EntityModel;
+import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.util.HandSide;
 import net.minecraft.util.math.MathHelper;
 
-public class SkeletalPiglinModel<T extends SkeletalPiglinEntity> extends EntityModel<T> {
+public class SkeletalPiglinModel<T extends SkeletalPiglinEntity> extends PlayerModel<T> {
 
     private final ModelRenderer Body;
     private final ModelRenderer Head;
@@ -16,83 +15,83 @@ public class SkeletalPiglinModel<T extends SkeletalPiglinEntity> extends EntityM
     private final ModelRenderer RightEar;
     private final ModelRenderer RightArm;
     private final ModelRenderer LeftArm;
-    private final ModelRenderer RightLeg;
-    private final ModelRenderer LeftLeg;
 
     public SkeletalPiglinModel() {
+        super(0.0f, false);
         textureWidth = 64;
         textureHeight = 64;
 
-        Head = new ModelRenderer(this);
-        Head.setRotationPoint(0.0F, 0.0F, 0.0F);
-        Head.setTextureOffset(0, 0).addBox(-5.0F, -8.0F, -4.0F, 10.0F, 8.0F, 8.0F, 0.0F, false);
-        Head.setTextureOffset(31, 1).addBox(-2.0F, -4.0F, -5.0F, 4.0F, 4.0F, 1.0F, 0.0F, false);
-        Head.setTextureOffset(2, 0).addBox(-3.0F, -2.0F, -5.0F, 1.0F, 2.0F, 1.0F, 0.0F, false);
-        Head.setTextureOffset(2, 4).addBox(2.0F, -2.0F, -5.0F, 1.0F, 2.0F, 1.0F, 0.0F, false);
+        this.bipedBody = new ModelRenderer(this, 16, 16);
+        this.bipedBody.addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, 0.0F, false);
+        this.bipedHead = new ModelRenderer(this);
+        this.bipedHead.setTextureOffset(0, 0).addBox(-5.0F, -8.0F, -4.0F, 10.0F, 8.0F, 8.0F, 0.0F, false);
+        this.bipedHead.setTextureOffset(31, 1).addBox(-2.0F, -4.0F, -5.0F, 4.0F, 4.0F, 1.0F, 0.0F, false);
+        this.bipedHead.setTextureOffset(2, 0).addBox(-3.0F, -2.0F, -5.0F, 1.0F, 2.0F, 1.0F, 0.0F, false);
+        this.bipedHead.setTextureOffset(2, 4).addBox(2.0F, -2.0F, -5.0F, 1.0F, 2.0F, 1.0F, 0.0F, false);
+        this.LeftEar = new ModelRenderer(this);
+        this.LeftEar.setRotationPoint(4.5F, -6.0F, 0.0F);
+        this.LeftEar.setTextureOffset(51, 6).addBox(0.0F, 0.0F, -2.0F, 1.0F, 5.0F, 4.0F, 0.0F, false);
+        this.LeftEar.setTextureOffset(54, 10).addBox(0.0F, 0.0F, 1.0F, 1.0F, 5.0F, 0.0F, 0.0F, false);
+        this.LeftEar.setTextureOffset(54, 10).addBox(0.0F, 0.0F, -1.0F, 1.0F, 5.0F, 0.0F, 0.0F, false);
+        this.LeftEar.setTextureOffset(54, 10).addBox(0.0F, 4.0F, -1.0F, 1.0F, 1.0F, 2.0F, 0.0F, false);
+        this.bipedHead.addChild(this.LeftEar);
+        this.RightEar = new ModelRenderer(this);
+        this.RightEar.setRotationPoint(-4.5F, -6.0F, 0.0F);
+        this.RightEar.setTextureOffset(51, 6).addBox(-1.0F, 0.0F, -2.0F, 1.0F, 5.0F, 4.0F, 0.0F, true);
+        this.RightEar.setTextureOffset(54, 10).addBox(-1.0F, 0.0F, 1.0F, 1.0F, 5.0F, 0.0F, 0.0F, true);
+        this.RightEar.setTextureOffset(54, 10).addBox(-1.0F, 0.0F, -1.0F, 1.0F, 5.0F, 0.0F, 0.0F, true);
+        this.RightEar.setTextureOffset(54, 10).addBox(-1.0F, 4.0F, -1.0F, 1.0F, 1.0F, 2.0F, 0.0F, true);
+        this.bipedHead.addChild(this.RightEar);
 
-        LeftEar = new ModelRenderer(this);
-        LeftEar.setRotationPoint(4.5F, -6.0F, 0.0F);
-        Head.addChild(LeftEar);
-        setRotationAngle(LeftEar, 0.0F, 0.0F, -0.4363F);
-        LeftEar.setTextureOffset(51, 6).addBox(0.0F, 0.0F, -2.0F, 1.0F, 5.0F, 4.0F, 0.0F, false);
-        LeftEar.setTextureOffset(54, 10).addBox(0.0F, 0.0F, 1.0F, 1.0F, 5.0F, 0.0F, 0.0F, false);
-        LeftEar.setTextureOffset(54, 10).addBox(0.0F, 0.0F, -1.0F, 1.0F, 5.0F, 0.0F, 0.0F, false);
-        LeftEar.setTextureOffset(54, 10).addBox(0.0F, 4.0F, -1.0F, 1.0F, 1.0F, 2.0F, 0.0F, false);
+        this.bipedLeftArm = new ModelRenderer(this, 40, 16);
+        this.bipedLeftArm.addBox(-1.0F, -2.0F, -1.0F, 3.0F, 12.0F, 3.0F, 0.0f, true);
+        this.bipedLeftArm.setRotationPoint(5.0F, 2.0F, 0.0F);
 
-        RightEar = new ModelRenderer(this);
-        RightEar.setRotationPoint(-4.5F, -6.0F, 0.0F);
-        Head.addChild(RightEar);
-        setRotationAngle(RightEar, 0.0F, 0.0F, 0.4363F);
-        RightEar.setTextureOffset(51, 6).addBox(-1.0F, 0.0F, -2.0F, 1.0F, 5.0F, 4.0F, 0.0F, true);
-        RightEar.setTextureOffset(54, 10).addBox(-1.0F, 0.0F, 1.0F, 1.0F, 5.0F, 0.0F, 0.0F, true);
-        RightEar.setTextureOffset(54, 10).addBox(-1.0F, 0.0F, -1.0F, 1.0F, 5.0F, 0.0F, 0.0F, true);
-        RightEar.setTextureOffset(54, 10).addBox(-1.0F, 4.0F, -1.0F, 1.0F, 1.0F, 2.0F, 0.0F, true);
+        this.bipedRightArm = new ModelRenderer(this, 40, 16);
+        this.bipedRightArm.addBox(-1.0F, -2.0F, -1.0F, 3.0F, 12.0F, 3.0F, 0.0f, false);
+        this.bipedRightArm.setRotationPoint(-5.0F, 2.0F, 0.0F);
 
-        Body = new ModelRenderer(this);
-        Body.setRotationPoint(0.0F, 0.0F, 0.0F);
-        Body.setTextureOffset(16, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, 0.0F, false);
+        this.bipedLeftLeg = new ModelRenderer(this, 50, 15);
+        this.bipedLeftLeg.addBox(-0.9F, 0.001F, -1.0F, 3.0F, 12.0F, 3.0F, 0.0F, true);
+        this.bipedLeftLeg.setRotationPoint(1.9F, 12.0F, -0.5F);
 
-        RightArm = new ModelRenderer(this);
-        RightArm.setRotationPoint(-5.0F, 1.0F, -1.0F);
-        setRotationAngle(RightArm, 0.0F, 0.0F, 0.0436F);
-        RightArm.setTextureOffset(40, 16).addBox(-2.0F, -1.0F, 0.0F, 3.0F, 12.0F, 3.0F, 0.0F, false);
+        this.bipedRightLeg = new ModelRenderer(this, 50, 15);
+        this.bipedRightLeg.addBox(-2.1F, 0.001F, -1.0F, 3.0F, 12.0F, 3.0F, 0.0F, false);
+        this.bipedRightLeg.setRotationPoint(-1.9F, 12.0F, -0.5F);
 
-        LeftArm = new ModelRenderer(this);
-        LeftArm.setRotationPoint(5.0F, 1.0F, -1.0F);
-        setRotationAngle(LeftArm, 0.0F, 0.0F, -0.0436F);
-        LeftArm.setTextureOffset(40, 16).addBox(-1.0F, -1.0F, 0.0F, 3.0F, 12.0F, 3.0F, 0.0F, true);
+        this.bipedHeadwear = new ModelRenderer(this);
 
-        RightLeg = new ModelRenderer(this);
-        RightLeg.setRotationPoint(-1.9F, 12.0F, -0.5F);
-        RightLeg.setTextureOffset(50, 15).addBox(-2.1F, 0.001F, -1.0F, 3.0F, 12.0F, 3.0F, 0.0F, false);
-
-        LeftLeg = new ModelRenderer(this);
-        LeftLeg.setRotationPoint(1.9F, 12.0F, -0.5F);
-        LeftLeg.setTextureOffset(50, 15).addBox(-0.9F, 0.001F, -1.0F, 3.0F, 12.0F, 3.0F, 0.0F, true);
+        this.Body = this.bipedBody.getModelAngleCopy();
+        this.Head = this.bipedHead.getModelAngleCopy();
+        this.LeftArm = this.bipedLeftArm.getModelAngleCopy();
+        this.RightArm = this.bipedLeftArm.getModelAngleCopy();
     }
 
     @Override
     public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        // TODO: Set head rotation (see BipedModel class for implementation)
-        this.RightArm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-        this.LeftArm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-        this.RightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-        this.LeftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        this.bipedBody.copyModelAngles(this.Body);
+        this.bipedHead.copyModelAngles(this.Head);
+        this.bipedLeftArm.copyModelAngles(this.LeftArm);
+        this.bipedRightArm.copyModelAngles(this.RightArm);
+        super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        float f1 = ageInTicks * 0.1F + limbSwing * 0.5F;
+        float f2 = 0.08F + limbSwingAmount * 0.4F;
+        this.LeftEar.rotateAngleZ = (-(float)Math.PI / 6F) - MathHelper.cos(f1 * 1.2F) * f2;
+        this.RightEar.rotateAngleZ = ((float)Math.PI / 6F) + MathHelper.cos(f1) * f2;
+
+        this.bipedLeftLegwear.copyModelAngles(this.bipedLeftLeg);
+        this.bipedRightLegwear.copyModelAngles(this.bipedRightLeg);
+        this.bipedLeftArmwear.copyModelAngles(this.bipedLeftArm);
+        this.bipedRightArmwear.copyModelAngles(this.bipedRightArm);
+        this.bipedBodyWear.copyModelAngles(this.bipedBody);
+        this.bipedHeadwear.copyModelAngles(this.bipedHead);
     }
 
-    @Override
-    public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
-        Head.render(matrixStack, buffer, packedLight, packedOverlay);
-        Body.render(matrixStack, buffer, packedLight, packedOverlay);
-        RightArm.render(matrixStack, buffer, packedLight, packedOverlay);
-        LeftArm.render(matrixStack, buffer, packedLight, packedOverlay);
-        RightLeg.render(matrixStack, buffer, packedLight, packedOverlay);
-        LeftLeg.render(matrixStack, buffer, packedLight, packedOverlay);
-    }
-
-    public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
-        modelRenderer.rotateAngleX = x;
-        modelRenderer.rotateAngleY = y;
-        modelRenderer.rotateAngleZ = z;
+    public void translateHand(HandSide sideIn, MatrixStack matrixStackIn) {
+        float f = sideIn == HandSide.RIGHT ? 1.5F : -1.5F;
+        ModelRenderer modelrenderer = this.getArmForSide(sideIn);
+        modelrenderer.rotationPointX += f;
+        modelrenderer.translateRotate(matrixStackIn);
+        modelrenderer.rotationPointX -= f;
     }
 }
