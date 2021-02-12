@@ -1,18 +1,7 @@
 package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
-import com.nekomaster1000.infernalexp.entities.AscusBombEntity;
-import com.nekomaster1000.infernalexp.entities.BasaltGiantEntity;
-import com.nekomaster1000.infernalexp.entities.BlackstoneDwarfEntity;
-import com.nekomaster1000.infernalexp.entities.BlindsightEntity;
-import com.nekomaster1000.infernalexp.entities.CerobeetleEntity;
-import com.nekomaster1000.infernalexp.entities.EmbodyEntity;
-import com.nekomaster1000.infernalexp.entities.GlowsquitoEntity;
-import com.nekomaster1000.infernalexp.entities.PyrnoEntity;
-import com.nekomaster1000.infernalexp.entities.ShroomloinEntity;
-import com.nekomaster1000.infernalexp.entities.SkeletalPiglinEntity;
-import com.nekomaster1000.infernalexp.entities.VolineEntity;
-import com.nekomaster1000.infernalexp.entities.WarpbeetleEntity;
+import com.nekomaster1000.infernalexp.entities.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -87,6 +76,11 @@ public class IEEntityTypes {
             () -> EntityType.Builder.<AscusBombEntity>create(AscusBombEntity::new, EntityClassification.MISC)
                     .size(0.25f, 0.25f).trackingRange(4).func_233608_b_(10)
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "ascus_bomb").toString()));
+
+    public static final RegistryObject<EntityType<ThrowableMagmaCreamEntity>> THROWABLE_MAGMA_CREAM = ENTITY_TYPES.register("throwable_magma_cream",
+            () -> EntityType.Builder.<ThrowableMagmaCreamEntity>create(ThrowableMagmaCreamEntity::new, EntityClassification.MISC)
+                    .size(0.25f, 0.25f).trackingRange(4).func_233608_b_(10)
+                    .build(new ResourceLocation(InfernalExpansion.MOD_ID, "throwable_magma_cream").toString()));
 
     private static <T extends Entity> RegistryObject<EntityType<T>> register(String key, EntityType.IFactory<T> factoryIn, EntityClassification classificationIn, float size1, float size2) {
         return ENTITY_TYPES.register(key, () -> EntityType.Builder.create(factoryIn, classificationIn)

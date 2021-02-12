@@ -5,37 +5,24 @@ import com.nekomaster1000.infernalexp.blocks.HorizontalBushBlock;
 import com.nekomaster1000.infernalexp.config.ConfigHelper;
 import com.nekomaster1000.infernalexp.config.ConfigHolder;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
-import com.nekomaster1000.infernalexp.entities.BasaltGiantEntity;
-import com.nekomaster1000.infernalexp.entities.EmbodyEntity;
-import com.nekomaster1000.infernalexp.entities.GlowsquitoEntity;
-import com.nekomaster1000.infernalexp.entities.ShroomloinEntity;
-import com.nekomaster1000.infernalexp.entities.VolineEntity;
-import com.nekomaster1000.infernalexp.entities.WarpbeetleEntity;
+import com.nekomaster1000.infernalexp.entities.*;
 import com.nekomaster1000.infernalexp.entities.ai.AvoidBlockGoal;
 import com.nekomaster1000.infernalexp.util.RegistryHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.FlyingEntity;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.monster.GhastEntity;
-import net.minecraft.entity.monster.HoglinEntity;
-import net.minecraft.entity.monster.MagmaCubeEntity;
-import net.minecraft.entity.monster.SkeletonEntity;
-import net.minecraft.entity.monster.SlimeEntity;
-import net.minecraft.entity.monster.SpiderEntity;
+import net.minecraft.entity.monster.*;
 import net.minecraft.entity.monster.piglin.PiglinBruteEntity;
 import net.minecraft.entity.monster.piglin.PiglinEntity;
-import net.minecraft.potion.EffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.state.properties.AttachFace;
+import net.minecraft.stats.Stats;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
@@ -50,9 +37,9 @@ import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.living.PotionColorCalculationEvent;
 import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.entity.living.PotionColorCalculationEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.NoteBlockEvent;
@@ -394,6 +381,30 @@ public class IEEvents {
                     heldItemStack.shrink(1);
                 }
                 ForgeEventFactory.onBlockPlace(player, BlockSnapshot.create(world.getDimensionKey(), world, pos), face);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
+        World world = event.getWorld();
+        PlayerEntity player = event.getPlayer();
+        ItemStack heldItemStack = player.getHeldItem(event.getHand());
+
+        if (heldItemStack.getItem() == Items.MAGMA_CREAM) {
+            player.swingArm(event.getHand());
+
+            if (!world.isRemote) {
+                ThrowableMagmaCreamEntity throwableMagmaCreamEntity = new ThrowableMagmaCreamEntity(world, player);
+                throwableMagmaCreamEntity.setItem(heldItemStack);
+                throwableMagmaCreamEntity.func_234612_a_(player, player.rotationPitch, player.rotationYaw, -20, 0.5f, 1);
+                world.addEntity(throwableMagmaCreamEntity);
+            }
+
+            player.addStat(Stats.ITEM_USED.get(heldItemStack.getItem()));
+
+            if (!player.abilities.isCreativeMode) {
+                heldItemStack.shrink(1);
             }
         }
     }
