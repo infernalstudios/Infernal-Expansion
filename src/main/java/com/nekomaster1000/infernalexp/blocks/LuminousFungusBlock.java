@@ -1,16 +1,17 @@
 package com.nekomaster1000.infernalexp.blocks;
 
-import java.util.Random;
-
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IEConfiguredFeatures;
-
+import com.nekomaster1000.infernalexp.tileentities.LuminousFungusTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.IGrowable;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.AttachFace;
+import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -22,13 +23,22 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.HugeFungusConfig;
 import net.minecraft.world.server.ServerWorld;
 
-public class LuminousFungusBlock extends HorizontalBushBlock implements IGrowable {
+import javax.annotation.Nullable;
+import java.util.Random;
+
+public class LuminousFungusBlock extends HorizontalBushBlock implements IGrowable{
+    public static final BooleanProperty LIT = BlockStateProperties.LIT;
     protected static final VoxelShape FLOOR_SHAPE = Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 10.0D, 11.0D);
     protected static final VoxelShape CEILING_SHAPE = Block.makeCuboidShape(5.0D, 6.0D, 5.0D, 11.0D, 16.0D, 11.0D);
 
     public LuminousFungusBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(FACE, AttachFace.FLOOR).with(HORIZONTAL_FACING, Direction.NORTH));
+        this.setDefaultState(this.stateContainer.getBaseState().with(FACE, AttachFace.FLOOR).with(HORIZONTAL_FACING, Direction.NORTH).with(LIT, Boolean.valueOf(false)));
+    }
+
+    @Override
+    public boolean hasTileEntity(BlockState state) {
+        return true;
     }
 
     @Override
@@ -74,7 +84,7 @@ public class LuminousFungusBlock extends HorizontalBushBlock implements IGrowabl
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builderIn) {
-        builderIn.add(HORIZONTAL_FACING, FACE);
+        builderIn.add(HORIZONTAL_FACING, FACE, LIT);
     }
     
 	/**
@@ -96,4 +106,10 @@ public class LuminousFungusBlock extends HorizontalBushBlock implements IGrowabl
 	public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
 		IEConfiguredFeatures.DULLTHORN_TREE_PLANTED.generate(worldIn, worldIn.getChunkProvider().getChunkGenerator(), rand, pos);
 	}
+
+    @Nullable
+    @Override
+    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+        return new LuminousFungusTileEntity();
+    }
 }

@@ -3,24 +3,17 @@ package com.nekomaster1000.infernalexp.init;
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.blocks.*;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FlowerPotBlock;
-import net.minecraft.block.LanternBlock;
-import net.minecraft.block.SlabBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.StairsBlock;
-import net.minecraft.block.TorchBlock;
-import net.minecraft.block.WallBlock;
-import net.minecraft.block.WallTorchBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.function.ToIntFunction;
 
 public class IEBlocks {
 
@@ -96,7 +89,7 @@ public class IEBlocks {
     public static final RegistryObject<Block> GLOW_FIRE = BLOCKS.register("fire_glow",              () -> new GlowFireBlock(getProperties(Blocks.FIRE)));
 
     // Foliage
-    public static final RegistryObject<Block> LUMINOUS_FUNGUS = BLOCKS.register("luminous_fungus",  () -> new LuminousFungusBlock(getProperties(Material.PLANTS).setLightLevel(value -> 13).doesNotBlockMovement().sound(SoundType.PLANT)));
+    public static final RegistryObject<Block> LUMINOUS_FUNGUS = BLOCKS.register("luminous_fungus",  () -> new LuminousFungusBlock(getProperties(Material.PLANTS).setLightLevel(getLightValueLit(15)).doesNotBlockMovement().sound(SoundType.PLANT)));
     public static final RegistryObject<Block> DULLTHORNS = BLOCKS.register("dullthorns",            () -> new DullthornsBlock(AbstractBlock.Properties.create(Material.CACTUS).setLightLevel(value -> 3).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0.1F).sound(SoundType.PLANT)));
 
     public static final RegistryObject<Block> DULLTHORNS_BLOCK = BLOCKS.register("dullthorns_block",        () -> new DullthornsBlockBlock(AbstractBlock.Properties.create(Material.CACTUS).hardnessAndResistance(0.2F).sound(SoundType.WART)));
@@ -123,6 +116,12 @@ public class IEBlocks {
 
     public static AbstractBlock.Properties getProperties(Block block) {
         return AbstractBlock.Properties.from(block);
+    }
+
+    private static ToIntFunction<BlockState> getLightValueLit(int lightValue) {
+        return (state) -> {
+            return state.get(BlockStateProperties.LIT) ? lightValue : 0;
+        };
     }
 
     public static void register(IEventBus eventBus) {
