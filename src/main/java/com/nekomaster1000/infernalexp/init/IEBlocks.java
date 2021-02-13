@@ -1,11 +1,31 @@
 package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
-import com.nekomaster1000.infernalexp.blocks.*;
-
-import net.minecraft.block.*;
+import com.nekomaster1000.infernalexp.blocks.BuriedBoneBlock;
+import com.nekomaster1000.infernalexp.blocks.CrumblingBlackstoneBlock;
+import com.nekomaster1000.infernalexp.blocks.DullthornsBlock;
+import com.nekomaster1000.infernalexp.blocks.DullthornsBlockBlock;
+import com.nekomaster1000.infernalexp.blocks.FungusCapBlock;
+import com.nekomaster1000.infernalexp.blocks.GlowCampfireBlock;
+import com.nekomaster1000.infernalexp.blocks.GlowFireBlock;
+import com.nekomaster1000.infernalexp.blocks.GlowSandBlock;
+import com.nekomaster1000.infernalexp.blocks.GlowTorchBlock;
+import com.nekomaster1000.infernalexp.blocks.GlowWallTorchBlock;
+import com.nekomaster1000.infernalexp.blocks.GlowdustBlock;
+import com.nekomaster1000.infernalexp.blocks.LuminousFungusBlock;
+import com.nekomaster1000.infernalexp.blocks.ShroomlightFungusBlock;
+import com.nekomaster1000.infernalexp.blocks.TrappedGlowSandBlock;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.FlowerPotBlock;
+import net.minecraft.block.LanternBlock;
+import net.minecraft.block.SlabBlock;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.StairsBlock;
+import net.minecraft.block.WallBlock;
 import net.minecraft.block.material.Material;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -83,8 +103,8 @@ public class IEBlocks {
     public static final RegistryObject<Block> LUMINOUS_FUNGUS_CAP = BLOCKS.register("luminous_fungus_cap",() -> new FungusCapBlock(AbstractBlock.Properties.from(Blocks.NETHER_WART_BLOCK).setLightLevel(value -> 14)));
 
     public static final RegistryObject<Block> GLOW_LANTERN = BLOCKS.register("lantern_glow",        () -> new LanternBlock(getProperties(Blocks.LANTERN)));
-    public static final RegistryObject<Block> GLOW_TORCH = BLOCKS.register("torch_glow",            () -> new TorchBlock(getProperties(Blocks.TORCH), ParticleTypes.CRIT));
-    public static final RegistryObject<Block> GLOW_WALL_TORCH = BLOCKS.register("torch_glow_wall",  () -> new WallTorchBlock(getProperties(IEBlocks.GLOW_TORCH.get()).lootFrom(GLOW_TORCH.get()), ParticleTypes.CRIT));
+    public static final RegistryObject<Block> GLOW_TORCH = BLOCKS.register("torch_glow",            () -> new GlowTorchBlock(getProperties(Blocks.TORCH)));
+    public static final RegistryObject<Block> GLOW_WALL_TORCH = BLOCKS.register("torch_glow_wall",  () -> new GlowWallTorchBlock(getProperties(IEBlocks.GLOW_TORCH.get()).lootFrom(GLOW_TORCH.get())));
     public static final RegistryObject<Block> GLOW_CAMPFIRE = BLOCKS.register("campfire_glow",      () -> new GlowCampfireBlock(true, 2, getProperties(Blocks.CAMPFIRE)));
     public static final RegistryObject<Block> GLOW_FIRE = BLOCKS.register("fire_glow",              () -> new GlowFireBlock(getProperties(Blocks.FIRE)));
 
@@ -119,9 +139,7 @@ public class IEBlocks {
     }
 
     private static ToIntFunction<BlockState> getLightValueLit(int lightValue) {
-        return (state) -> {
-            return state.get(BlockStateProperties.LIT) ? lightValue : 0;
-        };
+        return (state) -> state.get(BlockStateProperties.LIT) ? lightValue : 0;
     }
 
     public static void register(IEventBus eventBus) {
