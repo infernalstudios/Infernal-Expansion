@@ -116,17 +116,31 @@ public class BasaltGiantModel<T extends BasaltGiantEntity> extends SegmentedMode
 
         int i = entity.getAttackTimer();
         if(i <= 0){
-            this.RightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+            this.RightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.4F + (float)Math.PI) * 1.0F * limbSwingAmount;
             this.Jaw.rotateAngleX = 0.0F;
         }
 
         sizeScalar = entity.getSizeScalar(); // Get size scalar value for this instance of the entity
 
-        this.LeftArm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.0F * limbSwingAmount;
-        this.RightArm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.0F * limbSwingAmount;
-        this.LeftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        this.LeftArm.rotateAngleX = MathHelper.cos(limbSwing * 0.4F + (float)Math.PI) * 0.8F * limbSwingAmount;
+        this.RightArm.rotateAngleX = MathHelper.cos(limbSwing * 0.4F) * 0.8F * limbSwingAmount;
+        this.LeftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.4F) * 1.0F * limbSwingAmount;
         this.Torso2.rotateAngleX = MathHelper.cos(limbSwing * 0.3332F) * 0.25F * limbSwingAmount;
         this.Head.rotateAngleX = MathHelper.cos(limbSwing * 0.1551F) * 0.15F * limbSwingAmount;
+
+        /*
+        TOP SECRET FOR RELEASE 3
+
+        this.LeftArmJoint.rotateAngleX = -Math.abs(this.LeftArm.rotateAngleX * 0.6662F);
+        this.RightArmJoint.rotateAngleX = -Math.abs(this.RightArm.rotateAngleX * 0.6662F);
+        this.Body.rotateAngleZ = MathHelper.cos(limbSwing * 0.3332F + (float)Math.PI) * 0.4F * limbSwingAmount;
+        this.LeftLegJoint.rotateAngleX = Math.abs(this.LeftLeg.rotateAngleX * 0.75F);
+
+        THIS ONE NEEDS TO GO UP IN THE IF STATEMENT ABOVE
+
+        this.RightLegJoint.rotateAngleX = Math.abs(this.RightLeg.rotateAngleX * 0.75F);
+         */
+
     }
 
     @Override
