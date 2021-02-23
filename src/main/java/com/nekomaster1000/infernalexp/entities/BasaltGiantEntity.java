@@ -8,12 +8,7 @@ import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.util.RegistryHandler;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.IAngerable;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
@@ -27,6 +22,7 @@ import net.minecraft.entity.monster.MagmaCubeEntity;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ArrowEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -38,6 +34,8 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.TickRangeConverter;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -60,13 +58,6 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
     public BasaltGiantEntity(EntityType<? extends BasaltGiantEntity> type, World worldIn) {
         super(type, worldIn);
 
-        // Get a random size scale value resulting in a height between the MIN and MAX values specified above
-        float size = rand.nextFloat();
-        size /= BASE_ENTITY_HEIGHT / (MAX_ENTITY_HEIGHT - MIN_ENTITY_HEIGHT);
-        size += MIN_ENTITY_HEIGHT / BASE_ENTITY_HEIGHT;
-
-        this.dataManager.set(SIZE_SCALAR, size);
-
         this.stepHeight = 2.0f;
     }
 
@@ -76,11 +67,39 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
             this.dataManager.set(SIZE_SCALAR, sizeScalar);
     }
 
+    @Nullable
+    @Override
+    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+
+        // Get a random size scale value resulting in a height between the MIN and MAX values specified above
+        float size = rand.nextFloat();
+        size /= BASE_ENTITY_HEIGHT / (MAX_ENTITY_HEIGHT - MIN_ENTITY_HEIGHT);
+        size += MIN_ENTITY_HEIGHT / BASE_ENTITY_HEIGHT;
+        this.setSize(size);
+
+        return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    }
+
     @Override
     protected void registerData() {
         super.registerData();
 
         this.dataManager.register(SIZE_SCALAR, 1.0F);
+    }
+    public float getSize() {
+        return this.dataManager.get(SIZE_SCALAR);
+    }
+    public void setSize(float size) {
+        this.getDataManager().set(SIZE_SCALAR, size);
+    }
+    public void writeAdditional(CompoundNBT compound) {
+        super.writeAdditional(compound);
+        compound.putFloat("Size", this.getSize());
+    }
+
+    public void readAdditional(CompoundNBT compound) {
+        super.readAdditional(compound);
+        this.setSize(compound.getFloat("Size"));
     }
 
     //ATTRIBUTES
