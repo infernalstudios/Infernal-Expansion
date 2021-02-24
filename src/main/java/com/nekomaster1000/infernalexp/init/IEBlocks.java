@@ -1,6 +1,7 @@
 package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
+import com.nekomaster1000.infernalexp.blocks.SoulBerryBushBlock;
 import com.nekomaster1000.infernalexp.blocks.BuriedBoneBlock;
 import com.nekomaster1000.infernalexp.blocks.CrumblingBlackstoneBlock;
 import com.nekomaster1000.infernalexp.blocks.DullthornsBlock;
@@ -123,6 +124,8 @@ public class IEBlocks {
     public static final RegistryObject<BuriedBoneBlock> BURIED_BONE = BLOCKS.register("buried_bone",   () -> new BuriedBoneBlock(getProperties(Material.PLANTS).doesNotBlockMovement().sound(SoundType.BONE)));
     public static final RegistryObject<FlowerPotBlock> POTTED_BURIED_BONE = BLOCKS.register("potted_buried_bone", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, BURIED_BONE, getProperties(Blocks.FLOWER_POT)));
 
+    public static final RegistryObject<Block> SOUL_BERRY_BUSH = BLOCKS.register("soul_berry_bush", () -> new SoulBerryBushBlock(AbstractBlock.Properties.create(Material.PLANTS).tickRandomly().doesNotBlockMovement().sound(SoundType.SWEET_BERRY_BUSH)));
+    
     public static AbstractBlock.Properties getProperties(Material materialIn, float hardnessAndResistanceIn) {
         return getProperties(materialIn, hardnessAndResistanceIn, hardnessAndResistanceIn);
     }

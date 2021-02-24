@@ -11,6 +11,7 @@ import com.nekomaster1000.infernalexp.items.SlurpSoupItem;
 import com.nekomaster1000.infernalexp.util.ModSpawnEggItem;
 import com.nekomaster1000.infernalexp.util.RegistryHandler;
 
+import net.minecraft.item.BlockNamedItem;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -129,6 +130,7 @@ public class IEItems {
     // Record Discs
     public static final RegistryObject<Item> MUSIC_DISC_SOUL_SPUNK = ITEMS.register("music_disc_soul_spunk", () -> new MusicDiscItem(8, () -> RegistryHandler.MUSIC_DISC_SOUL_SPUNK, new Item.Properties().group(InfernalExpansion.TAB).rarity(Rarity.RARE).maxStackSize(1)));
 
+    public static final RegistryObject<Item> SOUL_BERRIES = ITEMS.register("soul_berries", () -> new BlockNamedItem(IEBlocks.SOUL_BERRY_BUSH.get(), new Item.Properties().group(InfernalExpansion.TAB).food(new Food.Builder().hunger(2).saturation(0.1F).build())));
     /*
     // Tools
     public static final RegistryObject<SwordItem> FROSTBITTEN_SWORD = ITEMS.register("frostbitten_sword", () -> new SwordItem(ModItemTier.FROSTBITTEN_NETHERITE, 2, -2.4F, new Item.Properties().group(InfernalExpansion.TAB)));

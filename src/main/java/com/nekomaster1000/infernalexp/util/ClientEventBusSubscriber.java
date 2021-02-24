@@ -66,6 +66,8 @@ public class ClientEventBusSubscriber {
         RenderTypeLookup.setRenderLayer(IEBlocks.SHROOMLIGHT_FUNGUS.get(), RenderType.getCutout());
 
         RenderTypeLookup.setRenderLayer(IEBlocks.BURIED_BONE.get(), RenderType.getCutout());
+        
+        RenderTypeLookup.setRenderLayer(IEBlocks.SOUL_BERRY_BUSH.get(), RenderType.getCutout());
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)

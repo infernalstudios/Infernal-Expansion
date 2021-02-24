@@ -64,6 +64,8 @@
 
   "block.infernalexp.buried_bone": "Buried Bone",
 
+  "block.infernalexp.soul_berry_bush": "Soul Berry Bush",
+
   "block.infernalexp.lantern_glow": "Glowlight Lantern",
   "block.infernalexp.torch_glow": "Glowlight Torch",
   "block.infernalexp.campfire_glow": "Glowlight Campfire",
@@ -95,6 +97,8 @@
   "item.infernalexp.skeletal_piglin_spawn_egg": "Skeletal Piglin Spawn Egg",
   "item.infernalexp.pyrno_spawn_egg": "Pyrno Spawn Egg",
   "item.infernalexp.blindsight_spawn_egg": "Blindsight Spawn Egg",
+
+  "item.infernalexp.soul_berries": "Soul Berries",
   
   "item.infernalexp.music_disc_soul_spunk": "Music Disc",
   "item.infernalexp.music_disc_soul_spunk.desc": "LudoCrypt - Soul Spunk",
