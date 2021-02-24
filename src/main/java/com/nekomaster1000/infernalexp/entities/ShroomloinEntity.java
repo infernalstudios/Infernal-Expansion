@@ -27,7 +27,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.EnumSet;
 
-public class ShroomloinEntity extends MonsterEntity implements IRangedAttackMob {
+public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob {
     private static final DataParameter<Integer> STATE = EntityDataManager.createKey(ShroomloinEntity.class, DataSerializers.VARINT);
     private static final DataParameter<Boolean> IGNITED = EntityDataManager.createKey(ShroomloinEntity.class, DataSerializers.BOOLEAN);
     private int lastActiveTime;
@@ -36,7 +36,7 @@ public class ShroomloinEntity extends MonsterEntity implements IRangedAttackMob 
 
    // public static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(IEItems.DULLROCKS.get(), Items.MAGMA_CREAM);
 
-    public ShroomloinEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+    public ShroomloinEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
         super(type, worldIn);
     }
 

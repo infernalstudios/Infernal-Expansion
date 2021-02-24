@@ -92,11 +92,58 @@ public class IEBlocks {
     public static final RegistryObject<Block> GLOWDUST_SANDSTONE_WALL = BLOCKS.register("glowdust_sandstone_wall",          () -> new WallBlock(getProperties(GLOWDUST_SANDSTONE.get())));
 
     public static final RegistryObject<Block> CRUMBLING_BLACKSTONE = BLOCKS.register("crumbling_blackstone",    () -> new CrumblingBlackstoneBlock(AbstractBlock.Properties.from(Blocks.NETHERRACK)));
-    public static final RegistryObject<Block> GLIMMERING_BLACKSTONE = BLOCKS.register("glimmering_blackstone",  () -> new Block(getProperties(Blocks.BLACKSTONE).setLightLevel(value -> 6)));
+//  public static final RegistryObject<Block> GLIMMERING_BLACKSTONE = BLOCKS.register("glimmering_blackstone", () -> new Block(getProperties(Blocks.BLACKSTONE).setLightLevel(value -> 6)));
     public static final RegistryObject<Block> SILT = BLOCKS.register("silt",        () -> new Block(getProperties(Blocks.SAND)));
     public static final RegistryObject<Block> RUBBLE = BLOCKS.register("rubble",    () -> new Block(getProperties(Blocks.GRAVEL)));
 
     public static final RegistryObject<Block> BASALT_IRON_ORE = BLOCKS.register("basalt_iron_ore",        () -> new Block(AbstractBlock.Properties.from(Blocks.NETHER_GOLD_ORE)));
+
+/* TO ADD (Release 3):
+ Basalt Wall
+ Basalt Stairs
+ Basalt Button
+ Basalt Slab
+
+ Polished Basalt Pressure Plate
+ Polished Basalt Slab
+
+ Basalt Bricks (getProperties(Blocks.BASALT)
+ Cracked Basalt Bricks (getProperties(Blocks.BASALT)
+ Basalt Brick Wall
+ Basalt Brick Stairs
+ Basalt Brick Slab
+
+ Chiseled Basalt Brick
+
+ Basaltic Magma (getProperties(Blocks.MAGMA)
+
+---
+
+ Soul Sand Slab
+ Soul Sand Stairs
+
+ Soul Soil Slab
+ Soul Soil Stairs
+
+ Soul Stone
+
+ Soul Slate
+ Soul Slate Slab
+ Soul Slate Stairs
+ Soul Slate Pressure Plate
+ Soul Slate Button
+
+ Soul Slate Bricks
+ Soul Slate Brick Wall
+ Soul Slate Brick Stairs
+ Soul Slate Brick Slab
+ Cracked Soul Slate Bricks
+ Chiseled Soul Slate Brick
+
+(ALL OF THESE SHOULD GIVE SOUL SPEED WHEN WALKED ON)
+
+ Texture files are ready to go.
+*/
 
     public static final RegistryObject<Block> CRIMSON_FUNGUS_CAP = BLOCKS.register("crimson_fungus_cap",  () -> new FungusCapBlock(AbstractBlock.Properties.from(Blocks.NETHER_WART_BLOCK)));
     public static final RegistryObject<Block> WARPED_FUNGUS_CAP = BLOCKS.register("warped_fungus_cap",    () -> new FungusCapBlock(AbstractBlock.Properties.from(Blocks.WARPED_WART_BLOCK)));
