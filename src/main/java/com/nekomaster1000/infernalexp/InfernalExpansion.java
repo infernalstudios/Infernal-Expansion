@@ -57,11 +57,11 @@ public class InfernalExpansion
 
         //Registering Configs
         modLoadingContext.registerConfig(ModConfig.Type.CLIENT, ConfigHolder.CLIENT_SPEC);
-        modLoadingContext.registerConfig(ModConfig.Type.SERVER, ConfigHolder.SERVER_SPEC);
+        modLoadingContext.registerConfig(ModConfig.Type.COMMON, ConfigHolder.COMMON_SPEC);
 
         //Baking Configs
         ConfigHelper.bakeClient(null);
-        ConfigHelper.bakeServer(null);
+        ConfigHelper.bakeCommon(null);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)

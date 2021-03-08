@@ -7,7 +7,7 @@ public final class InfernalExpansionConfig {
     //Luminous Effect
     public static int luminousRefreshRate;
 
-    //Server
+    //Common
 
     //Mob Interactions
     public static boolean piglinFearWarpbeetle;
