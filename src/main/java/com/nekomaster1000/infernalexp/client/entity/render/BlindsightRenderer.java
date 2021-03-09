@@ -14,6 +14,7 @@ public class BlindsightRenderer extends MobRenderer<BlindsightEntity, Blindsight
 
     public BlindsightRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new BlindsightModel<>(), 0.7f);
+        this.addLayer(new BlindsightGlowLayer(this));
     }
 
     @Override

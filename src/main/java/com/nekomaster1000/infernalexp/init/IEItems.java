@@ -104,7 +104,7 @@ public class IEItems {
     public static final RegistryObject<Item> GLOWDUST_SANDSTONE_WALL = ITEMS.register("glowdust_sandstone_wall",                    () -> new BlockItemBase(IEBlocks.GLOWDUST_SANDSTONE_WALL.get()));
 
     public static final RegistryObject<Item> CRUMBLING_BLACKSTONE = ITEMS.register("crumbling_blackstone",  () -> new BlockItemBase(IEBlocks.CRUMBLING_BLACKSTONE.get()));
-    public static final RegistryObject<Item> GLIMMERING_BLACKSTONE = ITEMS.register("glimmering_blackstone", () -> new BlockItemBase(IEBlocks.GLIMMERING_BLACKSTONE.get()));
+    // public static final RegistryObject<Item> GLIMMERING_BLACKSTONE = ITEMS.register("glimmering_blackstone", () -> new BlockItemBase(IEBlocks.GLIMMERING_BLACKSTONE.get()));
     public static final RegistryObject<Item> SILT = ITEMS.register("silt", () -> new BlockItemBase(IEBlocks.SILT.get()));
     public static final RegistryObject<Item> RUBBLE = ITEMS.register("rubble", () -> new BlockItemBase(IEBlocks.RUBBLE.get()));
 

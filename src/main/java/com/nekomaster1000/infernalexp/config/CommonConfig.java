@@ -4,7 +4,7 @@ import com.nekomaster1000.infernalexp.InfernalExpansion;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 
-public class ServerConfig {
+public class CommonConfig {
 
     //Mob Interactions
     final ForgeConfigSpec.BooleanValue piglinFearWarpbeetle;
@@ -47,7 +47,7 @@ public class ServerConfig {
     //Luminous Fungus
     final ForgeConfigSpec.DoubleValue luminousFungusActivateDistance;
 
-    ServerConfig(final ForgeConfigSpec.Builder builder){
+    CommonConfig(final ForgeConfigSpec.Builder builder){
         //Mob Interactions
         builder.push("Mob Interactions");
 
