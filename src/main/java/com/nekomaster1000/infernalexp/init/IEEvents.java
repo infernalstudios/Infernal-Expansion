@@ -1,20 +1,36 @@
 package com.nekomaster1000.infernalexp.init;
 
+import com.mojang.serialization.Codec;
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.blocks.HorizontalBushBlock;
 import com.nekomaster1000.infernalexp.config.ConfigHelper;
 import com.nekomaster1000.infernalexp.config.ConfigHolder;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
-import com.nekomaster1000.infernalexp.entities.*;
+import com.nekomaster1000.infernalexp.entities.BasaltGiantEntity;
+import com.nekomaster1000.infernalexp.entities.EmbodyEntity;
+import com.nekomaster1000.infernalexp.entities.GlowsquitoEntity;
+import com.nekomaster1000.infernalexp.entities.ShroomloinEntity;
+import com.nekomaster1000.infernalexp.entities.ThrowableMagmaCreamEntity;
+import com.nekomaster1000.infernalexp.entities.VolineEntity;
+import com.nekomaster1000.infernalexp.entities.WarpbeetleEntity;
 import com.nekomaster1000.infernalexp.entities.ai.AvoidBlockGoal;
 import com.nekomaster1000.infernalexp.util.RegistryHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.*;
+import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.FlyingEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.monster.*;
+import net.minecraft.entity.monster.GhastEntity;
+import net.minecraft.entity.monster.HoglinEntity;
+import net.minecraft.entity.monster.MagmaCubeEntity;
+import net.minecraft.entity.monster.SkeletonEntity;
+import net.minecraft.entity.monster.SlimeEntity;
+import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.entity.monster.piglin.PiglinBruteEntity;
 import net.minecraft.entity.monster.piglin.PiglinEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -24,14 +40,22 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.state.properties.AttachFace;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.FlatChunkGenerator;
 import net.minecraft.world.gen.carver.WorldCarver;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraft.world.gen.settings.DimensionStructuresSettings;
+import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.RegistryEvent;
@@ -43,13 +67,18 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.NoteBlockEvent;
+import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.config.ModConfig;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @Mod.EventBusSubscriber(modid = InfernalExpansion.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -425,10 +454,15 @@ public class IEEvents {
         }
     }
 
-    // Register features and surface builders
+    // Register features, surface builders, carvers and structures
     @SubscribeEvent
     public static void registerFeatures(RegistryEvent.Register<Feature<?>> event) {
         IEFeatures.features.forEach(feature -> event.getRegistry().register(feature));
+    }
+
+    @SubscribeEvent
+    public static void registerStructures(RegistryEvent.Register<Structure<?>> event) {
+        IEStructures.structures.forEach(structure -> event.getRegistry().register(structure));
     }
 
     @SubscribeEvent
@@ -469,6 +503,32 @@ public class IEEvents {
                     entity.world.addParticle(IEParticleTypes.INFECTION.get(), entity.getPosXRandom(entity.getBoundingBox().getXSize()), entity.getPosYRandom(), entity.getPosZRandom(entity.getBoundingBox().getZSize()), 0, 0, 0);
                 }
             }
+        }
+    }
+
+    private static Method GETCODEC_METHOD;
+
+    @SubscribeEvent
+    public void addDimensionalSpacing(final WorldEvent.Load event) {
+        if (event.getWorld() instanceof ServerWorld) {
+            ServerWorld world = (ServerWorld) event.getWorld();
+
+            try {
+                if (GETCODEC_METHOD == null) GETCODEC_METHOD = ObfuscationReflectionHelper.findMethod(ChunkGenerator.class, "func_230347_a_");
+
+                ResourceLocation cgRL = Registry.CHUNK_GENERATOR_CODEC.getKey((Codec<? extends ChunkGenerator>) GETCODEC_METHOD.invoke(world.getChunkProvider().generator));
+
+                if (cgRL != null && cgRL.getNamespace().equals("terraforged")) return;
+            } catch (Exception e) {
+                InfernalExpansion.LOGGER.error("Was unable to check if " + world.getDimensionKey().getLocation() + " is using Terraforged's ChunkGenerator");
+            }
+
+            if (world.getChunkProvider().getChunkGenerator() instanceof FlatChunkGenerator && world.getDimensionKey().equals(World.OVERWORLD)) return;
+
+            Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(world.getChunkProvider().generator.func_235957_b_().func_236195_a_());
+
+            IEStructures.structures.forEach(structure -> tempMap.putIfAbsent(structure, DimensionStructuresSettings.field_236191_b_.get(structure)));
+            world.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
         }
     }
 }

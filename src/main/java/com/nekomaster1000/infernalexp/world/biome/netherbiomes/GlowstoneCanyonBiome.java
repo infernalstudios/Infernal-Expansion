@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.world.biome.netherbiomes;
 
 import com.nekomaster1000.infernalexp.init.IECarvers;
 import com.nekomaster1000.infernalexp.init.IEConfiguredFeatures;
+import com.nekomaster1000.infernalexp.init.IEConfiguredStructures;
 import com.nekomaster1000.infernalexp.init.IEParticleTypes;
 import com.nekomaster1000.infernalexp.init.IESurfaceBuilders;
 import com.nekomaster1000.infernalexp.util.RegistryHandler;
@@ -70,6 +71,7 @@ public class GlowstoneCanyonBiome extends ModBiome {
     protected void configureGeneration(BiomeGenerationSettings.Builder generation) {
         generation.withStructure(StructureFeatures.RUINED_PORTAL_NETHER);
         generation.withStructure(StructureFeatures.FORTRESS);
+        generation.withStructure(IEConfiguredStructures.GLOWSTONE_CANYON_RUIN);
         generation.withCarver(GenerationStage.Carving.AIR, ConfiguredCarvers.field_243772_f);
         //generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.DELTA);
         generation.withCarver(GenerationStage.Carving.AIR, IECarvers.CONFIGURED_GLOWSTONE_RAVINE);

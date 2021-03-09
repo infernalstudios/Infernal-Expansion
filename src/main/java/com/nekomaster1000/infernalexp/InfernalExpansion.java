@@ -3,7 +3,18 @@ package com.nekomaster1000.infernalexp;
 import com.nekomaster1000.infernalexp.client.InfernalExpansionClient;
 import com.nekomaster1000.infernalexp.config.ConfigHelper;
 import com.nekomaster1000.infernalexp.config.ConfigHolder;
-import com.nekomaster1000.infernalexp.init.*;
+import com.nekomaster1000.infernalexp.init.IEBiomes;
+import com.nekomaster1000.infernalexp.init.IEBlocks;
+import com.nekomaster1000.infernalexp.init.IECommands;
+import com.nekomaster1000.infernalexp.init.IEEffects;
+import com.nekomaster1000.infernalexp.init.IEEntityTypes;
+import com.nekomaster1000.infernalexp.init.IEEvents;
+import com.nekomaster1000.infernalexp.init.IEItems;
+import com.nekomaster1000.infernalexp.init.IEPaintings;
+import com.nekomaster1000.infernalexp.init.IEParticleTypes;
+import com.nekomaster1000.infernalexp.init.IEPotions;
+import com.nekomaster1000.infernalexp.init.IEStructures;
+import com.nekomaster1000.infernalexp.init.IETileEntityTypes;
 import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeCollector;
 import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeProvider;
 import com.nekomaster1000.infernalexp.world.gen.ModEntityPlacement;
@@ -66,8 +77,12 @@ public class InfernalExpansion
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
+        //Search for all biomes to add to nether and register nether biome provider
         ModNetherBiomeCollector.netherBiomeCollection();
         Registry.register(Registry.BIOME_PROVIDER_CODEC, new ResourceLocation(MOD_ID, "infernalexp_nether"), ModNetherBiomeProvider.MOD_NETHER_CODEC);
+
+        //Setup and register structures
+        event.enqueueWork(IEStructures::setupStructures);
 
         //Places entity spawn locations on the ground
         ModEntityPlacement.spawnPlacement();
@@ -80,7 +95,7 @@ public class InfernalExpansion
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> InfernalExpansionClient.init());
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> InfernalExpansionClient::init);
     }
 
     @SubscribeEvent
