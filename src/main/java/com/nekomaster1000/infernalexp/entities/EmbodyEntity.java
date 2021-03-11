@@ -5,10 +5,7 @@ import javax.annotation.Nullable;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.util.RegistryHandler;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.LookAtGoal;
@@ -43,7 +40,7 @@ public class EmbodyEntity extends MonsterEntity {
     //ATTRIBUTES
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return MobEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.MAX_HEALTH, 5.0D)
+                .createMutableAttribute(Attributes.MAX_HEALTH, 15.0D)
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 4.0D)
                 .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 2.0D);
     }
@@ -82,6 +79,11 @@ public class EmbodyEntity extends MonsterEntity {
     }
 
     public boolean isWaterSensitive() { return true;}
+
+    @Override
+    public CreatureAttribute getCreatureAttribute() {
+        return CreatureAttribute.UNDEAD;
+    }
 
     //EXP POINTS
     @Override
