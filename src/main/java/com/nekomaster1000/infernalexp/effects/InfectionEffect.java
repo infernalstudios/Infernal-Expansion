@@ -8,6 +8,9 @@ import net.minecraft.potion.EffectType;
 import net.minecraft.util.DamageSource;
 
 public class InfectionEffect extends Effect {
+
+    private int initialDuration;
+
     public InfectionEffect(EffectType typeIn, int liquidColorIn) {
         super(typeIn, liquidColorIn);
     }
@@ -20,7 +23,7 @@ public class InfectionEffect extends Effect {
 
         for (LivingEntity entity : entityLivingBaseIn.getEntityWorld().getEntitiesWithinAABB(LivingEntity.class, entityLivingBaseIn.getBoundingBox().grow(3))) {
             if (!entity.isPotionActive(IEEffects.INFECTION.get()) && entity.isServerWorld()) {
-                entity.addPotionEffect(new EffectInstance(IEEffects.INFECTION.get(), 300));
+                entity.addPotionEffect(new EffectInstance(IEEffects.INFECTION.get(), entityLivingBaseIn.getActivePotionEffect(IEEffects.INFECTION.get()).getDuration() / 2));
             }
         }
     }

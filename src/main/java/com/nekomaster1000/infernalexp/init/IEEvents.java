@@ -39,6 +39,7 @@ import net.minecraft.item.Items;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.state.properties.AttachFace;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -60,6 +61,7 @@ import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.PotionColorCalculationEvent;
 import net.minecraftforge.event.entity.player.BonemealEvent;
@@ -507,7 +509,20 @@ public class IEEvents {
         }
     }
 
-    private static Method GETCODEC_METHOD;
+    @SubscribeEvent
+    public void onLivingEntityAttack(LivingAttackEvent event) {
+        LivingEntity entity = event.getEntityLiving();
+
+        if (entity.isServerWorld() && entity.getEntityWorld() instanceof ServerWorld) {
+            if (entity.isPotionActive(IEEffects.INFECTION.get())) {
+                if (event.getSource() != DamageSource.MAGIC) {
+                    for (int i = 0; i < 32; i++) {
+                        ((ServerWorld) entity.getEntityWorld()).spawnParticle(IEParticleTypes.INFECTION.get(), entity.getPosXRandom(1), entity.getPosYRandom(), entity.getPosZRandom(1), 1, 0, 0, 0, 1);
+                    }
+                }
+            }
+        }
+    }
 
     @SubscribeEvent
     public void addDimensionalSpacing(final WorldEvent.Load event) {
@@ -515,7 +530,7 @@ public class IEEvents {
             ServerWorld world = (ServerWorld) event.getWorld();
 
             try {
-                if (GETCODEC_METHOD == null) GETCODEC_METHOD = ObfuscationReflectionHelper.findMethod(ChunkGenerator.class, "func_230347_a_");
+                Method GETCODEC_METHOD = ObfuscationReflectionHelper.findMethod(ChunkGenerator.class, "func_230347_a_");
 
                 ResourceLocation cgRL = Registry.CHUNK_GENERATOR_CODEC.getKey((Codec<? extends ChunkGenerator>) GETCODEC_METHOD.invoke(world.getChunkProvider().generator));
 
