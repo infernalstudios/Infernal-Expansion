@@ -79,7 +79,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @Mod.EventBusSubscriber(modid = InfernalExpansion.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class IEEvents {
@@ -497,10 +496,12 @@ public class IEEvents {
     public void onLivingEntityUpdate(LivingEvent.LivingUpdateEvent event) {
         LivingEntity entity = event.getEntityLiving();
 
-        if (entity.isPotionActive(IEEffects.INFECTION.get())) {
-            if ((Objects.requireNonNull(entity.getActivePotionEffect(IEEffects.INFECTION.get())).getDuration() & 10) == 0 && Objects.requireNonNull(entity.getActivePotionEffect(IEEffects.INFECTION.get())).doesShowParticles()) {
-                for (int i = 0; i < 1; i++) {
-                    entity.world.addParticle(IEParticleTypes.INFECTION.get(), entity.getPosXRandom(entity.getBoundingBox().getXSize()), entity.getPosYRandom(), entity.getPosZRandom(entity.getBoundingBox().getZSize()), 0, 0, 0);
+        // Make sure we are checking potion effects on the server, not client
+        if (entity.isServerWorld() && entity.getEntityWorld() instanceof ServerWorld) {
+            if (entity.isPotionActive(IEEffects.INFECTION.get())) {
+                if ((entity.getActivePotionEffect(IEEffects.INFECTION.get()).getDuration() & 10) == 0 && entity.getActivePotionEffect(IEEffects.INFECTION.get()).doesShowParticles()) {
+                    // Use ServerWorld#spawnParticle instead of World#addParticle because this code is running on the server side
+                    ((ServerWorld) entity.getEntityWorld()).spawnParticle(IEParticleTypes.INFECTION.get(), entity.getPosXRandom(entity.getBoundingBox().getXSize()), entity.getPosYRandom(), entity.getPosZRandom(entity.getBoundingBox().getZSize()), 0, 0, 0, 0, 1);
                 }
             }
         }
