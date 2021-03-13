@@ -5,7 +5,61 @@ public final class InfernalExpansionConfig {
     //Client
 
     //Luminous Effect
-    public static int luminousRefreshRate;
+    public enum ClientConfig {
+        LUMINOUS_REFRESH_RATE("luminousRefreshRate", true, 1, 20, 1);
+
+        private final String translationName;
+        private final boolean isSlider;
+        private final double minValue;
+        private final double maxValue;
+        private final float stepSize;
+        private double value;
+
+        ClientConfig(String translationName, boolean isSlider, double minValue, double maxValue, float stepSize) {
+            this.translationName = translationName;
+            this.isSlider = isSlider;
+            this.minValue = minValue;
+            this.maxValue = maxValue;
+            this.stepSize = stepSize;
+            this.value = 0;
+        }
+
+        public String getTranslationName() {
+            return translationName;
+        }
+
+        public double getMinValue() {
+            return minValue;
+        }
+
+        public double getMaxValue() {
+            return maxValue;
+        }
+
+        public float getStepSize() {
+            return stepSize;
+        }
+
+        public void set(double value) {
+            this.value = value;
+        }
+
+        public void set(boolean value) {
+            this.value = value ? 1 : 0;
+        }
+
+        public double getDouble() {
+            return value;
+        }
+
+        public boolean getBool() {
+            return value > 0;
+        }
+
+        public boolean isSlider() {
+            return isSlider;
+        }
+    }
 
     //Common
 
@@ -148,59 +202,4 @@ public final class InfernalExpansionConfig {
         }
     }
 
-    public enum ClientConfig {
-        LUMINOUS_REFRESH_RATE("luminousRefreshRate", true, 1, 20, 1);
-
-        private final String translationName;
-        private final boolean isSlider;
-        private final double minValue;
-        private final double maxValue;
-        private final float stepSize;
-        private double value;
-
-        ClientConfig(String translationName, boolean isSlider, double minValue, double maxValue, float stepSize) {
-            this.translationName = translationName;
-            this.isSlider = isSlider;
-            this.minValue = minValue;
-            this.maxValue = maxValue;
-            this.stepSize = stepSize;
-            this.value = 0;
-        }
-
-        public String getTranslationName() {
-            return translationName;
-        }
-
-        public double getMinValue() {
-            return minValue;
-        }
-
-        public double getMaxValue() {
-            return maxValue;
-        }
-
-        public float getStepSize() {
-            return stepSize;
-        }
-
-        public void set(double value) {
-            this.value = value;
-        }
-
-        public void set(boolean value) {
-            this.value = value ? 1 : 0;
-        }
-
-        public double getDouble() {
-            return value;
-        }
-
-        public boolean getBool() {
-            return value > 0;
-        }
-
-        public boolean isSlider() {
-            return isSlider;
-        }
-    }
 }

@@ -1,16 +1,15 @@
 package com.nekomaster1000.infernalexp.client;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.init.IEEffects;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @OnlyIn(Dist.CLIENT)
 public class DynamicLightingHandler {
@@ -18,7 +17,7 @@ public class DynamicLightingHandler {
     public static final Map<BlockPos, LightData> LIGHT_SOURCES = new ConcurrentHashMap<>();
 
     public static void tick(LivingEntity entity) {
-        if (entity != null && MinecraftInstance.player != null && MinecraftInstance.player.ticksExisted % InfernalExpansionConfig.luminousRefreshRate == 0) {
+        if (entity != null && MinecraftInstance.player != null && MinecraftInstance.player.ticksExisted % (int) InfernalExpansionConfig.ClientConfig.LUMINOUS_REFRESH_RATE.getDouble() == 0) {
             if (shouldGlow(entity)) {
                 LIGHT_SOURCES.put(entity.getPosition(), new LightData());                
             }
@@ -30,7 +29,7 @@ public class DynamicLightingHandler {
                     if (data.time == 20 || !data.shouldKeep) {
                         MinecraftInstance.world.getChunkProvider().getLightManager().checkBlock(pos);                        
                     }
-                    data.time -= InfernalExpansionConfig.luminousRefreshRate;
+                    data.time -= (int) InfernalExpansionConfig.ClientConfig.LUMINOUS_REFRESH_RATE.getDouble();
                 });
                 LIGHT_SOURCES.entrySet().removeIf(entry -> !entry.getValue().shouldKeep);
             }
