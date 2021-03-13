@@ -6,7 +6,6 @@ import com.nekomaster1000.infernalexp.init.IETileEntityTypes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
@@ -26,7 +25,7 @@ public class LuminousFungusTileEntity extends TileEntity implements ITickableTil
     public void tick() {
         if (!this.world.isRemote()) {
             List<LivingEntity> nearbyEntities = this.getWorld().getEntitiesWithinAABB(LivingEntity.class,
-                    new AxisAlignedBB(this.getPos()).grow(InfernalExpansionConfig.luminousFungusActivateDistance));
+                    new AxisAlignedBB(this.getPos()).grow(InfernalExpansionConfig.FloraBehaviour.LUMINOUS_FUNGUS_ACTIVATE_DISTANCE.getDouble()));
             Vector3d blockPos = new Vector3d(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ());
             nearbyEntities.removeIf((entity) -> {
                 Vector3d entityPos = new Vector3d(entity.getPosX(), entity.getPosYEye(), entity.getPosZ());

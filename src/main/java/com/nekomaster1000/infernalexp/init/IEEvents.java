@@ -5,7 +5,9 @@ import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.blocks.HorizontalBushBlock;
 import com.nekomaster1000.infernalexp.config.ConfigHelper;
 import com.nekomaster1000.infernalexp.config.ConfigHolder;
-import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
+import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.FloraBehaviour;
+import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.MobInteractions;
+import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.MobSpawning;
 import com.nekomaster1000.infernalexp.entities.BasaltGiantEntity;
 import com.nekomaster1000.infernalexp.entities.EmbodyEntity;
 import com.nekomaster1000.infernalexp.entities.GlowsquitoEntity;
@@ -85,7 +87,7 @@ import java.util.Map;
 @Mod.EventBusSubscriber(modid = InfernalExpansion.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class IEEvents {
 
-    //Called When Config is Changed
+//    Called When Config is Changed
     @SubscribeEvent
     public static void onModConfigEvent(final ModConfig.ModConfigEvent event){
         final ModConfig config = event.getConfig();
@@ -106,38 +108,37 @@ public class IEEvents {
 
         //Piglins fear Warpbeetles and Embodies
         if (event.getEntity() instanceof PiglinEntity){
-            if(InfernalExpansionConfig.piglinFearWarpbeetle) {
+            if (MobInteractions.PIGLIN_FEAR_WARPBEETLE.get()) {
                 ((CreatureEntity) event.getEntity()).goalSelector.addGoal(4,
                         new AvoidEntityGoal<>((CreatureEntity) event.getEntity(),
                                 WarpbeetleEntity.class, 16.0F, 1.2D, 1.2D));
             }
-            if(InfernalExpansionConfig.piglinFearEmbody) {
+            if (MobInteractions.PIGLIN_FEAR_EMBODY.get()) {
                 ((CreatureEntity) event.getEntity()).goalSelector.addGoal(4,
                         new AvoidEntityGoal<>((CreatureEntity) event.getEntity(),
                                 EmbodyEntity.class, 16.0F, 1.2D, 1.2D));
             }
         }
 
-        if(event.getEntity() instanceof HoglinEntity){
-            if(InfernalExpansionConfig.hoglinFearWarpbeetle) {
+        if (event.getEntity() instanceof HoglinEntity){
+            if (MobInteractions.HOGLIN_FEAR_WARPBEETLE.get()) {
                 ((CreatureEntity) event.getEntity()).goalSelector.addGoal(4,
                         new AvoidEntityGoal<>((CreatureEntity) event.getEntity(),
                                 WarpbeetleEntity.class, 16.0F, 1.2D, 1.2D));
             }
-            if(InfernalExpansionConfig.hoglinFearEmbody) {
+            if (MobInteractions.HOGLIN_FEAR_EMBODY.get()) {
                 ((CreatureEntity) event.getEntity()).goalSelector.addGoal(4,
                         new AvoidEntityGoal<>((CreatureEntity) event.getEntity(),
                                 EmbodyEntity.class, 16.0F, 1.2D, 1.2D));
             }
         }
-
 
         //
         //ATTACK!!
         //
 
         //Spiders attack Warp beetles
-        if (event.getEntity() instanceof SpiderEntity && InfernalExpansionConfig.spiderAttackWarpbeetle) {
+        if (event.getEntity() instanceof SpiderEntity && MobInteractions.SPIDER_ATTACK_WARPBEETLE.get()) {
             ((CreatureEntity) event.getEntity()).goalSelector.addGoal(4,
                     new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
                             WarpbeetleEntity.class, true, false));
@@ -147,51 +148,49 @@ public class IEEvents {
 
         //Skeletons attacks Piglins, Brutes, Embodies & Basalt Giants
         if (event.getEntity() instanceof SkeletonEntity) {
-
-            if(InfernalExpansionConfig.skeletonAttackPiglin) {
+            if (MobInteractions.SKELETON_ATTACK_PIGLIN.get()) {
                 ((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
                         new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
                                 PiglinEntity.class, true, false));
             }
-            if(InfernalExpansionConfig.skeletonAttackBrute) {
+            if (MobInteractions.SKELETON_ATTACK_BRUTE.get()) {
                 ((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
                         new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
                                 PiglinBruteEntity.class, true, false));
             }
-            if(InfernalExpansionConfig.skeletonAttackEmbody) {
+            if (MobInteractions.SKELETON_ATTACK_EMBODY.get()) {
                 ((CreatureEntity) event.getEntity()).goalSelector.addGoal(3,
                         new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
                                 EmbodyEntity.class, true, false));
             }
-            if(InfernalExpansionConfig.skeletonAttackGiant) {
+            if (MobInteractions.SKELETON_ATTACK_GIANT.get()) {
                 ((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
                         new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
                                 BasaltGiantEntity.class, true, false));
             }
         }
 
-
         //Piglins attack Skeletons & Voline
         if (event.getEntity() instanceof PiglinEntity) {
-            if(InfernalExpansionConfig.piglinAttackSkeleton) {
+            if (MobInteractions.PIGLIN_ATTACK_SKELETON.get()) {
                 ((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
                         new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
                                 SkeletonEntity.class, true, false));
             }
-            if(InfernalExpansionConfig.piglinAttackVoline) {
+            if (MobInteractions.PIGLIN_ATTACK_VOLINE.get()) {
                 ((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
                         new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
                                 VolineEntity.class, true, false));
             }
         }
 
-        if(event.getEntity() instanceof PiglinBruteEntity){
-            if(InfernalExpansionConfig.bruteAttackSkeleton) {
+        if (event.getEntity() instanceof PiglinBruteEntity){
+            if (MobInteractions.BRUTE_ATTACK_SKELETON.get()) {
                 ((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
                         new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
                                 SkeletonEntity.class, true, false));
             }
-            if(InfernalExpansionConfig.bruteAttackVoline) {
+            if (MobInteractions.BRUTE_ATTACK_VOLINE.get()) {
                 ((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
                         new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
                                 VolineEntity.class, true, false));
@@ -201,22 +200,21 @@ public class IEEvents {
 
         //Ghasts attack Voline, Embodies, Skeletons
         if (event.getEntity() instanceof GhastEntity) {
-            
             ((FlyingEntity) event.getEntity()).targetSelector.addGoal(4,
                     new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
                             GlowsquitoEntity.class, true, false));
 
-            if(InfernalExpansionConfig.ghastAttackVoline) {
-                ((FlyingEntity) event.getEntity()).targetSelector.addGoal(2,
-                        new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
-                                VolineEntity.class, true, false));
-            }
-            if(InfernalExpansionConfig.ghastAttackEmbody) {
+            if (MobInteractions.GHAST_ATTACK_EMBODY.get()) {
                 ((FlyingEntity) event.getEntity()).targetSelector.addGoal(3,
                         new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
                                 EmbodyEntity.class, true, false));
             }
-            if(InfernalExpansionConfig.ghastAttackSkeleton) {
+            if (MobInteractions.GHAST_ATTACK_VOLINE.get()) {
+                ((FlyingEntity) event.getEntity()).targetSelector.addGoal(2,
+                        new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
+                                VolineEntity.class, true, false));
+            }
+            if (MobInteractions.GHAST_ATTACK_SKELETON.get()) {
                 ((FlyingEntity) event.getEntity()).targetSelector.addGoal(3,
                         new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
                                 SkeletonEntity.class, true, false));
@@ -253,26 +251,23 @@ public class IEEvents {
     public void onBiomeLoad(BiomeLoadingEvent event) {
 
         if (event.getName().toString().equals("minecraft:nether_wastes")) {
-
-            if(InfernalExpansionConfig.volineInWastes) {
+            if (MobSpawning.VOLINE_WASTES.isEnabled()) {
                 event.getSpawns().withSpawner(EntityClassification.MONSTER,
                         new MobSpawnInfo.Spawners(IEEntityTypes.VOLINE.get(),
-                                InfernalExpansionConfig.volineWastesRate, 1, 3));
+                                MobSpawning.VOLINE_WASTES.getSpawnrate(), 1, 3));
             }
-
 
         } else if (event.getName().toString().equals("minecraft:crimson_forest")) {
-
-            if(InfernalExpansionConfig.shroomloinInCrimson) {
+            if (MobSpawning.SHROOMLOIN_CRIMSON.isEnabled()) {
                 event.getSpawns().withSpawner(EntityClassification.MONSTER,
                         new MobSpawnInfo.Spawners(IEEntityTypes.SHROOMLOIN.get(),
-                                InfernalExpansionConfig.shroomloinCrimsonRate, 1, 3));
+                                MobSpawning.SHROOMLOIN_CRIMSON.getSpawnrate(), 1, 3));
             }
 
-            if(InfernalExpansionConfig.volineInCrimson) {
+            if (MobSpawning.VOLINE_CRIMSON.isEnabled()) {
                 event.getSpawns().withSpawner(EntityClassification.MONSTER,
                         new MobSpawnInfo.Spawners(IEEntityTypes.VOLINE.get(),
-                                InfernalExpansionConfig.volineCrimsonRate, 1, 5));
+                                MobSpawning.VOLINE_CRIMSON.getSpawnrate(), 1, 5));
             }
 
         } else if (event.getName().toString().equals("minecraft:warped_forest")) {
@@ -280,18 +275,17 @@ public class IEEvents {
         //    event.getSpawns().withSpawner(EntityClassification.MONSTER,
         //            new MobSpawnInfo.Spawners(ModEntityType.CEROBEETLE.get(), 1, 1, 1));
 
-            if(InfernalExpansionConfig.warpbeetleInWarped) {
+            if (MobSpawning.WARPBEETLE_WARPED.isEnabled()) {
                 event.getSpawns().withSpawner(EntityClassification.MONSTER,
                         new MobSpawnInfo.Spawners(IEEntityTypes.WARPBEETLE.get(),
-                                InfernalExpansionConfig.warpbeetleWarpedRate, 1, 1));
+                                MobSpawning.WARPBEETLE_WARPED.getSpawnrate(), 1, 1));
             }
 
         } else if (event.getName().toString().equals("minecraft:basalt_deltas")) {
-
-            if(InfernalExpansionConfig.giantInDeltas) {
+            if (MobSpawning.GIANT_DELTAS.isEnabled()) {
                 event.getSpawns().withSpawner(EntityClassification.MONSTER,
                         new MobSpawnInfo.Spawners(IEEntityTypes.BASALT_GIANT.get(),
-                                InfernalExpansionConfig.giantDeltasRate, 1, 1));
+                                MobSpawning.GIANT_DELTAS.getSpawnrate(), 1, 1));
             }
 
             //event.getSpawns().withSpawner(EntityClassification.MONSTER,
@@ -299,11 +293,10 @@ public class IEEvents {
 
 
         } else if (event.getName().toString().equals("minecraft:soul_sand_valley")) {
-
-            if(InfernalExpansionConfig.embodyInSSV) {
+            if (MobSpawning.EMBODY_SSV.isEnabled()) {
                 event.getSpawns().withSpawner(EntityClassification.MONSTER,
                         new MobSpawnInfo.Spawners(IEEntityTypes.EMBODY.get(),
-                                InfernalExpansionConfig.embodySSVRate, 1, 5));
+                                MobSpawning.EMBODY_SSV.getSpawnrate(), 1, 5));
             }
 
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
@@ -330,7 +323,6 @@ public class IEEvents {
             // Not spawning for some reason?
 
         } else if (event.getName().toString().equals("infernalexp:delta_shores")) {
-
             event.getSpawns().withSpawner(EntityClassification.MONSTER,
                     new MobSpawnInfo.Spawners(IEEntityTypes.BASALT_GIANT.get(), 4, 1, 1));
 
@@ -444,11 +436,11 @@ public class IEEvents {
         Block block = event.getBlock().getBlock();
         World world = event.getWorld();
         BlockPos pos = event.getPos();
-        if (block == Blocks.SHROOMLIGHT && InfernalExpansionConfig.isShroomlightGrowable) {
+        if (block == Blocks.SHROOMLIGHT && FloraBehaviour.SHROOMLIGHT_GROWABLE.getBool()) {
             pos = pos.down();
             if (world.isAirBlock(pos)) {
                 event.setResult(Event.Result.ALLOW);
-                if (world.getRandom().nextDouble() < InfernalExpansionConfig.shroomlightGrowChance && !world.isRemote()) {
+                if (world.getRandom().nextDouble() < FloraBehaviour.SHROOMLIGHT_GROW_CHANCE.getDouble() && !world.isRemote()) {
                     world.setBlockState(pos, IEBlocks.SHROOMLIGHT_FUNGUS.get().getDefaultState().with(HorizontalBushBlock.FACE, AttachFace.CEILING), 3);
                 }
             }

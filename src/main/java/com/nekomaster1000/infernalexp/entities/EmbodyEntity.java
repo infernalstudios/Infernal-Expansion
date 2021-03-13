@@ -1,11 +1,12 @@
 package com.nekomaster1000.infernalexp.entities;
 
-import javax.annotation.Nullable;
-
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.util.RegistryHandler;
-
-import net.minecraft.entity.*;
+import net.minecraft.entity.CreatureAttribute;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.LookAtGoal;
@@ -23,6 +24,8 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 public class EmbodyEntity extends MonsterEntity {
 
@@ -55,7 +58,7 @@ public class EmbodyEntity extends MonsterEntity {
         super.registerGoals();
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 0.6D, true));
 //        this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, SkeletonEntity.class, true, false));
-        if (InfernalExpansionConfig.skeletonAttackEmbody) {
+        if (InfernalExpansionConfig.MobInteractions.SKELETON_ATTACK_EMBODY.get()) {
             this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, AbstractSkeletonEntity.class, true, false));
         }
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));

@@ -3,6 +3,7 @@ package com.nekomaster1000.infernalexp;
 import com.nekomaster1000.infernalexp.client.InfernalExpansionClient;
 import com.nekomaster1000.infernalexp.config.ConfigHelper;
 import com.nekomaster1000.infernalexp.config.ConfigHolder;
+import com.nekomaster1000.infernalexp.config.gui.ConfigScreen;
 import com.nekomaster1000.infernalexp.init.IEBiomes;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IECommands;
@@ -29,6 +30,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -52,6 +54,9 @@ public class InfernalExpansion
 
         modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(this::commonSetup);
+
+        // Register GUI Factories
+        ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.CONFIGGUIFACTORY, () -> (mc, screen) -> new ConfigScreen());
 
         //Registering deferred registers to the mod bus
         IEParticleTypes.PARTICLES.register(modEventBus);
