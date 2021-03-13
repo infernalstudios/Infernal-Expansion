@@ -10,8 +10,11 @@ import net.minecraft.util.ResourceLocation;
 
 public class GlowsquitoRenderer extends MobRenderer<GlowsquitoEntity, GlowsquitoModel<GlowsquitoEntity>> {
 
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity" +
+    protected static final ResourceLocation UNBRED_TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity" +
             "/glowsquitoid.png");
+
+    protected static final ResourceLocation BRED_TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity" +
+            "/glowsquitoid_shroomlight.png");
 
     public GlowsquitoRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new GlowsquitoModel<>(), 0.7f);
@@ -20,6 +23,10 @@ public class GlowsquitoRenderer extends MobRenderer<GlowsquitoEntity, Glowsquito
 
     @Override
     public ResourceLocation getEntityTexture(GlowsquitoEntity entity) {
-        return TEXTURE;
+        if (entity.getBred()) {
+            return BRED_TEXTURE;
+        } else {
+            return UNBRED_TEXTURE;
+        }
     }
 }
