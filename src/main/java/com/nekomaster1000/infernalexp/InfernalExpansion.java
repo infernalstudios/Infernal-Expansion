@@ -4,12 +4,14 @@ import com.nekomaster1000.infernalexp.client.InfernalExpansionClient;
 import com.nekomaster1000.infernalexp.config.ConfigHelper;
 import com.nekomaster1000.infernalexp.config.ConfigHolder;
 import com.nekomaster1000.infernalexp.config.gui.ConfigScreen;
+import com.nekomaster1000.infernalexp.events.MiscEvents;
+import com.nekomaster1000.infernalexp.events.MobEvents;
+import com.nekomaster1000.infernalexp.events.WorldEvents;
 import com.nekomaster1000.infernalexp.init.IEBiomes;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IECommands;
 import com.nekomaster1000.infernalexp.init.IEEffects;
 import com.nekomaster1000.infernalexp.init.IEEntityTypes;
-import com.nekomaster1000.infernalexp.init.IEEvents;
 import com.nekomaster1000.infernalexp.init.IEItems;
 import com.nekomaster1000.infernalexp.init.IEPaintings;
 import com.nekomaster1000.infernalexp.init.IEParticleTypes;
@@ -68,8 +70,12 @@ public class InfernalExpansion
         IEPaintings.register(modEventBus);
         IETileEntityTypes.register(modEventBus);
         IEBiomes.register(modEventBus);
+
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(new IEEvents());
+        MinecraftForge.EVENT_BUS.register(new MiscEvents());
+        MinecraftForge.EVENT_BUS.register(new MobEvents());
+        MinecraftForge.EVENT_BUS.register(new WorldEvents());
+
 
         //Registering Configs
         modLoadingContext.registerConfig(ModConfig.Type.CLIENT, ConfigHolder.CLIENT_SPEC);
