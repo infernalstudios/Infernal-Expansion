@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "infernalexp:smooth_glowstone"
+    }
+  ],
+  "result": {
+    "item": "infernalexp:smooth_glowstone_button"
+  }
+}

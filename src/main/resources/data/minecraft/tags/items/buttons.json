@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "infernalexp:smooth_glowstone_button",
+    "infernalexp:smooth_dimstone_button",
+    "infernalexp:smooth_dullstone_button"
+  ]
+}

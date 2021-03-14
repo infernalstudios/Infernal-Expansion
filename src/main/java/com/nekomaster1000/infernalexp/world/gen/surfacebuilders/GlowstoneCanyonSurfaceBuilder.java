@@ -1,11 +1,8 @@
 package com.nekomaster1000.infernalexp.world.gen.surfacebuilders;
 
-import java.util.Random;
-
 import com.mojang.serialization.Codec;
 import com.nekomaster1000.infernalexp.access.SurfaceBuilderModifyNoise;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -16,6 +13,8 @@ import net.minecraft.world.gen.NoiseChunkGenerator;
 import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
+
+import java.util.Random;
 
 public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> implements SurfaceBuilderModifyNoise {
 	public GlowstoneCanyonSurfaceBuilder(Codec<SurfaceBuilderConfig> p_i232136_1_) {
@@ -56,10 +55,10 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
 				}
 
 				// Build terrain down to bedrock
-				if (yPos <= 63) {
+				if (yPos <= 47) {
 					if (chunk.getBlockState(pos.down(1)) == config.getUnder() && chunk.getBlockState(pos.down(2)) == config.getUnder()) {
 						for (int offset = 3; offset <= yPos; offset++) {
-							if (chunk.getBlockState(pos.down(offset)).getBlock() != Blocks.AIR && chunk.getBlockState(pos.down(offset)).getBlock() != Blocks.LAVA) {
+//							if (chunk.getBlockState(pos.down(offset)).getBlock() != Blocks.AIR && chunk.getBlockState(pos.down(offset)).getBlock() != Blocks.LAVA) {
 								float percentage = (((float) offset / yPos) - 0.05f) + (random.nextFloat() * 0.1f);
 
 								if (percentage <= 0.15 && random.nextInt(10) == 1) {
@@ -70,7 +69,7 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
 									chunk.setBlockState(pos.down(offset), IEBlocks.DULLSTONE.get().getDefaultState(), false);
 								}
 							}
-						}
+//						}
 					}
 				}
 			}
@@ -80,9 +79,7 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
 		// because putting this code here is stupid.
 		// It should probably go where all the netherrack is replaced with dullstone or
 		// where the terrain is built down.
-		for (
-
-				int yPos = 50; yPos > 0; yPos--) {
+		for (int yPos = 50; yPos > 0; yPos--) {
 			pos.setPos(xPos, yPos, zPos);
 
 			if (chunk.getBlockState(pos) == IEBlocks.DULLSTONE.get().getDefaultState()) {

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#X"
+  ],
+  "key": {
+    "#": {
+      "item": "infernalexp:smooth_glowstone"
+    },
+    "X": {
+      "item": "infernalexp:smooth_dullstone"
+    }
+  },
+  "result": {
+    "item": "infernalexp:smooth_glowstone_pressure_plate"
+  }
+}
