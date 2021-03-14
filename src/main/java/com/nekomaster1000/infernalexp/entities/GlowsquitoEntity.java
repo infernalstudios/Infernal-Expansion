@@ -2,6 +2,8 @@ package com.nekomaster1000.infernalexp.entities;
 
 import com.nekomaster1000.infernalexp.entities.ai.TargetWithEffectGoal;
 import com.nekomaster1000.infernalexp.init.IEEffects;
+import com.nekomaster1000.infernalexp.init.IEEntityTypes;
+import com.nekomaster1000.infernalexp.init.IEItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RandomPositionGenerator;
@@ -14,8 +16,12 @@ import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.IFlyingAnimal;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.FlyingPathNavigator;
 import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.pathfinding.PathNodeType;
@@ -39,8 +45,9 @@ import java.util.Random;
 
 // Extends AnimalEntity and implements IFlyingAnimal like BeeEntity class
 public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
+    private static final DataParameter<Boolean> BRED = EntityDataManager.createKey(GlowsquitoEntity.class, DataSerializers.BOOLEAN);
 
-    private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.CARROT, Items.POTATO, Items.BEETROOT);
+    private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(IEItems.SHROOMLIGHT_FUNGUS.get());
 
     private EatGrassGoal eatGrassGoal;
     private int hogTimer;
@@ -66,6 +73,46 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
 
     public CreatureAttribute getCreatureAttribute() {
         return CreatureAttribute.ARTHROPOD;
+    }
+
+    public GlowsquitoEntity func_241840_a(ServerWorld world, AgeableEntity parent){
+        GlowsquitoEntity glowsquitoEntity = IEEntityTypes.GLOWSQUITO.get().create(world);
+        glowsquitoEntity.setBred(true);
+        return glowsquitoEntity;
+    }
+
+    public boolean isBreedingItem(ItemStack stack){
+        return TEMPTATION_ITEMS.test(stack);
+    }
+
+    protected void registerData() {
+        super.registerData();
+        this.dataManager.register(BRED, false);
+    }
+
+    public boolean getBred(){
+        return this.dataManager.get(BRED);
+    }
+
+    public void setBred(boolean isBred){
+        this.dataManager.set(BRED, isBred);
+    }
+
+    public void writeAdditional(CompoundNBT compound) {
+        super.writeAdditional(compound);
+        compound.putBoolean("Bred", this.getBred());
+    }
+
+    /**
+     * (abstract) Protected helper method to read subclass entity data from NBT.
+     */
+    public void readAdditional(CompoundNBT compound) {
+        super.readAdditional(compound);
+        this.setBred(compound.getBoolean("Bred"));
+    }
+
+    protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
+        return this.isChild() ? sizeIn.height * 0.35F : sizeIn.height * 0.72F;
     }
 
     protected PathNavigator createNavigator(World worldIn) {
@@ -253,6 +300,8 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
         this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 0.8D, true));
         this.goalSelector.addGoal(1, new MoveTowardsTargetGoal(this, 0.8D, 32.0F));
         //this.goalSelector.addGoal(5, new GlowsquitoEntity.RandomFlyGoal(this));
+        this.goalSelector.addGoal(2, new BreedGoal(this, 0.8d));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 0.8d, false, TEMPTATION_ITEMS));
         this.goalSelector.addGoal(8, new GlowsquitoEntity.WanderGoal());
         //this.goalSelector.addGoal(7, new GlowsquitoEntity.LookAroundGoal(this));
         //this.goalSelector.addGoal(5, this.eatGrassGoal);
@@ -300,11 +349,6 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
     protected void updateAITasks() {
         this.hogTimer = this.eatGrassGoal.getEatingGrassTimer();
         super.updateAITasks();
-    }
-
-    @Override
-    public AgeableEntity func_241840_a(ServerWorld p_241840_1_, AgeableEntity p_241840_2_) {
-        return null;
     }
 
     @Override
