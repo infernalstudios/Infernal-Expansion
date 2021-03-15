@@ -44,6 +44,8 @@
   "block.infernalexp.glowdust_stone_brick_slab": "Glowdust Stone Brick Slab",
   "block.infernalexp.glowdust_stone_brick_stairs": "Glowdust Stone Brick Stairs",
   "block.infernalexp.glowdust_stone_brick_wall": "Glowdust Stone Brick Wall",
+  "block.infernalexp.cracked_glowdust_stone_bricks": "Cracked Glowdust Stone Bricks",
+  "block.infernalexp.chiseled_glowdust_stone_brick": "Chiseled Glowdust Stone Brick",
   "block.infernalexp.trapped_glowdust_sand": "Unstable Glowdust Sand",
   "block.infernalexp.glowdust_sandstone": "Glowdust Sandstone",
   "block.infernalexp.cut_glowdust_sandstone": "Cut Glowdust Sandstone",
@@ -99,7 +101,7 @@
   "block.infernalexp.soul_slate_brick_stairs": "Soul Slate Brick Stairs",
   "block.infernalexp.soul_slate_bricks_slab": "Soul Slate Brick Slab",
   "block.infernalexp.cracked_soul_slate_bricks": "Cracked Soul Slate Bricks",
-  "block.infernalexp.chiseled_soul_slate_bricks": "Chiseled Soul Slate Bricks",
+  "block.infernalexp.chiseled_soul_slate_brick": "Chiseled Soul Slate Brick",
 
 
   "block.infernalexp.crimson_fungus_cap": "Crimson Fungus Cap",
