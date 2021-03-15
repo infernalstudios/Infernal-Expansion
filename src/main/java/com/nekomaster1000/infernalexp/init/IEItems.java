@@ -111,11 +111,52 @@ public class IEItems {
 	public static final RegistryObject<Item> GLOWDUST_SANDSTONE_WALL = ITEMS.register("glowdust_sandstone_wall",                    () -> new BlockItemBase(IEBlocks.GLOWDUST_SANDSTONE_WALL.get()));
 
 	public static final RegistryObject<Item> CRUMBLING_BLACKSTONE = ITEMS.register("crumbling_blackstone",  () -> new BlockItemBase(IEBlocks.CRUMBLING_BLACKSTONE.get()));
-	// public static final RegistryObject<Item> GLIMMERING_BLACKSTONE = ITEMS.register("glimmering_blackstone", () -> new BlockItemBase(IEBlocks.GLIMMERING_BLACKSTONE.get()));
 	public static final RegistryObject<Item> SILT = ITEMS.register("silt", () -> new BlockItemBase(IEBlocks.SILT.get()));
 	public static final RegistryObject<Item> RUBBLE = ITEMS.register("rubble", () -> new BlockItemBase(IEBlocks.RUBBLE.get()));
 
 	public static final RegistryObject<Item> BASALT_IRON_ORE = ITEMS.register("basalt_iron_ore", () -> new BlockItemBase(IEBlocks.BASALT_IRON_ORE.get()));
+
+
+	public static final RegistryObject<Item> BASALT_SLAB = ITEMS.register("basalt_slab", () -> new BlockItemBase(IEBlocks.BASALT_SLAB.get()));
+	/*
+	public static final RegistryObject<Item> BASALT_STAIRS = ITEMS.register("basalt_stairs", () -> new BlockItemBase(IEBlocks.BASALT_STAIRS.get()));
+	public static final RegistryObject<Item> BASALT_WALL = ITEMS.register("basalt_wall", () -> new BlockItemBase(IEBlocks.BASALT_WALL.get()));
+	public static final RegistryObject<Item> BASALT_BUTTON = ITEMS.register("basalt_button", () -> new BlockItemBase(IEBlocks.BASALT_BUTTON.get()));
+
+	public static final RegistryObject<Item> POLISHED_BASALT_PRESSURE_PLATE = ITEMS.register ("polished_basalt_pressure_plate", () -> new BlockItemBase(IEBlocks.POLISHED_BASALT_PRESSURE_PLATE.get()));
+	public static final RegistryObject<Item> POLISHED_BASALT_SLAB = ITEMS.register("polished_basalt_slab",	() -> new BlockItemBase(IEBlocks.POLISHED_BASALT_SLAB.get()));
+
+	public static final RegistryObject<Item> BASALT_BRICKS = ITEMS.register("basalt_bricks",					() -> new BlockItemBase(IEBlocks.BASALT_BRICKS.get()));
+	public static final RegistryObject<Item> BASALT_BRICK_SLAB = ITEMS.register("basalt_bricks_slab",			() -> new BlockItemBase(IEBlocks.BASALT_BRICK_SLAB.get()));
+	public static final RegistryObject<Item> BASALT_BRICK_STAIRS = ITEMS.register("basalt_bricks_stairs",		() -> new BlockItemBase(IEBlocks.BASALT_BRICK_STAIRS.get()));
+	public static final RegistryObject<Item> BASALT_BRICK_WALL = ITEMS.register("basalt_bricks_wall",			() -> new BlockItemBase(IEBlocks.BASALT_BRICK_WALL.get()));
+	public static final RegistryObject<Item> CRACKED_BASALT_BRICKS = ITEMS.register("cracked_basalt_bricks",	() -> new BlockItemBase(IEBlocks.CRACKED_BASALT_BRICKS.get()));
+	public static final RegistryObject<Item> CHISELED_BASALT_BRICK = ITEMS.register("chiseled_basalt_bricks",	() -> new BlockItemBase(IEBlocks.CHISELED_BASALT_BRICK.get()));
+
+	public static final RegistryObject<Item> BASALTIC_MAGMA = ITEMS.register("basaltic_magma",		() -> new BlockItemBase(IEBlocks.BASALTIC_MAGMA.get()));
+
+
+	public static final RegistryObject<Item> SOUL_SAND_SLAB = ITEMS.register("soul_sand_slab",		() -> new BlockItemBase(IEBlocks.SOUL_SAND_SLAB.get()));
+	public static final RegistryObject<Item> SOUL_SAND_STAIRS = ITEMS.register("soul_sand_stairs",	() -> new BlockItemBase(IEBlocks.SOUL_SAND_STAIRS.get()));
+
+	public static final RegistryObject<Item> SOUL_SOIL_SLAB = ITEMS.register("soul_soil_slab", 		() -> new BlockItemBase(IEBlocks.SOUL_SOIL_SLAB.get()));
+	public static final RegistryObject<Item> SOUL_SOIL_STAIRS = ITEMS.register("soul_soil_stairs",	() -> new BlockItemBase(IEBlocks.SOUL_SOIL_STAIRS.get()));
+
+	public static final RegistryObject<Item> SOUL_STONE = ITEMS.register("soul_stone",    			() -> new BlockItemBase(IEBlocks.SOUL_STONE.get()));
+
+	public static final RegistryObject<Item> SOUL_SLATE = ITEMS.register("soul_bricks",    							() -> new BlockItemBase(IEBlocks.SOUL_SLATE.get()));
+	public static final RegistryObject<Item> SOUL_SLATE_SLAB = ITEMS.register("soul_bricks_slab", 					() -> new BlockItemBase(IEBlocks.SOUL_SLATE_SLAB.get()));
+	public static final RegistryObject<Item> SOUL_SLATE_STAIRS = ITEMS.register("soul_bricks_stairs",					() -> new BlockItemBase(IEBlocks.SOUL_SLATE_STAIRS.get()));
+	public static final RegistryObject<Item> SOUL_SLATE_BUTTON = ITEMS.register("soul_slate_button",					() -> new BlockItemBase(IEBlocks.SOUL_SLATE_BUTTON.get()));
+	public static final RegistryObject<Item> SOUL_SLATE_PRESSURE_PLATE = ITEMS.register("soul_slate_pressure_plate", 	() -> new BlockItemBase(IEBlocks.SOUL_SLATE_PRESSURE_PLATE.get()));
+
+	public static final RegistryObject<Item> SOUL_SLATE_BRICKS = ITEMS.register("soul_bricks",    					() -> new BlockItemBase(IEBlocks.SOUL_SLATE_BRICKS.get()));
+	public static final RegistryObject<Item> SOUL_SLATE_BRICK_SLAB = ITEMS.register("soul_bricks_slab", 				() -> new BlockItemBase(IEBlocks.SOUL_SLATE_BRICK_SLAB.get()));
+	public static final RegistryObject<Item> SOUL_SLATE_BRICK_STAIRS = ITEMS.register("soul_bricks_stairs",			() -> new BlockItemBase(IEBlocks.SOUL_SLATE_BRICK_STAIRS.get()));
+	public static final RegistryObject<Item> SOUL_SLATE_BRICK_WALL = ITEMS.register("soul_bricks_wall",				() -> new BlockItemBase(IEBlocks.SOUL_SLATE_BRICK_WALL.get()));
+	public static final RegistryObject<Item> CRACKED_SOUL_SLATE_BRICKS = ITEMS.register("cracked_soul_bricks",		() -> new BlockItemBase(IEBlocks.CRACKED_SOUL_SLATE_BRICKS.get()));
+	public static final RegistryObject<Item> CHISELED_SOUL_SLATE_BRICK = ITEMS.register("chiseled_soul_bricks",		() -> new BlockItemBase(IEBlocks.CHISELED_SOUL_SLATE_BRICK.get()));
+	*/
 
 	public static final RegistryObject<Item> CRIMSON_FUNGUS_CAP = ITEMS.register("crimson_fungus_cap",  () -> new BlockItemBase(IEBlocks.CRIMSON_FUNGUS_CAP.get()));
 	public static final RegistryObject<Item> WARPED_FUNGUS_CAP = ITEMS.register("warped_fungus_cap",    () -> new BlockItemBase(IEBlocks.WARPED_FUNGUS_CAP.get()));

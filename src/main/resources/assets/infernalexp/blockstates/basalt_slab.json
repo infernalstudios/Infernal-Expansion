@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "minecraft:textures/block/basalt_top"
+    },
+    "type=double": {
+      "model": "minecraft:textures/block/basalt"
+    },
+    "type=top": {
+      "model": "minecraft:textures/block/basalt_top"
+    }
+  }
+}
