@@ -1,7 +1,8 @@
-package com.nekomaster1000.infernalexp.config.gui;
+package com.nekomaster1000.infernalexp.config.gui.screens;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.nekomaster1000.infernalexp.config.ConfigHelper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.SettingsScreen;
 import net.minecraft.client.gui.widget.button.Button;
@@ -56,6 +57,6 @@ public abstract class IESettingsScreen extends Screen {
 	public void closeScreen() {
 		ConfigHelper.saveToClient();
 		ConfigHelper.saveToCommon();
-		minecraft.displayGuiScreen(parentScreen);
+		Minecraft.getInstance().displayGuiScreen(parentScreen);
 	}
 }

@@ -1,4 +1,4 @@
-package com.nekomaster1000.infernalexp.config.gui;
+package com.nekomaster1000.infernalexp.config.gui.screens;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.nekomaster1000.infernalexp.InfernalExpansion;

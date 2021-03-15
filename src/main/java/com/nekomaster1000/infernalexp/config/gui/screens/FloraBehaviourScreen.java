@@ -1,4 +1,4 @@
-package com.nekomaster1000.infernalexp.config.gui;
+package com.nekomaster1000.infernalexp.config.gui.screens;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
@@ -11,7 +11,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 
 public class FloraBehaviourScreen extends IESettingsScreen {
 
-	protected FloraBehaviourScreen(Screen parentScreen) {
+	public FloraBehaviourScreen(Screen parentScreen) {
 		super(parentScreen, new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.title.floraBehaviour"));
 	}
 
