@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "infernalexp:dimstone_bricks"
+  },
+  "result": "infernalexp:chiseled_dimstone_bricks",
+  "count": 1
+}

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/flower_pot_cross",
   "textures": {
-    "plant": "infernalexp:blocks/buried_bone"
+    "plant": "infernalexp:block/buried_bone"
   }
 }

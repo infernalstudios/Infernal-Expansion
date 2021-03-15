@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "infernalexp:items/lantern_glow"
+    "layer0": "infernalexp:item/lantern_glow"
   }
 }

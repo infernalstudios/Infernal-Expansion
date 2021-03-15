@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "infernalexp:glowstone_bricks"
+  },
+  "result": "infernalexp:chiseled_glowstone_bricks",
+  "count": 1
+}

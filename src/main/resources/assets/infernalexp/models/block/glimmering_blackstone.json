@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "infernalexp:blocks/glimmering_blackstone"
+    "all": "infernalexp:block/glimmering_blackstone"
   }
 }

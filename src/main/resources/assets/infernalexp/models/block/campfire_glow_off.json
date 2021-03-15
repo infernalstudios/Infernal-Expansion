@@ -8,8 +8,8 @@
     }
   },
   "textures": {
-    "particle": "infernalexp:blocks/campfire_log",
-    "log": "infernalexp:blocks/campfire_log"
+    "particle": "infernalexp:block/campfire_log",
+    "log": "infernalexp:block/campfire_log"
   },
   "elements": [
     {

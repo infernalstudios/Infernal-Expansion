@@ -60,15 +60,15 @@ public class IEBlocks {
     public static final RegistryObject<Block> SMOOTH_GLOWSTONE = BLOCKS.register("smooth_glowstone",    () -> new Block(getProperties(Material.GLASS, 1.5F, 6.0F).sound(SoundType.GLASS).setRequiresTool().harvestTool(ToolType.PICKAXE).setLightLevel(value -> 15)));
     public static final RegistryObject<Block> SMOOTH_DIMSTONE = BLOCKS.register("smooth_dimstone",      () -> new Block(getProperties(SMOOTH_GLOWSTONE.get()).setLightLevel(value -> 12)));
     public static final RegistryObject<Block> SMOOTH_DULLSTONE = BLOCKS.register("smooth_dullstone",    () -> new Block(getProperties(SMOOTH_GLOWSTONE.get()).setLightLevel(value -> 0)));
-    public static final RegistryObject<Block> GLOWSTONE_BRICK = BLOCKS.register("glowstone_brick",      () -> new Block(getProperties(SMOOTH_GLOWSTONE.get())));
-    public static final RegistryObject<Block> DIMSTONE_BRICK = BLOCKS.register("dimstone_brick",        () -> new Block(getProperties(SMOOTH_DIMSTONE.get())));
-    public static final RegistryObject<Block> DULLSTONE_BRICK = BLOCKS.register("dullstone_brick",      () -> new Block(getProperties(SMOOTH_DULLSTONE.get())));
-    public static final RegistryObject<Block> CRACKED_GLOWSTONE_BRICK = BLOCKS.register("cracked_glowstone_brick",   () -> new Block(getProperties(SMOOTH_GLOWSTONE.get())));
-    public static final RegistryObject<Block> CRACKED_DIMSTONE_BRICK = BLOCKS.register("cracked_dimstone_brick",     () -> new Block(getProperties(SMOOTH_DIMSTONE.get())));
-    public static final RegistryObject<Block> CRACKED_DULLSTONE_BRICK = BLOCKS.register("cracked_dullstone_brick",   () -> new Block(getProperties(SMOOTH_DULLSTONE.get())));
-    public static final RegistryObject<Block> CHISELED_GLOWSTONE_BRICK = BLOCKS.register("chiseled_glowstone_brick", () -> new Block(getProperties(SMOOTH_GLOWSTONE.get())));
-    public static final RegistryObject<Block> CHISELED_DIMSTONE_BRICK = BLOCKS.register("chiseled_dimstone_brick",   () -> new Block(getProperties(SMOOTH_DIMSTONE.get())));
-    public static final RegistryObject<Block> CHISELED_DULLSTONE_BRICK = BLOCKS.register("chiseled_dullstone_brick", () -> new Block(getProperties(SMOOTH_DULLSTONE.get())));
+    public static final RegistryObject<Block> GLOWSTONE_BRICKS = BLOCKS.register("glowstone_bricks",      () -> new Block(getProperties(SMOOTH_GLOWSTONE.get())));
+    public static final RegistryObject<Block> DIMSTONE_BRICKS = BLOCKS.register("dimstone_bricks",        () -> new Block(getProperties(SMOOTH_DIMSTONE.get())));
+    public static final RegistryObject<Block> DULLSTONE_BRICKS = BLOCKS.register("dullstone_bricks",      () -> new Block(getProperties(SMOOTH_DULLSTONE.get())));
+    public static final RegistryObject<Block> CRACKED_GLOWSTONE_BRICKS = BLOCKS.register("cracked_glowstone_bricks",   () -> new Block(getProperties(SMOOTH_GLOWSTONE.get())));
+    public static final RegistryObject<Block> CRACKED_DIMSTONE_BRICKS = BLOCKS.register("cracked_dimstone_bricks",     () -> new Block(getProperties(SMOOTH_DIMSTONE.get())));
+    public static final RegistryObject<Block> CRACKED_DULLSTONE_BRICKS = BLOCKS.register("cracked_dullstone_bricks",   () -> new Block(getProperties(SMOOTH_DULLSTONE.get())));
+    public static final RegistryObject<Block> CHISELED_GLOWSTONE_BRICKS = BLOCKS.register("chiseled_glowstone_bricks", () -> new Block(getProperties(SMOOTH_GLOWSTONE.get())));
+    public static final RegistryObject<Block> CHISELED_DIMSTONE_BRICKS = BLOCKS.register("chiseled_dimstone_bricks",   () -> new Block(getProperties(SMOOTH_DIMSTONE.get())));
+    public static final RegistryObject<Block> CHISELED_DULLSTONE_BRICKS = BLOCKS.register("chiseled_dullstone_bricks", () -> new Block(getProperties(SMOOTH_DULLSTONE.get())));
 
     public static final RegistryObject<Block> SMOOTH_GLOWSTONE_SLAB = BLOCKS.register("smooth_glowstone_slab",       () -> new SlabBlock(getProperties(SMOOTH_GLOWSTONE.get())));
     public static final RegistryObject<Block> SMOOTH_GLOWSTONE_STAIRS = BLOCKS.register("smooth_glowstone_stairs",   () -> new StairsBlock(() -> SMOOTH_GLOWSTONE.get().getDefaultState(), getProperties(SMOOTH_GLOWSTONE.get())));
@@ -83,17 +83,17 @@ public class IEBlocks {
     public static final RegistryObject<Block> SMOOTH_DULLSTONE_STAIRS = BLOCKS.register("smooth_dullstone_stairs",   () -> new StairsBlock(() -> SMOOTH_DULLSTONE.get().getDefaultState(), getProperties(SMOOTH_DULLSTONE.get())));
     public static final RegistryObject<Block> SMOOTH_DULLSTONE_BUTTON = BLOCKS.register("smooth_dullstone_button",   () -> new StoneButtonBlock(getProperties(SMOOTH_DULLSTONE.get())));
 
-    public static final RegistryObject<Block> GLOWSTONE_BRICK_SLAB = BLOCKS.register("glowstone_brick_slab",         () -> new SlabBlock(getProperties(GLOWSTONE_BRICK.get())));
-    public static final RegistryObject<Block> GLOWSTONE_BRICK_STAIRS = BLOCKS.register("glowstone_brick_stairs",     () -> new StairsBlock(() -> GLOWSTONE_BRICK.get().getDefaultState(), getProperties(GLOWSTONE_BRICK.get())));
-	public static final RegistryObject<Block> GLOWSTONE_BRICK_WALL = BLOCKS.register("glowstone_brick_wall",		   () -> new WallBlock(getProperties(GLOWSTONE_BRICK.get())));
+    public static final RegistryObject<Block> GLOWSTONE_BRICK_SLAB = BLOCKS.register("glowstone_brick_slab",         () -> new SlabBlock(getProperties(GLOWSTONE_BRICKS.get())));
+    public static final RegistryObject<Block> GLOWSTONE_BRICK_STAIRS = BLOCKS.register("glowstone_brick_stairs",     () -> new StairsBlock(() -> GLOWSTONE_BRICKS.get().getDefaultState(), getProperties(GLOWSTONE_BRICKS.get())));
+	public static final RegistryObject<Block> GLOWSTONE_BRICK_WALL = BLOCKS.register("glowstone_brick_wall",		   () -> new WallBlock(getProperties(GLOWSTONE_BRICKS.get())));
 
-	public static final RegistryObject<Block> DIMSTONE_BRICK_SLAB = BLOCKS.register("dimstone_brick_slab",           () -> new SlabBlock(getProperties(DIMSTONE_BRICK.get())));
-    public static final RegistryObject<Block> DIMSTONE_BRICK_STAIRS = BLOCKS.register("dimstone_brick_stairs",       () -> new StairsBlock(() -> DIMSTONE_BRICK.get().getDefaultState(), getProperties(DIMSTONE_BRICK.get())));
-	public static final RegistryObject<Block> DIMSTONE_BRICK_WALL = BLOCKS.register("dimstone_brick_wall",		   () -> new WallBlock(getProperties(DIMSTONE_BRICK.get())));
+	public static final RegistryObject<Block> DIMSTONE_BRICK_SLAB = BLOCKS.register("dimstone_brick_slab",           () -> new SlabBlock(getProperties(DIMSTONE_BRICKS.get())));
+    public static final RegistryObject<Block> DIMSTONE_BRICK_STAIRS = BLOCKS.register("dimstone_brick_stairs",       () -> new StairsBlock(() -> DIMSTONE_BRICKS.get().getDefaultState(), getProperties(DIMSTONE_BRICKS.get())));
+	public static final RegistryObject<Block> DIMSTONE_BRICK_WALL = BLOCKS.register("dimstone_brick_wall",		   () -> new WallBlock(getProperties(DIMSTONE_BRICKS.get())));
 
-	public static final RegistryObject<Block> DULLSTONE_BRICK_SLAB = BLOCKS.register("dullstone_brick_slab",         () -> new SlabBlock(getProperties(DULLSTONE_BRICK.get())));
-    public static final RegistryObject<Block> DULLSTONE_BRICK_STAIRS = BLOCKS.register("dullstone_brick_stairs",     () -> new StairsBlock(() -> DULLSTONE_BRICK.get().getDefaultState(), getProperties(DULLSTONE_BRICK.get())));
-	public static final RegistryObject<Block> DULLSTONE_BRICK_WALL = BLOCKS.register("dullstone_brick_wall",		   () -> new WallBlock(getProperties(DULLSTONE_BRICK.get())));
+	public static final RegistryObject<Block> DULLSTONE_BRICK_SLAB = BLOCKS.register("dullstone_brick_slab",         () -> new SlabBlock(getProperties(DULLSTONE_BRICKS.get())));
+    public static final RegistryObject<Block> DULLSTONE_BRICK_STAIRS = BLOCKS.register("dullstone_brick_stairs",     () -> new StairsBlock(() -> DULLSTONE_BRICKS.get().getDefaultState(), getProperties(DULLSTONE_BRICKS.get())));
+	public static final RegistryObject<Block> DULLSTONE_BRICK_WALL = BLOCKS.register("dullstone_brick_wall",		   () -> new WallBlock(getProperties(DULLSTONE_BRICKS.get())));
 
     public static final RegistryObject<Block> GLOWDUST = BLOCKS.register("glowdust", () -> new GlowdustBlock(getProperties(Blocks.SAND).setLightLevel(value -> 8).setRequiresTool().harvestTool(ToolType.SHOVEL).hardnessAndResistance(0.2f)));
     public static final RegistryObject<Block> GLOWDUST_SAND = BLOCKS.register("glowdust_sand",          () -> new GlowSandBlock(0xFFC267, getProperties(GLOWDUST.get()).hardnessAndResistance(0.5F)));
@@ -104,7 +104,7 @@ public class IEBlocks {
     public static final RegistryObject<Block> GLOWDUST_STONE_BRICK_STAIRS = BLOCKS.register("glowdust_stone_brick_stairs",  () -> new StairsBlock(() -> GLOWDUST_STONE.get().getDefaultState(), getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
     public static final RegistryObject<Block> GLOWDUST_STONE_BRICK_WALL = BLOCKS.register("glowdust_stone_brick_wall", 	  () -> new WallBlock(getProperties(GLOWDUST_STONE_BRICKS.get())));
 	public static final RegistryObject<Block> CRACKED_GLOWDUST_STONE_BRICKS = BLOCKS.register("cracked_glowdust_stone_bricks",	() -> new Block(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
-	public static final RegistryObject<Block> CHISELED_GLOWDUST_STONE_BRICK = BLOCKS.register("chiseled_glowdust_stone_brick",	() -> new Block(getProperties(GLOWDUST_STONE_BRICKS.get())));
+	public static final RegistryObject<Block> CHISELED_GLOWDUST_STONE_BRICKS = BLOCKS.register("chiseled_glowdust_stone_bricks",	() -> new Block(getProperties(GLOWDUST_STONE_BRICKS.get())));
 
 	public static final RegistryObject<Block> TRAPPED_GLOWDUST_SAND = BLOCKS.register("trapped_glowdust_sand",  () -> new TrappedGlowSandBlock(0xFFC267, getProperties(GLOWDUST.get()).hardnessAndResistance(0.2F).setLightLevel(value -> 4)));
     public static final RegistryObject<Block> GLOWDUST_SANDSTONE = BLOCKS.register("glowdust_sandstone",                    () -> new Block(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));

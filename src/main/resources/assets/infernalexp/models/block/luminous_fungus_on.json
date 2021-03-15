@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cross",
   "textures": {
-    "cross": "infernalexp:blocks/luminous_fungus"
+    "cross": "infernalexp:block/luminous_fungus"
   }
 }

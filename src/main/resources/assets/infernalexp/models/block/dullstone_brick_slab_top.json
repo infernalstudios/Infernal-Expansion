@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/slab_top",
   "textures": {
-    "bottom": "infernalexp:blocks/dullstone_brick",
-    "top": "infernalexp:blocks/dullstone_brick",
-    "side": "infernalexp:blocks/dullstone_brick"
+    "bottom": "infernalexp:block/dullstone_brick",
+    "top": "infernalexp:block/dullstone_brick",
+    "side": "infernalexp:block/dullstone_brick"
   }
 }

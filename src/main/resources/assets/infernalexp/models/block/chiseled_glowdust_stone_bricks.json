@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "infernalexp:block/chiseled_glowdust_stone_bricks_animated"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_fire_side",
   "textures": {
-    "fire": "infernalexp:blocks/fire_1_glow"
+    "fire": "infernalexp:block/fire_1_glow"
   }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/flower_pot_cross",
   "textures": {
-    "plant": "infernalexp:blocks/shroomlight_fungus"
+    "plant": "infernalexp:block/shroomlight_fungus"
   }
 }
