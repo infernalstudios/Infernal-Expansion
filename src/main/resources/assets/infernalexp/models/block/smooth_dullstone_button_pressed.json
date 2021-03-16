@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/button_pressed",
   "textures": {
-    "texture": "infernalexp:blocks/smooth_dullstone"
+    "texture": "infernalexp:block/smooth_dullstone"
   }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "infernalexp:blocks/trapped_glowdust_sand_animated"
+    "all": "infernalexp:block/trapped_glowdust_sand_animated"
   }
 }

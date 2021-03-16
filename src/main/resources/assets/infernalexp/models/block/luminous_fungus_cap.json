@@ -1,8 +1,8 @@
 {
   "parent": "block/cube_bottom_top",
   "textures": {
-    "top": "infernalexp:blocks/luminous_fungus_cap_top",
-    "bottom": "infernalexp:blocks/luminous_fungus_cap_bottom",
-    "side": "infernalexp:blocks/luminous_fungus_cap_side"
+    "top": "infernalexp:block/luminous_fungus_cap_top",
+    "bottom": "infernalexp:block/luminous_fungus_cap_bottom",
+    "side": "infernalexp:block/luminous_fungus_cap_side"
   }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "infernalexp:blocks/dimstone/1"
+    "all": "infernalexp:block/dimstone/1"
   }
 }

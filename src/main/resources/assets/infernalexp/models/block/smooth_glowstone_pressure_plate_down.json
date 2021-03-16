@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/pressure_plate_down",
   "textures": {
-    "texture": "infernalexp:blocks/smooth_glowstone"
+    "texture": "infernalexp:block/smooth_glowstone"
   }
 }

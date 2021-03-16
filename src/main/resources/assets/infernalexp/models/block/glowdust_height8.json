@@ -1,7 +1,7 @@
 {
   "textures": {
-    "particle": "infernalexp:blocks/glowdust_sand_animated",
-    "texture": "infernalexp:blocks/glowdust_sand_animated"
+    "particle": "infernalexp:block/glowdust_sand_animated",
+    "texture": "infernalexp:block/glowdust_sand_animated"
   },
   "elements": [
     {   "from": [ 0, 0, 0 ],

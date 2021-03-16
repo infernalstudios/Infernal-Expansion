@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "infernalexp:blocks/shroomlight_fungus"
+    "layer0": "infernalexp:block/shroomlight_fungus"
   }
 }

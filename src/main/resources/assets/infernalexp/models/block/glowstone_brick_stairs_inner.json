@@ -1,8 +1,8 @@
 {
   "parent": "block/inner_stairs",
   "textures": {
-    "bottom": "infernalexp:blocks/glowstone_brick",
-    "top": "infernalexp:blocks/glowstone_brick",
-    "side": "infernalexp:blocks/glowstone_brick"
+    "bottom": "infernalexp:block/glowstone_brick",
+    "top": "infernalexp:block/glowstone_brick",
+    "side": "infernalexp:block/glowstone_brick"
   }
 }

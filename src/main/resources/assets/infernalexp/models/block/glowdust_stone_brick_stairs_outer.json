@@ -1,8 +1,8 @@
 {
   "parent": "block/outer_stairs",
   "textures": {
-    "bottom": "infernalexp:blocks/glowdust_stone_bricks_animated",
-    "top": "infernalexp:blocks/glowdust_stone_bricks_animated",
-    "side": "infernalexp:blocks/glowdust_stone_bricks_animated"
+    "bottom": "infernalexp:block/glowdust_stone_bricks_animated",
+    "top": "infernalexp:block/glowdust_stone_bricks_animated",
+    "side": "infernalexp:block/glowdust_stone_bricks_animated"
   }
 }

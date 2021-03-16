@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cross",
   "textures": {
-    "cross": "infernalexp:blocks/dullthorns"
+    "cross": "infernalexp:block/dullthorns"
   }
 }

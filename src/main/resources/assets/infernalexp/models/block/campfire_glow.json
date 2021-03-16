@@ -1,7 +1,7 @@
 {
   "parent": "block/template_campfire",
   "textures": {
-    "fire": "infernalexp:blocks/campfire_fire_glow",
-    "lit_log": "infernalexp:blocks/campfire_log_lit_glow"
+    "fire": "infernalexp:block/campfire_fire_glow",
+    "lit_log": "infernalexp:block/campfire_log_lit_glow"
   }
 }

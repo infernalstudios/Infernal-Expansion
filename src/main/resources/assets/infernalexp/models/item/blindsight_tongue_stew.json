@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "infernalexp:items/blindsight_tongue_stew"
+    "layer0": "infernalexp:item/blindsight_tongue_stew"
   }
 }

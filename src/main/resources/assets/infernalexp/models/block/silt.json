@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "infernalexp:blocks/silt"
+    "all": "infernalexp:block/silt"
   }
 }

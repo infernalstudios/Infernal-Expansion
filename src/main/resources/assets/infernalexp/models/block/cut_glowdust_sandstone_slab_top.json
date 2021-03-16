@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/slab_top",
   "textures": {
-    "bottom": "infernalexp:blocks/glowdust_sandstone_top",
-    "top": "infernalexp:blocks/glowdust_sandstone_top",
-    "side": "infernalexp:blocks/cut_glowdust_sandstone"
+    "bottom": "infernalexp:block/glowdust_sandstone_top",
+    "top": "infernalexp:block/glowdust_sandstone_top",
+    "side": "infernalexp:block/cut_glowdust_sandstone"
   }
 }

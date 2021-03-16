@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "infernalexp:items/frostbitten_shovel"
+    "layer0": "infernalexp:item/frostbitten_shovel"
   }
 }

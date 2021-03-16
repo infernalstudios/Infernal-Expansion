@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "infernalexp:blocks/smooth_dimstone"
+    "all": "infernalexp:block/smooth_dimstone"
   }
 }
