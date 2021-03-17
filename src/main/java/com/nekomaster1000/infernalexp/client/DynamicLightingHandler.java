@@ -39,8 +39,8 @@ public class DynamicLightingHandler {
 
     public static int getTimeAmplifier(LivingEntity entity) {
         EffectInstance luminousEffect = entity.getActivePotionEffect(IEEffects.LUMINOUS.get());
-        if (luminousEffect != null) { // LivingEntity.getActivePotionEffect(Effect) is nullable.
-            return luminousEffect.getAmplifier() == 0 ? 1 : 2; // This is to ensure that the amplifier doesn't exceed 2 when set to ridiculous levels
+        if (luminousEffect != null) {
+            return luminousEffect.getAmplifier() == 0 ? 1 : 2;
         }
         return 1;
     }

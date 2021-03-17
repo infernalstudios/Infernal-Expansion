@@ -1,7 +1,18 @@
 package com.nekomaster1000.infernalexp.util;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
-import com.nekomaster1000.infernalexp.client.entity.render.*;
+import com.nekomaster1000.infernalexp.client.entity.render.BasaltGiantRenderer;
+import com.nekomaster1000.infernalexp.client.entity.render.BlackstoneDwarfRenderer;
+import com.nekomaster1000.infernalexp.client.entity.render.BlindsightRenderer;
+import com.nekomaster1000.infernalexp.client.entity.render.CerobeetleRenderer;
+import com.nekomaster1000.infernalexp.client.entity.render.EmbodyRenderer;
+import com.nekomaster1000.infernalexp.client.entity.render.GlowsilkMothRenderer;
+import com.nekomaster1000.infernalexp.client.entity.render.GlowsquitoRenderer;
+import com.nekomaster1000.infernalexp.client.entity.render.PyrnoRenderer;
+import com.nekomaster1000.infernalexp.client.entity.render.ShroomloinRenderer;
+import com.nekomaster1000.infernalexp.client.entity.render.SkeletalPiglinRenderer;
+import com.nekomaster1000.infernalexp.client.entity.render.VolineRenderer;
+import com.nekomaster1000.infernalexp.client.entity.render.WarpbeetleRenderer;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IEEntityTypes;
 import com.nekomaster1000.infernalexp.init.IETileEntityTypes;
