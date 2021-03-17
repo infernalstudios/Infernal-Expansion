@@ -27,7 +27,7 @@ public class DynamicLightingHandler {
                     if (data.time == 0) {
                         data.shouldKeep = false;
                     }
-                    if (data.time == (20 * data.amplifier) || !data.shouldKeep) {
+                    if (data.time == 20 * data.amplifier || !data.shouldKeep) {
                         MinecraftInstance.world.getChunkProvider().getLightManager().checkBlock(pos);                        
                     }
                     data.time -= (int) InfernalExpansionConfig.ClientConfig.LUMINOUS_REFRESH_RATE.getDouble();
