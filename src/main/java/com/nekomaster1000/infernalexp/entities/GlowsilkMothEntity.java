@@ -90,7 +90,7 @@ public class GlowsilkMothEntity extends AmbientEntity {
             double d0 = (double)this.spawnPosition.getY() + 0.1D - this.getPosY();
             double d1 = (double)this.spawnPosition.getZ() + 0.5D - this.getPosZ();
             Vector3d vector3d = this.getMotion();
-            Vector3d vector3d1 = vector3d.add((Math.signum(d2) * 0.5D - vector3d.x) * (double)0.3F, (Math.signum(d0) * 0.7F - vector3d.y) * (double)0.3F, (Math.signum(d1) * 0.5D - vector3d.z) * (double)0.3F);
+            Vector3d vector3d1 = vector3d.add((Math.signum(d2) * 0.5D - vector3d.x) * 0.3D, (Math.signum(d0) * 0.7F - vector3d.y) * 0.3D, (Math.signum(d1) * 0.5D - vector3d.z) * 0.3D);
             this.setMotion(vector3d1);
             float f = (float)(MathHelper.atan2(vector3d1.z, vector3d1.x) * (double)(180F / (float)Math.PI)) - 90.0F;
             float f1 = MathHelper.wrapDegrees(f - this.rotationYaw);
