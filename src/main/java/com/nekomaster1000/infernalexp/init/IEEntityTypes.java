@@ -72,6 +72,11 @@ public class IEEntityTypes {
                     .size(1.0F, 0.8F) //Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "blindsight").toString()));
 
+    public static final RegistryObject<EntityType<GlowsilkMothEntity>> GLOWSILK_MOTH = ENTITY_TYPES.register("glowsilk_moth",
+            () -> EntityType.Builder.create(GlowsilkMothEntity::new, EntityClassification.AMBIENT)
+                    .size(1.0F, 1.5F) //Hitbox Size
+                    .build(new ResourceLocation(InfernalExpansion.MOD_ID, "glowsilk_moth").toString()));
+
     public static final RegistryObject<EntityType<AscusBombEntity>> ASCUS_BOMB = ENTITY_TYPES.register("ascus_bomb",
             () -> EntityType.Builder.<AscusBombEntity>create(AscusBombEntity::new, EntityClassification.MISC)
                     .size(0.25f, 0.25f).trackingRange(4).func_233608_b_(10)

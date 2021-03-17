@@ -63,7 +63,7 @@
   
   "block.infernalexp.dullthorns_block": "Dullthorns Block",
 
-  "block.infernalexp.basalt_iron_ore": "Basalt Iron Ore",
+  "block.infernalexp.basalt_cobbled": "Cobbled Basalt",
 
   "block.infernalexp.basalt_wall": "Basalt Wall",
   "block.infernalexp.basalt_stairs": "Basalt Stairs",
@@ -79,6 +79,7 @@
   "block.infernalexp.cracked_basalt_bricks": "Cracked Basalt Bricks",
   "block.infernalexp.chiseled_basalt_brick": "Chiseled Basalt Brick",
 
+  "block.infernalexp.basalt_iron_ore": "Basalt Iron Ore",
   "block.infernalexp.Basaltic Magma": "Basaltic Magma",
 
   "block.infernalexp.soul_sand_stairs": "Soul Sand Stairs",
@@ -103,7 +104,6 @@
   "block.infernalexp.cracked_soul_slate_bricks": "Cracked Soul Slate Bricks",
   "block.infernalexp.chiseled_soul_slate_brick": "Chiseled Soul Slate Brick",
 
-
   "block.infernalexp.crimson_fungus_cap": "Crimson Fungus Cap",
   "block.infernalexp.warped_fungus_cap": "Warped Fungus Cap",
   "block.infernalexp.luminous_fungus_cap": "Luminous Fungus Cap",
@@ -124,6 +124,7 @@
   "item.infernalexp.glowcoal": "Glowcoke",
   "item.infernalexp.glownuggets": "Dullrocks",
   "item.infernalexp.blindsight_tongue": "Blindsight Tongue",
+  "item.infernalexp.moth_dust": "Moth Dust",
 
   "item.infernalexp.blindsight_tongue_stew": "Fungus & Tongue Stew",
 
@@ -146,6 +147,7 @@
   "item.infernalexp.skeletal_piglin_spawn_egg": "Skeletal Piglin Spawn Egg",
   "item.infernalexp.pyrno_spawn_egg": "Pyrno Spawn Egg",
   "item.infernalexp.blindsight_spawn_egg": "Blindsight Spawn Egg",
+  "item.infernalexp.glowsilk_moth_spawn_egg": "Glowsilk Moth Spawn Egg",
   
   "item.infernalexp.music_disc_soul_spunk": "Music Disc",
   "item.infernalexp.music_disc_soul_spunk.desc": "LudoCrypt - Soul Spunk",
@@ -160,12 +162,23 @@
   "entity.infernalexp.skeletal_piglin": "Skeletal Piglin",
   "entity.infernalexp.pyrno": "Pyrno",
   "entity.infernalexp.blindsight": "Blindsight",
+  "entity.infernalexp.glowsilk_moth": "Glowsilk Moth",
 
   "biome.infernalexp.glowstone_canyon": "Glowstone Canyon",
   "biome.infernalexp.delta_shores": "Delta Shores",
 
   "effect.infernalexp.luminous": "Luminous",
   "effect.infernalexp.infection": "Infection",
+
+  "item.minecraft.potion.effect.luminous": "Potion of Luminous",
+  "item.minecraft.splash_potion.effect.luminous": "Splash Potion of Luminous",
+  "item.minecraft.lingering_potion.effect.luminous": "Lingering Potion of Luminous",
+  "item.minecraft.tipped_arrow.effect.luminous": "Arrow of Luminous",
+
+  "item.minecraft.potion.effect.infection": "Potion of Infection",
+  "item.minecraft.splash_potion.effect.infection": "Splash Potion of Infection",
+  "item.minecraft.lingering_potion.effect.infection": "Lingering Potion of Infection",
+  "item.minecraft.tipped_arrow.effect.infection": "Arrow of Infection",
 
   "infernalexp.config.button.mobInteractions": "Mob Interactions...",
   "infernalexp.config.button.mobSpawning": "Mob Spawning...",
@@ -218,6 +231,9 @@
   "infernalexp.config.option.warpbeetleWarped.enable": "Warpbeetles in Warped",
   "infernalexp.config.option.giantDeltas.enable": "Giants in Deltas",
   "infernalexp.config.option.embodySSV.enable": "Embodies in SSV",
+  "infernalexp.config.option.glowsilkGSC.enable": "Glowsilk Moths in GSC",
+  "infernalexp.config.option.glowsilkDeltas.enable": "Glowsilk Moths in Deltas",
+  "infernalexp.config.option.glowsilkCrimson.enable": "Glowsilk Moths in Crimson",
 
   "infernalexp.config.tooltip.volineWastes.enable": "Determines if Volines will spawn in Nether Wastes",
   "infernalexp.config.tooltip.shroomloinCrimson.enable": "Determines if Shroomloins will spawn in the Crimson Forests",
@@ -225,6 +241,9 @@
   "infernalexp.config.tooltip.warpbeetleWarped.enable": "Determines if Warpbeetles will spawn in Warped Forests",
   "infernalexp.config.tooltip.giantDeltas.enable": "Determines if Basalt Giants will spawn in Basalt Deltas",
   "infernalexp.config.tooltip.embodySSV.enable": "Determines if Embodies will spawn in the Soul Sand Valleys",
+  "infernalexp.config.tooltip.glowsilkGSC.enable": "Determines if Glowsilk Moths will spawn in the Glowstone Canyons",
+  "infernalexp.config.tooltip.glowsilkDeltas.enable": "Determines if Glowsilk Moths will spawn in the Basalt Deltas",
+  "infernalexp.config.tooltip.glowsilkCrimson.enable": "Determines if Glowsilk Moths will spawn in the Crimson Forests",
 
   "infernalexp.config.option.spawnrate": "Spawnrate",
 
@@ -234,6 +253,9 @@
   "infernalexp.config.tooltip.warpbeetleWarped.spawnrate": "Determines the rate at which Warpbeetles spawn in the Warped Forests",
   "infernalexp.config.tooltip.giantDeltas.spawnrate": "Determines the rate at which Basalt Giants spawn in the Basalt Deltas",
   "infernalexp.config.tooltip.embodySSV.spawnrate": "Determines the rate at which Embodies spawn in the Soul Sand Valleys",
+  "infernalexp.config.tooltip.glowsilkGSC.spawnrate": "Determines the rate at which Glowsilk Moths spawn in the Glowstone Canyons",
+  "infernalexp.config.tooltip.glowsilkDeltas.spawnrate": "Determines the rate at which Glowsilk Moths spawn in the Basalt Deltas",
+  "infernalexp.config.tooltip.glowsilkCrimson.spawnrate": "Determines the rate at which Glowsilk Moths spawn in the Crimson Forests",
 
   "infernalexp.config.option.isShroomlightGrowable": "Shroomlight Growable",
   "infernalexp.config.option.shroomlightGrowChance": "Shroomlight Grow Chance",

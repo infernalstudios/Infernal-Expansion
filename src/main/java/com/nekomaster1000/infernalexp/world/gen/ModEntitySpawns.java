@@ -6,6 +6,7 @@ import com.nekomaster1000.infernalexp.entities.BlackstoneDwarfEntity;
 import com.nekomaster1000.infernalexp.entities.BlindsightEntity;
 import com.nekomaster1000.infernalexp.entities.CerobeetleEntity;
 import com.nekomaster1000.infernalexp.entities.EmbodyEntity;
+import com.nekomaster1000.infernalexp.entities.GlowsilkMothEntity;
 import com.nekomaster1000.infernalexp.entities.GlowsquitoEntity;
 import com.nekomaster1000.infernalexp.entities.PyrnoEntity;
 import com.nekomaster1000.infernalexp.entities.ShroomloinEntity;
@@ -13,7 +14,6 @@ import com.nekomaster1000.infernalexp.entities.SkeletalPiglinEntity;
 import com.nekomaster1000.infernalexp.entities.VolineEntity;
 import com.nekomaster1000.infernalexp.entities.WarpbeetleEntity;
 import com.nekomaster1000.infernalexp.init.IEEntityTypes;
-
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -37,5 +37,6 @@ public class ModEntitySpawns {
         GlobalEntityTypeAttributes.put(IEEntityTypes.SKELETAL_PIGLIN.get(), SkeletalPiglinEntity.setCustomAttributes().create());
         GlobalEntityTypeAttributes.put(IEEntityTypes.PYRNO.get(), PyrnoEntity.setCustomAttributes().create());
         GlobalEntityTypeAttributes.put(IEEntityTypes.BLINDSIGHT.get(), BlindsightEntity.setCustomAttributes().create());
+        GlobalEntityTypeAttributes.put(IEEntityTypes.GLOWSILK_MOTH.get(), GlowsilkMothEntity.setCustomAttributes().create());
         }
     }

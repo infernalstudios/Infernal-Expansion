@@ -204,6 +204,12 @@ public class MobEvents {
 								MobSpawning.VOLINE_CRIMSON.getSpawnrate(), 1, 5));
 			}
 
+			if (MobSpawning.GLOWSILK_CRIMSON.isEnabled()) {
+				event.getSpawns().withSpawner(EntityClassification.AMBIENT,
+						new MobSpawnInfo.Spawners(IEEntityTypes.GLOWSILK_MOTH.get(),
+								MobSpawning.GLOWSILK_CRIMSON.getSpawnrate(), 1, 1));
+			}
+
 		} else if (event.getName().toString().equals("minecraft:warped_forest")) {
 
 			//    event.getSpawns().withSpawner(EntityClassification.MONSTER,
@@ -220,6 +226,12 @@ public class MobEvents {
 				event.getSpawns().withSpawner(EntityClassification.MONSTER,
 						new MobSpawnInfo.Spawners(IEEntityTypes.BASALT_GIANT.get(),
 								MobSpawning.GIANT_DELTAS.getSpawnrate(), 1, 1));
+			}
+
+			if (MobSpawning.GLOWSILK_DELTAS.isEnabled()) {
+				event.getSpawns().withSpawner(EntityClassification.AMBIENT,
+						new MobSpawnInfo.Spawners(IEEntityTypes.GLOWSILK_MOTH.get(),
+								MobSpawning.GLOWSILK_DELTAS.getSpawnrate(), 1, 1));
 			}
 
 			//event.getSpawns().withSpawner(EntityClassification.MONSTER,
@@ -251,6 +263,12 @@ public class MobEvents {
 
 			event.getSpawns().withSpawner(EntityClassification.MONSTER,
 					new MobSpawnInfo.Spawners(IEEntityTypes.BLACKSTONE_DWARF.get(), 1, 1, 1));
+
+			if (MobSpawning.GLOWSILK_GSC.isEnabled()) {
+				event.getSpawns().withSpawner(EntityClassification.AMBIENT,
+						new MobSpawnInfo.Spawners(IEEntityTypes.GLOWSILK_MOTH.get(),
+								MobSpawning.GLOWSILK_GSC.getSpawnrate(), 1, 1));
+			}
 
 			//event.getSpawns().withSpawner(EntityClassification.MONSTER,
 			//        new MobSpawnInfo.Spawners(EntityType.GHAST, 20, 1, 1));

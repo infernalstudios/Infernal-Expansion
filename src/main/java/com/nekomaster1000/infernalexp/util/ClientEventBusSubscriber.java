@@ -6,6 +6,7 @@ import com.nekomaster1000.infernalexp.client.entity.render.BlackstoneDwarfRender
 import com.nekomaster1000.infernalexp.client.entity.render.BlindsightRenderer;
 import com.nekomaster1000.infernalexp.client.entity.render.CerobeetleRenderer;
 import com.nekomaster1000.infernalexp.client.entity.render.EmbodyRenderer;
+import com.nekomaster1000.infernalexp.client.entity.render.GlowsilkMothRenderer;
 import com.nekomaster1000.infernalexp.client.entity.render.GlowsquitoRenderer;
 import com.nekomaster1000.infernalexp.client.entity.render.PyrnoRenderer;
 import com.nekomaster1000.infernalexp.client.entity.render.ShroomloinRenderer;
@@ -45,6 +46,7 @@ public class ClientEventBusSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.SKELETAL_PIGLIN.get(), SkeletalPiglinRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.PYRNO.get(), PyrnoRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.BLINDSIGHT.get(), BlindsightRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.GLOWSILK_MOTH.get(), GlowsilkMothRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.ASCUS_BOMB.get(), manager -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
         RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.THROWABLE_MAGMA_CREAM.get(), manager -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
 

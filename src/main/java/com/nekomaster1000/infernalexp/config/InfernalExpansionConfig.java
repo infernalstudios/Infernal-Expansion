@@ -111,7 +111,10 @@ public final class InfernalExpansionConfig {
         VOLINE_CRIMSON("volineCrimson"),
         WARPBEETLE_WARPED("warpbeetleWarped"),
         GIANT_DELTAS("giantDeltas"),
-        EMBODY_SSV("embodySSV");
+        EMBODY_SSV("embodySSV"),
+        GLOWSILK_GSC("glowsilkGSC"),
+        GLOWSILK_DELTAS("glowsilkDeltas"),
+        GLOWSILK_CRIMSON("glowsilkCrimson");
 
         private final String translationName;
         private boolean enabled;
