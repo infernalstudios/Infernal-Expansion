@@ -122,11 +122,7 @@ public class GlowsilkMothEntity extends AmbientEntity {
      * Called when the entity is attacked.
      */
     public boolean attackEntityFrom(DamageSource source, float amount) {
-        if (this.isInvulnerableTo(source)) {
-            return false;
-        } else {
-            return super.attackEntityFrom(source, amount);
-        }
+        return this.isInvulnerableTo(source) ? false : super.attackEntityFrom(source, amount);
     }
 
     protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
