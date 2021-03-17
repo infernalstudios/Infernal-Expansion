@@ -9,15 +9,15 @@ import net.minecraft.util.ResourceLocation;
 
 public class GlowsilkMothRenderer extends MobRenderer<GlowsilkMothEntity, GlowsilkMothModel<GlowsilkMothEntity>> {
 
-protected static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/glowsilk_moth.png");
+    protected static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/glowsilk_moth.png");
 
-public GlowsilkMothRenderer(EntityRendererManager renderManagerIn) {
+    public GlowsilkMothRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new GlowsilkMothModel<>(), 0.7f);
-        }
+    }
 
-@Override
-public ResourceLocation getEntityTexture(GlowsilkMothEntity entity) {
+    @Override
+    public ResourceLocation getEntityTexture(GlowsilkMothEntity entity) {
         return TEXTURE;
-        }
+    }
 
 }
