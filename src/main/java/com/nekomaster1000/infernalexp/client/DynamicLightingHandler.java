@@ -54,7 +54,7 @@ public class DynamicLightingHandler {
         public int time;
         public int amplifier;
 
-        public LightData(int amplifier){
+        public LightData(int amplifier) {
             this.amplifier = amplifier;
             this.time = 20 * amplifier;
         }
