@@ -43,6 +43,9 @@ public final class ConfigHelper {
         MobSpawning.WARPBEETLE_WARPED.setEnabled(ConfigHolder.COMMON.warpbeetleInWarped.get());
         MobSpawning.GIANT_DELTAS.setEnabled(ConfigHolder.COMMON.giantInDeltas.get());
         MobSpawning.EMBODY_SSV.setEnabled(ConfigHolder.COMMON.embodyInSSV.get());
+        MobSpawning.GLOWSILK_GSC.setEnabled(ConfigHolder.COMMON.glowsilkInGSC.get());
+        MobSpawning.GLOWSILK_DELTAS.setEnabled(ConfigHolder.COMMON.glowsilkInDeltas.get());
+        MobSpawning.GLOWSILK_CRIMSON.setEnabled(ConfigHolder.COMMON.glowsilkInCrimson.get());
 
         //Mob Spawn Rates
         MobSpawning.VOLINE_WASTES.setSpawnrate(ConfigHolder.COMMON.volineWastesRate.get());
@@ -51,6 +54,9 @@ public final class ConfigHelper {
         MobSpawning.WARPBEETLE_WARPED.setSpawnrate(ConfigHolder.COMMON.warpbeetleWarpedRate.get());
         MobSpawning.GIANT_DELTAS.setSpawnrate(ConfigHolder.COMMON.giantDeltasRate.get());
         MobSpawning.EMBODY_SSV.setSpawnrate(ConfigHolder.COMMON.embodySSVRate.get());
+        MobSpawning.GLOWSILK_GSC.setSpawnrate(ConfigHolder.COMMON.glowsilkGSCRate.get());
+        MobSpawning.GLOWSILK_DELTAS.setSpawnrate(ConfigHolder.COMMON.glowsilkDeltasRate.get());
+        MobSpawning.GLOWSILK_CRIMSON.setSpawnrate(ConfigHolder.COMMON.glowsilkCrimsonRate.get());
 
         //Bonemeal Behaviour
         FloraBehaviour.SHROOMLIGHT_GROWABLE.set(ConfigHolder.COMMON.isShroomlightGrowable.get());
