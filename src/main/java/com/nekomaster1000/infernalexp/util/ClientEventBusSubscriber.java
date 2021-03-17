@@ -1,17 +1,7 @@
 package com.nekomaster1000.infernalexp.util;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
-import com.nekomaster1000.infernalexp.client.entity.render.BasaltGiantRenderer;
-import com.nekomaster1000.infernalexp.client.entity.render.BlackstoneDwarfRenderer;
-import com.nekomaster1000.infernalexp.client.entity.render.BlindsightRenderer;
-import com.nekomaster1000.infernalexp.client.entity.render.CerobeetleRenderer;
-import com.nekomaster1000.infernalexp.client.entity.render.EmbodyRenderer;
-import com.nekomaster1000.infernalexp.client.entity.render.GlowsquitoRenderer;
-import com.nekomaster1000.infernalexp.client.entity.render.PyrnoRenderer;
-import com.nekomaster1000.infernalexp.client.entity.render.ShroomloinRenderer;
-import com.nekomaster1000.infernalexp.client.entity.render.SkeletalPiglinRenderer;
-import com.nekomaster1000.infernalexp.client.entity.render.VolineRenderer;
-import com.nekomaster1000.infernalexp.client.entity.render.WarpbeetleRenderer;
+import com.nekomaster1000.infernalexp.client.entity.render.*;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IEEntityTypes;
 import com.nekomaster1000.infernalexp.init.IETileEntityTypes;
@@ -45,6 +35,7 @@ public class ClientEventBusSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.SKELETAL_PIGLIN.get(), SkeletalPiglinRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.PYRNO.get(), PyrnoRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.BLINDSIGHT.get(), BlindsightRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.GLOWSILK_MOTH.get(), GlowsilkMothRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.ASCUS_BOMB.get(), manager -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
         RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.THROWABLE_MAGMA_CREAM.get(), manager -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
 
