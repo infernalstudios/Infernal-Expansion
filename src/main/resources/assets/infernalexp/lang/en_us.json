@@ -63,7 +63,7 @@
   
   "block.infernalexp.dullthorns_block": "Dullthorns Block",
 
-  "block.infernalexp.basalt_iron_ore": "Basalt Iron Ore",
+  "block.infernalexp.basalt_cobbled": "Cobbled Basalt",
 
   "block.infernalexp.basalt_wall": "Basalt Wall",
   "block.infernalexp.basalt_stairs": "Basalt Stairs",
@@ -79,6 +79,7 @@
   "block.infernalexp.cracked_basalt_bricks": "Cracked Basalt Bricks",
   "block.infernalexp.chiseled_basalt_brick": "Chiseled Basalt Brick",
 
+  "block.infernalexp.basalt_iron_ore": "Basalt Iron Ore",
   "block.infernalexp.Basaltic Magma": "Basaltic Magma",
 
   "block.infernalexp.soul_sand_stairs": "Soul Sand Stairs",
@@ -102,7 +103,6 @@
   "block.infernalexp.soul_slate_bricks_slab": "Soul Slate Brick Slab",
   "block.infernalexp.cracked_soul_slate_bricks": "Cracked Soul Slate Bricks",
   "block.infernalexp.chiseled_soul_slate_brick": "Chiseled Soul Slate Brick",
-
 
   "block.infernalexp.crimson_fungus_cap": "Crimson Fungus Cap",
   "block.infernalexp.warped_fungus_cap": "Warped Fungus Cap",

@@ -118,7 +118,7 @@ public class InfernalExpansion
 
         @Override
         public ItemStack createIcon() {
-            return new ItemStack(IEItems.DULLROCKS.get());
+            return new ItemStack(IEItems.BLINDSIGHT_TONGUE.get());
         }
 
     };
