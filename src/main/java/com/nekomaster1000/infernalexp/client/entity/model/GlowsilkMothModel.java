@@ -1,6 +1,4 @@
-package com.nekomaster1000.infernalexp.client.entity.model;// Made with Blockbench 3.8.2
-// Exported for Minecraft version 1.15
-// Paste this class into your mod and generate All required imports
+package com.nekomaster1000.infernalexp.client.entity.model;
 
 
 import com.mojang.blaze3d.matrix.MatrixStack;
