@@ -14,6 +14,7 @@ import com.nekomaster1000.infernalexp.util.RegistryHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -31,6 +32,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.ForgeEventFactory;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.PotionColorCalculationEvent;
@@ -179,16 +181,17 @@ public class MiscEvents {
     @SubscribeEvent
     public void onPotionColorCalculate(PotionColorCalculationEvent event) {
         List<EffectInstance> effects = new ArrayList<>(event.getEffects());
+        int customEffects = 0;
 
         // Hide base infection effect particles
         for (EffectInstance effectInstance : effects) {
-            if (effectInstance.getPotion() == IEEffects.INFECTION.get()) {
-                if (effects.size() == 1) {
-                    event.shouldHideParticles(true);
-                }
-
-                break;
+            if (effectInstance.getPotion() == IEEffects.INFECTION.get() || effectInstance.getPotion() == IEEffects.LUMINOUS.get()) {
+                customEffects++;
             }
+        }
+
+        if (customEffects == effects.size()) {
+            event.shouldHideParticles(true);
         }
     }
 
@@ -202,6 +205,26 @@ public class MiscEvents {
                 if ((entity.getActivePotionEffect(IEEffects.INFECTION.get()).getDuration() & 10) == 0 && entity.getActivePotionEffect(IEEffects.INFECTION.get()).doesShowParticles()) {
                     // Use ServerWorld#spawnParticle instead of World#addParticle because this code is running on the server side
                     ((ServerWorld) entity.getEntityWorld()).spawnParticle(IEParticleTypes.INFECTION.get(), entity.getPosXRandom(entity.getBoundingBox().getXSize()), entity.getPosYRandom(), entity.getPosZRandom(entity.getBoundingBox().getZSize()), 0, 0, 0, 0, 1);
+                }
+            }
+
+            if (entity.isPotionActive(IEEffects.LUMINOUS.get())) {
+                if ((entity.getActivePotionEffect(IEEffects.LUMINOUS.get()).getDuration() & 10) == 0 && entity.getActivePotionEffect(IEEffects.LUMINOUS.get()).doesShowParticles()) {
+                    // Use ServerWorld#spawnParticle instead of World#addParticle because this code is running on the server side
+                    ((ServerWorld) entity.getEntityWorld()).spawnParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get(), entity.getPosXRandom(entity.getBoundingBox().getXSize()), entity.getPosYRandom(), entity.getPosZRandom(entity.getBoundingBox().getZSize()), 0, 0, 0, 0, 1);
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onEntityJoin(EntityJoinWorldEvent event) {
+        if (event.getEntity() instanceof AreaEffectCloudEntity) {
+            for (EffectInstance effect : ((AreaEffectCloudEntity) event.getEntity()).potion.getEffects()) {
+                if (effect.getPotion() == IEEffects.INFECTION.get()) {
+                    ((AreaEffectCloudEntity) event.getEntity()).setParticleData(IEParticleTypes.INFECTION.get());
+                } else if (effect.getPotion() == IEEffects.LUMINOUS.get()) {
+                    ((AreaEffectCloudEntity) event.getEntity()).setParticleData(IEParticleTypes.GLOWSTONE_SPARKLE.get());
                 }
             }
         }

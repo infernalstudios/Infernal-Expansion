@@ -4,7 +4,6 @@ import com.nekomaster1000.infernalexp.init.IEEffects;
 import com.nekomaster1000.infernalexp.init.IEEntityTypes;
 import com.nekomaster1000.infernalexp.init.IEItems;
 import com.nekomaster1000.infernalexp.init.IEParticleTypes;
-import com.nekomaster1000.infernalexp.init.IEPotions;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -84,7 +83,7 @@ public class AscusBombEntity extends ProjectileItemEntity implements IRendersAsI
         areaeffectcloudentity.setWaitTime(10);
         areaeffectcloudentity.setDuration(areaeffectcloudentity.getDuration() / 8);
         areaeffectcloudentity.setRadiusPerTick(-areaeffectcloudentity.getRadius() / (float) areaeffectcloudentity.getDuration());
-        areaeffectcloudentity.setPotion(IEPotions.INFECTION.get());
+        areaeffectcloudentity.addEffect(new EffectInstance(IEEffects.INFECTION.get(), 300));
         areaeffectcloudentity.setParticleData(IEParticleTypes.INFECTION.get());
 
         this.world.addEntity(areaeffectcloudentity);
