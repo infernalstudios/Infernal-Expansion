@@ -209,26 +209,26 @@ public class RegistryHandler {
 //...
 
     // DULLSTONE
-    static ResourceLocation location71 = new ResourceLocation(InfernalExpansion.MOD_ID, "block.dimstone.break");
-    public static SoundEvent DIMSTONE_BREAK = new SoundEvent(location71);
+    static ResourceLocation location71 = new ResourceLocation(InfernalExpansion.MOD_ID, "block.dullstone.break");
+    public static SoundEvent DULLSTONE_BREAK = new SoundEvent(location71);
 
-    static ResourceLocation location72 = new ResourceLocation(InfernalExpansion.MOD_ID, "block.dimstone.step");
-    public static SoundEvent DIMSTONE_STEP = new SoundEvent(location72);
+    static ResourceLocation location72 = new ResourceLocation(InfernalExpansion.MOD_ID, "block.dullstone.step");
+    public static SoundEvent DULLSTONE_STEP = new SoundEvent(location72);
 
-    static ResourceLocation location73 = new ResourceLocation(InfernalExpansion.MOD_ID, "block.dimstone.place");
-    public static SoundEvent DIMSTONE_PLACE = new SoundEvent(location73);
+    static ResourceLocation location73 = new ResourceLocation(InfernalExpansion.MOD_ID, "block.dullstone.place");
+    public static SoundEvent DULLSTONE_PLACE = new SoundEvent(location73);
 
-    static ResourceLocation location74 = new ResourceLocation(InfernalExpansion.MOD_ID, "block.dimstone.hit");
-    public static SoundEvent DIMSTONE_HIT = new SoundEvent(location74);
+    static ResourceLocation location74 = new ResourceLocation(InfernalExpansion.MOD_ID, "block.dullstone.hit");
+    public static SoundEvent DULLSTONE_HIT = new SoundEvent(location74);
 
-    static ResourceLocation location75 = new ResourceLocation(InfernalExpansion.MOD_ID, "block.dimstone.fall");
-    public static SoundEvent DIMSTONE_FALL = new SoundEvent(location75);
+    static ResourceLocation location75 = new ResourceLocation(InfernalExpansion.MOD_ID, "block.dullstone.fall");
+    public static SoundEvent DULLSTONE_FALL = new SoundEvent(location75);
 
 //...
 
     // SOUND TYPES
-    public static final SoundType DIMSTONE_TYPE = new SoundType(1.0F, 1.0F, DIMSTONE_BREAK, DIMSTONE_STEP, DIMSTONE_PLACE, DIMSTONE_HIT, DIMSTONE_FALL);
+    public static final SoundType DULLSTONE_TYPE = new SoundType(1.0F, 1.0F, DULLSTONE_BREAK, DULLSTONE_STEP, DULLSTONE_PLACE, DULLSTONE_HIT, DULLSTONE_FALL);
 
-    public static final SoundType DULLSTONE_TYPE = new SoundType(1.0F, 1.0F, SoundEvents.BLOCK_STONE_BREAK, DIMSTONE_STEP, SoundEvents.BLOCK_GLASS_PLACE, SoundEvents.BLOCK_GLASS_HIT, SoundEvents.BLOCK_GLASS_FALL);
+    public static final SoundType DIMSTONE_TYPE = new SoundType(1.0F, 1.0F, SoundEvents.BLOCK_GLASS_BREAK, DULLSTONE_STEP, SoundEvents.BLOCK_GLASS_PLACE, SoundEvents.BLOCK_GLASS_HIT, SoundEvents.BLOCK_GLASS_FALL);
 
 }

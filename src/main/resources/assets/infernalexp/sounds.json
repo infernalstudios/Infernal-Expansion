@@ -400,37 +400,37 @@
 			}
 		]
 	},
-	"block.dimstone.break": {
+	"block.dullstone.break": {
 		"sounds": [
-			"infernalexp:block/dimstone/break1",
-			"infernalexp:block/dimstone/break2"
+			"infernalexp:block/dullstone/break1",
+			"infernalexp:block/dullstone/break2"
 		]
 	},
-	"block.dimstone.step": {
+	"block.dullstone.step": {
 		"sounds": [
-			"infernalexp:block/dimstone/step1",
-			"infernalexp:block/dimstone/step2",
-			"infernalexp:block/dimstone/step3"
+			"infernalexp:block/dullstone/step1",
+			"infernalexp:block/dullstone/step2",
+			"infernalexp:block/dullstone/step3"
 		]
 	},
-	"block.dimstone.place": {
+	"block.dullstone.place": {
 		"sounds": [
-			"infernalexp:block/dimstone/step1",
-			"infernalexp:block/dimstone/step2",
-			"infernalexp:block/dimstone/step3"
+			"infernalexp:block/dullstone/step1",
+			"infernalexp:block/dullstone/step2",
+			"infernalexp:block/dullstone/step3"
 		]
 	},
-	"block.dimstone.hit": {
+	"block.dullstone.hit": {
 		"sounds": [
-			"infernalexp:block/dimstone/step1",
-			"infernalexp:block/dimstone/step2",
-			"infernalexp:block/dimstone/step3"
+			"infernalexp:block/dullstone/step1",
+			"infernalexp:block/dullstone/step2",
+			"infernalexp:block/dullstone/step3"
 		]
 	},
-	"block.dimstone.fall": {
+	"block.dullstone.fall": {
 		"sounds": [
-			"infernalexp:block/dimstone/break1",
-			"infernalexp:block/dimstone/break2"
+			"infernalexp:block/dullstone/break1",
+			"infernalexp:block/dullstone/break2"
 		]
 	}
 }
