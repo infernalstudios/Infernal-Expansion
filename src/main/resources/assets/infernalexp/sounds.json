@@ -399,5 +399,38 @@
 				"stream": true
 			}
 		]
+	},
+	"block.dimstone.break": {
+		"sounds": [
+			"infernalexp:block/dimstone/break1",
+			"infernalexp:block/dimstone/break2"
+		]
+	},
+	"block.dimstone.step": {
+		"sounds": [
+			"infernalexp:block/dimstone/step1",
+			"infernalexp:block/dimstone/step2",
+			"infernalexp:block/dimstone/step3"
+		]
+	},
+	"block.dimstone.place": {
+		"sounds": [
+			"infernalexp:block/dimstone/step1",
+			"infernalexp:block/dimstone/step2",
+			"infernalexp:block/dimstone/step3"
+		]
+	},
+	"block.dimstone.hit": {
+		"sounds": [
+			"infernalexp:block/dimstone/step1",
+			"infernalexp:block/dimstone/step2",
+			"infernalexp:block/dimstone/step3"
+		]
+	},
+	"block.dimstone.fall": {
+		"sounds": [
+			"infernalexp:block/dimstone/break1",
+			"infernalexp:block/dimstone/break2"
+		]
 	}
 }
