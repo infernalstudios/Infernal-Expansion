@@ -36,17 +36,23 @@
   "block.infernalexp.dullstone_brick_stairs": "Dullstone Brick Stairs",
   "block.infernalexp.dullstone_brick_wall": "Dullstone Brick Wall",
 
+  "block.infernalexp.luminous_wart_block": "Luminous Wart Block",
   "block.infernalexp.glowdust": "Glowdust",
   "block.infernalexp.glowdust_sand": "Glowdust Sand",
-  "block.infernalexp.luminous_wart_block": "Luminous Wart Block",
   "block.infernalexp.glowdust_stone": "Glowdust Stone",
+  "block.infernalexp.glowdust_stone_slab": "Glowdust Stone Slab",
+  "block.infernalexp.glowdust_stone_stairs": "Glowdust Stone Stairs",
+  "block.infernalexp.glowdust_stone_wall": "Glowdust Stone Wall",
+  "block.infernalexp.trapped_glowdust_sand": "Unstable Glowdust Sand",
+
   "block.infernalexp.glowdust_stone_bricks": "Glowdust Stone Bricks",
   "block.infernalexp.glowdust_stone_brick_slab": "Glowdust Stone Brick Slab",
   "block.infernalexp.glowdust_stone_brick_stairs": "Glowdust Stone Brick Stairs",
   "block.infernalexp.glowdust_stone_brick_wall": "Glowdust Stone Brick Wall",
+
   "block.infernalexp.cracked_glowdust_stone_bricks": "Cracked Glowdust Stone Bricks",
   "block.infernalexp.chiseled_glowdust_stone_bricks": "Chiseled Glowdust Stone Brick",
-  "block.infernalexp.trapped_glowdust_sand": "Unstable Glowdust Sand",
+
   "block.infernalexp.glowdust_sandstone": "Glowdust Sandstone",
   "block.infernalexp.cut_glowdust_sandstone": "Cut Glowdust Sandstone",
   "block.infernalexp.chiseled_glowdust_sandstone": "Chiseled Glowdust Sandstone",
@@ -54,16 +60,19 @@
   "block.infernalexp.glowdust_sandstone_slab": "Glowdust Sandstone Slab",
   "block.infernalexp.glowdust_sandstone_stairs": "Glowdust Sandstone Stairs",
   "block.infernalexp.cut_glowdust_sandstone_slab": "Cut Glowdust Sandstone Slab",
+
   "block.infernalexp.smooth_glowdust_sandstone_slab": "Smooth Glowdust Sandstone Slab",
   "block.infernalexp.smooth_glowdust_sandstone_stairs": "Smooth Glowdust Sandstone Stairs",
   "block.infernalexp.glowdust_sandstone_wall": "Glowdust Sandstone Wall",
   "block.infernalexp.crumbling_blackstone": "Crumbling Blackstone",
+
   "block.infernalexp.silt": "Basalt Silt",
   "block.infernalexp.rubble": "Blackstone Rubble",
   
   "block.infernalexp.dullthorns_block": "Dullthorns Block",
 
   "block.infernalexp.basalt_cobbled": "Cobbled Basalt",
+  "block.infernalexp.basalt_cobbled_slab": "Cobbled Basalt Slab",
 
   "block.infernalexp.basalt_wall": "Basalt Wall",
   "block.infernalexp.basalt_stairs": "Basalt Stairs",
@@ -72,6 +81,8 @@
 
   "block.infernalexp.polished_basalt_pressure_plate": "Polished Basalt Pressure Plate",
   "block.infernalexp.polished_basalt_slab": "Polished Basalt Slab",
+  "block.infernalexp.polished_basalt_tiles_slab": "Polished Basalt Tiles Slab",
+  "block.infernalexp.polished_basalt_tiles": "Polished Basalt Tiles",
 
   "block.infernalexp.basalt_bricks": "Basalt Bricks",
   "block.infernalexp.basalt_brick_stairs": "Basalt Brick Stairs",
@@ -89,6 +100,9 @@
   "block.infernalexp.soul_soil_slab": "Soul Soil Slab",
 
   "block.infernalexp.soul_stone": "Soul Stone",
+  "block.infernalexp.soul_stone_slab": "Soul Stone Slab",
+  "block.infernalexp.soul_stone_stairs": "Soul Stone Stairs",
+  "block.infernalexp.soul_stone_wall": "Soul Stone Wall",
 
   "block.infernalexp.soul_slate": "Soul Slate",
   "block.infernalexp.soul_slate_wall": "Soul Slate Wall",

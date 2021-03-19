@@ -213,7 +213,7 @@ public class CommonConfig {
         warpbeetleWarpedRate = builder
                 .comment("Determines the rate at which Warpbeetles spawn in the Warped Forests")
                 .translation(InfernalExpansion.MOD_ID + ".config.tooltip.warpbeetleWarped.spawnrate")
-                .defineInRange("warpbeetleWarpedRate", 1, 0, Integer.MAX_VALUE);
+                .defineInRange("warpbeetleWarpedRate", 5, 0, Integer.MAX_VALUE);
 
         giantDeltasRate = builder
                 .comment("Determines the rate at which Basalt Giants spawn in the Basalt Deltas")
@@ -233,12 +233,12 @@ public class CommonConfig {
         glowsilkDeltasRate = builder
                 .comment("Determines the rate at which Glowsilk Moths spawn in the Basalt Deltas")
                 .translation(InfernalExpansion.MOD_ID + ".config.tooltip.glowsilkDeltas.spawnrate")
-                .defineInRange("glowsilkDeltasRate", 2, 0, Integer.MAX_VALUE);
+                .defineInRange("glowsilkDeltasRate", 1, 0, Integer.MAX_VALUE);
 
         glowsilkCrimsonRate = builder
                 .comment("Determines the rate at which Glowsilk Moths spawn in the Crimson Forests")
                 .translation(InfernalExpansion.MOD_ID + ".config.tooltip.glowsilkCrimson.spawnrate")
-                .defineInRange("glowsilkCrimsonRate", 2, 0, Integer.MAX_VALUE);
+                .defineInRange("glowsilkCrimsonRate", 1, 0, Integer.MAX_VALUE);
 
         builder.pop();
         
