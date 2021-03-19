@@ -39,7 +39,7 @@ public class EatItemsGoal<T extends MobEntity> extends Goal {
     @Override
     public boolean shouldExecute() {
         if (this.itemInstance == null) {
-            List<ItemEntity> list = this.entityIn.world.getEntitiesWithinAABB(ItemEntity.class, this.entityIn.getBoundingBox().grow(this.range, 3.0d, this.range));
+            List<ItemEntity> list = this.entityIn.world.getEntitiesWithinAABB(ItemEntity.class, this.entityIn.getBoundingBox().grow(this.range, 3.0D, this.range));
 
             for (ItemEntity item : list) {
                 if (eatItems.contains(item.getItem().getItem())) {
@@ -80,7 +80,7 @@ public class EatItemsGoal<T extends MobEntity> extends Goal {
     @Override
     public void tick() {
         if (eatDelay <= 0) {
-            if (this.entityIn.getDistanceSq(itemInstance) < 2.0d) {
+            if (this.entityIn.getDistanceSq(itemInstance) < 2.0D) {
                 this.navigation.setSpeed(0.0d);
 
                 if (!eating) {
@@ -96,7 +96,7 @@ public class EatItemsGoal<T extends MobEntity> extends Goal {
 
                     } else if (eatTime % 3 == 0) {
                         entityIn.lookAt(EntityAnchorArgument.Type.EYES, itemInstance.getPositionVec());
-                        entityIn.playSound(SoundEvents.ENTITY_GENERIC_EAT, 0.9f, 1.0f);
+                        entityIn.playSound(SoundEvents.ENTITY_GENERIC_EAT, 0.9F, 1.0F);
                         ((ServerWorld) entityIn.world).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, itemInstance.getItem()), entityIn.getPosXRandom(0.5F) + entityIn.getLookVec().x / 2.0D, entityIn.getPosYRandom(), entityIn.getPosZRandom(0.5F) + entityIn.getLookVec().z / 2.0D, 4, 0, 0, 0, 0);
                     }
                 }

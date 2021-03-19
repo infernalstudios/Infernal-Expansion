@@ -15,7 +15,6 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
@@ -51,11 +50,6 @@ import java.util.Map;
 
 public class VolineEntity extends MonsterEntity {
 
-//    public static final List<Item> EAT_ITEMS = new ArrayList<>(
-//            Arrays.asList(Items.MAGMA_CREAM, Items.GOLD_INGOT, Items.GOLD_BLOCK, Items.GOLD_ORE, Items.NETHER_GOLD_ORE, Items.GOLDEN_AXE, Items.GOLDEN_PICKAXE,
-//                    Items.GOLDEN_HOE, Items.GOLDEN_SWORD, Items.GOLDEN_SHOVEL, Items.GOLDEN_HELMET, Items.GOLDEN_CHESTPLATE, Items.GOLDEN_LEGGINGS, Items.GOLDEN_BOOTS)
-//    );
-
     public static final Map<Item, Integer> EAT_ITEMS = new HashMap<Item, Integer>() {{
         put(Items.MAGMA_CREAM, 0);
         put(Items.GOLD_NUGGET, 0);
@@ -76,9 +70,6 @@ public class VolineEntity extends MonsterEntity {
 
     private static final DataParameter<Float> VOLINE_SIZE = EntityDataManager.createKey(VolineEntity.class, DataSerializers.FLOAT);
     private boolean isEating;
-
-    private final Goal lookAtPlayer = new LookAtGoal(this, PlayerEntity.class, 8.0f);
-    private final Goal lookAtRandomlyGoal = new LookRandomlyGoal(this);
 
     public VolineEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
@@ -105,13 +96,13 @@ public class VolineEntity extends MonsterEntity {
     protected void registerGoals() {
         super.registerGoals();
         //this.goalSelector.addGoal(0, new TemptGoal(this, 0.6D, TEMPTATION_ITEMS, false));
-        this.goalSelector.addGoal(0, new VolineEatItemsGoal(this, EAT_ITEMS, 32.0d, getAttributeValue(Attributes.MOVEMENT_SPEED) * 2.0D));
+        this.goalSelector.addGoal(0, new VolineEatItemsGoal(this, EAT_ITEMS, 32.0D, getAttributeValue(Attributes.MOVEMENT_SPEED) * 2.0D));
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.2D, true));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, LivingEntity.class, true, false, Effects.FIRE_RESISTANCE));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED)));
-        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0f));
+        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, AbstractPiglinEntity.class, 16.0F, getAttributeValue(Attributes.MOVEMENT_SPEED) * 2.0D, getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.5D));
         this.goalSelector.addGoal(5, new PanicGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED) * 2.0D));
@@ -124,9 +115,7 @@ public class VolineEntity extends MonsterEntity {
     }
 
     public void setVolineSize(float size) {
-        if (size > 2.0F) {
-            size = 2.0F;
-        }
+        size = Math.min(size, 2.0F);
 
         dataManager.set(VOLINE_SIZE, size);
         recenterBoundingBox();
@@ -146,10 +135,7 @@ public class VolineEntity extends MonsterEntity {
 
     @Override
     public void readAdditional(CompoundNBT compound) {
-        float size = compound.getFloat("Size");
-        if (size < 1) {
-            size = 1;
-        }
+        float size = Math.max(compound.getFloat("Size"), 1.0F);
 
         setVolineSize(size);
 
@@ -231,9 +217,10 @@ public class VolineEntity extends MonsterEntity {
             super.handleStatusUpdate(id);
         }
     }
+
     public static class VolineEatItemsGoal extends EatItemsGoal<VolineEntity> {
 
-        private Map<Item, Integer> eatItemsMap;
+        private final Map<Item, Integer> eatItemsMap;
 
         public VolineEatItemsGoal(VolineEntity entityIn, Map<Item, Integer> itemsToEat, double range, double speedIn) {
             super(entityIn, itemsToEat.keySet(), range, speedIn);
