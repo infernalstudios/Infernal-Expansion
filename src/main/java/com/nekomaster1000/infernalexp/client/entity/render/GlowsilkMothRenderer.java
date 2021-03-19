@@ -13,6 +13,7 @@ public class GlowsilkMothRenderer extends MobRenderer<GlowsilkMothEntity, Glowsi
 
     public GlowsilkMothRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new GlowsilkMothModel<>(), 0.7f);
+        this.addLayer(new GlowsilkMothGlowLayer(this));;
     }
 
     @Override

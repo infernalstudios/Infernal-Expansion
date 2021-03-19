@@ -45,7 +45,7 @@ public class EmbodyEntity extends MonsterEntity {
         return MobEntity.func_233666_p_()
                 .createMutableAttribute(Attributes.MAX_HEALTH, 15.0D)
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 4.0D)
-                .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 2.0D);
+                .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.2D);
     }
 
     protected void func_230273_eI_() {

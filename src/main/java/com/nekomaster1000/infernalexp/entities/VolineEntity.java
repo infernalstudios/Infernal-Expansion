@@ -33,9 +33,9 @@ public class VolineEntity extends MonsterEntity {
     //ATTRIBUTES
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return MobEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.MAX_HEALTH, 10.0D)
+                .createMutableAttribute(Attributes.MAX_HEALTH, 15.0D)
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.0D)
-                .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.5D)
+                .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.0D)
                 .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5D);
     }
 
