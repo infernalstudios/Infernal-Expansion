@@ -1,7 +1,7 @@
 {
   "type": "minecraft:stonecutting",
   "ingredient": {
-    "item": "infernalexp:glowstone_brick"
+    "item": "infernalexp:glowstone_bricks"
   },
   "result": "infernalexp:glowstone_brick_wall",
   "count": 1
