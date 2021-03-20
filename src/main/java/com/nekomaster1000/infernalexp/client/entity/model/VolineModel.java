@@ -76,6 +76,10 @@ public class VolineModel<T extends VolineEntity> extends EntityModel<T> {
 		this.leg_4.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
 		this.body.rotateAngleX = -MathHelper.abs(MathHelper.cos(limbSwing * 0.4662F) * 1.4F * limbSwingAmount);
 
+		if (entityIn.isEating()) {
+			this.body.rotateAngleX = (MathHelper.cos(ageInTicks) * (float) Math.PI * 0.1F);
+		}
+
 	}
 
 	@Override

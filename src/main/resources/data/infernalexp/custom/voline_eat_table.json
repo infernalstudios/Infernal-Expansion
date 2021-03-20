@@ -1,0 +1,149 @@
+{
+  "entries": [
+    {
+      "accepted_item": "minecraft:magma_cream",
+      "returned_items": []
+    },
+    {
+      "accepted_item": "minecraft:gold_nugget",
+      "returned_items": []
+    },
+    {
+      "accepted_item": "minecraft:gold_ingot",
+      "returned_items": [
+        {
+          "item": "infernalexp:molten_gold_cluster",
+          "amount": 4
+        }
+      ]
+    },
+    {
+      "accepted_item": "minecraft:gold_block",
+      "returned_items": [
+        {
+          "item": "minecraft:gold_ingot",
+          "amount": 4
+        },
+        {
+          "item": "infernalexp:molten_gold_cluster",
+          "amount": 4
+        }
+      ]
+    },
+    {
+      "accepted_item": "minecraft:gold_ore",
+      "returned_items": [
+        {
+          "item": "infernalexp:molten_gold_cluster",
+          "amount": 4
+        }
+      ]
+    },
+    {
+      "accepted_item": "minecraft:nether_gold_ore",
+      "returned_items": [
+        {
+          "item": "infernalexp:molten_gold_cluster",
+          "amount": 4
+        }
+      ]
+    },
+    {
+      "accepted_item": "minecraft:golden_axe",
+      "returned_items": [
+        {
+          "item": "infernalexp:molten_gold_cluster",
+          "amount": 9
+        }
+      ]
+    },
+    {
+      "accepted_item": "minecraft:golden_pickaxe",
+      "returned_items": [
+        {
+          "item": "infernalexp:molten_gold_cluster",
+          "amount": 9
+        }
+      ]
+    },
+    {
+      "accepted_item": "minecraft:golden_sword",
+      "returned_items": [
+        {
+          "item": "infernalexp:molten_gold_cluster",
+          "amount": 5
+        }
+      ]
+    },
+    {
+      "accepted_item": "minecraft:golden_hoe",
+      "returned_items": [
+        {
+          "item": "infernalexp:molten_gold_cluster",
+          "amount": 5
+        }
+      ]
+    },
+    {
+      "accepted_item": "minecraft:golden_shovel",
+      "returned_items": [
+        {
+          "item": "infernalexp:molten_gold_cluster",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "accepted_item": "minecraft:golden_helmet",
+      "returned_items": [
+        {
+          "item": "minecraft:gold_ingot",
+          "amount": 2
+        },
+        {
+          "item": "infernalexp:molten_gold_cluster",
+          "amount": 4
+        }
+      ]
+    },
+    {
+      "accepted_item": "minecraft:golden_chestplate",
+      "returned_items": [
+        {
+          "item": "minecraft:gold_ingot",
+          "amount": 4
+        },
+        {
+          "item": "infernalexp:molten_gold_cluster",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "accepted_item": "minecraft:golden_leggings",
+      "returned_items": [
+        {
+          "item": "minecraft:gold_ingot",
+          "amount": 2
+        },
+        {
+          "item": "infernalexp:molten_gold_cluster",
+          "amount": 9
+        }
+      ]
+    },
+    {
+      "accepted_item": "minecraft:golden_boots",
+      "returned_items": [
+        {
+          "item": "minecraft:gold_ingot",
+          "amount": 2
+        },
+        {
+          "item": "infernalexp:molten_gold_cluster",
+          "amount": 2
+        }
+      ]
+    }
+  ]
+}
