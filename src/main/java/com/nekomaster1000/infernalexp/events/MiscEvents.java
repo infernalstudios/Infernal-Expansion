@@ -5,6 +5,7 @@ import com.nekomaster1000.infernalexp.blocks.HorizontalBushBlock;
 import com.nekomaster1000.infernalexp.config.ConfigHelper;
 import com.nekomaster1000.infernalexp.config.ConfigHolder;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.FloraBehaviour;
+import com.nekomaster1000.infernalexp.data.VolineEatTable;
 import com.nekomaster1000.infernalexp.entities.ShroomloinEntity;
 import com.nekomaster1000.infernalexp.entities.ThrowableMagmaCreamEntity;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
@@ -18,6 +19,7 @@ import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.potion.EffectInstance;
@@ -31,6 +33,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.BlockSnapshot;
+import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
@@ -47,6 +50,7 @@ import net.minecraftforge.fml.config.ModConfig;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = InfernalExpansion.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MiscEvents {
@@ -244,6 +248,22 @@ public class MiscEvents {
                 }
             }
         }
+    }
+
+    private static VolineEatTable INSTANCE;
+
+    @SubscribeEvent
+    public void onResourceReload(AddReloadListenerEvent event) {
+        INSTANCE = new VolineEatTable();
+        event.addListener(INSTANCE);
+    }
+
+    public static Map<Item, Map<Item, Integer>> getVolineEatTable() {
+        if (INSTANCE == null) {
+            throw new IllegalStateException("Can not retrieve VolineEatTable until resources have loaded once.");
+        }
+
+        return INSTANCE.getVolineEatTable();
     }
 
 }
