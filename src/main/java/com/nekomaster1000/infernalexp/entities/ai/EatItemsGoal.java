@@ -81,7 +81,7 @@ public class EatItemsGoal<T extends MobEntity> extends Goal {
     public void tick() {
         if (eatDelay <= 0) {
             if (this.entityIn.getDistanceSq(itemInstance) < 2.0D) {
-                this.navigation.setSpeed(0.0d);
+                this.navigation.setSpeed(0.0D);
 
                 if (!eating) {
                     eating = true;
@@ -100,9 +100,11 @@ public class EatItemsGoal<T extends MobEntity> extends Goal {
                         ((ServerWorld) entityIn.world).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, itemInstance.getItem()), entityIn.getPosXRandom(0.5F) + entityIn.getLookVec().x / 2.0D, entityIn.getPosYRandom(), entityIn.getPosZRandom(0.5F) + entityIn.getLookVec().z / 2.0D, 4, 0, 0, 0, 0);
                     }
                 }
+
             } else {
                 this.navigation.setSpeed(speed);
             }
+
         } else {
             eatDelay--;
         }

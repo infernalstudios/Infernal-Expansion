@@ -2,7 +2,7 @@ package com.nekomaster1000.infernalexp.entities;
 
 import com.nekomaster1000.infernalexp.entities.ai.EatItemsGoal;
 import com.nekomaster1000.infernalexp.entities.ai.TargetWithEffectGoal;
-import com.nekomaster1000.infernalexp.init.IEItems;
+import com.nekomaster1000.infernalexp.events.MiscEvents;
 import com.nekomaster1000.infernalexp.util.RegistryHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntitySize;
@@ -62,10 +62,10 @@ public class VolineEntity extends MonsterEntity {
         put(Items.GOLDEN_SWORD, 5);
         put(Items.GOLDEN_HOE, 5);
         put(Items.GOLDEN_SHOVEL, 2);
-        put(Items.GOLDEN_HELMET, 11);
+        put(Items.GOLDEN_HELMET, 13);
         put(Items.GOLDEN_CHESTPLATE, 20);
         put(Items.GOLDEN_LEGGINGS, 18);
-        put(Items.GOLDEN_BOOTS, 13);
+        put(Items.GOLDEN_BOOTS, 11);
     }};
 
     private static final DataParameter<Float> VOLINE_SIZE = EntityDataManager.createKey(VolineEntity.class, DataSerializers.FLOAT);
@@ -96,7 +96,7 @@ public class VolineEntity extends MonsterEntity {
     protected void registerGoals() {
         super.registerGoals();
         //this.goalSelector.addGoal(0, new TemptGoal(this, 0.6D, TEMPTATION_ITEMS, false));
-        this.goalSelector.addGoal(0, new VolineEatItemsGoal(this, EAT_ITEMS, 32.0D, getAttributeValue(Attributes.MOVEMENT_SPEED) * 2.0D));
+        this.goalSelector.addGoal(0, new VolineEatItemsGoal(this, MiscEvents.getVolineEatTable(), 32.0D, getAttributeValue(Attributes.MOVEMENT_SPEED) * 2.0D));
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.2D, true));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, LivingEntity.class, true, false, Effects.FIRE_RESISTANCE));
@@ -220,9 +220,9 @@ public class VolineEntity extends MonsterEntity {
 
     public static class VolineEatItemsGoal extends EatItemsGoal<VolineEntity> {
 
-        private final Map<Item, Integer> eatItemsMap;
+        private final Map<Item, Map<Item, Integer>> eatItemsMap;
 
-        public VolineEatItemsGoal(VolineEntity entityIn, Map<Item, Integer> itemsToEat, double range, double speedIn) {
+        public VolineEatItemsGoal(VolineEntity entityIn, Map<Item, Map<Item, Integer>> itemsToEat, double range, double speedIn) {
             super(entityIn, itemsToEat.keySet(), range, speedIn);
 
             this.eatItemsMap = itemsToEat;
@@ -232,20 +232,14 @@ public class VolineEntity extends MonsterEntity {
         public void consumeItem() {
             entityIn.setVolineSize(entityIn.getVolineSize() + 0.2F);
 
-            int goldValue = eatItemsMap.get(itemInstance.getItem().getItem());
+            Item itemReference = itemInstance.getItem().getItem();
 
-            // Super call here so that the goldValue variable can actually check the item before the item instance is removed
+            // Super call here so that we can get a reference of the item before the item instance is deleted
             super.consumeItem();
 
-            int ingotValue = ((goldValue - 1) / 9) * 2;
-            int clusterValue = (goldValue) % 9;
-
-            if (clusterValue == 0 && goldValue != 0) {
-                clusterValue = 9;
+            for (Map.Entry<Item, Integer> item : eatItemsMap.get(itemReference).entrySet()) {
+                entityIn.entityDropItem(new ItemStack(item.getKey(), item.getValue()), 1);
             }
-
-            entityIn.entityDropItem(new ItemStack(Items.GOLD_INGOT, ingotValue), 1);
-            entityIn.entityDropItem(new ItemStack(IEItems.MOLTEN_GOLD_CLUSTER.get(), clusterValue), 1);
         }
     }
 }
