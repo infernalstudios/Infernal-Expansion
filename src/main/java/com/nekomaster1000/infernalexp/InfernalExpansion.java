@@ -17,6 +17,7 @@ import com.nekomaster1000.infernalexp.init.IEItems;
 import com.nekomaster1000.infernalexp.init.IEPaintings;
 import com.nekomaster1000.infernalexp.init.IEParticleTypes;
 import com.nekomaster1000.infernalexp.init.IEPotions;
+import com.nekomaster1000.infernalexp.init.IEProcessors;
 import com.nekomaster1000.infernalexp.init.IEStructures;
 import com.nekomaster1000.infernalexp.init.IETileEntityTypes;
 import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeCollector;
@@ -97,7 +98,8 @@ public class InfernalExpansion
         ModNetherBiomeCollector.netherBiomeCollection();
         Registry.register(Registry.BIOME_PROVIDER_CODEC, new ResourceLocation(MOD_ID, "infernalexp_nether"), ModNetherBiomeProvider.MOD_NETHER_CODEC);
 
-        //Setup and register structures
+        //Setup and register structures and processors
+        event.enqueueWork(IEProcessors::registerProcessors);
         event.enqueueWork(IEStructures::setupStructures);
 
         //Places entity spawn locations on the ground

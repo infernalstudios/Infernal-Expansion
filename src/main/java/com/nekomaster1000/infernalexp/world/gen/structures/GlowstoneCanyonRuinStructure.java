@@ -1,4 +1,4 @@
-package com.nekomaster1000.infernalexp.world.structure;
+package com.nekomaster1000.infernalexp.world.gen.structures;
 
 import com.mojang.serialization.Codec;
 import com.nekomaster1000.infernalexp.InfernalExpansion;

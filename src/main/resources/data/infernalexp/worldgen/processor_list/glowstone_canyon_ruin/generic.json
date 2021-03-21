@@ -1,0 +1,7 @@
+{
+  "processors": [
+    {
+      "processor_type": "infernalexp:loot_chest_processor"
+    }
+  ]
+}
