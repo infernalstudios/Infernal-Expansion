@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.nekomaster1000.infernalexp.entities.BasaltGiantEntity;
-
 import net.minecraft.client.renderer.entity.model.SegmentedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
@@ -120,7 +119,7 @@ public class BasaltGiantModel<T extends BasaltGiantEntity> extends SegmentedMode
             this.Jaw.rotateAngleX = 0.0F;
         }
 
-        sizeScalar = entity.getSizeScalar(); // Get size scalar value for this instance of the entity
+        sizeScalar = entity.getGiantSize(); // Get size scalar value for this instance of the entity
 
         this.LeftArm.rotateAngleX = MathHelper.cos(limbSwing * 0.4F + (float)Math.PI) * 0.8F * limbSwingAmount;
         this.RightArm.rotateAngleX = MathHelper.cos(limbSwing * 0.4F) * 0.8F * limbSwingAmount;
@@ -145,15 +144,27 @@ public class BasaltGiantModel<T extends BasaltGiantEntity> extends SegmentedMode
 
     @Override
     public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        // Scale the entity appropriately
-        matrixStack.push();
-        matrixStack.translate(0, 1.5 - sizeScalar * 1.5, 0); // Needed to properly handle larger model and ground height
-        matrixStack.scale(sizeScalar, sizeScalar, sizeScalar);
+		// Scale the entity appropriately
+		matrixStack.push();
+		matrixStack.translate(0, 1.5 - sizeScalar * 1.5, 0); // Needed to properly handle larger model and ground height
+		matrixStack.scale(sizeScalar, sizeScalar, sizeScalar);
 
-        // Render the entity using the scaling/translation matrices supplied above
-        Body.render(matrixStack, buffer, packedLight, packedOverlay);
-        matrixStack.pop(); // Leave the MatrixStack as we received it
-    }
+		// Render the entity using the scaling/translation matrices supplied above
+		Body.render(matrixStack, buffer, packedLight, packedOverlay);
+		Torso.render(matrixStack, buffer, packedLight, packedOverlay);
+		Torso2.render(matrixStack, buffer, packedLight, packedOverlay);
+		Head.render(matrixStack, buffer, packedLight, packedOverlay);
+		Jaw.render(matrixStack, buffer, packedLight, packedOverlay);
+		LeftArm.render(matrixStack, buffer, packedLight, packedOverlay);
+		LeftArmJoint.render(matrixStack, buffer, packedLight, packedOverlay);
+		RightArm.render(matrixStack, buffer, packedLight, packedOverlay);
+		RightArmJoint.render(matrixStack, buffer, packedLight, packedOverlay);
+		LeftLeg.render(matrixStack, buffer, packedLight, packedOverlay);
+		LeftLegJoint.render(matrixStack, buffer, packedLight, packedOverlay);
+		RightLeg.render(matrixStack, buffer, packedLight, packedOverlay);
+		RightLegJoint.render(matrixStack, buffer, packedLight, packedOverlay);
+		matrixStack.pop(); // Leave the MatrixStack as we received it
+	}
 
     public Iterable<ModelRenderer> getParts() {
         return ImmutableList.of(this.Body, this.Head, this.Jaw, this.Torso, this.Torso2, this.LeftArm, this.LeftArmJoint, this.RightArm, this.RightArmJoint, this.LeftLeg, this.LeftLegJoint, this.RightLeg, this.RightLegJoint);

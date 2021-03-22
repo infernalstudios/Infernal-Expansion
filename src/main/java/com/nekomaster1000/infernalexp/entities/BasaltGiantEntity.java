@@ -5,11 +5,13 @@ import com.nekomaster1000.infernalexp.util.RegistryHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IAngerable;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.Pose;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -47,6 +49,7 @@ import javax.annotation.Nullable;
 import java.util.UUID;
 
 public class BasaltGiantEntity extends CreatureEntity implements IEntityAdditionalSpawnData, IAngerable{
+
 //    private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.BASALT, Items.POLISHED_BASALT);
     private static final RangedInteger RANGED_INT = TickRangeConverter.convertRange(20, 39);
     private int attackTimer;
@@ -56,85 +59,110 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
     // Constant values for entity scaling
     private static final float BASE_ENTITY_HEIGHT = 5.0F;
     private static final float MIN_ENTITY_HEIGHT = 4.0F;
-    private static final float MAX_ENTITY_HEIGHT = 6.0F;
+	private static final float MAX_ENTITY_HEIGHT = 6.0F;
 
-    private static final DataParameter<Float> SIZE_SCALAR = EntityDataManager.createKey(BasaltGiantEntity.class, DataSerializers.FLOAT);
+	private static final DataParameter<Float> GIANT_SIZE = EntityDataManager.createKey(BasaltGiantEntity.class, DataSerializers.FLOAT);
 
-    public BasaltGiantEntity(EntityType<? extends BasaltGiantEntity> type, World worldIn) {
-        super(type, worldIn);
+	public BasaltGiantEntity(EntityType<? extends BasaltGiantEntity> type, World worldIn) {
+		super(type, worldIn);
 
-        this.stepHeight = 2.0f;
-    }
+		this.stepHeight = 2.0f;
+	}
 
-    public BasaltGiantEntity(EntityType<? extends BasaltGiantEntity> type, World worldIn, float sizeScalar) {
-        super(type, worldIn);
-        if (sizeScalar != 1)
-            this.dataManager.set(SIZE_SCALAR, sizeScalar);
-    }
+//    public BasaltGiantEntity(EntityType<? extends BasaltGiantEntity> type, World worldIn, float size) {
+//        super(type, worldIn);
+//        if (size != 1)
+//            this.dataManager.set(GIANT_SIZE, size);
+//    }
 
-    @Nullable
-    @Override
-    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+	@Nullable
+	@Override
+	public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
 
-        // Get a random size scale value resulting in a height between the MIN and MAX values specified above
-        float size = rand.nextFloat();
-        size /= BASE_ENTITY_HEIGHT / (MAX_ENTITY_HEIGHT - MIN_ENTITY_HEIGHT);
-        size += MIN_ENTITY_HEIGHT / BASE_ENTITY_HEIGHT;
-        this.setSize(size);
+		// Get a random size scale value resulting in a height between the MIN and MAX values specified above
+		float size = rand.nextFloat();
+		size /= BASE_ENTITY_HEIGHT / (MAX_ENTITY_HEIGHT - MIN_ENTITY_HEIGHT);
+		size += MIN_ENTITY_HEIGHT / BASE_ENTITY_HEIGHT;
+		this.setGiantSize(size);
 
         return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
-    @Override
-    protected void registerData() {
-        super.registerData();
+	//ATTRIBUTES
+	public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
+		return MobEntity.func_233666_p_()
+			.createMutableAttribute(Attributes.MAX_HEALTH, 40.0D)
+			.createMutableAttribute(Attributes.ATTACK_DAMAGE, 12.0D)
+			.createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 2.0D)
+			.createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE, 30.0D)
+			.createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.45D);
+	}
 
-        this.dataManager.register(SIZE_SCALAR, 1.0F);
-    }
-    public float getSize() {
-        return this.dataManager.get(SIZE_SCALAR);
-    }
-    public void setSize(float size) {
-        this.getDataManager().set(SIZE_SCALAR, size);
-    }
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
-        compound.putFloat("Size", this.getSize());
-    }
+	@Override
+	public void livingTick() {
+		super.livingTick();
+		if (this.attackTimer > 0) {
+			--this.attackTimer;
+		}
+	}
 
-    public void readAdditional(CompoundNBT compound) {
-        super.readAdditional(compound);
-        this.setSize(compound.getFloat("Size"));
-    }
+	@Override
+	protected void registerData() {
+		super.registerData();
+		dataManager.register(GIANT_SIZE, 1.0F);
+	}
 
-    //ATTRIBUTES
-    public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
-        return MobEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.MAX_HEALTH, 40.0D)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 12.0D)
-                .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 2.0D)
-                .createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE, 30.0D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.45D);
-    }
+	public void setGiantSize(float size) {
+		getDataManager().set(GIANT_SIZE, size);
+		recenterBoundingBox();
+		recalculateSize();
+	}
 
-    //---
-    //Retaliating
-    @OnlyIn(Dist.CLIENT)
-    public void handleStatusUpdate(byte id) {
-        if (id == 4) {
-            this.attackTimer = 10;
-            this.playSound(RegistryHandler.basalt_giant_death, 1.0F, 1.0F);
-        }else {
-            super.handleStatusUpdate(id);
-        }
+	public float getGiantSize() {
+		return this.dataManager.get(GIANT_SIZE);
+	}
 
-    }
+	public void writeAdditional(CompoundNBT compound) {
+		super.writeAdditional(compound);
+		compound.putFloat("Size", getGiantSize());
+	}
 
-    public void livingTick() {
-        super.livingTick();
-        if (this.attackTimer > 0) {
-            --this.attackTimer;
-        }
+	public void readAdditional(CompoundNBT compound) {
+		setGiantSize(compound.getFloat("Size"));
+		super.readAdditional(compound);
+	}
+
+	@Override
+	public void recalculateSize() {
+		super.recalculateSize();
+		setPosition(getPosX(), getPosY(), getPosZ());
+	}
+
+	@Override
+	public EntitySize getSize(Pose poseIn) {
+		return super.getSize(poseIn).scale(getGiantSize());
+	}
+
+	@Override
+	public void notifyDataManagerChange(DataParameter<?> key) {
+		if (GIANT_SIZE.equals(key)) {
+			recalculateSize();
+		}
+
+		super.notifyDataManagerChange(key);
+	}
+
+	//---
+	//Retaliating
+	@OnlyIn(Dist.CLIENT)
+	public void handleStatusUpdate(byte id) {
+		if (id == 4) {
+			this.attackTimer = 10;
+			this.playSound(RegistryHandler.basalt_giant_death, 1.0F, 1.0F);
+		} else {
+			super.handleStatusUpdate(id);
+		}
+
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -199,19 +227,14 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
 
     }
 
-    public float getSizeScalar() {
-        return this.dataManager.get(SIZE_SCALAR);
-    }
-
-
     @Override
     public void writeSpawnData(PacketBuffer buffer) {
-        buffer.writeFloat(getSizeScalar());
+		buffer.writeFloat(getGiantSize());
     }
 
     @Override
     public void readSpawnData(PacketBuffer buffer) {
-        this.dataManager.set(SIZE_SCALAR, buffer.readFloat());
+		this.dataManager.set(GIANT_SIZE, buffer.readFloat());
     }
 
     //EXP POINTS

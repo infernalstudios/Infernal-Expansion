@@ -12,6 +12,9 @@ import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
 
 public class VolineModel<T extends VolineEntity> extends EntityModel<T> {
+
+	private float sizeScalar;
+
 	private final ModelRenderer body;
 	private final ModelRenderer mouth_inside2;
 	private final ModelRenderer mouth;
@@ -70,9 +73,11 @@ public class VolineModel<T extends VolineEntity> extends EntityModel<T> {
 
 	@Override
 	public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		sizeScalar = entityIn.getVolineSize();
+
 		this.leg_1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-		this.leg_2.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-		this.leg_3.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+		this.leg_2.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+		this.leg_3.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
 		this.leg_4.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
 		this.body.rotateAngleX = -MathHelper.abs(MathHelper.cos(limbSwing * 0.4662F) * 1.4F * limbSwingAmount);
 
@@ -83,13 +88,19 @@ public class VolineModel<T extends VolineEntity> extends EntityModel<T> {
 	}
 
 	@Override
-	public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
+	public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+		matrixStack.push();
+		matrixStack.translate(0, 1.5 - sizeScalar * 1.5, 0);
+		matrixStack.scale(sizeScalar, sizeScalar, sizeScalar);
+
 		body.render(matrixStack, buffer, packedLight, packedOverlay);
 		mouth.render(matrixStack, buffer, packedLight, packedOverlay);
 		leg_1.render(matrixStack, buffer, packedLight, packedOverlay);
 		leg_2.render(matrixStack, buffer, packedLight, packedOverlay);
 		leg_3.render(matrixStack, buffer, packedLight, packedOverlay);
 		leg_4.render(matrixStack, buffer, packedLight, packedOverlay);
+
+		matrixStack.pop();
 	}
 
 	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
