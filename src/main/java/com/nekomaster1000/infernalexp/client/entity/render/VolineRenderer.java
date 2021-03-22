@@ -20,14 +20,19 @@ public class VolineRenderer extends MobRenderer<VolineEntity, VolineModel<Voline
 		this.addLayer(new VolineGlowLayer<>(this));
 	}
 
-    @Override
-    public void render(VolineEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-        shadowSize = 0.25F * entityIn.getVolineSize();
-        super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-    }
+	@Override
+	public void render(VolineEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
+		shadowSize = 0.25F * entityIn.getVolineSize();
+		super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+	}
 
-    @Override
-    public ResourceLocation getEntityTexture(VolineEntity entity) {
-        return entity.getAttributeValue(Attributes.MOVEMENT_SPEED) <= 0 ? TIRED_TEXTURE : TEXTURE;
-    }
+	@Override
+	protected void preRenderCallback(VolineEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+		matrixStackIn.scale(entitylivingbaseIn.getVolineSize(), entitylivingbaseIn.getVolineSize(), entitylivingbaseIn.getVolineSize());
+	}
+
+	@Override
+	public ResourceLocation getEntityTexture(VolineEntity entity) {
+		return entity.getAttributeValue(Attributes.MOVEMENT_SPEED) <= 0 ? TIRED_TEXTURE : TEXTURE;
+	}
 }

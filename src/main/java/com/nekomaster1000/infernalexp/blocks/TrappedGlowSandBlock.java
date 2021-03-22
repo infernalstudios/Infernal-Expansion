@@ -1,16 +1,17 @@
 package com.nekomaster1000.infernalexp.blocks;
 
-import java.util.Random;
-
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IEEntityTypes;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.FallingBlockEntity;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+
+import java.util.Random;
 
 public class TrappedGlowSandBlock extends GlowSandBlock {
     public TrappedGlowSandBlock(int dustColorIn, Properties properties) {
@@ -42,9 +43,11 @@ public class TrappedGlowSandBlock extends GlowSandBlock {
 
     public void startFalling(ServerWorld world, BlockPos pos) {
         if ((world.isAirBlock(pos.down()) || canFallThrough(world.getBlockState(pos.down())) && pos.getY() >= 0)) {
-            FallingBlockEntity fallingblockentity = new FallingBlockEntity(world, (double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, world.getBlockState(pos));
-            this.onStartFalling(fallingblockentity);
-            world.addEntity(fallingblockentity);
-        }
+			world.playSound(null, pos, SoundEvents.BLOCK_SAND_PLACE, SoundCategory.BLOCKS, 1.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+
+			FallingBlockEntity fallingblockentity = new FallingBlockEntity(world, (double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, world.getBlockState(pos));
+			this.onStartFalling(fallingblockentity);
+			world.addEntity(fallingblockentity);
+		}
     }
 }

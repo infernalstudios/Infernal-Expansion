@@ -24,6 +24,11 @@ public class BasaltGiantRenderer extends MobRenderer<BasaltGiantEntity, BasaltGi
 	}
 
 	@Override
+	protected void preRenderCallback(BasaltGiantEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+		matrixStackIn.scale(entitylivingbaseIn.getGiantSize(), entitylivingbaseIn.getGiantSize(), entitylivingbaseIn.getGiantSize());
+	}
+
+	@Override
 	public ResourceLocation getEntityTexture(BasaltGiantEntity entity) {
 		return TEXTURE;
 	}
