@@ -27,7 +27,6 @@ import net.minecraft.entity.monster.piglin.AbstractPiglinEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -45,28 +44,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
 import java.util.Map;
 
 public class VolineEntity extends MonsterEntity {
-
-    public static final Map<Item, Integer> EAT_ITEMS = new HashMap<Item, Integer>() {{
-        put(Items.MAGMA_CREAM, 0);
-        put(Items.GOLD_NUGGET, 0);
-        put(Items.GOLD_INGOT, 4);
-        put(Items.GOLD_BLOCK, 22);
-        put(Items.GOLD_ORE, 4);
-        put(Items.NETHER_GOLD_ORE, 4);
-        put(Items.GOLDEN_AXE, 9);
-        put(Items.GOLDEN_PICKAXE, 9);
-        put(Items.GOLDEN_SWORD, 5);
-        put(Items.GOLDEN_HOE, 5);
-        put(Items.GOLDEN_SHOVEL, 2);
-        put(Items.GOLDEN_HELMET, 13);
-        put(Items.GOLDEN_CHESTPLATE, 20);
-        put(Items.GOLDEN_LEGGINGS, 18);
-        put(Items.GOLDEN_BOOTS, 11);
-    }};
 
     private static final DataParameter<Float> VOLINE_SIZE = EntityDataManager.createKey(VolineEntity.class, DataSerializers.FLOAT);
     private boolean isEating;
@@ -98,24 +78,34 @@ public class VolineEntity extends MonsterEntity {
         //this.goalSelector.addGoal(0, new TemptGoal(this, 0.6D, TEMPTATION_ITEMS, false));
         this.goalSelector.addGoal(0, new VolineEatItemsGoal(this, MiscEvents.getVolineEatTable(), 32.0D, getAttributeValue(Attributes.MOVEMENT_SPEED) * 2.0D));
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.2D, true));
-        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, LivingEntity.class, true, false, Effects.FIRE_RESISTANCE));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
-        this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED)));
-        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0F));
-        this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
-        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, AbstractPiglinEntity.class, 16.0F, getAttributeValue(Attributes.MOVEMENT_SPEED) * 2.0D, getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.5D));
-        this.goalSelector.addGoal(5, new PanicGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED) * 2.0D));
-    }
+		this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+		this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, LivingEntity.class, true, false, Effects.FIRE_RESISTANCE));
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+		this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED)));
+		this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+		this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
+		this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, AbstractPiglinEntity.class, 16.0F, getAttributeValue(Attributes.MOVEMENT_SPEED) * 2.0D, getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.5D));
+		this.goalSelector.addGoal(5, new PanicGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED) * 2.0D));
+	}
 
-    @Override
-    protected void registerData() {
-        super.registerData();
-        dataManager.register(VOLINE_SIZE, 1.0F);
-    }
+	@Override
+	public void livingTick() {
+		if (getAttributeValue(Attributes.MOVEMENT_SPEED) <= 0) {
 
-    public void setVolineSize(float size) {
-        size = Math.min(size, 2.0F);
+			world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, getPosXRandom(0.5D), getPosY() + 1.6D, getPosZRandom(0.5D), 0, 0.07D, 0);
+		}
+
+		super.livingTick();
+	}
+
+	@Override
+	protected void registerData() {
+		super.registerData();
+		dataManager.register(VOLINE_SIZE, 1.0F);
+	}
+
+	public void setVolineSize(float size) {
+		size = Math.min(size, 2.0F);
 
         dataManager.set(VOLINE_SIZE, size);
         recenterBoundingBox();
@@ -143,19 +133,6 @@ public class VolineEntity extends MonsterEntity {
     }
 
     @Override
-    public void livingTick() {
-        if (getAttributeValue(Attributes.MOVEMENT_SPEED) <= 0) {
-//            goalSelector.removeGoal(lookAtPlayer);
-//            goalSelector.removeGoal(lookAtRandomlyGoal);
-
-            world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, getPosXRandom(0.5D), getPosY() + 1.6D, getPosZRandom(0.5D), 0, 0.07D, 0);
-//            world.addParticle(ParticleTypes.FLAME, getPosXRandom(0.5D), getPosY() + 1.5D, getPosZRandom(0.5D), 0, 0.1D, 0);
-        }
-
-        super.livingTick();
-    }
-
-    @Override
     public void recalculateSize() {
         super.recalculateSize();
         setPosition(getPosX(), getPosY(), getPosZ());
@@ -170,8 +147,6 @@ public class VolineEntity extends MonsterEntity {
     public void notifyDataManagerChange(DataParameter<?> key) {
         if (VOLINE_SIZE.equals(key)) {
             recalculateSize();
-            rotationYaw = rotationYawHead;
-            renderYawOffset = rotationYawHead;
         }
 
         super.notifyDataManagerChange(key);

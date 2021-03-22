@@ -16,19 +16,14 @@ public class VolineRenderer extends MobRenderer<VolineEntity, VolineModel<Voline
     protected static final ResourceLocation TIRED_TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/voline_tired.png");
 
     public VolineRenderer(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn, new VolineModel<>(), 0.7f);
-        this.addLayer(new VolineGlowLayer(this));
-    }
+		super(renderManagerIn, new VolineModel<>(), 0.7F);
+		this.addLayer(new VolineGlowLayer<>(this));
+	}
 
     @Override
     public void render(VolineEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
         shadowSize = 0.25F * entityIn.getVolineSize();
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-    }
-
-    @Override
-    protected void preRenderCallback(VolineEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
-        matrixStackIn.scale(entitylivingbaseIn.getVolineSize(), entitylivingbaseIn.getVolineSize(), entitylivingbaseIn.getVolineSize());
     }
 
     @Override
