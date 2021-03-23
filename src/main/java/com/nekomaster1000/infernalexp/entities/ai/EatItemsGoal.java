@@ -43,8 +43,8 @@ public class EatItemsGoal<T extends MobEntity> extends Goal {
 
             for (ItemEntity item : list) {
                 if (eatItems.contains(item.getItem().getItem())) {
-                    this.path = this.navigation.getPathToEntity(item, 0);
-                    this.itemInstance = item;
+                    this.path = this.navigation.getPathToPos(item.getPosition(), 0);
+					this.itemInstance = item;
                     return path != null;
                 }
             }

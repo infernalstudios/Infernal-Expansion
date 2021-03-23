@@ -44,14 +44,14 @@ public class LuminousFungusBlock extends HorizontalBushBlock implements IGrowabl
     @Override
     protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
         return
-                state.isIn(IEBlocks.GLOWDUST_SAND.get()) || state.isIn(Blocks.SAND) || state.isIn(Blocks.RED_SAND)
-                || state.isIn(Blocks.GRASS) || state.isIn(Blocks.GRASS_BLOCK) ||
-                state.isIn(Blocks.DIRT) || state.isIn(Blocks.COARSE_DIRT) || state.isIn(Blocks.FARMLAND) ||
-                state.isIn(Blocks.PODZOL) || state.isIn(Blocks.MYCELIUM) ||
-                state.isIn(Blocks.CRIMSON_NYLIUM) || state.isIn(Blocks.WARPED_NYLIUM) ||
-                state.isIn(Blocks.SOUL_SOIL) || state.isIn(Blocks.GLOWSTONE) || state.isIn(IEBlocks.DIMSTONE.get()) ||
-                state.isIn(IEBlocks.DULLSTONE.get()) || state.isIn(IEBlocks.DULLTHORNS.get())
-                ;
+			state.matchesBlock(IEBlocks.GLOWDUST_SAND.get()) || state.matchesBlock(Blocks.SAND) || state.matchesBlock(Blocks.RED_SAND)
+				|| state.matchesBlock(Blocks.GRASS) || state.matchesBlock(Blocks.GRASS_BLOCK) ||
+				state.matchesBlock(Blocks.DIRT) || state.matchesBlock(Blocks.COARSE_DIRT) || state.matchesBlock(Blocks.FARMLAND) ||
+				state.matchesBlock(Blocks.PODZOL) || state.matchesBlock(Blocks.MYCELIUM) ||
+				state.matchesBlock(Blocks.CRIMSON_NYLIUM) || state.matchesBlock(Blocks.WARPED_NYLIUM) ||
+				state.matchesBlock(Blocks.SOUL_SOIL) || state.matchesBlock(Blocks.GLOWSTONE) || state.matchesBlock(IEBlocks.DIMSTONE.get()) ||
+				state.matchesBlock(IEBlocks.DULLSTONE.get()) || state.matchesBlock(IEBlocks.DULLTHORNS.get())
+			;
     }
 
     public boolean canAttach(IWorldReader reader, BlockPos pos, Direction direction) {
@@ -92,7 +92,7 @@ public class LuminousFungusBlock extends HorizontalBushBlock implements IGrowabl
 	 */
 	@Override
 	public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
-		Block block = ((HugeFungusConfig) (IEConfiguredFeatures.DULLTHORN_TREE_PLANTED).config).field_236303_f_.getBlock();
+		Block block = ((HugeFungusConfig) (IEConfiguredFeatures.DULLTHORN_TREE_PLANTED).config).validBaseBlock.getBlock();
 		Block block1 = worldIn.getBlockState(pos.down()).getBlock();
 		return block1 == block;
 	}

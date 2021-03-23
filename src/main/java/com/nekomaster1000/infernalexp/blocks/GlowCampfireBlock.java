@@ -100,14 +100,14 @@ public class GlowCampfireBlock extends ContainerBlock implements IWaterLoggable 
     }
 
     public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-        if (!state.isIn(newState.getBlock())) {
-            TileEntity tileentity = worldIn.getTileEntity(pos);
-            if (tileentity instanceof GlowCampfireTileEntity) {
-                InventoryHelper.dropItems(worldIn, pos, ((GlowCampfireTileEntity)tileentity).getInventory());
-            }
+        if (!state.matchesBlock(newState.getBlock())) {
+			TileEntity tileentity = worldIn.getTileEntity(pos);
+			if (tileentity instanceof GlowCampfireTileEntity) {
+				InventoryHelper.dropItems(worldIn, pos, ((GlowCampfireTileEntity) tileentity).getInventory());
+			}
 
-            super.onReplaced(state, worldIn, pos, newState, isMoving);
-        }
+			super.onReplaced(state, worldIn, pos, newState, isMoving);
+		}
     }
 
     @Nullable
@@ -136,7 +136,7 @@ public class GlowCampfireBlock extends ContainerBlock implements IWaterLoggable 
      * Returns true if the block of the passed blockstate is a Hay block, otherwise false.
      */
     private boolean isHayBlock(BlockState stateIn) {
-        return stateIn.isIn(Blocks.HAY_BLOCK);
+		return stateIn.matchesBlock(Blocks.HAY_BLOCK);
     }
 
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
@@ -208,8 +208,8 @@ public class GlowCampfireBlock extends ContainerBlock implements IWaterLoggable 
 
     public void onProjectileCollision(World worldIn, BlockState state, BlockRayTraceResult hit, ProjectileEntity projectile) {
         if (!worldIn.isRemote && projectile.isBurning()) {
-            Entity entity = projectile.func_234616_v_();
-            boolean flag = entity == null || entity instanceof PlayerEntity || net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(worldIn, entity);
+			Entity entity = projectile.getShooter();
+			boolean flag = entity == null || entity instanceof PlayerEntity || net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(worldIn, entity);
             if (flag && !state.get(LIT) && !state.get(WATERLOGGED)) {
                 BlockPos blockpos = hit.getPos();
                 worldIn.setBlockState(blockpos, state.with(BlockStateProperties.LIT, Boolean.valueOf(true)), 11);

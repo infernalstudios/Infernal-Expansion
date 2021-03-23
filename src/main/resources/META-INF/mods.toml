@@ -37,7 +37,7 @@ authors="nekomaster1000" #optional
 
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-A  community-driven Vanilla+ mod that expands the Nether beyond the Nether Update,
+A community-driven Vanilla+ mod that expands the Nether beyond the Nether Update,
 introducing new biomes, blocks, mobs, and more!
 
 For configs, go to your .minecraft folder. Client based configs will be in .minecraft/config.
@@ -87,7 +87,7 @@ side="BOTH"
 # Here's another dependency
 [[dependencies.infernalexp]]
 modId="minecraft"
-mandatory=true
-versionRange="[1.16.3]"
-ordering="NONE"
+mandatory = true
+versionRange = "[1.16.3,1.17)"
+ordering = "NONE"
 side="BOTH"

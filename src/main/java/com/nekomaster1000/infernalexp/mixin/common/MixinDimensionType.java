@@ -19,7 +19,7 @@ public class MixinDimensionType {
 
     @Inject(at = @At("HEAD"), method = "getNetherChunkGenerator(Lnet/minecraft/util/registry/Registry;Lnet/minecraft/util/registry/Registry;J)Lnet/minecraft/world/gen/ChunkGenerator;", cancellable = true)
     private static void IE_netherDimensionInfernalExpansion(Registry<Biome> registry, Registry<DimensionSettings> dimSettings, long seed, CallbackInfoReturnable<ChunkGenerator> cir) {
-        cir.setReturnValue(new NoiseChunkGenerator(new ModNetherBiomeProvider(registry, seed), seed, () -> dimSettings.getOrThrow(DimensionSettings.field_242736_e)));
+        cir.setReturnValue(new NoiseChunkGenerator(new ModNetherBiomeProvider(registry, seed), seed, () -> dimSettings.getOrThrow(DimensionSettings.NETHER)));
     }
 }
 

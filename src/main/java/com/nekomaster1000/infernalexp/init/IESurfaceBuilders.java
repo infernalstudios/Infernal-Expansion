@@ -1,35 +1,34 @@
 package com.nekomaster1000.infernalexp.init;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.world.gen.surfacebuilders.DeltaShoresSurfaceBuilder;
 import com.nekomaster1000.infernalexp.world.gen.surfacebuilders.GlowstoneCanyonSurfaceBuilder;
-
 import net.minecraft.block.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class IESurfaceBuilders {
 
-    public static List<SurfaceBuilder<?>> surfaceBuilders = new ArrayList<>();
+	public static List<SurfaceBuilder<?>> surfaceBuilders = new ArrayList<>();
 
-    // Surface Builders
-    public static final SurfaceBuilder<SurfaceBuilderConfig> GLOWSTONE_CANYON_SURFACE_BUILDER = newSurfaceBuilder("glowstone_canyon", new GlowstoneCanyonSurfaceBuilder(SurfaceBuilderConfig.field_237203_a_));
-    public static final SurfaceBuilder<SurfaceBuilderConfig> DELTA_SHORES_SURFACE_BUILDER = newSurfaceBuilder("delta_shores", new DeltaShoresSurfaceBuilder(SurfaceBuilderConfig.field_237203_a_));
+	// Surface Builders
+	public static final SurfaceBuilder<SurfaceBuilderConfig> GLOWSTONE_CANYON_SURFACE_BUILDER = newSurfaceBuilder("glowstone_canyon", new GlowstoneCanyonSurfaceBuilder(SurfaceBuilderConfig.CODEC));
+	public static final SurfaceBuilder<SurfaceBuilderConfig> DELTA_SHORES_SURFACE_BUILDER = newSurfaceBuilder("delta_shores", new DeltaShoresSurfaceBuilder(SurfaceBuilderConfig.CODEC));
 
-    // Surface Builder Configs
-    public static class ModSurfaceBuilderConfig {
-         public static final SurfaceBuilderConfig GLOWSTONE_CANYON_CONFIG = new SurfaceBuilderConfig(
-                IEBlocks.GLOWDUST_SAND.get().getDefaultState(),
-                IEBlocks.GLOWDUST_STONE.get().getDefaultState(),
-                Blocks.GLOWSTONE.getDefaultState());
+	// Surface Builder Configs
+	public static class ModSurfaceBuilderConfig {
+		public static final SurfaceBuilderConfig GLOWSTONE_CANYON_CONFIG = new SurfaceBuilderConfig(
+			IEBlocks.GLOWDUST_SAND.get().getDefaultState(),
+			IEBlocks.GLOWDUST_STONE.get().getDefaultState(),
+			Blocks.GLOWSTONE.getDefaultState());
 
-         public static final SurfaceBuilderConfig DELTA_SHORES_CONFIG = new SurfaceBuilderConfig(
-                IEBlocks.SILT.get().getDefaultState(),
+		public static final SurfaceBuilderConfig DELTA_SHORES_CONFIG = new SurfaceBuilderConfig(
+			IEBlocks.SILT.get().getDefaultState(),
                 IEBlocks.SILT.get().getDefaultState(),
                 Blocks.BASALT.getDefaultState()
         );

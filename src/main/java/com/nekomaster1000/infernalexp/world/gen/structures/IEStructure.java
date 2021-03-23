@@ -48,9 +48,10 @@ public abstract class IEStructure<F extends IFeatureConfig> extends Structure<F>
 				BlockState checkAir = blockColumn.getBlockState(pos.down(y));
 				BlockState checkBlock = blockColumn.getBlockState(pos.down(y + 1));
 
-				if (checkAir.isAir() && (checkBlock.isIn(IEBlocks.GLOWDUST_SAND.get()) || checkBlock.isSolidSide(blockColumn, pos.down(y), Direction.UP))) {
+				if (checkAir.isAir() && (checkBlock.matchesBlock(IEBlocks.GLOWDUST_SAND.get()) || checkBlock.isSolidSide(blockColumn, pos.down(y), Direction.UP))) {
 					return y;
 				}
+
 				y--;
 			}
 

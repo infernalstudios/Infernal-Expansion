@@ -37,14 +37,14 @@ public class LootChestProcessor extends StructureProcessor {
 	public Template.BlockInfo process(IWorldReader worldView, BlockPos pos, BlockPos blockPos, Template.BlockInfo structureBlockInfoRelative, Template.BlockInfo structureBlockInfoGlobal, PlacementSettings placementSettings, @Nullable Template template) {
 		BlockState blockState = structureBlockInfoGlobal.state;
 
-		if (blockState.isIn(Blocks.STRUCTURE_BLOCK)) {
+		if (blockState.matchesBlock(Blocks.STRUCTURE_BLOCK)) {
 			String[] nbtData = structureBlockInfoGlobal.nbt.getString("metadata").split("-");
 
 			if (nbtData[0].equals("chest")) {
 				ChestTileEntity tileEntity = new ChestTileEntity();
 				tileEntity.setLootTable(new ResourceLocation(nbtData[2]), new Random().nextLong());
 
-			return new Template.BlockInfo(structureBlockInfoGlobal.pos, Blocks.CHEST.getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, Objects.requireNonNull(Direction.byName(nbtData[1]))), tileEntity.serializeNBT());
+				return new Template.BlockInfo(structureBlockInfoGlobal.pos, Blocks.CHEST.getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, Objects.requireNonNull(Direction.byName(nbtData[1]))), tileEntity.serializeNBT());
 			}
 		}
 
