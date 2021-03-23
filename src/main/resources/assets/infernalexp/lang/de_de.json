@@ -46,9 +46,9 @@
   "block.infernalexp.crumbling_blackstone": "Bröckelnder Schwarzstein",
   "block.infernalexp.silt": "Basaltschlitz",
   "block.infernalexp.rubble": "Schwarzsteinschutt",
-  "block.infernalexp.lantern_glow": "Glimmlichtlaterne",
-  "block.infernalexp.torch_glow": "Glimmlichtfackel",
-  "block.infernalexp.campfire_glow": "Glimmlichtlagerfeuer",
+  "block.infernalexp.glow_lantern": "Glimmlichtlaterne",
+  "block.infernalexp.glow_torch": "Glimmlichtfackel",
+  "block.infernalexp.glow_campfire": "Glimmlichtlagerfeuer",
   "block.infernalexp.luminous_fungus": "Leuchtender Pilz",
   "block.infernalexp.dullthorns": "Dulldornen",
 

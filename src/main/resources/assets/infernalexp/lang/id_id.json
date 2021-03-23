@@ -46,9 +46,9 @@
   "block.infernalexp.crumbling_blackstone": "Batu Hitam Hancur",
   "block.infernalexp.silt": "Endapan Basal",
   "block.infernalexp.rubble": "Puing Batu Hitam",
-  "block.infernalexp.lantern_glow": "Lentera Cahaya Bersinar",
-  "block.infernalexp.torch_glow": "Obor Cahaya Bersinar",
-  "block.infernalexp.campfire_glow": "Api Unggun Cahaya Bersinar",
+  "block.infernalexp.glow_lantern": "Lentera Cahaya Bersinar",
+  "block.infernalexp.glow_torch": "Obor Cahaya Bersinar",
+  "block.infernalexp.glow_campfire": "Api Unggun Cahaya Bersinar",
   "block.infernalexp.luminous_fungus": "Jamur Bercahaya",
   "block.infernalexp.dullthorns": "Duri Pudar",
 

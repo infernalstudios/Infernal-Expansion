@@ -46,9 +46,9 @@
   "block.infernalexp.crumbling_blackstone": "Afbrokkelend Zwartsteen",
   "block.infernalexp.silt": "Basalt Slib",
   "block.infernalexp.rubble": "Zwartsteen Puin",
-  "block.infernalexp.lantern_glow": "Gloeilichtlantaarn",
-  "block.infernalexp.torch_glow": "Gloeilichtfakkel",
-  "block.infernalexp.campfire_glow": "Gloeilichtkampvuur",
+  "block.infernalexp.glow_lantern": "Gloeilichtlantaarn",
+  "block.infernalexp.glow_torch": "Gloeilichtfakkel",
+  "block.infernalexp.glow_campfire": "Gloeilichtkampvuur",
   "block.infernalexp.luminous_fungus": "Lichtgevende Zwam",
   "block.infernalexp.dullthorns": "Dofdoornen",
 

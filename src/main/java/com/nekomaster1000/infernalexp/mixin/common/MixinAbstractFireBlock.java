@@ -6,8 +6,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import com.nekomaster1000.infernalexp.access.SoulFireAccess;
-import com.nekomaster1000.infernalexp.access.SoulFireAccess.KnownFireTypes;
+import com.nekomaster1000.infernalexp.access.FireTypeAccess;
+import com.nekomaster1000.infernalexp.access.FireTypeAccess.KnownFireTypes;
 import com.nekomaster1000.infernalexp.blocks.GlowFireBlock;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 
@@ -39,7 +39,7 @@ public abstract class MixinAbstractFireBlock extends Block {
 
 	@Inject(method = "onEntityCollision", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;forceFireTicks(I)V"))
 	private void IE_setCustomFires(BlockState state, World worldIn, BlockPos pos, Entity entityIn, CallbackInfo info) {
-		SoulFireAccess access = ((SoulFireAccess) entityIn);
+		FireTypeAccess access = ((FireTypeAccess) entityIn);
 		if (state.matchesBlock(Blocks.SOUL_FIRE)) {
 			access.setFireType(KnownFireTypes.SOUL_FIRE);
 		} else if (state.matchesBlock(IEBlocks.GLOW_FIRE.get())) {

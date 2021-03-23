@@ -46,9 +46,9 @@
   "block.infernalexp.crumbling_blackstone": "Pedra Negra Desmoronada",
   "block.infernalexp.silt": "Lodo",
   "block.infernalexp.rubble": "Destroços",
-  "block.infernalexp.lantern_glow": "Lanterna Luminosa",
-  "block.infernalexp.torch_glow": "Tocha Luminosa",
-  "block.infernalexp.campfire_glow": "Fogueira Luminosa",
+  "block.infernalexp.glow_lantern": "Lanterna Luminosa",
+  "block.infernalexp.glow_torch": "Tocha Luminosa",
+  "block.infernalexp.glow_campfire": "Fogueira Luminosa",
   "block.infernalexp.luminous_fungus": "Fungo Luminoso",
   "block.infernalexp.dullthorns": "Espinhos Escuros",
 

@@ -46,9 +46,9 @@
   "block.infernalexp.crumbling_blackstone": "Piedra negra desmoronada",
   "block.infernalexp.silt": "Cieno de basalto",
   "block.infernalexp.rubble": "Escombros de piedra negra",
-  "block.infernalexp.lantern_glow": "Farol luminoso",
-  "block.infernalexp.torch_glow": "Antorcha luminosa",
-  "block.infernalexp.campfire_glow": "Fogata luminosa",
+  "block.infernalexp.glow_lantern": "Farol luminoso",
+  "block.infernalexp.glow_torch": "Antorcha luminosa",
+  "block.infernalexp.glow_campfire": "Fogata luminosa",
   "block.infernalexp.luminous_fungus": "Hongo luminoso",
   "block.infernalexp.dullthorns": "Cardo tenue",
 

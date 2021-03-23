@@ -46,9 +46,9 @@
   "block.infernalexp.crumbling_blackstone": "破碎黑石",
   "block.infernalexp.silt": "玄武岩粉砂",
   "block.infernalexp.rubble": "黑石粉砂",
-  "block.infernalexp.lantern_glow": "螢光燈籠",
-  "block.infernalexp.torch_glow": "螢光火把",
-  "block.infernalexp.campfire_glow": "螢光篝火",
+  "block.infernalexp.glow_lantern": "螢光燈籠",
+  "block.infernalexp.glow_torch": "螢光火把",
+  "block.infernalexp.glow_campfire": "螢光篝火",
   "block.infernalexp.luminous_fungus": "閃爍蕈菇",
   "block.infernalexp.dullthorns": "黯淡灌木",
 

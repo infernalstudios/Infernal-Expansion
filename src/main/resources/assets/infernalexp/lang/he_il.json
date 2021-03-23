@@ -46,9 +46,9 @@
   "block.infernalexp.crumbling_blackstone": "אבן שחורה מתפוררת",
   "block.infernalexp.silt": "טין בזלת",
   "block.infernalexp.rubble": "שברי אבן שחורה",
-  "block.infernalexp.lantern_glow": "עששית גלואור",
-  "block.infernalexp.torch_glow": "לפיד גלואור",
-  "block.infernalexp.campfire_glow": "מדורת גלואור",
+  "block.infernalexp.glow_lantern": "עששית גלואור",
+  "block.infernalexp.glow_torch": "לפיד גלואור",
+  "block.infernalexp.glow_campfire": "מדורת גלואור",
   "block.infernalexp.luminous_fungus": "פטריית זוהר",
   "block.infernalexp.dullthorns": "אטוםת'ורן",
 

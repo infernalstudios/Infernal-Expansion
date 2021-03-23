@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
-import com.nekomaster1000.infernalexp.access.SoulFireAccess;
+import com.nekomaster1000.infernalexp.access.FireTypeAccess;
 
 import net.minecraft.client.renderer.model.ModelBakery;
 import net.minecraft.client.renderer.model.RenderMaterial;
@@ -23,14 +23,14 @@ public class MixinModelBakery {
 	protected static Set<RenderMaterial> LOCATIONS_BUILTIN_TEXTURES;
 
 	static {
-		LOCATIONS_BUILTIN_TEXTURES.add(SoulFireAccess.LOCATION_SOUL_FIRE_0);
-		LOCATIONS_BUILTIN_TEXTURES.add(SoulFireAccess.LOCATION_SOUL_FIRE_1);
-		LOCATIONS_BUILTIN_TEXTURES.add(SoulFireAccess.LOCATION_GLOW_FIRE_0);
-		LOCATIONS_BUILTIN_TEXTURES.add(SoulFireAccess.LOCATION_GLOW_FIRE_1);
+		LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_SOUL_FIRE_0);
+		LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_SOUL_FIRE_1);
+		LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_GLOW_FIRE_0);
+		LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_GLOW_FIRE_1);
 
 		if (ModList.get().isLoaded("endergetic")) {
-			LOCATIONS_BUILTIN_TEXTURES.add(SoulFireAccess.LOCATION_ENDER_FIRE_0);
-			LOCATIONS_BUILTIN_TEXTURES.add(SoulFireAccess.LOCATION_ENDER_FIRE_1);
+			LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_ENDER_FIRE_0);
+			LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_ENDER_FIRE_1);
 		}
 	}
 

@@ -46,9 +46,9 @@
   "block.infernalexp.crumbling_blackstone": "Крошашийся чернит",
   "block.infernalexp.silt": "Базальтовый ил",
   "block.infernalexp.rubble": "Чернитовая крошка",
-  "block.infernalexp.lantern_glow": "Яркосветовая лампа",
-  "block.infernalexp.torch_glow": "Яркосветовый факел",
-  "block.infernalexp.campfire_glow": "Яркосветовый костёр",
+  "block.infernalexp.glow_lantern": "Яркосветовая лампа",
+  "block.infernalexp.glow_torch": "Яркосветовый факел",
+  "block.infernalexp.glow_campfire": "Яркосветовый костёр",
   "block.infernalexp.luminous_fungus": "Люминисцентый грибок",
   "block.infernalexp.dullthorns": "Погасшие шипы",
 
