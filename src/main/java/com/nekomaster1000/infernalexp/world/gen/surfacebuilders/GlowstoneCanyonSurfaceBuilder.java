@@ -1,7 +1,7 @@
 package com.nekomaster1000.infernalexp.world.gen.surfacebuilders;
 
 import com.mojang.serialization.Codec;
-import com.nekomaster1000.infernalexp.access.SurfaceBuilderModifyNoise;
+import com.nekomaster1000.infernalexp.access.NoiseAccess;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -16,7 +16,7 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 
 import java.util.Random;
 
-public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> implements SurfaceBuilderModifyNoise {
+public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> implements NoiseAccess {
 	public GlowstoneCanyonSurfaceBuilder(Codec<SurfaceBuilderConfig> p_i232136_1_) {
 		super(p_i232136_1_);
 	}
