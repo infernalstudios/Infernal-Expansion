@@ -40,9 +40,9 @@ public abstract class MixinAbstractFireBlock extends Block {
 	@Inject(method = "onEntityCollision", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;forceFireTicks(I)V"))
 	private void IE_setCustomFires(BlockState state, World worldIn, BlockPos pos, Entity entityIn, CallbackInfo info) {
 		SoulFireAccess access = ((SoulFireAccess) entityIn);
-		if (state.isIn(Blocks.SOUL_FIRE)) {
+		if (state.matchesBlock(Blocks.SOUL_FIRE)) {
 			access.setFireType(KnownFireTypes.SOUL_FIRE);
-		} else if (state.isIn(IEBlocks.GLOW_FIRE.get())) {
+		} else if (state.matchesBlock(IEBlocks.GLOW_FIRE.get())) {
 			access.setFireType(KnownFireTypes.GLOW_FIRE);
 		} else {
 			access.setFireType(KnownFireTypes.FIRE);
