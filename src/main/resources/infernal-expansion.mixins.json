@@ -11,9 +11,13 @@
     "common.MixinDimensionType",
     "common.MixinNoiseChunkGenerator",
     "common.MixinSurfaceBuilder",
-	"common.MixinAbstractFireBlock"
+	"common.MixinAbstractFireBlock",
+	"common.MixinEntity"
   ],
   "client": [
-    "client.MixinIBlockReader"
+    "client.MixinIBlockReader",
+    "client.MixinEntityRendererManager",
+    "client.MixinModelBakery",
+    "client.MixinOverlayRenderer"
   ]
 }

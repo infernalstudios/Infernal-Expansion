@@ -3,7 +3,7 @@ package com.nekomaster1000.infernalexp.world.gen.surfacebuilders;
 import java.util.Random;
 
 import com.mojang.serialization.Codec;
-import com.nekomaster1000.infernalexp.access.SurfaceBuilderModifyNoise;
+import com.nekomaster1000.infernalexp.access.NoiseAccess;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 
 import net.minecraft.block.BlockState;
@@ -17,7 +17,7 @@ import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 
-public class DeltaShoresSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> implements SurfaceBuilderModifyNoise {
+public class DeltaShoresSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> implements NoiseAccess {
 	public DeltaShoresSurfaceBuilder(Codec<SurfaceBuilderConfig> p_i232136_1_) {
 		super(p_i232136_1_);
 	}
