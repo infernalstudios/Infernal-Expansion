@@ -1,0 +1,35 @@
+package com.nekomaster1000.infernalexp.mixin.common;
+
+import net.minecraft.entity.item.PaintingEntity;
+import net.minecraft.entity.item.PaintingType;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
+
+import java.util.List;
+
+@Mixin(PaintingEntity.class)
+public class MixinPaintingEntity {
+
+	@Shadow
+	public PaintingType art;
+
+	// Minecraft always wants to place the biggest painting possible, this makes sure that it doesn't think that an Infernal Expansion painting is the biggest possible
+	@ModifyVariable(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/item/PaintingType;getHeight()I"), method = "<init>(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/Direction;)V", name = "j")
+	public int IE_changeMaxSurfaceArea(int maxSurfaceArea) {
+		if (art.getRegistryName().getNamespace().equals("infernalexp")) {
+			return 0;
+		}
+
+		return maxSurfaceArea;
+	}
+
+	@ModifyVariable(at = @At(value = "INVOKE", target = "Ljava/util/List;isEmpty()Z"), method = "<init>(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/Direction;)V", name = "list")
+	public List<PaintingType> IE_changePaintingList(List<PaintingType> list) {
+		list.removeIf(paintingType -> paintingType.getRegistryName().getNamespace().equals("infernalexp"));
+
+		return list;
+	}
+
+}
