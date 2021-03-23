@@ -4,6 +4,7 @@ import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.init.IEEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
@@ -37,6 +38,14 @@ public class DynamicLightingHandler {
         }
     }
 
+    public static void tick(AbstractArrowEntity entity) {
+		if (entity != null && MinecraftInstance.player != null && MinecraftInstance.player.ticksExisted % (int) InfernalExpansionConfig.ClientConfig.LUMINOUS_REFRESH_RATE.getDouble() == 0) {
+			if (shouldGlow(entity)) {
+				LIGHT_SOURCES.put(entity.getPosition(), new LightData(0.5));
+			}
+		}
+	}
+
     public static int getTimeAmplifier(LivingEntity entity) {
         EffectInstance luminousEffect = entity.getActivePotionEffect(IEEffects.LUMINOUS.get());
         if (luminousEffect != null) {
@@ -45,16 +54,20 @@ public class DynamicLightingHandler {
         return 1;
     }
 
+    public static boolean shouldGlow(AbstractArrowEntity entity) {
+    	return true;
+	}
+
     public static boolean shouldGlow(LivingEntity entity) {       
         return entity.isPotionActive(IEEffects.LUMINOUS.get());
     }
     
     public static class LightData {
         public boolean shouldKeep = true;
-        public int time;
-        public int amplifier;
+        public double time;
+        public double amplifier;
 
-        public LightData(int amplifier) {
+        public LightData(double amplifier) {
             this.amplifier = amplifier;
             this.time = 20 * amplifier;
         }
