@@ -118,7 +118,7 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
 	@Override
 	protected void collideWithEntity(Entity entityIn) {
 		super.collideWithEntity(entityIn);
-		if (entityIn instanceof LivingEntity) {
+		if (!this.isChild() && entityIn instanceof LivingEntity) {
 			((LivingEntity) entityIn).addPotionEffect(new EffectInstance(IEEffects.LUMINOUS.get(), 200));
 		}
 	}
