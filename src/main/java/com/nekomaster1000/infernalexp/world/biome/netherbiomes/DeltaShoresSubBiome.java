@@ -69,7 +69,7 @@ public class DeltaShoresSubBiome extends ModBiome {
     protected void configureGeneration(BiomeGenerationSettings.Builder generation) {
         generation.withStructure(StructureFeatures.RUINED_PORTAL_NETHER);
         generation.withStructure(StructureFeatures.FORTRESS);
-        generation.withCarver(GenerationStage.Carving.AIR, ConfiguredCarvers.field_243772_f);
+		generation.withCarver(GenerationStage.Carving.AIR, ConfiguredCarvers.NETHER_CAVE);
         //generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.DELTA);
                 /*FeatureSpread.func_242253_a(3, 4), FeatureSpread.func_242253_a(0, 2),
                 (((Placement.COUNT_MULTILAYER.configure(new FeatureSpreadConfig(40))));*/

@@ -26,8 +26,8 @@ public class IETextFieldWidget extends TextFieldWidget implements IBidiTooltip {
 	}
 
 	@Override
-	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		super.renderButton(matrixStack, mouseX, mouseY, partialTicks);
+	public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+		super.renderWidget(matrixStack, mouseX, mouseY, partialTicks);
 		// The parameter names for this function are wrong. The three integers at the end should be x, y, color
 		drawString(matrixStack, Minecraft.getInstance().fontRenderer, this.getMessage(), this.x - 100, (this.y + (this.height - 8) / 2), -6250336);
 	}

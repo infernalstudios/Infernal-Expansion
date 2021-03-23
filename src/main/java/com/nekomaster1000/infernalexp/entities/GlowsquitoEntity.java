@@ -65,37 +65,39 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
         return MobEntity.func_233666_p_()
                 .createMutableAttribute(Attributes.MAX_HEALTH, 10.0D)
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.0D)
-                .createMutableAttribute(Attributes.FLYING_SPEED, 0.6D)
-                // Required for flying entity, doesn't seem to affect actual movement speed
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5D);
-                // Turning this up makes them bounce on the ground like crazy, how do we fix that?
-    }
+			.createMutableAttribute(Attributes.FLYING_SPEED, 0.6D)
+			// Required for flying entity, doesn't seem to affect actual movement speed
+			.createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5D);
+		// Turning this up makes them bounce on the ground like crazy, how do we fix that?
+	}
 
-    public CreatureAttribute getCreatureAttribute() {
-        return CreatureAttribute.ARTHROPOD;
-    }
+	public CreatureAttribute getCreatureAttribute() {
+		return CreatureAttribute.ARTHROPOD;
+	}
 
-    public GlowsquitoEntity func_241840_a(ServerWorld world, AgeableEntity parent){
-        GlowsquitoEntity glowsquitoEntity = IEEntityTypes.GLOWSQUITO.get().create(world);
-        glowsquitoEntity.setBred(true);
-        return glowsquitoEntity;
-    }
+	@Override
+	public GlowsquitoEntity createChild(ServerWorld world, AgeableEntity parent) {
+		GlowsquitoEntity glowsquitoEntity = IEEntityTypes.GLOWSQUITO.get().create(world);
+		glowsquitoEntity.setBred(true);
 
-    public boolean isBreedingItem(ItemStack stack){
-        return TEMPTATION_ITEMS.test(stack);
-    }
+		return glowsquitoEntity;
+	}
 
-    protected void registerData() {
-        super.registerData();
-        this.dataManager.register(BRED, false);
-    }
+	public boolean isBreedingItem(ItemStack stack) {
+		return TEMPTATION_ITEMS.test(stack);
+	}
 
-    public boolean getBred(){
-        return this.dataManager.get(BRED);
-    }
+	protected void registerData() {
+		super.registerData();
+		this.dataManager.register(BRED, false);
+	}
 
-    public void setBred(boolean isBred){
-        this.dataManager.set(BRED, isBred);
+	public boolean getBred() {
+		return this.dataManager.get(BRED);
+	}
+
+	public void setBred(boolean isBred) {
+		this.dataManager.set(BRED, isBred);
     }
 
     public void writeAdditional(CompoundNBT compound) {

@@ -79,12 +79,12 @@ public class IEEntityTypes {
 
     public static final RegistryObject<EntityType<AscusBombEntity>> ASCUS_BOMB = ENTITY_TYPES.register("ascus_bomb",
             () -> EntityType.Builder.<AscusBombEntity>create(AscusBombEntity::new, EntityClassification.MISC)
-                    .size(0.25f, 0.25f).trackingRange(4).func_233608_b_(10)
+				.size(0.25f, 0.25f).trackingRange(4).updateInterval(10)
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "ascus_bomb").toString()));
 
     public static final RegistryObject<EntityType<ThrowableMagmaCreamEntity>> THROWABLE_MAGMA_CREAM = ENTITY_TYPES.register("throwable_magma_cream",
             () -> EntityType.Builder.<ThrowableMagmaCreamEntity>create(ThrowableMagmaCreamEntity::new, EntityClassification.MISC)
-                    .size(0.25f, 0.25f).trackingRange(4).func_233608_b_(10)
+				.size(0.25f, 0.25f).trackingRange(4).updateInterval(10)
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "throwable_magma_cream").toString()));
 
     private static <T extends Entity> RegistryObject<EntityType<T>> register(String key, EntityType.IFactory<T> factoryIn, EntityClassification classificationIn, float size1, float size2) {

@@ -84,7 +84,7 @@ public abstract class ModBiome {
         // Configure biome mob spawn settings
         MobSpawnInfo.Builder spawns = new MobSpawnInfo.Builder();
         this.configureSpawns(spawns);
-        builder.withMobSpawnSettings(spawns.copy());
+		builder.withMobSpawnSettings(spawns.build());
 
         return builder.build();
     }

@@ -12,7 +12,7 @@ public class TitleWidget extends Widget {
 	}
 
 	@Override
-	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		drawCenteredString(matrixStack, Minecraft.getInstance().fontRenderer, getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, 0xFFFFFF);
 	}
 

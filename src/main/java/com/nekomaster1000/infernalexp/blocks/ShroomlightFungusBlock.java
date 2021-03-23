@@ -27,14 +27,14 @@ public class ShroomlightFungusBlock extends HorizontalBushBlock {
     @Override
     protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
         return
-                state.isIn(Blocks.GRASS) || state.isIn(Blocks.GRASS_BLOCK) ||
-                state.isIn(Blocks.DIRT) || state.isIn(Blocks.COARSE_DIRT) || state.isIn(Blocks.FARMLAND) ||
-                state.isIn(Blocks.PODZOL) || state.isIn(Blocks.MYCELIUM) ||
-                state.isIn(Blocks.CRIMSON_NYLIUM) || state.isIn(Blocks.WARPED_NYLIUM) ||
-                state.isIn(IEBlocks.CRIMSON_FUNGUS_CAP.get()) || state.isIn(IEBlocks.WARPED_FUNGUS_CAP.get()) ||
-                state.isIn(Blocks.NETHER_WART_BLOCK) || state.isIn(Blocks.WARPED_WART_BLOCK) ||
-                state.isIn(Blocks.SHROOMLIGHT) || state.isIn(Blocks.SOUL_SOIL)
-                ;
+			state.matchesBlock(Blocks.GRASS) || state.matchesBlock(Blocks.GRASS_BLOCK) ||
+				state.matchesBlock(Blocks.DIRT) || state.matchesBlock(Blocks.COARSE_DIRT) || state.matchesBlock(Blocks.FARMLAND) ||
+				state.matchesBlock(Blocks.PODZOL) || state.matchesBlock(Blocks.MYCELIUM) ||
+				state.matchesBlock(Blocks.CRIMSON_NYLIUM) || state.matchesBlock(Blocks.WARPED_NYLIUM) ||
+				state.matchesBlock(IEBlocks.CRIMSON_FUNGUS_CAP.get()) || state.matchesBlock(IEBlocks.WARPED_FUNGUS_CAP.get()) ||
+				state.matchesBlock(Blocks.NETHER_WART_BLOCK) || state.matchesBlock(Blocks.WARPED_WART_BLOCK) ||
+				state.matchesBlock(Blocks.SHROOMLIGHT) || state.matchesBlock(Blocks.SOUL_SOIL)
+			;
     }
 
     public boolean canAttach(IWorldReader reader, BlockPos pos, Direction direction) {

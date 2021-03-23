@@ -154,8 +154,8 @@ public class MiscEvents {
             if (!world.isRemote) {
                 ThrowableMagmaCreamEntity throwableMagmaCreamEntity = new ThrowableMagmaCreamEntity(world, player);
                 throwableMagmaCreamEntity.setItem(heldItemStack);
-                throwableMagmaCreamEntity.func_234612_a_(player, player.rotationPitch, player.rotationYaw, -20, 0.5f, 1);
-                world.addEntity(throwableMagmaCreamEntity);
+				throwableMagmaCreamEntity.setDirectionAndMovement(player, player.rotationPitch, player.rotationYaw, -20, 0.5f, 1);
+				world.addEntity(throwableMagmaCreamEntity);
             }
 
             player.addStat(Stats.ITEM_USED.get(heldItemStack.getItem()));

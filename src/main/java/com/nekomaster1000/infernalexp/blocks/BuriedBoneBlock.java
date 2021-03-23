@@ -63,11 +63,11 @@ public class BuriedBoneBlock extends HorizontalBushBlock {
     @Override
     protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
         return
-                state.isIn(IEBlocks.GLOWDUST_SAND.get()) || state.isIn(Blocks.SAND) || state.isIn(Blocks.RED_SAND) ||
-                state.isIn(Blocks.GRASS_BLOCK) || state.isIn(Blocks.DIRT) || state.isIn(Blocks.COARSE_DIRT) ||
-                state.isIn(Blocks.PODZOL) || state.isIn(Blocks.MYCELIUM) || state.isIn(Blocks.NETHERRACK) ||
-                state.isIn(Blocks.CRIMSON_NYLIUM) || state.isIn(Blocks.WARPED_NYLIUM) || state.isIn(Blocks.WARPED_WART_BLOCK) ||
-                state.isIn(Blocks.SOUL_SAND) || state.isIn(Blocks.SOUL_SOIL);
+			state.matchesBlock(IEBlocks.GLOWDUST_SAND.get()) || state.matchesBlock(Blocks.SAND) || state.matchesBlock(Blocks.RED_SAND) ||
+				state.matchesBlock(Blocks.GRASS_BLOCK) || state.matchesBlock(Blocks.DIRT) || state.matchesBlock(Blocks.COARSE_DIRT) ||
+				state.matchesBlock(Blocks.PODZOL) || state.matchesBlock(Blocks.MYCELIUM) || state.matchesBlock(Blocks.NETHERRACK) ||
+				state.matchesBlock(Blocks.CRIMSON_NYLIUM) || state.matchesBlock(Blocks.WARPED_NYLIUM) || state.matchesBlock(Blocks.WARPED_WART_BLOCK) ||
+				state.matchesBlock(Blocks.SOUL_SAND) || state.matchesBlock(Blocks.SOUL_SOIL);
     }
 
     public boolean canAttach(IWorldReader reader, BlockPos pos, Direction direction) {
