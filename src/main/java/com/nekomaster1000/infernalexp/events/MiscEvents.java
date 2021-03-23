@@ -90,32 +90,6 @@ public class MiscEvents {
             }
         }
     }
-    
-    // Custom note block sounds
-    @SubscribeEvent
-    public void noteBlockPlayed(NoteBlockEvent.Play event) {
-        World world = (World) event.getWorld();
-        BlockPos noteBlockPos = event.getPos();
-        SoundEvent sound = null;
-        Block blockUnder = world.getBlockState(noteBlockPos.down()).getBlock();
-        if (blockUnder == Blocks.GILDED_BLACKSTONE) {
-            sound = RegistryHandler.cymbal;
-        } else if (blockUnder == Blocks.ANCIENT_DEBRIS) {
-            sound = RegistryHandler.electric_guitar;
-        } else if (blockUnder == Blocks.SOUL_SOIL) {
-            sound = RegistryHandler.choir;
-        } else if (blockUnder == IEBlocks.DIMSTONE.get()) {
-            sound = RegistryHandler.saxophone;
-        } else if (blockUnder == Blocks.CRYING_OBSIDIAN) {
-            sound = RegistryHandler.violin;
-        }
-        
-        if (sound != null) {
-            float pitch = (float) Math.pow(2.0, (event.getVanillaNoteId() - 12) / 12.0); // Math to get correct pitch
-            world.playSound(null, noteBlockPos, sound, SoundCategory.RECORDS, 1F, pitch);
-            event.setCanceled(true);
-        }
-    }
 
     @SubscribeEvent
     public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {

@@ -169,24 +169,6 @@ public class RegistryHandler {
 
 //...
 
-    // NOTEBLOCK SOUNDS
-    static ResourceLocation location61 = new ResourceLocation(InfernalExpansion.MOD_ID, "noteblock.cymbal");
-    public static SoundEvent cymbal = new SoundEvent(location61);
-
-    static ResourceLocation location62 = new ResourceLocation(InfernalExpansion.MOD_ID, "noteblock.saxophone");
-    public static SoundEvent saxophone = new SoundEvent(location62);
-
-    static ResourceLocation location63 = new ResourceLocation(InfernalExpansion.MOD_ID, "noteblock.electric_guitar");
-    public static SoundEvent electric_guitar = new SoundEvent(location63);
-
-    static ResourceLocation location64 = new ResourceLocation(InfernalExpansion.MOD_ID, "noteblock.violin");
-    public static SoundEvent violin = new SoundEvent(location64);
-
-    static ResourceLocation location65 = new ResourceLocation(InfernalExpansion.MOD_ID, "noteblock.choir");
-    public static SoundEvent choir = new SoundEvent(location65);
-
-//...
-
     // GLOWSTONE CANYON
     static ResourceLocation location66 = new ResourceLocation(InfernalExpansion.MOD_ID, "ambient.glowstone_canyon.loop");
     public static SoundEvent AMBIENT_GLOWSTONE_CANYON_LOOP = new SoundEvent(location66);
