@@ -162,7 +162,7 @@ public class MobEvents {
 							16.0F));
 
 			((SlimeEntity) event.getEntity()).goalSelector.addGoal(0,
-					new AvoidBlockGoal((SlimeEntity) event.getEntity(), IEBlocks.GLOW_WALL_TORCH.get(),
+					new AvoidBlockGoal((SlimeEntity) event.getEntity(), IEBlocks.GLOW_TORCH_WALL.get(),
 							16.0F));
 
 			((SlimeEntity) event.getEntity()).goalSelector.addGoal(0,

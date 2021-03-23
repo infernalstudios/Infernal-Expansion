@@ -46,9 +46,9 @@
   "block.infernalexp.crumbling_blackstone": "Kruchy czernit",
   "block.infernalexp.silt": "Bazaltowy muł",
   "block.infernalexp.rubble": "Czarnogłazowy gruz",
-  "block.infernalexp.lantern_glow": "Błyszcząca latarnia",
-  "block.infernalexp.torch_glow": "Błyszcząca pochodnia",
-  "block.infernalexp.campfire_glow": "Błyszczące ognisko",
+  "block.infernalexp.glow_lantern": "Błyszcząca latarnia",
+  "block.infernalexp.glow_torch": "Błyszcząca pochodnia",
+  "block.infernalexp.glow_campfire": "Błyszczące ognisko",
   "block.infernalexp.luminous_fungus": "Świecący grzyb",
   "block.infernalexp.dullthorns": "Tępokolce",
 

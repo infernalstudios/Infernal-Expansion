@@ -46,9 +46,9 @@
   "block.infernalexp.crumbling_blackstone": "bleck rock in poor conditoinsn",
   "block.infernalexp.silt": "Blec sand",
   "block.infernalexp.rubble": "Blecston peaces",
-  "block.infernalexp.lantern_glow": "Lanternier lantern",
-  "block.infernalexp.torch_glow": "Torchier torch",
-  "block.infernalexp.campfire_glow": "Campfireier campfire",
+  "block.infernalexp.glow_lantern": "Lanternier lantern",
+  "block.infernalexp.glow_torch": "Torchier torch",
+  "block.infernalexp.glow_campfire": "Campfireier campfire",
   "block.infernalexp.luminous_fungus": "bright plant thing",
   "block.infernalexp.dullthorns": "unwatered plant r.i.p.",
 

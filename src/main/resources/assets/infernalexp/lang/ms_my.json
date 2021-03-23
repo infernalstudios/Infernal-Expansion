@@ -46,9 +46,9 @@
   "block.infernalexp.crumbling_blackstone": "Batu Hitam Runtuh",
   "block.infernalexp.silt": "Kelodak Basalt",
   "block.infernalexp.rubble": "Serpihan Batu Hitam",
-  "block.infernalexp.lantern_glow": "Tanglung Cahaya Berkilau",
-  "block.infernalexp.torch_glow": "Obor Cahaya Berkilau",
-  "block.infernalexp.campfire_glow": "Unggun Api Cahaya Berkilau",
+  "block.infernalexp.glow_lantern": "Tanglung Cahaya Berkilau",
+  "block.infernalexp.glow_torch": "Obor Cahaya Berkilau",
+  "block.infernalexp.glow_campfire": "Unggun Api Cahaya Berkilau",
   "block.infernalexp.luminous_fungus": "Cendawan Bercahaya",
   "block.infernalexp.dullthorns": "Duri Pudar",
 

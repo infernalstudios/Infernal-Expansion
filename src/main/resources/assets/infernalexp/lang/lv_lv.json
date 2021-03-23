@@ -46,9 +46,9 @@
   "block.infernalexp.crumbling_blackstone": "Drūpošs Melnakmens",
   "block.infernalexp.silt": "Bazalta Sanesas",
   "block.infernalexp.rubble": "Melnakmens Drupas",
-  "block.infernalexp.lantern_glow": "Mirdzgaismas Laterna",
-  "block.infernalexp.torch_glow": "Mirdzgaismas Lāpa",
-  "block.infernalexp.campfire_glow": "Mirdzgaismas Ugunskurs",
+  "block.infernalexp.glow_lantern": "Mirdzgaismas Laterna",
+  "block.infernalexp.glow_torch": "Mirdzgaismas Lāpa",
+  "block.infernalexp.glow_campfire": "Mirdzgaismas Ugunskurs",
   "block.infernalexp.luminous_fungus": "Mirdzsēne",
   "block.infernalexp.dullthorns": "Blāvērkšķi",
 

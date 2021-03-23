@@ -46,9 +46,9 @@
   "block.infernalexp.crumbling_blackstone": "Piedra negra desmoronada",
   "block.infernalexp.silt": "Cieno de basalto",
   "block.infernalexp.rubble": "Escombros de piedra negra",
-  "block.infernalexp.lantern_glow": "Linterna reluciente",
-  "block.infernalexp.torch_glow": "Antorcha reluciente",
-  "block.infernalexp.campfire_glow": "Fogata reluciente",
+  "block.infernalexp.glow_lantern": "Linterna reluciente",
+  "block.infernalexp.glow_torch": "Antorcha reluciente",
+  "block.infernalexp.glow_campfire": "Fogata reluciente",
   "block.infernalexp.luminous_fungus": "Seta luminosa",
   "block.infernalexp.dullthorns": "Espinas opacas",
 

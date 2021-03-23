@@ -1,0 +1,6 @@
+{
+  "parent": "block/template_lantern",
+  "textures": {
+    "lantern": "infernalexp:block/glow_lantern_block"
+  }
+}

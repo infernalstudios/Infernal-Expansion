@@ -9,13 +9,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import com.nekomaster1000.infernalexp.access.SoulFireAccess;
+import com.nekomaster1000.infernalexp.access.FireTypeAccess;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.CompoundNBT;
 
 @Mixin(Entity.class)
-public abstract class MixinEntity implements SoulFireAccess {
+public abstract class MixinEntity implements FireTypeAccess {
 
 	@Unique
 	private KnownFireTypes fireType = KnownFireTypes.FIRE;
@@ -23,7 +23,7 @@ public abstract class MixinEntity implements SoulFireAccess {
 	@Inject(method = "baseTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setFlag(IZ)V", ordinal = 0, shift = Shift.AFTER))
 	private void IE_removeCustomFires(CallbackInfo ci) {
 		if (!isBurning()) {
-			((SoulFireAccess) this).setFireType(KnownFireTypes.FIRE);
+			((FireTypeAccess) this).setFireType(KnownFireTypes.FIRE);
 		}
 	}
 

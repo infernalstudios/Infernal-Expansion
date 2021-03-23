@@ -1,7 +1,0 @@
-{
-  "parent": "block/template_campfire",
-  "textures": {
-    "fire": "infernalexp:block/campfire_fire_glow",
-    "lit_log": "infernalexp:block/campfire_log_lit_glow"
-  }
-}

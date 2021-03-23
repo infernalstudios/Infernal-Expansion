@@ -46,9 +46,9 @@
   "block.infernalexp.crumbling_blackstone": "Roche noire effritée",
   "block.infernalexp.silt": "Limon de basalte",
   "block.infernalexp.rubble": "Décombres de roche noire",
-  "block.infernalexp.lantern_glow": "Lanterne brillante",
-  "block.infernalexp.torch_glow": "Torche brillante",
-  "block.infernalexp.campfire_glow": "Feu de camp brillant",
+  "block.infernalexp.glow_lantern": "Lanterne brillante",
+  "block.infernalexp.glow_torch": "Torche brillante",
+  "block.infernalexp.glow_campfire": "Feu de camp brillant",
   "block.infernalexp.luminous_fungus": "Champignion lumineux",
   "block.infernalexp.dullthorns": "Épines ternes",
 
