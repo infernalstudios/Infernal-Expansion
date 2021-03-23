@@ -43,7 +43,7 @@ public abstract class MixinAbstractFireBlock extends Block {
 		if (state.isIn(Blocks.SOUL_FIRE)) {
 			access.setFireType(KnownFireTypes.SOUL_FIRE);
 		} else if (state.isIn(IEBlocks.GLOW_FIRE.get())) {
-			access.setFireType(KnownFireTypes.FIRE_GLOW);
+			access.setFireType(KnownFireTypes.GLOW_FIRE);
 		} else {
 			access.setFireType(KnownFireTypes.FIRE);
 		}
