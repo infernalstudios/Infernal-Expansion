@@ -115,7 +115,15 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
         return this.isChild() ? sizeIn.height * 0.35F : sizeIn.height * 0.72F;
     }
 
-    protected PathNavigator createNavigator(World worldIn) {
+	@Override
+	protected void collideWithEntity(Entity entityIn) {
+		super.collideWithEntity(entityIn);
+		if (entityIn instanceof LivingEntity) {
+			((LivingEntity) entityIn).addPotionEffect(new EffectInstance(IEEffects.LUMINOUS.get(), 200));
+		}
+	}
+
+	protected PathNavigator createNavigator(World worldIn) {
         FlyingPathNavigator flyingpathnavigator = new FlyingPathNavigator(this, worldIn) {
             public boolean canEntityStandOnPos(BlockPos pos) {
                 return !this.world.getBlockState(pos.down()).isAir();
