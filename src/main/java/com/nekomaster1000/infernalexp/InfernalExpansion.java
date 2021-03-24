@@ -26,6 +26,7 @@ import com.nekomaster1000.infernalexp.world.gen.ModEntityPlacement;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowerPotBlock;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.potion.PotionUtils;
@@ -132,10 +133,40 @@ public class InfernalExpansion
                 PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LUMINOUS.get()),
                 Items.GLOWSTONE_DUST.getDefaultInstance(),
                 PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.STRONG_LUMINOUS.get())));
+
+		BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
+			PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), Potions.AWKWARD),
+			IEItems.ASCUS_BOMB.get().getDefaultInstance(),
+			PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.INFECTION.get())));
+		BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
+			PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.INFECTION.get()),
+			Items.GUNPOWDER.getDefaultInstance(),
+			PotionUtils.addPotionToItemStack(Items.SPLASH_POTION.getDefaultInstance(), IEPotions.INFECTION.get())));
+		BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
+			PotionUtils.addPotionToItemStack(Items.SPLASH_POTION.getDefaultInstance(), IEPotions.INFECTION.get()),
+			Items.DRAGON_BREATH.getDefaultInstance(),
+			PotionUtils.addPotionToItemStack(Items.LINGERING_POTION.getDefaultInstance(), IEPotions.INFECTION.get())));
+		BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
+			PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.INFECTION.get()),
+			Items.REDSTONE.getDefaultInstance(),
+			PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LONG_INFECTION.get())));
+		BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
+			PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.INFECTION.get()),
+			Items.GLOWSTONE_DUST.getDefaultInstance(),
+			PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.STRONG_INFECTION.get())));
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> InfernalExpansionClient::init);
+
+		ItemModelsProperties.registerProperty(IEItems.GLOWSILK_BOW.get(), new ResourceLocation("pull"), (p_239429_0_, p_239429_1_, p_239429_2_) -> {
+			if (p_239429_2_ == null) {
+				return 0.0F;
+			} else {
+				return p_239429_2_.getActiveItemStack() != p_239429_0_ ? 0.0F : (float)(p_239429_0_.getUseDuration() - p_239429_2_.getItemInUseCount()) / 20.0F;
+			}
+		});
+		ItemModelsProperties.registerProperty(IEItems.GLOWSILK_BOW.get(), new ResourceLocation("pulling"), (p_239428_0_, p_239428_1_, p_239428_2_) -> p_239428_2_ != null && p_239428_2_.isHandActive() && p_239428_2_.getActiveItemStack() == p_239428_0_ ? 1.0F : 0.0F);
     }
 
     @SubscribeEvent

@@ -56,7 +56,7 @@ public class DynamicLightingHandler {
     }
 
     public static boolean shouldGlow(AbstractArrowEntity entity) {
-    	return entity.getDataManager().get(((AbstractArrowEntityAccess) entity).getLuminous());
+    	return ((AbstractArrowEntityAccess) entity).getGlow();
 	}
 
     public static boolean shouldGlow(LivingEntity entity) {       

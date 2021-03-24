@@ -77,7 +77,7 @@ public class GlowsilkBowItem extends BowItem {
 							((ArrowEntity) abstractarrowentity).addEffect(new EffectInstance(IEEffects.LUMINOUS.get(), 3600));
 						}
 
-						((AbstractArrowEntityAccess) abstractarrowentity).setLuminous(true);
+						((AbstractArrowEntityAccess) abstractarrowentity).setGlow(true);
 
 						worldIn.addEntity(abstractarrowentity);
 					}
