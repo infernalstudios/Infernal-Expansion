@@ -3,6 +3,7 @@ package com.nekomaster1000.infernalexp.events;
 import com.mojang.serialization.Codec;
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.init.IECarvers;
+import com.nekomaster1000.infernalexp.init.IEConfiguredFeatures;
 import com.nekomaster1000.infernalexp.init.IEFeatures;
 import com.nekomaster1000.infernalexp.init.IEStructures;
 import com.nekomaster1000.infernalexp.init.IESurfaceBuilders;
@@ -11,6 +12,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.FlatChunkGenerator;
+import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.carver.WorldCarver;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.structure.Structure;
@@ -19,6 +21,7 @@ import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -73,6 +76,15 @@ public class WorldEvents {
 
 			IEStructures.structures.forEach(structure -> tempMap.putIfAbsent(structure, DimensionStructuresSettings.field_236191_b_.get(structure)));
 			world.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
+		}
+	}
+
+	@SubscribeEvent
+	public void onBiomeLoad(BiomeLoadingEvent event) {
+		if (event.getName().toString().equals("minecraft:crimson_forest")) {
+			event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_GLOWSILK_COCOON);
+		} else if (event.getName().toString().equals("minecraft:basalt_deltas")) {
+			event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_GLOWSILK_COCOON);
 		}
 	}
 

@@ -18,6 +18,8 @@ import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.feature.HugeFungusConfig;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.LiquidsConfig;
+import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraft.world.gen.placement.DepthAverageConfig;
 import net.minecraft.world.gen.placement.Placement;
 
 public class IEConfiguredFeatures {
@@ -35,6 +37,7 @@ public class IEConfiguredFeatures {
     public static ConfiguredFeature<?, ?> BLACKSTONE_BOULDER = registerConfiguredFeature("blackstone_boulder", IEFeatures.BOULDER.withConfiguration(new BlockStateFeatureConfig(Blocks.BLACKSTONE.getDefaultState())).withPlacement(Placement.COUNT_MULTILAYER.configure(new FeatureSpreadConfig(1))));
     public static ConfiguredFeature<?, ?> GLOWCANYON_BLACKSTONE_BLOBS = registerConfiguredFeature("glowcanyon_blackstone_blob", Feature.NETHERRACK_REPLACE_BLOBS.withConfiguration(new BlobReplacementConfig(IEBlocks.DULLSTONE.get().getDefaultState(), Blocks.BLACKSTONE.getDefaultState(), FeatureSpread.create(2, 3))).range(128).square().count(8));
     public static ConfiguredFeature<?, ?> GLOWCANYON_CRUMBLING_BLACKSTONE_BLOBS = registerConfiguredFeature("glowcanyon_crumbling_blackstone_blob", Feature.NETHERRACK_REPLACE_BLOBS.withConfiguration(new BlobReplacementConfig(IEBlocks.DULLSTONE.get().getDefaultState(), IEBlocks.CRUMBLING_BLACKSTONE.get().getDefaultState(), FeatureSpread.create(3, 4))).range(128).square().count(2));
+    public static ConfiguredFeature<?, ?> ORE_GLOWSILK_COCOON = registerConfiguredFeature("ore_glowsilk_cocoon", Feature.NO_SURFACE_ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_NETHER, IEBlocks.GLOWSILK_COCOON.get().getDefaultState(), 2)).withPlacement(Placement.DEPTH_AVERAGE.configure(new DepthAverageConfig(20, 10))).square());
 
     //    public static final ConfiguredFeature<?, ?> RANDOM_GLOWSTONE_CANYON_PLANT = registerConfiguredFeature("rand_glowstone_canyon", Feature.RANDOM_SELECTOR.withConfiguration(new MultipleRandomFeatureConfig(ImmutableList.of(
 //            LUMINOUS_FUNGUS.withChance(0.5F)),

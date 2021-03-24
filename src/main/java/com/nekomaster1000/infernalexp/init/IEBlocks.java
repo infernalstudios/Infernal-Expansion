@@ -17,7 +17,6 @@ import com.nekomaster1000.infernalexp.blocks.ShroomlightFungusBlock;
 import com.nekomaster1000.infernalexp.blocks.SmoothGlowstonePressurePlateBlock;
 import com.nekomaster1000.infernalexp.blocks.TrappedGlowSandBlock;
 import com.nekomaster1000.infernalexp.util.RegistryHandler;
-
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -189,6 +188,8 @@ public class IEBlocks {
 	public static final RegistryObject<Block> GLOW_TORCH_WALL = BLOCKS.register("glow_torch_wall", () -> new GlowWallTorchBlock(getProperties(IEBlocks.GLOW_TORCH.get()).lootFrom(GLOW_TORCH.get())));
 	public static final RegistryObject<Block> GLOW_CAMPFIRE = BLOCKS.register("glow_campfire", () -> new GlowCampfireBlock(true, 2, getProperties(Blocks.CAMPFIRE)));
 	public static final RegistryObject<Block> GLOW_FIRE = BLOCKS.register("glow_fire", () -> new GlowFireBlock(getProperties(Blocks.FIRE)));
+
+	public static final RegistryObject<Block> GLOWSILK_COCOON = BLOCKS.register("glowsilk_cocoon", () -> new Block(getProperties(Material.LEAVES).sound(SoundType.PLANT).setRequiresTool().harvestTool(ToolType.HOE).harvestLevel(3).hardnessAndResistance(5.0F, 1200.0F).setLightLevel(value -> 5)));
 
 	// Foliage
 	public static final RegistryObject<Block> LUMINOUS_FUNGUS = BLOCKS.register("luminous_fungus", () -> new LuminousFungusBlock(getProperties(Material.PLANTS).setLightLevel(getLightValueLit(15)).doesNotBlockMovement().sound(SoundType.PLANT)));

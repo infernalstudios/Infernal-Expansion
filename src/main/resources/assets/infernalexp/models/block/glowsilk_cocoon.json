@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "infernalexp:block/glowsilk_cocoon_top",
+    "side": "infernalexp:block/glowsilk_cocoon"
+  }
+}
