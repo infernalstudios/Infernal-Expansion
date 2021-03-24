@@ -143,8 +143,16 @@
   "item.infernalexp.moth_dust": "Moth Dust",
   "item.infernalexp.molten_gold_cluster": "Molten Gold Cluster",
   "item.infernalexp.glowsilk": "Glowsilk",
+  "item.infernalexp.soul_salt_clump": "Soul Salt Clump",
+
+  "item.infernalexp.strider_bucket": "Bucket of Strider",
+  "item.infernalexp.magma_cube_bucket": "Bucket of Magma Cube",
+  "item.infernalexp.voline_bucket": "Bucket of Voline",
 
   "item.infernalexp.blindsight_tongue_stew": "Fungus & Tongue Stew",
+  "item.infernalexp.cured_jerky": "Cured Jerky",
+  "item.infernalexp.raw_hogchop": "Raw Hogchop",
+  "item.infernalexp.cooked_hogchop": "Cooked Hogchop",
 
   "item.infernalexp.ascus_bomb": "Ascus Bomb",
 
