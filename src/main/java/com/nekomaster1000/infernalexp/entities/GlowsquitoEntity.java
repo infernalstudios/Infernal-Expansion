@@ -63,7 +63,7 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
     //func_233666_p_ ---> registerAttributes()
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return MobEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.MAX_HEALTH, 10.0D)
+                .createMutableAttribute(Attributes.MAX_HEALTH, 32.0D)
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.0D)
 			.createMutableAttribute(Attributes.FLYING_SPEED, 0.6D)
 			// Required for flying entity, doesn't seem to affect actual movement speed
