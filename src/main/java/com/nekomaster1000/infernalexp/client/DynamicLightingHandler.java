@@ -1,5 +1,6 @@
 package com.nekomaster1000.infernalexp.client;
 
+import com.nekomaster1000.infernalexp.access.AbstractArrowEntityAccess;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.init.IEEffects;
 import net.minecraft.client.Minecraft;
@@ -55,7 +56,7 @@ public class DynamicLightingHandler {
     }
 
     public static boolean shouldGlow(AbstractArrowEntity entity) {
-    	return true;
+    	return entity.getDataManager().get(((AbstractArrowEntityAccess) entity).getLuminous());
 	}
 
     public static boolean shouldGlow(LivingEntity entity) {       

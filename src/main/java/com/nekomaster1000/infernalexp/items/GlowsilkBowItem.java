@@ -1,5 +1,6 @@
 package com.nekomaster1000.infernalexp.items;
 
+import com.nekomaster1000.infernalexp.access.AbstractArrowEntityAccess;
 import com.nekomaster1000.infernalexp.init.IEEffects;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -75,6 +76,8 @@ public class GlowsilkBowItem extends BowItem {
 						if (abstractarrowentity instanceof ArrowEntity) {
 							((ArrowEntity) abstractarrowentity).addEffect(new EffectInstance(IEEffects.LUMINOUS.get(), 3600));
 						}
+
+						((AbstractArrowEntityAccess) abstractarrowentity).setLuminous(true);
 
 						worldIn.addEntity(abstractarrowentity);
 					}
