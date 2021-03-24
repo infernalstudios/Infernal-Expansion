@@ -46,8 +46,8 @@ public class BlackstoneDwarfEntity extends CreatureEntity implements IAngerable 
     //ATTRIBUTES
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return MobEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.MAX_HEALTH, 80.0D)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 5.0D)
+                .createMutableAttribute(Attributes.MAX_HEALTH, 56.0D)
+                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 15.0D)
                 .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 2.0D)
                 .createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE, 10.0D)
                 .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.40D);

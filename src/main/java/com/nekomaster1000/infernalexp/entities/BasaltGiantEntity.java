@@ -91,7 +91,7 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
 	//ATTRIBUTES
 	public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
 		return MobEntity.func_233666_p_()
-			.createMutableAttribute(Attributes.MAX_HEALTH, 40.0D)
+			.createMutableAttribute(Attributes.MAX_HEALTH, 56.0D)
 			.createMutableAttribute(Attributes.ATTACK_DAMAGE, 12.0D)
 			.createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 2.0D)
 			.createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE, 30.0D)
