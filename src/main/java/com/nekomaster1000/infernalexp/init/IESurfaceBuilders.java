@@ -43,8 +43,8 @@ public class IESurfaceBuilders {
     public static SurfaceBuilder<SurfaceBuilderConfig> newSurfaceBuilder(String id, SurfaceBuilder<SurfaceBuilderConfig> surfaceBuilder) {
         ResourceLocation registryName = new ResourceLocation(InfernalExpansion.MOD_ID, id);
 
-        if (Registry.SURFACE_BUILDER.containsKey(registryName))
-            throw new IllegalStateException("Surface Builder ID: \"" + registryName.toString() + "\" is already in the registry!");
+        if (Registry.SURFACE_BUILDER.keySet().contains(registryName))
+			throw new IllegalStateException("Surface Builder ID: \"" + registryName.toString() + "\" is already in the registry!");
 
         surfaceBuilder.setRegistryName(registryName);
         surfaceBuilders.add(surfaceBuilder);

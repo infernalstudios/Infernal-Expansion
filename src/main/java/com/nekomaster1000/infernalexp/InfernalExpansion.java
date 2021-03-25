@@ -4,7 +4,6 @@ import com.nekomaster1000.infernalexp.brewing.IEBrewingRecipe;
 import com.nekomaster1000.infernalexp.client.InfernalExpansionClient;
 import com.nekomaster1000.infernalexp.config.ConfigHelper;
 import com.nekomaster1000.infernalexp.config.ConfigHolder;
-import com.nekomaster1000.infernalexp.config.gui.screens.ConfigScreen;
 import com.nekomaster1000.infernalexp.events.MiscEvents;
 import com.nekomaster1000.infernalexp.events.MobEvents;
 import com.nekomaster1000.infernalexp.events.WorldEvents;
@@ -26,7 +25,6 @@ import com.nekomaster1000.infernalexp.world.gen.ModEntityPlacement;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowerPotBlock;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.potion.PotionUtils;
@@ -39,7 +37,6 @@ import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -63,9 +60,6 @@ public class InfernalExpansion
 
         modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(this::commonSetup);
-
-        // Register GUI Factories
-        ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.CONFIGGUIFACTORY, () -> (mc, screen) -> new ConfigScreen());
 
         //Registering deferred registers to the mod bus
         IEParticleTypes.PARTICLES.register(modEventBus);
@@ -93,18 +87,17 @@ public class InfernalExpansion
         ConfigHelper.bakeCommon(null);
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event)
-    {
-        //Search for all biomes to add to nether and register nether biome provider
-        ModNetherBiomeCollector.netherBiomeCollection();
-        Registry.register(Registry.BIOME_PROVIDER_CODEC, new ResourceLocation(MOD_ID, "infernalexp_nether"), ModNetherBiomeProvider.MOD_NETHER_CODEC);
+    private void commonSetup(final FMLCommonSetupEvent event) {
+		//Search for all biomes to add to nether and register nether biome provider
+		ModNetherBiomeCollector.netherBiomeCollection();
+		Registry.register(Registry.BIOME_PROVIDER_CODEC, new ResourceLocation(MOD_ID, "infernalexp_nether"), ModNetherBiomeProvider.MOD_NETHER_CODEC);
 
-        //Setup and register structures and processors
-        event.enqueueWork(IEProcessors::registerProcessors);
-        event.enqueueWork(IEStructures::setupStructures);
+		//Setup and register structures and processors
+		event.enqueueWork(IEProcessors::registerProcessors);
+		event.enqueueWork(IEStructures::setupStructures);
 
-        //Places entity spawn locations on the ground
-        ModEntityPlacement.spawnPlacement();
+		//Places entity spawn locations on the ground
+		ModEntityPlacement.spawnPlacement();
 
         //Register New Flowers to be Able to Place in Pots
         FlowerPotBlock flowerPot = (FlowerPotBlock) Blocks.FLOWER_POT;
@@ -158,15 +151,6 @@ public class InfernalExpansion
 
     private void clientSetup(final FMLClientSetupEvent event) {
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> InfernalExpansionClient::init);
-
-		ItemModelsProperties.registerProperty(IEItems.GLOWSILK_BOW.get(), new ResourceLocation("pull"), (p_239429_0_, p_239429_1_, p_239429_2_) -> {
-			if (p_239429_2_ == null) {
-				return 0.0F;
-			} else {
-				return p_239429_2_.getActiveItemStack() != p_239429_0_ ? 0.0F : (float)(p_239429_0_.getUseDuration() - p_239429_2_.getItemInUseCount()) / 20.0F;
-			}
-		});
-		ItemModelsProperties.registerProperty(IEItems.GLOWSILK_BOW.get(), new ResourceLocation("pulling"), (p_239428_0_, p_239428_1_, p_239428_2_) -> p_239428_2_ != null && p_239428_2_.isHandActive() && p_239428_2_.getActiveItemStack() == p_239428_0_ ? 1.0F : 0.0F);
     }
 
     @SubscribeEvent

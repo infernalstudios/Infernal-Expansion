@@ -1,16 +1,9 @@
-package com.nekomaster1000.infernalexp.mixin.common;
-
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+package com.nekomaster1000.infernalexp.mixin.client;
 
 import com.nekomaster1000.infernalexp.access.FireTypeAccess;
 import com.nekomaster1000.infernalexp.access.FireTypeAccess.KnownFireTypes;
 import com.nekomaster1000.infernalexp.blocks.GlowFireBlock;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
-
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.AbstractFireBlock;
 import net.minecraft.block.Block;
@@ -22,6 +15,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.ModList;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(AbstractFireBlock.class)
 public abstract class MixinAbstractFireBlock extends Block {

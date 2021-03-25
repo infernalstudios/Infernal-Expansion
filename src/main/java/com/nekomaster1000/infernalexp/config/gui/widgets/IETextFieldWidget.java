@@ -7,10 +7,13 @@ import net.minecraft.client.gui.IBidiTooltip;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.List;
 import java.util.Optional;
 
+@OnlyIn(Dist.CLIENT)
 public class IETextFieldWidget extends TextFieldWidget implements IBidiTooltip {
 
 	private final GameSettings settings;

@@ -8,7 +8,10 @@ import net.minecraft.client.settings.BooleanOption;
 import net.minecraft.client.settings.SliderPercentageOption;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class FloraBehaviourScreen extends IESettingsScreen {
 
 	public FloraBehaviourScreen(Screen parentScreen) {
@@ -20,18 +23,18 @@ public class FloraBehaviourScreen extends IESettingsScreen {
 		for (InfernalExpansionConfig.FloraBehaviour floraBehaviour : InfernalExpansionConfig.FloraBehaviour.values()) {
 			if (floraBehaviour.isSlider()) {
 				optionsRowList.addOption(new SliderPercentageOption(InfernalExpansion.MOD_ID + ".config.option." + floraBehaviour.getTranslationName(), floraBehaviour.getMinValue(), floraBehaviour.getMaxValue(), floraBehaviour.getStepSize(),
-						settings -> floraBehaviour.getDouble(), (settings, value) -> floraBehaviour.set(value),
-						(settings, option) -> {
-							option.setOptionValues(Minecraft.getInstance().fontRenderer.trimStringToWidth(
-									new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + floraBehaviour.getTranslationName()), 200));
+					settings -> floraBehaviour.getDouble(), (settings, value) -> floraBehaviour.set(value),
+					(settings, option) -> {
+						option.setOptionValues(Minecraft.getInstance().fontRenderer.trimStringToWidth(
+							new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + floraBehaviour.getTranslationName()), 200));
 
-							return new TranslationTextComponent("options.generic_value", option.getBaseMessageTranslation(),
-									new StringTextComponent(Double.toString((double) Math.round(option.get(settings) * 100) / 100)));
-						}));
+						return new TranslationTextComponent("options.generic_value", option.getBaseMessageTranslation(),
+							new StringTextComponent(Double.toString((double) Math.round(option.get(settings) * 100) / 100)));
+					}));
 			} else {
 				optionsRowList.addOption(new BooleanOption(InfernalExpansion.MOD_ID + ".config.option." + floraBehaviour.getTranslationName(),
-						new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + floraBehaviour.getTranslationName()),
-						settings -> floraBehaviour.getBool(), (settings, value) -> floraBehaviour.set(value)));
+					new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + floraBehaviour.getTranslationName()),
+					settings -> floraBehaviour.getBool(), (settings, value) -> floraBehaviour.set(value)));
 			}
 		}
 	}
