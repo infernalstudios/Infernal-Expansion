@@ -127,9 +127,10 @@ public class BlackstoneDwarfModel<T extends BlackstoneDwarfEntity> extends Segme
         this.RightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.0F * limbSwingAmount;
         this.Torso2.rotateAngleX = MathHelper.cos(limbSwing * 0.3332F) * 0.25F * limbSwingAmount;
         this.Head.rotateAngleX = MathHelper.cos(limbSwing * 0.1550F) * 0.15F * limbSwingAmount;
-		//this.LeftEar.rotateAngleZ = MathHelper.cos(limbSwing * 0.1550F + (float)Math.PI) * 1.0F * limbSwingAmount;
-		//this.RightEar.rotateAngleZ = MathHelper.cos(limbSwing * 0.1550F + (float)Math.PI) * 1.0F * limbSwingAmount;
-    }
+
+		this.LeftEar.rotateAngleZ = MathHelper.cos(limbSwing * 0.5F) * 0.35F * limbSwingAmount - 25.0F * ((float)Math.PI / 180);
+		this.RightEar.rotateAngleZ = -MathHelper.cos(limbSwing * 0.5F) * 0.35F * limbSwingAmount + 25.0F * ((float)Math.PI / 180);
+        }
 
     public Iterable<ModelRenderer> getParts() {
         return ImmutableList.of(this.Body, this.Head, this.LeftEar, this.RightEar, this.Jaw, this.Torso, this.Torso2, this.LeftArm, this.LeftArmJoint, this.RightArm, this.RightArmJoint, this.LeftLeg, this.LeftLegJoint, this.RightLeg, this.RightLegJoint);

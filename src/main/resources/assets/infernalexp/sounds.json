@@ -125,41 +125,6 @@
 			"infernalexp:entity/embody/embody_death"
 		]
 	},
-	"noteblock.cymbal": {
-		"category": "record",
-		"subtitle": "infernalexp.subtitle.cymbal",
-		"sounds": [
-			"infernalexp:noteblock/cymbal"
-		]
-	},
-	"noteblock.saxophone": {
-		"category": "record",
-		"subtitle": "infernalexp.subtitle.saxophone",
-		"sounds": [
-			"infernalexp:noteblock/saxophone"
-		]
-	},
-	"noteblock.electric_guitar": {
-		"category": "record",
-		"subtitle": "infernalexp.subtitle.electric_guitar",
-		"sounds": [
-			"infernalexp:noteblock/electric_guitar"
-		]
-	},
-	"noteblock.violin": {
-		"category": "record",
-		"subtitle": "infernalexp.subtitle.violin",
-		"sounds": [
-			"infernalexp:noteblock/violin"
-		]
-	},
-	"noteblock.choir": {
-		"category": "record",
-		"subtitle": "infernalexp.subtitle.choir",
-		"sounds": [
-			"infernalexp:noteblock/choir"
-		]
-	},
 	"ambient.glowstone_canyon.loop": {
 		"sounds": [
 			{

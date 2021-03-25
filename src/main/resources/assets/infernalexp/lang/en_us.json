@@ -126,11 +126,13 @@
 
   "block.infernalexp.buried_bone": "Buried Bone",
 
-  "block.infernalexp.lantern_glow": "Glowlight Lantern",
-  "block.infernalexp.torch_glow": "Glowlight Torch",
-  "block.infernalexp.campfire_glow": "Glowlight Campfire",
+  "block.infernalexp.glow_lantern": "Glowlight Lantern",
+  "block.infernalexp.glow_torch": "Glowlight Torch",
+  "block.infernalexp.glow_campfire": "Glowlight Campfire",
   "block.infernalexp.luminous_fungus": "Luminous Fungus",
   "block.infernalexp.dullthorns": "Dullthorns",
+
+  "block.infernalexp.glowsilk_cocoon": "Glowsilk Cocoon",
 
   "block.minecraft.nether_sprouts": "Warped Sprouts",
   "block.minecraft.nether_wart_block": "Crimson Wart Block",
@@ -140,8 +142,17 @@
   "item.infernalexp.blindsight_tongue": "Blindsight Tongue",
   "item.infernalexp.moth_dust": "Moth Dust",
   "item.infernalexp.molten_gold_cluster": "Molten Gold Cluster",
+  "item.infernalexp.glowsilk": "Glowsilk",
+  "item.infernalexp.soul_salt_clump": "Soul Salt Clump",
+
+  "item.infernalexp.strider_bucket": "Bucket of Strider",
+  "item.infernalexp.magma_cube_bucket": "Bucket of Magma Cube",
+  "item.infernalexp.voline_bucket": "Bucket of Voline",
 
   "item.infernalexp.blindsight_tongue_stew": "Fungus & Tongue Stew",
+  "item.infernalexp.cured_jerky": "Cured Jerky",
+  "item.infernalexp.raw_hogchop": "Raw Hogchop",
+  "item.infernalexp.cooked_hogchop": "Cooked Hogchop",
 
   "item.infernalexp.ascus_bomb": "Ascus Bomb",
 
@@ -150,6 +161,7 @@
   "item.infernalexp.frostbitten_axe": "Frostbitten Netherite Axe",
   "item.infernalexp.frostbitten_shovel": "Frostbitten Netherite Shovel",
   "item.infernalexp.frostbitten_hoe": "Frostbitten Netherite Hoe",
+  "item.infernalexp.glowsilk_bow" : "Glowsilk Bow",
 
   "item.infernalexp.voline_spawn_egg": "Voline Spawn Egg",
   "item.infernalexp.shroomloin_spawn_egg": "Shroomloin Spawn Egg",

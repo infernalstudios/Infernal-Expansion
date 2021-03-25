@@ -85,6 +85,8 @@ public class GlowstoneCanyonBiome extends ModBiome {
 //        generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.DULLTHORNS_TREE);
         generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA);
         generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA_DOUBLE);
+        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, IEConfiguredFeatures.GSC_SPRING_OPEN);
+        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, IEConfiguredFeatures.GSC_SPRING_CLOSED);
         //generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES,IEConfiguredFeatures.CANYON_BLACKSTONE_ORE);
         //generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES,IEConfiguredFeatures.CANYON_CRUMBLING_BLACKSTONE_ORE);
 //        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.BLACKSTONE_BLOBS);
@@ -94,6 +96,7 @@ public class GlowstoneCanyonBiome extends ModBiome {
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.GLOWSTONE_EXTRA);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.ORE_MAGMA);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.SPRING_CLOSED_DOUBLE);
+        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_GLOWSILK_COCOON);
 
         DefaultBiomeFeatures.withCommonNetherBlocks(generation);
     }

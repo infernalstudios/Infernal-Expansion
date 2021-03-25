@@ -38,7 +38,7 @@ public class BlindsightEntity extends MonsterEntity {
     //ATTRIBUTES
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return MobEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.MAX_HEALTH, 16.0D)
+                .createMutableAttribute(Attributes.MAX_HEALTH, 24.0D)
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3.0D)
                 .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.5D)
                 .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.9D);

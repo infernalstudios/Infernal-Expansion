@@ -4,12 +4,14 @@ import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.blocks.BlockItemBase;
 import com.nekomaster1000.infernalexp.blocks.DullthornsBlockItem;
 import com.nekomaster1000.infernalexp.items.AscusBombItem;
+import com.nekomaster1000.infernalexp.items.GlowsilkBowItem;
 import com.nekomaster1000.infernalexp.items.GlowcoalItem;
 import com.nekomaster1000.infernalexp.items.InfernalPaintingItem;
 import com.nekomaster1000.infernalexp.items.ItemBase;
 import com.nekomaster1000.infernalexp.items.SlurpSoupItem;
 import com.nekomaster1000.infernalexp.util.ModSpawnEggItem;
 import com.nekomaster1000.infernalexp.util.RegistryHandler;
+import net.minecraft.item.BowItem;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -36,6 +38,7 @@ public class IEItems {
 	public static final RegistryObject<Item> BLINDSIGHT_TONGUE = ITEMS.register("blindsight_tongue", ItemBase::new);
 	public static final RegistryObject<Item> MOTH_DUST = ITEMS.register("moth_dust", ItemBase::new);
 	public static final RegistryObject<Item> MOLTEN_GOLD_CLUSTER = ITEMS.register("molten_gold_cluster", ItemBase::new);
+	public static final RegistryObject<Item> GLOWSILK = ITEMS.register("glowsilk", ItemBase::new);
 
 	// Foods
 	public static final RegistryObject<SoupItem> BLINDSIGHT_TONGUE_STEW = ITEMS.register("blindsight_tongue_stew",
@@ -111,17 +114,17 @@ public class IEItems {
 	public static final RegistryObject<Item> TRAPPED_GLOWDUST_SAND = ITEMS.register("trapped_glowdust_sand",        () -> new BlockItemBase(IEBlocks.TRAPPED_GLOWDUST_SAND.get()));
 
 	public static final RegistryObject<Item> GLOWDUST_STONE = ITEMS.register("glowdust_stone",              () -> new BlockItemBase(IEBlocks.GLOWDUST_STONE.get()));
-//	public static final RegistryObject<Item> GLOWDUST_STONE_SLAB = ITEMS.register("glowdust_stone_slab",              () -> new BlockItemBase(IEBlocks.GLOWDUST_STONE_SLAB.get()));
-//	public static final RegistryObject<Item> GLOWDUST_STONE_STAIRS = ITEMS.register("glowdust_stone_stairs",              () -> new BlockItemBase(IEBlocks.GLOWDUST_STONE_STAIRS.get()));
-//	public static final RegistryObject<Item> GLOWDUST_STONE_WALL = ITEMS.register("glowdust_stone_wall",              () -> new BlockItemBase(IEBlocks.GLOWDUST_STONE_WALL.get()));
+	public static final RegistryObject<Item> GLOWDUST_STONE_SLAB = ITEMS.register("glowdust_stone_slab",              () -> new BlockItemBase(IEBlocks.GLOWDUST_STONE_SLAB.get()));
+	public static final RegistryObject<Item> GLOWDUST_STONE_STAIRS = ITEMS.register("glowdust_stone_stairs",              () -> new BlockItemBase(IEBlocks.GLOWDUST_STONE_STAIRS.get()));
+	public static final RegistryObject<Item> GLOWDUST_STONE_WALL = ITEMS.register("glowdust_stone_wall",              () -> new BlockItemBase(IEBlocks.GLOWDUST_STONE_WALL.get()));
 
 
 	public static final RegistryObject<Item> GLOWDUST_STONE_BRICKS = ITEMS.register("glowdust_stone_bricks",    () -> new BlockItemBase(IEBlocks.GLOWDUST_STONE_BRICKS.get()));
 	public static final RegistryObject<Item> GLOWDUST_STONE_BRICK_SLAB = ITEMS.register("glowdust_stone_brick_slab",        () -> new BlockItemBase(IEBlocks.GLOWDUST_STONE_BRICK_SLAB.get()));
 	public static final RegistryObject<Item> GLOWDUST_STONE_BRICK_STAIRS = ITEMS.register("glowdust_stone_brick_stairs",    () -> new BlockItemBase(IEBlocks.GLOWDUST_STONE_BRICK_STAIRS.get()));
 	public static final RegistryObject<Item> GLOWDUST_STONE_BRICK_WALL = ITEMS.register("glowdust_stone_brick_wall", () -> new BlockItemBase(IEBlocks.GLOWDUST_STONE_BRICK_WALL.get()));
-//	public static final RegistryObject<Item> CRACKED_GLOWDUST_STONE_BRICKS = ITEMS.register("cracked_glowdust_stone_bricks",    () -> new BlockItemBase(IEBlocks.CRACKED_GLOWDUST_STONE_BRICKS.get()));
-//	public static final RegistryObject<Item> CHISELED_GLOWDUST_STONE_BRICKS = ITEMS.register("chiseled_glowdust_stone_bricks",    () -> new BlockItemBase(IEBlocks.CHISELED_GLOWDUST_STONE_BRICKS.get()));
+	public static final RegistryObject<Item> CRACKED_GLOWDUST_STONE_BRICKS = ITEMS.register("cracked_glowdust_stone_bricks",    () -> new BlockItemBase(IEBlocks.CRACKED_GLOWDUST_STONE_BRICKS.get()));
+	public static final RegistryObject<Item> CHISELED_GLOWDUST_STONE_BRICKS = ITEMS.register("chiseled_glowdust_stone_bricks",    () -> new BlockItemBase(IEBlocks.CHISELED_GLOWDUST_STONE_BRICKS.get()));
 
 
 	public static final RegistryObject<Item> GLOWDUST_SANDSTONE = ITEMS.register("glowdust_sandstone",                  () -> new BlockItemBase(IEBlocks.GLOWDUST_SANDSTONE.get()));
@@ -191,9 +194,11 @@ public class IEItems {
 	public static final RegistryObject<Item> WARPED_FUNGUS_CAP = ITEMS.register("warped_fungus_cap",    () -> new BlockItemBase(IEBlocks.WARPED_FUNGUS_CAP.get()));
 	public static final RegistryObject<Item> LUMINOUS_FUNGUS_CAP = ITEMS.register("luminous_fungus_cap",    () -> new BlockItemBase(IEBlocks.LUMINOUS_FUNGUS_CAP.get()));
 
-	public static final RegistryObject<Item> GLOW_LANTERN = ITEMS.register("lantern_glow",      () -> new BlockItemBase(IEBlocks.GLOW_LANTERN.get()));
-	public static final RegistryObject<Item> GLOW_TORCH = ITEMS.register("torch_glow", () -> new WallOrFloorItem(IEBlocks.GLOW_TORCH.get(), IEBlocks.GLOW_WALL_TORCH.get(), (new Item.Properties()).group(InfernalExpansion.TAB)));
-	public static final RegistryObject<Item> GLOW_CAMPFIRE = ITEMS.register("campfire_glow", () -> new BlockItemBase(IEBlocks.GLOW_CAMPFIRE.get()));
+	public static final RegistryObject<Item> GLOW_LANTERN = ITEMS.register("glow_lantern",      () -> new BlockItemBase(IEBlocks.GLOW_LANTERN.get()));
+	public static final RegistryObject<Item> GLOW_TORCH = ITEMS.register("glow_torch",          () -> new WallOrFloorItem(IEBlocks.GLOW_TORCH.get(), IEBlocks.GLOW_TORCH_WALL.get(), (new Item.Properties()).group(InfernalExpansion.TAB)));
+	public static final RegistryObject<Item> GLOW_CAMPFIRE = ITEMS.register("glow_campfire",    () -> new BlockItemBase(IEBlocks.GLOW_CAMPFIRE.get()));
+
+	public static final RegistryObject<Item> GLOWSILK_COCOON = ITEMS.register("glowsilk_cocoon", () -> new BlockItemBase(IEBlocks.GLOWSILK_COCOON.get()));
 
 	public static final RegistryObject<Item> SHROOMLIGHT_FUNGUS = ITEMS.register("shroomlight_fungus", () -> new BlockItemBase(IEBlocks.SHROOMLIGHT_FUNGUS.get()));
 	public static final RegistryObject<Item> LUMINOUS_FUNGUS = ITEMS.register("luminous_fungus", () -> new BlockItemBase(IEBlocks.LUMINOUS_FUNGUS.get()));
@@ -207,8 +212,10 @@ public class IEItems {
 	// Record Discs
 	public static final RegistryObject<Item> MUSIC_DISC_SOUL_SPUNK = ITEMS.register("music_disc_soul_spunk", () -> new MusicDiscItem(8, () -> RegistryHandler.MUSIC_DISC_SOUL_SPUNK, new Item.Properties().group(InfernalExpansion.TAB).rarity(Rarity.RARE).maxStackSize(1)));
 
-	/*
 	// Tools
+	public static final RegistryObject<BowItem> GLOWSILK_BOW = ITEMS.register("glowsilk_bow", () -> new GlowsilkBowItem(new Item.Properties().maxDamage(384).group(InfernalExpansion.TAB)));
+
+	/*
 	public static final RegistryObject<SwordItem> FROSTBITTEN_SWORD = ITEMS.register("frostbitten_sword", () -> new SwordItem(ModItemTier.FROSTBITTEN_NETHERITE, 2, -2.4F, new Item.Properties().group(InfernalExpansion.TAB)));
 	public static final RegistryObject<PickaxeItem> FROSTBITTEN_PICKAXE = ITEMS.register("frostbitten_pickaxe", () -> new PickaxeItem(ModItemTier.FROSTBITTEN_NETHERITE, 1, -2.4F, new Item.Properties().group(InfernalExpansion.TAB)));
 	public static final RegistryObject<AxeItem> FROSTBITTEN_AXE = ITEMS.register("frostbitten_axe", () -> new AxeItem(ModItemTier.FROSTBITTEN_NETHERITE, 4, -3.1F, new Item.Properties().group(InfernalExpansion.TAB)));

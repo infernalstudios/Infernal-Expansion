@@ -5,7 +5,10 @@ import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.settings.BooleanOption;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class MobInteractionsScreen extends IESettingsScreen {
 
 	public MobInteractionsScreen(Screen parentScreen) {
@@ -16,8 +19,8 @@ public class MobInteractionsScreen extends IESettingsScreen {
 	public void addSettings() {
 		for (InfernalExpansionConfig.MobInteractions mobInteraction : InfernalExpansionConfig.MobInteractions.values()) {
 			optionsRowList.addOption(new BooleanOption(InfernalExpansion.MOD_ID + ".config.option." + mobInteraction.getTranslationName(),
-					new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + mobInteraction.getTranslationName()),
-					settings -> mobInteraction.get(), (settings, value) -> mobInteraction.set(value)));
+				new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + mobInteraction.getTranslationName()),
+				settings -> mobInteraction.get(), (settings, value) -> mobInteraction.set(value)));
 		}
 	}
 }

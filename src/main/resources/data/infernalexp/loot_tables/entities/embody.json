@@ -6,6 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "weight": 100,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -24,6 +25,10 @@
             }
           ],
           "name": "minecraft:soul_soil"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "infernalexp:music_disc_soul_spunk"
         }
       ]
     }

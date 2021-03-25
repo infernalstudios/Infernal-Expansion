@@ -14,9 +14,9 @@ import com.nekomaster1000.infernalexp.blocks.GlowWallTorchBlock;
 import com.nekomaster1000.infernalexp.blocks.GlowdustBlock;
 import com.nekomaster1000.infernalexp.blocks.LuminousFungusBlock;
 import com.nekomaster1000.infernalexp.blocks.ShroomlightFungusBlock;
+import com.nekomaster1000.infernalexp.blocks.SmoothGlowstonePressurePlateBlock;
 import com.nekomaster1000.infernalexp.blocks.TrappedGlowSandBlock;
 import com.nekomaster1000.infernalexp.util.RegistryHandler;
-
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -75,7 +75,7 @@ public class IEBlocks {
     public static final RegistryObject<Block> SMOOTH_GLOWSTONE_SLAB = BLOCKS.register("smooth_glowstone_slab",       () -> new SlabBlock(getProperties(SMOOTH_GLOWSTONE.get())));
     public static final RegistryObject<Block> SMOOTH_GLOWSTONE_STAIRS = BLOCKS.register("smooth_glowstone_stairs",   () -> new StairsBlock(() -> SMOOTH_GLOWSTONE.get().getDefaultState(), getProperties(SMOOTH_GLOWSTONE.get())));
 	public static final RegistryObject<Block> SMOOTH_GLOWSTONE_BUTTON = BLOCKS.register("smooth_glowstone_button",   () -> new StoneButtonBlock(getProperties(Material.MISCELLANEOUS, 0.5F).sound(SoundType.GLASS).setLightLevel(value -> 15).doesNotBlockMovement()));
-	public static final RegistryObject<Block> SMOOTH_GLOWSTONE_PRESSURE_PLATE = BLOCKS.register("smooth_glowstone_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, getProperties(SMOOTH_GLOWSTONE.get())));
+	public static final RegistryObject<Block> SMOOTH_GLOWSTONE_PRESSURE_PLATE = BLOCKS.register("smooth_glowstone_pressure_plate", () -> new SmoothGlowstonePressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, getProperties(SMOOTH_GLOWSTONE.get()).setLightLevel(getLightValueLit(15))));
 
 	public static final RegistryObject<Block> SMOOTH_DIMSTONE_SLAB = BLOCKS.register("smooth_dimstone_slab",         () -> new SlabBlock(getProperties(SMOOTH_DIMSTONE.get())));
     public static final RegistryObject<Block> SMOOTH_DIMSTONE_STAIRS = BLOCKS.register("smooth_dimstone_stairs",     () -> new StairsBlock(() -> SMOOTH_DIMSTONE.get().getDefaultState(), getProperties(SMOOTH_DIMSTONE.get())));
@@ -104,14 +104,16 @@ public class IEBlocks {
 	public static final RegistryObject<Block> TRAPPED_GLOWDUST_SAND = BLOCKS.register("trapped_glowdust_sand",  () -> new TrappedGlowSandBlock(0xFFC267, getProperties(GLOWDUST.get()).hardnessAndResistance(0.2F).setLightLevel(value -> 4)));
 
 	public static final RegistryObject<Block> GLOWDUST_STONE = BLOCKS.register("glowdust_stone",                () -> new Block(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
-
+	public static final RegistryObject<Block> GLOWDUST_STONE_SLAB = BLOCKS.register("glowdust_stone_slab",      () -> new SlabBlock(getProperties(GLOWDUST_STONE.get())));
+	public static final RegistryObject<Block> GLOWDUST_STONE_STAIRS = BLOCKS.register("glowdust_stone_stairs",  () -> new StairsBlock(() -> GLOWDUST_STONE.get().getDefaultState(), getProperties(GLOWDUST_STONE.get())));
+	public static final RegistryObject<Block> GLOWDUST_STONE_WALL = BLOCKS.register("glowdust_stone_wall",      () -> new WallBlock(getProperties(GLOWDUST_STONE.get())));
 
 	public static final RegistryObject<Block> GLOWDUST_STONE_BRICKS = BLOCKS.register("glowdust_stone_bricks",  () -> new Block(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
-    public static final RegistryObject<Block> GLOWDUST_STONE_BRICK_SLAB = BLOCKS.register("glowdust_stone_brick_slab",      () -> new SlabBlock(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
-    public static final RegistryObject<Block> GLOWDUST_STONE_BRICK_STAIRS = BLOCKS.register("glowdust_stone_brick_stairs",  () -> new StairsBlock(() -> GLOWDUST_STONE.get().getDefaultState(), getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
+    public static final RegistryObject<Block> GLOWDUST_STONE_BRICK_SLAB = BLOCKS.register("glowdust_stone_brick_slab",      () -> new SlabBlock(getProperties(GLOWDUST_STONE_BRICKS.get())));
+    public static final RegistryObject<Block> GLOWDUST_STONE_BRICK_STAIRS = BLOCKS.register("glowdust_stone_brick_stairs",  () -> new StairsBlock(() -> GLOWDUST_STONE_BRICKS.get().getDefaultState(), getProperties(GLOWDUST_STONE_BRICKS.get())));
     public static final RegistryObject<Block> GLOWDUST_STONE_BRICK_WALL = BLOCKS.register("glowdust_stone_brick_wall", 	  () -> new WallBlock(getProperties(GLOWDUST_STONE_BRICKS.get())));
-//	public static final RegistryObject<Block> CRACKED_GLOWDUST_STONE_BRICKS = BLOCKS.register("cracked_glowdust_stone_bricks",	() -> new Block(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
-//	public static final RegistryObject<Block> CHISELED_GLOWDUST_STONE_BRICKS = BLOCKS.register("chiseled_glowdust_stone_brick",	() -> new Block(getProperties(GLOWDUST_STONE_BRICKS.get())));
+	public static final RegistryObject<Block> CRACKED_GLOWDUST_STONE_BRICKS = BLOCKS.register("cracked_glowdust_stone_bricks",	() -> new Block(getProperties(GLOWDUST_STONE_BRICKS.get())));
+	public static final RegistryObject<Block> CHISELED_GLOWDUST_STONE_BRICKS = BLOCKS.register("chiseled_glowdust_stone_bricks",	() -> new Block(getProperties(GLOWDUST_STONE_BRICKS.get())));
 
 	public static final RegistryObject<Block> GLOWDUST_SANDSTONE = BLOCKS.register("glowdust_sandstone",                    () -> new Block(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 8)));
     public static final RegistryObject<Block> CUT_GLOWDUST_SANDSTONE = BLOCKS.register("cut_glowdust_sandstone",            () -> new Block(getProperties(GLOWDUST_SANDSTONE.get())));
@@ -181,11 +183,13 @@ public class IEBlocks {
 	public static final RegistryObject<Block> WARPED_FUNGUS_CAP = BLOCKS.register("warped_fungus_cap", () -> new FungusCapBlock(AbstractBlock.Properties.from(Blocks.WARPED_WART_BLOCK)));
 	public static final RegistryObject<Block> LUMINOUS_FUNGUS_CAP = BLOCKS.register("luminous_fungus_cap", () -> new FungusCapBlock(AbstractBlock.Properties.from(Blocks.NETHER_WART_BLOCK).setLightLevel(value -> 14)));
 
-	public static final RegistryObject<Block> GLOW_LANTERN = BLOCKS.register("lantern_glow", () -> new LanternBlock(getProperties(Blocks.LANTERN)));
-	public static final RegistryObject<Block> GLOW_TORCH = BLOCKS.register("torch_glow", () -> new GlowTorchBlock(getProperties(Blocks.TORCH)));
-	public static final RegistryObject<Block> GLOW_WALL_TORCH = BLOCKS.register("torch_glow_wall", () -> new GlowWallTorchBlock(getProperties(IEBlocks.GLOW_TORCH.get()).lootFrom(GLOW_TORCH.get())));
-	public static final RegistryObject<Block> GLOW_CAMPFIRE = BLOCKS.register("campfire_glow", () -> new GlowCampfireBlock(true, 2, getProperties(Blocks.CAMPFIRE)));
-	public static final RegistryObject<Block> GLOW_FIRE = BLOCKS.register("fire_glow", () -> new GlowFireBlock(getProperties(Blocks.FIRE)));
+	public static final RegistryObject<Block> GLOW_LANTERN = BLOCKS.register("glow_lantern", () -> new LanternBlock(getProperties(Blocks.LANTERN)));
+	public static final RegistryObject<Block> GLOW_TORCH = BLOCKS.register("glow_torch", () -> new GlowTorchBlock(getProperties(Blocks.TORCH)));
+	public static final RegistryObject<Block> GLOW_TORCH_WALL = BLOCKS.register("glow_torch_wall", () -> new GlowWallTorchBlock(getProperties(IEBlocks.GLOW_TORCH.get()).lootFrom(GLOW_TORCH.get())));
+	public static final RegistryObject<Block> GLOW_CAMPFIRE = BLOCKS.register("glow_campfire", () -> new GlowCampfireBlock(true, 2, getProperties(Blocks.CAMPFIRE)));
+	public static final RegistryObject<Block> GLOW_FIRE = BLOCKS.register("glow_fire", () -> new GlowFireBlock(getProperties(Blocks.FIRE)));
+
+	public static final RegistryObject<Block> GLOWSILK_COCOON = BLOCKS.register("glowsilk_cocoon", () -> new Block(getProperties(Material.LEAVES).sound(SoundType.PLANT).setRequiresTool().harvestTool(ToolType.HOE).harvestLevel(3).hardnessAndResistance(5.0F, 1200.0F).setLightLevel(value -> 5)));
 
 	// Foliage
 	public static final RegistryObject<Block> LUMINOUS_FUNGUS = BLOCKS.register("luminous_fungus", () -> new LuminousFungusBlock(getProperties(Material.PLANTS).setLightLevel(getLightValueLit(15)).doesNotBlockMovement().sound(SoundType.PLANT)));

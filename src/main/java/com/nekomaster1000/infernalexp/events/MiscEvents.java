@@ -11,7 +11,6 @@ import com.nekomaster1000.infernalexp.entities.ThrowableMagmaCreamEntity;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IEEffects;
 import com.nekomaster1000.infernalexp.init.IEParticleTypes;
-import com.nekomaster1000.infernalexp.util.RegistryHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -28,7 +27,6 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -42,7 +40,6 @@ import net.minecraftforge.event.entity.living.PotionColorCalculationEvent;
 import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.event.world.NoteBlockEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -88,32 +85,6 @@ public class MiscEvents {
                     shroomloinEntity.becomeAngryAt(event.getPlayer());
                 }
             }
-        }
-    }
-    
-    // Custom note block sounds
-    @SubscribeEvent
-    public void noteBlockPlayed(NoteBlockEvent.Play event) {
-        World world = (World) event.getWorld();
-        BlockPos noteBlockPos = event.getPos();
-        SoundEvent sound = null;
-        Block blockUnder = world.getBlockState(noteBlockPos.down()).getBlock();
-        if (blockUnder == Blocks.GILDED_BLACKSTONE) {
-            sound = RegistryHandler.cymbal;
-        } else if (blockUnder == Blocks.ANCIENT_DEBRIS) {
-            sound = RegistryHandler.electric_guitar;
-        } else if (blockUnder == Blocks.SOUL_SOIL) {
-            sound = RegistryHandler.choir;
-        } else if (blockUnder == IEBlocks.DIMSTONE.get()) {
-            sound = RegistryHandler.saxophone;
-        } else if (blockUnder == Blocks.CRYING_OBSIDIAN) {
-            sound = RegistryHandler.violin;
-        }
-        
-        if (sound != null) {
-            float pitch = (float) Math.pow(2.0, (event.getVanillaNoteId() - 12) / 12.0); // Math to get correct pitch
-            world.playSound(null, noteBlockPos, sound, SoundCategory.RECORDS, 1F, pitch);
-            event.setCanceled(true);
         }
     }
 
