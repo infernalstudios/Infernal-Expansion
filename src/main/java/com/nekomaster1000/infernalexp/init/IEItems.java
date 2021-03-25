@@ -4,10 +4,11 @@ import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.blocks.BlockItemBase;
 import com.nekomaster1000.infernalexp.blocks.DullthornsBlockItem;
 import com.nekomaster1000.infernalexp.items.AscusBombItem;
-import com.nekomaster1000.infernalexp.items.GlowsilkBowItem;
 import com.nekomaster1000.infernalexp.items.GlowcoalItem;
+import com.nekomaster1000.infernalexp.items.GlowsilkBowItem;
 import com.nekomaster1000.infernalexp.items.ItemBase;
 import com.nekomaster1000.infernalexp.items.SlurpSoupItem;
+import com.nekomaster1000.infernalexp.items.WhipItem;
 import com.nekomaster1000.infernalexp.util.ModSpawnEggItem;
 import com.nekomaster1000.infernalexp.util.RegistryHandler;
 import net.minecraft.item.BowItem;
@@ -16,6 +17,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.MusicDiscItem;
 import net.minecraft.item.Rarity;
 import net.minecraft.item.SoupItem;
+import net.minecraft.item.SwordItem;
 import net.minecraft.item.WallOrFloorItem;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -211,6 +213,7 @@ public class IEItems {
 
 	// Tools
 	public static final RegistryObject<BowItem> GLOWSILK_BOW = ITEMS.register("glowsilk_bow", () -> new GlowsilkBowItem(new Item.Properties().maxDamage(384).group(InfernalExpansion.TAB)));
+    public static final RegistryObject<SwordItem> BLINDSIGHT_TONGUE_WHIP = ITEMS.register("blindsight_tongue_whip", () -> new WhipItem(IEItemTiers.BLINDSIGHT_TONGUE, 5, -2.4F, new Item.Properties().group(InfernalExpansion.TAB)));
 
 	/*
 	public static final RegistryObject<SwordItem> FROSTBITTEN_SWORD = ITEMS.register("frostbitten_sword", () -> new SwordItem(ModItemTier.FROSTBITTEN_NETHERITE, 2, -2.4F, new Item.Properties().group(InfernalExpansion.TAB)));
