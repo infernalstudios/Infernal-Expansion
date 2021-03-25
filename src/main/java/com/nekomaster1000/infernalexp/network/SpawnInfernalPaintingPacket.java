@@ -1,15 +1,17 @@
 package com.nekomaster1000.infernalexp.network;
 
 import com.nekomaster1000.infernalexp.entities.InfernalPaintingEntity;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Supplier;
 
@@ -57,13 +59,13 @@ public class SpawnInfernalPaintingPacket {
 
 	public static void handle(SpawnInfernalPaintingPacket message, Supplier<NetworkEvent.Context> ctx) {
 		ctx.get().enqueueWork(() -> {
-			ClientWorld world = Minecraft.getInstance().world;
+			Optional<World> world = LogicalSidedProvider.CLIENTWORLD.get(ctx.get().getDirection().getReceptionSide());
 
-			InfernalPaintingEntity paintingEntity = new InfernalPaintingEntity(world, message.pos, message.facing, ForgeRegistries.PAINTING_TYPES.getValue(new ResourceLocation(message.title)));
+			InfernalPaintingEntity paintingEntity = new InfernalPaintingEntity(world.orElse(null), message.pos, message.facing, ForgeRegistries.PAINTING_TYPES.getValue(new ResourceLocation(message.title)));
 			paintingEntity.setEntityId(message.entityID);
 			paintingEntity.setUniqueId(message.uniqueID);
 
-			world.addEntity(message.entityID, paintingEntity);
+			world.filter(ClientWorld.class::isInstance).ifPresent(w -> ((ClientWorld) w).addEntity(message.entityID, paintingEntity));
 		});
 
 		ctx.get().setPacketHandled(true);
