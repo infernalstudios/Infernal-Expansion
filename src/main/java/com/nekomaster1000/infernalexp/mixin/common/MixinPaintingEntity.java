@@ -16,7 +16,7 @@ public class MixinPaintingEntity {
 	public PaintingType art;
 
 	// Minecraft always wants to place the biggest painting possible, this makes sure that it doesn't think that an Infernal Expansion painting is the biggest possible
-	@ModifyVariable(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/item/PaintingType;getHeight()I"), method = "<init>(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/Direction;)V", name = "j")
+	@ModifyVariable(at = @At(value = "STORE"), method = "<init>(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/Direction;)V", name = "j", ordinal = 1)
 	public int IE_changeMaxSurfaceArea(int maxSurfaceArea) {
 		if (art.getRegistryName().getNamespace().equals("infernalexp")) {
 			return 0;

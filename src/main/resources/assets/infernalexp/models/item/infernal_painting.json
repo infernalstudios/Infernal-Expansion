@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "minecraft:item/painting"
+    "layer0": "infernalexp:item/infernal_painting"
   }
 }
