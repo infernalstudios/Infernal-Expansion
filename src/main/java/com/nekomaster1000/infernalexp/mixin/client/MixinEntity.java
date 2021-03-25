@@ -1,5 +1,8 @@
-package com.nekomaster1000.infernalexp.mixin.common;
+package com.nekomaster1000.infernalexp.mixin.client;
 
+import com.nekomaster1000.infernalexp.access.FireTypeAccess;
+import net.minecraft.entity.Entity;
+import net.minecraft.nbt.CompoundNBT;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -8,11 +11,6 @@ import org.spongepowered.asm.mixin.injection.At.Shift;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import com.nekomaster1000.infernalexp.access.FireTypeAccess;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.nbt.CompoundNBT;
 
 @Mixin(Entity.class)
 public abstract class MixinEntity implements FireTypeAccess {

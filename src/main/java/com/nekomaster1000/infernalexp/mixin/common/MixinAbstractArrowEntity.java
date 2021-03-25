@@ -7,6 +7,8 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,13 +27,14 @@ public class MixinAbstractArrowEntity implements AbstractArrowEntityAccess {
 	private static final DataParameter<Boolean> INFECTION = EntityDataManager.createKey(AbstractArrowEntity.class, DataSerializers.BOOLEAN);
 
 
+	@OnlyIn(Dist.CLIENT)
 	@Inject(at = @At("RETURN"), method = "tick")
 	private void arrowTickInfernalExpansion(CallbackInfo ci) {
 		DynamicLightingHandler.tick(((AbstractArrowEntity) (Object) this));
 	}
 
 	@Inject(at = @At("RETURN"), method = "registerData")
-	private void registerDataInfernalExpansion(CallbackInfo ci){
+	private void registerDataInfernalExpansion(CallbackInfo ci) {
 		((AbstractArrowEntity) (Object) this).getDataManager().register(LUMINOUS, false);
 		((AbstractArrowEntity) (Object) this).getDataManager().register(INFECTION, false);
 		((AbstractArrowEntity) (Object) this).getDataManager().register(GLOW, false);

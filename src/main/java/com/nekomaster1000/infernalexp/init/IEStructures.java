@@ -28,7 +28,7 @@ public class IEStructures {
 	public static <C extends IFeatureConfig, F extends IEStructure<C>> F registerStructure(String registryName, F structure) {
 		ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, registryName);
 
-		if (Registry.STRUCTURE_FEATURE.containsKey(resourceLocation))
+		if (Registry.STRUCTURE_FEATURE.keySet().contains(resourceLocation))
 			throw new IllegalStateException("Structure ID: \"" + resourceLocation.toString() + "\" is already in the registry!");
 
 		structure.setRegistryName(resourceLocation);

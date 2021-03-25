@@ -34,12 +34,12 @@ public class IEFeatures {
 	public static <C extends IFeatureConfig, F extends Feature<C>> F registerFeature(String registryName, F feature) {
 		ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, registryName);
 
-		if (Registry.FEATURE.containsKey(resourceLocation))
+		if (Registry.FEATURE.keySet().contains(resourceLocation))
 			throw new IllegalStateException("Feature ID: \"" + resourceLocation.toString() + "\" is already in the registry!");
 
 		feature.setRegistryName(resourceLocation);
 		features.add(feature);
 
-        return feature;
-    }
+		return feature;
+	}
 }

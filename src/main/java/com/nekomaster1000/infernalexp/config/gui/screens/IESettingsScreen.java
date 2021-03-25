@@ -10,9 +10,12 @@ import net.minecraft.client.gui.widget.list.OptionsRowList;
 import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.List;
 
+@OnlyIn(Dist.CLIENT)
 public abstract class IESettingsScreen extends Screen {
 
 	private final Screen parentScreen;

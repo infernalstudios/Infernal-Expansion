@@ -15,7 +15,7 @@ public class IEConfiguredStructures {
 	public static StructureFeature<?, ?> registerConfiguredStructure(String registryName, StructureFeature<?, ?> structureFeature) {
 		ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, registryName);
 
-		if (WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE.containsKey(resourceLocation))
+		if (WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE.keySet().contains(resourceLocation))
 			throw new IllegalStateException("Configured Feature ID: \"" + resourceLocation.toString() + "\" is already in the registry!");
 
 		FlatGenerationSettings.STRUCTURES.put(structureFeature.field_236268_b_.getStructure(), structureFeature);

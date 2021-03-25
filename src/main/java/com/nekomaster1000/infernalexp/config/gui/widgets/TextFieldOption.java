@@ -5,11 +5,14 @@ import net.minecraft.client.GameSettings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
+@OnlyIn(Dist.CLIENT)
 public class TextFieldOption extends AbstractOption {
 
 	private final ITextComponent tooltip;
