@@ -22,6 +22,9 @@ public class ShroomloinModel<T extends ShroomloinEntity> extends EntityModel<T> 
 		textureWidth = 64;
 		textureHeight = 64;
 
+		textureWidth = 64;
+		textureHeight = 64;
+
 		all = new ModelRenderer(this);
 		all.setRotationPoint(0.0F, 24.0F, 0.0F);
 
@@ -29,17 +32,17 @@ public class ShroomloinModel<T extends ShroomloinEntity> extends EntityModel<T> 
 		body = new ModelRenderer(this);
 		body.setRotationPoint(0.0F, -4.0F, 0.0F);
 		all.addChild(body);
-		body.setTextureOffset(12, 21).addBox(-5.0F, -6.0F, -5.0F, 10.0F, 6.0F, 9.0F, 0.0F, false);
+		body.setTextureOffset(1, 23).addBox(-5.0F, -6.0F, -5.0F, 10.0F, 6.0F, 9.0F, 0.0F, false);
 
 		hat = new ModelRenderer(this);
-		hat.setRotationPoint(0.0F, -4.0F, 0.0F);
+		hat.setRotationPoint(0.0F, -4.0F, -0.5F);
 		body.addChild(hat);
-		hat.setTextureOffset(0, 0).addBox(-8.0F, -6.0F, -8.0F, 16.0F, 6.0F, 15.0F, 0.0F, false);
+		hat.setTextureOffset(0, 0).addBox(-8.0F, -6.0F, -8.0F, 16.0F, 6.0F, 16.0F, 0.0F, false);
 
 		rightleg = new ModelRenderer(this);
 		rightleg.setRotationPoint(-2.5F, -4.0F, -0.5F);
 		all.addChild(rightleg);
-		rightleg.setTextureOffset(0, 7).addBox(-1.5F, -1.0F, -1.5F, 3.0F, 5.0F, 3.0F, 0.0F, false);
+		rightleg.setTextureOffset(0, 8).addBox(-1.5F, -1.0F, -1.5F, 3.0F, 5.0F, 3.0F, 0.0F, true);
 
 		leftleg = new ModelRenderer(this);
 		leftleg.setRotationPoint(2.5F, -4.0F, -0.5F);
