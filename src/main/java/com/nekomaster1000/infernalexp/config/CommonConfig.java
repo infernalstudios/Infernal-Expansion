@@ -23,6 +23,7 @@ public class CommonConfig {
     final ForgeConfigSpec.BooleanValue ghastAttackEmbody;
     final ForgeConfigSpec.BooleanValue ghastAttackVoline;
     final ForgeConfigSpec.BooleanValue ghastAttackSkeleton;
+    final ForgeConfigSpec.DoubleValue glowsilkSpeed;
 
     //Mob Spawning Booleans
     final ForgeConfigSpec.BooleanValue volineInWastes;
@@ -137,6 +138,11 @@ public class CommonConfig {
                 .translation(InfernalExpansion.MOD_ID + ".config.tooltip.ghastAttackSkeleton")
                 .define("ghastAttackSkeleton", false);
 
+        glowsilkSpeed = builder
+			    .comment("Determines the speed at which Glowsilk Moths fly")
+			    .translation(InfernalExpansion.MOD_ID + ".config.tooltip.glowsilkSpeed")
+			    .defineInRange("glowsilkSpeed", 3.0D, 0.0D, Double.MAX_VALUE);
+
         builder.pop();
 
         //Mob Spawning
@@ -233,12 +239,12 @@ public class CommonConfig {
         glowsilkDeltasRate = builder
                 .comment("Determines the rate at which Glowsilk Moths spawn in the Basalt Deltas")
                 .translation(InfernalExpansion.MOD_ID + ".config.tooltip.glowsilkDeltas.spawnrate")
-                .defineInRange("glowsilkDeltasRate", 1, 0, Integer.MAX_VALUE);
+                .defineInRange("glowsilkDeltasRate", 5, 0, Integer.MAX_VALUE);
 
         glowsilkCrimsonRate = builder
                 .comment("Determines the rate at which Glowsilk Moths spawn in the Crimson Forests")
                 .translation(InfernalExpansion.MOD_ID + ".config.tooltip.glowsilkCrimson.spawnrate")
-                .defineInRange("glowsilkCrimsonRate", 1, 0, Integer.MAX_VALUE);
+                .defineInRange("glowsilkCrimsonRate", 5, 0, Integer.MAX_VALUE);
 
         builder.pop();
         

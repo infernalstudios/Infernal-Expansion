@@ -234,6 +234,7 @@
   "infernalexp.config.option.ghastAttackEmbody": "Ghasts attack Embodies",
   "infernalexp.config.option.ghastAttackVoline": "Ghasts attack Volines",
   "infernalexp.config.option.ghastAttackSkeleton": "Ghasts attack Skeletons",
+  "infernalexp.config.option.glowsilkSpeed": "Glowsilk Moth Speed",
 
   "infernalexp.config.tooltip.piglinFearWarpbeetle": "Determines if Piglins will run away from Warpbeetles",
   "infernalexp.config.tooltip.piglinFearEmbody": "Determines if Piglins will run away from Embodies",
@@ -251,6 +252,7 @@
   "infernalexp.config.tooltip.ghastAttackEmbody": "Determines if Ghasts will shoot at Embodies",
   "infernalexp.config.tooltip.ghastAttackVoline": "Determines if Ghasts will shoot at Volines",
   "infernalexp.config.tooltip.ghastAttackSkeleton": "Determines if Ghasts will shoot at Skeletons",
+  "infernalexp.config.tooltip.glowsilkSpeed": "Determines the speed at which Glowsilk Moths fly",
 
   "infernalexp.config.option.volineWastes.enable": "Voline in Wastes",
   "infernalexp.config.option.shroomloinCrimson.enable": "Shroomloin in Crimson",

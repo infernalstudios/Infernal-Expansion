@@ -42,12 +42,12 @@ public class MobEvents {
 
 		//Piglins fear Warpbeetles and Embodies
 		if (event.getEntity() instanceof PiglinEntity){
-			if (MobInteractions.PIGLIN_FEAR_WARPBEETLE.get()) {
+			if (MobInteractions.PIGLIN_FEAR_WARPBEETLE.getBoolean()) {
 				((CreatureEntity) event.getEntity()).goalSelector.addGoal(4,
 						new AvoidEntityGoal<>((CreatureEntity) event.getEntity(),
 								WarpbeetleEntity.class, 16.0F, 1.2D, 1.2D));
 			}
-			if (MobInteractions.PIGLIN_FEAR_EMBODY.get()) {
+			if (MobInteractions.PIGLIN_FEAR_EMBODY.getBoolean()) {
 				((CreatureEntity) event.getEntity()).goalSelector.addGoal(4,
 						new AvoidEntityGoal<>((CreatureEntity) event.getEntity(),
 								EmbodyEntity.class, 16.0F, 1.2D, 1.2D));
@@ -55,12 +55,12 @@ public class MobEvents {
 		}
 
 		if (event.getEntity() instanceof HoglinEntity){
-			if (MobInteractions.HOGLIN_FEAR_WARPBEETLE.get()) {
+			if (MobInteractions.HOGLIN_FEAR_WARPBEETLE.getBoolean()) {
 				((CreatureEntity) event.getEntity()).goalSelector.addGoal(4,
 						new AvoidEntityGoal<>((CreatureEntity) event.getEntity(),
 								WarpbeetleEntity.class, 16.0F, 1.2D, 1.2D));
 			}
-			if (MobInteractions.HOGLIN_FEAR_EMBODY.get()) {
+			if (MobInteractions.HOGLIN_FEAR_EMBODY.getBoolean()) {
 				((CreatureEntity) event.getEntity()).goalSelector.addGoal(4,
 						new AvoidEntityGoal<>((CreatureEntity) event.getEntity(),
 								EmbodyEntity.class, 16.0F, 1.2D, 1.2D));
@@ -72,7 +72,7 @@ public class MobEvents {
 		//
 
 		//Spiders attack Warp beetles
-		if (event.getEntity() instanceof SpiderEntity && MobInteractions.SPIDER_ATTACK_WARPBEETLE.get()) {
+		if (event.getEntity() instanceof SpiderEntity && MobInteractions.SPIDER_ATTACK_WARPBEETLE.getBoolean()) {
 			((CreatureEntity) event.getEntity()).goalSelector.addGoal(4,
 					new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
 							WarpbeetleEntity.class, true, false));
@@ -82,22 +82,22 @@ public class MobEvents {
 
 		//Skeletons attacks Piglins, Brutes, Embodies & Basalt Giants
 		if (event.getEntity() instanceof SkeletonEntity) {
-			if (MobInteractions.SKELETON_ATTACK_PIGLIN.get()) {
+			if (MobInteractions.SKELETON_ATTACK_PIGLIN.getBoolean()) {
 				((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
 						new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
 								PiglinEntity.class, true, false));
 			}
-			if (MobInteractions.SKELETON_ATTACK_BRUTE.get()) {
+			if (MobInteractions.SKELETON_ATTACK_BRUTE.getBoolean()) {
 				((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
 						new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
 								PiglinBruteEntity.class, true, false));
 			}
-			if (MobInteractions.SKELETON_ATTACK_EMBODY.get()) {
+			if (MobInteractions.SKELETON_ATTACK_EMBODY.getBoolean()) {
 				((CreatureEntity) event.getEntity()).goalSelector.addGoal(3,
 						new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
 								EmbodyEntity.class, true, false));
 			}
-			if (MobInteractions.SKELETON_ATTACK_GIANT.get()) {
+			if (MobInteractions.SKELETON_ATTACK_GIANT.getBoolean()) {
 				((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
 						new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
 								BasaltGiantEntity.class, true, false));
@@ -106,12 +106,12 @@ public class MobEvents {
 
 		//Piglins attack Skeletons & Voline
 		if (event.getEntity() instanceof PiglinEntity) {
-			if (MobInteractions.PIGLIN_ATTACK_SKELETON.get()) {
+			if (MobInteractions.PIGLIN_ATTACK_SKELETON.getBoolean()) {
 				((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
 						new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
 								SkeletonEntity.class, true, false));
 			}
-			if (MobInteractions.PIGLIN_ATTACK_VOLINE.get()) {
+			if (MobInteractions.PIGLIN_ATTACK_VOLINE.getBoolean()) {
 				((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
 						new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
 								VolineEntity.class, true, false));
@@ -119,12 +119,12 @@ public class MobEvents {
 		}
 
 		if (event.getEntity() instanceof PiglinBruteEntity){
-			if (MobInteractions.BRUTE_ATTACK_SKELETON.get()) {
+			if (MobInteractions.BRUTE_ATTACK_SKELETON.getBoolean()) {
 				((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
 						new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
 								SkeletonEntity.class, true, false));
 			}
-			if (MobInteractions.BRUTE_ATTACK_VOLINE.get()) {
+			if (MobInteractions.BRUTE_ATTACK_VOLINE.getBoolean()) {
 				((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
 						new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
 								VolineEntity.class, true, false));
@@ -138,17 +138,17 @@ public class MobEvents {
 					new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
 							GlowsquitoEntity.class, true, false));
 
-			if (MobInteractions.GHAST_ATTACK_EMBODY.get()) {
+			if (MobInteractions.GHAST_ATTACK_EMBODY.getBoolean()) {
 				((FlyingEntity) event.getEntity()).targetSelector.addGoal(3,
 						new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
 								EmbodyEntity.class, true, false));
 			}
-			if (MobInteractions.GHAST_ATTACK_VOLINE.get()) {
+			if (MobInteractions.GHAST_ATTACK_VOLINE.getBoolean()) {
 				((FlyingEntity) event.getEntity()).targetSelector.addGoal(2,
 						new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
 								VolineEntity.class, true, false));
 			}
-			if (MobInteractions.GHAST_ATTACK_SKELETON.get()) {
+			if (MobInteractions.GHAST_ATTACK_SKELETON.getBoolean()) {
 				((FlyingEntity) event.getEntity()).targetSelector.addGoal(3,
 						new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
 								SkeletonEntity.class, true, false));

@@ -66,42 +66,59 @@ public final class InfernalExpansionConfig {
     //Mob Interactions
     //Create enum and set values to false. These will get overridden by ConfigHelper to the actual config values
     public enum MobInteractions{
-        PIGLIN_FEAR_WARPBEETLE("piglinFearWarpbeetle"),
-        PIGLIN_FEAR_EMBODY("piglinFearEmbody"),
-        HOGLIN_FEAR_WARPBEETLE("hoglinFearWarpbeetle"),
-        HOGLIN_FEAR_EMBODY("hoglinFearEmbody"),
-        SPIDER_ATTACK_WARPBEETLE("spiderAttackWarpbeetle"),
-        SKELETON_ATTACK_PIGLIN("skeletonAttackPiglin"),
-        SKELETON_ATTACK_BRUTE("skeletonAttackBrute"),
-        SKELETON_ATTACK_EMBODY("skeletonAttackEmbody"),
-        SKELETON_ATTACK_GIANT("skeletonAttackGiant"),
-        PIGLIN_ATTACK_SKELETON("piglinAttackSkeleton"),
-        PIGLIN_ATTACK_VOLINE("piglinAttackVoline"),
-        BRUTE_ATTACK_SKELETON("bruteAttackSkeleton"),
-        BRUTE_ATTACK_VOLINE("bruteAttackVoline"),
-        GHAST_ATTACK_EMBODY("ghastAttackEmbody"),
-        GHAST_ATTACK_VOLINE("ghastAttackVoline"),
-        GHAST_ATTACK_SKELETON("ghastAttackSkeleton");
+        PIGLIN_FEAR_WARPBEETLE("piglinFearWarpbeetle", false),
+        PIGLIN_FEAR_EMBODY("piglinFearEmbody", false),
+        HOGLIN_FEAR_WARPBEETLE("hoglinFearWarpbeetle", false),
+        HOGLIN_FEAR_EMBODY("hoglinFearEmbody", false),
+        SPIDER_ATTACK_WARPBEETLE("spiderAttackWarpbeetle", false),
+        SKELETON_ATTACK_PIGLIN("skeletonAttackPiglin", false),
+        SKELETON_ATTACK_BRUTE("skeletonAttackBrute", false),
+        SKELETON_ATTACK_EMBODY("skeletonAttackEmbody", false),
+        SKELETON_ATTACK_GIANT("skeletonAttackGiant", false),
+        PIGLIN_ATTACK_SKELETON("piglinAttackSkeleton", false),
+        PIGLIN_ATTACK_VOLINE("piglinAttackVoline", false),
+        BRUTE_ATTACK_SKELETON("bruteAttackSkeleton", false),
+        BRUTE_ATTACK_VOLINE("bruteAttackVoline", false),
+        GHAST_ATTACK_EMBODY("ghastAttackEmbody", false),
+        GHAST_ATTACK_VOLINE("ghastAttackVoline", false),
+        GHAST_ATTACK_SKELETON("ghastAttackSkeleton", false),
+        GLOWSILK_SPEED("glowsilkSpeed", true);
 
         private final String translationName;
-        private boolean value;
+		private final boolean isSlider;
+        private boolean booleanValue;
+        private double doubleValue;
 
-        MobInteractions(String translationName) {
+        MobInteractions(String translationName, boolean isSlider) {
             this.translationName = translationName;
-            this.value = false;
+            this.isSlider = isSlider;
+            this.booleanValue = false;
+            this.doubleValue = 0.0D;
         }
 
         public String getTranslationName() {
             return translationName;
         }
 
-        public boolean get() {
-            return value;
+        public boolean getBoolean() {
+            return booleanValue;
         }
 
-        public void set(boolean value) {
-            this.value = value;
+        public void setBoolean(boolean value) {
+            this.booleanValue = value;
         }
+
+        public double getDouble() {
+        	return doubleValue;
+		}
+
+		public void setDouble(double value) {
+        	this.doubleValue = value;
+		}
+
+		public boolean isSlider() {
+			return isSlider;
+		}
     }
 
     //Mob Spawning
