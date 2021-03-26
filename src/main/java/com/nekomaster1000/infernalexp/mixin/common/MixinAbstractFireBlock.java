@@ -1,4 +1,4 @@
-package com.nekomaster1000.infernalexp.mixin.client;
+package com.nekomaster1000.infernalexp.mixin.common;
 
 import com.nekomaster1000.infernalexp.access.FireTypeAccess;
 import com.nekomaster1000.infernalexp.access.FireTypeAccess.KnownFireTypes;
