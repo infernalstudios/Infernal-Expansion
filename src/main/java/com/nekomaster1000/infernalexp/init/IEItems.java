@@ -17,7 +17,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.MusicDiscItem;
 import net.minecraft.item.Rarity;
 import net.minecraft.item.SoupItem;
-import net.minecraft.item.SwordItem;
 import net.minecraft.item.WallOrFloorItem;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -213,7 +212,7 @@ public class IEItems {
 
 	// Tools
 	public static final RegistryObject<BowItem> GLOWSILK_BOW = ITEMS.register("glowsilk_bow", () -> new GlowsilkBowItem(new Item.Properties().maxDamage(384).group(InfernalExpansion.TAB)));
-    public static final RegistryObject<SwordItem> BLINDSIGHT_TONGUE_WHIP = ITEMS.register("blindsight_tongue_whip", () -> new WhipItem(IEItemTiers.BLINDSIGHT_TONGUE, 5, -2.4F, new Item.Properties().group(InfernalExpansion.TAB)));
+    public static final RegistryObject<WhipItem> BLINDSIGHT_TONGUE_WHIP = ITEMS.register("blindsight_tongue_whip", () -> new WhipItem(IEItemTiers.BLINDSIGHT_TONGUE, 1.0F, -3.7F, 1.0F, new Item.Properties().group(InfernalExpansion.TAB)));
 
 	/*
 	public static final RegistryObject<SwordItem> FROSTBITTEN_SWORD = ITEMS.register("frostbitten_sword", () -> new SwordItem(ModItemTier.FROSTBITTEN_NETHERITE, 2, -2.4F, new Item.Properties().group(InfernalExpansion.TAB)));

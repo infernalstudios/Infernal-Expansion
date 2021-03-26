@@ -2,5 +2,13 @@
   "parent": "minecraft:item/handheld",
   "textures": {
     "layer0": "infernalexp:item/blindsight_tongue_whip"
-  }
+  },
+  "overrides": [
+   {
+    "predicate": {
+      "attacking": 1
+    },
+    "model": "infernalexp:item/blindsight_tongue_whip_extended"
+   }
+  ]
 }
