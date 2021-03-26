@@ -1,5 +1,6 @@
 package com.nekomaster1000.infernalexp.entities;
 
+import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntitySize;
@@ -90,11 +91,13 @@ public class GlowsilkMothEntity extends AmbientEntity {
                 this.spawnPosition = new BlockPos(this.getPosX() + (double)this.rand.nextInt(7) - (double)this.rand.nextInt(7), this.getPosY() + (double)this.rand.nextInt(6) - (double)this.rand.nextInt(2), this.getPosZ() + (double)this.rand.nextInt(7) - (double)this.rand.nextInt(7));
         }
 
+        	double speed = InfernalExpansionConfig.MobInteractions.GLOWSILK_SPEED.getDouble() * 0.1;
+
             double d2 = (double)this.spawnPosition.getX() + 0.5D - this.getPosX();
             double d0 = (double)this.spawnPosition.getY() + 0.1D - this.getPosY();
             double d1 = (double)this.spawnPosition.getZ() + 0.5D - this.getPosZ();
             Vector3d vector3d = this.getMotion();
-            Vector3d vector3d1 = vector3d.add((Math.signum(d2) * 0.5D - vector3d.x) * 0.3D, (Math.signum(d0) * 0.7F - vector3d.y) * 0.3D, (Math.signum(d1) * 0.5D - vector3d.z) * 0.3D);
+            Vector3d vector3d1 = vector3d.add((Math.signum(d2) * 0.5D - vector3d.x) * speed, (Math.signum(d0) * 0.7F - vector3d.y) * speed, (Math.signum(d1) * 0.5D - vector3d.z) * speed);
             this.setMotion(vector3d1);
             float f = (float)(MathHelper.atan2(vector3d1.z, vector3d1.x) * (double)(180F / (float)Math.PI)) - 90.0F;
             float f1 = MathHelper.wrapDegrees(f - this.rotationYaw);
