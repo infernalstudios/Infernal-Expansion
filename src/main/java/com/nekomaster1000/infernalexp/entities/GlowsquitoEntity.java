@@ -120,7 +120,7 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
 	@Override
 	protected void collideWithEntity(Entity entityIn) {
 		super.collideWithEntity(entityIn);
-		if (!this.isChild() && entityIn instanceof LivingEntity) {
+		if (!this.isChild() && entityIn instanceof LivingEntity && !(entityIn instanceof GlowsquitoEntity)) {
 			((LivingEntity) entityIn).addPotionEffect(new EffectInstance(IEEffects.LUMINOUS.get(), 200));
 		}
 	}
@@ -316,8 +316,8 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
         //this.goalSelector.addGoal(7, new GlowsquitoEntity.LookAroundGoal(this));
         //this.goalSelector.addGoal(5, this.eatGrassGoal);
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, CreatureEntity.class, true, false, IEEffects.LUMINOUS.get()));
-        this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, MonsterEntity.class, true, false, IEEffects.LUMINOUS.get()));
+        this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, CreatureEntity.class, true, false, IEEffects.LUMINOUS.get(), GlowsquitoEntity.class));
+        this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, MonsterEntity.class, true, false, IEEffects.LUMINOUS.get(), GlowsquitoEntity.class));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, BlackstoneDwarfEntity.class, true));
     }
 
