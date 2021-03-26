@@ -30,7 +30,7 @@ public class TargetWithEffectGoal extends NearestAttackableTargetGoal {
 		this.invalidTarget = invalidTargetClassIn;
     }
 
-    public TargetWithEffectGoal(MobEntity goalOwnerIn, Class targetClassIn, int targetChanceIn, boolean checkSight, boolean nearbyOnlyIn, Predicate targetPredicate, Effect effect, @Nullable  Class invalidTargetClassIn) {
+    public TargetWithEffectGoal(MobEntity goalOwnerIn, Class targetClassIn, int targetChanceIn, boolean checkSight, boolean nearbyOnlyIn, Predicate targetPredicate, Effect effect, @Nullable Class invalidTargetClassIn) {
         super(goalOwnerIn, targetClassIn, targetChanceIn, checkSight, nearbyOnlyIn, targetPredicate);
         this.effect = effect;
 		this.invalidTarget = invalidTargetClassIn;
