@@ -19,7 +19,7 @@ import com.nekomaster1000.infernalexp.init.IEPotions;
 import com.nekomaster1000.infernalexp.init.IEProcessors;
 import com.nekomaster1000.infernalexp.init.IEStructures;
 import com.nekomaster1000.infernalexp.init.IETileEntityTypes;
-import com.nekomaster1000.infernalexp.packets.IEPacketHandler;
+import com.nekomaster1000.infernalexp.network.IENetworkHandler;
 import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeCollector;
 import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeProvider;
 import com.nekomaster1000.infernalexp.world.gen.ModEntityPlacement;
@@ -96,16 +96,16 @@ public class InfernalExpansion
 		//Setup and register structures and processors and packets
 		event.enqueueWork(IEProcessors::registerProcessors);
 		event.enqueueWork(IEStructures::setupStructures);
-		event.enqueueWork(IEPacketHandler::register);
+		event.enqueueWork(IENetworkHandler::register);
 
 		//Places entity spawn locations on the ground
 		ModEntityPlacement.spawnPlacement();
 
-        //Register New Flowers to be Able to Place in Pots
-        FlowerPotBlock flowerPot = (FlowerPotBlock) Blocks.FLOWER_POT;
-        flowerPot.addPlant(IEBlocks.DULLTHORNS.getId(), IEBlocks.POTTED_DULLTHORNS);
-        flowerPot.addPlant(IEBlocks.LUMINOUS_FUNGUS.getId(), IEBlocks.POTTED_LUMINOUS_FUNGUS);
-        flowerPot.addPlant(IEBlocks.SHROOMLIGHT_FUNGUS.getId(), IEBlocks.POTTED_SHROOMLIGHT_FUNGUS);
+		//Register New Flowers to be Able to Place in Pots
+		FlowerPotBlock flowerPot = (FlowerPotBlock) Blocks.FLOWER_POT;
+		flowerPot.addPlant(IEBlocks.DULLTHORNS.getId(), IEBlocks.POTTED_DULLTHORNS);
+		flowerPot.addPlant(IEBlocks.LUMINOUS_FUNGUS.getId(), IEBlocks.POTTED_LUMINOUS_FUNGUS);
+		flowerPot.addPlant(IEBlocks.SHROOMLIGHT_FUNGUS.getId(), IEBlocks.POTTED_SHROOMLIGHT_FUNGUS);
 
         //Register Brewing Recipes for Potions
         BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(

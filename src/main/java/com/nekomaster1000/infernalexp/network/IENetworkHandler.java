@@ -1,17 +1,13 @@
-package com.nekomaster1000.infernalexp.packets;
+package com.nekomaster1000.infernalexp.network;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
-import com.nekomaster1000.infernalexp.packets.IIEPacket.IEPacket;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 
-import java.util.function.Function;
-
-public class IEPacketHandler {
+public class IENetworkHandler {
 	private static final String PROTOCOL_VERSION = "1";
 	public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
 		new ResourceLocation(InfernalExpansion.MOD_ID, "main"),
@@ -23,12 +19,7 @@ public class IEPacketHandler {
 	private static int index;
 
 	public static synchronized void register() {
-		register(WhipReachPacket.class, WhipReachPacket::decode);
-	}
-
-	private static <MSG extends IEPacket> void register(final Class<MSG> packet, Function<PacketBuffer, MSG> decoder)
-	{
-		INSTANCE.messageBuilder(packet, index++).encoder(IEPacket::encode).decoder(decoder).consumer(IEPacket::handle).add();
+		INSTANCE.messageBuilder(WhipReachPacket.class, index++).encoder(WhipReachPacket::encode).decoder(WhipReachPacket::decode).consumer(WhipReachPacket::handle).add();
 	}
 
 	public static <MSG> void sendToPlayer(MSG message, ServerPlayerEntity player)

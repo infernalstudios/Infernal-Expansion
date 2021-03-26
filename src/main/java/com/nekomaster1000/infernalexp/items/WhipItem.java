@@ -7,6 +7,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.enchantment.IVanishable;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -24,15 +25,31 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeMod;
 
 public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
+
 	private final float attackDamage;
 	private final float attackSpeed;
 	private final float attackKnockback;
+
+	private int ticksSinceAttack = 0;
+	private boolean attacking = false;
 
 	public WhipItem(IItemTier tier, float attackDamageIn, float attackSpeedIn, float attackKnockbackIn, Item.Properties builderIn) {
 		super(tier, builderIn);
 		this.attackDamage = attackDamageIn + tier.getAttackDamage();
 		this.attackSpeed = attackSpeedIn;
 		this.attackKnockback = attackKnockbackIn;
+	}
+
+	@Override
+	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+		if (attacking) {
+			ticksSinceAttack++;
+		}
+
+		if (ticksSinceAttack >= 30) {
+			ticksSinceAttack = 0;
+			attacking = false;
+		}
 	}
 
 	public boolean canPlayerBreakBlockWhileHolding(BlockState state, World worldIn, BlockPos pos, PlayerEntity player) {
@@ -42,7 +59,7 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 	public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 		super.hitEntity(stack, target, attacker);
 
-		target.applyKnockback(this.attackKnockback,  MathHelper.sin(attacker.rotationYaw * ((float)Math.PI / 180F)), -MathHelper.cos(attacker.rotationYaw * ((float)Math.PI / 180F)));
+		target.applyKnockback(this.attackKnockback, MathHelper.sin(attacker.rotationYaw * ((float) Math.PI / 180F)), -MathHelper.cos(attacker.rotationYaw * ((float) Math.PI / 180F)));
 
 		stack.damageItem(1, attacker, (entity) -> {
 			entity.sendBreakAnimation(EquipmentSlotType.MAINHAND);
@@ -76,5 +93,20 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 		attributeBuilder.put(ForgeMod.REACH_DISTANCE.get(), new AttributeModifier(REACH_MODIFIER_UUID, "Tool modifier", this.getReachDistanceModifier(), AttributeModifier.Operation.ADDITION));
 		Multimap<Attribute, AttributeModifier> attributes = attributeBuilder.build();
 		return equipmentSlot == EquipmentSlotType.MAINHAND ? attributes : super.getAttributeModifiers(equipmentSlot, itemStack);
+	}
+
+	@Override
+	public int getTicksSinceAttack() {
+		return ticksSinceAttack;
+	}
+
+	@Override
+	public boolean getAttacking() {
+		return attacking;
+	}
+
+	@Override
+	public void setAttacking(boolean value) {
+		attacking = value;
 	}
 }

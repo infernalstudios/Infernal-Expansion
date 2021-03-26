@@ -8,4 +8,10 @@ public interface IWhipItem {
 	default double getReachDistanceModifier() {
 		return 1.0D;
 	}
+
+	int getTicksSinceAttack();
+
+	boolean getAttacking();
+
+	void setAttacking(boolean value);
 }

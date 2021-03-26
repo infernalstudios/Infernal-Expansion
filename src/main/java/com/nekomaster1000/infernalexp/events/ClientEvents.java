@@ -1,9 +1,8 @@
 package com.nekomaster1000.infernalexp.events;
 
 import com.nekomaster1000.infernalexp.items.IWhipItem;
-import com.nekomaster1000.infernalexp.packets.IEPacketHandler;
-import com.nekomaster1000.infernalexp.packets.WhipReachPacket;
-import net.minecraft.entity.Entity;
+import com.nekomaster1000.infernalexp.network.IENetworkHandler;
+import com.nekomaster1000.infernalexp.network.WhipReachPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -20,36 +19,40 @@ public class ClientEvents {
 
 	@SubscribeEvent
 	public static void onPlayerLeftClick(PlayerInteractEvent.LeftClickEmpty event) {
-		PlayerEntity player = event.getPlayer();
-		if(event.getItemStack().getItem() instanceof IWhipItem) {
-			handleExtendedReach(player);
+		if (event.getItemStack().getItem() instanceof IWhipItem) {
+			((IWhipItem) event.getItemStack().getItem()).setAttacking(true);
+			handleExtendedReach(event.getPlayer());
 		}
 	}
 
 	@SubscribeEvent
 	public static void onPlayerLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
-		PlayerEntity player = event.getPlayer();
-		if(event.getItemStack().getItem() instanceof IWhipItem) {
-			event.setCanceled(handleExtendedReach(player));
+		if (event.getItemStack().getItem() instanceof IWhipItem) {
+			((IWhipItem) event.getItemStack().getItem()).setAttacking(true);
+			event.setCanceled(handleExtendedReach(event.getPlayer()));
 		}
 	}
 
 	private static boolean handleExtendedReach(PlayerEntity player) {
 		double reach = player.getAttribute(ForgeMod.REACH_DISTANCE.get()).getValue();
+
 		Vector3d eyePos = player.getEyePosition(1.0F);
 		Vector3d lookVec = player.getLookVec();
 		Vector3d reachVec = eyePos.add(lookVec.x * reach, lookVec.y * reach, lookVec.z * reach);
+
 		AxisAlignedBB playerBox = player.getBoundingBox().expand(lookVec.scale(reach)).grow(1.0D, 1.0D, 1.0D);
 		EntityRayTraceResult traceResult = ProjectileHelper.rayTraceEntities(player, eyePos, reachVec, playerBox, (target) -> !target.isSpectator() && target.isLiving(), reach * reach);
+
 		if (traceResult != null) {
-			Entity target = traceResult.getEntity();
-			Vector3d hitVec = traceResult.getHitVec();
-			double distance = eyePos.squareDistanceTo(hitVec);
-			if (distance < (reach * reach) * player.getCooledAttackStrength(0.5F)) {
-				IEPacketHandler.sendToServer(new WhipReachPacket(player.getUniqueID(), target.getEntityId()));
+			double distance = eyePos.squareDistanceTo(traceResult.getHitVec());
+
+			if (distance < reach * reach) {
+				IENetworkHandler.sendToServer(new WhipReachPacket(player.getUniqueID(), traceResult.getEntity().getEntityId()));
+
 				return true;
 			}
 		}
+
 		return false;
 	}
 }
