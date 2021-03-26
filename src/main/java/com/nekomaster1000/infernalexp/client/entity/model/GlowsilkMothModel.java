@@ -8,63 +8,82 @@ import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
 
 public class GlowsilkMothModel<T extends GlowsilkMothEntity> extends EntityModel<T> {
-    private final ModelRenderer All;
-    private final ModelRenderer Body;
-    private final ModelRenderer bone_r1;
-    private final ModelRenderer Antennae;
-    private final ModelRenderer LeftWing;
-    private final ModelRenderer RightWing;
+	private final ModelRenderer all;
+	private final ModelRenderer body;
+	private final ModelRenderer legs3_r1;
+	private final ModelRenderer legs2_r1;
+	private final ModelRenderer legs1_r1;
+	private final ModelRenderer bone_r1;
+	private final ModelRenderer antenna;
+	private final ModelRenderer leftwing;
+	private final ModelRenderer rightwing;
 
     public GlowsilkMothModel() {
-        textureWidth = 66;
-        textureHeight = 34;
+        textureWidth = 64;
+        textureHeight = 32;
 
-        All = new ModelRenderer(this);
-        All.setRotationPoint(-1.0F, 14.0F, 0.0F);
-        setRotationAngle(All, 0.3927F, 0.0F, 0.0F);
+		all = new ModelRenderer(this);
+		all.setRotationPoint(-1.0F, 14.0F, 0.0F);
+		setRotationAngle(all, 0.3927F, 0.0F, 0.0F);
 
+		body = new ModelRenderer(this);
+		body.setRotationPoint(1.0F, 0.0F, 0.0F);
+		all.addChild(body);
 
-        Body = new ModelRenderer(this);
-        Body.setRotationPoint(1.0F, 0.0F, 0.0F);
-        All.addChild(Body);
+		legs3_r1 = new ModelRenderer(this);
+		legs3_r1.setRotationPoint(0.0F, 3.0F, -2.0F);
+		body.addChild(legs3_r1);
+		setRotationAngle(legs3_r1, 0.7854F, 0.0F, 0.0F);
+		legs3_r1.setTextureOffset(44, 6).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 0.0F, 2.0F, 0.0F, false);
 
+		legs2_r1 = new ModelRenderer(this);
+		legs2_r1.setRotationPoint(0.0F, 0.0F, -2.0F);
+		body.addChild(legs2_r1);
+		setRotationAngle(legs2_r1, 0.7854F, 0.0F, 0.0F);
+		legs2_r1.setTextureOffset(44, 6).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 0.0F, 2.0F, 0.0F, false);
 
-        bone_r1 = new ModelRenderer(this);
-        bone_r1.setRotationPoint(0.0F, 10.0F, 0.0F);
-        Body.addChild(bone_r1);
-        setRotationAngle(bone_r1, 0.0F, 3.1416F, 0.0F);
-        bone_r1.setTextureOffset(27, 9).addBox(-2.0F, -17.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.0F, false);
-        bone_r1.setTextureOffset(27, 1).addBox(-1.0F, -5.0F, -1.0F, 2.0F, 2.0F, 2.0F, 0.0F, false);
+		legs1_r1 = new ModelRenderer(this);
+		legs1_r1.setRotationPoint(0.0F, -3.0F, -2.0F);
+		body.addChild(legs1_r1);
+		setRotationAngle(legs1_r1, 0.7854F, 0.0F, 0.0F);
+		legs1_r1.setTextureOffset(44, 6).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 0.0F, 2.0F, 0.0F, false);
 
-        Antennae = new ModelRenderer(this);
-        Antennae.setRotationPoint(1.0F, -7.0F, 0.0F);
-        All.addChild(Antennae);
-        Antennae.setTextureOffset(36, 4).addBox(0.0F, -5.0F, 0.0F, 4.0F, 5.0F, 0.0F, 0.0F, true);
-        Antennae.setTextureOffset(36, 4).addBox(-4.0F, -5.0F, 0.0F, 4.0F, 5.0F, 0.0F, 0.0F, false);
+		bone_r1 = new ModelRenderer(this);
+		bone_r1.setRotationPoint(0.0F, 10.0F, 0.0F);
+		body.addChild(bone_r1);
+		setRotationAngle(bone_r1, 0.0F, 3.1416F, 0.0F);
+		bone_r1.setTextureOffset(27, 9).addBox(-2.0F, -17.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.0F, false);
+		bone_r1.setTextureOffset(27, 1).addBox(-1.0F, -5.0F, -1.0F, 2.0F, 2.0F, 2.0F, 0.0F, false);
 
-        LeftWing = new ModelRenderer(this);
-        LeftWing.setRotationPoint(3.0F, 1.0F, 0.0F);
-        All.addChild(LeftWing);
-        LeftWing.setTextureOffset(1, 1).addBox(0.0F, -14.0F, 0.0F, 13.0F, 23.0F, 0.0F, 0.0F, true);
+		antenna = new ModelRenderer(this);
+		antenna.setRotationPoint(1.0F, -7.0F, 0.0F);
+		all.addChild(antenna);
+		antenna.setTextureOffset(36, 4).addBox(0.0F, -5.0F, 0.0F, 4.0F, 5.0F, 0.0F, 0.0F, true);
+		antenna.setTextureOffset(36, 4).addBox(-4.0F, -5.0F, 0.0F, 4.0F, 5.0F, 0.0F, 0.0F, false);
 
-        RightWing = new ModelRenderer(this);
-        RightWing.setRotationPoint(-1.0F, 1.0F, 0.0F);
-        All.addChild(RightWing);
-        RightWing.setTextureOffset(1, 1).addBox(-13.0F, -14.0F, 0.0F, 13.0F, 23.0F, 0.0F, 0.0F, false);
-    }
+		leftwing = new ModelRenderer(this);
+		leftwing.setRotationPoint(3.0F, 1.0F, 0.0F);
+		all.addChild(leftwing);
+		leftwing.setTextureOffset(1, 1).addBox(0.0F, -14.0F, 0.0F, 13.0F, 23.0F, 0.0F, 0.0F, true);
+
+		rightwing = new ModelRenderer(this);
+		rightwing.setRotationPoint(-1.0F, 1.0F, 0.0F);
+		all.addChild(rightwing);
+		rightwing.setTextureOffset(1, 1).addBox(-13.0F, -14.0F, 0.0F, 13.0F, 23.0F, 0.0F, 0.0F, false);
+	}
 
     @Override
     public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
         // Flap wings back and forth constantly
-        this.LeftWing.rotateAngleY = MathHelper.cos(0.75F * ageInTicks);
-        this.RightWing.rotateAngleY = -MathHelper.cos(0.75F * ageInTicks);
-        this.Antennae.rotateAngleX = MathHelper.cos(0.2F * ageInTicks) * 0.2F;
-        this.All.rotateAngleX = 0.3927F;
+        this.leftwing.rotateAngleY = MathHelper.cos(0.75F * ageInTicks);
+        this.rightwing.rotateAngleY = -MathHelper.cos(0.75F * ageInTicks);
+        this.antenna.rotateAngleX = MathHelper.cos(0.2F * ageInTicks) * 0.2F;
+        this.all.rotateAngleX = 0.3927F;
 	}
 
     @Override
     public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
-        All.render(matrixStack, buffer, packedLight, packedOverlay);
+        all.render(matrixStack, buffer, packedLight, packedOverlay);
     }
 
     public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
