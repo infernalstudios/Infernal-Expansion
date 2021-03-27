@@ -37,6 +37,6 @@ public class InfernalExpansionClient {
 			}
 		});
 
-		ItemModelsProperties.registerProperty(IEItems.BLINDSIGHT_TONGUE_WHIP.get(), new ResourceLocation("attacking"), (itemStack, clientWorld, livingEntity) -> livingEntity != null && ((IWhipItem) itemStack.getItem()).getAttacking() && livingEntity.getHeldItemMainhand() == itemStack ? 1.0F : 0.0F);
+		ItemModelsProperties.registerProperty(IEItems.BLINDSIGHT_TONGUE_WHIP.get(), new ResourceLocation("attacking"), (itemStack, clientWorld, livingEntity) -> livingEntity != null && (((IWhipItem) itemStack.getItem()).getAttacking() || ((IWhipItem) itemStack.getItem()).getCharging()) && livingEntity.getHeldItemMainhand() == itemStack ? 1.0F : 0.0F);
 	}
 }

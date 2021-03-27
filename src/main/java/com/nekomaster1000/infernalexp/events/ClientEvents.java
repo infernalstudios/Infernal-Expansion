@@ -20,7 +20,6 @@ public class ClientEvents {
 	@SubscribeEvent
 	public static void onPlayerLeftClick(PlayerInteractEvent.LeftClickEmpty event) {
 		if (event.getItemStack().getItem() instanceof IWhipItem) {
-			((IWhipItem) event.getItemStack().getItem()).setAttacking(true);
 			handleExtendedReach(event.getPlayer());
 		}
 	}
@@ -28,7 +27,6 @@ public class ClientEvents {
 	@SubscribeEvent
 	public static void onPlayerLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
 		if (event.getItemStack().getItem() instanceof IWhipItem) {
-			((IWhipItem) event.getItemStack().getItem()).setAttacking(true);
 			event.setCanceled(handleExtendedReach(event.getPlayer()));
 		}
 	}

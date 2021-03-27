@@ -13,14 +13,24 @@ import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.TieredItem;
+import net.minecraft.item.UseAction;
+import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeMod;
 
@@ -30,8 +40,11 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 	private final float attackSpeed;
 	private final float attackKnockback;
 
+	private boolean shouldKnockback = false;
+
 	private int ticksSinceAttack = 0;
 	private boolean attacking = false;
+	private boolean charging = false;
 
 	public WhipItem(IItemTier tier, float attackDamageIn, float attackSpeedIn, float attackKnockbackIn, Item.Properties builderIn) {
 		super(tier, builderIn);
@@ -40,8 +53,75 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 		this.attackKnockback = attackKnockbackIn;
 	}
 
+	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
+		if (entityLiving instanceof PlayerEntity) {
+			PlayerEntity playerentity = (PlayerEntity)entityLiving;
+
+			this.charging = false;
+
+			int i = this.getUseDuration(stack) - timeLeft;
+
+			if (i < 0 || timeLeft > 71985) {
+				this.ticksSinceAttack = 0;
+				return;
+			} else {
+				this.setAttacking(true);
+			}
+
+			worldIn.playSound(null, playerentity.getPosX(), playerentity.getPosY(), playerentity.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F));
+
+			double reach = playerentity.getAttribute(ForgeMod.REACH_DISTANCE.get()).getValue();
+
+			Vector3d eyePos = playerentity.getEyePosition(1.0F);
+			Vector3d lookVec = playerentity.getLookVec();
+			Vector3d reachVec = eyePos.add(lookVec.x * reach, lookVec.y * reach, lookVec.z * reach);
+
+			AxisAlignedBB playerBox = playerentity.getBoundingBox().expand(lookVec.scale(reach)).grow(1.0D, 1.0D, 1.0D);
+			EntityRayTraceResult traceResult = ProjectileHelper.rayTraceEntities(playerentity, eyePos, reachVec, playerBox, (target) -> !target.isSpectator() && target.isLiving(), reach * reach);
+
+			if (traceResult != null) {
+				this.shouldKnockback = true;
+				playerentity.attackTargetEntityWithCurrentItem(traceResult.getEntity());
+			}
+
+			playerentity.addStat(Stats.ITEM_USED.get(this));
+		}
+	}
+
+	public int getUseDuration(ItemStack stack) {
+		return 72000;
+	}
+
+	public UseAction getUseAction(ItemStack stack) {
+		return UseAction.BOW;
+	}
+
+	@Override
+	public boolean onEntitySwing(ItemStack stack, LivingEntity entity) {
+		return true;
+	}
+
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+		ItemStack itemstack = playerIn.getHeldItem(handIn);
+		playerIn.setActiveHand(handIn);
+		return ActionResult.resultPass(itemstack);
+	}
+
+	@Override
+	public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
+		if (attacking) {
+			ticksSinceAttack = 0;
+			attacking = false;
+		}
+		this.charging = true;
+	}
+
 	@Override
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+		if (charging && ticksSinceAttack <= 30) {
+			ticksSinceAttack++;
+		}
+
 		if (attacking) {
 			ticksSinceAttack++;
 		}
@@ -49,6 +129,7 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 		if (ticksSinceAttack >= 60) {
 			ticksSinceAttack = 0;
 			attacking = false;
+			charging = false;
 		}
 	}
 
@@ -59,7 +140,10 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 	public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 		super.hitEntity(stack, target, attacker);
 
-		target.applyKnockback(this.attackKnockback, MathHelper.sin(attacker.rotationYaw * ((float) Math.PI / 180F)), -MathHelper.cos(attacker.rotationYaw * ((float) Math.PI / 180F)));
+		if (this.shouldKnockback) {
+			target.applyKnockback(this.attackKnockback, MathHelper.sin(attacker.rotationYaw * ((float) Math.PI / 180F)), -MathHelper.cos(attacker.rotationYaw * ((float) Math.PI / 180F)));
+			this.shouldKnockback = false;
+		}
 
 		stack.damageItem(1, attacker, (entity) -> {
 			entity.sendBreakAnimation(EquipmentSlotType.MAINHAND);
@@ -103,6 +187,11 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 	@Override
 	public boolean getAttacking() {
 		return attacking;
+	}
+
+	@Override
+	public boolean getCharging() {
+		return charging;
 	}
 
 	@Override

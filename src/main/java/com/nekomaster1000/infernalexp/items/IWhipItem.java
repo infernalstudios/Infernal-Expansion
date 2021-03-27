@@ -13,5 +13,7 @@ public interface IWhipItem {
 
 	boolean getAttacking();
 
+	boolean getCharging();
+
 	void setAttacking(boolean value);
 }

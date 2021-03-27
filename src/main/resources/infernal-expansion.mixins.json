@@ -20,6 +20,7 @@
     "client.MixinModelBakery",
     "client.MixinOverlayRenderer",
     "client.MixinEntity",
-    "client.MixinAbstractFireBlock"
+    "client.MixinAbstractFireBlock",
+    "client.MixinPlayerRenderer"
   ]
 }
