@@ -125,6 +125,43 @@
 			"infernalexp:entity/embody/embody_death"
 		]
 	},
+	"entity.glowsquito.loop": {
+		"sounds": [
+			{
+				"attenuation_distance": 9,
+				"name": "infernalexp:entity/glowsquito/loop1",
+				"volume": 5
+			},
+			{
+				"attenuation_distance": 9,
+				"name": "infernalexp:entity/glowsquito/loop2",
+				"volume": 5
+			},
+			{
+				"attenuation_distance": 9,
+				"name": "infernalexp:entity/glowsquito/loop3",
+				"volume": 5
+			},
+			{
+				"attenuation_distance": 9,
+				"name": "infernalexp:entity/glowsquito/loop4",
+				"volume": 5
+			}
+		]
+	},
+	"entity.glowsquito.hurt": {
+		"sounds": [
+			"infernalexp:entity/glowsquito/hit1",
+			"infernalexp:entity/glowsquito/hit2",
+			"infernalexp:entity/glowsquito/hit3",
+			"infernalexp:entity/glowsquito/hit4"
+		]
+	},
+	"entity.glowsquito.death": {
+		"sounds": [
+			"infernalexp:entity/glowsquito/death1"
+		]
+	},
 	"ambient.glowstone_canyon.loop": {
 		"sounds": [
 			{

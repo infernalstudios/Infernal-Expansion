@@ -16,7 +16,7 @@ import com.nekomaster1000.infernalexp.blocks.LuminousFungusBlock;
 import com.nekomaster1000.infernalexp.blocks.ShroomlightFungusBlock;
 import com.nekomaster1000.infernalexp.blocks.SmoothGlowstonePressurePlateBlock;
 import com.nekomaster1000.infernalexp.blocks.TrappedGlowSandBlock;
-import com.nekomaster1000.infernalexp.util.RegistryHandler;
+
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -57,8 +57,8 @@ public class IEBlocks {
     			Furnace Recipes are included in the recipes folder. */
 
     // Blocks
-    public static final RegistryObject<Block> DIMSTONE = BLOCKS.register("dimstone",            () -> new Block(getProperties(Material.GLASS, 3.5F, 2.0F).sound(RegistryHandler.DIMSTONE_TYPE).setRequiresTool().harvestTool(ToolType.PICKAXE).setLightLevel(value -> 12)));
-    public static final RegistryObject<Block> DULLSTONE = BLOCKS.register("dullstone",          () -> new Block(getProperties(Material.GLASS, 1.5F, 6.0F).sound(RegistryHandler.DULLSTONE_TYPE).setRequiresTool().harvestTool(ToolType.PICKAXE).setLightLevel(value -> 0)));
+    public static final RegistryObject<Block> DIMSTONE = BLOCKS.register("dimstone",            () -> new Block(getProperties(Material.GLASS, 3.5F, 2.0F).sound(IESoundEvents.DIMSTONE_TYPE).setRequiresTool().harvestTool(ToolType.PICKAXE).setLightLevel(value -> 12)));
+    public static final RegistryObject<Block> DULLSTONE = BLOCKS.register("dullstone",          () -> new Block(getProperties(Material.GLASS, 1.5F, 6.0F).sound(IESoundEvents.DULLSTONE_TYPE).setRequiresTool().harvestTool(ToolType.PICKAXE).setLightLevel(value -> 0)));
     public static final RegistryObject<Block> SMOOTH_GLOWSTONE = BLOCKS.register("smooth_glowstone",    () -> new Block(getProperties(Material.GLASS, 1.5F, 6.0F).sound(SoundType.GLASS).setRequiresTool().harvestTool(ToolType.PICKAXE).setLightLevel(value -> 15)));
     public static final RegistryObject<Block> SMOOTH_DIMSTONE = BLOCKS.register("smooth_dimstone",      () -> new Block(getProperties(SMOOTH_GLOWSTONE.get()).setLightLevel(value -> 12)));
     public static final RegistryObject<Block> SMOOTH_DULLSTONE = BLOCKS.register("smooth_dullstone",    () -> new Block(getProperties(SMOOTH_GLOWSTONE.get()).setLightLevel(value -> 0)));
