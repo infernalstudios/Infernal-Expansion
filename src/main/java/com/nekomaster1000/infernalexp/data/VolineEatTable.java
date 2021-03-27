@@ -29,21 +29,21 @@ public class VolineEatTable extends JsonReloadListener {
 	private static final Map<Item, Map<Item, Integer>> VOLINE_EAT_TABLE = new HashMap<>();
 
 	public VolineEatTable() {
-		super(GSON_INSTANCE, "custom");
-	}
+        super(GSON_INSTANCE, "loot_tables/gameplay");
+    }
 
 	@Override
 	protected void apply(Map<ResourceLocation, JsonElement> objectIn, IResourceManager resourceManagerIn, IProfiler profilerIn) {
-		ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, "custom/voline_eat_table.json");
+        ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, "loot_tables/gameplay/voline_eat_table.json");
 
-		try {
-			for (IResource iResource : resourceManagerIn.getAllResources(resourceLocation)) {
-				try (Reader reader = new BufferedReader(new InputStreamReader(iResource.getInputStream(), StandardCharsets.UTF_8))) {
-					JsonObject jsonObject = JSONUtils.fromJson(GSON_INSTANCE, reader, JsonObject.class);
+        try {
+            for (IResource iResource : resourceManagerIn.getAllResources(resourceLocation)) {
+                try (Reader reader = new BufferedReader(new InputStreamReader(iResource.getInputStream(), StandardCharsets.UTF_8))) {
+                    JsonObject jsonObject = JSONUtils.fromJson(GSON_INSTANCE, reader, JsonObject.class);
 
-					if (jsonObject != null) {
+                    if (jsonObject != null) {
 
-						for (JsonElement entry : jsonObject.getAsJsonArray("entries")) {
+                        for (JsonElement entry : jsonObject.getAsJsonArray("entries")) {
 
 							VOLINE_EAT_TABLE.put(ForgeRegistries.ITEMS.getValue(new ResourceLocation(entry.getAsJsonObject().get("accepted_item").getAsString())),
 									new HashMap<Item, Integer>() {{
