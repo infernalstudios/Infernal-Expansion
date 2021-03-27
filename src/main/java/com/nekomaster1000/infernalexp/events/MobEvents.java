@@ -196,13 +196,13 @@ public class MobEvents {
 			if (MobSpawning.SHROOMLOIN_CRIMSON.isEnabled()) {
 				event.getSpawns().withSpawner(EntityClassification.MONSTER,
 						new MobSpawnInfo.Spawners(IEEntityTypes.SHROOMLOIN.get(),
-								MobSpawning.SHROOMLOIN_CRIMSON.getSpawnrate(), 1, 3));
+								MobSpawning.SHROOMLOIN_CRIMSON.getSpawnrate(), 2, 5));
 			}
 
 			if (MobSpawning.VOLINE_CRIMSON.isEnabled()) {
 				event.getSpawns().withSpawner(EntityClassification.MONSTER,
 						new MobSpawnInfo.Spawners(IEEntityTypes.VOLINE.get(),
-								MobSpawning.VOLINE_CRIMSON.getSpawnrate(), 1, 5));
+								MobSpawning.VOLINE_CRIMSON.getSpawnrate(), 1, 4));
 			}
 
 			if (MobSpawning.GLOWSILK_CRIMSON.isEnabled()) {
@@ -224,11 +224,11 @@ public class MobEvents {
                 event.getSpawns().getSpawner(EntityClassification.CREATURE).removeIf(spawner -> spawner.type == EntityType.STRIDER);
                 event.getSpawns().withSpawner(EntityClassification.CREATURE,
                     new MobSpawnInfo.Spawners(EntityType.STRIDER,
-                        20, 1, 2));
+                        15, 1, 2));
 
                 event.getSpawns().withSpawner(EntityClassification.CREATURE,
                     new MobSpawnInfo.Spawners(IEEntityTypes.WARPBEETLE.get(),
-                        MobSpawning.WARPBEETLE_WARPED.getSpawnrate(), 1, 1));
+                        MobSpawning.WARPBEETLE_WARPED.getSpawnrate(), 5, 1));
             }
 
 		} else if (event.getName().toString().equals("minecraft:basalt_deltas")) {
