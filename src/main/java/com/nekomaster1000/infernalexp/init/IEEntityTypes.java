@@ -28,9 +28,9 @@ public class IEEntityTypes {
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "shroomloin").toString()));
 
     public static final RegistryObject<EntityType<WarpbeetleEntity>> WARPBEETLE = ENTITY_TYPES.register("warpbeetle",
-            () -> EntityType.Builder.create(WarpbeetleEntity::new, EntityClassification.MONSTER)
+        () -> EntityType.Builder.create(WarpbeetleEntity::new, EntityClassification.CREATURE)
             .size(0.5f, 0.5f) // Hitbox Size
-                    .build(new ResourceLocation(InfernalExpansion.MOD_ID, "warpbeetle").toString()));
+            .build(new ResourceLocation(InfernalExpansion.MOD_ID, "warpbeetle").toString()));
 
     public static final RegistryObject<EntityType<CerobeetleEntity>> CEROBEETLE = ENTITY_TYPES.register("cerobeetle",
             () -> EntityType.Builder.create(CerobeetleEntity::new, EntityClassification.MONSTER)

@@ -13,6 +13,7 @@ import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IEEntityTypes;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FlyingEntity;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
@@ -216,10 +217,19 @@ public class MobEvents {
 			//            new MobSpawnInfo.Spawners(ModEntityType.CEROBEETLE.get(), 1, 1, 1));
 
 			if (MobSpawning.WARPBEETLE_WARPED.isEnabled()) {
-				event.getSpawns().withSpawner(EntityClassification.MONSTER,
-						new MobSpawnInfo.Spawners(IEEntityTypes.WARPBEETLE.get(),
-								MobSpawning.WARPBEETLE_WARPED.getSpawnrate(), 1, 1));
-			}
+                // I think this creatureSpawnProbability is a ratio between how many creatures will spawn compared to other types, or maybe just monsters?
+                event.getSpawns().withCreatureSpawnProbability(0.4F);
+
+                // Remove the strider spawner then add it back with a weight of 20 instead of 60
+                event.getSpawns().getSpawner(EntityClassification.CREATURE).removeIf(spawner -> spawner.type == EntityType.STRIDER);
+                event.getSpawns().withSpawner(EntityClassification.CREATURE,
+                    new MobSpawnInfo.Spawners(EntityType.STRIDER,
+                        20, 1, 2));
+
+                event.getSpawns().withSpawner(EntityClassification.CREATURE,
+                    new MobSpawnInfo.Spawners(IEEntityTypes.WARPBEETLE.get(),
+                        MobSpawning.WARPBEETLE_WARPED.getSpawnrate(), 1, 1));
+            }
 
 		} else if (event.getName().toString().equals("minecraft:basalt_deltas")) {
 			if (MobSpawning.GIANT_DELTAS.isEnabled()) {

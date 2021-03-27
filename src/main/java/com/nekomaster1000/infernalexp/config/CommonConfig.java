@@ -217,9 +217,9 @@ public class CommonConfig {
                 .defineInRange("volineCrimsonRate", 1, 0, Integer.MAX_VALUE);
 
         warpbeetleWarpedRate = builder
-                .comment("Determines the rate at which Warpbeetles spawn in the Warped Forests")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.warpbeetleWarped.spawnrate")
-                .defineInRange("warpbeetleWarpedRate", 5, 0, Integer.MAX_VALUE);
+            .comment("Determines the rate at which Warpbeetles spawn in the Warped Forests")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.warpbeetleWarped.spawnrate")
+            .defineInRange("warpbeetleWarpedRate", 100, 0, Integer.MAX_VALUE);
 
         giantDeltasRate = builder
                 .comment("Determines the rate at which Basalt Giants spawn in the Basalt Deltas")
