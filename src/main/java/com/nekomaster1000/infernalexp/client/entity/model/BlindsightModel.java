@@ -19,17 +19,17 @@ public class BlindsightModel<T extends BlindsightEntity> extends EntityModel<T> 
 	private final ModelRenderer BackLeftLeg;
 	private final ModelRenderer BackRightLeg;
 
-	public BlindsightModel() {
-		textureWidth = 64;
-		textureHeight = 64;
+    public BlindsightModel() {
+        textureWidth = 64;
+        textureHeight = 64;
 
-		all = new ModelRenderer(this);
-		all.setRotationPoint(0.0F, 24.0F, -3.0F);
-		
+        all = new ModelRenderer(this);
+        all.setRotationPoint(0.0F, 24.0F, -3.0F);
 
-		Body = new ModelRenderer(this);
-		Body.setRotationPoint(0.0F, -4.0F, 7.0F);
-		all.addChild(Body);
+
+        Body = new ModelRenderer(this);
+        Body.setRotationPoint(0.0F, -4.0F, 7.0F);
+        all.addChild(Body);
 		
 
 		Head = new ModelRenderer(this);
@@ -72,7 +72,12 @@ public class BlindsightModel<T extends BlindsightEntity> extends EntityModel<T> 
 
 	@Override
 	public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-	}
+        float partialTick = ageInTicks - (float) entityIn.ticksExisted;
+
+        float jumpRotation = MathHelper.sin(entityIn.getJumpCompletion(partialTick) * (float) Math.PI);
+        this.BackLeftLeg.rotateAngleX = jumpRotation * 50.0F * ((float) Math.PI / 180F);
+        this.BackRightLeg.rotateAngleX = jumpRotation * 50.0F * ((float) Math.PI / 180F);
+    }
 
 	@Override
 	public void setLivingAnimations(T entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
