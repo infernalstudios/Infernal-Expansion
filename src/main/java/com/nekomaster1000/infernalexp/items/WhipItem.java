@@ -46,7 +46,7 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 			ticksSinceAttack++;
 		}
 
-		if (ticksSinceAttack >= 30) {
+		if (ticksSinceAttack >= 60) {
 			ticksSinceAttack = 0;
 			attacking = false;
 		}
