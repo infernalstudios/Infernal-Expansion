@@ -17,18 +17,7 @@ import com.nekomaster1000.infernalexp.blocks.ShroomlightFungusBlock;
 import com.nekomaster1000.infernalexp.blocks.SmoothGlowstonePressurePlateBlock;
 import com.nekomaster1000.infernalexp.blocks.TrappedGlowSandBlock;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FlowerPotBlock;
-import net.minecraft.block.LanternBlock;
-import net.minecraft.block.PressurePlateBlock;
-import net.minecraft.block.SlabBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.StairsBlock;
-import net.minecraft.block.StoneButtonBlock;
-import net.minecraft.block.WallBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraftforge.common.ToolType;
@@ -130,54 +119,52 @@ public class IEBlocks {
 	public static final RegistryObject<Block> RUBBLE = BLOCKS.register("rubble", () -> new Block(getProperties(Blocks.GRAVEL)));
 	public static final RegistryObject<Block> SILT = BLOCKS.register("silt", () -> new Block(getProperties(Blocks.SAND)));
 
-//	public static final RegistryObject<Block> BASALT_COBBLED = BLOCKS.register("basalt_cobbled", () -> new Block(getProperties(Blocks.BASALT)));
-//	public static final RegistryObject<Block> BASALT_COBBLED_SLAB = BLOCKS.register("basalt_cobbled_slab", () -> new Block(getProperties(Blocks.BASALT)));
+	public static final RegistryObject<Block> BASALT_COBBLED = BLOCKS.register("basalt_cobbled", () -> new RotatedPillarBlock(getProperties(Blocks.GRAVEL).sound(SoundType.BASALT)));
+	public static final RegistryObject<Block> BASALT_COBBLED_SLAB = BLOCKS.register("basalt_cobbled_slab", () -> new SlabBlock(getProperties(Blocks.GRAVEL).sound(SoundType.BASALT)));
 
 	public static final RegistryObject<Block> BASALT_SLAB = BLOCKS.register("basalt_slab",	() -> new SlabBlock(getProperties(Blocks.BASALT)));
- 	public static final RegistryObject<Block> BASALT_STAIRS = BLOCKS.register("basalt_stairs",	() -> new StairsBlock(() -> (Blocks.BASALT).getDefaultState(), getProperties(Blocks.BASALT)));
-//	public static final RegistryObject<Block> BASALT_WALL = BLOCKS.register("basalt_wall",		() -> new WallBlock(getProperties(Blocks.BASALT)));
-//	public static final RegistryObject<Block> BASALT_BUTTON = BLOCKS.register("basalt_button",	() -> new StoneButtonBlock(getProperties(Blocks.BASALT)));
-//
-//	public static final RegistryObject<Block> POLISHED_BASALT_PRESSURE_PLATE = BLOCKS.register ("polished_basalt_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, getProperties(Blocks.POLISHED_BASALT)));
-// 	public static final RegistryObject<Block> POLISHED_BASALT_SLAB = BLOCKS.register("polished_basalt_slab",	() -> new SlabBlock(getProperties(Blocks.POLISHED_BASALT)));
-//	public static final RegistryObject<Block> POLISHED_BASALT_TILES = BLOCKS.register("polished_basalt_tiles", () -> new Block(getProperties(Blocks.POLISHED_BASALT)));
-//	public static final RegistryObject<Block> POLISHED_BASALT_TILES_SLAB = BLOCKS.register("polished_basalt_tiles_slab", () -> new SlabBlock(getProperties(Blocks.POLISHED_BASALT)));
+	public static final RegistryObject<Block> BASALT_STAIRS = BLOCKS.register("basalt_stairs",	() -> new StairsBlock(() -> (Blocks.BASALT).getDefaultState(), getProperties(Blocks.BASALT)));
+	public static final RegistryObject<Block> BASALT_WALL = BLOCKS.register("basalt_wall",		() -> new WallBlock(getProperties(Blocks.BASALT)));
+	public static final RegistryObject<Block> BASALT_BUTTON = BLOCKS.register("basalt_button",	() -> new StoneButtonBlock(getProperties(Blocks.BASALT)));
 
-//  public static final RegistryObject<Block> BASALT_BRICKS = BLOCKS.register("basalt_bricks",    			() -> new Block(getProperties(Blocks.BASALT)));
-// 	public static final RegistryObject<Block> BASALT_BRICK_SLAB = BLOCKS.register("basalt_bricks_slab", 	() -> new SlabBlock(getProperties(BASALT_BRICKS.get())));
-//  public static final RegistryObject<Block> BASALT_BRICK_STAIRS = BLOCKS.register("basalt_bricks_stairs",	() -> new StairsBlock(() -> BASALT_BRICKS.get().getDefaultState(), getProperties(BASALT_BRICKS.get())));
-//	public static final RegistryObject<Block> BASALT_BRICK_WALL = BLOCKS.register("basalt_bricks_wall",		() -> new WallBlock(getProperties(BASALT_BRICKS.get())));
-//  public static final RegistryObject<Block> CRACKED_BASALT_BRICKS = BLOCKS.register("cracked_basalt_bricks",      () -> new Block(getProperties(Blocks.BASALT)));
-//  public static final RegistryObject<Block> CHISELED_BASALT_BRICK = BLOCKS.register("chiseled_basalt_bricks",		() -> new Block(getProperties(Blocks.BASALT)));
+	public static final RegistryObject<Block> POLISHED_BASALT_PRESSURE_PLATE = BLOCKS.register ("polished_basalt_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, getProperties(Blocks.POLISHED_BASALT)));
+ 	public static final RegistryObject<Block> POLISHED_BASALT_SLAB = BLOCKS.register("polished_basalt_slab",	() -> new SlabBlock(getProperties(Blocks.POLISHED_BASALT)));
+	public static final RegistryObject<Block> POLISHED_BASALT_TILES = BLOCKS.register("polished_basalt_tiles", () -> new Block(getProperties(Blocks.POLISHED_BASALT)));
+	public static final RegistryObject<Block> POLISHED_BASALT_TILES_SLAB = BLOCKS.register("polished_basalt_tiles_slab", () -> new SlabBlock(getProperties(Blocks.POLISHED_BASALT)));
+
+    public static final RegistryObject<Block> BASALT_BRICKS = BLOCKS.register("basalt_bricks",    		() -> new RotatedPillarBlock(getProperties(Blocks.BASALT)));
+    public static final RegistryObject<Block> BASALT_BRICK_SLAB = BLOCKS.register("basalt_brick_slab", 	() -> new SlabBlock(getProperties(BASALT_BRICKS.get())));
+    public static final RegistryObject<Block> BASALT_BRICK_STAIRS = BLOCKS.register("basalt_brick_stairs",	() -> new StairsBlock(() -> BASALT_BRICKS.get().getDefaultState(), getProperties(BASALT_BRICKS.get())));
+	public static final RegistryObject<Block> BASALT_BRICK_WALL = BLOCKS.register("basalt_brick_wall",		() -> new WallBlock(getProperties(BASALT_BRICKS.get())));
+    public static final RegistryObject<Block> CRACKED_BASALT_BRICKS = BLOCKS.register("cracked_basalt_bricks",      () -> new RotatedPillarBlock(getProperties(Blocks.BASALT)));
+    public static final RegistryObject<Block> CHISELED_BASALT_BRICKS = BLOCKS.register("chiseled_basalt_bricks",		() -> new Block(getProperties(Blocks.BASALT)));
 
     public static final RegistryObject<Block> BASALT_IRON_ORE = BLOCKS.register("basalt_iron_ore", () -> new Block(AbstractBlock.Properties.from(Blocks.NETHER_GOLD_ORE)));
 
-//  public static final RegistryObject<Block> BASALTIC_MAGMA = BLOCKS.register("basaltic_magma",			() -> new Block(getProperties(Blocks.MAGMA_BLOCK)));
+    public static final RegistryObject<Block> BASALTIC_MAGMA = BLOCKS.register("basaltic_magma",		() -> new Block(getProperties(Blocks.MAGMA_BLOCK)));
 
+    public static final RegistryObject<Block> SOUL_SAND_SLAB = BLOCKS.register("soul_sand_slab",		() -> new SlabBlock(getProperties(Blocks.SOUL_SAND)));
+	public static final RegistryObject<Block> SOUL_SAND_STAIRS = BLOCKS.register("soul_sand_stairs",	() -> new StairsBlock(() -> Blocks.SOUL_SAND.getDefaultState(), getProperties((Blocks.SOUL_SAND))));
 
-//  public static final RegistryObject<Block> SOUL_SAND_SLAB = BLOCKS.register("soul_sand_slab",		() -> new SlabBlock(getProperties(Blocks.SOUL_SAND)));
-//	public static final RegistryObject<Block> SOUL_SAND_STAIRS = BLOCKS.register("soul_sand_stairs",	() -> new StairsBlock(() -> Blocks.SOUL_SAND.getDefaultState(), getProperties((Blocks.SOUL_SAND))));
-//
-//	public static final RegistryObject<Block> SOUL_SOIL_SLAB = BLOCKS.register("soul_soil_slab", 		() -> new SlabBlock(getProperties(Blocks.SOUL_SOIL)));
-//	public static final RegistryObject<Block> SOUL_SOIL_STAIRS = BLOCKS.register("soul_soil_stairs",	() -> new StairsBlock(() -> Blocks.SOUL_SOIL.getDefaultState(), getProperties(Blocks.SOUL_SOIL)));
-//
-//	public static final RegistryObject<Block> SOUL_STONE = BLOCKS.register("soul_stone",    			() -> new Block(getProperties(Blocks.SOUL_SOIL)));
-//	public static final RegistryObject<Block> SOUL_STONE_SLAB = ITEMS.register("soul_stone_slab",       () -> new Block(getProperties(Blocks.SOUL_SOIL)));
-//	public static final RegistryObject<Block> SOUL_STONE_STAIRS = ITEMS.register("soul_stone_stairs",   () -> new Block(getProperties(Blocks.SOUL_SOIL)));
-//	public static final RegistryObject<Block> SOUL_STONE_WALL = ITEMS.register("soul_stone_wall",       () -> new Block(getProperties(Blocks.SOUL_SOIL)));
+	public static final RegistryObject<Block> SOUL_SOIL_SLAB = BLOCKS.register("soul_soil_slab", 		() -> new SlabBlock(getProperties(Blocks.SOUL_SOIL)));
+	public static final RegistryObject<Block> SOUL_SOIL_STAIRS = BLOCKS.register("soul_soil_stairs",	() -> new StairsBlock(() -> Blocks.SOUL_SOIL.getDefaultState(), getProperties(Blocks.SOUL_SOIL)));
 
-//	public static final RegistryObject<Block> SOUL_SLATE = BLOCKS.register("soul_bricks",    			() -> new Block(getProperties(Blocks.SOUL_SOIL)));
-//	public static final RegistryObject<Block> SOUL_SLATE_SLAB = BLOCKS.register("soul_bricks_slab", 	() -> new SlabBlock(getProperties(SOUL_SLATE.get())));
-//	public static final RegistryObject<Block> SOUL_SLATE_STAIRS = BLOCKS.register("soul_bricks_stairs",	() -> new StairsBlock(() -> SOUL_SLATE.get().getDefaultState(), getProperties(SOUL_SLATE.get())));
-//	public static final RegistryObject<Block> SOUL_SLATE_BUTTON = BLOCKS.register("soul_slate_button",			() -> new StoneButtonBlock(getProperties(SOUL_SLATE.get())));
-//	public static final RegistryObject<Block> SOUL_SLATE_PRESSURE_PLATE = BLOCKS.register ("soul_slate_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, (getProperties(SOUL_SLATE.get()))));
-//
-//	public static final RegistryObject<Block> SOUL_SLATE_BRICKS = BLOCKS.register("soul_bricks",    			() -> new Block(getProperties(SOUL_SLATE.get())));
-//	public static final RegistryObject<Block> SOUL_SLATE_BRICK_SLAB = BLOCKS.register("soul_bricks_slab", 	() -> new SlabBlock(getProperties(SOUL_SLATE_BRICKS.get())));
-//	public static final RegistryObject<Block> SOUL_SLATE_BRICK_STAIRS = BLOCKS.register("soul_bricks_stairs",	() -> new StairsBlock(() -> SOUL_SLATE_BRICKS.get().getDefaultState(), getProperties(SOUL_SLATE_BRICKS.get())));
-//	public static final RegistryObject<Block> SOUL_SLATE_BRICK_WALL = BLOCKS.register("soul_bricks_wall",		() -> new WallBlock(getProperties(SOUL_SLATE_BRICKS.get())));
-//	public static final RegistryObject<Block> CRACKED_SOUL_SLATE_BRICKS = BLOCKS.register("cracked_soul_bricks",      () -> new Block(getProperties(SOUL_SLATE.get())));
-//	public static final RegistryObject<Block> CHISELED_SOUL_SLATE_BRICK = BLOCKS.register("chiseled_soul_bricks",		() -> new Block(getProperties(SOUL_SLATE.get())));
+	public static final RegistryObject<Block> SOUL_STONE = BLOCKS.register("soul_stone",    			() -> new Block(getProperties(Blocks.COBBLESTONE).sound(SoundType.SOUL_SOIL)));
+	public static final RegistryObject<Block> SOUL_STONE_SLAB = BLOCKS.register("soul_stone_slab",    () -> new SlabBlock(getProperties(Blocks.COBBLESTONE).sound(SoundType.SOUL_SOIL)));
+    public static final RegistryObject<Block> SOUL_STONE_STAIRS = BLOCKS.register("soul_stone_stairs",() -> new StairsBlock(() -> Blocks.COBBLESTONE.getDefaultState(), getProperties(Blocks.SOUL_SOIL)));
+
+	public static final RegistryObject<Block> SOUL_SLATE = BLOCKS.register("soul_slate",    			() -> new Block(getProperties(Blocks.STONE_BRICKS).sound(SoundType.SOUL_SOIL)));
+	public static final RegistryObject<Block> SOUL_SLATE_SLAB = BLOCKS.register("soul_slate_slab", 	() -> new SlabBlock(getProperties(SOUL_SLATE.get())));
+	public static final RegistryObject<Block> SOUL_SLATE_STAIRS = BLOCKS.register("soul_slate_stairs",	() -> new StairsBlock(() -> SOUL_SLATE.get().getDefaultState(), getProperties(SOUL_SLATE.get())));
+	public static final RegistryObject<Block> SOUL_SLATE_BUTTON = BLOCKS.register("soul_slate_button",			() -> new StoneButtonBlock(getProperties(SOUL_SLATE.get())));
+	public static final RegistryObject<Block> SOUL_SLATE_PRESSURE_PLATE = BLOCKS.register ("soul_slate_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, (getProperties(SOUL_SLATE.get()))));
+
+	public static final RegistryObject<Block> SOUL_SLATE_BRICKS = BLOCKS.register("soul_slate_bricks",    		() -> new Block(getProperties(SOUL_SLATE.get())));
+	public static final RegistryObject<Block> SOUL_SLATE_BRICK_SLAB = BLOCKS.register("soul_slate_brick_slab", 	() -> new SlabBlock(getProperties(SOUL_SLATE_BRICKS.get())));
+	public static final RegistryObject<Block> SOUL_SLATE_BRICK_STAIRS = BLOCKS.register("soul_slate_brick_stairs",	() -> new StairsBlock(() -> SOUL_SLATE_BRICKS.get().getDefaultState(), getProperties(SOUL_SLATE_BRICKS.get())));
+	public static final RegistryObject<Block> SOUL_SLATE_BRICK_WALL = BLOCKS.register("soul_slate_brick_wall",		() -> new WallBlock(getProperties(SOUL_SLATE_BRICKS.get())));
+	public static final RegistryObject<Block> CRACKED_SOUL_SLATE_BRICKS = BLOCKS.register("cracked_soul_slate_bricks",      () -> new Block(getProperties(SOUL_SLATE.get())));
+	public static final RegistryObject<Block> CHISELED_SOUL_SLATE_BRICKS = BLOCKS.register("chiseled_soul_slate_bricks",		() -> new Block(getProperties(SOUL_SLATE.get())));
 
 	public static final RegistryObject<Block> CRIMSON_FUNGUS_CAP = BLOCKS.register("crimson_fungus_cap", () -> new FungusCapBlock(AbstractBlock.Properties.from(Blocks.NETHER_WART_BLOCK)));
 	public static final RegistryObject<Block> WARPED_FUNGUS_CAP = BLOCKS.register("warped_fungus_cap", () -> new FungusCapBlock(AbstractBlock.Properties.from(Blocks.WARPED_WART_BLOCK)));

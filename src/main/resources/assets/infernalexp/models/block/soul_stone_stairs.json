@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/slab_top",
+  "parent": "block/stairs",
   "textures": {
     "bottom": "infernalexp:block/soul_stone",
     "top": "infernalexp:block/soul_stone",
