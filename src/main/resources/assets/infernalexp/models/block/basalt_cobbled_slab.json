@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "infernalexp:block/basalt_cobbled_slab",
+    "top": "infernalexp:block/basalt_cobbled_slab",
+    "side": "infernalexp:block/basalt_cobbled_slab"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "infernalexp:block/soul_slate",
+    "top": "infernalexp:block/soul_slate",
+    "side": "infernalexp:block/soul_slate"
+  }
+}
