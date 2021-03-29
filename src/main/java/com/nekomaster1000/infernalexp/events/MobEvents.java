@@ -218,7 +218,7 @@ public class MobEvents {
 
 			if (MobSpawning.WARPBEETLE_WARPED.isEnabled()) {
                 // I think this creatureSpawnProbability is a ratio between how many creatures will spawn compared to other types, or maybe just monsters?
-                event.getSpawns().withCreatureSpawnProbability(0.4F);
+                event.getSpawns().withCreatureSpawnProbability(0.9F);
 
                 // Remove the strider spawner then add it back with a weight of 20 instead of 60
                 event.getSpawns().getSpawner(EntityClassification.CREATURE).removeIf(spawner -> spawner.type == EntityType.STRIDER);
