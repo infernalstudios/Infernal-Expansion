@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "infernalexp:block/soul_slate_bricks_slab"
+    },
+    "type=double": {
+      "model": "infernalexp:block/soul_slate_bricks"
+    },
+    "type=top": {
+      "model": "infernalexp:block/soul_slate__bricks_slab_top"
+    }
+  }
+}
