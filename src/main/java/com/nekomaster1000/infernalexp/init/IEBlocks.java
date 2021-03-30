@@ -129,7 +129,7 @@ public class IEBlocks {
 
 	public static final RegistryObject<Block> POLISHED_BASALT_PRESSURE_PLATE = BLOCKS.register ("polished_basalt_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, getProperties(Blocks.POLISHED_BASALT)));
  	public static final RegistryObject<Block> POLISHED_BASALT_SLAB = BLOCKS.register("polished_basalt_slab",	() -> new SlabBlock(getProperties(Blocks.POLISHED_BASALT)));
-	public static final RegistryObject<Block> POLISHED_BASALT_TILES = BLOCKS.register("polished_basalt_tiles", () -> new Block(getProperties(Blocks.POLISHED_BASALT)));
+	public static final RegistryObject<Block> POLISHED_BASALT_TILES = BLOCKS.register("polished_basalt_tiles", () -> new RotatedPillarBlock(getProperties(Blocks.POLISHED_BASALT)));
 	public static final RegistryObject<Block> POLISHED_BASALT_TILES_SLAB = BLOCKS.register("polished_basalt_tiles_slab", () -> new SlabBlock(getProperties(Blocks.POLISHED_BASALT)));
 
     public static final RegistryObject<Block> BASALT_BRICKS = BLOCKS.register("basalt_bricks",    		() -> new RotatedPillarBlock(getProperties(Blocks.BASALT)));
@@ -164,7 +164,8 @@ public class IEBlocks {
 	public static final RegistryObject<Block> SOUL_SLATE_BRICK_STAIRS = BLOCKS.register("soul_slate_brick_stairs",	() -> new StairsBlock(() -> SOUL_SLATE_BRICKS.get().getDefaultState(), getProperties(SOUL_SLATE_BRICKS.get())));
 	public static final RegistryObject<Block> SOUL_SLATE_BRICK_WALL = BLOCKS.register("soul_slate_brick_wall",		() -> new WallBlock(getProperties(SOUL_SLATE_BRICKS.get())));
 	public static final RegistryObject<Block> CRACKED_SOUL_SLATE_BRICKS = BLOCKS.register("cracked_soul_slate_bricks",    () -> new Block(getProperties(SOUL_SLATE.get())));
-	public static final RegistryObject<Block> CHISELED_SOUL_SLATE_BRICKS = BLOCKS.register("chiseled_soul_slate_bricks",	() -> new Block(getProperties(SOUL_SLATE.get())));
+	public static final RegistryObject<Block> CHISELED_SOUL_SLATE_BRICKS = BLOCKS.register("chiseled_soul_slate_bricks",	() -> new RotatedPillarBlock(getProperties(SOUL_SLATE.get())));
+    public static final RegistryObject<Block> CHARGED_CHISELED_SOUL_SLATE_BRICKS = BLOCKS.register("charged_chiseled_soul_slate_bricks",	() -> new RotatedPillarBlock(getProperties(SOUL_SLATE.get())));
 
 	public static final RegistryObject<Block> CRIMSON_FUNGUS_CAP = BLOCKS.register("crimson_fungus_cap", () -> new FungusCapBlock(AbstractBlock.Properties.from(Blocks.NETHER_WART_BLOCK)));
 	public static final RegistryObject<Block> WARPED_FUNGUS_CAP = BLOCKS.register("warped_fungus_cap", () -> new FungusCapBlock(AbstractBlock.Properties.from(Blocks.WARPED_WART_BLOCK)));
