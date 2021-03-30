@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "xxx",
+    "xox",
+    "xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:iron_nugget"
+    },
+    "o":
+    {
+      "item": "minecraft:magma_block"
+    }
+  },
+  "result":
+  {
+    "item": "infernalexp:basaltic_magma",
+    "count": 1
+  }
+}
