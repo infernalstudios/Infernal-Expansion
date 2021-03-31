@@ -10,7 +10,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "weight": 10,
+          "weight": 3,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -25,7 +25,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
+          "weight": 6,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -40,7 +40,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
+          "weight": 6,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -85,7 +85,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
+          "weight": 4,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -115,12 +115,12 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
+          "weight": 6,
           "name": "minecraft:bowl"
         },
         {
           "type": "minecraft:item",
-          "weight": 4,
+          "weight": 1,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -135,7 +135,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 4,
+          "weight": 3,
           "name": "infernalexp:blindsight_tongue_stew"
         },
         {

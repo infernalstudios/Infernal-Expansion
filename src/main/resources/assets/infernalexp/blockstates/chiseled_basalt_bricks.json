@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "infernalexp:block/chiseled_basalt_bricks",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "infernalexp:block/chiseled_basalt_bricks"
+    },
+    "axis=z": {
+      "model": "infernalexp:block/chiseled_basalt_bricks",
+      "x": 90
+    }
+  }
+}

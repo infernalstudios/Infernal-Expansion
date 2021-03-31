@@ -1,0 +1,8 @@
+{
+  "parent": "block/stairs",
+  "textures": {
+    "bottom": "infernalexp:block/soul_slate_bricks",
+    "top": "infernalexp:block/soul_slate_bricks",
+    "side": "infernalexp:block/soul_slate_bricks"
+  }
+}

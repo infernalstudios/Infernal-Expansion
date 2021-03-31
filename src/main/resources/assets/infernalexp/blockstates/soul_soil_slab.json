@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "infernalexp:block/soul_soil_slab"
+    },
+    "type=double": {
+      "model": "minecraft:block/soul_soil"
+    },
+    "type=top": {
+      "model": "infernalexp:block/soul_soil_slab_top"
+    }
+  }
+}

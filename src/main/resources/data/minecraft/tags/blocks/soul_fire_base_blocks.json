@@ -1,0 +1,35 @@
+{
+  "replace": false,
+  "values": [
+    "infernalexp:soul_sand_slab",
+    "infernalexp:soul_sand_stairs",
+
+    "infernalexp:soul_soil_slab",
+    "infernalexp:soul_soil_stairs",
+
+    "infernalexp:soul_stone",
+    "infernalexp:soul_stone_slab",
+    "infernalexp:soul_stone_stairs",
+
+    "infernalexp:soul_slate",
+    "infernalexp:soul_slate_slab",
+    "infernalexp:soul_slate_stairs",
+    "infernalexp:soul_slate_pressure_plate",
+
+    "infernalexp:soul_slate_bricks",
+    "infernalexp:soul_slate_brick_slab",
+    "infernalexp:soul_slate_brick_stairs",
+
+    "infernalexp:cracked_soul_slate_bricks",
+    "infernalexp:chiseled_soul_slate_bricks",
+    "infernalexp:charged_chiseled_soul_slate_bricks",
+	
+	  "infernalexp:soul_stone_bricks",
+    "infernalexp:soul_stone_brick_slab",
+    "infernalexp:soul_stone_brick_stairs",
+
+    "infernalexp:cracked_soul_stone_bricks",
+    "infernalexp:chiseled_soul_stone_bricks",
+    "infernalexp:charged_chiseled_soul_stone_bricks"
+  ]
+}

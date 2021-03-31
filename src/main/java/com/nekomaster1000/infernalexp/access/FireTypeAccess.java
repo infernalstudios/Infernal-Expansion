@@ -1,20 +1,21 @@
 package com.nekomaster1000.infernalexp.access;
 
-import com.nekomaster1000.infernalexp.InfernalExpansion;
-import net.minecraft.client.renderer.model.ModelBakery;
-import net.minecraft.client.renderer.model.RenderMaterial;
-import net.minecraft.client.renderer.texture.AtlasTexture;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-
-import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@OnlyIn(Dist.CLIENT)
+import javax.annotation.Nullable;
+
+import com.google.common.base.Supplier;
+import com.nekomaster1000.infernalexp.InfernalExpansion;
+import com.nekomaster1000.infernalexp.client.ClientFireType;
+
+import net.minecraft.client.renderer.model.ModelBakery;
+import net.minecraft.client.renderer.model.RenderMaterial;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.util.ResourceLocation;
+
 public interface FireTypeAccess {
 	KnownFireTypes getFireType();
 
@@ -29,22 +30,20 @@ public interface FireTypeAccess {
 	RenderMaterial LOCATION_ENDER_FIRE_0 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("endergetic", "block/ender_fire_0"));
 	RenderMaterial LOCATION_ENDER_FIRE_1 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("endergetic", "block/ender_fire_1"));
 
-	enum KnownFireTypes {
-		FIRE("fire", ModelBakery.LOCATION_FIRE_0, ModelBakery.LOCATION_FIRE_1),
-		SOUL_FIRE("soul_fire", LOCATION_SOUL_FIRE_0, LOCATION_SOUL_FIRE_1),
-		GLOW_FIRE("glow_fire", LOCATION_GLOW_FIRE_0, LOCATION_GLOW_FIRE_1),
-		ENDER_FIRE("ender_fire", LOCATION_ENDER_FIRE_0, LOCATION_ENDER_FIRE_1);
+	public static enum KnownFireTypes {
+		FIRE("fire", () -> new ClientFireType(ModelBakery.LOCATION_FIRE_0, ModelBakery.LOCATION_FIRE_1)),
+		SOUL_FIRE("soul_fire", () -> new ClientFireType(LOCATION_SOUL_FIRE_0, LOCATION_SOUL_FIRE_1)),
+		GLOW_FIRE("glow_fire", () -> new ClientFireType(LOCATION_GLOW_FIRE_0, LOCATION_GLOW_FIRE_1)),
+		ENDER_FIRE("ender_fire", () -> new ClientFireType(LOCATION_ENDER_FIRE_0, LOCATION_ENDER_FIRE_1));
 
 		public static final KnownFireTypes[] VALUES = values();
 		public static final Map<String, KnownFireTypes> NAME_LOOKUP = Arrays.stream(VALUES).collect(Collectors.toMap(KnownFireTypes::getName, (fireType) -> fireType));
 		private final String name;
-		private final RenderMaterial associatedSprite0;
-		private final RenderMaterial associatedSprite1;
+		private final Supplier<ClientFireType> supplier;
 
-		KnownFireTypes(String name, RenderMaterial associatedSprite0, RenderMaterial associatedSprite1) {
+		KnownFireTypes(String name, Supplier<ClientFireType> supplier) {
 			this.name = name;
-			this.associatedSprite0 = associatedSprite0;
-			this.associatedSprite1 = associatedSprite1;
+			this.supplier =supplier;
 		}
 
 		@Override
@@ -56,12 +55,8 @@ public interface FireTypeAccess {
 			return name;
 		}
 
-		public RenderMaterial getAssociatedSprite0() {
-			return associatedSprite0;
-		}
-
-		public RenderMaterial getAssociatedSprite1() {
-			return associatedSprite1;
+		public Supplier<ClientFireType> getSupplier() {
+			return supplier;
 		}
 
 		@Nullable

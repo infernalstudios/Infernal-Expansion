@@ -221,20 +221,20 @@ public class MiscEvents {
         }
     }
 
-    private static VolineEatTable INSTANCE;
+    private static VolineEatTable volineEatTable;
 
     @SubscribeEvent
     public void onResourceReload(AddReloadListenerEvent event) {
-        INSTANCE = new VolineEatTable();
-        event.addListener(INSTANCE);
+        volineEatTable = new VolineEatTable();
+        event.addListener(volineEatTable);
     }
 
     public static Map<Item, Map<Item, Integer>> getVolineEatTable() {
-        if (INSTANCE == null) {
+        if (volineEatTable == null) {
             throw new IllegalStateException("Can not retrieve VolineEatTable until resources have loaded once.");
         }
 
-        return INSTANCE.getVolineEatTable();
+        return volineEatTable.getVolineEatTable();
     }
 
 }

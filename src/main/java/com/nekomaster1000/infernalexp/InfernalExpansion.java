@@ -17,6 +17,7 @@ import com.nekomaster1000.infernalexp.init.IEPaintings;
 import com.nekomaster1000.infernalexp.init.IEParticleTypes;
 import com.nekomaster1000.infernalexp.init.IEPotions;
 import com.nekomaster1000.infernalexp.init.IEProcessors;
+import com.nekomaster1000.infernalexp.init.IESoundEvents;
 import com.nekomaster1000.infernalexp.init.IEStructures;
 import com.nekomaster1000.infernalexp.init.IETileEntityTypes;
 import com.nekomaster1000.infernalexp.network.IENetworkHandler;
@@ -64,6 +65,7 @@ public class InfernalExpansion
 
         //Registering deferred registers to the mod bus
         IEParticleTypes.PARTICLES.register(modEventBus);
+        IESoundEvents.register(modEventBus);
         IEBlocks.register(modEventBus);
         IEItems.register(modEventBus);
         IEEffects.register(modEventBus);

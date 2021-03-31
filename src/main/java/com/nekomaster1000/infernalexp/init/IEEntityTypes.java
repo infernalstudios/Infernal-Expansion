@@ -28,9 +28,9 @@ public class IEEntityTypes {
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "shroomloin").toString()));
 
     public static final RegistryObject<EntityType<WarpbeetleEntity>> WARPBEETLE = ENTITY_TYPES.register("warpbeetle",
-            () -> EntityType.Builder.create(WarpbeetleEntity::new, EntityClassification.MONSTER)
+        () -> EntityType.Builder.create(WarpbeetleEntity::new, EntityClassification.CREATURE)
             .size(0.5f, 0.5f) // Hitbox Size
-                    .build(new ResourceLocation(InfernalExpansion.MOD_ID, "warpbeetle").toString()));
+            .build(new ResourceLocation(InfernalExpansion.MOD_ID, "warpbeetle").toString()));
 
     public static final RegistryObject<EntityType<CerobeetleEntity>> CEROBEETLE = ENTITY_TYPES.register("cerobeetle",
             () -> EntityType.Builder.create(CerobeetleEntity::new, EntityClassification.MONSTER)
@@ -49,7 +49,7 @@ public class IEEntityTypes {
 
     public static final RegistryObject<EntityType<BlackstoneDwarfEntity>> BLACKSTONE_DWARF = ENTITY_TYPES.register("blackstone_dwarf",
             () -> EntityType.Builder.create(BlackstoneDwarfEntity::new, EntityClassification.MONSTER)
-                    .size(1.2f, 4.0f)// Hitbox Size
+                    .size(1.2f, 2.9f)// Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "blackstone_dwarf").toString()));
 
     public static final RegistryObject<EntityType<GlowsquitoEntity>> GLOWSQUITO = ENTITY_TYPES.register("glowsquito",

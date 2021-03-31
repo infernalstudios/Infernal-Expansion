@@ -3,7 +3,8 @@ package com.nekomaster1000.infernalexp.entities;
 import com.nekomaster1000.infernalexp.entities.ai.EatItemsGoal;
 import com.nekomaster1000.infernalexp.entities.ai.TargetWithEffectGoal;
 import com.nekomaster1000.infernalexp.events.MiscEvents;
-import com.nekomaster1000.infernalexp.util.RegistryHandler;
+import com.nekomaster1000.infernalexp.init.IESoundEvents;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
@@ -48,38 +49,35 @@ import java.util.Map;
 
 public class VolineEntity extends MonsterEntity {
 
-    private static final DataParameter<Float> VOLINE_SIZE = EntityDataManager.createKey(VolineEntity.class, DataSerializers.FLOAT);
-    private boolean isEating;
+	private static final DataParameter<Float> VOLINE_SIZE = EntityDataManager.createKey(VolineEntity.class, DataSerializers.FLOAT);
+	private boolean isEating;
 
-    public VolineEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
-        super(type, worldIn);
-    }
+	public VolineEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+		super(type, worldIn);
+	}
 
-    //ATTRIBUTES
-    public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
-        return MobEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.MAX_HEALTH, 16.0D)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.0D)
-                .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.0D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5D);
-    }
+	// ATTRIBUTES
+	public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
+		return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 16.0D).createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.0D).createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.0D).createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5D);
+	}
 
-    @Nullable
-    @Override
-    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
-        setVolineSize(1 + (world.getRandom().nextFloat() * 0.4F));
-        return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-    }
+	@Nullable
+	@Override
+	public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+		setVolineSize(1 + (world.getRandom().nextFloat() * 0.4F));
+		return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+	}
 
-    //BEHAVIOUR
-    @Override
-    protected void registerGoals() {
-        super.registerGoals();
-        //this.goalSelector.addGoal(0, new TemptGoal(this, 0.6D, TEMPTATION_ITEMS, false));
-        this.goalSelector.addGoal(0, new VolineEatItemsGoal(this, MiscEvents.getVolineEatTable(), 32.0D, getAttributeValue(Attributes.MOVEMENT_SPEED) * 2.0D));
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.2D, true));
+	// BEHAVIOUR
+	@Override
+	protected void registerGoals() {
+		super.registerGoals();
+		// this.goalSelector.addGoal(0, new TemptGoal(this, 0.6D, TEMPTATION_ITEMS,
+		// false));
+		this.goalSelector.addGoal(0, new VolineEatItemsGoal(this, MiscEvents.getVolineEatTable(), 32.0D, getAttributeValue(Attributes.MOVEMENT_SPEED) * 2.0D));
+		this.goalSelector.addGoal(1, new MeleeAttackGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.2D, true));
 		this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-		this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, LivingEntity.class, true, false, Effects.FIRE_RESISTANCE));
+		this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, LivingEntity.class, true, false, Effects.FIRE_RESISTANCE, null));
 		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
 		this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED)));
 		this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0F));
@@ -107,115 +105,122 @@ public class VolineEntity extends MonsterEntity {
 	public void setVolineSize(float size) {
 		size = Math.min(size, 2.0F);
 
-        dataManager.set(VOLINE_SIZE, size);
-        recenterBoundingBox();
-        recalculateSize();
-        getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.5F - ((size - 1.0F) / 2.0F));
-    }
+		dataManager.set(VOLINE_SIZE, size);
+		recenterBoundingBox();
+		recalculateSize();
+		getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.5F - ((size - 1.0F) / 2.0F));
+	}
 
-    public float getVolineSize() {
-        return dataManager.get(VOLINE_SIZE);
-    }
+	public float getVolineSize() {
+		return dataManager.get(VOLINE_SIZE);
+	}
 
-    @Override
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
-        compound.putFloat("Size", getVolineSize());
-    }
+	@Override
+	public void writeAdditional(CompoundNBT compound) {
+		super.writeAdditional(compound);
+		compound.putFloat("Size", getVolineSize());
+	}
 
-    @Override
-    public void readAdditional(CompoundNBT compound) {
-        float size = Math.max(compound.getFloat("Size"), 1.0F);
+	@Override
+	public void readAdditional(CompoundNBT compound) {
+		float size = Math.max(compound.getFloat("Size"), 1.0F);
 
-        setVolineSize(size);
+		setVolineSize(size);
 
-        super.readAdditional(compound);
-    }
+		super.readAdditional(compound);
+	}
 
-    @Override
-    public void recalculateSize() {
-        super.recalculateSize();
-        setPosition(getPosX(), getPosY(), getPosZ());
-    }
+	@Override
+	public void recalculateSize() {
+		super.recalculateSize();
+		setPosition(getPosX(), getPosY(), getPosZ());
+	}
 
-    @Override
-    public EntitySize getSize(Pose poseIn) {
-        return super.getSize(poseIn).scale(0.85F * getVolineSize());
-    }
+	@Override
+	public EntitySize getSize(Pose poseIn) {
+		return super.getSize(poseIn).scale(0.85F * getVolineSize());
+	}
 
-    @Override
-    public void notifyDataManagerChange(DataParameter<?> key) {
-        if (VOLINE_SIZE.equals(key)) {
-            recalculateSize();
-        }
+	@Override
+	public void notifyDataManagerChange(DataParameter<?> key) {
+		if (VOLINE_SIZE.equals(key)) {
+			recalculateSize();
+		}
 
-        super.notifyDataManagerChange(key);
-    }
+		super.notifyDataManagerChange(key);
+	}
 
-    //EXP POINTS
-    @Override
-    protected int getExperiencePoints(PlayerEntity player) {
-        return 1 + this.world.rand.nextInt(4);
-    }
+	// EXP POINTS
+	@Override
+	protected int getExperiencePoints(PlayerEntity player) {
+		return 1 + this.world.rand.nextInt(4);
+	}
 
-    //SOUNDS
-    @Override
-    protected SoundEvent getAmbientSound() { return RegistryHandler.voline_ambient; }
-    @Override
-    protected SoundEvent getDeathSound() { return RegistryHandler.voline_hurt; }
-    @Override
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return RegistryHandler.voline_hurt;
-    }
-    @Override
-    protected void playStepSound(BlockPos pos, BlockState blockIn) {
-        this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
-    }
+	// SOUNDS
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return IESoundEvents.VOLINE_AMBIENT.get();
+	}
 
-    public boolean isImmuneToFire() {
-        return true;
-    }
+	@Override
+	protected SoundEvent getDeathSound() {
+		return IESoundEvents.VOLINE_HURT.get();
+	}
 
-    @OnlyIn(Dist.CLIENT)
-    public boolean isEating() {
-        return isEating;
-    }
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+		return IESoundEvents.VOLINE_HURT.get();
+	}
 
-    @OnlyIn(Dist.CLIENT)
-    @Override
-    public void handleStatusUpdate(byte id) {
-        if (id == 8) {
-            isEating = false;
-        } else if (id == 9) {
-            isEating = true;
-        } else {
-            super.handleStatusUpdate(id);
-        }
-    }
+	@Override
+	protected void playStepSound(BlockPos pos, BlockState blockIn) {
+		this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
+	}
 
-    public static class VolineEatItemsGoal extends EatItemsGoal<VolineEntity> {
+	public boolean isImmuneToFire() {
+		return true;
+	}
 
-        private final Map<Item, Map<Item, Integer>> eatItemsMap;
+	@OnlyIn(Dist.CLIENT)
+	public boolean isEating() {
+		return isEating;
+	}
 
-        public VolineEatItemsGoal(VolineEntity entityIn, Map<Item, Map<Item, Integer>> itemsToEat, double range, double speedIn) {
-            super(entityIn, itemsToEat.keySet(), range, speedIn);
+	@OnlyIn(Dist.CLIENT)
+	@Override
+	public void handleStatusUpdate(byte id) {
+		if (id == 8) {
+			isEating = false;
+		} else if (id == 9) {
+			isEating = true;
+		} else {
+			super.handleStatusUpdate(id);
+		}
+	}
 
-            this.eatItemsMap = itemsToEat;
-        }
+	public static class VolineEatItemsGoal extends EatItemsGoal<VolineEntity> {
 
-        @Override
-        public void consumeItem() {
-            entityIn.setVolineSize(entityIn.getVolineSize() + 0.2F);
+		private final Map<Item, Map<Item, Integer>> eatItemsMap;
 
-            Item itemReference = itemInstance.getItem().getItem();
+		public VolineEatItemsGoal(VolineEntity entityIn, Map<Item, Map<Item, Integer>> itemsToEat, double range, double speedIn) {
+			super(entityIn, itemsToEat.keySet(), range, speedIn);
 
-            // Super call here so that we can get a reference of the item before the item instance is deleted
-            super.consumeItem();
+			this.eatItemsMap = itemsToEat;
+		}
 
-            for (Map.Entry<Item, Integer> item : eatItemsMap.get(itemReference).entrySet()) {
-                entityIn.entityDropItem(new ItemStack(item.getKey(), item.getValue()), 1);
-            }
-        }
-    }
+		@Override
+		public void consumeItem() {
+			entityIn.setVolineSize(entityIn.getVolineSize() + 0.2F);
+
+			Item itemReference = itemInstance.getItem().getItem();
+
+			// Super call here so that we can get a reference of the item before the item
+			// instance is deleted
+			super.consumeItem();
+
+			for (Map.Entry<Item, Integer> item : eatItemsMap.get(itemReference).entrySet()) {
+				entityIn.entityDropItem(new ItemStack(item.getKey(), item.getValue()), 1);
+			}
+		}
+	}
 }
-

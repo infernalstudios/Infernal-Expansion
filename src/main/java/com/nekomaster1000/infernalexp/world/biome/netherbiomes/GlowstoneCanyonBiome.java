@@ -4,8 +4,8 @@ import com.nekomaster1000.infernalexp.init.IECarvers;
 import com.nekomaster1000.infernalexp.init.IEConfiguredFeatures;
 import com.nekomaster1000.infernalexp.init.IEConfiguredStructures;
 import com.nekomaster1000.infernalexp.init.IEParticleTypes;
+import com.nekomaster1000.infernalexp.init.IESoundEvents;
 import com.nekomaster1000.infernalexp.init.IESurfaceBuilders;
-import com.nekomaster1000.infernalexp.util.RegistryHandler;
 import com.nekomaster1000.infernalexp.world.biome.BiomeHelper;
 import com.nekomaster1000.infernalexp.world.biome.ModBiome;
 
@@ -50,10 +50,10 @@ public class GlowstoneCanyonBiome extends ModBiome {
                 .setFogColor(-2916568)
                 .withSkyColor(BiomeHelper.calcSkyColor(2.0f))
                 .setParticle(new ParticleEffectAmbience(ParticleTypes.WHITE_ASH, 0.118093334F))
-                .setAmbientSound(RegistryHandler.AMBIENT_GLOWSTONE_CANYON_LOOP)
-                .setMoodSound(new MoodSoundAmbience(RegistryHandler.AMBIENT_GLOWSTONE_CANYON_MOOD, 2500, 4, 2.0D))
-                .setAdditionsSound(new SoundAdditionsAmbience(RegistryHandler.AMBIENT_GLOWSTONE_CANYON_ADDITIONS, 0.0111D))
-                .setMusic(BackgroundMusicTracks.getDefaultBackgroundMusicSelector(RegistryHandler.MUSIC_NETHER_GLOWSTONE_CANYON))
+                .setAmbientSound(IESoundEvents.AMBIENT_GLOWSTONE_CANYON_LOOP.get())
+                .setMoodSound(new MoodSoundAmbience(IESoundEvents.AMBIENT_GLOWSTONE_CANYON_MOOD.get(), 2500, 4, 2.0D))
+                .setAdditionsSound(new SoundAdditionsAmbience(IESoundEvents.AMBIENT_GLOWSTONE_CANYON_ADDITIONS.get(), 0.0111D))
+                .setMusic(BackgroundMusicTracks.getDefaultBackgroundMusicSelector(IESoundEvents.MUSIC_NETHER_GLOWSTONE_CANYON.get()))
                 .setParticle(new ParticleEffectAmbience(IEParticleTypes.GLOWSTONE_SPARKLE.get(), 0.005F));
     }
 
@@ -103,8 +103,8 @@ public class GlowstoneCanyonBiome extends ModBiome {
 
     @Override
     protected void configureSpawns(MobSpawnInfo.Builder spawns) {
-        //spawns.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(IEEntityTypes.GLOWSQUITO.get(), 1, 1, 3));
-        //spawns.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(IEEntityTypes.BLINDSIGHT.get(), 100, 1, 1));
+//        spawns.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(IEEntityTypes.GLOWSQUITO.get(), 80, 1, 3));
+//        spawns.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(IEEntityTypes.BLINDSIGHT.get(), 10, 1, 1));
 
         //It doesn't work properly. Glowsquitos don't spawn at all and Blindsights spawn en-masse regardless of if
         // they're set to 1 or 100. Putting spawning for new biomes back in IEEvents for now.

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "infernalexp:block/cracked_basalt_bricks",
+    "side": "infernalexp:block/cracked_basalt_bricks"
+  }
+}

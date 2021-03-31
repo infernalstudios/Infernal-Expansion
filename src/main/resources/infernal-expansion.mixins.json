@@ -12,7 +12,9 @@
     "common.MixinNoiseChunkGenerator",
     "common.MixinSurfaceBuilder",
     "common.MixinAbstractArrowEntity",
-    "common.MixinArrowEntity"
+    "common.MixinArrowEntity",
+    "common.MixinEntity",
+    "common.MixinAbstractFireBlock"
   ],
   "client": [
     "client.MixinIBlockReader",
@@ -22,5 +24,6 @@
     "client.MixinEntity",
     "client.MixinAbstractFireBlock",
     "client.MixinPlayerRenderer"
+    "client.MixinClientPlayNetHandler"
   ]
 }

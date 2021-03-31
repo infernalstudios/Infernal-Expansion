@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "infernalexp:block/basalt_brick_slab"
+    },
+    "type=double": {
+      "model": "infernalexp:block/basalt_bricks"
+    },
+    "type=top": {
+      "model": "infernalexp:block/basalt_brick_slab_top"
+    }
+  }
+}

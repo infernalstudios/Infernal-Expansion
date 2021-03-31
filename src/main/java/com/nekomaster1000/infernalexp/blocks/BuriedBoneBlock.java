@@ -64,10 +64,21 @@ public class BuriedBoneBlock extends HorizontalBushBlock {
     protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
         return
 			state.matchesBlock(IEBlocks.GLOWDUST_SAND.get()) || state.matchesBlock(Blocks.SAND) || state.matchesBlock(Blocks.RED_SAND) ||
+
 				state.matchesBlock(Blocks.GRASS_BLOCK) || state.matchesBlock(Blocks.DIRT) || state.matchesBlock(Blocks.COARSE_DIRT) ||
-				state.matchesBlock(Blocks.PODZOL) || state.matchesBlock(Blocks.MYCELIUM) || state.matchesBlock(Blocks.NETHERRACK) ||
-				state.matchesBlock(Blocks.CRIMSON_NYLIUM) || state.matchesBlock(Blocks.WARPED_NYLIUM) || state.matchesBlock(Blocks.WARPED_WART_BLOCK) ||
-				state.matchesBlock(Blocks.SOUL_SAND) || state.matchesBlock(Blocks.SOUL_SOIL);
+				state.matchesBlock(Blocks.PODZOL) || state.matchesBlock(Blocks.MYCELIUM) ||
+
+                state.matchesBlock(Blocks.NETHERRACK) ||
+				state.matchesBlock(Blocks.CRIMSON_NYLIUM) || state.matchesBlock(Blocks.NETHER_WART_BLOCK) ||
+
+                state.matchesBlock(Blocks.WARPED_NYLIUM) || state.matchesBlock(Blocks.WARPED_WART_BLOCK) ||
+
+                state.matchesBlock(IEBlocks.CRIMSON_FUNGUS_CAP.get()) || state.matchesBlock(IEBlocks.WARPED_FUNGUS_CAP.get()) ||
+                state.matchesBlock(IEBlocks.LUMINOUS_FUNGUS_CAP.get()) ||
+
+				state.matchesBlock(Blocks.SOUL_SAND) || state.matchesBlock(Blocks.SOUL_SOIL) ||
+
+                state.matchesBlock(IEBlocks.SILT.get()) || state.matchesBlock(IEBlocks.RUBBLE.get());
     }
 
     public boolean canAttach(IWorldReader reader, BlockPos pos, Direction direction) {

@@ -1,9 +1,6 @@
 package com.nekomaster1000.infernalexp.entities;
 
-import java.util.EnumSet;
-
 import com.nekomaster1000.infernalexp.init.IEEffects;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -27,8 +24,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
+import java.util.EnumSet;
 
 public class BlindsightEntity extends MonsterEntity {
+
+    private int jumpDuration;
+    private int jumpTicks;
 
     public BlindsightEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
@@ -38,7 +42,7 @@ public class BlindsightEntity extends MonsterEntity {
     //ATTRIBUTES
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return MobEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.MAX_HEALTH, 24.0D)
+            .createMutableAttribute(Attributes.MAX_HEALTH, 24.0D)
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3.0D)
                 .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.5D)
                 .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.9D);
@@ -85,7 +89,46 @@ public class BlindsightEntity extends MonsterEntity {
         this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
     }
 
-/*
+    @OnlyIn(Dist.CLIENT)
+    public float getJumpCompletion(float adjustTicks) {
+        return jumpDuration == 0 ? 0.0F : ((float) jumpTicks + adjustTicks) / (float) jumpDuration;
+    }
+
+    @Override
+    public void livingTick() {
+        if (jumpTicks != jumpDuration) {
+            jumpTicks++;
+        } else if (jumpDuration != 0) {
+            jumpTicks = 0;
+            jumpDuration = 0;
+        }
+
+        super.livingTick();
+    }
+
+    @Override
+    protected void jump() {
+        jumpDuration = 10;
+        jumpTicks = 0;
+
+        super.jump();
+
+        if (!world.isRemote) {
+            world.setEntityState(this, (byte) 1);
+        }
+    }
+
+    @Override
+    public void handleStatusUpdate(byte id) {
+        if (id == 1) {
+            jumpDuration = 10;
+            jumpTicks = 0;
+        } else {
+            super.handleStatusUpdate(id);
+        }
+    }
+
+    /*
     public boolean isImmuneToFire() {
         return true;
     }
