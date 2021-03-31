@@ -103,6 +103,15 @@
   "block.infernalexp.soul_stone": "Soul Stone",
   "block.infernalexp.soul_stone_slab": "Soul Stone Slab",
   "block.infernalexp.soul_stone_stairs": "Soul Stone Stairs",
+  "block.infernalexp.soul_stone_wall": "Soul Stone Wall",
+
+  "block.infernalexp.soul_stone_bricks": "Soul Stone Bricks",
+  "block.infernalexp.soul_stone_brick_wall": "Soul Stone Brick Wall",
+  "block.infernalexp.soul_stone_brick_stairs": "Soul Stone Brick Stairs",
+  "block.infernalexp.soul_stone_brick_slab": "Soul Stone Brick Slab",
+  "block.infernalexp.cracked_soul_stone_bricks": "Cracked Soul Stone Bricks",
+  "block.infernalexp.chiseled_soul_stone_bricks": "Chiseled Soul Stone Brick",
+  "block.infernalexp.charged_chiseled_soul_stone_bricks": "Charged Chiseled Soul Stone Brick",
 
   "block.infernalexp.soul_slate": "Soul Slate",
   "block.infernalexp.soul_slate_wall": "Soul Slate Wall",

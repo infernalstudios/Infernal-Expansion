@@ -172,9 +172,18 @@ public class IEItems {
 	public static final RegistryObject<Item> SOUL_STONE = ITEMS.register("soul_stone",    			() -> new BlockItemBase(IEBlocks.SOUL_STONE.get()));
 	public static final RegistryObject<Item> SOUL_STONE_SLAB = ITEMS.register("soul_stone_slab",      () -> new BlockItemBase(IEBlocks.SOUL_STONE_SLAB.get()));
     public static final RegistryObject<Item> SOUL_STONE_STAIRS = ITEMS.register("soul_stone_stairs",	() -> new BlockItemBase(IEBlocks.SOUL_STONE_STAIRS.get()));
+    public static final RegistryObject<Item> SOUL_STONE_WALL = ITEMS.register("soul_stone_wall",		() -> new BlockItemBase(IEBlocks.SOUL_STONE_WALL.get()));
+
+    public static final RegistryObject<Item> SOUL_STONE_BRICKS = ITEMS.register("soul_stone_bricks",    					() -> new BlockItemBase(IEBlocks.SOUL_STONE_BRICKS.get()));
+    public static final RegistryObject<Item> SOUL_STONE_BRICK_SLAB = ITEMS.register("soul_stone_brick_slab", 				() -> new BlockItemBase(IEBlocks.SOUL_STONE_BRICK_SLAB.get()));
+    public static final RegistryObject<Item> SOUL_STONE_BRICK_STAIRS = ITEMS.register("soul_stone_brick_stairs",			() -> new BlockItemBase(IEBlocks.SOUL_STONE_BRICK_STAIRS.get()));
+    public static final RegistryObject<Item> SOUL_STONE_BRICK_WALL = ITEMS.register("soul_stone_brick_wall",				() -> new BlockItemBase(IEBlocks.SOUL_STONE_BRICK_WALL.get()));
+    public static final RegistryObject<Item> CRACKED_SOUL_STONE_BRICKS = ITEMS.register("cracked_soul_stone_bricks",		() -> new BlockItemBase(IEBlocks.CRACKED_SOUL_STONE_BRICKS.get()));
+    public static final RegistryObject<Item> CHISELED_SOUL_STONE_BRICKS = ITEMS.register("chiseled_soul_stone_bricks",		() -> new BlockItemBase(IEBlocks.CHISELED_SOUL_STONE_BRICKS.get()));
+    public static final RegistryObject<Item> CHARGED_CHISELED_SOUL_STONE_BRICKS = ITEMS.register("charged_chiseled_soul_stone_bricks",	() -> new BlockItemBase(IEBlocks.CHARGED_CHISELED_SOUL_STONE_BRICKS.get()));
 
 	public static final RegistryObject<Item> SOUL_SLATE = ITEMS.register("soul_slate",    							() -> new BlockItemBase(IEBlocks.SOUL_SLATE.get()));
-	public static final RegistryObject<Item> SOUL_SLATE_SLAB = ITEMS.register("soul_slate_slab", 					() -> new BlockItemBase(IEBlocks.SOUL_SLATE_SLAB.get()));
+	public static final RegistryObject<Item> SOUL_SLATE_SLAB = ITEMS.register("soul_slate_slab", 					    () -> new BlockItemBase(IEBlocks.SOUL_SLATE_SLAB.get()));
 	public static final RegistryObject<Item> SOUL_SLATE_STAIRS = ITEMS.register("soul_slate_stairs",					() -> new BlockItemBase(IEBlocks.SOUL_SLATE_STAIRS.get()));
 	public static final RegistryObject<Item> SOUL_SLATE_BUTTON = ITEMS.register("soul_slate_button",					() -> new BlockItemBase(IEBlocks.SOUL_SLATE_BUTTON.get()));
 	public static final RegistryObject<Item> SOUL_SLATE_PRESSURE_PLATE = ITEMS.register("soul_slate_pressure_plate", 	() -> new BlockItemBase(IEBlocks.SOUL_SLATE_PRESSURE_PLATE.get()));
