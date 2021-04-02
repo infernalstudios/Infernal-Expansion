@@ -159,6 +159,7 @@ public class IEItems {
 	public static final RegistryObject<Item> BASALT_BRICK_WALL = ITEMS.register("basalt_brick_wall",			() -> new BlockItemBase(IEBlocks.BASALT_BRICK_WALL.get()));
 	public static final RegistryObject<Item> CRACKED_BASALT_BRICKS = ITEMS.register("cracked_basalt_bricks",	() -> new BlockItemBase(IEBlocks.CRACKED_BASALT_BRICKS.get()));
 	public static final RegistryObject<Item> CHISELED_BASALT_BRICKS = ITEMS.register("chiseled_basalt_bricks",	() -> new BlockItemBase(IEBlocks.CHISELED_BASALT_BRICKS.get()));
+    public static final RegistryObject<Item> MAGMATIC_CHISELED_BASALT_BRICKS = ITEMS.register("magmatic_chiseled_basalt_bricks",	() -> new BlockItemBase(IEBlocks.MAGMATIC_CHISELED_BASALT_BRICKS.get()));
 
 	public static final RegistryObject<Item> BASALT_IRON_ORE = ITEMS.register("basalt_iron_ore", () -> new BlockItemBase(IEBlocks.BASALT_IRON_ORE.get()));
 	public static final RegistryObject<Item> BASALTIC_MAGMA = ITEMS.register("basaltic_magma",		() -> new BlockItemBase(IEBlocks.BASALTIC_MAGMA.get()));
