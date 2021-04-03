@@ -2,15 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "pattern":
   [
-    "x x",
-	" x ",
-    "x x"
+    " x ",
+    "xxx",
+    " x "
   ],
   "key":
   {
-    "x":
-    {
-      "item": "infernalexp:polished_basalt"
+    "x": {
+      "item": "minecraft:polished_basalt"
     }
   },
   "result":

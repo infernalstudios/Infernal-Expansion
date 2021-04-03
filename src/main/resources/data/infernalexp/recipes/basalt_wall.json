@@ -2,24 +2,19 @@
   "type": "minecraft:crafting_shaped",
   "pattern":
   [
-    " x ",
-    "xox",
-    " x "
+    "xxx",
+    "xxx"
   ],
   "key":
   {
     "x":
-    {
-      "item": "minecraft:iron_ingot"
-    },
-    "o":
     {
       "item": "minecraft:basalt"
     }
   },
   "result":
   {
-    "item": "infernalexp:basalt_iron_ore",
-    "count": 4
+    "item": "infernalexp:basalt_brick_wall",
+    "count": 6
   }
 }

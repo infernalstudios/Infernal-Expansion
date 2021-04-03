@@ -2,15 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "pattern":
   [
-    "xxx",
+    " x ",
     "xox",
-    "xxx"
+    " x "
   ],
   "key":
   {
     "x":
     {
-      "item": "minecraft:iron_nugget"
+      "item": "minecraft:iron_ingot"
     },
     "o":
     {
@@ -20,6 +20,6 @@
   "result":
   {
     "item": "infernalexp:basaltic_magma",
-    "count": 1
+    "count": 4
   }
 }

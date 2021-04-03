@@ -338,6 +338,10 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
 		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, BlackstoneDwarfEntity.class, true));
 	}
 
+    public boolean isImmuneToFire() {
+        return true;
+    }
+
 	@Override
 	protected int getExperiencePoints(PlayerEntity player) {
 		return 1 + this.world.rand.nextInt(4);
