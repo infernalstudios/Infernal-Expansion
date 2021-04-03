@@ -228,7 +228,7 @@ public class MobEvents {
 
                 event.getSpawns().withSpawner(EntityClassification.CREATURE,
                     new MobSpawnInfo.Spawners(IEEntityTypes.WARPBEETLE.get(),
-                        MobSpawning.WARPBEETLE_WARPED.getSpawnrate(), 5, 1));
+                        MobSpawning.WARPBEETLE_WARPED.getSpawnrate(), 1, 5));
             }
 
 		} else if (event.getName().toString().equals("minecraft:basalt_deltas")) {
