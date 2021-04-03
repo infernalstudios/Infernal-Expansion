@@ -2,7 +2,7 @@
   "parent": "minecraft:block/cube_column",
   "textures": {
     "end": "infernalexp:block/charged_chiseled_soul_slate_bricks_top",
-    "side": "infernalexp:block/charged_chiseled_soul_slate_bricks"
+    "side": "infernalexp:block/charged_chiseled_soul_slate_bricks_anim"
   }
 }
 

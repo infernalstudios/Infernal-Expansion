@@ -2,7 +2,7 @@
   "parent": "minecraft:block/cube_column",
   "textures": {
     "end": "infernalexp:block/magmatic_chiseled_basalt_bricks_top",
-    "side": "infernalexp:block/magmatic_chiseled_basalt_bricks"
+    "side": "infernalexp:block/magmatic_chiseled_basalt_bricks_anim"
   }
 }
 
