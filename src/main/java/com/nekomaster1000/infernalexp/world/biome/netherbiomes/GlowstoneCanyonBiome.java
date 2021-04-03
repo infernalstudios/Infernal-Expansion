@@ -97,6 +97,7 @@ public class GlowstoneCanyonBiome extends ModBiome {
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.ORE_MAGMA);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.SPRING_CLOSED_DOUBLE);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_GLOWSILK_COCOON);
+        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, IEConfiguredFeatures.PATCH_GLOW_FIRE);
 
         DefaultBiomeFeatures.withCommonNetherBlocks(generation);
     }
