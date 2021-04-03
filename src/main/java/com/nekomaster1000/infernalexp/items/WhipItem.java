@@ -82,6 +82,7 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 			if (traceResult != null) {
 				this.shouldKnockback = true;
 				playerentity.attackTargetEntityWithCurrentItem(traceResult.getEntity());
+				playerentity.ticksSinceLastSwing = (int) playerentity.getCooldownPeriod();
 			}
 
 			playerentity.addStat(Stats.ITEM_USED.get(this));
@@ -116,7 +117,7 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 		this.charging = true;
 	}
 
-	@Override
+    @Override
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		if (charging && ticksSinceAttack <= 30) {
 			ticksSinceAttack++;

@@ -21,9 +21,7 @@
     "client.MixinEntityRendererManager",
     "client.MixinModelBakery",
     "client.MixinOverlayRenderer",
-    "client.MixinEntity",
-    "client.MixinAbstractFireBlock",
-    "client.MixinPlayerRenderer"
+    "client.MixinPlayerRenderer",
     "client.MixinClientPlayNetHandler"
   ]
 }
