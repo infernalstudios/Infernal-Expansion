@@ -22,18 +22,15 @@ public class IENetworkHandler {
 		INSTANCE.messageBuilder(WhipReachPacket.class, index++).encoder(WhipReachPacket::encode).decoder(WhipReachPacket::decode).consumer(WhipReachPacket::handle).add();
 	}
 
-	public static <MSG> void sendToPlayer(MSG message, ServerPlayerEntity player)
-	{
+	public static <MSG> void sendToPlayer(MSG message, ServerPlayerEntity player) {
 		INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);
 	}
 
-	public static <MSG> void sendToAll(MSG message)
-	{
+	public static <MSG> void sendToAll(MSG message) {
 		INSTANCE.send(PacketDistributor.ALL.noArg(), message);
 	}
 
-	public static <MSG> void sendToServer(MSG message)
-	{
+	public static <MSG> void sendToServer(MSG message) {
 		INSTANCE.sendToServer(message);
 	}
 }
