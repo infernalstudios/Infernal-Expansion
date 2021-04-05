@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:smooth_stone",
+    "infernalexp:smooth_glowstone",
+    "infernalexp:smooth_dimstone",
+    "infernalexp:smooth_dullstone",
+    "minecraft:smooth_sandstone",
+    "minecraft:smooth_red_sandstone",
+    "minecraft:smooth_quartz"
+  ]
+}
