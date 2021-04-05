@@ -29,13 +29,10 @@ public class InfernalExpansionClient {
 		});
 		ItemModelsProperties.registerProperty(IEItems.GLOWSILK_BOW.get(), new ResourceLocation("pulling"), (itemStack, clientWorld, livingEntity) -> livingEntity != null && livingEntity.isHandActive() && livingEntity.getActiveItemStack() == itemStack ? 1.0F : 0.0F);
 
-		ItemModelsProperties.registerProperty(IEItems.BLINDSIGHT_TONGUE_WHIP.get(), new ResourceLocation("attack_frame"), (itemStack, clientWorld, livingEntity) -> {
-			if (livingEntity == null || livingEntity.getHeldItemMainhand() != itemStack) {
-				return 0;
-			} else {
-				return (int) (((IWhipItem) itemStack.getItem()).getTicksSinceAttack() / 6.0F);
-			}
-		});
+		ItemModelsProperties.registerProperty(IEItems.BLINDSIGHT_TONGUE_WHIP.get(), new ResourceLocation("attack_frame"), (itemStack, clientWorld, livingEntity) -> 
+			livingEntity == null || livingEntity.getHeldItemMainhand() != itemStack ?
+				0 : (int) (((IWhipItem) itemStack.getItem()).getTicksSinceAttack() / 6.0F)
+		);
 
 		ItemModelsProperties.registerProperty(IEItems.BLINDSIGHT_TONGUE_WHIP.get(), new ResourceLocation("attacking"), (itemStack, clientWorld, livingEntity) -> livingEntity != null && (((IWhipItem) itemStack.getItem()).getAttacking() || ((IWhipItem) itemStack.getItem()).getCharging()) && livingEntity.getHeldItemMainhand() == itemStack ? 1.0F : 0.0F);
 	}
