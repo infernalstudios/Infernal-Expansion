@@ -36,7 +36,7 @@ public class ClientEvents {
 
 		Vector3d eyePos = player.getEyePosition(1.0F);
 		Vector3d lookVec = player.getLookVec();
-		Vector3d reachVec = eyePos.add(lookVec.x * reach, lookVec.y * reach, lookVec.z * reach);
+		Vector3d reachVec = eyePos.add(lookVec.mul(reach, reach, reach));
 
 		AxisAlignedBB playerBox = player.getBoundingBox().expand(lookVec.scale(reach)).grow(1.0D, 1.0D, 1.0D);
 		EntityRayTraceResult traceResult = ProjectileHelper.rayTraceEntities(player, eyePos, reachVec, playerBox, (target) -> !target.isSpectator() && target.isLiving(), reach * reach);
