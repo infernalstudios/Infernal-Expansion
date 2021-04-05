@@ -111,6 +111,14 @@ public class MiscEvents {
                 ForgeEventFactory.onBlockPlace(player, BlockSnapshot.create(world.getDimensionKey(), world, pos), face);
             }
         }
+
+        if (heldItemStack.getItem() == Items.GLOWSTONE_DUST) {
+            if (world.getBlockState(pos).getBlock() == IEBlocks.DIMSTONE.get()) {
+                world.setBlockState(pos, Blocks.GLOWSTONE.getDefaultState());
+            } else if (world.getBlockState(pos).getBlock() == IEBlocks.DULLSTONE.get()) {
+                world.setBlockState(pos, IEBlocks.DIMSTONE.get().getDefaultState());
+            }
+        }
     }
 
     @SubscribeEvent
