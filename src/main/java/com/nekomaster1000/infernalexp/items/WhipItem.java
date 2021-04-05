@@ -74,7 +74,7 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 
 			Vector3d eyePos = playerentity.getEyePosition(1.0F);
 			Vector3d lookVec = playerentity.getLookVec();
-			Vector3d reachVec = eyePos.add(lookVec.x * reach, lookVec.y * reach, lookVec.z * reach);
+			Vector3d reachVec = eyePos.add(lookVec.mul(reach, reach, reach));
 
 			AxisAlignedBB playerBox = playerentity.getBoundingBox().expand(lookVec.scale(reach)).grow(1.0D, 1.0D, 1.0D);
 			EntityRayTraceResult traceResult = ProjectileHelper.rayTraceEntities(playerentity, eyePos, reachVec, playerBox, (target) -> !target.isSpectator() && target.isLiving(), reach * reach);
