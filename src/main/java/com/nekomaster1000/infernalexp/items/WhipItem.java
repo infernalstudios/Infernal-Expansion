@@ -110,27 +110,27 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 
 	@Override
 	public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
-		if (attacking) {
-			ticksSinceAttack = 0;
-			attacking = false;
+		if (this.attacking) {
+			this.ticksSinceAttack = 0;
+			this.attacking = false;
 		}
 		this.charging = true;
 	}
 
 	@Override
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		if (charging && ticksSinceAttack <= 30) {
-			ticksSinceAttack++;
+		if (this.charging && this.ticksSinceAttack <= 30) {
+			this.ticksSinceAttack++;
 		}
 
-		if (attacking) {
-			ticksSinceAttack++;
+		if (this.attacking) {
+			this.ticksSinceAttack++;
 		}
 
-		if (ticksSinceAttack >= 60) {
-			ticksSinceAttack = 0;
-			attacking = false;
-			charging = false;
+		if (this.ticksSinceAttack >= 60) {
+			this.ticksSinceAttack = 0;
+			this.attacking = false;
+			this.charging = false;
 		}
 	}
 
@@ -182,21 +182,21 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 
 	@Override
 	public int getTicksSinceAttack() {
-		return ticksSinceAttack;
+		return this.ticksSinceAttack;
 	}
 
 	@Override
 	public boolean getAttacking() {
-		return attacking;
+		return this.attacking;
 	}
 
 	@Override
 	public boolean getCharging() {
-		return charging;
+		return this.charging;
 	}
 
 	@Override
 	public void setAttacking(boolean value) {
-		attacking = value;
+		this.attacking = value;
 	}
 }

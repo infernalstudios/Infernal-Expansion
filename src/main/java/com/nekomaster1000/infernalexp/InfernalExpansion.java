@@ -103,11 +103,11 @@ public class InfernalExpansion
 		//Places entity spawn locations on the ground
 		ModEntityPlacement.spawnPlacement();
 
-		//Register New Flowers to be Able to Place in Pots
-		FlowerPotBlock flowerPot = (FlowerPotBlock) Blocks.FLOWER_POT;
-		flowerPot.addPlant(IEBlocks.DULLTHORNS.getId(), IEBlocks.POTTED_DULLTHORNS);
-		flowerPot.addPlant(IEBlocks.LUMINOUS_FUNGUS.getId(), IEBlocks.POTTED_LUMINOUS_FUNGUS);
-		flowerPot.addPlant(IEBlocks.SHROOMLIGHT_FUNGUS.getId(), IEBlocks.POTTED_SHROOMLIGHT_FUNGUS);
+        //Register New Flowers to be Able to Place in Pots
+        FlowerPotBlock flowerPot = (FlowerPotBlock) Blocks.FLOWER_POT;
+        flowerPot.addPlant(IEBlocks.DULLTHORNS.getId(), IEBlocks.POTTED_DULLTHORNS);
+        flowerPot.addPlant(IEBlocks.LUMINOUS_FUNGUS.getId(), IEBlocks.POTTED_LUMINOUS_FUNGUS);
+        flowerPot.addPlant(IEBlocks.SHROOMLIGHT_FUNGUS.getId(), IEBlocks.POTTED_SHROOMLIGHT_FUNGUS);
 
         //Register Brewing Recipes for Potions
         BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
