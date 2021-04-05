@@ -21,6 +21,7 @@
     "client.MixinEntityRendererManager",
     "client.MixinModelBakery",
     "client.MixinOverlayRenderer",
+    "client.MixinPlayerRenderer",
     "client.MixinClientPlayNetHandler"
   ]
 }

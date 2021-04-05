@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "infernalexp:item/blindsight_tongue_whip_extending_3"
+  }
+}
