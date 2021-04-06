@@ -38,6 +38,7 @@ public class IEItems {
 	public static final RegistryObject<Item> MOTH_DUST = ITEMS.register("moth_dust", ItemBase::new);
 	public static final RegistryObject<Item> MOLTEN_GOLD_CLUSTER = ITEMS.register("molten_gold_cluster", ItemBase::new);
 	public static final RegistryObject<Item> GLOWSILK = ITEMS.register("glowsilk", ItemBase::new);
+	public static final RegistryObject<Item> SOUL_SALT_CLUMP = ITEMS.register("soul_salt_clump", ItemBase::new);
 
 	// Foods
 	public static final RegistryObject<SoupItem> BLINDSIGHT_TONGUE_STEW = ITEMS.register("blindsight_tongue_stew",
@@ -46,6 +47,12 @@ public class IEItems {
 							.effect(() ->
 									new EffectInstance(Effects.JUMP_BOOST, 1200, 1), 1.0F)
 							.build())));
+
+	public static final RegistryObject<Item> CURED_JERKY = ITEMS.register("cured_jerky", () -> new Item(new Item.Properties().group(InfernalExpansion.TAB)
+                    .food(new Food.Builder().hunger(5).saturation(0.6F)
+                    .effect(() ->
+                        new EffectInstance(Effects.SPEED, 160, 1), 1.0F)
+                    .build())));
 
 
 	// Spawn Eggs

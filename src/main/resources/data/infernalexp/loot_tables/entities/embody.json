@@ -11,9 +11,9 @@
             {
               "function": "minecraft:set_count",
               "count": {
-                "min": 1.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
+                "n": 1,
+                "p": 0.3,
+                "type": "minecraft:binomial"
               }
             },
             {
@@ -29,6 +29,33 @@
         {
           "type": "minecraft:item",
           "name": "infernalexp:music_disc_soul_spunk"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "n": 1,
+                "p": 0.7,
+                "type": "minecraft:binomial"
+              }
+            },
+            {
+              "function": "minecraft:looting_enchant",
+              "count": {
+                "min": 0.0,
+                "max": 1.0
+              },
+              "limit": 3
+            }
+          ],
+          "name": "infernalexp:soul_salt_clump"
         }
       ]
     }
