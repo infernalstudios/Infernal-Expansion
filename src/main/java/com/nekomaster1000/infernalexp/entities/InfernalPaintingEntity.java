@@ -2,7 +2,7 @@ package com.nekomaster1000.infernalexp.entities;
 
 import com.nekomaster1000.infernalexp.init.IEEntityTypes;
 import com.nekomaster1000.infernalexp.init.IEItems;
-import com.nekomaster1000.infernalexp.network.NetworkManager;
+import com.nekomaster1000.infernalexp.network.IENetworkHandler;
 import com.nekomaster1000.infernalexp.network.SpawnInfernalPaintingPacket;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -95,6 +95,6 @@ public class InfernalPaintingEntity extends PaintingEntity {
 
 	@Override
 	public IPacket<?> createSpawnPacket() {
-		return NetworkManager.INSTANCE.toVanillaPacket(new SpawnInfernalPaintingPacket(this), NetworkDirection.PLAY_TO_CLIENT);
-	}
+        return IENetworkHandler.INSTANCE.toVanillaPacket(new SpawnInfernalPaintingPacket(this), NetworkDirection.PLAY_TO_CLIENT);
+    }
 }
