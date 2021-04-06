@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "infernalexp:smooth_glowstone_pressure_plate"
+    "infernalexp:smooth_glowstone_pressure_plate",
+    "infernalexp:polished_basalt_pressure_plate",
+    "infernalexp:soul_slate_pressure_plate"
   ]
 }

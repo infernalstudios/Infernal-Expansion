@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "infernalexp:block/charged_chiseled_soul_stone_bricks_top_anim",
+    "side": "infernalexp:block/charged_chiseled_soul_stone_bricks_anim"
+  }
+}
+

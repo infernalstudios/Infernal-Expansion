@@ -13,6 +13,7 @@ import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IEEntityTypes;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FlyingEntity;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
@@ -42,12 +43,12 @@ public class MobEvents {
 
 		//Piglins fear Warpbeetles and Embodies
 		if (event.getEntity() instanceof PiglinEntity){
-			if (MobInteractions.PIGLIN_FEAR_WARPBEETLE.get()) {
+			if (MobInteractions.PIGLIN_FEAR_WARPBEETLE.getBoolean()) {
 				((CreatureEntity) event.getEntity()).goalSelector.addGoal(4,
 						new AvoidEntityGoal<>((CreatureEntity) event.getEntity(),
 								WarpbeetleEntity.class, 16.0F, 1.2D, 1.2D));
 			}
-			if (MobInteractions.PIGLIN_FEAR_EMBODY.get()) {
+			if (MobInteractions.PIGLIN_FEAR_EMBODY.getBoolean()) {
 				((CreatureEntity) event.getEntity()).goalSelector.addGoal(4,
 						new AvoidEntityGoal<>((CreatureEntity) event.getEntity(),
 								EmbodyEntity.class, 16.0F, 1.2D, 1.2D));
@@ -55,12 +56,12 @@ public class MobEvents {
 		}
 
 		if (event.getEntity() instanceof HoglinEntity){
-			if (MobInteractions.HOGLIN_FEAR_WARPBEETLE.get()) {
+			if (MobInteractions.HOGLIN_FEAR_WARPBEETLE.getBoolean()) {
 				((CreatureEntity) event.getEntity()).goalSelector.addGoal(4,
 						new AvoidEntityGoal<>((CreatureEntity) event.getEntity(),
 								WarpbeetleEntity.class, 16.0F, 1.2D, 1.2D));
 			}
-			if (MobInteractions.HOGLIN_FEAR_EMBODY.get()) {
+			if (MobInteractions.HOGLIN_FEAR_EMBODY.getBoolean()) {
 				((CreatureEntity) event.getEntity()).goalSelector.addGoal(4,
 						new AvoidEntityGoal<>((CreatureEntity) event.getEntity(),
 								EmbodyEntity.class, 16.0F, 1.2D, 1.2D));
@@ -72,7 +73,7 @@ public class MobEvents {
 		//
 
 		//Spiders attack Warp beetles
-		if (event.getEntity() instanceof SpiderEntity && MobInteractions.SPIDER_ATTACK_WARPBEETLE.get()) {
+		if (event.getEntity() instanceof SpiderEntity && MobInteractions.SPIDER_ATTACK_WARPBEETLE.getBoolean()) {
 			((CreatureEntity) event.getEntity()).goalSelector.addGoal(4,
 					new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
 							WarpbeetleEntity.class, true, false));
@@ -82,22 +83,22 @@ public class MobEvents {
 
 		//Skeletons attacks Piglins, Brutes, Embodies & Basalt Giants
 		if (event.getEntity() instanceof SkeletonEntity) {
-			if (MobInteractions.SKELETON_ATTACK_PIGLIN.get()) {
+			if (MobInteractions.SKELETON_ATTACK_PIGLIN.getBoolean()) {
 				((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
 						new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
 								PiglinEntity.class, true, false));
 			}
-			if (MobInteractions.SKELETON_ATTACK_BRUTE.get()) {
+			if (MobInteractions.SKELETON_ATTACK_BRUTE.getBoolean()) {
 				((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
 						new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
 								PiglinBruteEntity.class, true, false));
 			}
-			if (MobInteractions.SKELETON_ATTACK_EMBODY.get()) {
+			if (MobInteractions.SKELETON_ATTACK_EMBODY.getBoolean()) {
 				((CreatureEntity) event.getEntity()).goalSelector.addGoal(3,
 						new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
 								EmbodyEntity.class, true, false));
 			}
-			if (MobInteractions.SKELETON_ATTACK_GIANT.get()) {
+			if (MobInteractions.SKELETON_ATTACK_GIANT.getBoolean()) {
 				((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
 						new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
 								BasaltGiantEntity.class, true, false));
@@ -106,12 +107,12 @@ public class MobEvents {
 
 		//Piglins attack Skeletons & Voline
 		if (event.getEntity() instanceof PiglinEntity) {
-			if (MobInteractions.PIGLIN_ATTACK_SKELETON.get()) {
+			if (MobInteractions.PIGLIN_ATTACK_SKELETON.getBoolean()) {
 				((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
 						new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
 								SkeletonEntity.class, true, false));
 			}
-			if (MobInteractions.PIGLIN_ATTACK_VOLINE.get()) {
+			if (MobInteractions.PIGLIN_ATTACK_VOLINE.getBoolean()) {
 				((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
 						new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
 								VolineEntity.class, true, false));
@@ -119,12 +120,12 @@ public class MobEvents {
 		}
 
 		if (event.getEntity() instanceof PiglinBruteEntity){
-			if (MobInteractions.BRUTE_ATTACK_SKELETON.get()) {
+			if (MobInteractions.BRUTE_ATTACK_SKELETON.getBoolean()) {
 				((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
 						new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
 								SkeletonEntity.class, true, false));
 			}
-			if (MobInteractions.BRUTE_ATTACK_VOLINE.get()) {
+			if (MobInteractions.BRUTE_ATTACK_VOLINE.getBoolean()) {
 				((CreatureEntity) event.getEntity()).goalSelector.addGoal(2,
 						new NearestAttackableTargetGoal<>((CreatureEntity) event.getEntity(),
 								VolineEntity.class, true, false));
@@ -138,17 +139,17 @@ public class MobEvents {
 					new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
 							GlowsquitoEntity.class, true, false));
 
-			if (MobInteractions.GHAST_ATTACK_EMBODY.get()) {
+			if (MobInteractions.GHAST_ATTACK_EMBODY.getBoolean()) {
 				((FlyingEntity) event.getEntity()).targetSelector.addGoal(3,
 						new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
 								EmbodyEntity.class, true, false));
 			}
-			if (MobInteractions.GHAST_ATTACK_VOLINE.get()) {
+			if (MobInteractions.GHAST_ATTACK_VOLINE.getBoolean()) {
 				((FlyingEntity) event.getEntity()).targetSelector.addGoal(2,
 						new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
 								VolineEntity.class, true, false));
 			}
-			if (MobInteractions.GHAST_ATTACK_SKELETON.get()) {
+			if (MobInteractions.GHAST_ATTACK_SKELETON.getBoolean()) {
 				((FlyingEntity) event.getEntity()).targetSelector.addGoal(3,
 						new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
 								SkeletonEntity.class, true, false));
@@ -195,13 +196,13 @@ public class MobEvents {
 			if (MobSpawning.SHROOMLOIN_CRIMSON.isEnabled()) {
 				event.getSpawns().withSpawner(EntityClassification.MONSTER,
 						new MobSpawnInfo.Spawners(IEEntityTypes.SHROOMLOIN.get(),
-								MobSpawning.SHROOMLOIN_CRIMSON.getSpawnrate(), 1, 3));
+								MobSpawning.SHROOMLOIN_CRIMSON.getSpawnrate(), 2, 5));
 			}
 
 			if (MobSpawning.VOLINE_CRIMSON.isEnabled()) {
 				event.getSpawns().withSpawner(EntityClassification.MONSTER,
 						new MobSpawnInfo.Spawners(IEEntityTypes.VOLINE.get(),
-								MobSpawning.VOLINE_CRIMSON.getSpawnrate(), 1, 5));
+								MobSpawning.VOLINE_CRIMSON.getSpawnrate(), 1, 4));
 			}
 
 			if (MobSpawning.GLOWSILK_CRIMSON.isEnabled()) {
@@ -216,10 +217,19 @@ public class MobEvents {
 			//            new MobSpawnInfo.Spawners(ModEntityType.CEROBEETLE.get(), 1, 1, 1));
 
 			if (MobSpawning.WARPBEETLE_WARPED.isEnabled()) {
-				event.getSpawns().withSpawner(EntityClassification.MONSTER,
-						new MobSpawnInfo.Spawners(IEEntityTypes.WARPBEETLE.get(),
-								MobSpawning.WARPBEETLE_WARPED.getSpawnrate(), 1, 1));
-			}
+                // I think this creatureSpawnProbability is a ratio between how many creatures will spawn compared to other types, or maybe just monsters?
+                event.getSpawns().withCreatureSpawnProbability(0.9F);
+
+                // Remove the strider spawner then add it back with a weight of 20 instead of 60
+                event.getSpawns().getSpawner(EntityClassification.CREATURE).removeIf(spawner -> spawner.type == EntityType.STRIDER);
+                event.getSpawns().withSpawner(EntityClassification.CREATURE,
+                    new MobSpawnInfo.Spawners(EntityType.STRIDER,
+                        15, 1, 2));
+
+                event.getSpawns().withSpawner(EntityClassification.CREATURE,
+                    new MobSpawnInfo.Spawners(IEEntityTypes.WARPBEETLE.get(),
+                        MobSpawning.WARPBEETLE_WARPED.getSpawnrate(), 1, 5));
+            }
 
 		} else if (event.getName().toString().equals("minecraft:basalt_deltas")) {
 			if (MobSpawning.GIANT_DELTAS.isEnabled()) {

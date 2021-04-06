@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.client;
 
 import com.nekomaster1000.infernalexp.config.gui.screens.ConfigScreen;
 import com.nekomaster1000.infernalexp.init.IEItems;
+import com.nekomaster1000.infernalexp.items.IWhipItem;
 import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -19,13 +20,20 @@ public class InfernalExpansionClient {
 
 		MinecraftForge.EVENT_BUS.addListener((LivingUpdateEvent event) -> DynamicLightingHandler.tick(event.getEntityLiving()));
 
-		ItemModelsProperties.registerProperty(IEItems.GLOWSILK_BOW.get(), new ResourceLocation("pull"), (p_239429_0_, p_239429_1_, p_239429_2_) -> {
-			if (p_239429_2_ == null) {
+		ItemModelsProperties.registerProperty(IEItems.GLOWSILK_BOW.get(), new ResourceLocation("pull"), (itemStack, clientWorld, livingEntity) -> {
+			if (livingEntity == null) {
 				return 0.0F;
 			} else {
-				return p_239429_2_.getActiveItemStack() != p_239429_0_ ? 0.0F : (float) (p_239429_0_.getUseDuration() - p_239429_2_.getItemInUseCount()) / 20.0F;
+				return livingEntity.getActiveItemStack() != itemStack ? 0.0F : (float) (itemStack.getUseDuration() - livingEntity.getItemInUseCount()) / 20.0F;
 			}
 		});
-		ItemModelsProperties.registerProperty(IEItems.GLOWSILK_BOW.get(), new ResourceLocation("pulling"), (p_239428_0_, p_239428_1_, p_239428_2_) -> p_239428_2_ != null && p_239428_2_.isHandActive() && p_239428_2_.getActiveItemStack() == p_239428_0_ ? 1.0F : 0.0F);
+		ItemModelsProperties.registerProperty(IEItems.GLOWSILK_BOW.get(), new ResourceLocation("pulling"), (itemStack, clientWorld, livingEntity) -> livingEntity != null && livingEntity.isHandActive() && livingEntity.getActiveItemStack() == itemStack ? 1.0F : 0.0F);
+
+		ItemModelsProperties.registerProperty(IEItems.BLINDSIGHT_TONGUE_WHIP.get(), new ResourceLocation("attack_frame"), (itemStack, clientWorld, livingEntity) -> 
+			livingEntity == null || livingEntity.getHeldItemMainhand() != itemStack ?
+				0 : (int) (((IWhipItem) itemStack.getItem()).getTicksSinceAttack() / 6.0F)
+		);
+
+		ItemModelsProperties.registerProperty(IEItems.BLINDSIGHT_TONGUE_WHIP.get(), new ResourceLocation("attacking"), (itemStack, clientWorld, livingEntity) -> livingEntity != null && (((IWhipItem) itemStack.getItem()).getAttacking() || ((IWhipItem) itemStack.getItem()).getCharging()) && livingEntity.getHeldItemMainhand() == itemStack ? 1.0F : 0.0F);
 	}
 }

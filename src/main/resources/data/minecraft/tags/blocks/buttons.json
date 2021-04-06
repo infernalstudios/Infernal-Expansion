@@ -3,6 +3,8 @@
   "values": [
     "infernalexp:smooth_glowstone_button",
     "infernalexp:smooth_dimstone_button",
-    "infernalexp:smooth_dullstone_button"
+    "infernalexp:smooth_dullstone_button",
+    "infernalexp:basalt_button",
+    "infernalexp:soul_slate_button"
   ]
 }

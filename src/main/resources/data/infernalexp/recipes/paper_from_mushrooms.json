@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "zzz"
+  ],
+  "key": {
+    "z": {
+      "tag": "minecraft:mushrooms"
+    }
+  },
+  "result": {
+    "item": "minecraft:paper"
+  }
+}

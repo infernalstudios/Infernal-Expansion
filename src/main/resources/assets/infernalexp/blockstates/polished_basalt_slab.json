@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "infernalexp:block/polished_basalt_slab"
+    },
+    "type=double": {
+      "model": "minecraft:block/polished_basalt"
+    },
+    "type=top": {
+      "model": "infernalexp:block/polished_basalt_slab_top"
+    }
+  }
+}

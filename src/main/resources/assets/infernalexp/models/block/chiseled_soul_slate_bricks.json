@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "infernalexp:block/chiseled_soul_slate_bricks_top",
+    "side": "infernalexp:block/chiseled_soul_slate_bricks"
+  }
+}
+

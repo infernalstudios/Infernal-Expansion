@@ -1,0 +1,78 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "infernalexp:item/blindsight_tongue_whip"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "attacking": 1,
+        "attack_frame": 0
+      },
+      "model": "infernalexp:item/blindsight_tongue_whip_extending_0"
+    },
+    {
+      "predicate": {
+        "attacking": 1,
+        "attack_frame": 1
+      },
+      "model": "infernalexp:item/blindsight_tongue_whip_extending_1"
+    },
+    {
+      "predicate": {
+        "attacking": 1,
+        "attack_frame": 2
+      },
+      "model": "infernalexp:item/blindsight_tongue_whip_extending_2"
+    },
+    {
+      "predicate": {
+        "attacking": 1,
+        "attack_frame": 3
+      },
+      "model": "infernalexp:item/blindsight_tongue_whip_extending_3"
+    },
+    {
+      "predicate": {
+        "attacking": 1,
+        "attack_frame": 4
+      },
+      "model": "infernalexp:item/blindsight_tongue_whip_extending_4"
+    },
+    {
+      "predicate": {
+        "attacking": 1,
+        "attack_frame": 5
+      },
+      "model": "infernalexp:item/blindsight_tongue_whip_extending_5"
+    },
+    {
+      "predicate": {
+        "attacking": 1,
+        "attack_frame": 6
+      },
+      "model": "infernalexp:item/blindsight_tongue_whip_extending_6"
+    },
+    {
+      "predicate": {
+        "attacking": 1,
+        "attack_frame": 7
+      },
+      "model": "infernalexp:item/blindsight_tongue_whip_extending_7"
+    },
+    {
+      "predicate": {
+        "attacking": 1,
+        "attack_frame": 8
+      },
+      "model": "infernalexp:item/blindsight_tongue_whip_extending_8"
+    },
+    {
+      "predicate": {
+        "attacking": 1,
+        "attack_frame": 9
+      },
+      "model": "infernalexp:item/blindsight_tongue_whip_extending_9"
+    }
+  ]
+}

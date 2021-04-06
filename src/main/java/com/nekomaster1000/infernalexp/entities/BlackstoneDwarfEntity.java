@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.nekomaster1000.infernalexp.util.RegistryHandler;
+import com.nekomaster1000.infernalexp.init.IESoundEvents;
 
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
@@ -33,142 +33,131 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class BlackstoneDwarfEntity extends CreatureEntity implements IAngerable {
-    private static final RangedInteger RANGED_INT = TickRangeConverter.convertRange(20, 39);
-    private int attackTimer;
-    private int angerTime;
-    private UUID angerTarget;
+	private static final RangedInteger RANGED_INT = TickRangeConverter.convertRange(20, 39);
+	private int attackTimer;
+	private int angerTime;
+	private UUID angerTarget;
 
+	public BlackstoneDwarfEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
+		super(type, worldIn);
+	}
 
-    public BlackstoneDwarfEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
-        super(type, worldIn);
-    }
+	// ATTRIBUTES
+	public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
+		return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 56.0D).createMutableAttribute(Attributes.ATTACK_DAMAGE, 15.0D).createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 2.0D).createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE, 10.0D).createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.40D);
+		// .createMutableAttribute(Attributes.FOLLOW_RANGE, 20.0D);
+	}
 
-    //ATTRIBUTES
-    public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
-        return MobEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.MAX_HEALTH, 56.0D)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 15.0D)
-                .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 2.0D)
-                .createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE, 10.0D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.40D);
-                //.createMutableAttribute(Attributes.FOLLOW_RANGE, 20.0D);
-    }
+	// ---
+	// Retaliating
+	@OnlyIn(Dist.CLIENT)
+	public void handleStatusUpdate(byte id) {
+		if (id == 4) {
+			this.attackTimer = 10;
+			this.playSound(IESoundEvents.BASALT_GIANT_DEATH.get(), 1.0F, 1.0F);
+		} else {
+			super.handleStatusUpdate(id);
+		}
 
-    //---
-    //Retaliating
-    @OnlyIn(Dist.CLIENT)
-    public void handleStatusUpdate(byte id) {
-        if (id == 4) {
-            this.attackTimer = 10;
-            this.playSound(RegistryHandler.basalt_giant_death, 1.0F, 1.0F);
-        }else {
-            super.handleStatusUpdate(id);
-        }
+	}
 
-    }
+	public void livingTick() {
+		super.livingTick();
+		if (this.attackTimer > 0) {
+			--this.attackTimer;
+		}
+	}
 
-    public void livingTick() {
-        super.livingTick();
-        if (this.attackTimer > 0) {
-            --this.attackTimer;
-        }
-    }
+	@OnlyIn(Dist.CLIENT)
+	public int getAttackTimer() {
+		return this.attackTimer;
+	}
 
-    @OnlyIn(Dist.CLIENT)
-    public int getAttackTimer() {
-        return this.attackTimer;
-    }
+	public boolean attackEntityAsMob(Entity entityIn) {
+		this.attackTimer = 10;
+		this.world.setEntityState(this, (byte) 4);
+		float f = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
+		float f1 = (int) f > 0 ? f / 2.0F + (float) this.rand.nextInt((int) f) : f;
+		float f2 = (float) this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
 
-    public boolean attackEntityAsMob(Entity entityIn) {
-        this.attackTimer = 10;
-        this.world.setEntityState(this, (byte)4);
-        float f = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
-        float f1 = (int)f > 0 ? f / 2.0F + (float)this.rand.nextInt((int)f) : f;
-        float f2 = (float) this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
+		if (entityIn instanceof PlayerEntity && ((PlayerEntity) entityIn).getActiveItemStack().isShield((PlayerEntity) entityIn)) {
+			attackFling(entityIn, f2 * 3, 2.0);
+			entityIn.velocityChanged = true;
+		}
 
-        if(entityIn instanceof PlayerEntity && ((PlayerEntity) entityIn).getActiveItemStack().isShield((PlayerEntity) entityIn)){
-            attackFling(entityIn, f2*3, 2.0);
-            entityIn.velocityChanged = true;
-        }
+		boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), f1);
 
-        boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), f1);
+		if (flag) {
+			attackFling(entityIn, f2, 0.6);
+		}
 
-        if (flag) {
-            attackFling(entityIn, f2, 0.6);
-        }
+		this.playSound(IESoundEvents.BASALT_GIANT_HURT.get(), 1.0F, 1.0F);
+		return flag;
+	}
 
-        this.playSound(RegistryHandler.basalt_giant_hurt, 1.0F, 1.0F);
-        return flag;
-    }
+	private void attackFling(Entity entityIn, float f2, double height) {
+		((LivingEntity) entityIn).applyKnockback(f2, MathHelper.sin(this.rotationYaw * ((float) Math.PI / 180F)), -MathHelper.cos(this.rotationYaw * ((float) Math.PI / 180F)));
+		entityIn.setMotion(entityIn.getMotion().add(0.0D, height, 0.0D));
+		this.applyEnchantments(this, entityIn);
+	}
 
-    private void attackFling(Entity entityIn, float f2, double height) {
-        ((LivingEntity) entityIn).applyKnockback(f2, MathHelper.sin(this.rotationYaw * ((float)Math.PI / 180F)), -MathHelper.cos(this.rotationYaw * ((float)Math.PI / 180F)));
-        entityIn.setMotion(entityIn.getMotion().add(0.0D, height, 0.0D));
-        this.applyEnchantments(this, entityIn);
-    }
+	/*
+	 * @Override public boolean attackEntityFrom(DamageSource source, float amount)
+	 * { if(source.getImmediateSource() instanceof ArrowEntity){ return false; }
+	 * return super.attackEntityFrom(source, amount); }
+	 */
 
-/*
-    @Override
-    public boolean attackEntityFrom(DamageSource source, float amount) {
-        if(source.getImmediateSource() instanceof ArrowEntity){
-            return false;
-        }
-        return super.attackEntityFrom(source, amount);
-    }
-*/
+	// ---
 
-    //---
+	// BEHAVIOUR
+	@Override
+	protected void registerGoals() {
+		super.registerGoals();
+		this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 0.6D, true));
+		this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, AbstractPiglinEntity.class, true, false));
+		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, ZombifiedPiglinEntity.class, true, false));
+		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, SkeletalPiglinEntity.class, true, false));
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, GlowsquitoEntity.class, true));
+		this.goalSelector.addGoal(1, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
+		this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0f));
+		this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
+	}
 
-    //BEHAVIOUR
-    @Override
-    protected void registerGoals() {
-        super.registerGoals();
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 0.6D, true));
-        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, AbstractPiglinEntity.class, true, false));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, ZombifiedPiglinEntity.class, true,false));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, SkeletalPiglinEntity.class, true, false));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, GlowsquitoEntity.class, true));
-        this.goalSelector.addGoal(1, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
-        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0f));
-        this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
-    }
+	// EXP POINTS
+	@Override
+	protected int getExperiencePoints(PlayerEntity player) {
+		return 2 + this.world.rand.nextInt(2);
+	}
 
-    //EXP POINTS
-    @Override
-    protected int getExperiencePoints(PlayerEntity player) {
-        return 2 + this.world.rand.nextInt(2);
-    }
+	public boolean isImmuneToFire() {
+		return true;
+	}
 
+	@Override
+	public int getAngerTime() {
+		return this.angerTime;
+	}
 
-    public boolean isImmuneToFire() {
-        return true;
-    }
+	@Override
+	public void setAngerTime(int time) {
+		this.angerTime = time;
+	}
 
-    @Override
-    public int getAngerTime() {
-        return this.angerTime;
-    }
+	@Nullable
+	@Override
+	public UUID getAngerTarget() {
+		return this.angerTarget;
+	}
 
-    @Override
-    public void setAngerTime(int time) {
-        this.angerTime = time;
-    }
+	@Override
+	public void setAngerTarget(@Nullable UUID target) {
+		this.angerTarget = target;
+	}
 
-    @Nullable
-    @Override
-    public UUID getAngerTarget() {
-        return this.angerTarget;
-    }
-
-    @Override
-    public void setAngerTarget(@Nullable UUID target) {
-        this.angerTarget = target;
-    }
-
-    @Override
-    public void func_230258_H__() {
-        this.setAngerTime(RANGED_INT.getRandomWithinRange(this.rand));
-    }
+	@Override
+	public void func_230258_H__() {
+		this.setAngerTime(RANGED_INT.getRandomWithinRange(this.rand));
+	}
 }

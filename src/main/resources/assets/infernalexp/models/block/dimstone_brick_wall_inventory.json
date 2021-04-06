@@ -1,6 +1,6 @@
 {
   "parent": "block/wall_inventory",
   "textures": {
-    "wall": "infernalexp:block/dimstone_bricks"
+    "wall": "infernalexp:block/dimstone_bricks_small"
   }
 }
