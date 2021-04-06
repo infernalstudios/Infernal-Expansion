@@ -87,6 +87,11 @@ public class IEEntityTypes {
 				.size(0.25f, 0.25f).trackingRange(4).updateInterval(10)
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "throwable_magma_cream").toString()));
 
+    public static final RegistryObject<EntityType<ThrowableFireChargeEntity>> THROWABLE_FIRE_CHARGE = ENTITY_TYPES.register("throwable_fire_charge",
+        () -> EntityType.Builder.<ThrowableFireChargeEntity>create(ThrowableFireChargeEntity::new, EntityClassification.MISC)
+            .size(0.25f, 0.25f).trackingRange(4).updateInterval(10)
+            .build(new ResourceLocation(InfernalExpansion.MOD_ID, "throwable_fire_charge").toString()));
+
     private static <T extends Entity> RegistryObject<EntityType<T>> register(String key, EntityType.IFactory<T> factoryIn, EntityClassification classificationIn, float size1, float size2) {
         return ENTITY_TYPES.register(key, () -> EntityType.Builder.create(factoryIn, classificationIn)
                 .size(size1, size2)

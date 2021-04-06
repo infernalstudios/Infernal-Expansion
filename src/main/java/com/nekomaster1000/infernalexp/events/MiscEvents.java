@@ -7,6 +7,7 @@ import com.nekomaster1000.infernalexp.config.ConfigHolder;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.FloraBehaviour;
 import com.nekomaster1000.infernalexp.data.VolineEatTable;
 import com.nekomaster1000.infernalexp.entities.ShroomloinEntity;
+import com.nekomaster1000.infernalexp.entities.ThrowableFireChargeEntity;
 import com.nekomaster1000.infernalexp.entities.ThrowableMagmaCreamEntity;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IEEffects;
@@ -137,6 +138,19 @@ public class MiscEvents {
                 throwableMagmaCreamEntity.setItem(heldItemStack);
 				throwableMagmaCreamEntity.setDirectionAndMovement(player, player.rotationPitch, player.rotationYaw, -20, 0.5f, 1);
 				world.addEntity(throwableMagmaCreamEntity);
+            }
+
+            player.addStat(Stats.ITEM_USED.get(heldItemStack.getItem()));
+
+            if (!player.abilities.isCreativeMode) {
+                heldItemStack.shrink(1);
+            }
+        } else if (heldItemStack.getItem() == Items.FIRE_CHARGE) {
+            player.swingArm(event.getHand());
+
+            if (!world.isRemote) {
+                ThrowableFireChargeEntity throwableFireChargeEntity = new ThrowableFireChargeEntity(world, player, player.getLookVec().getX(), player.getLookVec().getY(), player.getLookVec().getZ());
+                world.addEntity(throwableFireChargeEntity);
             }
 
             player.addStat(Stats.ITEM_USED.get(heldItemStack.getItem()));
