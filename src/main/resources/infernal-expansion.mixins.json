@@ -14,7 +14,8 @@
     "common.MixinAbstractArrowEntity",
     "common.MixinArrowEntity",
     "common.MixinEntity",
-    "common.MixinAbstractFireBlock"
+    "common.MixinAbstractFireBlock",
+    "common.MixinPaintingEntity"
   ],
   "client": [
     "client.MixinIBlockReader",
@@ -22,6 +23,7 @@
     "client.MixinModelBakery",
     "client.MixinOverlayRenderer",
     "client.MixinPlayerRenderer",
-    "client.MixinClientPlayNetHandler"
+    "client.MixinClientPlayNetHandler",
+    "client.MixinPaintingSpriteUploader"
   ]
 }
