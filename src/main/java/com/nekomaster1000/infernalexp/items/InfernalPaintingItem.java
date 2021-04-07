@@ -18,7 +18,7 @@ public class InfernalPaintingItem extends HangingEntityItem {
 	public ActionResultType onItemUse(ItemUseContext context) {
 		BlockPos blockPos = context.getPos().offset(context.getFace());
 
-		if (context.getPlayer() != null && !this.canPlace(context.getPlayer(), context.getFace(), context.getItem(), blockPos)) {
+		if (context.getPlayer() == null || !this.canPlace(context.getPlayer(), context.getFace(), context.getItem(), blockPos)) {
 			return ActionResultType.FAIL;
 		} else {
 			InfernalPaintingEntity paintingEntity = new InfernalPaintingEntity(context.getWorld(), blockPos, context.getFace());
