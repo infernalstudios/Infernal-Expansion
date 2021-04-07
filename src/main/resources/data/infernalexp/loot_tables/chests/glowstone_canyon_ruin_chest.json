@@ -224,6 +224,23 @@
         },
         {
           "type": "minecraft:item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 0.6
+              }
+            },
+            {
+              "function": "minecraft:enchant_randomly"
+            }
+          ],
+          "name": "infernalexp:blindsight_tongue_whip"
+        },
+        {
+          "type": "minecraft:item",
           "weight": 2,
           "functions": [
             {
