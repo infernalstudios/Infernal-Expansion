@@ -4,7 +4,6 @@ import com.nekomaster1000.infernalexp.entities.ai.EatItemsGoal;
 import com.nekomaster1000.infernalexp.entities.ai.TargetWithEffectGoal;
 import com.nekomaster1000.infernalexp.events.MiscEvents;
 import com.nekomaster1000.infernalexp.init.IESoundEvents;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;

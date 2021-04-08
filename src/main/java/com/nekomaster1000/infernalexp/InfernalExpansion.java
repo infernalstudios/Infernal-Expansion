@@ -26,11 +26,14 @@ import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeProvider;
 import com.nekomaster1000.infernalexp.world.gen.ModEntityPlacement;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowerPotBlock;
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.potion.Potions;
+import net.minecraft.resources.ResourcePackType;
+import net.minecraft.resources.SimpleReloadableResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.api.distmarker.Dist;
@@ -50,13 +53,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Mod("infernalexp")
-public class InfernalExpansion
-{
+public class InfernalExpansion {
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "infernalexp";
 
-    public InfernalExpansion()
-    {
+    private static final SimpleReloadableResourceManager dataResourceManager = new SimpleReloadableResourceManager(ResourcePackType.SERVER_DATA);
+
+    public InfernalExpansion() {
         final ModLoadingContext modLoadingContext = ModLoadingContext.get();
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
@@ -91,17 +94,20 @@ public class InfernalExpansion
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-		//Search for all biomes to add to nether and register nether biome provider
-		ModNetherBiomeCollector.netherBiomeCollection();
-		Registry.register(Registry.BIOME_PROVIDER_CODEC, new ResourceLocation(MOD_ID, "infernalexp_nether"), ModNetherBiomeProvider.MOD_NETHER_CODEC);
+        //Search for all biomes to add to nether and register nether biome provider
+        ModNetherBiomeCollector.netherBiomeCollection();
+        Registry.register(Registry.BIOME_PROVIDER_CODEC, new ResourceLocation(MOD_ID, "infernalexp_nether"), ModNetherBiomeProvider.MOD_NETHER_CODEC);
 
-		//Setup and register structures and processors and packets
-		event.enqueueWork(IEProcessors::registerProcessors);
-		event.enqueueWork(IEStructures::setupStructures);
-		event.enqueueWork(IENetworkHandler::register);
+        //Setup and register structures and processors and packets
+        event.enqueueWork(IEProcessors::registerProcessors);
+        event.enqueueWork(IEStructures::setupStructures);
+        event.enqueueWork(IENetworkHandler::register);
 
-		//Places entity spawn locations on the ground
-		ModEntityPlacement.spawnPlacement();
+        // Add mod datapack to custom resource loader
+        event.enqueueWork(() -> dataResourceManager.addResourcePack(Minecraft.getInstance().getResourcePackList().getPackInfo("mod_resources").getResourcePack()));
+
+        //Places entity spawn locations on the ground
+        ModEntityPlacement.spawnPlacement();
 
         //Register New Flowers to be Able to Place in Pots
         FlowerPotBlock flowerPot = (FlowerPotBlock) Blocks.FLOWER_POT;
@@ -111,9 +117,9 @@ public class InfernalExpansion
 
         //Register Brewing Recipes for Potions
         BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
-                PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), Potions.AWKWARD),
-                IEItems.MOTH_DUST.get().getDefaultInstance(),
-                PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LUMINOUS.get())));
+            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), Potions.AWKWARD),
+            IEItems.MOTH_DUST.get().getDefaultInstance(),
+            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LUMINOUS.get())));
         BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
                 PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LUMINOUS.get()),
                 Items.GUNPOWDER.getDefaultInstance(),
@@ -170,5 +176,9 @@ public class InfernalExpansion
         }
 
     };
+
+    public static SimpleReloadableResourceManager getDataResourceManager() {
+        return dataResourceManager;
+    }
 
 }

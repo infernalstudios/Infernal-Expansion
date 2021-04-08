@@ -5,6 +5,7 @@ import com.nekomaster1000.infernalexp.blocks.HorizontalBushBlock;
 import com.nekomaster1000.infernalexp.config.ConfigHelper;
 import com.nekomaster1000.infernalexp.config.ConfigHolder;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.FloraBehaviour;
+import com.nekomaster1000.infernalexp.data.SpawnrateManager;
 import com.nekomaster1000.infernalexp.data.VolineEatTable;
 import com.nekomaster1000.infernalexp.entities.ShroomloinEntity;
 import com.nekomaster1000.infernalexp.entities.ThrowableMagmaCreamEntity;
@@ -222,11 +223,15 @@ public class MiscEvents {
     }
 
     private static VolineEatTable volineEatTable;
+    private static SpawnrateManager spawnrateManager;
 
     @SubscribeEvent
     public void onResourceReload(AddReloadListenerEvent event) {
         volineEatTable = new VolineEatTable();
+        spawnrateManager = new SpawnrateManager();
+
         event.addListener(volineEatTable);
+        event.addListener(spawnrateManager);
     }
 
     public static Map<Item, Map<Item, Integer>> getVolineEatTable() {
@@ -237,4 +242,11 @@ public class MiscEvents {
         return volineEatTable.getVolineEatTable();
     }
 
+    public static Map<String, Map<String, SpawnrateManager.SpawnInfo>> getSpawnrateManager() {
+        if (spawnrateManager == null) {
+            spawnrateManager = new SpawnrateManager();
+        }
+
+        return spawnrateManager.getSpawnrates();
+    }
 }

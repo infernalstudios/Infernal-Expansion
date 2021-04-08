@@ -133,9 +133,9 @@ public final class ConfigHelper {
         ConfigHolder.COMMON.warpbeetleWarpedRate.set(MobSpawning.WARPBEETLE_WARPED.getSpawnrate());
         ConfigHolder.COMMON.giantDeltasRate.set(MobSpawning.GIANT_DELTAS.getSpawnrate());
         ConfigHolder.COMMON.embodySSVRate.set(MobSpawning.EMBODY_SSV.getSpawnrate());
-		ConfigHolder.COMMON.glowsilkGSCRate.set(MobSpawning.GLOWSILK_GSC.getSpawnrate());
-		ConfigHolder.COMMON.glowsilkDeltasRate.set(MobSpawning.GLOWSILK_DELTAS.getSpawnrate());
-		ConfigHolder.COMMON.glowsilkCrimsonRate.set(MobSpawning.GLOWSILK_CRIMSON.getSpawnrate());
+        ConfigHolder.COMMON.glowsilkGSCRate.set(MobSpawning.GLOWSILK_GSC.getSpawnrate());
+        ConfigHolder.COMMON.glowsilkDeltasRate.set(MobSpawning.GLOWSILK_DELTAS.getSpawnrate());
+        ConfigHolder.COMMON.glowsilkCrimsonRate.set(MobSpawning.GLOWSILK_CRIMSON.getSpawnrate());
 
         ConfigHolder.COMMON.isShroomlightGrowable.set(FloraBehaviour.SHROOMLIGHT_GROWABLE.getBool());
         ConfigHolder.COMMON.shroomlightGrowChance.set(FloraBehaviour.SHROOMLIGHT_GROW_CHANCE.getDouble());

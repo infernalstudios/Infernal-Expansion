@@ -112,8 +112,8 @@ public final class InfernalExpansionConfig {
         }
 
         public double getDouble() {
-        	return doubleValue;
-		}
+            return doubleValue;
+        }
 
         public void setDouble(double value) {
             this.doubleValue = value;
@@ -121,6 +121,56 @@ public final class InfernalExpansionConfig {
 
         public boolean isSlider() {
             return isSlider;
+        }
+    }
+
+    // The old mob spawning enum should be deleted once all entities have been converted to using JSON spawnrate files
+    public enum NewMobSpawning {
+        VOLINE("voline"),
+        WARPBEETLE("warpbeetle"),
+        SHROOMLOIN("shroomloin"),
+        BASALT_GIANT("basalt_giant"),
+        EMBODY("embody"),
+        GLOWSQUITO("glowsquito"),
+        GLOWSILK_MOTH("glowsilk_moth"),
+        BLINDSIGHT("blindsight"),
+        BLACKSTONE_DWARF("blackstone_dwarf"),
+        SKELETAL_PIGLIN("skeletal_piglin");
+
+        private final String translationName;
+        private String spawnableBiomes;
+
+        NewMobSpawning(String translationName) {
+            this.translationName = translationName;
+            this.spawnableBiomes = "";
+        }
+
+        public String getTranslationName() {
+            return translationName;
+        }
+
+        public void setSpawnableBiomes(String spawnableBiomes) {
+            this.spawnableBiomes = spawnableBiomes;
+        }
+
+        public String getSpawnableBiomes() {
+            return spawnableBiomes;
+        }
+
+        /**
+         * @param name name of the enum constant to get
+         * @return the enum constant
+         */
+        public static NewMobSpawning getByName(@Nonnull String name) {
+            return NewMobSpawning.valueOf(name.toUpperCase());
+        }
+
+        /**
+         * @param name name of the enum constant to check if it exists in the enum
+         * @return true if enum contains enum constant
+         */
+        public static boolean contains(@Nonnull String name) {
+            return Arrays.stream(NewMobSpawning.values()).anyMatch(entity -> entity.getTranslationName().equals(name));
         }
     }
 

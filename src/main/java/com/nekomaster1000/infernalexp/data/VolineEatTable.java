@@ -45,12 +45,13 @@ public class VolineEatTable extends JsonReloadListener {
                         for (JsonElement entry : jsonObject.getAsJsonArray("entries")) {
 
 							VOLINE_EAT_TABLE.put(ForgeRegistries.ITEMS.getValue(new ResourceLocation(entry.getAsJsonObject().get("accepted_item").getAsString())),
-									new HashMap<Item, Integer>() {{
-										for (JsonElement item : entry.getAsJsonObject().getAsJsonArray("returned_items")) {
-											put(ForgeRegistries.ITEMS.getValue(new ResourceLocation(item.getAsJsonObject().get("item").getAsString())),
-													item.getAsJsonObject().get("amount").getAsInt());
-										}
-							}});
+                                new HashMap<Item, Integer>() {{
+                                    for (JsonElement item : entry.getAsJsonObject().getAsJsonArray("returned_items")) {
+                                        put(ForgeRegistries.ITEMS.getValue(new ResourceLocation(item.getAsJsonObject().get("item").getAsString())),
+                                            item.getAsJsonObject().get("amount").getAsInt());
+                                    }
+                                }}
+                            );
 						}
 					}
 
