@@ -218,18 +218,16 @@
   "item.minecraft.splash_potion.effect.infection": "Splash Potion of Infection",
   "item.minecraft.lingering_potion.effect.infection": "Lingering Potion of Infection",
   "item.minecraft.tipped_arrow.effect.infection": "Arrow of Infection",
-
   "infernalexp.config.button.mobInteractions": "Mob Interactions...",
   "infernalexp.config.button.mobSpawning": "Mob Spawning...",
   "infernalexp.config.button.floraBehaviour": "Flora Behaviour...",
   "infernalexp.config.button.clientConfig": "Client Config...",
-
   "infernalexp.config.title": "Infernal Expansion Config",
   "infernalexp.config.title.mobInteractions": "Mob Interactions",
-  "infernalexp.config.title.mobSpawning": "Mob Spawning",
+  "infernalexp.config.title.mob_spawning": "Mob Spawning",
   "infernalexp.config.title.floraBehaviour": "Flora Behaviour",
   "infernalexp.config.title.clientConfig": "Client Config",
-
+  "infernalexp.config.subtitle.spawnable_biomes": "What biomes should mobs spawn in?",
   "infernalexp.config.option.piglinFearWarpbeetle": "Piglins fear Warpbeetles",
   "infernalexp.config.option.piglinFearEmbody": "Piglins fear Embodies",
   "infernalexp.config.option.hoglinFearWarpbeetle": "Hoglins fear Warpbeetles",

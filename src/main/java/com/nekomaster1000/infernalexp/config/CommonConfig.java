@@ -25,6 +25,18 @@ public class CommonConfig {
     final ForgeConfigSpec.BooleanValue ghastAttackSkeleton;
     final ForgeConfigSpec.DoubleValue glowsilkSpeed;
 
+    //Mob Spawnable Biomes
+    final ForgeConfigSpec.ConfigValue<String> volineBiomes;
+    final ForgeConfigSpec.ConfigValue<String> warpbeetleBiomes;
+    final ForgeConfigSpec.ConfigValue<String> shroomloinBiomes;
+    final ForgeConfigSpec.ConfigValue<String> basaltGiantBiomes;
+    final ForgeConfigSpec.ConfigValue<String> embodyBiomes;
+    final ForgeConfigSpec.ConfigValue<String> glowsquitoBiomes;
+    final ForgeConfigSpec.ConfigValue<String> glowsilkMothBiomes;
+    final ForgeConfigSpec.ConfigValue<String> blindsightBiomes;
+    final ForgeConfigSpec.ConfigValue<String> blackstoneDwarfBiomes;
+    final ForgeConfigSpec.ConfigValue<String> skeletalPiglinBiomes;
+
     //Mob Spawning Booleans
     final ForgeConfigSpec.BooleanValue volineInWastes;
     final ForgeConfigSpec.BooleanValue shroomloinInCrimson;
@@ -139,22 +151,77 @@ public class CommonConfig {
                 .define("ghastAttackSkeleton", false);
 
         glowsilkSpeed = builder
-			    .comment("Determines the speed at which Glowsilk Moths fly")
-			    .translation(InfernalExpansion.MOD_ID + ".config.tooltip.glowsilkSpeed")
-			    .defineInRange("glowsilkSpeed", 3.0D, 0.0D, Double.MAX_VALUE);
+            .comment("Determines the speed at which Glowsilk Moths fly")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.glowsilkSpeed")
+            .defineInRange("glowsilkSpeed", 3.0D, 0.0D, Double.MAX_VALUE);
 
         builder.pop();
 
         //Mob Spawning
         builder.push("Mob Spawning");
 
+        //Spawnable biomes
+        builder.push("Spawnable Biomes");
+
+        volineBiomes = builder
+            .comment("Determines what biomes Volines will spawn in")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.voline.biomes")
+            .define("volineBiomes", "minecraft:nether_wastes, minecraft:crimson_forest");
+
+        warpbeetleBiomes = builder
+            .comment("Determines what biomes Warpbeetles will spawn in")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.warpbeetle.biomes")
+            .define("warpbeetleBiomes", "minecraft:warped_forest");
+
+        shroomloinBiomes = builder
+            .comment("Determines what biomes Shroomloins will spawn in")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.shroomloin.biomes")
+            .define("shroomloinBiomes", "minecraft:crimson_forest");
+
+        basaltGiantBiomes = builder
+            .comment("Determines what biomes Basalt Giants will spawn in")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.basalt_giant.biomes")
+            .define("basaltGiantBiomes", "minecraft:basalt_deltas, infernalexp:delta_shores");
+
+        embodyBiomes = builder
+            .comment("Determines what biomes Embodies will spawn in")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.embody.biomes")
+            .define("embodyBiomes", "minecraft:soul_sand_valley");
+
+        glowsquitoBiomes = builder
+            .comment("Determines what biomes Glowsquitos will spawn in")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.glowsquito.biomes")
+            .define("glowsquitoBiomes", "infernalexp:glowstone_canyon");
+
+        glowsilkMothBiomes = builder
+            .comment("Determines what biomes Glowsilk Moths will spawn in")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.glowsilk_moth.biomes")
+            .define("glowsilkMothBiomes", "minecraft:crimson_forest, minecraft:basalt_deltas, infernalexp:glowstone_canyon");
+
+        blindsightBiomes = builder
+            .comment("Determines what biomes Blindsights will spawn in")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.blindsight.biomes")
+            .define("blindsightBiomes", "infernalexp:glowstone_canyon");
+
+        blackstoneDwarfBiomes = builder
+            .comment("Determines what biomes Blackstone Dwarfs will spawn in")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.blackstone_dwarf.biomes")
+            .define("blackstoneDwarfBiomes", "infernalexp:glowstone_canyon");
+
+        skeletalPiglinBiomes = builder
+            .comment("Determines what biomes Skeletal Piglins will spawn in")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.skeletal_piglin.biomes")
+            .define("skeletalPiglinBiomes", "minecraft:soul_sand_valley, infernalexp:glowstone_canyon, infernalexp:delta_shores");
+
+        builder.pop();
+
         //Spawn Booleans
         builder.push("Toggle Spawns");
 
         volineInWastes = builder
-                .comment("Determines if Volines will spawn in Nether Wastes")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.volineWastes.enable")
-                .define("volineInWastes", true);
+            .comment("Determines if Volines will spawn in Nether Wastes")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.volineWastes.enable")
+            .define("volineInWastes", true);
 
         shroomloinInCrimson = builder
                 .comment("Determines if Shroomloins will spawn in the Crimson Forests")

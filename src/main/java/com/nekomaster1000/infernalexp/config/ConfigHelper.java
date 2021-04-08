@@ -4,6 +4,7 @@ import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.FloraBehavi
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.MobInteractions;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.MobSpawning;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.ClientConfig;
+import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.NewMobSpawning;
 import net.minecraftforge.fml.config.ModConfig;
 
 import javax.annotation.Nullable;
@@ -36,6 +37,18 @@ public final class ConfigHelper {
         MobInteractions.GHAST_ATTACK_VOLINE.setBoolean(ConfigHolder.COMMON.ghastAttackVoline.get());
         MobInteractions.GHAST_ATTACK_SKELETON.setBoolean(ConfigHolder.COMMON.ghastAttackSkeleton.get());
         MobInteractions.GLOWSILK_SPEED.setDouble(ConfigHolder.COMMON.glowsilkSpeed.get());
+
+        //Mob Spawnable Biomes
+        NewMobSpawning.VOLINE.setSpawnableBiomes(ConfigHolder.COMMON.volineBiomes.get());
+        NewMobSpawning.WARPBEETLE.setSpawnableBiomes(ConfigHolder.COMMON.warpbeetleBiomes.get());
+        NewMobSpawning.SHROOMLOIN.setSpawnableBiomes(ConfigHolder.COMMON.shroomloinBiomes.get());
+        NewMobSpawning.BASALT_GIANT.setSpawnableBiomes(ConfigHolder.COMMON.basaltGiantBiomes.get());
+        NewMobSpawning.EMBODY.setSpawnableBiomes(ConfigHolder.COMMON.embodyBiomes.get());
+        NewMobSpawning.GLOWSQUITO.setSpawnableBiomes(ConfigHolder.COMMON.glowsquitoBiomes.get());
+        NewMobSpawning.GLOWSILK_MOTH.setSpawnableBiomes(ConfigHolder.COMMON.glowsilkMothBiomes.get());
+        NewMobSpawning.BLINDSIGHT.setSpawnableBiomes(ConfigHolder.COMMON.blindsightBiomes.get());
+        NewMobSpawning.BLACKSTONE_DWARF.setSpawnableBiomes(ConfigHolder.COMMON.blackstoneDwarfBiomes.get());
+        NewMobSpawning.SKELETAL_PIGLIN.setSpawnableBiomes(ConfigHolder.COMMON.skeletalPiglinBiomes.get());
 
         //Mob Spawning Booleans
         MobSpawning.VOLINE_WASTES.setEnabled(ConfigHolder.COMMON.volineInWastes.get());
@@ -90,6 +103,18 @@ public final class ConfigHelper {
         ConfigHolder.COMMON.ghastAttackSkeleton.set(MobInteractions.GHAST_ATTACK_SKELETON.getBoolean());
         ConfigHolder.COMMON.glowsilkSpeed.set(MobInteractions.GLOWSILK_SPEED.getDouble());
 
+        //Mob Spawnable Biomes
+        ConfigHolder.COMMON.volineBiomes.set(NewMobSpawning.VOLINE.getSpawnableBiomes());
+        ConfigHolder.COMMON.warpbeetleBiomes.set(NewMobSpawning.WARPBEETLE.getSpawnableBiomes());
+        ConfigHolder.COMMON.shroomloinBiomes.set(NewMobSpawning.SHROOMLOIN.getSpawnableBiomes());
+        ConfigHolder.COMMON.basaltGiantBiomes.set(NewMobSpawning.BASALT_GIANT.getSpawnableBiomes());
+        ConfigHolder.COMMON.embodyBiomes.set(NewMobSpawning.EMBODY.getSpawnableBiomes());
+        ConfigHolder.COMMON.glowsquitoBiomes.set(NewMobSpawning.GLOWSQUITO.getSpawnableBiomes());
+        ConfigHolder.COMMON.glowsilkMothBiomes.set(NewMobSpawning.GLOWSILK_MOTH.getSpawnableBiomes());
+        ConfigHolder.COMMON.blindsightBiomes.set(NewMobSpawning.BLINDSIGHT.getSpawnableBiomes());
+        ConfigHolder.COMMON.blackstoneDwarfBiomes.set(NewMobSpawning.BLACKSTONE_DWARF.getSpawnableBiomes());
+        ConfigHolder.COMMON.skeletalPiglinBiomes.set(NewMobSpawning.SKELETAL_PIGLIN.getSpawnableBiomes());
+
         //Mob Spawning Booleans
         ConfigHolder.COMMON.volineInWastes.set(MobSpawning.VOLINE_WASTES.isEnabled());
         ConfigHolder.COMMON.shroomloinInCrimson.set(MobSpawning.SHROOMLOIN_CRIMSON.isEnabled());
@@ -97,9 +122,9 @@ public final class ConfigHelper {
         ConfigHolder.COMMON.warpbeetleInWarped.set(MobSpawning.WARPBEETLE_WARPED.isEnabled());
         ConfigHolder.COMMON.giantInDeltas.set(MobSpawning.GIANT_DELTAS.isEnabled());
         ConfigHolder.COMMON.embodyInSSV.set(MobSpawning.EMBODY_SSV.isEnabled());
-		ConfigHolder.COMMON.glowsilkInGSC.set(MobSpawning.GLOWSILK_GSC.isEnabled());
-		ConfigHolder.COMMON.glowsilkInDeltas.set(MobSpawning.GLOWSILK_DELTAS.isEnabled());
-		ConfigHolder.COMMON.glowsilkInCrimson.set(MobSpawning.GLOWSILK_CRIMSON.isEnabled());
+        ConfigHolder.COMMON.glowsilkInGSC.set(MobSpawning.GLOWSILK_GSC.isEnabled());
+        ConfigHolder.COMMON.glowsilkInDeltas.set(MobSpawning.GLOWSILK_DELTAS.isEnabled());
+        ConfigHolder.COMMON.glowsilkInCrimson.set(MobSpawning.GLOWSILK_CRIMSON.isEnabled());
 
         //Mob Spawn Rates
         ConfigHolder.COMMON.volineWastesRate.set(MobSpawning.VOLINE_WASTES.getSpawnrate());

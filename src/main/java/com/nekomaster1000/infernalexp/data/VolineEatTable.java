@@ -42,7 +42,6 @@ public class VolineEatTable extends JsonReloadListener {
                     JsonObject jsonObject = JSONUtils.fromJson(GSON_INSTANCE, reader, JsonObject.class);
 
                     if (jsonObject != null) {
-
                         for (JsonElement entry : jsonObject.getAsJsonArray("entries")) {
 
 							VOLINE_EAT_TABLE.put(ForgeRegistries.ITEMS.getValue(new ResourceLocation(entry.getAsJsonObject().get("accepted_item").getAsString())),

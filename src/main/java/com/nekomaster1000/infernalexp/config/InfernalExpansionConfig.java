@@ -1,5 +1,8 @@
 package com.nekomaster1000.infernalexp.config;
 
+import javax.annotation.Nonnull;
+import java.util.Arrays;
+
 public final class InfernalExpansionConfig {
 
     //Client
@@ -112,13 +115,13 @@ public final class InfernalExpansionConfig {
         	return doubleValue;
 		}
 
-		public void setDouble(double value) {
-        	this.doubleValue = value;
-		}
+        public void setDouble(double value) {
+            this.doubleValue = value;
+        }
 
-		public boolean isSlider() {
-			return isSlider;
-		}
+        public boolean isSlider() {
+            return isSlider;
+        }
     }
 
     //Mob Spawning
