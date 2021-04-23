@@ -5,6 +5,7 @@ import com.nekomaster1000.infernalexp.blocks.BlockItemBase;
 import com.nekomaster1000.infernalexp.blocks.DullthornsBlockItem;
 import com.nekomaster1000.infernalexp.items.AscusBombItem;
 import com.nekomaster1000.infernalexp.items.GlowcoalItem;
+import com.nekomaster1000.infernalexp.items.InfernalPaintingItem;
 import com.nekomaster1000.infernalexp.items.GlowsilkBowItem;
 import com.nekomaster1000.infernalexp.items.ItemBase;
 import com.nekomaster1000.infernalexp.items.SlurpSoupItem;
@@ -14,6 +15,7 @@ import com.nekomaster1000.infernalexp.util.ModSpawnEggItem;
 import net.minecraft.item.BowItem;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.MusicDiscItem;
 import net.minecraft.item.Rarity;
 import net.minecraft.item.SoupItem;
@@ -215,13 +217,14 @@ public class IEItems {
 
 	public static final RegistryObject<Item> GLOWSILK_COCOON = ITEMS.register("glowsilk_cocoon", () -> new BlockItemBase(IEBlocks.GLOWSILK_COCOON.get()));
 
-	public static final RegistryObject<Item> SHROOMLIGHT_FUNGUS = ITEMS.register("shroomlight_fungus",      () -> new BlockItemBase(IEBlocks.SHROOMLIGHT_FUNGUS.get()));
-	public static final RegistryObject<Item> LUMINOUS_FUNGUS = ITEMS.register("luminous_fungus",    () -> new BlockItemBase(IEBlocks.LUMINOUS_FUNGUS.get()));
+	public static final RegistryObject<Item> SHROOMLIGHT_FUNGUS = ITEMS.register("shroomlight_fungus", () -> new BlockItemBase(IEBlocks.SHROOMLIGHT_FUNGUS.get()));
+	public static final RegistryObject<Item> LUMINOUS_FUNGUS = ITEMS.register("luminous_fungus", () -> new BlockItemBase(IEBlocks.LUMINOUS_FUNGUS.get()));
 
-	public static final RegistryObject<Item> DULLTHORNS = ITEMS.register("dullthorns",		      () -> new DullthornsBlockItem(IEBlocks.DULLTHORNS.get()));
-	public static final RegistryObject<Item> DULLTHORNS_BLOCK = ITEMS.register("dullthorns_block",  () -> new BlockItemBase(IEBlocks.DULLTHORNS_BLOCK.get()));
+	public static final RegistryObject<Item> DULLTHORNS = ITEMS.register("dullthorns", () -> new DullthornsBlockItem(IEBlocks.DULLTHORNS.get()));
+	public static final RegistryObject<Item> DULLTHORNS_BLOCK = ITEMS.register("dullthorns_block", () -> new BlockItemBase(IEBlocks.DULLTHORNS_BLOCK.get()));
 
 	public static final RegistryObject<Item> ASCUS_BOMB = ITEMS.register("ascus_bomb", AscusBombItem::new);
+	public static final RegistryObject<Item> INFERNAL_PAINTING = ITEMS.register("infernal_painting", () -> new InfernalPaintingItem((new Item.Properties()).group(ItemGroup.DECORATIONS)));
 
 	// Record Discs
 	public static final RegistryObject<Item> MUSIC_DISC_SOUL_SPUNK = ITEMS.register("music_disc_soul_spunk", () -> new MusicDiscItem(8, () -> IESoundEvents.MUSIC_DISC_SOUL_SPUNK.get(), new Item.Properties().group(InfernalExpansion.TAB).rarity(Rarity.RARE).maxStackSize(1)));

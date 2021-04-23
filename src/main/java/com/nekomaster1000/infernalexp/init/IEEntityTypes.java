@@ -92,14 +92,19 @@ public class IEEntityTypes {
             .size(0.25f, 0.25f).trackingRange(4).updateInterval(10)
             .build(new ResourceLocation(InfernalExpansion.MOD_ID, "throwable_fire_charge").toString()));
 
-    private static <T extends Entity> RegistryObject<EntityType<T>> register(String key, EntityType.IFactory<T> factoryIn, EntityClassification classificationIn, float size1, float size2) {
-        return ENTITY_TYPES.register(key, () -> EntityType.Builder.create(factoryIn, classificationIn)
-                .size(size1, size2)
-                .build(new ResourceLocation(InfernalExpansion.MOD_ID, key).toString()));
-    }
+	public static final RegistryObject<EntityType<InfernalPaintingEntity>> INFERNAL_PAINTING = ENTITY_TYPES.register("infernal_painting",
+		() -> EntityType.Builder.<InfernalPaintingEntity>create(InfernalPaintingEntity::new, EntityClassification.MISC)
+			.size(0.5F, 0.5F).trackingRange(10).updateInterval(Integer.MAX_VALUE)
+			.build(new ResourceLocation(InfernalExpansion.MOD_ID, "infernal_painting").toString()));
 
-    public static void register(IEventBus eventBus) {
-        ENTITY_TYPES.register(eventBus);
-        InfernalExpansion.LOGGER.info("Infernal Expansion: Entity Types Registered!");
+	private static <T extends Entity> RegistryObject<EntityType<T>> register(String key, EntityType.IFactory<T> factoryIn, EntityClassification classificationIn, float size1, float size2) {
+		return ENTITY_TYPES.register(key, () -> EntityType.Builder.create(factoryIn, classificationIn)
+			.size(size1, size2)
+			.build(new ResourceLocation(InfernalExpansion.MOD_ID, key).toString()));
+	}
+
+	public static void register(IEventBus eventBus) {
+		ENTITY_TYPES.register(eventBus);
+		InfernalExpansion.LOGGER.info("Infernal Expansion: Entity Types Registered!");
     }
 }
