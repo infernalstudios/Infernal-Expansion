@@ -1,5 +1,5 @@
 {
-  "parent": "block/stairs_outer",
+  "parent": "block/outer_stairs",
   "textures": {
     "bottom": "minecraft:block/soul_soil",
     "top": "minecraft:block/soul_soil",

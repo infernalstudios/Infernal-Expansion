@@ -11,7 +11,7 @@
     {
       "item": "minecraft:soul_sand"
     },
-	    "y":
+    "y":
     {
       "item": "minecraft:soul_soil"
     }
@@ -20,12 +20,5 @@
   {
     "item": "infernalexp:soul_slate",
     "count": 4
-  },
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "minecraft:soul_sand"
-  },
-  "result": "infernalexp:soul_slate",
-  "experience": 0.2,
-  "cookingtime": 200
+  }
 }
