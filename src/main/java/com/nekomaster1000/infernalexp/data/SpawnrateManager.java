@@ -33,7 +33,7 @@ public class SpawnrateManager extends JsonReloadListener {
     private static final Map<String, Map<String, SpawnInfo>> SPAWNRATES = new HashMap<>();
 
     public SpawnrateManager() {
-        super(GSON_INSTANCE, "custom");
+        super(GSON_INSTANCE, "spawnrates");
         loadResources();
     }
 
@@ -53,7 +53,7 @@ public class SpawnrateManager extends JsonReloadListener {
         });
 
         entities.forEach(entity -> {
-            ResourceLocation fileResourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, "custom/" + entity.split(":")[1] + "_spawns.json");
+            ResourceLocation fileResourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, "spawnrates/" + entity.split(":")[1] + "_spawns.json");
             Map<String, SpawnInfo> entitySpawns = new HashMap<>();
 
             try {
