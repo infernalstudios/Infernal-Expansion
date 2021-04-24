@@ -15,7 +15,8 @@
     "common.MixinArrowEntity",
     "common.MixinEntity",
     "common.MixinAbstractFireBlock",
-    "common.MixinPaintingEntity"
+    "common.MixinPaintingEntity",
+    "common.MixinShovelItem"
   ],
   "client": [
     "client.MixinIBlockReader",

@@ -1,8 +1,8 @@
 {
-  "parent": "block/stairs_inner",
+  "parent": "block/inner_stairs",
   "textures": {
-    "bottom": "infernalexp:block/basalt_brick_stairs",
-    "top": "infernalexp:block/basalt_brick_stairs",
-    "side": "infernalexp:block/basalt_brick_stairs"
+    "bottom": "infernalexp:block/basalt_bricks",
+    "top": "infernalexp:block/basalt_bricks",
+    "side": "infernalexp:block/basalt_bricks"
   }
 }

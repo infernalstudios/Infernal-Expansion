@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "xx ",
+    "xx "
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "infernalexp:soul_slate"
+    }
+  },
+  "result":
+  {
+    "item": "infernalexp:soul_slate_bricks",
+    "count": 4
+  }
+}
