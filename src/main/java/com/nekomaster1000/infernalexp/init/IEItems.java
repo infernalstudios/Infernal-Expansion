@@ -56,6 +56,12 @@ public class IEItems {
                         new EffectInstance(Effects.SPEED, 160, 1), 1.0F)
                     .build())));
 
+	public static final RegistryObject<Item> RAW_HOGCHOP = ITEMS.register("raw_hogchop", () -> new Item(new Item.Properties().group(InfernalExpansion.TAB)
+                    .food(new Food.Builder().hunger(4).saturation(0.3F).meat().build())));
+
+	public static final RegistryObject<Item> COOKED_HOGCHOP = ITEMS.register("cooked_hogchop", () -> new Item(new Item.Properties().group(InfernalExpansion.TAB)
+                    .food(new Food.Builder().hunger(10).saturation(0.8F).meat().build())));
+
 
 	// Spawn Eggs
 	public static final RegistryObject<ModSpawnEggItem> VOLINE_SPAWN_EGG = ITEMS.register("voline_spawn_egg", () -> new ModSpawnEggItem(IEEntityTypes.VOLINE, 0x2E2631, 0x652833, new Item.Properties().group(InfernalExpansion.TAB)));

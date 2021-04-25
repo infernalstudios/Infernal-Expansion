@@ -13,6 +13,7 @@ import com.nekomaster1000.infernalexp.init.IECommands;
 import com.nekomaster1000.infernalexp.init.IEEffects;
 import com.nekomaster1000.infernalexp.init.IEEntityTypes;
 import com.nekomaster1000.infernalexp.init.IEItems;
+import com.nekomaster1000.infernalexp.init.IELootModifiers;
 import com.nekomaster1000.infernalexp.init.IEPaintings;
 import com.nekomaster1000.infernalexp.init.IEParticleTypes;
 import com.nekomaster1000.infernalexp.init.IEPotions;
@@ -79,6 +80,7 @@ public class InfernalExpansion
         IEPaintings.register(modEventBus);
         IETileEntityTypes.register(modEventBus);
         IEBiomes.register(modEventBus);
+        IELootModifiers.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new MiscEvents());
