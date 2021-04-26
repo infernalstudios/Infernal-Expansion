@@ -1,18 +1,11 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
-    "x"
-  ],
-  "key":
-  {
-    "x":
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
     {
       "item": "infernalexp:luminous_fungus_cap"
     }
-  },
-  "result":
-  {
+  ],
+  "result": {
     "item": "infernalexp:luminous_fungus",
     "count": 9
   }

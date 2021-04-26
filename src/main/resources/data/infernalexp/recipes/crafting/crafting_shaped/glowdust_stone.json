@@ -17,12 +17,5 @@
   {
     "item": "infernalexp:glowdust_stone",
     "count": 4
-  },
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "infernalexp:glowdust_sand"
-  },
-  "result": "infernalexp:glowdust_stone",
-  "experience": 0.2,
-  "cookingtime": 200
+  }
 }

@@ -1,18 +1,11 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
-    "x"
-  ],
-  "key":
-  {
-    "x":
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
     {
       "item": "infernalexp:crimson_fungus_cap"
     }
-  },
-  "result":
-  {
+  ],
+  "result": {
     "item": "minecraft:crimson_fungus",
     "count": 9
   }
