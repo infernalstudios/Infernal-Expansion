@@ -66,6 +66,7 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 				return;
 			} else {
 				this.setAttacking(true);
+                this.ticksSinceAttack = 36;
 			}
 
 			worldIn.playSound(null, playerentity.getPosX(), playerentity.getPosY(), playerentity.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F));
