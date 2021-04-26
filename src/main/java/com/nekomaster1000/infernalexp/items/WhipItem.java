@@ -66,6 +66,7 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 				return;
 			} else {
 				this.setAttacking(true);
+                this.ticksSinceAttack = 36;
 			}
 
 			worldIn.playSound(null, playerentity.getPosX(), playerentity.getPosY(), playerentity.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F));
@@ -95,11 +96,6 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 
 	public UseAction getUseAction(ItemStack stack) {
 		return UseAction.BOW;
-	}
-
-	@Override
-	public boolean onEntitySwing(ItemStack stack, LivingEntity entity) {
-		return true;
 	}
 
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {

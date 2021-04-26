@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "infernalexp:soul_stone"
+  },
+  "result": "infernalexp:soul_stone_wall",
+  "count": 1
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "xx "
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "infernalexp:soul_slate"
+    }
+  },
+  "result":
+  {
+    "item": "infernalexp:soul_slate_pressure_plate"
+  }
+}

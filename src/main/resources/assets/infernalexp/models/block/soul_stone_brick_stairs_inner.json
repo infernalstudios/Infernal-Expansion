@@ -1,5 +1,5 @@
 {
-  "parent": "block/stairs_inner",
+  "parent": "block/inner_stairs",
   "textures": {
     "bottom": "infernalexp:block/soul_stone_bricks",
     "top": "infernalexp:block/soul_stone_bricks",
