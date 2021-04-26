@@ -28,6 +28,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -138,6 +139,7 @@ public class MiscEvents {
                 throwableMagmaCreamEntity.setItem(heldItemStack);
 				throwableMagmaCreamEntity.setDirectionAndMovement(player, player.rotationPitch, player.rotationYaw, -20, 0.5f, 1);
 				world.addEntity(throwableMagmaCreamEntity);
+                world.playSound(null, event.getPos(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.PLAYERS, 1.0F, 1.0F);
             }
 
             player.addStat(Stats.ITEM_USED.get(heldItemStack.getItem()));
@@ -151,6 +153,7 @@ public class MiscEvents {
             if (!world.isRemote) {
                 ThrowableFireChargeEntity throwableFireChargeEntity = new ThrowableFireChargeEntity(world, player, player.getLookVec().getX(), player.getLookVec().getY(), player.getLookVec().getZ());
                 world.addEntity(throwableFireChargeEntity);
+                world.playSound(null, event.getPos(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.PLAYERS, 1.0F, 1.0F);
             }
 
             player.addStat(Stats.ITEM_USED.get(heldItemStack.getItem()));
