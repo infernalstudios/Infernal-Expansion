@@ -90,12 +90,13 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 		}
 	}
 
+    @Override
+    public UseAction getUseAction(ItemStack stack) {
+        return UseAction.BOW;
+    }
+
 	public int getUseDuration(ItemStack stack) {
 		return 72000;
-	}
-
-	public UseAction getUseAction(ItemStack stack) {
-		return UseAction.BOW;
 	}
 
 	@Override

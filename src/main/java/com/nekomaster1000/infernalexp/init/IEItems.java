@@ -3,15 +3,12 @@ package com.nekomaster1000.infernalexp.init;
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.blocks.BlockItemBase;
 import com.nekomaster1000.infernalexp.blocks.DullthornsBlockItem;
-import com.nekomaster1000.infernalexp.items.AscusBombItem;
-import com.nekomaster1000.infernalexp.items.GlowcoalItem;
-import com.nekomaster1000.infernalexp.items.InfernalPaintingItem;
-import com.nekomaster1000.infernalexp.items.GlowsilkBowItem;
-import com.nekomaster1000.infernalexp.items.ItemBase;
-import com.nekomaster1000.infernalexp.items.SlurpSoupItem;
-import com.nekomaster1000.infernalexp.items.WhipItem;
+import com.nekomaster1000.infernalexp.items.*;
 import com.nekomaster1000.infernalexp.util.ModSpawnEggItem;
 
+import net.minecraft.entity.EntityType;
+import net.minecraft.fluid.EmptyFluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BowItem;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
@@ -22,6 +19,7 @@ import net.minecraft.item.SoupItem;
 import net.minecraft.item.WallOrFloorItem;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.SoundEvents;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -64,6 +62,10 @@ public class IEItems {
 	public static final RegistryObject<ModSpawnEggItem> GLOWSILK_MOTH_SPAWN_EGG = ITEMS.register("glowsilk_moth_spawn_egg", () -> new ModSpawnEggItem(IEEntityTypes.GLOWSILK_MOTH, 0x724423, 0xe3b064, new Item.Properties().group(InfernalExpansion.TAB)));
 	//  public static final RegistryObject<ModSpawnEggItem> PYRNO_SPAWN_EGG = ITEMS.register("pyrno_spawn_egg", () -> new ModSpawnEggItem(ModEntityType.PYRNO, 0x5D514B, 0xFEE15E, new Item.Properties().group(InfernalExpansion.TAB)));
 
+    // Bucket items
+    public static final RegistryObject<EntityBucketItem> VOLINE_BUCKET = ITEMS.register("voline_bucket", () -> new EntityBucketItem(IEEntityTypes.VOLINE::get, Fluids.LAVA, () -> SoundEvents.ITEM_BUCKET_EMPTY_LAVA, new Item.Properties().maxStackSize(1).group(InfernalExpansion.TAB)));
+    public static final RegistryObject<EntityBucketItem> MAGMA_CUBE_BUCKET = ITEMS.register("magma_cube_bucket", () -> new EntityBucketItem(() -> EntityType.MAGMA_CUBE, Fluids.LAVA, () -> SoundEvents.ENTITY_MAGMA_CUBE_SQUISH, new Item.Properties().maxStackSize(1).group(InfernalExpansion.TAB)));
+    public static final RegistryObject<EntityBucketItem> STRIDER_BUCKET = ITEMS.register("strider_bucket", () -> new EntityBucketItem(() -> EntityType.STRIDER, Fluids.LAVA, () -> SoundEvents.ITEM_BUCKET_EMPTY_LAVA, new Item.Properties().maxStackSize(1).group(InfernalExpansion.TAB)));
 
 	// Block items
 	public static final RegistryObject<Item> DIMSTONE = ITEMS.register("dimstone",                                  () -> new BlockItemBase(IEBlocks.DIMSTONE.get()));
