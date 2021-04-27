@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "infernalexp:smooth_dullstone_vertical_slab"
+    }
+  ],
+  "result": {
+    "item": "infernalexp:smooth_dullstone_slab"
+  }
+}

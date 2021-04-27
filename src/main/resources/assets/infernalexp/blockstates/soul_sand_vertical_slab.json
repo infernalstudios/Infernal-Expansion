@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "type=north": { "model": "infernalexp:block/soul_sand_vertical_slab", "y": 0, "uvlock": true },
+    "type=south": { "model": "infernalexp:block/soul_sand_vertical_slab", "y": 180, "uvlock": true },
+    "type=east": { "model": "infernalexp:block/soul_sand_vertical_slab", "y": 90, "uvlock": true },
+    "type=west": { "model": "infernalexp:block/soul_sand_vertical_slab", "y": 270, "uvlock": true },
+    "type=double": { "model": "minecraft:block/soul_sand" }
+  }
+}

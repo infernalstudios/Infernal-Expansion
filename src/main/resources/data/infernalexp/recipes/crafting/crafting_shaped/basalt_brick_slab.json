@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "xxx",
+    "xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "infernalexp:basalt_bricks"
+    }
+  },
+  "result":
+  {
+    "item": "infernalexp:basalt_brick_slab",
+    "count": 6
+  }
+}
