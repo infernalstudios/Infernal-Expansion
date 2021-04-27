@@ -3,7 +3,6 @@ package com.nekomaster1000.infernalexp.init;
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.blocks.BlockItemBase;
 import com.nekomaster1000.infernalexp.blocks.DullthornsBlockItem;
-import com.nekomaster1000.infernalexp.blocks.VerticalSlabBlock;
 import com.nekomaster1000.infernalexp.items.AscusBombItem;
 import com.nekomaster1000.infernalexp.items.GlowcoalItem;
 import com.nekomaster1000.infernalexp.items.InfernalPaintingItem;
@@ -13,7 +12,6 @@ import com.nekomaster1000.infernalexp.items.SlurpSoupItem;
 import com.nekomaster1000.infernalexp.items.WhipItem;
 import com.nekomaster1000.infernalexp.util.ModSpawnEggItem;
 
-import net.minecraft.block.Block;
 import net.minecraft.item.BowItem;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
