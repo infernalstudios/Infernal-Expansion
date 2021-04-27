@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "type=north": { "model": "infernalexp:block/polished_basalt_vertical_slab", "y": 0, "uvlock": true },
+    "type=south": { "model": "infernalexp:block/polished_basalt_vertical_slab", "y": 180, "uvlock": true },
+    "type=east": { "model": "infernalexp:block/polished_basalt_vertical_slab", "y": 90, "uvlock": true },
+    "type=west": { "model": "infernalexp:block/polished_basalt_vertical_slab", "y": 270, "uvlock": true },
+    "type=double": { "model": "minecraft:block/polished_basalt" }
+  }
+}

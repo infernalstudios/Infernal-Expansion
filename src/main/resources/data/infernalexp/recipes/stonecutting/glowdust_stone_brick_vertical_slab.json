@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "infernalexp:glowdust_stone_bricks"
+  },
+  "result": "infernalexp:glowdust_stone_brick_vertical_slab",
+  "count": 2,
+  "conditions": [
+      {
+        "type": "infernalexp:quark_flag",
+        "flag": "vertical_slabs"
+      }
+  ]
+}

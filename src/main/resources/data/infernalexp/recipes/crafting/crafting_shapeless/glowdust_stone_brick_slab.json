@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "infernalexp:glowdust_stone_brick_vertical_slab"
+    }
+  ],
+  "result": {
+    "item": "infernalexp:glowdust_stone_brick_slab"
+  }
+}
