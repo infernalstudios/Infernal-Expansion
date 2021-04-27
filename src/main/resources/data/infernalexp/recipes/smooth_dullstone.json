@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "infernalexp:dullstone"
-  },
-  "result": "infernalexp:smooth_dullstone",
-  "experience": 0.0,
-  "cookingtime": 200
-}

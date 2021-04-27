@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "infernalexp:basalt_iron_ore"
-  },
-  "result": "minecraft:iron_ingot",
-  "experience": 0.0,
-  "cookingtime": 200
-}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "infernalexp:basalt_cobbled"
+  },
+  "result": "infernalexp:basalt_cobbled_vertical_slab",
+  "count": 2,
+  "conditions": [
+    {
+      "type": "infernalexp:quark_flag",
+      "flag": "vertical_slabs"
+    }
+  ]
+}

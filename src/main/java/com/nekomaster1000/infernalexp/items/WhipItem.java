@@ -99,11 +99,6 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 		return 72000;
 	}
 
-	@Override
-	public boolean onEntitySwing(ItemStack stack, LivingEntity entity) {
-		return true;
-	}
-
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		playerIn.setActiveHand(handIn);

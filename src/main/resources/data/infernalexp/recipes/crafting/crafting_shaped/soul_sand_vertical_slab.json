@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "infernalexp:soul_sand_slab"
+    }
+  },
+  "result": {
+    "item": "infernalexp:soul_sand_vertical_slab",
+    "count": 3
+  },
+  "conditions": [
+    {
+      "type": "infernalexp:quark_flag",
+      "flag": "vertical_slabs"
+    }
+  ]
+}
