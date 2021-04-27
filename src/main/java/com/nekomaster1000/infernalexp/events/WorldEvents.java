@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.init.IECarvers;
 import com.nekomaster1000.infernalexp.init.IEConfiguredFeatures;
+import com.nekomaster1000.infernalexp.init.IEConfiguredStructures;
 import com.nekomaster1000.infernalexp.init.IEFeatures;
 import com.nekomaster1000.infernalexp.init.IEStructures;
 import com.nekomaster1000.infernalexp.init.IESurfaceBuilders;
@@ -85,7 +86,9 @@ public class WorldEvents {
 			event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_GLOWSILK_COCOON);
 		} else if (event.getName().toString().equals("minecraft:basalt_deltas")) {
 			event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_GLOWSILK_COCOON);
-		}
+		} else if (event.getName().toString().equals("minecraft:soul_sand_valley")) {
+		    event.getGeneration().withStructure(IEConfiguredStructures.SOUL_SAND_VALLEY_RUIN);
+        }
 	}
 
 }
