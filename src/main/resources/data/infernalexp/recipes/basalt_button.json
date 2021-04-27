@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "x  "
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:basalt"
+    }
+  },
+  "result":
+  {
+    "item": "infernalexp:basalt_button",
+    "count": 1
+  }
+}
