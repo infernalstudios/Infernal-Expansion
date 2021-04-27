@@ -1,0 +1,28 @@
+{
+  "biomes": [
+    {
+      "biome": "default",
+      "spawn_info": {
+        "spawnrate": 100,
+        "min_count": 1,
+        "max_count": 10
+      }
+    },
+    {
+      "biome": "infernalexp:glowstone_canyon",
+      "spawn_info": {
+        "spawnrate": 100,
+        "min_count": 1,
+        "max_count": 10
+      },
+      "spawn_info_changes": [
+        {
+          "name": "minecraft:strider",
+          "spawn_info": {
+            "spawnrate": 20
+          }
+        }
+      ]
+    }
+  ]
+}

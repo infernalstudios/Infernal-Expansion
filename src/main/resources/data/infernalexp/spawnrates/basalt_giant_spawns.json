@@ -1,0 +1,44 @@
+{
+  "biomes": [
+    {
+      "biome": "default",
+      "spawn_info": {
+        "spawnrate": 100,
+        "min_count": 1,
+        "max_count": 1
+      }
+    },
+    {
+      "biome": "minecraft:basalt_deltas",
+      "spawn_info": {
+        "spawnrate": 100,
+        "min_count": 1,
+        "max_count": 1
+      },
+      "spawn_info_changes": [
+        {
+          "name": "minecraft:strider",
+          "spawn_info": {
+            "spawnrate": 20
+          }
+        }
+      ]
+    },
+    {
+      "biome": "infernalexp:delta_shores",
+      "spawn_info": {
+        "spawnrate": 100,
+        "min_count": 1,
+        "max_count": 1
+      },
+      "spawn_info_changes": [
+        {
+          "name": "minecraft:strider",
+          "spawn_info": {
+            "spawnrate": 20
+          }
+        }
+      ]
+    }
+  ]
+}
