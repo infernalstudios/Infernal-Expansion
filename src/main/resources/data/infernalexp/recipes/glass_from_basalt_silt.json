@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "infernalexp:silt"
-  },
-  "result": "minecraft:glass",
-  "experience": 0.0,
-  "cookingtime": 200
-}

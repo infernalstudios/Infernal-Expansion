@@ -1,0 +1,8 @@
+{
+  "parent": "infernalexp:block/vertical_slab",
+  "textures": {
+    "bottom": "minecraft:block/soul_sand",
+    "top": "minecraft:block/soul_sand",
+    "side": "minecraft:block/soul_sand"
+  }
+}

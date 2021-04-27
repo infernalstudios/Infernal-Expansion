@@ -21,6 +21,7 @@ import com.nekomaster1000.infernalexp.init.IESoundEvents;
 import com.nekomaster1000.infernalexp.init.IEStructures;
 import com.nekomaster1000.infernalexp.init.IETileEntityTypes;
 import com.nekomaster1000.infernalexp.network.IENetworkHandler;
+import com.nekomaster1000.infernalexp.util.CompatibilityQuark;
 import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeCollector;
 import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeProvider;
 import com.nekomaster1000.infernalexp.world.gen.ModEntityPlacement;
@@ -36,6 +37,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -99,6 +101,9 @@ public class InfernalExpansion
 		event.enqueueWork(IEProcessors::registerProcessors);
 		event.enqueueWork(IEStructures::setupStructures);
 		event.enqueueWork(IENetworkHandler::register);
+
+		//Register for Quark Compatibility in recipe
+        CraftingHelper.register(new CompatibilityQuark.Serializer());
 
 		//Places entity spawn locations on the ground
 		ModEntityPlacement.spawnPlacement();

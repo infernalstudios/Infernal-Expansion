@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "infernalexp:glowstone_bricks"
-  },
-  "result": "infernalexp:cracked_glowstone_bricks",
-  "experience": 0.0,
-  "cookingtime": 200
-}

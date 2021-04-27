@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "infernalexp:soul_slate_bricks"
+  },
+  "result": "infernalexp:cracked_soul_slate_bricks",
+  "experience": 0.1,
+  "cookingtime": 200
+}

@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "minecraft:soul_soil"
-  },
-  "result": "infernalexp:soul_stone",
-  "experience": 0.2,
-  "cookingtime": 200
-}

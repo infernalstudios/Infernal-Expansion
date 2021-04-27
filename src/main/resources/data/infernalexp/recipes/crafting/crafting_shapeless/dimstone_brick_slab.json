@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "infernalexp:dimstone_brick_vertical_slab"
+    }
+  ],
+  "result": {
+    "item": "infernalexp:dimstone_brick_slab"
+  }
+}
