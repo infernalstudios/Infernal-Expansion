@@ -1,7 +1,6 @@
 package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
-
 import com.nekomaster1000.infernalexp.blocks.BuriedBoneBlock;
 import com.nekomaster1000.infernalexp.blocks.CrumblingBlackstoneBlock;
 import com.nekomaster1000.infernalexp.blocks.DullthornsBlock;
