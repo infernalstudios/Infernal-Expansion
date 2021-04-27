@@ -98,6 +98,9 @@ public class IESoundEvents {
 	public static final RegistryObject<SoundEvent> DULLSTONE_HIT = add("block.dullstone.hit");
 	public static final RegistryObject<SoundEvent> DULLSTONE_FALL = add("block.dullstone.fall");
 
+	// GLOWSTONE
+    public static final RegistryObject<SoundEvent> GLOWSTONE_RECHARGE = add("block.glowstone.recharge");
+
 	// SOUND TYPES
 	public static final SoundType DULLSTONE_TYPE = new ForgeSoundType(1.0F, 1.0F, () -> DULLSTONE_BREAK.get(), () -> DULLSTONE_STEP.get(), () -> DULLSTONE_PLACE.get(), () -> DULLSTONE_HIT.get(), () -> DULLSTONE_FALL.get());
 	public static final SoundType DIMSTONE_TYPE = new ForgeSoundType(1.0F, 1.0F, () -> SoundEvents.BLOCK_GLASS_BREAK, () -> DULLSTONE_STEP.get(), () -> SoundEvents.BLOCK_GLASS_PLACE, () -> SoundEvents.BLOCK_GLASS_HIT, () -> SoundEvents.BLOCK_GLASS_FALL);

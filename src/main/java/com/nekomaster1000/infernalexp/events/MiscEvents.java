@@ -12,6 +12,7 @@ import com.nekomaster1000.infernalexp.entities.ThrowableMagmaCreamEntity;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IEEffects;
 import com.nekomaster1000.infernalexp.init.IEParticleTypes;
+import com.nekomaster1000.infernalexp.init.IESoundEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -117,9 +118,11 @@ public class MiscEvents {
         if (heldItemStack.getItem() == Items.GLOWSTONE_DUST) {
             if (world.getBlockState(pos).getBlock() == IEBlocks.DIMSTONE.get()) {
                 player.swingArm(event.getHand());
+                world.playSound(null, event.getPos(), IESoundEvents.GLOWSTONE_RECHARGE.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);
                 world.setBlockState(pos, Blocks.GLOWSTONE.getDefaultState());
             } else if (world.getBlockState(pos).getBlock() == IEBlocks.DULLSTONE.get()) {
                 player.swingArm(event.getHand());
+                world.playSound(null, event.getPos(), IESoundEvents.GLOWSTONE_RECHARGE.get(), SoundCategory.BLOCKS, 1.0F, 0.5F);
                 world.setBlockState(pos, IEBlocks.DIMSTONE.get().getDefaultState());
             }
         }
@@ -139,7 +142,7 @@ public class MiscEvents {
                 throwableMagmaCreamEntity.setItem(heldItemStack);
 				throwableMagmaCreamEntity.setDirectionAndMovement(player, player.rotationPitch, player.rotationYaw, -20, 0.5f, 1);
 				world.addEntity(throwableMagmaCreamEntity);
-                world.playSound(null, event.getPos(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                world.playSound(null, event.getPos(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.BLOCKS, 1.0F, 1.0F);
             }
 
             player.addStat(Stats.ITEM_USED.get(heldItemStack.getItem()));
@@ -153,7 +156,7 @@ public class MiscEvents {
             if (!world.isRemote) {
                 ThrowableFireChargeEntity throwableFireChargeEntity = new ThrowableFireChargeEntity(world, player, player.getLookVec().getX(), player.getLookVec().getY(), player.getLookVec().getZ());
                 world.addEntity(throwableFireChargeEntity);
-                world.playSound(null, event.getPos(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                world.playSound(null, event.getPos(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 1.0F, 1.0F);
             }
 
             player.addStat(Stats.ITEM_USED.get(heldItemStack.getItem()));
