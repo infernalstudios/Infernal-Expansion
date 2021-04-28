@@ -66,6 +66,9 @@ public class InfernalExpansion {
         final ModLoadingContext modLoadingContext = ModLoadingContext.get();
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        modEventBus.addListener(this::clientSetup);
+        modEventBus.addListener(this::commonSetup);
+
         //Registering deferred registers to the mod bus
         IEParticleTypes.PARTICLES.register(modEventBus);
         IESoundEvents.register(modEventBus);
@@ -93,8 +96,7 @@ public class InfernalExpansion {
         ConfigHelper.bakeCommon(null);
     }
 
-    @SubscribeEvent
-    public void commonSetup(final FMLCommonSetupEvent event) {
+    private void commonSetup(final FMLCommonSetupEvent event) {
         //Search for all biomes to add to nether and register nether biome provider
         ModNetherBiomeCollector.netherBiomeCollection();
         Registry.register(Registry.BIOME_PROVIDER_CODEC, new ResourceLocation(MOD_ID, "infernalexp_nether"), ModNetherBiomeProvider.MOD_NETHER_CODEC);
@@ -179,8 +181,7 @@ public class InfernalExpansion {
         });
     }
 
-    @SubscribeEvent
-    public void clientSetup(final FMLClientSetupEvent event) {
+    private void clientSetup(final FMLClientSetupEvent event) {
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> InfernalExpansionClient::init);
     }
 

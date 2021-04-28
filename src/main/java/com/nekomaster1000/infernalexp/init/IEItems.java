@@ -263,6 +263,8 @@ public class IEItems {
 
 	public static final RegistryObject<Item> CRIMSON_NYLIUM_PATH = ITEMS.register("crimson_nylium_path", () -> new BlockItemBase(IEBlocks.CRIMSON_NYLIUM_PATH.get()));
     public static final RegistryObject<Item> WARPED_NYLIUM_PATH = ITEMS.register("warped_nylium_path", () -> new BlockItemBase(IEBlocks.WARPED_NYLIUM_PATH.get()));
+	public static final RegistryObject<Item> CRIMSON_NYLIUM_CARPET = ITEMS.register("crimson_nylium_carpet", () -> new BlockItemBase(IEBlocks.CRIMSON_NYLIUM_CARPET.get()));
+    public static final RegistryObject<Item> WARPED_NYLIUM_CARPET = ITEMS.register("warped_nylium_carpet", () -> new BlockItemBase(IEBlocks.WARPED_NYLIUM_CARPET.get()));
 
     // Record Discs
 	public static final RegistryObject<Item> MUSIC_DISC_SOUL_SPUNK = ITEMS.register("music_disc_soul_spunk", () -> new MusicDiscItem(8, () -> IESoundEvents.MUSIC_DISC_SOUL_SPUNK.get(), new Item.Properties().group(InfernalExpansion.TAB).rarity(Rarity.RARE).maxStackSize(1)));
