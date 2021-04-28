@@ -18,8 +18,6 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 
-//<>
-
 @Mixin(MagmaCubeEntity.class)
 public abstract class MixinMagmaCubeEntity extends SlimeEntity implements IBucketable {
     private static final DataParameter<Boolean> FROM_BUCKET = EntityDataManager.createKey(MagmaCubeEntity.class, DataSerializers.BOOLEAN);

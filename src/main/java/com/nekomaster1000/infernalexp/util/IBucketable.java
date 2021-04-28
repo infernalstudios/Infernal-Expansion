@@ -15,8 +15,6 @@ import net.minecraft.world.World;
 
 import java.util.Optional;
 
-//<>
-
 public interface IBucketable {
     boolean isFromBucket();
 
