@@ -13,6 +13,7 @@ import com.nekomaster1000.infernalexp.blocks.GlowTorchBlock;
 import com.nekomaster1000.infernalexp.blocks.GlowWallTorchBlock;
 import com.nekomaster1000.infernalexp.blocks.GlowdustBlock;
 import com.nekomaster1000.infernalexp.blocks.LuminousFungusBlock;
+import com.nekomaster1000.infernalexp.blocks.NetherrackPathBlock;
 import com.nekomaster1000.infernalexp.blocks.ShroomlightFungusBlock;
 import com.nekomaster1000.infernalexp.blocks.SmoothGlowstonePressurePlateBlock;
 import com.nekomaster1000.infernalexp.blocks.TrappedGlowSandBlock;
@@ -26,7 +27,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-
 
 import java.util.function.ToIntFunction;
 
@@ -227,6 +227,9 @@ public class IEBlocks {
 
 	public static final RegistryObject<BuriedBoneBlock> BURIED_BONE = BLOCKS.register("buried_bone", () -> new BuriedBoneBlock(getProperties(Material.PLANTS).doesNotBlockMovement().sound(SoundType.BONE)));
 	public static final RegistryObject<FlowerPotBlock> POTTED_BURIED_BONE = BLOCKS.register("potted_buried_bone", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, BURIED_BONE, getProperties(Blocks.FLOWER_POT)));
+
+	public static final RegistryObject<Block> CRIMSON_NYLIUM_PATH = BLOCKS.register("crimson_nylium_path", () -> new NetherrackPathBlock(getProperties(Blocks.NETHERRACK)));
+    public static final RegistryObject<Block> WARPED_NYLIUM_PATH = BLOCKS.register("warped_nylium_path", () -> new NetherrackPathBlock(getProperties(Blocks.NETHERRACK)));
 
 	public static AbstractBlock.Properties getProperties(Material materialIn, float hardnessAndResistanceIn) {
 		return getProperties(materialIn, hardnessAndResistanceIn, hardnessAndResistanceIn);
