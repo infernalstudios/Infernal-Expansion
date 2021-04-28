@@ -232,7 +232,7 @@
       "weight": 1,
       "element": {
         "location": "infernalexp:glowstone_canyon/heaven_5",
-        "processors": "infernalexp:structure_chests/generic",
+        "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"
       }
@@ -241,7 +241,7 @@
       "weight": 1,
       "element": {
         "location": "infernalexp:glowstone_canyon/heaven_6",
-        "processors": "infernalexp:structure_chests/generic",
+        "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"
       }
@@ -250,7 +250,7 @@
       "weight": 1,
       "element": {
         "location": "infernalexp:glowstone_canyon/heaven_7",
-        "processors": "infernalexp:structure_chests/generic",
+        "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"
       }
@@ -259,7 +259,7 @@
       "weight": 1,
       "element": {
         "location": "infernalexp:glowstone_canyon/heaven_8",
-        "processors": "infernalexp:structure_chests/generic",
+        "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:legacy_single_pool_element"
       }
