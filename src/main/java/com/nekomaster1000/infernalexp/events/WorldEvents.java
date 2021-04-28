@@ -86,6 +86,7 @@ public class WorldEvents {
 			event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_GLOWSILK_COCOON);
 		} else if (event.getName().toString().equals("minecraft:basalt_deltas")) {
 			event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_GLOWSILK_COCOON);
+		    event.getGeneration().withStructure(IEConfiguredStructures.STRIDER_ALTAR);
 		} else if (event.getName().toString().equals("minecraft:soul_sand_valley")) {
 		    event.getGeneration().withStructure(IEConfiguredStructures.SOUL_SAND_VALLEY_RUIN);
         }
