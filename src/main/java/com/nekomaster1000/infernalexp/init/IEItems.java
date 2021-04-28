@@ -26,6 +26,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.lwjgl.system.CallbackI;
 
 //import com.nekomaster1000.infernalexp.util.ModItemTier;
 
@@ -243,7 +244,10 @@ public class IEItems {
 	public static final RegistryObject<Item> ASCUS_BOMB = ITEMS.register("ascus_bomb", AscusBombItem::new);
 	public static final RegistryObject<Item> INFERNAL_PAINTING = ITEMS.register("infernal_painting", () -> new InfernalPaintingItem((new Item.Properties()).group(ItemGroup.DECORATIONS)));
 
-	// Record Discs
+	public static final RegistryObject<Item> CRIMSON_NYLIUM_CARPET = ITEMS.register("crimson_nylium_carpet", () -> new BlockItemBase(IEBlocks.CRIMSON_NYLIUM_CARPET.get()));
+    public static final RegistryObject<Item> WARPED_NYLIUM_CARPET = ITEMS.register("warped_nylium_carpet", () -> new BlockItemBase(IEBlocks.WARPED_NYLIUM_CARPET.get()));
+
+    // Record Discs
 	public static final RegistryObject<Item> MUSIC_DISC_SOUL_SPUNK = ITEMS.register("music_disc_soul_spunk", () -> new MusicDiscItem(8, () -> IESoundEvents.MUSIC_DISC_SOUL_SPUNK.get(), new Item.Properties().group(InfernalExpansion.TAB).rarity(Rarity.RARE).maxStackSize(1)));
 
 	// Tools
