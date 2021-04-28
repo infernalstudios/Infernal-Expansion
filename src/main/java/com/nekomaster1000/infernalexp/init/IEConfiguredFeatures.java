@@ -62,6 +62,4 @@ public class IEConfiguredFeatures {
 		return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, resourceLocation, configuredFeature);
 	}
 
-
-
 }
