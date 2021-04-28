@@ -8,7 +8,12 @@ import com.nekomaster1000.infernalexp.init.IESoundEvents;
 import com.nekomaster1000.infernalexp.util.IBucketable;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntitySize;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.Pose;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
@@ -16,11 +21,6 @@ import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.PanicGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
@@ -153,7 +153,7 @@ public class VolineEntity extends MonsterEntity implements IBucketable {
 		super.readAdditional(compound);
 	}
 
-    @Override
+	@Override
 	public void recalculateSize() {
 		super.recalculateSize();
 		setPosition(getPosX(), getPosY(), getPosZ());

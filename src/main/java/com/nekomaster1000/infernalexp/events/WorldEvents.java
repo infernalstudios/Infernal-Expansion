@@ -85,6 +85,7 @@ public class WorldEvents {
 			event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_GLOWSILK_COCOON);
 		} else if (event.getName().toString().equals("minecraft:basalt_deltas")) {
 			event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_GLOWSILK_COCOON);
+			event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_BASALT_IRON_BASALT_DELTA);
 		}
 	}
 
