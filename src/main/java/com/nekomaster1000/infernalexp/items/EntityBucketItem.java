@@ -24,8 +24,6 @@ import net.minecraft.world.server.ServerWorld;
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
-//<>
-
 public class EntityBucketItem extends BucketItem {
     private final Supplier<? extends EntityType<?>> entityTypeSupplier;
     private final Supplier<SoundEvent> emptyingSoundSupplier;
@@ -70,8 +68,6 @@ public class EntityBucketItem extends BucketItem {
             BlockPos pos = rayTraceResult.getPos();
             if (!(worldIn.getBlockState(pos).getBlock() instanceof FlowingFluidBlock)) {
                 return ActionResult.resultPass(heldItem);
-            } else if (worldIn.isBlockModifiable(playerIn, pos) && playerIn.canPlayerEdit(pos, rayTraceResult.getFace(), heldItem)) {
-                return actionResult;
             } else {
                 return actionResult;
             }

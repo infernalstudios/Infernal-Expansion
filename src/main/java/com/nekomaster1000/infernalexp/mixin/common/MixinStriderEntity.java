@@ -2,7 +2,11 @@ package com.nekomaster1000.infernalexp.mixin.common;
 
 import com.nekomaster1000.infernalexp.init.IEItems;
 import com.nekomaster1000.infernalexp.util.IBucketable;
-import net.minecraft.entity.*;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.IEquipable;
+import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.IRideable;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.StriderEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -24,8 +28,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-//<>
 
 @Mixin(StriderEntity.class)
 public abstract class MixinStriderEntity extends AnimalEntity implements IRideable, IEquipable, IBucketable {
