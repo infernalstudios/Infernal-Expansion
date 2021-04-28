@@ -3,18 +3,29 @@
     {
       "biome": "default",
       "spawn_info": {
-        "spawnrate": 100,
+        "spawnrate": 20,
         "min_count": 1,
-        "max_count": 10
+        "max_count": 3
       }
     },
     {
+      "biome": "infernalexp:delta_shores",
+      "spawn_info": {
+        "spawnrate": 1,
+        "min_count": 1,
+        "max_count": 3
+      },
+      "creature_spawn_probability": 0.4
+    },
+
+    {
       "biome": "infernalexp:glowstone_canyon",
       "spawn_info": {
-        "spawnrate": 100,
+        "spawnrate": 80,
         "min_count": 1,
         "max_count": 10
       },
+      "creature_spawn_probability": 0.4,
       "spawn_info_changes": [
         {
           "name": "minecraft:strider",

@@ -3,7 +3,7 @@
     {
       "biome": "default",
       "spawn_info": {
-        "spawnrate": 100,
+        "spawnrate": 60,
         "min_count": 1,
         "max_count": 5
       }
@@ -11,18 +11,10 @@
     {
       "biome": "minecraft:soul_sand_valley",
       "spawn_info": {
-        "spawnrate": 100,
+        "spawnrate": 60,
         "min_count": 1,
         "max_count": 5
-      },
-      "spawn_info_changes": [
-        {
-          "name": "minecraft:strider",
-          "spawn_info": {
-            "spawnrate": 20
-          }
-        }
-      ]
+      }
     }
   ]
 }

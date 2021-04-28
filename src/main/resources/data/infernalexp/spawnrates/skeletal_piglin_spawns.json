@@ -3,7 +3,7 @@
     {
       "biome": "default",
       "spawn_info": {
-        "spawnrate": 100,
+        "spawnrate": 10,
         "min_count": 1,
         "max_count": 1
       }
@@ -11,10 +11,11 @@
     {
       "biome": "minecraft:soul_sand_valley",
       "spawn_info": {
-        "spawnrate": 100,
+        "spawnrate": 10,
         "min_count": 1,
         "max_count": 1
       },
+      "creature_spawn_probability": 0.4,
       "spawn_info_changes": [
         {
           "name": "minecraft:strider",
@@ -27,10 +28,11 @@
     {
       "biome": "infernalexp:glowstone_canyon",
       "spawn_info": {
-        "spawnrate": 100,
+        "spawnrate": 10,
         "min_count": 1,
         "max_count": 1
       },
+      "creature_spawn_probability": 0.4,
       "spawn_info_changes": [
         {
           "name": "minecraft:strider",
@@ -43,10 +45,11 @@
     {
       "biome": "infernalexp:delta_shores",
       "spawn_info": {
-        "spawnrate": 100,
+        "spawnrate": 6,
         "min_count": 1,
         "max_count": 1
       },
+      "creature_spawn_probability": 0.4,
       "spawn_info_changes": [
         {
           "name": "minecraft:strider",

@@ -3,7 +3,7 @@
     {
       "biome": "default",
       "spawn_info": {
-        "spawnrate": 100,
+        "spawnrate": 5,
         "min_count": 1,
         "max_count": 1
       }
@@ -11,7 +11,7 @@
     {
       "biome": "minecraft:warped_forest",
       "spawn_info": {
-        "spawnrate": 100,
+        "spawnrate": 5,
         "min_count": 1,
         "max_count": 1
       },

@@ -3,42 +3,26 @@
     {
       "biome": "default",
       "spawn_info": {
-        "spawnrate": 100,
+        "spawnrate": 20,
         "min_count": 1,
-        "max_count": 3
+        "max_count": 1
       }
     },
     {
       "biome": "minecraft:nether_wastes",
       "spawn_info": {
-        "spawnrate": 100,
+        "spawnrate": 50,
         "min_count": 1,
         "max_count": 3
-      },
-      "spawn_info_changes": [
-        {
-          "name": "minecraft:strider",
-          "spawn_info": {
-            "spawnrate": 20
-          }
-        }
-      ]
+      }
     },
     {
       "biome": "minecraft:crimson_forest",
       "spawn_info": {
-        "spawnrate": 100,
+        "spawnrate": 1,
         "min_count": 1,
         "max_count": 5
-      },
-      "spawn_info_changes": [
-        {
-          "name": "minecraft:strider",
-          "spawn_info": {
-            "spawnrate": 20
-          }
-        }
-      ]
+      }
     }
   ]
 }
