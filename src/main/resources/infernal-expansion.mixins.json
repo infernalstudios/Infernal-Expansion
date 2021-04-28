@@ -16,6 +16,8 @@
     "common.MixinMagmaCubeEntity",
     "common.MixinNoiseChunkGenerator",
     "common.MixinPaintingEntity",
+    "common.MixinShearsItem",
+    "common.MixinShovelItem",
     "common.MixinStriderEntity",
     "common.MixinSurfaceBuilder"
   ],
