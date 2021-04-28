@@ -52,18 +52,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Mod("infernalexp")
-public class InfernalExpansion
-{
+public class InfernalExpansion {
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "infernalexp";
 
-    public InfernalExpansion()
-    {
+    public InfernalExpansion() {
         final ModLoadingContext modLoadingContext = ModLoadingContext.get();
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
-        modEventBus.addListener(this::clientSetup);
-        modEventBus.addListener(this::commonSetup);
 
         //Registering deferred registers to the mod bus
         IEParticleTypes.PARTICLES.register(modEventBus);
@@ -82,7 +77,6 @@ public class InfernalExpansion
         MinecraftForge.EVENT_BUS.register(new MobEvents());
         MinecraftForge.EVENT_BUS.register(new WorldEvents());
 
-
         //Registering Configs
         modLoadingContext.registerConfig(ModConfig.Type.CLIENT, ConfigHolder.CLIENT_SPEC);
         modLoadingContext.registerConfig(ModConfig.Type.COMMON, ConfigHolder.COMMON_SPEC);
@@ -92,21 +86,22 @@ public class InfernalExpansion
         ConfigHelper.bakeCommon(null);
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event) {
-		//Search for all biomes to add to nether and register nether biome provider
-		ModNetherBiomeCollector.netherBiomeCollection();
-		Registry.register(Registry.BIOME_PROVIDER_CODEC, new ResourceLocation(MOD_ID, "infernalexp_nether"), ModNetherBiomeProvider.MOD_NETHER_CODEC);
+    @SubscribeEvent
+    public void commonSetup(final FMLCommonSetupEvent event) {
+        //Search for all biomes to add to nether and register nether biome provider
+        ModNetherBiomeCollector.netherBiomeCollection();
+        Registry.register(Registry.BIOME_PROVIDER_CODEC, new ResourceLocation(MOD_ID, "infernalexp_nether"), ModNetherBiomeProvider.MOD_NETHER_CODEC);
 
-		//Setup and register structures and processors and packets
-		event.enqueueWork(IEProcessors::registerProcessors);
-		event.enqueueWork(IEStructures::setupStructures);
-		event.enqueueWork(IENetworkHandler::register);
+        //Setup and register structures and processors and packets
+        event.enqueueWork(IEProcessors::registerProcessors);
+        event.enqueueWork(IEStructures::setupStructures);
+        event.enqueueWork(IENetworkHandler::register);
 
-		//Register for Quark Compatibility in recipe
+        //Register for Quark Compatibility in recipe
         CraftingHelper.register(new CompatibilityQuark.Serializer());
 
-		//Places entity spawn locations on the ground
-		ModEntityPlacement.spawnPlacement();
+        //Places entity spawn locations on the ground
+        ModEntityPlacement.spawnPlacement();
 
         //Register New Flowers to be Able to Place in Pots
         FlowerPotBlock flowerPot = (FlowerPotBlock) Blocks.FLOWER_POT;
@@ -136,29 +131,30 @@ public class InfernalExpansion
                 Items.GLOWSTONE_DUST.getDefaultInstance(),
                 PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.STRONG_LUMINOUS.get())));
 
-		BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
-			PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), Potions.AWKWARD),
-			IEItems.ASCUS_BOMB.get().getDefaultInstance(),
-			PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.INFECTION.get())));
-		BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
-			PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.INFECTION.get()),
-			Items.GUNPOWDER.getDefaultInstance(),
-			PotionUtils.addPotionToItemStack(Items.SPLASH_POTION.getDefaultInstance(), IEPotions.INFECTION.get())));
-		BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
-			PotionUtils.addPotionToItemStack(Items.SPLASH_POTION.getDefaultInstance(), IEPotions.INFECTION.get()),
-			Items.DRAGON_BREATH.getDefaultInstance(),
-			PotionUtils.addPotionToItemStack(Items.LINGERING_POTION.getDefaultInstance(), IEPotions.INFECTION.get())));
-		BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
-			PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.INFECTION.get()),
-			Items.REDSTONE.getDefaultInstance(),
-			PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LONG_INFECTION.get())));
-		BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
-			PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.INFECTION.get()),
-			Items.GLOWSTONE_DUST.getDefaultInstance(),
-			PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.STRONG_INFECTION.get())));
+        BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
+            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), Potions.AWKWARD),
+            IEItems.ASCUS_BOMB.get().getDefaultInstance(),
+            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.INFECTION.get())));
+        BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
+            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.INFECTION.get()),
+            Items.GUNPOWDER.getDefaultInstance(),
+            PotionUtils.addPotionToItemStack(Items.SPLASH_POTION.getDefaultInstance(), IEPotions.INFECTION.get())));
+        BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
+            PotionUtils.addPotionToItemStack(Items.SPLASH_POTION.getDefaultInstance(), IEPotions.INFECTION.get()),
+            Items.DRAGON_BREATH.getDefaultInstance(),
+            PotionUtils.addPotionToItemStack(Items.LINGERING_POTION.getDefaultInstance(), IEPotions.INFECTION.get())));
+        BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
+            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.INFECTION.get()),
+            Items.REDSTONE.getDefaultInstance(),
+            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LONG_INFECTION.get())));
+        BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
+            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.INFECTION.get()),
+            Items.GLOWSTONE_DUST.getDefaultInstance(),
+            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.STRONG_INFECTION.get())));
     }
 
-    private void clientSetup(final FMLClientSetupEvent event) {
+    @SubscribeEvent
+    public void clientSetup(final FMLClientSetupEvent event) {
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> InfernalExpansionClient::init);
     }
 
