@@ -3,16 +3,12 @@ package com.nekomaster1000.infernalexp.entities;
 import com.nekomaster1000.infernalexp.entities.ai.EatItemsGoal;
 import com.nekomaster1000.infernalexp.entities.ai.TargetWithEffectGoal;
 import com.nekomaster1000.infernalexp.events.MiscEvents;
+import com.nekomaster1000.infernalexp.init.IEItems;
 import com.nekomaster1000.infernalexp.init.IESoundEvents;
-
+import com.nekomaster1000.infernalexp.util.IBucketable;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntitySize;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.Pose;
-import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
@@ -54,6 +50,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.Map;
+import java.util.function.Predicate;
 
 
 public class VolineEntity extends MonsterEntity implements IBucketable {
@@ -63,6 +60,7 @@ public class VolineEntity extends MonsterEntity implements IBucketable {
     };
 
 	private static final DataParameter<Float> VOLINE_SIZE = EntityDataManager.createKey(VolineEntity.class, DataSerializers.FLOAT);
+	private static final DataParameter<Boolean> FROM_BUCKET = EntityDataManager.createKey(VolineEntity.class, DataSerializers.BOOLEAN);
 	private boolean isEating;
 
 	public VolineEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
@@ -92,6 +90,7 @@ public class VolineEntity extends MonsterEntity implements IBucketable {
 		this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
 		this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, LivingEntity.class, true, false, Effects.FIRE_RESISTANCE, null));
 		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, MagmaCubeEntity.class, 10, true, true, TARGETABLE_MAGMA_CUBES));
 		this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED)));
 		this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0F));
 		this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
@@ -113,6 +112,7 @@ public class VolineEntity extends MonsterEntity implements IBucketable {
 	protected void registerData() {
 		super.registerData();
 		dataManager.register(VOLINE_SIZE, 1.0F);
+		dataManager.register(FROM_BUCKET, false);
 	}
 
 	public void setVolineSize(float size) {
@@ -129,9 +129,20 @@ public class VolineEntity extends MonsterEntity implements IBucketable {
 	}
 
 	@Override
+	public boolean isFromBucket() {
+	    return this.dataManager.get(FROM_BUCKET);
+    }
+
+    @Override
+    public void setFromBucket(boolean fromBucket) {
+	    this.dataManager.set(FROM_BUCKET, fromBucket);
+    }
+
+    @Override
 	public void writeAdditional(CompoundNBT compound) {
 		super.writeAdditional(compound);
 		compound.putFloat("Size", getVolineSize());
+		compound.putBoolean("FromBucket", this.isFromBucket());
 	}
 
 	@Override
@@ -140,10 +151,11 @@ public class VolineEntity extends MonsterEntity implements IBucketable {
 
 		setVolineSize(size);
 
+		this.setFromBucket(compound.getBoolean("FromBucket"));
 		super.readAdditional(compound);
 	}
 
-	@Override
+    @Override
 	public void recalculateSize() {
 		super.recalculateSize();
 		setPosition(getPosX(), getPosY(), getPosZ());
@@ -211,7 +223,39 @@ public class VolineEntity extends MonsterEntity implements IBucketable {
 		}
 	}
 
-	public static class VolineEatItemsGoal extends EatItemsGoal<VolineEntity> {
+	//BUCKETABLE
+    @Override
+    protected ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
+        return IBucketable.tryBucketEntity(playerIn, hand, this).orElse(super.getEntityInteractionResult(playerIn, hand));
+    }
+
+    @Override
+    public void copyToStack(ItemStack stack) {
+	    CompoundNBT compoundNBT = stack.getOrCreateTag();
+        IBucketable.copyToStack(this, stack);
+
+        compoundNBT.putFloat("Size", this.getVolineSize());
+    }
+
+    @Override
+    public void copyFromAdditional(CompoundNBT compound) {
+        IBucketable.copyFromAdditional(this, compound);
+        if (compound.contains("Size", 99)) {
+            this.setVolineSize(compound.getFloat("Size"));
+        }
+    }
+
+    @Override
+    public SoundEvent getBucketedSound() {
+        return SoundEvents.ITEM_BUCKET_FILL_LAVA;
+    }
+
+    @Override
+    public ItemStack getBucketItem() {
+        return new ItemStack(IEItems.VOLINE_BUCKET.get());
+    }
+
+    public static class VolineEatItemsGoal extends EatItemsGoal<VolineEntity> {
 
 		private final Map<Item, Map<Item, Integer>> eatItemsMap;
 
