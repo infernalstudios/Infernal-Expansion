@@ -159,6 +159,9 @@
 
   "block.infernalexp.buried_bone": "Buried Bone",
 
+  "block.infernalexp.warped_nylium_path": "Warped Nylium Path",
+  "block.infernalexp.crimson_nylium_path": "Crimson Nylium Path",
+
   "block.infernalexp.glow_lantern": "Glowlight Lantern",
   "block.infernalexp.glow_torch": "Glowlight Torch",
   "block.infernalexp.glow_campfire": "Glowlight Campfire",
