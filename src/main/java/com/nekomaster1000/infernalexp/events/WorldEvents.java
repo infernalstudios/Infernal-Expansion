@@ -82,13 +82,13 @@ public class WorldEvents {
 
 	@SubscribeEvent
 	public void onBiomeLoad(BiomeLoadingEvent event) {
-		if (event.getName().toString().equals("minecraft:crimson_forest")) {
+		if (event.getName().equals(new ResourceLocation("minecraft:crimson_forest"))) {
 			event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_GLOWSILK_COCOON);
-		} else if (event.getName().toString().equals("minecraft:basalt_deltas")) {
+		} else if (event.getName().equals(new ResourceLocation("minecraft:basalt_deltas"))) {
 			event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_GLOWSILK_COCOON);
 		    event.getGeneration().withStructure(IEConfiguredStructures.STRIDER_ALTAR);
-		} else if (event.getName().toString().equals("minecraft:soul_sand_valley")) {
-		    event.getGeneration().withStructure(IEConfiguredStructures.SOUL_SAND_VALLEY_RUIN);
+		} else if (event.getName().equals(new ResourceLocation("minecraft:soul_sand_valley"))) {
+            event.getGeneration().withStructure(IEConfiguredStructures.SOUL_SAND_VALLEY_RUIN);
         }
 	}
 
