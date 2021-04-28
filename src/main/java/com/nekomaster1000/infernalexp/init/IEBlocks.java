@@ -231,7 +231,6 @@ public class IEBlocks {
 	public static final RegistryObject<Block> CRIMSON_NYLIUM_PATH = BLOCKS.register("crimson_nylium_path", () -> new NetherrackPathBlock(getProperties(Blocks.NETHERRACK)));
     public static final RegistryObject<Block> WARPED_NYLIUM_PATH = BLOCKS.register("warped_nylium_path", () -> new NetherrackPathBlock(getProperties(Blocks.NETHERRACK)));
 
-
 	public static AbstractBlock.Properties getProperties(Material materialIn, float hardnessAndResistanceIn) {
 		return getProperties(materialIn, hardnessAndResistanceIn, hardnessAndResistanceIn);
 	}
