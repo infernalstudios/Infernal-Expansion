@@ -90,17 +90,13 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 		}
 	}
 
+    @Override
+    public UseAction getUseAction(ItemStack stack) {
+        return UseAction.BOW;
+    }
+
 	public int getUseDuration(ItemStack stack) {
 		return 72000;
-	}
-
-	public UseAction getUseAction(ItemStack stack) {
-		return UseAction.BOW;
-	}
-
-	@Override
-	public boolean onEntitySwing(ItemStack stack, LivingEntity entity) {
-		return true;
 	}
 
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
