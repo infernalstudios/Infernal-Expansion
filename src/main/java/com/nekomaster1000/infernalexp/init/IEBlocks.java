@@ -1,6 +1,7 @@
 package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
+import com.nekomaster1000.infernalexp.blocks.BasalticMagmaBlock;
 import com.nekomaster1000.infernalexp.blocks.BuriedBoneBlock;
 import com.nekomaster1000.infernalexp.blocks.CrumblingBlackstoneBlock;
 import com.nekomaster1000.infernalexp.blocks.DullthornsBlock;
@@ -160,9 +161,9 @@ public class IEBlocks {
     public static final RegistryObject<Block> CHISELED_BASALT_BRICKS = BLOCKS.register("chiseled_basalt_bricks",	() -> new RotatedPillarBlock(getProperties(Blocks.BASALT)));
     public static final RegistryObject<Block> MAGMATIC_CHISELED_BASALT_BRICKS = BLOCKS.register("magmatic_chiseled_basalt_bricks", () -> new RotatedPillarBlock(getProperties(Blocks.BASALT).setLightLevel(value -> 3)));
 
-    public static final RegistryObject<Block> BASALT_IRON_ORE = BLOCKS.register("basalt_iron_ore", () -> new Block(AbstractBlock.Properties.from(Blocks.NETHER_GOLD_ORE)));
+    public static final RegistryObject<Block> BASALT_IRON_ORE = BLOCKS.register("basalt_iron_ore", () -> new RotatedPillarBlock(getProperties(Blocks.NETHER_GOLD_ORE)));
 
-    public static final RegistryObject<Block> BASALTIC_MAGMA = BLOCKS.register("basaltic_magma",		() -> new Block(getProperties(Blocks.MAGMA_BLOCK).setLightLevel(value -> 2)));
+    public static final RegistryObject<Block> BASALTIC_MAGMA = BLOCKS.register("basaltic_magma",		() -> new BasalticMagmaBlock(getProperties(Blocks.MAGMA_BLOCK).setLightLevel(value -> 2)));
 
     public static final RegistryObject<Block> SOUL_SAND_SLAB = BLOCKS.register("soul_sand_slab",		() -> new SlabBlock(getProperties(Blocks.SOUL_SAND)));
     public static final RegistryObject<Block> SOUL_SAND_VERTICAL_SLAB = BLOCKS.register("soul_sand_vertical_slab", () -> new VerticalSlabBlock(getProperties(Blocks.SOUL_SAND)));
