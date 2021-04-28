@@ -87,6 +87,11 @@ public class IEEntityTypes {
 			.size(0.25f, 0.25f).trackingRange(4).updateInterval(10)
 			.build(new ResourceLocation(InfernalExpansion.MOD_ID, "throwable_magma_cream").toString()));
 
+    public static final RegistryObject<EntityType<ThrowableBrickEntity>> THROWABLE_BRICK = ENTITY_TYPES.register("throwable_brick",
+		() -> EntityType.Builder.<ThrowableBrickEntity>create(ThrowableBrickEntity::new, EntityClassification.MISC)
+			.size(0.25f, 0.25f).trackingRange(4).updateInterval(10)
+			.build(new ResourceLocation(InfernalExpansion.MOD_ID, "throwable_brick").toString()));
+
 	public static final RegistryObject<EntityType<InfernalPaintingEntity>> INFERNAL_PAINTING = ENTITY_TYPES.register("infernal_painting",
 		() -> EntityType.Builder.<InfernalPaintingEntity>create(InfernalPaintingEntity::new, EntityClassification.MISC)
 			.size(0.5F, 0.5F).trackingRange(10).updateInterval(Integer.MAX_VALUE)
