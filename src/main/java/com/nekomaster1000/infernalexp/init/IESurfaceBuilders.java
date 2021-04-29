@@ -23,14 +23,14 @@ public class IESurfaceBuilders {
 	// Surface Builder Configs
 	public static class ModSurfaceBuilderConfig {
 		public static final SurfaceBuilderConfig GLOWSTONE_CANYON_CONFIG = new SurfaceBuilderConfig(
-			IEBlocks.GLOWDUST_SAND.get().getDefaultState(),
-			IEBlocks.GLOWDUST_STONE.get().getDefaultState(),
-			Blocks.GLOWSTONE.getDefaultState());
+            IEBlocks.GLOWDUST_SAND.get().getDefaultState(),
+            IEBlocks.GLOWDUST_STONE.get().getDefaultState(),
+            Blocks.GLOWSTONE.getDefaultState());
 
 		public static final SurfaceBuilderConfig DELTA_SHORES_CONFIG = new SurfaceBuilderConfig(
-			IEBlocks.SILT.get().getDefaultState(),
-                IEBlocks.SILT.get().getDefaultState(),
-                Blocks.BASALT.getDefaultState()
+            IEBlocks.SILT.get().getDefaultState(),
+            IEBlocks.SILT.get().getDefaultState(),
+            Blocks.BASALT.getDefaultState()
         );
     }
 
