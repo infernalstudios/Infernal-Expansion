@@ -10,6 +10,7 @@ import com.nekomaster1000.infernalexp.events.WorldEvents;
 import com.nekomaster1000.infernalexp.init.IEBiomes;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IECommands;
+import com.nekomaster1000.infernalexp.init.IECompostables;
 import com.nekomaster1000.infernalexp.init.IEEffects;
 import com.nekomaster1000.infernalexp.init.IEEntityTypes;
 import com.nekomaster1000.infernalexp.init.IEItems;
@@ -153,6 +154,8 @@ public class InfernalExpansion {
             PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.INFECTION.get()),
             Items.GLOWSTONE_DUST.getDefaultInstance(),
             PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.STRONG_INFECTION.get())));
+
+        IECompostables.registerCompostables();
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
