@@ -33,8 +33,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.potion.Potions;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
@@ -52,7 +50,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod("infernalexp")
+@Mod(InfernalExpansion.MOD_ID)
 public class InfernalExpansion {
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "infernalexp";
@@ -93,7 +91,7 @@ public class InfernalExpansion {
     private void commonSetup(final FMLCommonSetupEvent event) {
         //Search for all biomes to add to nether and register nether biome provider
         ModNetherBiomeCollector.netherBiomeCollection();
-        Registry.register(Registry.BIOME_PROVIDER_CODEC, new ResourceLocation(MOD_ID, "infernalexp_nether"), ModNetherBiomeProvider.MOD_NETHER_CODEC);
+        event.enqueueWork(ModNetherBiomeProvider::registerBiomeProvider);
 
         //Setup and register structures and processors and packets
         event.enqueueWork(IEProcessors::registerProcessors);
