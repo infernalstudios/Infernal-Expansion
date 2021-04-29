@@ -79,13 +79,12 @@ public abstract class MixinStriderEntity extends AnimalEntity implements IRideab
         }
     }
 
-    @Inject(method = "onInitialSpawn", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "onInitialSpawn", at = @At("HEAD"), cancellable = true)
     private void IE_onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, ILivingEntityData spawnDataIn, CompoundNBT dataTag, CallbackInfoReturnable<ILivingEntityData> cir) {
-        ILivingEntityData entityData = cir.getReturnValue();
-        if (this.isChild()) {
-            cir.setReturnValue(super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag));
-        } else {
-            cir.setReturnValue(entityData);
+        if (reason == SpawnReason.BUCKET) {
+            spawnDataIn = new AgeableEntity.AgeableData(true);
+            this.setGrowingAge(-24000);
+            cir.setReturnValue(spawnDataIn);
         }
     }
 

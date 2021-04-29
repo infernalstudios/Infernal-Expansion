@@ -1,5 +1,22 @@
 {
   "variants": {
+    "axis=x": {
+      "model": "infernalexp:block/basaltic_magma",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "infernalexp:block/basaltic_magma"
+    },
+    "axis=z": {
+      "model": "infernalexp:block/basaltic_magma",
+      "x": 90
+    }
+  }
+}
+
+{
+  "variants": {
     "": { "model": "infernalexp:block/basaltic_magma" }
   }
 }

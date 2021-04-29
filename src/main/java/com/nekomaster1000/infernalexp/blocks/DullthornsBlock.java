@@ -87,6 +87,7 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
      * Performs a random tick on a block.
      */
     //I have no idea what overriding does LOL - Neko
+    //Shut up neko - Swan
     @Override
     public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
         BlockPos blockpos = pos.up();

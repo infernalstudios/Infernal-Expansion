@@ -1,6 +1,7 @@
 package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
+import com.nekomaster1000.infernalexp.blocks.BasalticMagmaBlock;
 import com.nekomaster1000.infernalexp.blocks.BuriedBoneBlock;
 import com.nekomaster1000.infernalexp.blocks.CrumblingBlackstoneBlock;
 import com.nekomaster1000.infernalexp.blocks.DullthornsBlock;
@@ -14,6 +15,7 @@ import com.nekomaster1000.infernalexp.blocks.GlowWallTorchBlock;
 import com.nekomaster1000.infernalexp.blocks.GlowdustBlock;
 import com.nekomaster1000.infernalexp.blocks.LuminousFungusBlock;
 import com.nekomaster1000.infernalexp.blocks.NetherrackPathBlock;
+import com.nekomaster1000.infernalexp.blocks.NetherCarpetBlock;
 import com.nekomaster1000.infernalexp.blocks.ShroomlightFungusBlock;
 import com.nekomaster1000.infernalexp.blocks.SmoothGlowstonePressurePlateBlock;
 import com.nekomaster1000.infernalexp.blocks.TrappedGlowSandBlock;
@@ -21,6 +23,7 @@ import com.nekomaster1000.infernalexp.blocks.VerticalSlabBlock;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -158,9 +161,9 @@ public class IEBlocks {
     public static final RegistryObject<Block> CHISELED_BASALT_BRICKS = BLOCKS.register("chiseled_basalt_bricks",	() -> new RotatedPillarBlock(getProperties(Blocks.BASALT)));
     public static final RegistryObject<Block> MAGMATIC_CHISELED_BASALT_BRICKS = BLOCKS.register("magmatic_chiseled_basalt_bricks", () -> new RotatedPillarBlock(getProperties(Blocks.BASALT).setLightLevel(value -> 3)));
 
-    public static final RegistryObject<Block> BASALT_IRON_ORE = BLOCKS.register("basalt_iron_ore", () -> new Block(AbstractBlock.Properties.from(Blocks.NETHER_GOLD_ORE)));
+    public static final RegistryObject<Block> BASALT_IRON_ORE = BLOCKS.register("basalt_iron_ore", () -> new RotatedPillarBlock(getProperties(Blocks.NETHER_GOLD_ORE)));
 
-    public static final RegistryObject<Block> BASALTIC_MAGMA = BLOCKS.register("basaltic_magma",		() -> new Block(getProperties(Blocks.MAGMA_BLOCK).setLightLevel(value -> 2)));
+    public static final RegistryObject<Block> BASALTIC_MAGMA = BLOCKS.register("basaltic_magma",		() -> new BasalticMagmaBlock(getProperties(Blocks.MAGMA_BLOCK).setLightLevel(value -> 2)));
 
     public static final RegistryObject<Block> SOUL_SAND_SLAB = BLOCKS.register("soul_sand_slab",		() -> new SlabBlock(getProperties(Blocks.SOUL_SAND)));
     public static final RegistryObject<Block> SOUL_SAND_VERTICAL_SLAB = BLOCKS.register("soul_sand_vertical_slab", () -> new VerticalSlabBlock(getProperties(Blocks.SOUL_SAND)));
@@ -228,12 +231,14 @@ public class IEBlocks {
 	public static final RegistryObject<BuriedBoneBlock> BURIED_BONE = BLOCKS.register("buried_bone", () -> new BuriedBoneBlock(getProperties(Material.PLANTS).doesNotBlockMovement().sound(SoundType.BONE)));
 	public static final RegistryObject<FlowerPotBlock> POTTED_BURIED_BONE = BLOCKS.register("potted_buried_bone", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, BURIED_BONE, getProperties(Blocks.FLOWER_POT)));
 
-	public static final RegistryObject<Block> CRIMSON_NYLIUM_PATH = BLOCKS.register("crimson_nylium_path", () -> new NetherrackPathBlock(getProperties(Blocks.NETHERRACK)));
+    public static final RegistryObject<Block> CRIMSON_NYLIUM_PATH = BLOCKS.register("crimson_nylium_path", () -> new NetherrackPathBlock(getProperties(Blocks.NETHERRACK)));
     public static final RegistryObject<Block> WARPED_NYLIUM_PATH = BLOCKS.register("warped_nylium_path", () -> new NetherrackPathBlock(getProperties(Blocks.NETHERRACK)));
+    public static final RegistryObject<Block> CRIMSON_NYLIUM_CARPET = BLOCKS.register("crimson_nylium_carpet", () -> new NetherCarpetBlock(AbstractBlock.Properties.create(Material.CARPET, MaterialColor.CRIMSON_NYLIUM).hardnessAndResistance(0.1F).sound(SoundType.NYLIUM)));
+    public static final RegistryObject<Block> WARPED_NYLIUM_CARPET = BLOCKS.register("warped_nylium_carpet", () -> new NetherCarpetBlock(AbstractBlock.Properties.create(Material.CARPET, MaterialColor.WARPED_NYLIUM).hardnessAndResistance(0.1F).sound(SoundType.NYLIUM)));
 
-	public static AbstractBlock.Properties getProperties(Material materialIn, float hardnessAndResistanceIn) {
+    public static AbstractBlock.Properties getProperties(Material materialIn, float hardnessAndResistanceIn) {
 		return getProperties(materialIn, hardnessAndResistanceIn, hardnessAndResistanceIn);
-	}
+    }
 
 	public static AbstractBlock.Properties getProperties(Material materialIn, float hardnessIn, float resistanceIn) {
 		return AbstractBlock.Properties.create(materialIn).hardnessAndResistance(hardnessIn, resistanceIn);
