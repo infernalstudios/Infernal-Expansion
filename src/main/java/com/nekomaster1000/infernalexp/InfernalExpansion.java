@@ -10,6 +10,7 @@ import com.nekomaster1000.infernalexp.events.WorldEvents;
 import com.nekomaster1000.infernalexp.init.IEBiomes;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IECommands;
+import com.nekomaster1000.infernalexp.init.IECompostables;
 import com.nekomaster1000.infernalexp.init.IEEffects;
 import com.nekomaster1000.infernalexp.init.IEEntityTypes;
 import com.nekomaster1000.infernalexp.init.IEItems;
@@ -57,7 +58,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod("infernalexp")
+@Mod(InfernalExpansion.MOD_ID)
 public class InfernalExpansion {
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "infernalexp";
@@ -99,7 +100,7 @@ public class InfernalExpansion {
     private void commonSetup(final FMLCommonSetupEvent event) {
         //Search for all biomes to add to nether and register nether biome provider
         ModNetherBiomeCollector.netherBiomeCollection();
-        Registry.register(Registry.BIOME_PROVIDER_CODEC, new ResourceLocation(MOD_ID, "infernalexp_nether"), ModNetherBiomeProvider.MOD_NETHER_CODEC);
+        event.enqueueWork(ModNetherBiomeProvider::registerBiomeProvider);
 
         //Setup and register structures and processors and packets
         event.enqueueWork(IEProcessors::registerProcessors);
@@ -179,6 +180,8 @@ public class InfernalExpansion {
                 return stack;
             }
         });
+		
+        IECompostables.registerCompostables();
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
