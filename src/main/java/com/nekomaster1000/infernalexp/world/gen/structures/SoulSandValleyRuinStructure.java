@@ -35,7 +35,7 @@ public class SoulSandValleyRuinStructure extends IEStructure<NoFeatureConfig> {
 
 	@Override
 	public StructureSeparationSettings getSeparationSettings() {
-		return new StructureSeparationSettings(4, 2, 20394857);
+		return new StructureSeparationSettings(4, 2, 29456392);
 	}
 
 //	@Override

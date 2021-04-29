@@ -25,6 +25,7 @@ public class IEStructures {
 
 	public static List<IEStructure<?>> structures = new ArrayList<>();
 
+
 	public static final IEStructure<NoFeatureConfig> GLOWSTONE_CANYON_RUIN = registerStructure("glowstone_canyon_ruin", new GlowstoneCanyonRuinStructure(NoFeatureConfig.CODEC));
 	public static final IEStructure<NoFeatureConfig> SOUL_SAND_VALLEY_RUIN = registerStructure("soul_sand_valley_ruin", new SoulSandValleyRuinStructure(NoFeatureConfig.CODEC));
     public static final IEStructure<NoFeatureConfig> STRIDER_ALTAR = registerStructure("strider_altar", new StriderAltarStructure(NoFeatureConfig.CODEC));

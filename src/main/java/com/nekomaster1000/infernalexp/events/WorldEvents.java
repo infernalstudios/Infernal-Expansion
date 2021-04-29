@@ -8,9 +8,12 @@ import com.nekomaster1000.infernalexp.init.IEConfiguredStructures;
 import com.nekomaster1000.infernalexp.init.IEFeatures;
 import com.nekomaster1000.infernalexp.init.IEStructures;
 import com.nekomaster1000.infernalexp.init.IESurfaceBuilders;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.FlatChunkGenerator;
 import net.minecraft.world.gen.GenerationStage;
@@ -24,6 +27,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
@@ -80,14 +84,21 @@ public class WorldEvents {
 		}
 	}
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.HIGH)
 	public void onBiomeLoad(BiomeLoadingEvent event) {
-		if (event.getName().equals(new ResourceLocation("minecraft:crimson_forest"))) {
+	    if (event.getName() == null) {
+	        return;
+        }
+
+	    ResourceLocation name = event.getName();
+	    RegistryKey<Biome> biome = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, name);
+
+		if (biome == Biomes.CRIMSON_FOREST) {
 			event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_GLOWSILK_COCOON);
-		} else if (event.getName().equals(new ResourceLocation("minecraft:basalt_deltas"))) {
+		} else if (biome == Biomes.BASALT_DELTAS) {
 			event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_GLOWSILK_COCOON);
 		    event.getGeneration().withStructure(IEConfiguredStructures.STRIDER_ALTAR);
-		} else if (event.getName().equals(new ResourceLocation("minecraft:soul_sand_valley"))) {
+		} else if (biome == Biomes.SOUL_SAND_VALLEY) {
             event.getGeneration().withStructure(IEConfiguredStructures.SOUL_SAND_VALLEY_RUIN);
         }
 	}
