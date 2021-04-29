@@ -24,7 +24,6 @@ import com.nekomaster1000.infernalexp.init.IEStructures;
 import com.nekomaster1000.infernalexp.init.IETileEntityTypes;
 import com.nekomaster1000.infernalexp.network.IENetworkHandler;
 import com.nekomaster1000.infernalexp.util.CompatibilityQuark;
-import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeCollector;
 import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeProvider;
 import com.nekomaster1000.infernalexp.world.gen.ModEntityPlacement;
 import net.minecraft.block.Blocks;
@@ -99,7 +98,6 @@ public class InfernalExpansion {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         //Search for all biomes to add to nether and register nether biome provider
-        ModNetherBiomeCollector.netherBiomeCollection();
         event.enqueueWork(ModNetherBiomeProvider::registerBiomeProvider);
 
         //Setup and register structures and processors and packets
