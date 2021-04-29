@@ -69,7 +69,7 @@ public class ModNetherBiomeProvider extends BiomeProvider {
         IAreaFactory<T> layerFactory = (new ModNetherMasterLayer(seed, biomeRegistry)).apply(contextFactory.apply(200L));
 
         for(int currentExtraZoom = 0; currentExtraZoom < biomeSize; currentExtraZoom++){
-            if((currentExtraZoom + 2) % 3 != 0){
+            if ((currentExtraZoom + 2) % 3 != 0) {
                 layerFactory = ZoomLayer.NORMAL.apply(contextFactory.apply(2001L + currentExtraZoom), layerFactory);
             }
             else{
