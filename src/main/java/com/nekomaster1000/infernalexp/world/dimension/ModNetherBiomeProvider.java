@@ -88,12 +88,10 @@ public class ModNetherBiomeProvider extends BiomeProvider {
             //fallback to builtin registry if dynamic registry doesnt have biome
             if (SharedConstants.developmentMode) {
                 throw Util.pauseDevMode(new IllegalStateException("Unknown biome id: " + k));
-            }
-            else {
+            } else {
                 return this.biomeRegistry.getValueForKey(BiomeRegistry.getKeyFromID(0));
             }
-        }
-        else {
+        } else {
             return biome;
         }
     }
