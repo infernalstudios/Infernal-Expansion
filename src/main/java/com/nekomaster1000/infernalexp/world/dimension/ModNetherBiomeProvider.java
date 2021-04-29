@@ -1,12 +1,9 @@
 package com.nekomaster1000.infernalexp.world.dimension;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.nekomaster1000.infernalexp.InfernalExpansion;
-import com.nekomaster1000.infernalexp.init.IEBiomes;
 import com.nekomaster1000.infernalexp.util.WorldSeedHolder;
-import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SharedConstants;
 import net.minecraft.util.Util;
@@ -24,7 +21,6 @@ import net.minecraft.world.gen.layer.Layer;
 import net.minecraft.world.gen.layer.ZoomLayer;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 import java.util.function.LongFunction;
 
 public class ModNetherBiomeProvider extends BiomeProvider {
@@ -44,12 +40,9 @@ public class ModNetherBiomeProvider extends BiomeProvider {
     private final int biomeSize;
     private final Layer biomeLayer;
     protected final Registry<Biome> biomeRegistry;
-    private static final List<RegistryKey<Biome>> BIOMES = ImmutableList.of(
-        RegistryKey.getOrCreateKey(Registry.BIOME_KEY, IEBiomes.GLOWSTONE_CANYON.getId()),
-        RegistryKey.getOrCreateKey(Registry.BIOME_KEY, IEBiomes.DELTA_SHORES.getId()));
 
     public ModNetherBiomeProvider(long seed, Registry<Biome> biomeRegistry, int size) {
-        super(BIOMES.stream().map((registryKey) -> () -> (Biome)biomeRegistry.getValueForKey(registryKey)));
+        super(ModNetherBiomeCollector.netherBiomeCollection(biomeRegistry).stream().map((registryKey) -> () -> (Biome)biomeRegistry.getValueForKey(registryKey)));
 
         this.seed = seed;
         this.biomeLayer = buildWorldProcedure(seed, size, biomeRegistry);
