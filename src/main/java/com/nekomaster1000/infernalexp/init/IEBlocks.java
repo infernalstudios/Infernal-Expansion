@@ -24,6 +24,8 @@ import com.nekomaster1000.infernalexp.blocks.VerticalSlabBlock;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -31,6 +33,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 
 public class IEBlocks {
@@ -204,7 +207,7 @@ public class IEBlocks {
 	public static final RegistryObject<Block> CHISELED_SOUL_SLATE_BRICKS = BLOCKS.register("chiseled_soul_slate_bricks",	() -> new RotatedPillarBlock(getProperties(SOUL_SLATE.get())));
     public static final RegistryObject<Block> CHARGED_CHISELED_SOUL_SLATE_BRICKS = BLOCKS.register("charged_chiseled_soul_slate_bricks",	() -> new RotatedPillarBlock(getProperties(SOUL_SLATE.get()).setLightLevel(value -> 4)));
 
-	public static final RegistryObject<Block> CRIMSON_FUNGUS_CAP = BLOCKS.register("crimson_fungus_cap", () -> new FungusCapBlock(AbstractBlock.Properties.from(Blocks.NETHER_WART_BLOCK)));
+	public static final RegistryObject<Block> CRIMSON_FUNGUS_CAP = registerBlockWithDefaultItem("crimson_fungus_cap", () -> new FungusCapBlock(AbstractBlock.Properties.from(Blocks.NETHER_WART_BLOCK)));
 	public static final RegistryObject<Block> WARPED_FUNGUS_CAP = BLOCKS.register("warped_fungus_cap", () -> new FungusCapBlock(AbstractBlock.Properties.from(Blocks.WARPED_WART_BLOCK)));
 	public static final RegistryObject<Block> LUMINOUS_FUNGUS_CAP = BLOCKS.register("luminous_fungus_cap", () -> new FungusCapBlock(AbstractBlock.Properties.from(Blocks.NETHER_WART_BLOCK).setLightLevel(value -> 14)));
 
@@ -260,4 +263,14 @@ public class IEBlocks {
 		BLOCKS.register(eventBus);
 		InfernalExpansion.LOGGER.info("Infernal Expansion: Blocks Registered!");
 	}
+
+	public static <T extends Block> RegistryObject<T> registerBlockWithDefaultItem(String name, Supplier<? extends T> blockSupplier) {
+        RegistryObject<T> block = BLOCKS.register(name, blockSupplier);
+        IEItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(InfernalExpansion.TAB)));
+        return block;
+    }
+
+    public static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<? extends T> blockSupplier) {
+        return BLOCKS.register(name, blockSupplier);
+    }
 }

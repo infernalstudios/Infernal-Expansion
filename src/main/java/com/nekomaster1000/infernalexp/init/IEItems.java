@@ -229,7 +229,7 @@ public class IEItems {
 	public static final RegistryObject<Item> CHISELED_SOUL_SLATE_BRICKS = ITEMS.register("chiseled_soul_slate_bricks",		() -> new BlockItemBase(IEBlocks.CHISELED_SOUL_SLATE_BRICKS.get()));
     public static final RegistryObject<Item> CHARGED_CHISELED_SOUL_SLATE_BRICKS = ITEMS.register("charged_chiseled_soul_slate_bricks",		() -> new BlockItemBase(IEBlocks.CHARGED_CHISELED_SOUL_SLATE_BRICKS.get()));
 
-	public static final RegistryObject<Item> CRIMSON_FUNGUS_CAP = ITEMS.register("crimson_fungus_cap",  () -> new BlockItemBase(IEBlocks.CRIMSON_FUNGUS_CAP.get()));
+	//public static final RegistryObject<Item> CRIMSON_FUNGUS_CAP = ITEMS.register("crimson_fungus_cap",  () -> new BlockItemBase(IEBlocks.CRIMSON_FUNGUS_CAP.get()));
 	public static final RegistryObject<Item> WARPED_FUNGUS_CAP = ITEMS.register("warped_fungus_cap",    () -> new BlockItemBase(IEBlocks.WARPED_FUNGUS_CAP.get()));
 	public static final RegistryObject<Item> LUMINOUS_FUNGUS_CAP = ITEMS.register("luminous_fungus_cap",    () -> new BlockItemBase(IEBlocks.LUMINOUS_FUNGUS_CAP.get()));
 
