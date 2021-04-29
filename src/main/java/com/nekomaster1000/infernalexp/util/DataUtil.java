@@ -5,7 +5,7 @@ import net.minecraft.util.IItemProvider;
 
 public class DataUtil {
 
-    public static void registerCompostable(IItemProvider item, float chance) {
+    public static void registerCompostable(float chance, IItemProvider item) {
         ComposterBlock.CHANCES.put(item.asItem(), chance);
     }
 }
