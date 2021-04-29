@@ -6,7 +6,6 @@ public class IECompostables {
 
     public static void registerCompostables() {
         DataUtil.registerCompostable(IEItems.CRIMSON_FUNGUS_CAP.get(), 1.0F);
-        DataUtil.registerCompostable(IEItems.DULLTHORNS.get(), 0.55F);
         DataUtil.registerCompostable(IEItems.LUMINOUS_FUNGUS.get(), 0.45F);
         DataUtil.registerCompostable(IEItems.LUMINOUS_FUNGUS_CAP.get(), 1.0F);
         DataUtil.registerCompostable(IEItems.SHROOMLIGHT_FUNGUS.get(), 0.65F);
