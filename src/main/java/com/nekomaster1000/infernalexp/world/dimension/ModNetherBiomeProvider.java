@@ -71,8 +71,7 @@ public class ModNetherBiomeProvider extends BiomeProvider {
         for (int currentExtraZoom = 0; currentExtraZoom < biomeSize; currentExtraZoom++) {
             if ((currentExtraZoom + 2) % 3 != 0) {
                 layerFactory = ZoomLayer.NORMAL.apply(contextFactory.apply(2001L + currentExtraZoom), layerFactory);
-            }
-            else{
+            } else {
                 layerFactory = ZoomLayer.FUZZY.apply(contextFactory.apply(2000L + (currentExtraZoom * 31)), layerFactory);
             }
         }
