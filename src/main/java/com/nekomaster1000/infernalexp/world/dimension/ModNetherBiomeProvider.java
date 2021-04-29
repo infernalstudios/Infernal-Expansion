@@ -91,8 +91,7 @@ public class ModNetherBiomeProvider extends BiomeProvider {
             } else {
                 return this.biomeRegistry.getValueForKey(BiomeRegistry.getKeyFromID(0));
             }
-        }
-        else {
+        } else {
             return biome;
         }
     }
