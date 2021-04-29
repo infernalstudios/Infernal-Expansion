@@ -68,8 +68,8 @@ public class ModNetherBiomeProvider extends BiomeProvider {
     public static <T extends IArea, C extends IExtendedNoiseRandom<T>> IAreaFactory<T> build(LongFunction<C> contextFactory, int biomeSize, long seed, Registry<Biome> biomeRegistry) {
         IAreaFactory<T> layerFactory = (new ModNetherMasterLayer(seed, biomeRegistry)).apply(contextFactory.apply(200L));
 
-        for(int currentExtraZoom = 0; currentExtraZoom < biomeSize; currentExtraZoom++){
-            if((currentExtraZoom + 2) % 3 != 0){
+        for (int currentExtraZoom = 0; currentExtraZoom < biomeSize; currentExtraZoom++) {
+            if ((currentExtraZoom + 2) % 3 != 0) {
                 layerFactory = ZoomLayer.NORMAL.apply(contextFactory.apply(2001L + currentExtraZoom), layerFactory);
             }
             else{
