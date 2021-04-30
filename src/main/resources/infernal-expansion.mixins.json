@@ -21,7 +21,8 @@
     "common.MixinShearsItem",
     "common.MixinShovelItem",
     "common.MixinStriderEntity",
-    "common.MixinSurfaceBuilder"
+    "common.MixinSurfaceBuilder",
+    "common.WorldCarverAccessor"
   ],
   "client": [
     "client.MixinClientPlayNetHandler",
