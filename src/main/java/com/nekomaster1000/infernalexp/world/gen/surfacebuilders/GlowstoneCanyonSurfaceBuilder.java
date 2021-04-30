@@ -1,7 +1,7 @@
 package com.nekomaster1000.infernalexp.world.gen.surfacebuilders;
 
 import com.mojang.serialization.Codec;
-import com.nekomaster1000.infernalexp.access.NoiseAccess;
+import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -16,94 +16,72 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 
 import java.util.Random;
 
-public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> implements NoiseAccess {
+public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig>{
 	public GlowstoneCanyonSurfaceBuilder(Codec<SurfaceBuilderConfig> p_i232136_1_) {
 		super(p_i232136_1_);
 	}
 
-	@Override
-	public void buildSurface(Random random, IChunk chunk, Biome biomeIn, int x, int z, int startHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, SurfaceBuilderConfig config) {
-		BlockPos.Mutable pos = new BlockPos.Mutable();
 
-		int xPos = x & 15;
-		int zPos = z & 15;
+    @Override
+    public void buildSurface(Random random, IChunk chunk, Biome biome, int x, int z, int terrainHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, SurfaceBuilderConfig config) {
+        this.buildSurface(random, chunk, biome, x, z, terrainHeight, noise, defaultBlock, defaultFluid, config.getTop(), config.getUnder(), config.getUnderWaterMaterial(), seaLevel);
+    }
 
-		for (int yPos = 125; yPos >= seaLevel; yPos--) {
-			pos.setPos(xPos, yPos, zPos);
+    protected void buildSurface(Random random, IChunk chunk, Biome biome, int x, int z, int terrainHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, BlockState topBlock, BlockState middleBlock, BlockState underwaterBlock, int seaLevel) {
+        BlockPos.Mutable mutable = new BlockPos.Mutable();
+        int depth = -1; // Will be used to know how deep we are in solid blocks so we know when to stop placing middleBlock
+        int middleBlockExtraDepth = (int)(noise / 3.0D + 3.0D + random.nextDouble() * 0.25D);
 
-			BlockState currentBlockToReplace = chunk.getBlockState(pos);
-			BlockState checkForAir = chunk.getBlockState(pos.up());
+        // Start at top land and loop downward
+        for (int y = terrainHeight; y >= 0; --y) {
 
-			if (currentBlockToReplace == IEBlocks.DULLSTONE.get().getDefaultState() && checkForAir == Blocks.AIR.getDefaultState()) {
-				chunk.setBlockState(pos, config.getTop(), false);
+            // Get the block in the world (Nether will always give Netherrack, Lava, or Air)
+            mutable.setPos(x, y, z);
+            BlockState currentBlockInWorld = chunk.getBlockState(mutable);
 
-				// Checks to see if it should place a glowdust layer
-				glowdustLayerCheck: for (int xCheck = -1; xCheck <= 1; xCheck++) {
-					for (int zCheck = -1; zCheck <= 1; zCheck++) {
-						if (chunk.getBlockState(pos.add(xCheck, 1, zCheck)) == IEBlocks.GLOWDUST_SAND.get().getDefaultState()) {
-							chunk.setBlockState(pos.up(), IEBlocks.GLOWDUST.get().getDefaultState(), false);
-							break glowdustLayerCheck;
-						}
-					}
-				}
+            // Reset the depth counter as we are not in land anymore
+            if (currentBlockInWorld.isAir()) {
+                depth = -1;
+            } else if (currentBlockInWorld.getFluidState().isEmpty() && currentBlockInWorld.getBlock() != Blocks.BEDROCK) {
+                // We are in solid land now if fluid check fails. Skip Bedrock as we shouldn't replace that
 
-				// Replace dullstone with glowdust rock/stone
-				for (int offset = 1; offset <= 3; offset++) {
-					if (chunk.getBlockState(pos.down(offset)) == IEBlocks.DULLSTONE.get().getDefaultState()) {
-						chunk.setBlockState(pos.down(offset), config.getUnder(), false);
-					}
-				}
+                // -1 depth means we are switching from air to solid land. Place the surface block now
+                if (depth == -1) {
+                    depth = 0;
 
-				// Build terrain down to bedrock
-				if (yPos <= 47) {
-					if (chunk.getBlockState(pos.down(1)) == config.getUnder() && chunk.getBlockState(pos.down(2)) == config.getUnder()) {
-						for (int offset = 3; offset <= yPos; offset++) {
-//							if (chunk.getBlockState(pos.down(offset)).getBlock() != Blocks.AIR && chunk.getBlockState(pos.down(offset)).getBlock() != Blocks.LAVA) {
-								float percentage = (((float) offset / yPos) - 0.05f) + (random.nextFloat() * 0.1f);
+                    if (y >= seaLevel) {
+                        // The typical surface of the biome.
+                        chunk.setBlockState(mutable, topBlock, false);
+                    } else {
+                        // Makes the blocks at sealevel be dullstone to make cool border with lava.
+                        if (random.nextInt(70) == 1) {
+                            chunk.setBlockState(mutable, IEBlocks.DIMSTONE.get().getDefaultState(), false);
+                        } else {
+                            chunk.setBlockState(mutable, IEBlocks.DULLSTONE.get().getDefaultState(), false);
+                        }
+                    }
 
-								if (percentage <= 0.15 && random.nextInt(10) == 1) {
-									chunk.setBlockState(pos.down(offset), IEBlocks.DIMSTONE.get().getDefaultState(), false);
-								} else if (percentage <= 0.15) {
-									chunk.setBlockState(pos.down(offset), IEBlocks.GLOWDUST_STONE.get().getDefaultState(), false);
-								} else {
-									chunk.setBlockState(pos.down(offset), IEBlocks.DULLSTONE.get().getDefaultState(), false);
-								}
-							}
-//						}
-					}
-				}
-			}
-		}
+                    // Make this a feature instead so it places the layers correctly on edges and slopes unlike Surface Builders.
+//                    // Place glowdust above if there is room as surface block is glowdust sand
+//                    if(chunk.getBlockState(mutable.up()).isAir()){
+//                        chunk.setBlockState(mutable.up(), IEBlocks.GLOWDUST.get().getDefaultState(), false);
+//                    }
+                } else if (depth <= 2 + middleBlockExtraDepth) {
+                    // Place block only when under surface and down to as deep as the scaledNoise says to go.
+                    // Increment depth to keep track of how deep we have gone
+                    chunk.setBlockState(mutable, middleBlock, false);
+                } else {
+                    // replaces all underground solid blocks with dullstone/dimstone mix
+                    if (random.nextInt(50) == 1) {
+                        chunk.setBlockState(mutable, IEBlocks.DIMSTONE.get().getDefaultState(), false);
+                    } else{
+                        chunk.setBlockState(mutable, IEBlocks.DULLSTONE.get().getDefaultState(), false);
+                    }
+                }
 
-		// Add specs of dimstone to low areas of dullstone, this needs to be refactored
-		// because putting this code here is stupid.
-		// It should probably go where all the netherrack is replaced with dullstone or
-		// where the terrain is built down.
-		for (int yPos = 50; yPos > 0; yPos--) {
-			pos.setPos(xPos, yPos, zPos);
-
-			if (chunk.getBlockState(pos) == IEBlocks.DULLSTONE.get().getDefaultState()) {
-				if (random.nextInt(50) == 1) {
-					chunk.setBlockState(pos, IEBlocks.DIMSTONE.get().getDefaultState(), false);
-				}
-//                I tried to make patches of dimstone. It looked like shit, specs look way better
-//                else if (chunk.getBlockState(pos.east()) == IEBlocks.DIMSTONE.get().getDefaultState() && random.nextInt(8) <= 6 ||
-//                        chunk.getBlockState(pos.west()) == IEBlocks.DIMSTONE.get().getDefaultState() && random.nextInt(8) <= 6 ||
-//                        chunk.getBlockState(pos.north()) == IEBlocks.DIMSTONE.get().getDefaultState() && random.nextInt(8) <= 6 ||
-//                        chunk.getBlockState(pos.south()) == IEBlocks.DIMSTONE.get().getDefaultState() && random.nextInt(8) <= 6 ||
-//                        chunk.getBlockState(pos.up()) == IEBlocks.DIMSTONE.get().getDefaultState() && random.nextInt(8) == 1 ||
-//                        chunk.getBlockState(pos.down()) == IEBlocks.DIMSTONE.get().getDefaultState() && random.nextInt(8) == 1) {
-//                    chunk.setBlockState(pos, IEBlocks.DIMSTONE.get().getDefaultState(), false);
-//                }
-			}
-		}
-	}
-
-	@Override
-	public BlockState modifyNoise(NoiseChunkGenerator chunkGenerator, BlockPos pos, Random random, BlockState chosen, IWorld world, StructureManager structureManager, IChunk chunk) {
-		if (chosen.getBlock() == Blocks.NETHERRACK) {
-			return IEBlocks.DULLSTONE.get().getDefaultState();
-		}
-		return chosen;
-	}
+                // Increment depth so we can start placing middle blocks when moving down next loop as we go deeper
+                depth++;
+            }
+        }
+    }
 }
