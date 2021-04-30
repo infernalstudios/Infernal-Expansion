@@ -1,26 +1,7 @@
 package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
-import com.nekomaster1000.infernalexp.blocks.BasalticMagmaBlock;
-import com.nekomaster1000.infernalexp.blocks.BuriedBoneBlock;
-import com.nekomaster1000.infernalexp.blocks.CrumblingBlackstoneBlock;
-import com.nekomaster1000.infernalexp.blocks.DullthornsBlock;
-import com.nekomaster1000.infernalexp.blocks.DullthornsBlockBlock;
-import com.nekomaster1000.infernalexp.blocks.FungusCapBlock;
-import com.nekomaster1000.infernalexp.blocks.GlowCampfireBlock;
-import com.nekomaster1000.infernalexp.blocks.GlowFireBlock;
-import com.nekomaster1000.infernalexp.blocks.GlowSandBlock;
-import com.nekomaster1000.infernalexp.blocks.GlowTorchBlock;
-import com.nekomaster1000.infernalexp.blocks.GlowWallTorchBlock;
-import com.nekomaster1000.infernalexp.blocks.GlowdustBlock;
-import com.nekomaster1000.infernalexp.blocks.LuminousFungusBlock;
-import com.nekomaster1000.infernalexp.blocks.NetherrackPathBlock;
-import com.nekomaster1000.infernalexp.blocks.NetherCarpetBlock;
-import com.nekomaster1000.infernalexp.blocks.ShroomlightFungusBlock;
-import com.nekomaster1000.infernalexp.blocks.SmoothGlowstonePressurePlateBlock;
-import com.nekomaster1000.infernalexp.blocks.SoulSoilPathBlock;
-import com.nekomaster1000.infernalexp.blocks.TrappedGlowSandBlock;
-import com.nekomaster1000.infernalexp.blocks.VerticalSlabBlock;
+import com.nekomaster1000.infernalexp.blocks.*;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -167,7 +148,7 @@ public class IEBlocks {
     public static final RegistryObject<Block> CHISELED_BASALT_BRICKS = registerBlockWithDefaultItem("chiseled_basalt_bricks",	() -> new RotatedPillarBlock(getProperties(Blocks.BASALT)));
     public static final RegistryObject<Block> MAGMATIC_CHISELED_BASALT_BRICKS = registerBlockWithDefaultItem("magmatic_chiseled_basalt_bricks", () -> new RotatedPillarBlock(getProperties(Blocks.BASALT).setLightLevel(value -> 3)));
 
-    public static final RegistryObject<Block> BASALT_IRON_ORE = registerBlockWithDefaultItem("basalt_iron_ore", () -> new RotatedPillarBlock(getProperties(Blocks.NETHER_GOLD_ORE)));
+    public static final RegistryObject<Block> BASALT_IRON_ORE = registerBlockWithDefaultItem("basalt_iron_ore", () -> new BasaltIronOreBlock(getProperties(Blocks.NETHER_GOLD_ORE)));
     public static final RegistryObject<Block> BASALTIC_MAGMA = registerBlockWithDefaultItem("basaltic_magma",		() -> new BasalticMagmaBlock(getProperties(Blocks.MAGMA_BLOCK).setLightLevel(value -> 2)));
 
     public static final RegistryObject<Block> SOUL_SAND_SLAB = registerBlockWithDefaultItem("soul_sand_slab",		() -> new SlabBlock(getProperties(Blocks.SOUL_SAND)));

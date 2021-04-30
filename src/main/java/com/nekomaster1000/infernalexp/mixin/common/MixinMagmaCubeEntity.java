@@ -69,6 +69,17 @@ public abstract class MixinMagmaCubeEntity extends SlimeEntity implements IBucke
         }
     }
 
+    @Nullable
+    @Override
+    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+        if (reason == SpawnReason.BUCKET) {
+            return spawnDataIn;
+        } else {
+            this.setSlimeSize(0, false);
+            return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        }
+    }
+
     @Override
     public void copyToStack(ItemStack stack) {
         CompoundNBT compound = stack.getOrCreateTag();
