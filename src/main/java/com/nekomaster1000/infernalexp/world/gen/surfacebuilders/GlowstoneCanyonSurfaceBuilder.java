@@ -33,7 +33,7 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
         int middleBlockExtraDepth = (int)(noise / 3.0D + 3.0D + random.nextDouble() * 0.25D);
 
         // Start at top land and loop downward
-        for(int y = terrainHeight; y >= 0; --y) {
+        for (int y = terrainHeight; y >= 0; --y) {
 
             // Get the block in the world (Nether will always give Netherrack, Lava, or Air)
             mutable.setPos(x, y, z);
@@ -42,24 +42,21 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
             // Reset the depth counter as we are not in land anymore
             if (currentBlockInWorld.isAir()) {
                 depth = -1;
-            }
+            } else if (currentBlockInWorld.getFluidState().isEmpty() && currentBlockInWorld.getBlock() != Blocks.BEDROCK) {
+                // We are in solid land now if fluid check fails. Skip Bedrock as we shouldn't replace that
 
-            // We are in solid land now if fluid check fails. Skip Bedrock as we shouldn't replace that
-            else if (currentBlockInWorld.getFluidState().isEmpty() && currentBlockInWorld.getBlock() != Blocks.BEDROCK) {
                 // -1 depth means we are switching from air to solid land. Place the surface block now
                 if (depth == -1) {
                     depth = 0;
 
-                    if(y >= seaLevel){
+                    if (y >= seaLevel) {
                         // The typical surface of the biome.
                         chunk.setBlockState(mutable, topBlock, false);
-                    }
-                    else{
+                    } else {
                         // Makes the blocks at sealevel be dullstone to make cool border with lava.
-                        if(random.nextInt(70) == 1){
+                        if (random.nextInt(70) == 1) {
                             chunk.setBlockState(mutable, IEBlocks.DIMSTONE.get().getDefaultState(), false);
-                        }
-                        else{
+                        } else {
                             chunk.setBlockState(mutable, IEBlocks.DULLSTONE.get().getDefaultState(), false);
                         }
                     }
@@ -69,18 +66,15 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
 //                    if(chunk.getBlockState(mutable.up()).isAir()){
 //                        chunk.setBlockState(mutable.up(), IEBlocks.GLOWDUST.get().getDefaultState(), false);
 //                    }
-                }
-                // Place block only when under surface and down to as deep as the scaledNoise says to go.
-                else if (depth <= 2 + middleBlockExtraDepth) {
+                } else if (depth <= 2 + middleBlockExtraDepth) {
+                    // Place block only when under surface and down to as deep as the scaledNoise says to go.
                     // Increment depth to keep track of how deep we have gone
                     chunk.setBlockState(mutable, middleBlock, false);
-                }
-                // replaces all underground solid blocks with dullstone/dimstone mix
-                else {
-                    if(random.nextInt(50) == 1){
+                } else {
+                    // replaces all underground solid blocks with dullstone/dimstone mix
+                    if (random.nextInt(50) == 1) {
                         chunk.setBlockState(mutable, IEBlocks.DIMSTONE.get().getDefaultState(), false);
-                    }
-                    else{
+                    } else{
                         chunk.setBlockState(mutable, IEBlocks.DULLSTONE.get().getDefaultState(), false);
                     }
                 }

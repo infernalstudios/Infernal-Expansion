@@ -29,7 +29,7 @@ public class DeltaShoresSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConf
         int middleBlockExtraDepth = (int)(noise / 3.0D + 1.0D + random.nextDouble() * 0.25D);
 
         // Start at top land and loop downward
-        for(int y = terrainHeight; y >= seaLevel; --y) {
+        for (int y = terrainHeight; y >= seaLevel; --y) {
 
             // Get the block in the world (Nether will always give Netherrack, Lava, or Air)
             mutable.setPos(x, y, z);
@@ -38,30 +38,25 @@ public class DeltaShoresSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConf
             // Reset the depth counter as we are not in land anymore
             if (currentBlockInWorld.isAir()) {
                 depth = -1;
-            }
+            } else if (currentBlockInWorld.getFluidState().isEmpty() && currentBlockInWorld.getBlock() != Blocks.BEDROCK) {
+                // We are in solid land now if fluid check fails. Skip Bedrock as we shouldn't replace that
 
-            // We are in solid land now if fluid check fails. Skip Bedrock as we shouldn't replace that
-            else if (currentBlockInWorld.getFluidState().isEmpty() && currentBlockInWorld.getBlock() != Blocks.BEDROCK) {
                 // -1 depth means we are switching from air to solid land. Place the surface block now
                 if (depth == -1 && y > seaLevel) {
                     // The typical surface of the biome.
                     chunk.setBlockState(mutable, topBlock, false);
-                }
-                // Place block only when under surface and down to as deep as the scaledNoise says to go.
-                else if (depth <= 3 + middleBlockExtraDepth) {
+                } else if (depth <= 3 + middleBlockExtraDepth) {
+                    // Place block only when under surface and down to as deep as the scaledNoise says to go.
                     chunk.setBlockState(mutable, middleBlock, false);
-                }
-                // replaces all underground solid blocks below y = 63 with basalt/silt mix
-                else if(y <= siltMixThreshold){
+                } else if (y <= siltMixThreshold) {
+                    // replaces all underground solid blocks below y = 63 with basalt/silt mix
                     float percentage = ((float) y / 63) - ((float)noise / 6.5f);
                     if (percentage <= 0.10) {
                         chunk.setBlockState(mutable, topBlock, false);
-                    }
-                    else{
+                    } else {
                         chunk.setBlockState(mutable, underwaterBlock, false);
                     }
-                }
-                else{
+                } else {
                     // replaces all underground solid blocks above y = 63 with basalt
                     chunk.setBlockState(mutable, underwaterBlock, false);
                 }
