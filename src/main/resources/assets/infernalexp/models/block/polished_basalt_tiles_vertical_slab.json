@@ -1,0 +1,8 @@
+{
+  "parent": "infernalexp:block/vertical_slab",
+  "textures": {
+    "bottom": "infernalexp:block/polished_basalt_tiles",
+    "top": "infernalexp:block/polished_basalt_tiles",
+    "side": "infernalexp:block/polished_basalt_tiles"
+  }
+}

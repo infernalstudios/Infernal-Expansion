@@ -22,10 +22,14 @@ import net.minecraft.world.gen.feature.HugeFungusConfig;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.LiquidsConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraft.world.gen.feature.template.BlockMatchRuleTest;
+import net.minecraft.world.gen.feature.template.RuleTest;
 import net.minecraft.world.gen.placement.DepthAverageConfig;
 import net.minecraft.world.gen.placement.Placement;
 
 public class IEConfiguredFeatures {
+
+    public static final RuleTest BASALT = new BlockMatchRuleTest(Blocks.BASALT);
 
     public static ConfiguredFeature<?, ?> GLOWSPIKE = registerConfiguredFeature("glowspike", IEFeatures.GLOWSPIKE.withConfiguration(new GlowSpikeFeatureConfig(3, 5, 8, 24, 7, 7, 0.3f, true)).withPlacement(Features.Placements.PATCH_PLACEMENT.count(30)));
     public static ConfiguredFeature<?, ?> GLOWSPIKELARGE = registerConfiguredFeature("glowspikelarge", IEFeatures.GLOWSPIKE.withConfiguration(new GlowSpikeFeatureConfig(4, 7, 12, 98, 12, 12, 0.2f, false)).withPlacement(Features.Placements.PATCH_PLACEMENT.count(30)));
@@ -41,7 +45,10 @@ public class IEConfiguredFeatures {
     public static ConfiguredFeature<?, ?> GLOWCANYON_BLACKSTONE_BLOBS = registerConfiguredFeature("glowcanyon_blackstone_blob", Feature.NETHERRACK_REPLACE_BLOBS.withConfiguration(new BlobReplacementConfig(IEBlocks.DULLSTONE.get().getDefaultState(), Blocks.BLACKSTONE.getDefaultState(), FeatureSpread.create(2, 3))).range(128).square().count(8));
     public static ConfiguredFeature<?, ?> GLOWCANYON_CRUMBLING_BLACKSTONE_BLOBS = registerConfiguredFeature("glowcanyon_crumbling_blackstone_blob", Feature.NETHERRACK_REPLACE_BLOBS.withConfiguration(new BlobReplacementConfig(IEBlocks.DULLSTONE.get().getDefaultState(), IEBlocks.CRUMBLING_BLACKSTONE.get().getDefaultState(), FeatureSpread.create(3, 4))).range(128).square().count(2));
     public static ConfiguredFeature<?, ?> ORE_GLOWSILK_COCOON = registerConfiguredFeature("ore_glowsilk_cocoon", Feature.NO_SURFACE_ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_NETHER, IEBlocks.GLOWSILK_COCOON.get().getDefaultState(), 2)).withPlacement(Placement.DEPTH_AVERAGE.configure(new DepthAverageConfig(20, 10))).square());
+    public static ConfiguredFeature<?, ?> ORE_BASALT_IRON_BASALT_DELTA = registerConfiguredFeature("ore_basalt_iron_basalt_deltas", Feature.ORE.withConfiguration(new OreFeatureConfig(BASALT, IEBlocks.BASALT_IRON_ORE.get().getDefaultState(), 12)).withPlacement(Features.Placements.NETHER_SPRING_ORE_PLACEMENT).square().count(26));
+    public static ConfiguredFeature<?, ?> ORE_BASALT_IRON_DELTA_SHORES = registerConfiguredFeature("ore_basalt_iron_delta_shores", Feature.ORE.withConfiguration(new OreFeatureConfig(BASALT, IEBlocks.BASALT_IRON_ORE.get().getDefaultState(), 10)).withPlacement(Features.Placements.NETHER_SPRING_ORE_PLACEMENT).square().count(8));
     public static ConfiguredFeature<?, ?> PATCH_GLOW_FIRE = registerConfiguredFeature("patch_glow_fire", Feature.RANDOM_PATCH.withConfiguration((new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(IEBlocks.GLOW_FIRE.get().getDefaultState()), SimpleBlockPlacer.PLACER)).tries(64).whitelist(ImmutableSet.of(IEBlocks.GLOWDUST_SAND.get())).preventProjection().build()).withPlacement(Features.Placements.FIRE_PLACEMENT));
+    public static ConfiguredFeature<?, ?> BASALTIC_MAGMA = registerConfiguredFeature("basaltic_magma", Feature.ORE.withConfiguration(new OreFeatureConfig(BASALT, IEBlocks.BASALTIC_MAGMA.get().getDefaultState(), 10)).withPlacement(Features.Placements.NETHER_SPRING_ORE_PLACEMENT).square().count(8));
 
     //    public static final ConfiguredFeature<?, ?> RANDOM_GLOWSTONE_CANYON_PLANT = registerConfiguredFeature("rand_glowstone_canyon", Feature.RANDOM_SELECTOR.withConfiguration(new MultipleRandomFeatureConfig(ImmutableList.of(
 //            LUMINOUS_FUNGUS.withChance(0.5F)),

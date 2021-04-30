@@ -6,9 +6,9 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import com.nekomaster1000.infernalexp.entities.ai.TargetWithEffectGoal;
+import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IEEffects;
 import com.nekomaster1000.infernalexp.init.IEEntityTypes;
-import com.nekomaster1000.infernalexp.init.IEItems;
 import com.nekomaster1000.infernalexp.init.IESoundEvents;
 
 import net.minecraft.block.BlockState;
@@ -65,7 +65,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
 	private static final DataParameter<Boolean> BRED = EntityDataManager.createKey(GlowsquitoEntity.class, DataSerializers.BOOLEAN);
 
-	private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(IEItems.SHROOMLIGHT_FUNGUS.get());
+	private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(IEBlocks.SHROOMLIGHT_FUNGUS.get().asItem());
 
 	private EatGrassGoal eatGrassGoal;
 	private int hogTimer;

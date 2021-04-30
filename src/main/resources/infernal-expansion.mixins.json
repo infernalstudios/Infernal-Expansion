@@ -8,23 +8,27 @@
     "defaultRequire": 1
   },
   "mixins": [
-    "common.MixinDimensionType",
-    "common.MixinNoiseChunkGenerator",
-    "common.MixinSurfaceBuilder",
     "common.MixinAbstractArrowEntity",
-    "common.MixinArrowEntity",
-    "common.MixinEntity",
     "common.MixinAbstractFireBlock",
+    "common.MixinArrowEntity",
+    "common.MixinBubbleColumnBlock",
+    "common.MixinDimensionGeneratorSettings",
+    "common.MixinDimensionType",
+    "common.MixinEntity",
+    "common.MixinMagmaCubeEntity",
     "common.MixinPaintingEntity",
-    "common.MixinShovelItem"
+    "common.MixinShearsItem",
+    "common.MixinShovelItem",
+    "common.MixinStriderEntity",
+    "common.WorldCarverAccessor"
   ],
   "client": [
-    "client.MixinIBlockReader",
+    "client.MixinClientPlayNetHandler",
     "client.MixinEntityRendererManager",
+    "client.MixinIBlockReader",
     "client.MixinModelBakery",
     "client.MixinOverlayRenderer",
-    "client.MixinPlayerRenderer",
-    "client.MixinClientPlayNetHandler",
-    "client.MixinPaintingSpriteUploader"
+    "client.MixinPaintingSpriteUploader",
+    "client.MixinPlayerRenderer"
   ]
 }

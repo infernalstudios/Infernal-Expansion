@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "infernalexp:soul_slate_vertical_slab"
+    }
+  ],
+  "result": {
+    "item": "infernalexp:soul_slate_slab"
+  }
+}

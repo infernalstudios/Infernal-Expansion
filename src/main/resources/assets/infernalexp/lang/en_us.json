@@ -17,22 +17,28 @@
   "block.infernalexp.chiseled_dimstone_bricks":  "Chiseled Dimstone Brick",
   "block.infernalexp.chiseled_dullstone_bricks": "Chiseled Dullstone Brick",
   "block.infernalexp.smooth_glowstone_slab": "Smooth Glowstone Slab",
+  "block.infernalexp.smooth_glowstone_vertical_slab": "Smooth Glowstone Vertical Slab",
   "block.infernalexp.smooth_glowstone_stairs": "Smooth Glowstone Stairs",
   "block.infernalexp.smooth_glowstone_button": "Smooth Glowstone Button",
   "block.infernalexp.smooth_glowstone_pressure_plate": "Smooth Glowstone Pressure Plate",
   "block.infernalexp.smooth_dimstone_slab": "Smooth Dimstone Slab",
+  "block.infernalexp.smooth_dimstone_vertical_slab": "Smooth Dimstone Vertical Slab",
   "block.infernalexp.smooth_dimstone_stairs": "Smooth Dimstone Stairs",
   "block.infernalexp.smooth_dimstone_button": "Smooth Dimstone Button",
   "block.infernalexp.smooth_dullstone_slab": "Smooth Dullstone Slab",
+  "block.infernalexp.smooth_dullstone_vertical_slab": "Smooth Dullstone Vertical Slab",
   "block.infernalexp.smooth_dullstone_stairs": "Smooth Dullstone Stairs",
   "block.infernalexp.smooth_dullstone_button": "Smooth Dullstone Button",
   "block.infernalexp.glowstone_brick_slab": "Glowstone Brick Slab",
+  "block.infernalexp.glowstone_brick_vertical_slab": "Glowstone Brick Vertical Slab",
   "block.infernalexp.glowstone_brick_stairs": "Glowstone Brick Stairs",
   "block.infernalexp.glowstone_brick_wall": "Glowstone Brick Wall",
   "block.infernalexp.dimstone_brick_slab": "Dimstone Brick Slab",
+  "block.infernalexp.dimstone_brick_vertical_slab": "Dimstone Brick Vertical Slab",
   "block.infernalexp.dimstone_brick_stairs": "Dimstone Brick Stairs",
   "block.infernalexp.dimstone_brick_wall": "Dimstone Brick Wall",
   "block.infernalexp.dullstone_brick_slab": "Dullstone Brick Slab",
+  "block.infernalexp.dullstone_brick_vertical_slab": "Dullstone Brick Vertical Slab",
   "block.infernalexp.dullstone_brick_stairs": "Dullstone Brick Stairs",
   "block.infernalexp.dullstone_brick_wall": "Dullstone Brick Wall",
 
@@ -41,12 +47,14 @@
   "block.infernalexp.glowdust_sand": "shimmer Sand",
   "block.infernalexp.glowdust_stone": "Shimmer Stone",
   "block.infernalexp.glowdust_stone_slab": "Shimmer Stone Slab",
+  "block.infernalexp.glowdust_stone_vertical_slab": "Shimmer Stone Vertical Slab",
   "block.infernalexp.glowdust_stone_stairs": "Shimmer Stone Stairs",
   "block.infernalexp.glowdust_stone_wall": "Shimmer Stone Wall",
   "block.infernalexp.trapped_glowdust_sand": "Glimmer Gravel",
 
   "block.infernalexp.glowdust_stone_bricks": "Shimmer Stone Bricks",
   "block.infernalexp.glowdust_stone_brick_slab": "Shimmer Stone Brick Slab",
+  "block.infernalexp.glowdust_stone_brick_vertical_slab": "Shimmer Stone Brick Vertical Slab",
   "block.infernalexp.glowdust_stone_brick_stairs": "Shimmer Stone Brick Stairs",
   "block.infernalexp.glowdust_stone_brick_wall": "Shimmer Stone Brick Wall",
 
@@ -58,10 +66,13 @@
   "block.infernalexp.chiseled_glowdust_sandstone": "Chiseled Shimmer Sandstone",
   "block.infernalexp.smooth_glowdust_sandstone": "Smooth Shimmer Sandstone",
   "block.infernalexp.glowdust_sandstone_slab": "Shimmer Sandstone Slab",
+  "block.infernalexp.glowdust_sandstone_vertical_slab": "Shimmer Sandstone Vertical Slab",
   "block.infernalexp.glowdust_sandstone_stairs": "Shimmer Sandstone Stairs",
   "block.infernalexp.cut_glowdust_sandstone_slab": "Cut Shimmer Sandstone Slab",
+  "block.infernalexp.cut_glowdust_sandstone_vertical_slab": "Cut Shimmer Sandstone Vertical Slab",
 
   "block.infernalexp.smooth_glowdust_sandstone_slab": "Smooth Shimmer Sandstone Slab",
+  "block.infernalexp.smooth_glowdust_sandstone_vertical_slab": "Smooth Shimmer Sandstone Vertical Slab",
   "block.infernalexp.smooth_glowdust_sandstone_stairs": "Smooth Shimmer Sandstone Stairs",
   "block.infernalexp.glowdust_sandstone_wall": "Shimmer Sandstone Wall",
   "block.infernalexp.crumbling_blackstone": "Crumbling Blackstone",
@@ -73,21 +84,26 @@
 
   "block.infernalexp.basalt_cobbled": "Cobbled Basalt",
   "block.infernalexp.basalt_cobbled_slab": "Cobbled Basalt Slab",
+  "block.infernalexp.basalt_cobbled_vertical_slab": "Cobbled Basalt Vertical Slab",
 
   "block.infernalexp.basalt_wall": "Basalt Wall",
   "block.infernalexp.basalt_stairs": "Basalt Stairs",
   "block.infernalexp.basalt_button": "Basalt Button",
   "block.infernalexp.basalt_slab": "Basalt Slab",
+  "block.infernalexp.basalt_vertical_slab": "Basalt Vertical Slab",
 
   "block.infernalexp.polished_basalt_pressure_plate": "Polished Basalt Pressure Plate",
   "block.infernalexp.polished_basalt_slab": "Polished Basalt Slab",
+  "block.infernalexp.polished_basalt_vertical_slab": "Polished Basalt Vertical Slab",
   "block.infernalexp.polished_basalt_tiles_slab": "Polished Basalt Tiles Slab",
+  "block.infernalexp.polished_basalt_tiles_vertical_slab": "Polished Basalt Tiles Vertical Slab",
   "block.infernalexp.polished_basalt_tiles": "Polished Basalt Tiles",
 
   "block.infernalexp.basalt_bricks": "Basalt Bricks",
   "block.infernalexp.basalt_brick_wall": "Basalt Brick Wall",
   "block.infernalexp.basalt_brick_stairs": "Basalt Brick Stairs",
   "block.infernalexp.basalt_brick_slab": "Basalt Brick Slab",
+  "block.infernalexp.basalt_brick_vertical_slab": "Basalt Brick Vertical Slab",
   "block.infernalexp.cracked_basalt_bricks": "Cracked Basalt Bricks",
   "block.infernalexp.chiseled_basalt_bricks": "Chiseled Basalt Brick",
   "block.infernalexp.magmatic_chiseled_basalt_bricks": "Magmatic Chiseled Basalt Brick",
@@ -97,12 +113,15 @@
 
   "block.infernalexp.soul_sand_stairs": "Soul Sand Stairs",
   "block.infernalexp.soul_sand_slab": "Soul Sand Slab",
+  "block.infernalexp.soul_sand_vertical_slab": "Soul Sand Vertical Slab",
 
   "block.infernalexp.soul_soil_stairs": "Soul Soil Stairs",
   "block.infernalexp.soul_soil_slab": "Soul Soil Slab",
+  "block.infernalexp.soul_soil_vertical_slab": "Soul Soil Vertical Slab",
 
   "block.infernalexp.soul_stone": "Soul Stone",
   "block.infernalexp.soul_stone_slab": "Soul Stone Slab",
+  "block.infernalexp.soul_stone_vertical_slab": "Soul Stone Vertical Slab",
   "block.infernalexp.soul_stone_stairs": "Soul Stone Stairs",
   "block.infernalexp.soul_stone_wall": "Soul Stone Wall",
 
@@ -110,6 +129,7 @@
   "block.infernalexp.soul_stone_brick_wall": "Soul Stone Brick Wall",
   "block.infernalexp.soul_stone_brick_stairs": "Soul Stone Brick Stairs",
   "block.infernalexp.soul_stone_brick_slab": "Soul Stone Brick Slab",
+  "block.infernalexp.soul_stone_brick_vertical_slab": "Soul Stone Brick Vertical Slab",
   "block.infernalexp.cracked_soul_stone_bricks": "Cracked Soul Stone Bricks",
   "block.infernalexp.chiseled_soul_stone_bricks": "Chiseled Soul Stone Brick",
   "block.infernalexp.charged_chiseled_soul_stone_bricks": "Charged Chiseled Soul Stone Brick",
@@ -119,12 +139,14 @@
   "block.infernalexp.soul_slate_stairs": "Soul Slate Stairs",
   "block.infernalexp.soul_slate_button": "Soul Slate Button",
   "block.infernalexp.soul_slate_slab": "Soul Slate Slab",
+  "block.infernalexp.soul_slate_vertical_slab": "Soul Slate Vertical Slab",
   "block.infernalexp.soul_slate_pressure_plate": "Soul Slate Pressure Plate",
 
   "block.infernalexp.soul_slate_bricks": "Soul Slate Bricks",
   "block.infernalexp.soul_slate_brick_wall": "Soul Slate Brick Wall",
   "block.infernalexp.soul_slate_brick_stairs": "Soul Slate Brick Stairs",
   "block.infernalexp.soul_slate_brick_slab": "Soul Slate Brick Slab",
+  "block.infernalexp.soul_slate_brick_vertical_slab": "Soul Slate Brick Vertical Slab",
   "block.infernalexp.cracked_soul_slate_bricks": "Cracked Soul Slate Bricks",
   "block.infernalexp.chiseled_soul_slate_bricks": "Chiseled Soul Slate Brick",
   "block.infernalexp.charged_chiseled_soul_slate_bricks": "Charged Chiseled Soul Slate Brick",
@@ -137,6 +159,9 @@
 
   "block.infernalexp.buried_bone": "Buried Bone",
 
+  "block.infernalexp.warped_nylium_path": "Warped Nylium Path",
+  "block.infernalexp.crimson_nylium_path": "Crimson Nylium Path",
+
   "block.infernalexp.glow_lantern": "Glowlight Lantern",
   "block.infernalexp.glow_torch": "Glowlight Torch",
   "block.infernalexp.glow_campfire": "Glowlight Campfire",
@@ -144,6 +169,9 @@
   "block.infernalexp.dullthorns": "Dullthorns",
 
   "block.infernalexp.glowsilk_cocoon": "Glowsilk Cocoon",
+
+  "block.infernalexp.warped_nylium_carpet": "Warped Nylium Carpet",
+  "block.infernalexp.crimson_nylium_carpet": "Crimson Nylium Carpet",
 
   "block.minecraft.nether_sprouts": "Warped Sprouts",
   "block.minecraft.nether_wart_block": "Crimson Wart Block",

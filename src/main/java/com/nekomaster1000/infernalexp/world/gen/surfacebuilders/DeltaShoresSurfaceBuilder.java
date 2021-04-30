@@ -1,74 +1,69 @@
 package com.nekomaster1000.infernalexp.world.gen.surfacebuilders;
 
-import java.util.Random;
-
 import com.mojang.serialization.Codec;
-import com.nekomaster1000.infernalexp.access.NoiseAccess;
-import com.nekomaster1000.infernalexp.init.IEBlocks;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunk;
-import net.minecraft.world.gen.NoiseChunkGenerator;
-import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 
-public class DeltaShoresSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> implements NoiseAccess {
+import java.util.Random;
+
+public class DeltaShoresSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig>{
 	public DeltaShoresSurfaceBuilder(Codec<SurfaceBuilderConfig> p_i232136_1_) {
 		super(p_i232136_1_);
 	}
 
-	@Override
-	public void buildSurface(Random random, IChunk chunk, Biome biomeIn, int x, int z, int startHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, SurfaceBuilderConfig config) {
-		BlockPos.Mutable pos = new BlockPos.Mutable();
 
-		int xPos = x & 15;
-		int zPos = z & 15;
+    @Override
+    public void buildSurface(Random random, IChunk chunk, Biome biome, int x, int z, int terrainHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, SurfaceBuilderConfig config) {
+        this.buildSurface(random, chunk, biome, x, z, terrainHeight, noise, defaultBlock, defaultFluid, config.getTop(), config.getUnder(), config.getUnderWaterMaterial(), seaLevel);
+    }
 
-		for (int yPos = 125; yPos >= seaLevel; yPos--) {
-			pos.setPos(xPos, yPos, zPos);
+    protected void buildSurface(Random random, IChunk chunk, Biome biome, int x, int z, int terrainHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, BlockState topBlock, BlockState middleBlock, BlockState underwaterBlock, int seaLevel) {
+        BlockPos.Mutable mutable = new BlockPos.Mutable();
+        int depth = -1; // Will be used to know how deep we are in solid blocks so we know when to stop placing middleBlock
+        int siltMixThreshold = 63;
+        int middleBlockExtraDepth = (int)(noise / 3.0D + 1.0D + random.nextDouble() * 0.25D);
 
-			BlockState currentBlockToReplace = chunk.getBlockState(pos);
-			BlockState checkForAir = chunk.getBlockState(pos.up());
+        // Start at top land and loop downward
+        for (int y = terrainHeight; y >= seaLevel; --y) {
 
-			if (currentBlockToReplace == Blocks.BASALT.getDefaultState() && checkForAir == Blocks.AIR.getDefaultState()) {
-				chunk.setBlockState(pos, config.getTop(), false);
+            // Get the block in the world (Nether will always give Netherrack, Lava, or Air)
+            mutable.setPos(x, y, z);
+            BlockState currentBlockInWorld = chunk.getBlockState(mutable);
 
-				for (int offset = 1; offset <= 3; offset++) {
-					if (chunk.getBlockState(pos.down(offset)) == Blocks.BASALT.getDefaultState()) {
-						chunk.setBlockState(pos.down(offset), config.getUnder(), false);
-					}
-				}
+            // Reset the depth counter as we are not in land anymore
+            if (currentBlockInWorld.isAir()) {
+                depth = -1;
+            } else if (currentBlockInWorld.getFluidState().isEmpty() && currentBlockInWorld.getBlock() != Blocks.BEDROCK) {
+                // We are in solid land now if fluid check fails. Skip Bedrock as we shouldn't replace that
 
-				// Build terrain down to bedrock
-				if (yPos <= 63) {
-					if (chunk.getBlockState(pos.down(1)) == config.getUnder() && chunk.getBlockState(pos.down(2)) == config.getUnder()) {
-						for (int offset = 3; offset <= yPos; offset++) {
-							if (chunk.getBlockState(pos.down(offset)).getBlock() != Blocks.AIR && chunk.getBlockState(pos.down(offset)).getBlock() != Blocks.LAVA) {
-								float percentage = (((float) offset / yPos) - 0.05f) + (random.nextFloat() * 0.1f);
+                // -1 depth means we are switching from air to solid land. Place the surface block now
+                if (depth == -1 && y > seaLevel) {
+                    // The typical surface of the biome.
+                    chunk.setBlockState(mutable, topBlock, false);
+                } else if (depth <= 3 + middleBlockExtraDepth) {
+                    // Place block only when under surface and down to as deep as the scaledNoise says to go.
+                    chunk.setBlockState(mutable, middleBlock, false);
+                } else if (y <= siltMixThreshold) {
+                    // replaces all underground solid blocks below y = 63 with basalt/silt mix
+                    float percentage = ((float) y / 63) - ((float)noise / 6.5f);
+                    if (percentage <= 0.10) {
+                        chunk.setBlockState(mutable, topBlock, false);
+                    } else {
+                        chunk.setBlockState(mutable, underwaterBlock, false);
+                    }
+                } else {
+                    // replaces all underground solid blocks above y = 63 with basalt
+                    chunk.setBlockState(mutable, underwaterBlock, false);
+                }
 
-								if (percentage <= 0.15) {
-									chunk.setBlockState(pos.down(offset), IEBlocks.SILT.get().getDefaultState(), false);
-								} else {
-									chunk.setBlockState(pos.down(offset), Blocks.BASALT.getDefaultState(), false);
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-	@Override
-	public BlockState modifyNoise(NoiseChunkGenerator chunkGenerator, BlockPos pos, Random random, BlockState chosen, IWorld world, StructureManager structureManager, IChunk chunk) {
-		if (chosen.getBlock() == Blocks.NETHERRACK) {
-			return Blocks.BASALT.getDefaultState();
-		}
-		return chosen;
-	}
+                // Increment depth so we can start placing middle blocks when moving down next loop as we go deeper
+                depth++;
+            }
+        }
+    }
 }

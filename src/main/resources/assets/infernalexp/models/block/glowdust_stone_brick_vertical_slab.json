@@ -1,0 +1,8 @@
+{
+  "parent": "infernalexp:block/vertical_slab",
+  "textures": {
+    "bottom": "infernalexp:block/glowdust_stone_bricks_animated",
+    "top": "infernalexp:block/glowdust_stone_bricks_animated",
+    "side": "infernalexp:block/glowdust_stone_bricks_animated"
+  }
+}
