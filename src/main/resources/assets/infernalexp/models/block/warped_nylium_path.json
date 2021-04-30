@@ -1,7 +1,7 @@
 {   "parent": "block/block",
   "textures": {
     "particle": "block/warped_nylium",
-    "top": "block/warped_nylium",
+    "top": "infernalexp:block/warped_nylium_path",
     "side": "block/warped_nylium_side",
     "bottom": "block/netherrack"
   },

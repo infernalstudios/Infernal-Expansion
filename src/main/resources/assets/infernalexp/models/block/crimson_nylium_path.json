@@ -1,7 +1,7 @@
 {   "parent": "block/block",
   "textures": {
     "particle": "block/crimson_nylium",
-    "top": "block/crimson_nylium",
+    "top": "infernalexp:block/crimson_nylium_path",
     "side": "block/crimson_nylium_side",
     "bottom": "block/netherrack"
   },
