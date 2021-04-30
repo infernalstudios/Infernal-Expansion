@@ -16,12 +16,10 @@
     "common.MixinDimensionType",
     "common.MixinEntity",
     "common.MixinMagmaCubeEntity",
-    "common.MixinNoiseChunkGenerator",
     "common.MixinPaintingEntity",
     "common.MixinShearsItem",
     "common.MixinShovelItem",
     "common.MixinStriderEntity",
-    "common.MixinSurfaceBuilder",
     "common.WorldCarverAccessor"
   ],
   "client": [
