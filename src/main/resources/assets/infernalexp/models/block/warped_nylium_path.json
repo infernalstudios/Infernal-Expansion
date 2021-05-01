@@ -2,7 +2,7 @@
   "textures": {
     "particle": "block/warped_nylium",
     "top": "infernalexp:block/warped_nylium_path",
-    "side": "block/warped_nylium_side",
+    "side": "infernalexp:block/warped_nylium_path_side",
     "bottom": "block/netherrack"
   },
   "elements": [

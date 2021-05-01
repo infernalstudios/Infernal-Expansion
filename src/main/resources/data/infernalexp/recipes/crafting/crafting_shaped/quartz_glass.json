@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " x ",
+    "xox",
+    " x "
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:quartz"
+    },
+    "o":
+    {
+      "item": "minecraft:glass"
+    }
+  },
+  "result":
+  {
+    "item": "infernalexp:quartz_glass",
+    "count": 2
+  }
+}
