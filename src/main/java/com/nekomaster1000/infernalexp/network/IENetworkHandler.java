@@ -8,6 +8,7 @@ import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 
 public class IENetworkHandler {
+
 	private static final String PROTOCOL_VERSION = "1";
 	public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
 		new ResourceLocation(InfernalExpansion.MOD_ID, "main"),
@@ -19,8 +20,9 @@ public class IENetworkHandler {
 	private static int index;
 
 	public static synchronized void register() {
-		INSTANCE.messageBuilder(WhipReachPacket.class, index++).encoder(WhipReachPacket::encode).decoder(WhipReachPacket::decode).consumer(WhipReachPacket::handle).add();
-	}
+        INSTANCE.messageBuilder(WhipReachPacket.class, index++).encoder(WhipReachPacket::encode).decoder(WhipReachPacket::decode).consumer(WhipReachPacket::handle).add();
+        INSTANCE.messageBuilder(SpawnInfernalPaintingPacket.class, index++).encoder(SpawnInfernalPaintingPacket::encode).decoder(SpawnInfernalPaintingPacket::decode).consumer(SpawnInfernalPaintingPacket::handle).add();
+    }
 
 	public static <MSG> void sendToPlayer(MSG message, ServerPlayerEntity player) {
 		INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);

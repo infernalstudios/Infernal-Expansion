@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:polished_basalt"
+    }
+  },
+  "result": {
+    "item": "infernalexp:polished_basalt_pressure_plate",
+    "count": 2
+  }
+}

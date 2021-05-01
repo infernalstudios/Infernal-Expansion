@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "infernalexp:polished_basalt_vertical_slab"
+    }
+  ],
+  "result": {
+    "item": "infernalexp:polished_basalt_slab"
+  }
+}

@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "minecraft:basalt"
-  },
-  "result": "infernalexp:basalt_cobbled",
-  "experience": 0.0,
-  "cookingtime": 160
-}

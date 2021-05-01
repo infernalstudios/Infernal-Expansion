@@ -1,6 +1,7 @@
 {
-  "parent": "block/cube_all",
+  "parent": "block/cube_column",
   "textures": {
-    "all": "infernalexp:block/basaltic_magma"
+    "end": "infernalexp:block/basaltic_magma_top",
+    "side": "infernalexp:block/basaltic_magma_side"
   }
 }

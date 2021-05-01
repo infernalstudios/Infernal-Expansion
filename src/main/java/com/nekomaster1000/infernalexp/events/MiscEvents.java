@@ -144,11 +144,21 @@ public class MiscEvents {
         World world = event.getWorld();
         BlockPos pos = event.getPos();
         if (block == Blocks.SHROOMLIGHT && FloraBehaviour.SHROOMLIGHT_GROWABLE.getBool()) {
-            pos = pos.down();
-            if (world.isAirBlock(pos)) {
-                event.setResult(Event.Result.ALLOW);
-                if (world.getRandom().nextDouble() < FloraBehaviour.SHROOMLIGHT_GROW_CHANCE.getDouble() && !world.isRemote()) {
-                    world.setBlockState(pos, IEBlocks.SHROOMLIGHT_FUNGUS.get().getDefaultState().with(HorizontalBushBlock.FACE, AttachFace.CEILING), 3);
+            if (event.getWorld().getBiome(pos).getRegistryName().getPath().equals("warped_forest")) {
+                pos = pos.up();
+                if (world.isAirBlock(pos)) {
+                    event.setResult(Event.Result.ALLOW);
+                    if (world.getRandom().nextDouble() < FloraBehaviour.SHROOMLIGHT_GROW_CHANCE.getDouble() && !world.isRemote()) {
+                        world.setBlockState(pos, IEBlocks.SHROOMLIGHT_FUNGUS.get().getDefaultState().with(HorizontalBushBlock.FACE, AttachFace.FLOOR), 3);
+                    }
+                }
+            } else {
+                pos = pos.down();
+                if (world.isAirBlock(pos)) {
+                    event.setResult(Event.Result.ALLOW);
+                    if (world.getRandom().nextDouble() < FloraBehaviour.SHROOMLIGHT_GROW_CHANCE.getDouble() && !world.isRemote()) {
+                        world.setBlockState(pos, IEBlocks.SHROOMLIGHT_FUNGUS.get().getDefaultState().with(HorizontalBushBlock.FACE, AttachFace.CEILING), 3);
+                    }
                 }
             }
         }
