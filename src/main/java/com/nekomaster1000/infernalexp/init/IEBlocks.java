@@ -21,8 +21,20 @@ import com.nekomaster1000.infernalexp.blocks.SmoothGlowstonePressurePlateBlock;
 import com.nekomaster1000.infernalexp.blocks.SoulSoilPathBlock;
 import com.nekomaster1000.infernalexp.blocks.TrappedGlowSandBlock;
 import com.nekomaster1000.infernalexp.blocks.VerticalSlabBlock;
-
-import net.minecraft.block.*;
+import com.nekomaster1000.infernalexp.blocks.BasaltIronOreBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.FlowerPotBlock;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.LanternBlock;
+import net.minecraft.block.PressurePlateBlock;
+import net.minecraft.block.StoneButtonBlock;
+import net.minecraft.block.StairsBlock;
+import net.minecraft.block.SlabBlock;
+import net.minecraft.block.WallBlock;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
@@ -167,7 +179,7 @@ public class IEBlocks {
     public static final RegistryObject<Block> CHISELED_BASALT_BRICKS = registerBlockWithDefaultItem("chiseled_basalt_bricks",	() -> new RotatedPillarBlock(getProperties(Blocks.BASALT)));
     public static final RegistryObject<Block> MAGMATIC_CHISELED_BASALT_BRICKS = registerBlockWithDefaultItem("magmatic_chiseled_basalt_bricks", () -> new RotatedPillarBlock(getProperties(Blocks.BASALT).setLightLevel(value -> 3)));
 
-    public static final RegistryObject<Block> BASALT_IRON_ORE = registerBlockWithDefaultItem("basalt_iron_ore", () -> new RotatedPillarBlock(getProperties(Blocks.NETHER_GOLD_ORE)));
+    public static final RegistryObject<Block> BASALT_IRON_ORE = registerBlockWithDefaultItem("basalt_iron_ore", () -> new BasaltIronOreBlock(getProperties(Blocks.NETHER_GOLD_ORE)));
     public static final RegistryObject<Block> BASALTIC_MAGMA = registerBlockWithDefaultItem("basaltic_magma",		() -> new BasalticMagmaBlock(getProperties(Blocks.MAGMA_BLOCK).setLightLevel(value -> 2)));
 
     public static final RegistryObject<Block> SOUL_SAND_SLAB = registerBlockWithDefaultItem("soul_sand_slab",		() -> new SlabBlock(getProperties(Blocks.SOUL_SAND)));
