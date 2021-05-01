@@ -3,7 +3,6 @@ package com.nekomaster1000.infernalexp.events;
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.MobInteractions;
-import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.MobSpawning;
 import com.nekomaster1000.infernalexp.data.SpawnrateManager;
 import com.nekomaster1000.infernalexp.entities.BasaltGiantEntity;
 import com.nekomaster1000.infernalexp.entities.EmbodyEntity;
@@ -12,9 +11,7 @@ import com.nekomaster1000.infernalexp.entities.VolineEntity;
 import com.nekomaster1000.infernalexp.entities.WarpbeetleEntity;
 import com.nekomaster1000.infernalexp.entities.ai.AvoidBlockGoal;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
-import com.nekomaster1000.infernalexp.init.IEEntityTypes;
 import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FlyingEntity;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
@@ -242,7 +239,7 @@ public class MobEvents {
 
         MiscEvents.getSpawnrateManager().forEach((entity, value) -> {
             // Get the biomes the entity is allowed to spawn in from InfernalExpansionConfig
-            List<String> spawnableBiomes = Arrays.asList(InfernalExpansionConfig.NewMobSpawning.getByName(entity.split(":")[1]).getSpawnableBiomes().replace(" ", "").split(","));
+            List<String> spawnableBiomes = Arrays.asList(InfernalExpansionConfig.MobSpawning.getByName(entity.split(":")[1]).getSpawnableBiomes().replace(" ", "").split(","));
 
             // Check if the current biome getting loaded is in the spawnable biomes, if not, return
             if (!spawnableBiomes.contains(event.getName().toString())) {
@@ -268,114 +265,6 @@ public class MobEvents {
                 }
             }
         });
-
-        if (event.getName().toString().equals("minecraft:nether_wastes")) {
-            if (MobSpawning.VOLINE_WASTES.isEnabled()) {
-                event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                    new MobSpawnInfo.Spawners(IEEntityTypes.VOLINE.get(),
-                        MobSpawning.VOLINE_WASTES.getSpawnrate(), 1, 3));
-            }
-
-        } else if (event.getName().toString().equals("minecraft:crimson_forest")) {
-            if (MobSpawning.SHROOMLOIN_CRIMSON.isEnabled()) {
-                event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                    new MobSpawnInfo.Spawners(IEEntityTypes.SHROOMLOIN.get(),
-                        MobSpawning.SHROOMLOIN_CRIMSON.getSpawnrate(), 1, 3));
-            }
-
-            if (MobSpawning.VOLINE_CRIMSON.isEnabled()) {
-                event.getSpawns().withSpawner(EntityClassification.MONSTER,
-                    new MobSpawnInfo.Spawners(IEEntityTypes.VOLINE.get(),
-                        MobSpawning.VOLINE_CRIMSON.getSpawnrate(), 1, 5));
-            }
-
-            if (MobSpawning.GLOWSILK_CRIMSON.isEnabled()) {
-                event.getSpawns().withSpawner(EntityClassification.AMBIENT,
-                    new MobSpawnInfo.Spawners(IEEntityTypes.GLOWSILK_MOTH.get(),
-                        MobSpawning.GLOWSILK_CRIMSON.getSpawnrate(), 1, 1));
-            }
-
-        } else if (event.getName().toString().equals("minecraft:warped_forest")) {
-
-			//    event.getSpawns().withSpawner(EntityClassification.MONSTER,
-			//            new MobSpawnInfo.Spawners(ModEntityType.CEROBEETLE.get(), 1, 1, 1));
-
-			if (MobSpawning.WARPBEETLE_WARPED.isEnabled()) {
-                // I think this creatureSpawnProbability is a ratio between how many creatures will spawn compared to other types, or maybe just monsters?
-//                event.getSpawns().withCreatureSpawnProbability(0.9F);
-
-                // Remove the strider spawner then add it back with a weight of 20 instead of 60
-//                event.getSpawns().getSpawner(EntityClassification.CREATURE).removeIf(spawner -> spawner.type == EntityType.STRIDER);
-//                event.getSpawns().withSpawner(EntityClassification.CREATURE,
-//                    new MobSpawnInfo.Spawners(EntityType.STRIDER,
-//                        20, 1, 2));
-//
-//                event.getSpawns().withSpawner(EntityClassification.CREATURE,
-//                    new MobSpawnInfo.Spawners(IEEntityTypes.WARPBEETLE.get(),
-//                        MobSpawning.WARPBEETLE_WARPED.getSpawnrate(), 1, 5));
-            }
-
-		} else if (event.getName().toString().equals("minecraft:basalt_deltas")) {
-			if (MobSpawning.GIANT_DELTAS.isEnabled()) {
-				event.getSpawns().withSpawner(EntityClassification.MONSTER,
-						new MobSpawnInfo.Spawners(IEEntityTypes.BASALT_GIANT.get(),
-								MobSpawning.GIANT_DELTAS.getSpawnrate(), 1, 1));
-			}
-
-			if (MobSpawning.GLOWSILK_DELTAS.isEnabled()) {
-				event.getSpawns().withSpawner(EntityClassification.AMBIENT,
-						new MobSpawnInfo.Spawners(IEEntityTypes.GLOWSILK_MOTH.get(),
-								MobSpawning.GLOWSILK_DELTAS.getSpawnrate(), 1, 1));
-			}
-
-			//event.getSpawns().withSpawner(EntityClassification.MONSTER,
-			//        new MobSpawnInfo.Spawners(ModEntityType.GLOWSQUITO.get(), 1, 5, 10));
-
-
-		} else if (event.getName().toString().equals("minecraft:soul_sand_valley")) {
-			if (MobSpawning.EMBODY_SSV.isEnabled()) {
-				event.getSpawns().withSpawner(EntityClassification.MONSTER,
-						new MobSpawnInfo.Spawners(IEEntityTypes.EMBODY.get(),
-								MobSpawning.EMBODY_SSV.getSpawnrate(), 1, 5));
-			}
-
-			event.getSpawns().withSpawner(EntityClassification.MONSTER,
-					new MobSpawnInfo.Spawners(IEEntityTypes.SKELETAL_PIGLIN.get(), 10, 1, 1));
-
-
-			//Mob Spawning in new biomes
-
-		} else if (event.getName().toString().equals("infernalexp:glowstone_canyon")) {
-			event.getSpawns().withSpawner(EntityClassification.MONSTER,
-					new MobSpawnInfo.Spawners(IEEntityTypes.GLOWSQUITO.get(), 80, 1, 10));
-
-			event.getSpawns().withSpawner(EntityClassification.MONSTER,
-					new MobSpawnInfo.Spawners(IEEntityTypes.BLINDSIGHT.get(), 10, 1, 1));
-
-			event.getSpawns().withSpawner(EntityClassification.MONSTER,
-					new MobSpawnInfo.Spawners(IEEntityTypes.SKELETAL_PIGLIN.get(), 10, 1, 1));
-
-			event.getSpawns().withSpawner(EntityClassification.MONSTER,
-					new MobSpawnInfo.Spawners(IEEntityTypes.BLACKSTONE_DWARF.get(), 1, 1, 1));
-
-			if (MobSpawning.GLOWSILK_GSC.isEnabled()) {
-				event.getSpawns().withSpawner(EntityClassification.AMBIENT,
-						new MobSpawnInfo.Spawners(IEEntityTypes.GLOWSILK_MOTH.get(),
-								MobSpawning.GLOWSILK_GSC.getSpawnrate(), 1, 1));
-			}
-
-			//event.getSpawns().withSpawner(EntityClassification.MONSTER,
-			//        new MobSpawnInfo.Spawners(EntityType.GHAST, 20, 1, 1));
-			// Not spawning for some reason?
-
-		} else if (event.getName().toString().equals("infernalexp:delta_shores")) {
-			event.getSpawns().withSpawner(EntityClassification.MONSTER,
-					new MobSpawnInfo.Spawners(IEEntityTypes.BASALT_GIANT.get(), 4, 1, 1));
-
-			event.getSpawns().withSpawner(EntityClassification.MONSTER,
-					new MobSpawnInfo.Spawners(IEEntityTypes.SKELETAL_PIGLIN.get(), 6, 1, 1));
-
-		}
 	}
 
 }

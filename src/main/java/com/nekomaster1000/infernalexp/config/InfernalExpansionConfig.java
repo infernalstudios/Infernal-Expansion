@@ -124,8 +124,7 @@ public final class InfernalExpansionConfig {
         }
     }
 
-    // The old mob spawning enum should be deleted once all entities have been converted to using JSON spawnrate files
-    public enum NewMobSpawning {
+    public enum MobSpawning {
         VOLINE("voline"),
         WARPBEETLE("warpbeetle"),
         SHROOMLOIN("shroomloin"),
@@ -140,7 +139,7 @@ public final class InfernalExpansionConfig {
         private final String translationName;
         private String spawnableBiomes;
 
-        NewMobSpawning(String translationName) {
+        MobSpawning(String translationName) {
             this.translationName = translationName;
             this.spawnableBiomes = "";
         }
@@ -161,8 +160,8 @@ public final class InfernalExpansionConfig {
          * @param name name of the enum constant to get
          * @return the enum constant
          */
-        public static NewMobSpawning getByName(@Nonnull String name) {
-            return NewMobSpawning.valueOf(name.toUpperCase());
+        public static MobSpawning getByName(@Nonnull String name) {
+            return MobSpawning.valueOf(name.toUpperCase());
         }
 
         /**
@@ -170,50 +169,7 @@ public final class InfernalExpansionConfig {
          * @return true if enum contains enum constant
          */
         public static boolean contains(@Nonnull String name) {
-            return Arrays.stream(NewMobSpawning.values()).anyMatch(entity -> entity.getTranslationName().equals(name));
-        }
-    }
-
-    //Mob Spawning
-    public enum MobSpawning {
-        VOLINE_WASTES("volineWastes"),
-        SHROOMLOIN_CRIMSON("shroomloinCrimson"),
-        VOLINE_CRIMSON("volineCrimson"),
-        WARPBEETLE_WARPED("warpbeetleWarped"),
-        GIANT_DELTAS("giantDeltas"),
-        EMBODY_SSV("embodySSV"),
-        GLOWSILK_GSC("glowsilkGSC"),
-        GLOWSILK_DELTAS("glowsilkDeltas"),
-        GLOWSILK_CRIMSON("glowsilkCrimson");
-
-        private final String translationName;
-        private boolean enabled;
-        private int spawnrate;
-
-        MobSpawning(String translationName) {
-            this.translationName = translationName;
-            this.enabled = false;
-            this.spawnrate = 0;
-        }
-
-        public String getTranslationName() {
-            return translationName;
-        }
-
-        public boolean isEnabled() {
-            return enabled;
-        }
-
-        public void setEnabled(boolean enabled) {
-            this.enabled = enabled;
-        }
-
-        public int getSpawnrate() {
-            return spawnrate;
-        }
-
-        public void setSpawnrate(int spawnrate) {
-            this.spawnrate = spawnrate;
+            return Arrays.stream(MobSpawning.values()).anyMatch(entity -> entity.getTranslationName().equals(name));
         }
     }
 

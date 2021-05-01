@@ -36,28 +36,6 @@ public class CommonConfig {
     final ForgeConfigSpec.ConfigValue<String> blindsightBiomes;
     final ForgeConfigSpec.ConfigValue<String> blackstoneDwarfBiomes;
     final ForgeConfigSpec.ConfigValue<String> skeletalPiglinBiomes;
-
-    //Mob Spawning Booleans
-    final ForgeConfigSpec.BooleanValue volineInWastes;
-    final ForgeConfigSpec.BooleanValue shroomloinInCrimson;
-    final ForgeConfigSpec.BooleanValue volineInCrimson;
-    final ForgeConfigSpec.BooleanValue warpbeetleInWarped;
-    final ForgeConfigSpec.BooleanValue giantInDeltas;
-    final ForgeConfigSpec.BooleanValue embodyInSSV;
-    final ForgeConfigSpec.BooleanValue glowsilkInGSC;
-    final ForgeConfigSpec.BooleanValue glowsilkInDeltas;
-    final ForgeConfigSpec.BooleanValue glowsilkInCrimson;
-
-    //Mob Spawn Rates
-    final ForgeConfigSpec.IntValue volineWastesRate;
-    final ForgeConfigSpec.IntValue shroomloinCrimsonRate;
-    final ForgeConfigSpec.IntValue volineCrimsonRate;
-    final ForgeConfigSpec.IntValue warpbeetleWarpedRate;
-    final ForgeConfigSpec.IntValue giantDeltasRate;
-    final ForgeConfigSpec.IntValue embodySSVRate;
-    final ForgeConfigSpec.IntValue glowsilkGSCRate;
-    final ForgeConfigSpec.IntValue glowsilkDeltasRate;
-    final ForgeConfigSpec.IntValue glowsilkCrimsonRate;
     
     //Bonemeal Behaviour
     final ForgeConfigSpec.DoubleValue shroomlightGrowChance;
@@ -212,106 +190,6 @@ public class CommonConfig {
             .comment("Determines what biomes Skeletal Piglins will spawn in")
             .translation(InfernalExpansion.MOD_ID + ".config.tooltip.skeletal_piglin.biomes")
             .define("skeletalPiglinBiomes", "minecraft:soul_sand_valley, infernalexp:glowstone_canyon, infernalexp:delta_shores");
-
-        builder.pop();
-
-        //Spawn Booleans
-        builder.push("Toggle Spawns");
-
-        volineInWastes = builder
-            .comment("Determines if Volines will spawn in Nether Wastes")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.volineWastes.enable")
-            .define("volineInWastes", true);
-
-        shroomloinInCrimson = builder
-                .comment("Determines if Shroomloins will spawn in the Crimson Forests")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.shroomloinCrimson.enable")
-                .define("shroomloinInCrimson", true);
-
-        volineInCrimson = builder
-                .comment("Determines if Volines will spawn in Crimson Forests")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.volineCrimson.enable")
-                .define("volineInCrimson", true);
-
-        warpbeetleInWarped = builder
-                .comment("Determines if Warpbeetles will spawn in Warped Forests")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.warpbeetleWarped.enable")
-                .define("warpbeetleInWarped", true);
-
-        giantInDeltas = builder
-                .comment("Determines if Basalt Giants will spawn in Basalt Deltas")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.giantDeltas.enable")
-                .define("giantInDeltas", true);
-
-        embodyInSSV = builder
-                .comment("Determines if Embodies will spawn in the Soul Sand Valleys")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.embodySSV.enable")
-                .define("embodyInSSV", true);
-
-        glowsilkInGSC = builder
-                .comment("Determines if Glowsilk Moths will spawn in Glowstone Canyons")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.glowsilkGSC.enable")
-                .define("glowsilkInGSC", true);
-
-        glowsilkInDeltas = builder
-                .comment("Determines if Glowsilk Moths will spawn in Basalt Deltas")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.glowsilkDeltas.enable")
-                .define("glowsilkInDeltas", true);
-
-        glowsilkInCrimson = builder
-                .comment("Determines if Glowsilk Moths will spawn in Crimson Forests")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.glowsilkCrimson.enable")
-                .define("glowsilkCrimson", true);
-
-        builder.pop();
-
-      //Spawn Rates
-        builder.push("Spawn Rates");
-
-        volineWastesRate = builder
-                .comment("Determines the rate at which Volines spawn in the Nether Wastes")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.volineWastes.spawnrate")
-                .defineInRange("volineWastesRate", 50, 0, Integer.MAX_VALUE);
-
-        shroomloinCrimsonRate = builder
-                .comment("Determines the rate at which Shroomloins spawn in the Crimson Forests")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.shroomloinCrimson.spawnrate")
-                .defineInRange("shroomloinCrimsonRate", 5, 0, Integer.MAX_VALUE);
-
-        volineCrimsonRate = builder
-                .comment("Determines the rate at which Volines spawn in the Crimson Forests")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.volineCrimson.spawnrate")
-                .defineInRange("volineCrimsonRate", 1, 0, Integer.MAX_VALUE);
-
-        warpbeetleWarpedRate = builder
-            .comment("Determines the rate at which Warpbeetles spawn in the Warped Forests")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.warpbeetleWarped.spawnrate")
-            .defineInRange("warpbeetleWarpedRate", 100, 0, Integer.MAX_VALUE);
-
-        giantDeltasRate = builder
-                .comment("Determines the rate at which Basalt Giants spawn in the Basalt Deltas")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.giantDeltas.spawnrate")
-                .defineInRange("giantDeltasRate", 30, 0, Integer.MAX_VALUE);
-
-        embodySSVRate = builder
-                .comment("Determines the rate at which Embodies spawn in the Soul Sand Valleys")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.embodySSV.spawnrate")
-                .defineInRange("embodySSVRate", 60, 0, Integer.MAX_VALUE);
-
-        glowsilkGSCRate = builder
-                .comment("Determines the rate at which Glowsilk Moths spawn in the Glowstone Canyon")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.glowsilkGSC.spawnrate")
-                .defineInRange("glowsilkGSCRate", 1, 0, Integer.MAX_VALUE);
-
-        glowsilkDeltasRate = builder
-                .comment("Determines the rate at which Glowsilk Moths spawn in the Basalt Deltas")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.glowsilkDeltas.spawnrate")
-                .defineInRange("glowsilkDeltasRate", 5, 0, Integer.MAX_VALUE);
-
-        glowsilkCrimsonRate = builder
-                .comment("Determines the rate at which Glowsilk Moths spawn in the Crimson Forests")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.glowsilkCrimson.spawnrate")
-                .defineInRange("glowsilkCrimsonRate", 5, 0, Integer.MAX_VALUE);
 
         builder.pop();
         

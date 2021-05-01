@@ -47,7 +47,7 @@ public class SpawnrateManager extends JsonReloadListener {
         List<String> entities = new ArrayList<>();
 
         ForgeRegistries.ENTITIES.getKeys().forEach(resourceLocation -> {
-            if (resourceLocation.getNamespace().equals(InfernalExpansion.MOD_ID) && InfernalExpansionConfig.NewMobSpawning.contains(resourceLocation.getPath())) {
+            if (resourceLocation.getNamespace().equals(InfernalExpansion.MOD_ID) && InfernalExpansionConfig.MobSpawning.contains(resourceLocation.getPath())) {
                 entities.add(resourceLocation.toString());
             }
         });

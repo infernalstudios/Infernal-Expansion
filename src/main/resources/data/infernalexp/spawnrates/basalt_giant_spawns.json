@@ -15,15 +15,7 @@
         "min_count": 1,
         "max_count": 1
       },
-      "creature_spawn_probability": 0.2,
-      "spawn_info_changes": [
-        {
-          "name": "minecraft:strider",
-          "spawn_info": {
-            "spawnrate": 20
-          }
-        }
-      ]
+      "creature_spawn_probability": 0.2
     },
     {
       "biome": "infernalexp:delta_shores",

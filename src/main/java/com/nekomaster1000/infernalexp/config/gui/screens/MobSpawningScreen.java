@@ -20,7 +20,7 @@ public class MobSpawningScreen extends IESettingsScreen {
 	public void addSettings() {
         optionsRowList.addOption(new TitleOption(InfernalExpansion.MOD_ID + ".config.subtitle.spawnable_biomes"));
 
-        for (InfernalExpansionConfig.NewMobSpawning mobSpawn : InfernalExpansionConfig.NewMobSpawning.values()) {
+        for (InfernalExpansionConfig.MobSpawning mobSpawn : InfernalExpansionConfig.MobSpawning.values()) {
             optionsRowList.addOption(new TextFieldOption("entity." + InfernalExpansion.MOD_ID + "." + mobSpawn.getTranslationName(),
                 new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + mobSpawn.getTranslationName()),
                 settings -> mobSpawn.getSpawnableBiomes(), (settings, value) -> mobSpawn.setSpawnableBiomes(value)));

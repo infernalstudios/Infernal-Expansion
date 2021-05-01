@@ -30,7 +30,7 @@
         {
           "name": "minecraft:strider",
           "spawn_info": {
-            "spawnrate": 20
+            "spawnrate": 30
           }
         }
       ]
