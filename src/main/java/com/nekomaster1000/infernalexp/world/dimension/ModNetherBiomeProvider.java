@@ -31,9 +31,9 @@ public class ModNetherBiomeProvider extends BiomeProvider {
 
     public static final Codec<ModNetherBiomeProvider> MOD_NETHER_CODEC =
         RecordCodecBuilder.create((instance) -> instance.group(
-                Codec.LONG.fieldOf("seed").orElseGet(WorldSeedHolder::getSeed).forGetter((biomeSource) -> biomeSource.seed),
-                RegistryLookupCodec.getLookUpCodec(Registry.BIOME_KEY).forGetter((biomeProvider) -> biomeProvider.biomeRegistry),
-                Codec.intRange(1, 20).fieldOf("biome_size").orElse(2).forGetter((biomeSource) -> biomeSource.biomeSize))
+            Codec.LONG.fieldOf("seed").orElseGet(WorldSeedHolder::getSeed).forGetter((biomeSource) -> biomeSource.seed),
+            RegistryLookupCodec.getLookUpCodec(Registry.BIOME_KEY).forGetter((biomeProvider) -> biomeProvider.biomeRegistry),
+            Codec.intRange(1, 20).fieldOf("biome_size").orElse(1).forGetter((biomeSource) -> biomeSource.biomeSize))
                         .apply(instance, ModNetherBiomeProvider::new) );
 
     public final long seed;
