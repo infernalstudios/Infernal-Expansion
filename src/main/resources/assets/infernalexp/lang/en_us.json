@@ -44,7 +44,7 @@
 
   "block.infernalexp.luminous_wart_block": "Luminous Wart Block",
   "block.infernalexp.glowdust": "Shimmer Sheet",
-  "block.infernalexp.glowdust_sand": "shimmer Sand",
+  "block.infernalexp.glowdust_sand": "Shimmer Sand",
   "block.infernalexp.glowdust_stone": "Shimmer Stone",
   "block.infernalexp.glowdust_stone_slab": "Shimmer Stone Slab",
   "block.infernalexp.glowdust_stone_vertical_slab": "Shimmer Stone Vertical Slab",
@@ -165,6 +165,7 @@
   "block.infernalexp.glow_lantern": "Glowlight Lantern",
   "block.infernalexp.glow_torch": "Glowlight Torch",
   "block.infernalexp.glow_campfire": "Glowlight Campfire",
+  "block.infernalexp.glow_glass": "Glowlight Glass",
   "block.infernalexp.luminous_fungus": "Luminous Fungus",
   "block.infernalexp.dullthorns": "Dullthorns",
 
@@ -174,6 +175,8 @@
   "block.infernalexp.crimson_nylium_carpet": "Crimson Nylium Carpet",
 
   "block.infernalexp.soul_soil_path": "Soul Soil Path",
+
+  "block.infernalexp.quartz_glass": "Quartz Glass",
 
   "block.minecraft.nether_sprouts": "Warped Sprouts",
   "block.minecraft.nether_wart_block": "Crimson Wart Block",

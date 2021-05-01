@@ -2,7 +2,7 @@
   "textures": {
     "particle": "block/crimson_nylium",
     "top": "infernalexp:block/crimson_nylium_path",
-    "side": "block/crimson_nylium_side",
+    "side": "infernalexp:block/crimson_nylium_path_side",
     "bottom": "block/netherrack"
   },
   "elements": [
