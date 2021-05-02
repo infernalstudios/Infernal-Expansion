@@ -48,7 +48,7 @@ public class SkeletalPiglinModel<T extends SkeletalPiglinEntity> extends PlayerM
         this.bipedLeftArm.setRotationPoint(5.0F, 2.0F, 0.0F);
 
         this.bipedRightArm = new ModelRenderer(this, 40, 16);
-        this.bipedRightArm.addBox(-1.0F, -2.0F, -1.0F, 3.0F, 12.0F, 3.0F, 0.0f, false);
+        this.bipedRightArm.addBox(-2.0F, -2.0F, -1.0F, 3.0F, 12.0F, 3.0F, 0.0f, false);
         this.bipedRightArm.setRotationPoint(-5.0F, 2.0F, 0.0F);
 
         this.bipedLeftLeg = new ModelRenderer(this, 50, 15);
