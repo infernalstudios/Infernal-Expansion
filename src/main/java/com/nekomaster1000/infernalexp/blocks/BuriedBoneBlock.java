@@ -7,6 +7,8 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.NetherRootsBlock;
 import net.minecraft.block.NetherSproutsBlock;
 import net.minecraft.block.TallGrassBlock;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.AttachFace;
 import net.minecraft.util.Direction;
@@ -112,5 +114,10 @@ public class BuriedBoneBlock extends HorizontalBushBlock {
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builderIn) {
         builderIn.add(HORIZONTAL_FACING, FACE);
+    }
+
+    @Override
+    public Item asItem() {
+        return Items.BONE;
     }
 }

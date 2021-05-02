@@ -97,6 +97,7 @@ public class WorldEvents {
             event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.SHROOMLIGHT_TEAR);
         } else if (event.getName().equals(Biomes.SOUL_SAND_VALLEY.getLocation())) {
             event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_BASALT_IRON_BASALT_DELTA);
+            event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.PATCH_BURIED_BONE);
         }
 	}
 }
