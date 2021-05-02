@@ -25,6 +25,7 @@ import com.nekomaster1000.infernalexp.init.IETileEntityTypes;
 import com.nekomaster1000.infernalexp.mixin.common.WorldCarverAccessor;
 import com.nekomaster1000.infernalexp.network.IENetworkHandler;
 import com.nekomaster1000.infernalexp.util.CompatibilityQuark;
+import com.nekomaster1000.infernalexp.util.ModSpawnEggItem;
 import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeProvider;
 import com.nekomaster1000.infernalexp.world.gen.ModEntityPlacement;
 import net.minecraft.block.Block;
@@ -193,8 +194,9 @@ public class InfernalExpansion {
                 return stack;
             }
         });
-		
+
         IECompostables.registerCompostables();
+        ModSpawnEggItem.initUnaddedEggs();
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
