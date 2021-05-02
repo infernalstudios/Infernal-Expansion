@@ -2,6 +2,6 @@
   "parent": "minecraft:block/template_glass_pane_side_alt",
   "textures": {
     "pane": "infernalexp:block/quartz_glass",
-    "edge": "minecraft:block/glass_pane_top"
+    "edge": "infernalexp:block/quartz_glass_pane_top"
   }
 }
