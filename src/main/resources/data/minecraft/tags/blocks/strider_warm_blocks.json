@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "minecraft:magma_block"
+    "minecraft:magma_block",
+    "infernalexp:basaltic_magma"
   ]
 }
