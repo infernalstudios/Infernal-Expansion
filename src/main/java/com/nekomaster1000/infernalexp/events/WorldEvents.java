@@ -1,15 +1,18 @@
 package com.nekomaster1000.infernalexp.events;
 
 import com.mojang.serialization.Codec;
+
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.init.IECarvers;
 import com.nekomaster1000.infernalexp.init.IEConfiguredFeatures;
 import com.nekomaster1000.infernalexp.init.IEFeatures;
 import com.nekomaster1000.infernalexp.init.IEStructures;
 import com.nekomaster1000.infernalexp.init.IESurfaceBuilders;
+
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.FlatChunkGenerator;
 import net.minecraft.world.gen.GenerationStage;
@@ -81,13 +84,19 @@ public class WorldEvents {
 
 	@SubscribeEvent
 	public void onBiomeLoad(BiomeLoadingEvent event) {
-		if (event.getName().toString().equals("minecraft:crimson_forest")) {
+		if (event.getName().equals(Biomes.CRIMSON_FOREST.getLocation())) {
 			event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_GLOWSILK_COCOON);
-		} else if (event.getName().toString().equals("minecraft:basalt_deltas")) {
+            event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.PATCH_CRIMSON_CAP);
+            event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.SHROOMLIGHT_TEAR);
+        } else if (event.getName().equals(Biomes.BASALT_DELTAS.getLocation())) {
 			event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_GLOWSILK_COCOON);
 			event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_BASALT_IRON_BASALT_DELTA);
             event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.BASALTIC_MAGMA);
-		}
+		} else if (event.getName().equals(Biomes.WARPED_FOREST.getLocation())) {
+            event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.PATCH_WARPED_CAP);
+            event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.SHROOMLIGHT_TEAR);
+        } else if (event.getName().equals(Biomes.SOUL_SAND_VALLEY.getLocation())) {
+            event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_BASALT_IRON_BASALT_DELTA);
+        }
 	}
-
 }

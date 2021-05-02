@@ -49,8 +49,9 @@ public class LuminousFungusFeature extends Feature<NoFeatureConfig> {
             }
 
             // If we have placed the max amount of luminous fungus, then return
-            if (i >= amount)
+            if (i >= amount) {
                 return true;
+            }
         }
 
         return false;
