@@ -166,6 +166,7 @@
   "block.infernalexp.glow_torch": "Glowlight Torch",
   "block.infernalexp.glow_campfire": "Glowlight Campfire",
   "block.infernalexp.glow_glass": "Glowlight Glass",
+  "block.infernalexp.glow_glass_pane": "Glowlight Glass Pane",
   "block.infernalexp.luminous_fungus": "Luminous Fungus",
   "block.infernalexp.dullthorns": "Dullthorns",
 
@@ -177,6 +178,7 @@
   "block.infernalexp.soul_soil_path": "Soul Soil Path",
 
   "block.infernalexp.quartz_glass": "Quartz Glass",
+  "block.infernalexp.quartz_glass_pane": "Quartz Glass Pane",
 
   "block.minecraft.nether_sprouts": "Warped Sprouts",
   "block.minecraft.nether_wart_block": "Crimson Wart Block",
