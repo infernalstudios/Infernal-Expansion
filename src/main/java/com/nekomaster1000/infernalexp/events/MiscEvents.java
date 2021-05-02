@@ -55,9 +55,9 @@ import java.util.Map;
 @Mod.EventBusSubscriber(modid = InfernalExpansion.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MiscEvents {
 
-//    Called When Config is Changed
+    //    Called When Config is Changed
     @SubscribeEvent
-    public static void onModConfigEvent(final ModConfig.ModConfigEvent event){
+    public static void onModConfigEvent(final ModConfig.ModConfigEvent event) {
         final ModConfig config = event.getConfig();
         //Recalculates what the configs should be when changed
         if (config.getSpec() == ConfigHolder.CLIENT_SPEC) {
@@ -69,21 +69,19 @@ public class MiscEvents {
 
     //Blocks being broken
     @SubscribeEvent
-    public void onBlockBreak(BlockEvent.BreakEvent event){
-        if(event.getState().equals(Blocks.CRIMSON_FUNGUS.getDefaultState())
-                || event.getState().equals(Blocks.CRIMSON_ROOTS.getDefaultState())
-                || event.getState().equals(Blocks.CRIMSON_STEM.getDefaultState())
-                || event.getState().equals(Blocks.STRIPPED_CRIMSON_STEM.getDefaultState())
-                || event.getState().equals(Blocks.WEEPING_VINES.getDefaultState())
-                || event.getState().equals(Blocks.WEEPING_VINES_PLANT.getDefaultState())
-                || event.getState().equals(Blocks.NETHER_WART_BLOCK.getDefaultState())) {
+    public void onBlockBreak(BlockEvent.BreakEvent event) {
+        if (event.getState().equals(Blocks.CRIMSON_FUNGUS.getDefaultState())
+            || event.getState().equals(Blocks.CRIMSON_ROOTS.getDefaultState())
+            || event.getState().equals(Blocks.CRIMSON_STEM.getDefaultState())
+            || event.getState().equals(Blocks.STRIPPED_CRIMSON_STEM.getDefaultState())
+            || event.getState().equals(Blocks.WEEPING_VINES.getDefaultState())
+            || event.getState().equals(Blocks.WEEPING_VINES_PLANT.getDefaultState())
+            || event.getState().equals(Blocks.NETHER_WART_BLOCK.getDefaultState())) {
             List<?> list = event.getPlayer().world.getEntitiesWithinAABB(ShroomloinEntity.class,
-                    event.getPlayer().getBoundingBox().grow(32.0D));
-            for(int j = 0; j < list.size(); j++)
-            {
-                Entity entity = (Entity)list.get(j);
-                if(entity instanceof ShroomloinEntity)
-                {
+                event.getPlayer().getBoundingBox().grow(32.0D));
+            for (int j = 0; j < list.size(); j++) {
+                Entity entity = (Entity) list.get(j);
+                if (entity instanceof ShroomloinEntity) {
                     ShroomloinEntity shroomloinEntity = (ShroomloinEntity) entity;
                     shroomloinEntity.becomeAngryAt(event.getPlayer());
                 }
@@ -173,21 +171,11 @@ public class MiscEvents {
         World world = event.getWorld();
         BlockPos pos = event.getPos();
         if (block == Blocks.SHROOMLIGHT && FloraBehaviour.SHROOMLIGHT_GROWABLE.getBool()) {
-            if (event.getWorld().getBiome(pos).getRegistryName().getPath().equals("warped_forest")) {
-                pos = pos.up();
-                if (world.isAirBlock(pos)) {
-                    event.setResult(Event.Result.ALLOW);
-                    if (world.getRandom().nextDouble() < FloraBehaviour.SHROOMLIGHT_GROW_CHANCE.getDouble() && !world.isRemote()) {
-                        world.setBlockState(pos, IEBlocks.SHROOMLIGHT_FUNGUS.get().getDefaultState().with(HorizontalBushBlock.FACE, AttachFace.FLOOR), 3);
-                    }
-                }
-            } else {
-                pos = pos.down();
-                if (world.isAirBlock(pos)) {
-                    event.setResult(Event.Result.ALLOW);
-                    if (world.getRandom().nextDouble() < FloraBehaviour.SHROOMLIGHT_GROW_CHANCE.getDouble() && !world.isRemote()) {
-                        world.setBlockState(pos, IEBlocks.SHROOMLIGHT_FUNGUS.get().getDefaultState().with(HorizontalBushBlock.FACE, AttachFace.CEILING), 3);
-                    }
+            pos = pos.down();
+            if (world.isAirBlock(pos)) {
+                event.setResult(Event.Result.ALLOW);
+                if (world.getRandom().nextDouble() < FloraBehaviour.SHROOMLIGHT_GROW_CHANCE.getDouble() && !world.isRemote()) {
+                    world.setBlockState(pos, IEBlocks.SHROOMLIGHT_FUNGUS.get().getDefaultState().with(HorizontalBushBlock.FACE, AttachFace.CEILING), 3);
                 }
             }
         }

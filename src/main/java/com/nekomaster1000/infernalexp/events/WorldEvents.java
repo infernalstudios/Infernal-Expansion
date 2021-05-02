@@ -1,6 +1,7 @@
 package com.nekomaster1000.infernalexp.events;
 
 import com.mojang.serialization.Codec;
+
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.init.IECarvers;
 import com.nekomaster1000.infernalexp.init.IEConfiguredFeatures;
@@ -8,6 +9,7 @@ import com.nekomaster1000.infernalexp.init.IEConfiguredStructures;
 import com.nekomaster1000.infernalexp.init.IEFeatures;
 import com.nekomaster1000.infernalexp.init.IEStructures;
 import com.nekomaster1000.infernalexp.init.IESurfaceBuilders;
+
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -93,16 +95,21 @@ public class WorldEvents {
 	    ResourceLocation name = event.getName();
 	    RegistryKey<Biome> biome = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, name);
 
-		if (biome == Biomes.CRIMSON_FOREST) {
+		if (event.getName().equals(Biomes.CRIMSON_FOREST.getLocation())) {
 			event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_GLOWSILK_COCOON);
-		} else if (biome == Biomes.BASALT_DELTAS) {
+            event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.PATCH_CRIMSON_CAP);
+            event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.SHROOMLIGHT_TEAR);
+        } else if (biome == Biomes.BASALT_DELTAS) {
 			event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_GLOWSILK_COCOON);
 			event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_BASALT_IRON_BASALT_DELTA);
             event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.BASALTIC_MAGMA);
 		    event.getGeneration().withStructure(IEConfiguredStructures.STRIDER_ALTAR);
+		} else if (event.getName().equals(Biomes.WARPED_FOREST.getLocation())) {
+            event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.PATCH_WARPED_CAP);
+            event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.SHROOMLIGHT_TEAR);
 		} else if (biome == Biomes.SOUL_SAND_VALLEY) {
+			event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_BASALT_IRON_BASALT_DELTA);
             event.getGeneration().withStructure(IEConfiguredStructures.SOUL_SAND_VALLEY_RUIN);
         }
 	}
-
 }
