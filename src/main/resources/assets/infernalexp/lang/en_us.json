@@ -165,6 +165,7 @@
   "block.infernalexp.glow_lantern": "Glowlight Lantern",
   "block.infernalexp.glow_torch": "Glowlight Torch",
   "block.infernalexp.glow_campfire": "Glowlight Campfire",
+  "block.infernalexp.glow_glass": "Glowlight Glass",
   "block.infernalexp.luminous_fungus": "Luminous Fungus",
   "block.infernalexp.dullthorns": "Dullthorns",
 
@@ -172,6 +173,10 @@
 
   "block.infernalexp.warped_nylium_carpet": "Warped Nylium Carpet",
   "block.infernalexp.crimson_nylium_carpet": "Crimson Nylium Carpet",
+
+  "block.infernalexp.soul_soil_path": "Soul Soil Path",
+
+  "block.infernalexp.quartz_glass": "Quartz Glass",
 
   "block.minecraft.nether_sprouts": "Warped Sprouts",
   "block.minecraft.nether_wart_block": "Crimson Wart Block",

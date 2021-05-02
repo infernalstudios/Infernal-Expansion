@@ -18,15 +18,32 @@ import com.nekomaster1000.infernalexp.blocks.NetherrackPathBlock;
 import com.nekomaster1000.infernalexp.blocks.NetherCarpetBlock;
 import com.nekomaster1000.infernalexp.blocks.ShroomlightFungusBlock;
 import com.nekomaster1000.infernalexp.blocks.SmoothGlowstonePressurePlateBlock;
+import com.nekomaster1000.infernalexp.blocks.SoulSoilPathBlock;
 import com.nekomaster1000.infernalexp.blocks.TrappedGlowSandBlock;
 import com.nekomaster1000.infernalexp.blocks.VerticalSlabBlock;
-
-import net.minecraft.block.*;
+import com.nekomaster1000.infernalexp.blocks.BasaltIronOreBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.FlowerPotBlock;
+import net.minecraft.block.GlassBlock;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.LanternBlock;
+import net.minecraft.block.PressurePlateBlock;
+import net.minecraft.block.StoneButtonBlock;
+import net.minecraft.block.StairsBlock;
+import net.minecraft.block.SlabBlock;
+import net.minecraft.block.WallBlock;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
@@ -166,7 +183,7 @@ public class IEBlocks {
     public static final RegistryObject<Block> CHISELED_BASALT_BRICKS = registerBlockWithDefaultItem("chiseled_basalt_bricks",	() -> new RotatedPillarBlock(getProperties(Blocks.BASALT)));
     public static final RegistryObject<Block> MAGMATIC_CHISELED_BASALT_BRICKS = registerBlockWithDefaultItem("magmatic_chiseled_basalt_bricks", () -> new RotatedPillarBlock(getProperties(Blocks.BASALT).setLightLevel(value -> 3)));
 
-    public static final RegistryObject<Block> BASALT_IRON_ORE = registerBlockWithDefaultItem("basalt_iron_ore", () -> new RotatedPillarBlock(getProperties(Blocks.NETHER_GOLD_ORE)));
+    public static final RegistryObject<Block> BASALT_IRON_ORE = registerBlockWithDefaultItem("basalt_iron_ore", () -> new BasaltIronOreBlock(getProperties(Blocks.NETHER_GOLD_ORE)));
     public static final RegistryObject<Block> BASALTIC_MAGMA = registerBlockWithDefaultItem("basaltic_magma",		() -> new BasalticMagmaBlock(getProperties(Blocks.MAGMA_BLOCK).setLightLevel(value -> 2)));
 
     public static final RegistryObject<Block> SOUL_SAND_SLAB = registerBlockWithDefaultItem("soul_sand_slab",		() -> new SlabBlock(getProperties(Blocks.SOUL_SAND)));
@@ -238,6 +255,18 @@ public class IEBlocks {
     public static final RegistryObject<Block> WARPED_NYLIUM_PATH = registerBlockWithDefaultItem("warped_nylium_path", () -> new NetherrackPathBlock(getProperties(Blocks.NETHERRACK)));
     public static final RegistryObject<Block> CRIMSON_NYLIUM_CARPET = registerBlockWithDefaultItem("crimson_nylium_carpet", () -> new NetherCarpetBlock(AbstractBlock.Properties.create(Material.CARPET, MaterialColor.CRIMSON_NYLIUM).hardnessAndResistance(0.1F).sound(SoundType.NYLIUM)));
     public static final RegistryObject<Block> WARPED_NYLIUM_CARPET = registerBlockWithDefaultItem("warped_nylium_carpet", () -> new NetherCarpetBlock(AbstractBlock.Properties.create(Material.CARPET, MaterialColor.WARPED_NYLIUM).hardnessAndResistance(0.1F).sound(SoundType.NYLIUM)));
+    public static final RegistryObject<Block> SOUL_SOIL_PATH = registerBlockWithDefaultItem("soul_soil_path", () -> new SoulSoilPathBlock(getProperties(Blocks.SOUL_SOIL)));
+
+    public static final RegistryObject<Block> QUARTZ_GLASS = registerBlockWithDefaultItem("quartz_glass",() -> new GlassBlock(AbstractBlock.Properties.create(Material.GLASS).hardnessAndResistance(2.0F, 6.0F).sound(SoundType.GLASS).notSolid().setAllowsSpawn(IEBlocks::neverAllowSpawn).setOpaque(IEBlocks::isntSolid).setSuffocates(IEBlocks::isntSolid).setBlocksVision(IEBlocks::isntSolid)));
+    public static final RegistryObject<Block> GLOW_GLASS = registerBlockWithDefaultItem("glow_glass",() -> new GlassBlock(AbstractBlock.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS).notSolid().setAllowsSpawn(IEBlocks::neverAllowSpawn).setOpaque(IEBlocks::isntSolid).setSuffocates(IEBlocks::isntSolid).setBlocksVision(IEBlocks::isntSolid).setLightLevel(value -> 10)));
+
+    private static boolean isntSolid(BlockState state, IBlockReader reader, BlockPos pos) {
+        return false;
+    }
+
+    private static Boolean neverAllowSpawn(BlockState state, IBlockReader reader, BlockPos pos, EntityType<?> entity) {
+        return (boolean)false;
+    }
 
     public static AbstractBlock.Properties getProperties(Material materialIn, float hardnessAndResistanceIn) {
 		return getProperties(materialIn, hardnessAndResistanceIn, hardnessAndResistanceIn);

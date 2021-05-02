@@ -18,11 +18,13 @@ import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IEEntityTypes;
 import com.nekomaster1000.infernalexp.init.IETileEntityTypes;
 import com.nekomaster1000.infernalexp.tileentities.renderer.GlowCampfireTileEntityRenderer;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.entity.EntityType;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -71,6 +73,9 @@ public class ClientEventBusSubscriber {
         RenderTypeLookup.setRenderLayer(IEBlocks.SHROOMLIGHT_FUNGUS.get(), RenderType.getCutout());
 
         RenderTypeLookup.setRenderLayer(IEBlocks.BURIED_BONE.get(), RenderType.getCutout());
+
+        RenderTypeLookup.setRenderLayer(IEBlocks.GLOW_GLASS.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(IEBlocks.QUARTZ_GLASS.get(), RenderType.getCutout());
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
