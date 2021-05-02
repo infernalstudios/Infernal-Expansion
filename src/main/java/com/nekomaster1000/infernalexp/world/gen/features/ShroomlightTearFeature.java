@@ -45,16 +45,9 @@ public class ShroomlightTearFeature extends Feature<NoFeatureConfig> {
             BlockPos blockpos = pos.add(random.nextInt(10) - random.nextInt(20), random.nextInt(4) - random.nextInt(8), random.nextInt(10) - random.nextInt(20));
 
             // If the randomly chosen location is valid, then place the fungus
-            if (warpedForest) {
-                if (world.isAirBlock(blockpos) && state.isValidPosition(world, blockpos) && (world.getBlockState(blockpos.down()) == Blocks.SHROOMLIGHT.getDefaultState())) {
-                    world.setBlockState(blockpos, state, 2);
-                    i++;
-                }
-            } else {
-                if (world.isAirBlock(blockpos) && state.isValidPosition(world, blockpos) && (world.getBlockState(blockpos.up()) == Blocks.SHROOMLIGHT.getDefaultState())) {
-                    world.setBlockState(blockpos, state, 2);
-                    i++;
-                }
+            if (world.isAirBlock(blockpos) && state.isValidPosition(world, blockpos) && (world.getBlockState(warpedForest ? blockpos.down() : blockpos.up()) == Blocks.SHROOMLIGHT.getDefaultState())) {
+                world.setBlockState(blockpos, state, 2);
+                i++;
             }
 
 
