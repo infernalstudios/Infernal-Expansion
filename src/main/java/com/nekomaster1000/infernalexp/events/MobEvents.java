@@ -157,7 +157,7 @@ public class MobEvents {
 		}
 
 		if (event.getEntity() instanceof MagmaCubeEntity) {
-
+            /*
 			((SlimeEntity) event.getEntity()).goalSelector.addGoal(0,
 					new AvoidBlockGoal((SlimeEntity) event.getEntity(), IEBlocks.GLOW_TORCH.get(),
 							16.0F));
@@ -177,7 +177,8 @@ public class MobEvents {
 			((SlimeEntity) event.getEntity()).goalSelector.addGoal(0,
 					new AvoidBlockGoal((SlimeEntity) event.getEntity(), IEBlocks.GLOW_FIRE.get(),
 							16.0F));
-		}
+		    */
+        }
 
 	}
 
