@@ -52,11 +52,13 @@ import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.function.Predicate;
 
+
 public class VolineEntity extends MonsterEntity implements IBucketable {
     private static final Predicate<LivingEntity> TARGETABLE_MAGMA_CUBES = (livingEntity) -> {
         MagmaCubeEntity magmaCubeEntity = (MagmaCubeEntity)livingEntity;
         return magmaCubeEntity.isSmallSlime() && !magmaCubeEntity.hasCustomName();
     };
+
 	private static final DataParameter<Float> VOLINE_SIZE = EntityDataManager.createKey(VolineEntity.class, DataSerializers.FLOAT);
 	private static final DataParameter<Boolean> FROM_BUCKET = EntityDataManager.createKey(VolineEntity.class, DataSerializers.BOOLEAN);
 	private boolean isEating;

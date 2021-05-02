@@ -41,12 +41,14 @@ public class IEItems {
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, InfernalExpansion.MOD_ID);
 
 	// Items
-	public static final RegistryObject<Item> GLOWCOAL = registerItem("glowcoal", GlowcoalItem::new);
-	public static final RegistryObject<Item> DULLROCKS = registerItem("glownuggets", ItemBase::new);
-	public static final RegistryObject<Item> BLINDSIGHT_TONGUE = registerItem("blindsight_tongue", ItemBase::new);
-	public static final RegistryObject<Item> MOTH_DUST = registerItem("moth_dust", ItemBase::new);
-	public static final RegistryObject<Item> MOLTEN_GOLD_CLUSTER = registerItem("molten_gold_cluster", ItemBase::new);
-	public static final RegistryObject<Item> GLOWSILK = registerItem("glowsilk", ItemBase::new);
+	public static final RegistryObject<Item> GLOWCOAL = ITEMS.register("glowcoal", GlowcoalItem::new);
+	public static final RegistryObject<Item> DULLROCKS = ITEMS.register("glownuggets", ItemBase::new);
+	public static final RegistryObject<Item> BLINDSIGHT_TONGUE = ITEMS.register("blindsight_tongue", ItemBase::new);
+	public static final RegistryObject<Item> MOTH_DUST = ITEMS.register("moth_dust", ItemBase::new);
+	public static final RegistryObject<Item> MOLTEN_GOLD_CLUSTER = ITEMS.register("molten_gold_cluster", ItemBase::new);
+	public static final RegistryObject<Item> GLOWSILK = ITEMS.register("glowsilk", ItemBase::new);
+	public static final RegistryObject<Item> SOUL_SALT_CLUMP = ITEMS.register("soul_salt_clump", ItemBase::new);
+
 
 	// Foods
 	public static final RegistryObject<SoupItem> BLINDSIGHT_TONGUE_STEW = registerItem("blindsight_tongue_stew",
@@ -55,6 +57,18 @@ public class IEItems {
 							.effect(() ->
 									new EffectInstance(Effects.JUMP_BOOST, 1200, 1), 1.0F)
 							.build())));
+
+	public static final RegistryObject<Item> CURED_JERKY = ITEMS.register("cured_jerky", () -> new Item(new Item.Properties().group(InfernalExpansion.TAB)
+                    .food(new Food.Builder().hunger(5).saturation(0.6F)
+                    .effect(() ->
+                        new EffectInstance(Effects.SPEED, 160, 1), 1.0F)
+                    .build())));
+
+	public static final RegistryObject<Item> RAW_HOGCHOP = ITEMS.register("raw_hogchop", () -> new Item(new Item.Properties().group(InfernalExpansion.TAB)
+                    .food(new Food.Builder().hunger(4).saturation(0.3F).meat().build())));
+
+	public static final RegistryObject<Item> COOKED_HOGCHOP = ITEMS.register("cooked_hogchop", () -> new Item(new Item.Properties().group(InfernalExpansion.TAB)
+                    .food(new Food.Builder().hunger(10).saturation(0.8F).meat().build())));
 
 
 	// Spawn Eggs

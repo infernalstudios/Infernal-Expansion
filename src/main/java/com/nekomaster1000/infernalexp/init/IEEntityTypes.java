@@ -77,15 +77,20 @@ public class IEEntityTypes {
                     .size(1.0F, 1.5F) //Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "glowsilk_moth").toString()));
 
-	public static final RegistryObject<EntityType<AscusBombEntity>> ASCUS_BOMB = ENTITY_TYPES.register("ascus_bomb",
-		() -> EntityType.Builder.<AscusBombEntity>create(AscusBombEntity::new, EntityClassification.MISC)
-			.size(0.25f, 0.25f).trackingRange(4).updateInterval(10)
-			.build(new ResourceLocation(InfernalExpansion.MOD_ID, "ascus_bomb").toString()));
+    public static final RegistryObject<EntityType<AscusBombEntity>> ASCUS_BOMB = ENTITY_TYPES.register("ascus_bomb",
+            () -> EntityType.Builder.<AscusBombEntity>create(AscusBombEntity::new, EntityClassification.MISC)
+				.size(0.25f, 0.25f).trackingRange(4).updateInterval(10)
+                    .build(new ResourceLocation(InfernalExpansion.MOD_ID, "ascus_bomb").toString()));
 
-	public static final RegistryObject<EntityType<ThrowableMagmaCreamEntity>> THROWABLE_MAGMA_CREAM = ENTITY_TYPES.register("throwable_magma_cream",
-		() -> EntityType.Builder.<ThrowableMagmaCreamEntity>create(ThrowableMagmaCreamEntity::new, EntityClassification.MISC)
-			.size(0.25f, 0.25f).trackingRange(4).updateInterval(10)
-			.build(new ResourceLocation(InfernalExpansion.MOD_ID, "throwable_magma_cream").toString()));
+    public static final RegistryObject<EntityType<ThrowableMagmaCreamEntity>> THROWABLE_MAGMA_CREAM = ENTITY_TYPES.register("throwable_magma_cream",
+            () -> EntityType.Builder.<ThrowableMagmaCreamEntity>create(ThrowableMagmaCreamEntity::new, EntityClassification.MISC)
+				.size(0.25f, 0.25f).trackingRange(4).updateInterval(10)
+                    .build(new ResourceLocation(InfernalExpansion.MOD_ID, "throwable_magma_cream").toString()));
+
+    public static final RegistryObject<EntityType<ThrowableFireChargeEntity>> THROWABLE_FIRE_CHARGE = ENTITY_TYPES.register("throwable_fire_charge",
+        () -> EntityType.Builder.<ThrowableFireChargeEntity>create(ThrowableFireChargeEntity::new, EntityClassification.MISC)
+            .size(0.25f, 0.25f).trackingRange(4).updateInterval(10)
+            .build(new ResourceLocation(InfernalExpansion.MOD_ID, "throwable_fire_charge").toString()));
 
 	public static final RegistryObject<EntityType<InfernalPaintingEntity>> INFERNAL_PAINTING = ENTITY_TYPES.register("infernal_painting",
 		() -> EntityType.Builder.<InfernalPaintingEntity>create(InfernalPaintingEntity::new, EntityClassification.MISC)

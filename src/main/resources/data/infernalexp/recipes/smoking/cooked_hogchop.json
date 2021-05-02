@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "infernalexp:raw_hogchop"
+  },
+  "result": "infernalexp:cooked_hogchop",
+  "experience": 0.35,
+  "cookingtime": 100
+}

@@ -3,7 +3,7 @@ package com.nekomaster1000.infernalexp.tileentities;
 import com.nekomaster1000.infernalexp.blocks.LuminousFungusBlock;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.init.IETileEntityTypes;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -24,7 +24,7 @@ public class LuminousFungusTileEntity extends TileEntity implements ITickableTil
     @Override
     public void tick() {
         if (!this.world.isRemote()) {
-            List<LivingEntity> nearbyEntities = this.getWorld().getEntitiesWithinAABB(LivingEntity.class,
+            List<Entity> nearbyEntities = this.getWorld().getEntitiesWithinAABB(Entity.class,
                     new AxisAlignedBB(this.getPos()).grow(InfernalExpansionConfig.FloraBehaviour.LUMINOUS_FUNGUS_ACTIVATE_DISTANCE.getDouble()));
             Vector3d blockPos = new Vector3d(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ());
             nearbyEntities.removeIf((entity) -> {
@@ -32,7 +32,7 @@ public class LuminousFungusTileEntity extends TileEntity implements ITickableTil
                 return this.world.rayTraceBlocks(new RayTraceContext(blockPos, entityPos, RayTraceContext.BlockMode.VISUAL, RayTraceContext.FluidMode.NONE, entity)).getType() != RayTraceResult.Type.MISS;
             });
             boolean shouldLight = false;
-            for (LivingEntity entity : nearbyEntities) {
+            for (Entity entity : nearbyEntities) {
                 if (entity.lastTickPosX != entity.getPosX() || entity.lastTickPosY != entity.getPosY() || entity.lastTickPosZ != entity.getPosZ()) {
                     double velX = Math.abs(entity.getPosX() - entity.lastTickPosX);
                     double velY = Math.abs(entity.getPosY() - entity.lastTickPosY);

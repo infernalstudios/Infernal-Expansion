@@ -434,5 +434,10 @@
 			"infernalexp:block/dullstone/break1",
 			"infernalexp:block/dullstone/break2"
 		]
-	}
+	},
+  "block.glowstone.recharge": {
+    "sounds": [
+      "infernalexp:block/glowstone/recharge"
+    ]
+  }
 }

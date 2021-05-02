@@ -7,10 +7,12 @@ import com.nekomaster1000.infernalexp.config.ConfigHolder;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.FloraBehaviour;
 import com.nekomaster1000.infernalexp.data.VolineEatTable;
 import com.nekomaster1000.infernalexp.entities.ShroomloinEntity;
+import com.nekomaster1000.infernalexp.entities.ThrowableFireChargeEntity;
 import com.nekomaster1000.infernalexp.entities.ThrowableMagmaCreamEntity;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IEEffects;
 import com.nekomaster1000.infernalexp.init.IEParticleTypes;
+import com.nekomaster1000.infernalexp.init.IESoundEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -27,6 +29,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -109,6 +112,18 @@ public class MiscEvents {
                 ForgeEventFactory.onBlockPlace(player, BlockSnapshot.create(world.getDimensionKey(), world, pos), face);
             }
         }
+
+        if (heldItemStack.getItem() == Items.GLOWSTONE_DUST) {
+            if (world.getBlockState(pos).getBlock() == IEBlocks.DIMSTONE.get()) {
+                player.swingArm(event.getHand());
+                world.playSound(null, event.getPos(), IESoundEvents.GLOWSTONE_RECHARGE.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+                world.setBlockState(pos, Blocks.GLOWSTONE.getDefaultState());
+            } else if (world.getBlockState(pos).getBlock() == IEBlocks.DULLSTONE.get()) {
+                player.swingArm(event.getHand());
+                world.playSound(null, event.getPos(), IESoundEvents.GLOWSTONE_RECHARGE.get(), SoundCategory.BLOCKS, 1.0F, 0.5F);
+                world.setBlockState(pos, IEBlocks.DIMSTONE.get().getDefaultState());
+            }
+        }
     }
 
     @SubscribeEvent
@@ -123,8 +138,23 @@ public class MiscEvents {
             if (!world.isRemote) {
                 ThrowableMagmaCreamEntity throwableMagmaCreamEntity = new ThrowableMagmaCreamEntity(world, player);
                 throwableMagmaCreamEntity.setItem(heldItemStack);
-                throwableMagmaCreamEntity.setDirectionAndMovement(player, player.rotationPitch, player.rotationYaw, -20, 0.5f, 1);
-                world.addEntity(throwableMagmaCreamEntity);
+				throwableMagmaCreamEntity.setDirectionAndMovement(player, player.rotationPitch, player.rotationYaw, -20, 0.5f, 1);
+				world.addEntity(throwableMagmaCreamEntity);
+                world.playSound(null, event.getPos(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            }
+
+            player.addStat(Stats.ITEM_USED.get(heldItemStack.getItem()));
+
+            if (!player.abilities.isCreativeMode) {
+                heldItemStack.shrink(1);
+            }
+        } else if (heldItemStack.getItem() == Items.FIRE_CHARGE) {
+            player.swingArm(event.getHand());
+
+            if (!world.isRemote) {
+                ThrowableFireChargeEntity throwableFireChargeEntity = new ThrowableFireChargeEntity(world, player, player.getLookVec().getX(), player.getLookVec().getY(), player.getLookVec().getZ());
+                world.addEntity(throwableFireChargeEntity);
+                world.playSound(null, event.getPos(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 1.0F, 1.0F);
             }
 
             player.addStat(Stats.ITEM_USED.get(heldItemStack.getItem()));
