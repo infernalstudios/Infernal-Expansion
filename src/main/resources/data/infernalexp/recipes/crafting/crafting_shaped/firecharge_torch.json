@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "X": [
+      {
+        "item": "minecraft:fire_charge"
+      }
+    ]
+  },
+  "result": {
+    "item": "minecraft:torch",
+    "count": 12
+  }
+}

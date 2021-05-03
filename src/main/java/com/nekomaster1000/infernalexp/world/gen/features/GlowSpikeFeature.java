@@ -1,18 +1,17 @@
 package com.nekomaster1000.infernalexp.world.gen.features;
 
-import java.util.List;
-import java.util.Random;
-
 import com.mojang.serialization.Codec;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.util.ShapeUtil;
 import com.nekomaster1000.infernalexp.world.gen.features.config.GlowSpikeFeatureConfig;
-
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
+
+import java.util.List;
+import java.util.Random;
 
 public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
 
@@ -65,7 +64,7 @@ public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
 			BlockPos pos = line.get(i);
 
 			// Skip parts of the spike generating above bedrock
-			if (pos.getY() > 128 || world.getBlockState(pos).equals(Blocks.BEDROCK.getDefaultState())) {
+			if (pos.getY() >= 128 || world.getBlockState(pos).equals(Blocks.BEDROCK.getDefaultState())) {
 				continue;
 			}
 
