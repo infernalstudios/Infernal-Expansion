@@ -3,7 +3,7 @@
     {
       "biome": "default",
       "spawn_info": {
-        "spawnrate": 10,
+        "spawnrate": 40,
         "min_count": 1,
         "max_count": 1
       }
@@ -11,9 +11,9 @@
     {
       "biome": "infernalexp:glowstone_canyon",
       "spawn_info": {
-        "spawnrate": 10,
+        "spawnrate": 120,
         "min_count": 1,
-        "max_count": 1
+        "max_count": 3
       }
     }
   ]
