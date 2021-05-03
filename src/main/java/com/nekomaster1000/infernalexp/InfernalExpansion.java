@@ -32,6 +32,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.FlowerPotBlock;
+import net.minecraft.client.Minecraft;
 import net.minecraft.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.item.ItemGroup;
@@ -39,6 +40,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.potion.Potions;
+import net.minecraft.resources.ResourcePackType;
+import net.minecraft.resources.SimpleReloadableResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
@@ -70,6 +73,8 @@ import java.util.stream.Stream;
 public class InfernalExpansion {
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "infernalexp";
+
+    private static final SimpleReloadableResourceManager dataResourceManager = new SimpleReloadableResourceManager(ResourcePackType.SERVER_DATA);
 
     public InfernalExpansion() {
         final ModLoadingContext modLoadingContext = ModLoadingContext.get();
@@ -114,6 +119,9 @@ public class InfernalExpansion {
         event.enqueueWork(IEStructures::setupStructures);
         event.enqueueWork(IENetworkHandler::register);
 
+        // Add mod datapack to custom resource loader
+        event.enqueueWork(() -> dataResourceManager.addResourcePack(Minecraft.getInstance().getResourcePackList().getPackInfo("mod_resources").getResourcePack()));
+
         event.enqueueWork(() -> {
             Set<Block> newCarvableBlocks = Stream.of(IEBlocks.DULLSTONE.get(), IEBlocks.DIMSTONE.get(), Blocks.GLOWSTONE, IEBlocks.GLOWDUST_SAND.get(), IEBlocks.GLOWDUST.get(), IEBlocks.GLOWDUST_SANDSTONE.get()).collect(Collectors.toCollection(HashSet::new));
 
@@ -135,9 +143,9 @@ public class InfernalExpansion {
 
         //Register Brewing Recipes for Potions
         BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
-                PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), Potions.AWKWARD),
-                IEItems.MOTH_DUST.get().getDefaultInstance(),
-                PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LUMINOUS.get())));
+            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), Potions.AWKWARD),
+            IEItems.MOTH_DUST.get().getDefaultInstance(),
+            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LUMINOUS.get())));
         BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
                 PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LUMINOUS.get()),
                 Items.GUNPOWDER.getDefaultInstance(),
@@ -216,5 +224,9 @@ public class InfernalExpansion {
         }
 
     };
+
+    public static SimpleReloadableResourceManager getDataResourceManager() {
+        return dataResourceManager;
+    }
 
 }

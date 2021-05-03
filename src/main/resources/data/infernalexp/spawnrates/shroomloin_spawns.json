@@ -1,0 +1,29 @@
+{
+  "biomes": [
+    {
+      "biome": "default",
+      "spawn_info": {
+        "spawnrate": 5,
+        "min_count": 1,
+        "max_count": 3
+      }
+    },
+    {
+      "biome": "minecraft:crimson_forest",
+      "spawn_info": {
+        "spawnrate": 5,
+        "min_count": 1,
+        "max_count": 3
+      },
+      "creature_spawn_probability": 0.3,
+      "spawn_info_changes": [
+        {
+          "name": "minecraft:strider",
+          "spawn_info": {
+            "spawnrate": 20
+          }
+        }
+      ]
+    }
+  ]
+}

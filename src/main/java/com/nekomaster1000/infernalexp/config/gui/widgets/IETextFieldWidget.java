@@ -20,13 +20,13 @@ public class IETextFieldWidget extends TextFieldWidget implements IBidiTooltip {
 	private final TextFieldOption option;
 
 	public IETextFieldWidget(GameSettings settings, int x, int y, int width, ITextComponent title, TextFieldOption option) {
-		super(Minecraft.getInstance().fontRenderer, x + 2 + 100, y, width - 4 - 100, 20, title);
-		this.option = option;
-		this.settings = settings;
+        super(Minecraft.getInstance().fontRenderer, x + 2 + 100, y, width - 4 - 100, 20, title);
+        this.option = option;
+        this.settings = settings;
 
-		setMaxStringLength(1024);
-		setText(option.get(settings));
-	}
+        setMaxStringLength(1892);
+        setText(option.get(settings));
+    }
 
 	@Override
 	public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
