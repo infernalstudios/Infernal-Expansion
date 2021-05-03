@@ -8,6 +8,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistry;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,8 @@ public class ModNetherBiomeCollector {
                 }
             }
         }
+
+        netherBiomeList.sort(Comparator.comparing(key -> key.getLocation().toString()));
         return netherBiomeList;
     }
 
