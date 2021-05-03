@@ -21,15 +21,10 @@ jobs:
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
 
-      - name: Gradle Build (cached)
-        uses: burrunan/gradle-cache-action@v1
+      - name: Gradle Build
+        uses: OrangeLabs-moe/gradle-actions@v5.0-openjdk-8
         with:
-          job-id: jdk8
-          arguments: |
-            build
-            --build-cache
-            --info
-          gradle-version: wrapper
+          args: build
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v2
