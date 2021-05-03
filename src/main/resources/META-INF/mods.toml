@@ -3,7 +3,7 @@ modLoader="javafml" #mandatory
 # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
 loaderVersion="[32,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
 
-license="LGPLv3"
+license="Apache-2.0"
 
 # A URL to refer people to when problems occur with this mod
 issueTrackerURL="https://github.com/infernalexp/Infernal-Expansion/issues" #optional
@@ -15,7 +15,7 @@ issueTrackerURL="https://github.com/infernalexp/Infernal-Expansion/issues" #opti
 modId="infernalexp" #mandatory
 
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
-version="Approaching 2.0.0" #mandatory
+version="${file.jarVersion}" #mandatory
 
 # A display name for the mod
 displayName="Infernal Expansion" #mandatory
@@ -40,24 +40,20 @@ description='''
 A community-driven Vanilla+ mod that expands the Nether beyond the Nether Update,
 introducing new biomes, blocks, mobs, and more!
 
-For configs, go to your .minecraft folder. Client based configs will be in .minecraft/config.
-Server based configs will be in .minecraft/saves/your_save/serverconfig.
-Editing any mob spawning configs will require a reload of the world to take effect.
-Mob behavior config changes should apply to any mobs that spawn after the change is made.
-Reloading the world is not necessary for these changes to take effect.
-It is never necessary to restart the game for changes to take effect.
-
 Director:
 - Nekomaster1000
 
 Coders:
 - BaconKami
-- Merxlc
+- Blackgear
 - CaelTheQuail
 - Dayton_10
+- Flenarn
 - HellionGames
 - LudoCrypt
-- Flenarn
+- Merxlc
+- Orcinus
+- SwanX1
 
 Main Artists:
 - Nekomaster1000
@@ -71,21 +67,15 @@ Main Composers:
 Special Thanks:
 - JonahFuses
 - LiveVoxel
+- TelepathicGrunt
 '''
 
-# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies.infernalexp]] #optional
-# the modid of the dependency
-modId="forge" #mandatory
-# Does this dependency have to exist - if not, ordering below must be specified
-mandatory=true #mandatory
-# The version range of the dependency
-versionRange="[32,)" #mandatory
-# An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
+[[dependencies.infernalexp]]
+modId="forge"
+mandatory=true
+versionRange="[32,)"
 ordering="NONE"
-# Side this dependency is applied on - BOTH, CLIENT or SERVER
 side="BOTH"
-# Here's another dependency
 [[dependencies.infernalexp]]
 modId="minecraft"
 mandatory = true

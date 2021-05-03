@@ -2,12 +2,11 @@ name: Build JAR
 on:
   workflow_dispatch:
   push:
-    branches: [ master-indev, release-1.2 ]
+    branches: [ master-indev ]
     paths:
-      - 'src/**'
       - 'build.gradle'
   pull_request:
-    branches: [ master-indev, release-1.2 ]
+    branches: [ master-indev ]
     paths:
       - 'src/**'
       - 'build.gradle'
