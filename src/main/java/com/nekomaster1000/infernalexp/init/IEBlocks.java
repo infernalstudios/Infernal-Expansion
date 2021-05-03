@@ -1,24 +1,7 @@
 package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
-import com.nekomaster1000.infernalexp.blocks.BuriedBoneBlock;
-import com.nekomaster1000.infernalexp.blocks.CrumblingBlackstoneBlock;
-import com.nekomaster1000.infernalexp.blocks.DullthornsBlock;
-import com.nekomaster1000.infernalexp.blocks.DullthornsBlockBlock;
-import com.nekomaster1000.infernalexp.blocks.FungusCapBlock;
-import com.nekomaster1000.infernalexp.blocks.GlowCampfireBlock;
-import com.nekomaster1000.infernalexp.blocks.GlowFireBlock;
-import com.nekomaster1000.infernalexp.blocks.GlowSandBlock;
-import com.nekomaster1000.infernalexp.blocks.GlowTorchBlock;
-import com.nekomaster1000.infernalexp.blocks.GlowWallTorchBlock;
-import com.nekomaster1000.infernalexp.blocks.GlowdustBlock;
-import com.nekomaster1000.infernalexp.blocks.LuminousFungusBlock;
-import com.nekomaster1000.infernalexp.blocks.NetherrackPathBlock;
-import com.nekomaster1000.infernalexp.blocks.NetherCarpetBlock;
-import com.nekomaster1000.infernalexp.blocks.ShroomlightFungusBlock;
-import com.nekomaster1000.infernalexp.blocks.SmoothGlowstonePressurePlateBlock;
-import com.nekomaster1000.infernalexp.blocks.TrappedGlowSandBlock;
-import com.nekomaster1000.infernalexp.blocks.VerticalSlabBlock;
+import com.nekomaster1000.infernalexp.blocks.*;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -228,7 +211,8 @@ public class IEBlocks {
 	public static final RegistryObject<FlowerPotBlock> POTTED_SHROOMLIGHT_FUNGUS = BLOCKS.register("potted_shroomlight_fungus", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, SHROOMLIGHT_FUNGUS, getProperties(Blocks.FLOWER_POT)));
 
 	public static final RegistryObject<BuriedBoneBlock> BURIED_BONE = BLOCKS.register("buried_bone", () -> new BuriedBoneBlock(getProperties(Material.PLANTS).doesNotBlockMovement().sound(SoundType.BONE)));
-	public static final RegistryObject<FlowerPotBlock> POTTED_BURIED_BONE = BLOCKS.register("potted_buried_bone", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, BURIED_BONE, getProperties(Blocks.FLOWER_POT)));
+    public static final RegistryObject<FlowerPotBlock> POTTED_BURIED_BONE = BLOCKS.register("potted_buried_bone", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, BURIED_BONE, getProperties(Blocks.FLOWER_POT)));
+    public static final RegistryObject<PlantedQuartzBlock> PLANTED_QUARTZ = BLOCKS.register("planted_quartz", () -> new PlantedQuartzBlock(getProperties(Material.PLANTS).doesNotBlockMovement().sound(SoundType.NETHER_ORE)));
 
     public static final RegistryObject<Block> CRIMSON_NYLIUM_PATH = BLOCKS.register("crimson_nylium_path", () -> new NetherrackPathBlock(getProperties(Blocks.NETHERRACK)));
     public static final RegistryObject<Block> WARPED_NYLIUM_PATH = BLOCKS.register("warped_nylium_path", () -> new NetherrackPathBlock(getProperties(Blocks.NETHERRACK)));

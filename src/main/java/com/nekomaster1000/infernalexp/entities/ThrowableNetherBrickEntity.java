@@ -1,7 +1,6 @@
 package com.nekomaster1000.infernalexp.entities;
 
 import com.nekomaster1000.infernalexp.init.IEEntityTypes;
-
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -26,19 +25,19 @@ import net.minecraftforge.fml.network.NetworkHooks;
         value = Dist.CLIENT,
         _interface = IRendersAsItem.class
 )
-public class ThrowableBrickEntity extends ProjectileItemEntity implements IRendersAsItem {
+public class ThrowableNetherBrickEntity extends ProjectileItemEntity implements IRendersAsItem {
 
-    public ThrowableBrickEntity(EntityType<? extends ThrowableBrickEntity> type, World worldIn) {
+    public ThrowableNetherBrickEntity(EntityType<? extends ThrowableNetherBrickEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
-    public ThrowableBrickEntity(World world, LivingEntity livingEntity) {
-        super(IEEntityTypes.THROWABLE_BRICK.get(), livingEntity, world);
+    public ThrowableNetherBrickEntity(World world, LivingEntity livingEntity) {
+        super(IEEntityTypes.THROWABLE_NETHER_BRICK.get(), livingEntity, world);
     }
 
     @Override
     protected Item getDefaultItem() {
-        return Items.BRICK;
+        return Items.NETHER_BRICK;
     }
 
     @Override
@@ -51,7 +50,7 @@ public class ThrowableBrickEntity extends ProjectileItemEntity implements IRende
         super.onEntityHit(entityRayTraceResult);
         Entity entity = entityRayTraceResult.getEntity();
 
-        entity.attackEntityFrom(DamageSource.GENERIC, 8.0F);
+        entity.attackEntityFrom(DamageSource.GENERIC, 3.0F);
     }
 
     @Override
@@ -62,7 +61,7 @@ public class ThrowableBrickEntity extends ProjectileItemEntity implements IRende
             if (world.getBlockState(pos).getBlock().isIn(Tags.Blocks.GLASS)) {
                 world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
             } else {
-                ItemEntity item = new ItemEntity(world, this.getPosX(), this.getPosY(), this.getPosZ(), Items.BRICK.getDefaultInstance());
+                ItemEntity item = new ItemEntity(world, this.getPosX(), this.getPosY(), this.getPosZ(), Items.NETHER_BRICK.getDefaultInstance());
                 world.addEntity(item);
                 this.remove();
             }

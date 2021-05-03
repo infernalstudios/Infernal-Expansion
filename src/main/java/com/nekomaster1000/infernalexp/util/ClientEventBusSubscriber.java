@@ -51,6 +51,7 @@ public class ClientEventBusSubscriber {
 		RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.ASCUS_BOMB.get(), manager -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
 		RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.THROWABLE_MAGMA_CREAM.get(), manager -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
 		RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.THROWABLE_BRICK.get(), manager -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
+        RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.THROWABLE_NETHER_BRICK.get(), manager -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
 		RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.INFERNAL_PAINTING.get(), InfernalPaintingRenderer::new);
 
 		ClientRegistry.bindTileEntityRenderer(IETileEntityTypes.GLOW_CAMPFIRE.get(), GlowCampfireTileEntityRenderer::new);
@@ -71,6 +72,8 @@ public class ClientEventBusSubscriber {
         RenderTypeLookup.setRenderLayer(IEBlocks.SHROOMLIGHT_FUNGUS.get(), RenderType.getCutout());
 
         RenderTypeLookup.setRenderLayer(IEBlocks.BURIED_BONE.get(), RenderType.getCutout());
+
+        RenderTypeLookup.setRenderLayer(IEBlocks.PLANTED_QUARTZ.get(), RenderType.getCutout());
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)

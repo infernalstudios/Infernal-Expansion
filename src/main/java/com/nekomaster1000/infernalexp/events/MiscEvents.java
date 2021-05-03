@@ -9,6 +9,7 @@ import com.nekomaster1000.infernalexp.data.VolineEatTable;
 import com.nekomaster1000.infernalexp.entities.ShroomloinEntity;
 import com.nekomaster1000.infernalexp.entities.ThrowableBrickEntity;
 import com.nekomaster1000.infernalexp.entities.ThrowableMagmaCreamEntity;
+import com.nekomaster1000.infernalexp.entities.ThrowableNetherBrickEntity;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IEEffects;
 import com.nekomaster1000.infernalexp.init.IEParticleTypes;
@@ -112,6 +113,22 @@ public class MiscEvents {
                 ForgeEventFactory.onBlockPlace(player, BlockSnapshot.create(world.getDimensionKey(), world, pos), face);
             }
         }
+        if (heldItemStack.getItem() == Items.QUARTZ) {
+            pos = pos.offset(face);
+            BlockState blockstate = IEBlocks.PLANTED_QUARTZ.get().getPlaceableState(world, pos, face);
+            if (blockstate != null) {
+                player.swingArm(event.getHand());
+                if (!world.isAirBlock(pos) && !world.isRemote() && world.getBlockState(pos).getFluidState().isEmpty()) {
+                    world.destroyBlock(pos, true);
+                }
+                world.setBlockState(pos, blockstate, 3);
+                world.playSound(player, pos, blockstate.getSoundType().getPlaceSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+                if (!player.isCreative()) {
+                    heldItemStack.shrink(1);
+                }
+                ForgeEventFactory.onBlockPlace(player, BlockSnapshot.create(world.getDimensionKey(), world, pos), face);
+            }
+        }
     }
 
     @SubscribeEvent
@@ -143,6 +160,21 @@ public class MiscEvents {
                 throwableBrickEntity.setItem(heldItemStack);
                 throwableBrickEntity.setDirectionAndMovement(player, player.rotationPitch, player.rotationYaw, -20, 0.5f, 1);
                 world.addEntity(throwableBrickEntity);
+            }
+
+            player.addStat(Stats.ITEM_USED.get(heldItemStack.getItem()));
+
+            if (!player.abilities.isCreativeMode) {
+                heldItemStack.shrink(1);
+            }
+        } else if (heldItemStack.getItem() == Items.NETHER_BRICK) {
+            player.swingArm(event.getHand());
+
+            if (!world.isRemote) {
+                ThrowableNetherBrickEntity throwableNetherBrickEntity = new ThrowableNetherBrickEntity(world, player);
+                throwableNetherBrickEntity.setItem(heldItemStack);
+                throwableNetherBrickEntity.setDirectionAndMovement(player, player.rotationPitch, player.rotationYaw, -20, 0.5f, 1);
+                world.addEntity(throwableNetherBrickEntity);
             }
 
             player.addStat(Stats.ITEM_USED.get(heldItemStack.getItem()));
