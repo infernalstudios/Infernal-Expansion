@@ -157,7 +157,7 @@ public class SkeletalPiglinEntity extends MonsterEntity implements IAngerable {
     private void getShovelType(Item primaryShovel, Item secondaryShovel, Item tertiaryShovel) {
         int shovelChance = this.rand.nextInt(10);
 
-        if (shovelChance <= 6) {
+        if (shovelChance <= 2) {
             shovelChance = this.rand.nextInt(10);
             if (shovelChance <= 7) {
                 this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(primaryShovel));

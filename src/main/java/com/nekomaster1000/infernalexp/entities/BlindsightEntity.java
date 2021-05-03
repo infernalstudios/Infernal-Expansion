@@ -28,11 +28,13 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.EnumSet;
+import java.util.Random;
 
 public class BlindsightEntity extends MonsterEntity {
 
     private int jumpDuration;
     private int jumpTicks;
+    private Random rand = new Random();
 
     public BlindsightEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
@@ -111,7 +113,17 @@ public class BlindsightEntity extends MonsterEntity {
         jumpDuration = 10;
         jumpTicks = 0;
 
-        super.jump();
+        float f = this.getJumpUpwardsMotion() + (rand.nextFloat() * 0.7F);
+
+        Vector3d vector3d = this.getMotion();
+        this.setMotion(vector3d.x, f, vector3d.z);
+        if (this.isSprinting()) {
+            float f1 = this.rotationYaw * ((float)Math.PI / 180F);
+            this.setMotion(this.getMotion().add((-MathHelper.sin(f1) * 0.2F), 0.0D, (MathHelper.cos(f1) * 0.2F)));
+        }
+
+        this.isAirBorne = true;
+        net.minecraftforge.common.ForgeHooks.onLivingJump(this);
 
         if (!world.isRemote) {
             world.setEntityState(this, (byte) 1);
@@ -135,7 +147,7 @@ public class BlindsightEntity extends MonsterEntity {
 */
 
     protected int getJumpDelay() {
-        return this.rand.nextInt(20) + 10;
+        return (this.rand.nextInt(20) + 10) * 2;
     }
 
     protected SoundEvent getJumpSound() {
