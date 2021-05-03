@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.monster.SlimeEntity;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.EntityPredicates;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -18,17 +19,17 @@ public class AvoidBlockGoal extends Goal {
     protected Optional<BlockPos> avoidBlockPos;
     protected final int avoidDistance;
     protected final SlimeEntity.MoveHelperController controller;
-    protected final Block avoidBlock;
+    protected final ITag.INamedTag<Block> avoidBlocks;
 
-    public AvoidBlockGoal(SlimeEntity entityIn, Block blockToAvoidIn, int avoidDistanceIn) {
+    public AvoidBlockGoal(SlimeEntity entityIn, ITag.INamedTag<Block> blockToAvoidIn, int avoidDistanceIn) {
         this(entityIn, blockToAvoidIn, (p_200828_0_) -> {
             return true;
         }, avoidDistanceIn, EntityPredicates.CAN_AI_TARGET::test);
     }
 
-    private AvoidBlockGoal(SlimeEntity entityIn, Block blockToAvoidIn, Predicate<LivingEntity> targetPredicate, int distance, Predicate<LivingEntity> p_i48859_9_) {
+    private AvoidBlockGoal(SlimeEntity entityIn, ITag.INamedTag<Block> blockToAvoidIn, Predicate<LivingEntity> targetPredicate, int distance, Predicate<LivingEntity> p_i48859_9_) {
         this.entity = entityIn;
-        this.avoidBlock = blockToAvoidIn;
+        this.avoidBlocks = blockToAvoidIn;
         this.avoidDistance = distance;
         this.controller = (SlimeEntity.MoveHelperController) entityIn.getMoveHelper();
         this.setMutexFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
@@ -36,7 +37,7 @@ public class AvoidBlockGoal extends Goal {
 
     @Override
     public boolean shouldExecute() {
-        this.avoidBlockPos = BlockPos.getClosestMatchingPosition(this.entity.getPosition(), this.avoidDistance, 4, (pos) -> this.entity.world.getBlockState(pos).equals(this.avoidBlock.getDefaultState()));
+        this.avoidBlockPos = BlockPos.getClosestMatchingPosition(this.entity.getPosition(), this.avoidDistance, 4, (pos) -> this.entity.world.getBlockState(pos).isIn(avoidBlocks));
         return avoidBlockPos.isPresent();
     }
 
@@ -47,7 +48,7 @@ public class AvoidBlockGoal extends Goal {
 
     @Override
     public boolean shouldContinueExecuting() {
-        this.avoidBlockPos = BlockPos.getClosestMatchingPosition(this.entity.getPosition(), this.avoidDistance, 4, (pos) -> this.entity.world.getBlockState(pos).equals(this.avoidBlock.getDefaultState()));
+        this.avoidBlockPos = BlockPos.getClosestMatchingPosition(this.entity.getPosition(), this.avoidDistance, 4, (pos) -> this.entity.world.getBlockState(pos).isIn(avoidBlocks));
 
         return this.avoidBlockPos.isPresent() && this.entity.getDistanceSq(this.avoidBlockPos.get().getX(),
             this.avoidBlockPos.get().getY(), this.avoidBlockPos.get().getZ()) <= (float) this.avoidDistance;
