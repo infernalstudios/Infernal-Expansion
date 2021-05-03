@@ -23,6 +23,7 @@ public class ThrowableFireChargeEntity extends AbstractFireballEntity {
 
     public ThrowableFireChargeEntity(World worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
         super(IEEntityTypes.THROWABLE_FIRE_CHARGE.get(), shooter.getPosX(), shooter.getPosYEye(), shooter.getPosZ(), accelX, accelY, accelZ, worldIn);
+        this.setShooter(shooter);
     }
 
     @Override
@@ -40,7 +41,6 @@ public class ThrowableFireChargeEntity extends AbstractFireballEntity {
         }
 
         if (!this.world.isRemote) {
-            //Change this flag to a config check to make it rely on the config for if the explosion destroys blocks
             boolean flag = InfernalExpansionConfig.Miscellaneous.FIRE_CHARGE_EXPLOSION.getBool() && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this.getShooter());
             this.world.createExplosion(null, this.getPosX(), this.getPosY(), this.getPosZ(), 1.0F, flag, flag ? Explosion.Mode.DESTROY : Explosion.Mode.NONE);
             this.remove();
