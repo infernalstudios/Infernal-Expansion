@@ -4,7 +4,7 @@ import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.blocks.HorizontalBushBlock;
 import com.nekomaster1000.infernalexp.config.ConfigHelper;
 import com.nekomaster1000.infernalexp.config.ConfigHolder;
-import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.FloraBehaviour;
+import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.Miscellaneous;
 import com.nekomaster1000.infernalexp.data.SpawnrateManager;
 import com.nekomaster1000.infernalexp.data.VolineEatTable;
 import com.nekomaster1000.infernalexp.entities.ShroomloinEntity;
@@ -12,6 +12,7 @@ import com.nekomaster1000.infernalexp.entities.ThrowableFireChargeEntity;
 import com.nekomaster1000.infernalexp.entities.ThrowableMagmaCreamEntity;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IEEffects;
+import com.nekomaster1000.infernalexp.init.IEItems;
 import com.nekomaster1000.infernalexp.init.IEParticleTypes;
 import com.nekomaster1000.infernalexp.init.IESoundEvents;
 import net.minecraft.block.Block;
@@ -24,7 +25,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.UseAction;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.state.properties.AttachFace;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.DamageSource;
@@ -39,6 +42,7 @@ import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.PotionColorCalculationEvent;
 import net.minecraftforge.event.entity.player.BonemealEvent;
@@ -171,11 +175,11 @@ public class MiscEvents {
         Block block = event.getBlock().getBlock();
         World world = event.getWorld();
         BlockPos pos = event.getPos();
-        if (block == Blocks.SHROOMLIGHT && FloraBehaviour.SHROOMLIGHT_GROWABLE.getBool()) {
+        if (block == Blocks.SHROOMLIGHT && Miscellaneous.SHROOMLIGHT_GROWABLE.getBool()) {
             pos = pos.down();
             if (world.isAirBlock(pos)) {
                 event.setResult(Event.Result.ALLOW);
-                if (world.getRandom().nextDouble() < FloraBehaviour.SHROOMLIGHT_GROW_CHANCE.getDouble() && !world.isRemote()) {
+                if (world.getRandom().nextDouble() < Miscellaneous.SHROOMLIGHT_GROW_CHANCE.getDouble() && !world.isRemote()) {
                     world.setBlockState(pos, IEBlocks.SHROOMLIGHT_FUNGUS.get().getDefaultState().with(HorizontalBushBlock.FACE, AttachFace.CEILING), 3);
                 }
             }
@@ -218,6 +222,16 @@ public class MiscEvents {
                     ((ServerWorld) entity.getEntityWorld()).spawnParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get(), entity.getPosXRandom(entity.getBoundingBox().getXSize()), entity.getPosYRandom(), entity.getPosZRandom(entity.getBoundingBox().getZSize()), 0, 0, 0, 0, 1);
                 }
             }
+        }
+    }
+
+    @SubscribeEvent
+    public void onLivingFinishUse(LivingEntityUseItemEvent.Finish event) {
+        ItemStack item = event.getItem();
+        PlayerEntity player = (PlayerEntity) event.getEntity();
+
+        if (item.isItemEqual(item) && item.getItem() == IEItems.CURED_JERKY.get() && item.getUseAction() == UseAction.EAT) {
+            player.addPotionEffect(new EffectInstance(Effects.SPEED, 20 * Miscellaneous.JERKY_EFFECT_DURATION.getInt(), Miscellaneous.JERKY_EFFECT_AMPLIFIER.getInt()));
         }
     }
 

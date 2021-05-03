@@ -1,7 +1,6 @@
 package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
-import com.nekomaster1000.infernalexp.blocks.BlockItemBase;
 import com.nekomaster1000.infernalexp.blocks.DullthornsBlockItem;
 import com.nekomaster1000.infernalexp.items.AscusBombItem;
 import com.nekomaster1000.infernalexp.items.EntityBucketItem;
@@ -12,8 +11,6 @@ import com.nekomaster1000.infernalexp.items.ItemBase;
 import com.nekomaster1000.infernalexp.items.SlurpSoupItem;
 import com.nekomaster1000.infernalexp.items.WhipItem;
 import com.nekomaster1000.infernalexp.util.ModSpawnEggItem;
-
-import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BowItem;
@@ -60,8 +57,6 @@ public class IEItems {
 
 	public static final RegistryObject<Item> CURED_JERKY = ITEMS.register("cured_jerky", () -> new Item(new Item.Properties().group(InfernalExpansion.TAB)
                     .food(new Food.Builder().hunger(5).saturation(0.6F)
-                    .effect(() ->
-                        new EffectInstance(Effects.SPEED, 160, 1), 1.0F)
                     .build())));
 
 	public static final RegistryObject<Item> RAW_HOGCHOP = ITEMS.register("raw_hogchop", () -> new Item(new Item.Properties().group(InfernalExpansion.TAB)

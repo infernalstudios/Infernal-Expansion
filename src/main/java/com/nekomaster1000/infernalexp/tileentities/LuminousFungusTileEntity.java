@@ -25,7 +25,7 @@ public class LuminousFungusTileEntity extends TileEntity implements ITickableTil
     public void tick() {
         if (!this.world.isRemote()) {
             List<Entity> nearbyEntities = this.getWorld().getEntitiesWithinAABB(Entity.class,
-                    new AxisAlignedBB(this.getPos()).grow(InfernalExpansionConfig.FloraBehaviour.LUMINOUS_FUNGUS_ACTIVATE_DISTANCE.getDouble()));
+                    new AxisAlignedBB(this.getPos()).grow(InfernalExpansionConfig.Miscellaneous.LUMINOUS_FUNGUS_ACTIVATE_DISTANCE.getDouble()));
             Vector3d blockPos = new Vector3d(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ());
             nearbyEntities.removeIf((entity) -> {
                 Vector3d entityPos = new Vector3d(entity.getPosX(), entity.getPosYEye(), entity.getPosZ());

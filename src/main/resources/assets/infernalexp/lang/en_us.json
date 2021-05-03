@@ -255,12 +255,12 @@
   "item.minecraft.tipped_arrow.effect.infection": "Arrow of Infection",
   "infernalexp.config.button.mobInteractions": "Mob Interactions...",
   "infernalexp.config.button.mobSpawning": "Mob Spawning...",
-  "infernalexp.config.button.floraBehaviour": "Flora Behaviour...",
+  "infernalexp.config.button.miscellaneous": "Miscellaneous...",
   "infernalexp.config.button.clientConfig": "Client Config...",
   "infernalexp.config.title": "Infernal Expansion Config",
   "infernalexp.config.title.mobInteractions": "Mob Interactions",
   "infernalexp.config.title.mob_spawning": "Mob Spawning",
-  "infernalexp.config.title.floraBehaviour": "Flora Behaviour",
+  "infernalexp.config.title.miscellaneous": "Miscellaneous",
   "infernalexp.config.title.clientConfig": "Client Config",
   "infernalexp.config.subtitle.spawnable_biomes": "What biomes should mobs spawn in?",
   "infernalexp.config.option.piglinFearWarpbeetle": "Piglins fear Warpbeetles",
@@ -338,6 +338,14 @@
   "infernalexp.config.tooltip.isShroomlightGrowable": "Determines if a shroomlight tear will grow when a shroomlight is bonemealed (overrides Shroomlight Grow Chance)",
   "infernalexp.config.tooltip.shroomlightGrowChance": "Determines the chance a shroomlight tear will grow when a shroomlight is bonemealed",
   "infernalexp.config.tooltip.luminousFungusActivateDistance": "Determines the distance an entity has to be from a luminous fungus for it to activate (larger values have performance impact)",
+
+  "infernalexp.config.option.fireChargeExplosion": "Fire Charge Explosion",
+  "infernalexp.config.option.jerkyEffectDuration": "Jerky Effect Duration",
+  "infernalexp.config.option.jerkyEffectAmplifier": "Jerky Effect Amplifier",
+
+  "infernalexp.config.tooltip.fireChargeExplosion": "Determines if thrown fire charges will explode on impact",
+  "infernalexp.config.tooltip.jerkyEffectDuration": "Determines the duration in seconds of the effect that Cured Jerky gives",
+  "infernalexp.config.tooltip.jerkyEffectAmplifier": "Determines the amplifier of the effect that Cured Jerky gives",
 
   "infernalexp.config.option.luminousRefreshRate": "Luminous Effect Refresh Rate",
   "infernalexp.config.tooltip.luminousRefreshRate": "Determines how much (in ticks) the luminous effect should update"

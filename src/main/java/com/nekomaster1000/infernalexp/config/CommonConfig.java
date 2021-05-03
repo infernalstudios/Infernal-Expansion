@@ -40,6 +40,11 @@ public class CommonConfig {
     //Bonemeal Behaviour
     final ForgeConfigSpec.DoubleValue shroomlightGrowChance;
     final ForgeConfigSpec.BooleanValue isShroomlightGrowable;
+
+    //Miscellaneous
+    final ForgeConfigSpec.BooleanValue fireChargeExplosion;
+    final ForgeConfigSpec.IntValue jerkyEffectDuration;
+    final ForgeConfigSpec.IntValue jerkyEffectAmplifier;
     
     //Luminous Fungus
     final ForgeConfigSpec.DoubleValue luminousFungusActivateDistance;
@@ -209,6 +214,23 @@ public class CommonConfig {
                 .defineInRange("shroomlightGrowChance", 1.0D, 0.0D, 1.0D);
 
         builder.pop();
+
+        builder.push("Miscellaneous");
+
+        fireChargeExplosion = builder
+            .comment("Determines if thrown fire charges will explode on impact")
+            .translation(InfernalExpansion.MOD_ID + ".config.fireChargeExplosion")
+            .define("fireChargeExplosion", true);
+
+        jerkyEffectDuration = builder
+            .comment("Determines the duration in seconds of the effect that Cured Jerky gives")
+            .translation(InfernalExpansion.MOD_ID + ".config.jerkyEffectDuration")
+            .defineInRange("jerkyEffectDuration", 8, 0, Integer.MAX_VALUE);
+
+        jerkyEffectAmplifier = builder
+            .comment("Determines the amplifier of the effect that Cured Jerky gives")
+            .translation(InfernalExpansion.MOD_ID + ".config.jerkyEffectAmplifier")
+            .defineInRange("jerkyEffectAmplifier", 1, 0, 2);
         
         builder.push("Luminous Fungus");
         

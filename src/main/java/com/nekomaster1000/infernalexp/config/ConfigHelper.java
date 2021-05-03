@@ -1,7 +1,7 @@
 package com.nekomaster1000.infernalexp.config;
 
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.ClientConfig;
-import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.FloraBehaviour;
+import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.Miscellaneous;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.MobInteractions;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.MobSpawning;
 import net.minecraftforge.fml.config.ModConfig;
@@ -50,10 +50,15 @@ public final class ConfigHelper {
         MobSpawning.SKELETAL_PIGLIN.setSpawnableBiomes(ConfigHolder.COMMON.skeletalPiglinBiomes.get());
 
         //Bonemeal Behaviour
-        FloraBehaviour.SHROOMLIGHT_GROWABLE.set(ConfigHolder.COMMON.isShroomlightGrowable.get());
-        FloraBehaviour.SHROOMLIGHT_GROW_CHANCE.set(ConfigHolder.COMMON.shroomlightGrowChance.get());
+        Miscellaneous.SHROOMLIGHT_GROWABLE.set(ConfigHolder.COMMON.isShroomlightGrowable.get());
+        Miscellaneous.SHROOMLIGHT_GROW_CHANCE.set(ConfigHolder.COMMON.shroomlightGrowChance.get());
 
-        FloraBehaviour.LUMINOUS_FUNGUS_ACTIVATE_DISTANCE.set(ConfigHolder.COMMON.luminousFungusActivateDistance.get());
+        //Miscellaneous
+        Miscellaneous.FIRE_CHARGE_EXPLOSION.set(ConfigHolder.COMMON.fireChargeExplosion.get());
+        Miscellaneous.JERKY_EFFECT_DURATION.set(ConfigHolder.COMMON.jerkyEffectDuration.get());
+        Miscellaneous.JERKY_EFFECT_AMPLIFIER.set(ConfigHolder.COMMON.jerkyEffectAmplifier.get());
+
+        Miscellaneous.LUMINOUS_FUNGUS_ACTIVATE_DISTANCE.set(ConfigHolder.COMMON.luminousFungusActivateDistance.get());
     }
 
     public static void saveToClient() {
@@ -92,10 +97,14 @@ public final class ConfigHelper {
         ConfigHolder.COMMON.blackstoneDwarfBiomes.set(MobSpawning.BLACKSTONE_DWARF.getSpawnableBiomes());
         ConfigHolder.COMMON.skeletalPiglinBiomes.set(InfernalExpansionConfig.MobSpawning.SKELETAL_PIGLIN.getSpawnableBiomes());
 
-        ConfigHolder.COMMON.isShroomlightGrowable.set(FloraBehaviour.SHROOMLIGHT_GROWABLE.getBool());
-        ConfigHolder.COMMON.shroomlightGrowChance.set(FloraBehaviour.SHROOMLIGHT_GROW_CHANCE.getDouble());
+        ConfigHolder.COMMON.isShroomlightGrowable.set(Miscellaneous.SHROOMLIGHT_GROWABLE.getBool());
+        ConfigHolder.COMMON.shroomlightGrowChance.set(Miscellaneous.SHROOMLIGHT_GROW_CHANCE.getDouble());
 
-        ConfigHolder.COMMON.luminousFungusActivateDistance.set(FloraBehaviour.LUMINOUS_FUNGUS_ACTIVATE_DISTANCE.getDouble());
+        ConfigHolder.COMMON.fireChargeExplosion.set(Miscellaneous.FIRE_CHARGE_EXPLOSION.getBool());
+        ConfigHolder.COMMON.jerkyEffectDuration.set(Miscellaneous.JERKY_EFFECT_DURATION.getInt());
+        ConfigHolder.COMMON.jerkyEffectAmplifier.set(Miscellaneous.JERKY_EFFECT_AMPLIFIER.getInt());
+
+        ConfigHolder.COMMON.luminousFungusActivateDistance.set(Miscellaneous.LUMINOUS_FUNGUS_ACTIVATE_DISTANCE.getDouble());
 
         ConfigHolder.COMMON_SPEC.save();
     }

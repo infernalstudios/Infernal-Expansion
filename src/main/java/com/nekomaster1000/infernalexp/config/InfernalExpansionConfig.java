@@ -173,10 +173,13 @@ public final class InfernalExpansionConfig {
         }
     }
 
-    public enum FloraBehaviour {
+    public enum Miscellaneous {
         SHROOMLIGHT_GROWABLE("isShroomlightGrowable", false, 0, 0, 0),
         SHROOMLIGHT_GROW_CHANCE("shroomlightGrowChance", true, 0, 1 , 0.01f),
-        LUMINOUS_FUNGUS_ACTIVATE_DISTANCE("luminousFungusActivateDistance", true, 0, 100, 1);
+        LUMINOUS_FUNGUS_ACTIVATE_DISTANCE("luminousFungusActivateDistance", true, 0, 100, 1),
+        FIRE_CHARGE_EXPLOSION("fireChargeExplosion", false, 0, 1, 1),
+        JERKY_EFFECT_DURATION("jerkyEffectDuration", true, 1, 120, 1),
+        JERKY_EFFECT_AMPLIFIER("jerkyEffectAmplifier", true, 0, 2, 1);
 
         private final String translationName;
         private final boolean isSlider;
@@ -185,7 +188,7 @@ public final class InfernalExpansionConfig {
         private final float stepSize;
         private double value;
 
-        FloraBehaviour(String translationName, boolean isSlider, double minValue, double maxValue, float stepSize) {
+        Miscellaneous(String translationName, boolean isSlider, double minValue, double maxValue, float stepSize) {
             this.translationName = translationName;
             this.isSlider = isSlider;
             this.minValue = minValue;
@@ -220,6 +223,10 @@ public final class InfernalExpansionConfig {
 
         public double getDouble() {
             return value;
+        }
+
+        public int getInt() {
+            return (int) value;
         }
 
         public boolean getBool() {
