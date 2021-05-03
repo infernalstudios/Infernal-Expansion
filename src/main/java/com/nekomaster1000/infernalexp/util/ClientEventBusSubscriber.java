@@ -79,4 +79,10 @@ public class ClientEventBusSubscriber {
         RenderTypeLookup.setRenderLayer(IEBlocks.QUARTZ_GLASS.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(IEBlocks.QUARTZ_GLASS_PANE.get(), RenderType.getCutout());
     }
+
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void onPostRegisterEntities(final RegistryEvent.Register<EntityType<?>> event) {
+        ModSpawnEggItem.initUnaddedEggs();
+    }
 }

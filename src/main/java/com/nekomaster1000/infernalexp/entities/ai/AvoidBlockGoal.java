@@ -16,17 +16,17 @@ public class AvoidBlockGoal extends Goal {
 
     protected final SlimeEntity entity;
     protected Optional<BlockPos> avoidBlockPos;
-    protected final float avoidDistance;
+    protected final int avoidDistance;
     protected final SlimeEntity.MoveHelperController controller;
     protected final Block avoidBlock;
 
-    public AvoidBlockGoal(SlimeEntity entityIn, Block blockToAvoidIn, float avoidDistanceIn) {
+    public AvoidBlockGoal(SlimeEntity entityIn, Block blockToAvoidIn, int avoidDistanceIn) {
         this(entityIn, blockToAvoidIn, (p_200828_0_) -> {
             return true;
         }, avoidDistanceIn, EntityPredicates.CAN_AI_TARGET::test);
     }
 
-    private AvoidBlockGoal(SlimeEntity entityIn, Block blockToAvoidIn, Predicate<LivingEntity> targetPredicate, float distance, Predicate<LivingEntity> p_i48859_9_) {
+    private AvoidBlockGoal(SlimeEntity entityIn, Block blockToAvoidIn, Predicate<LivingEntity> targetPredicate, int distance, Predicate<LivingEntity> p_i48859_9_) {
         this.entity = entityIn;
         this.avoidBlock = blockToAvoidIn;
         this.avoidDistance = distance;
@@ -36,8 +36,7 @@ public class AvoidBlockGoal extends Goal {
 
     @Override
     public boolean shouldExecute() {
-        this.avoidBlockPos = BlockPos.getClosestMatchingPosition(this.entity.getPosition(), (int)this.avoidDistance, 4, (pos) -> this.entity.world.getBlockState(pos).equals(this.avoidBlock.getDefaultState()));
-
+        this.avoidBlockPos = BlockPos.getClosestMatchingPosition(this.entity.getPosition(), this.avoidDistance, 4, (pos) -> this.entity.world.getBlockState(pos).equals(this.avoidBlock.getDefaultState()));
         return avoidBlockPos.isPresent();
     }
 
@@ -48,10 +47,10 @@ public class AvoidBlockGoal extends Goal {
 
     @Override
     public boolean shouldContinueExecuting() {
-        this.avoidBlockPos = BlockPos.getClosestMatchingPosition(this.entity.getPosition(), (int)this.avoidDistance, 4, (pos) -> this.entity.world.getBlockState(pos).equals(this.avoidBlock.getDefaultState()));
+        this.avoidBlockPos = BlockPos.getClosestMatchingPosition(this.entity.getPosition(), this.avoidDistance, 4, (pos) -> this.entity.world.getBlockState(pos).equals(this.avoidBlock.getDefaultState()));
 
         return this.avoidBlockPos.isPresent() && this.entity.getDistanceSq(this.avoidBlockPos.get().getX(),
-                this.avoidBlockPos.get().getY(), this.avoidBlockPos.get().getZ()) <= this.avoidDistance;
+            this.avoidBlockPos.get().getY(), this.avoidBlockPos.get().getZ()) <= (float) this.avoidDistance;
     }
 
     @Override
@@ -65,14 +64,14 @@ public class AvoidBlockGoal extends Goal {
         this.controller.setSpeed(1.0);
     }
 
-    private void faceAway(){
+    private void faceAway() {
         double d0 = this.avoidBlockPos.get().getX() - this.entity.getPosX();
         double d2 = this.avoidBlockPos.get().getZ() - this.entity.getPosZ();
         double d1 = (this.avoidBlockPos.get().getY() + this.entity.getBoundingBox().maxY) / 2.0D - this.entity.getPosYEye();
 
         double d3 = MathHelper.sqrt(d0 * d0 + d2 * d2);
-        float f = (float)(MathHelper.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F;
-        float f1 = (float)(-(MathHelper.atan2(d1, d3) * (double)(180F / (float)Math.PI)));
+        float f = (float) (MathHelper.atan2(d2, d0) * (double) (180F / (float) Math.PI)) - 90.0F;
+        float f1 = (float) (-(MathHelper.atan2(d1, d3) * (double) (180F / (float) Math.PI)));
         this.entity.rotationPitch = updateRotation(this.entity.rotationPitch, f1, 10.0F);
         this.entity.rotationYaw = updateRotation(this.entity.rotationYaw, f + 180.0F, 10.0F);
 

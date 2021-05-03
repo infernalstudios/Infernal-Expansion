@@ -310,8 +310,11 @@ public class IEBlocks {
             RegistryObject<T> block = BLOCKS.register(name, blockSupplier);
             IEItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(InfernalExpansion.TAB)));
             return block;
+        } else {
+            RegistryObject<T> block = BLOCKS.register(name, blockSupplier);
+            IEItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+            return block;
         }
-        return null;
     }
 
     public static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<? extends T> blockSupplier) {
