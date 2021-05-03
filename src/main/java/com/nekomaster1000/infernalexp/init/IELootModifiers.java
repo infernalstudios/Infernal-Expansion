@@ -39,13 +39,19 @@ public class IELootModifiers {
         protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
 
             int numChops = 0;
+            int numCookedChops = 0;
+
             for (ItemStack item : generatedLoot) {
                 if (item.isItemEqual(Items.PORKCHOP.getDefaultInstance())) {
                     numChops += item.getCount();
+                } else if (item.isItemEqual(Items.COOKED_PORKCHOP.getDefaultInstance())) {
+                    numCookedChops += item.getCount();
                 }
             }
 
             generatedLoot.removeIf(x -> x.isItemEqual(Items.PORKCHOP.getDefaultInstance()));
+            generatedLoot.removeIf(x -> x.isItemEqual(Items.COOKED_PORKCHOP.getDefaultInstance()));
+            generatedLoot.add(new ItemStack(IEItems.COOKED_HOGCHOP.get(), numCookedChops));
             generatedLoot.add(new ItemStack(IEItems.RAW_HOGCHOP.get(), numChops));
 
             return generatedLoot;
