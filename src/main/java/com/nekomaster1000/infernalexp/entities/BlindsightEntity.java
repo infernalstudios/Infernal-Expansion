@@ -1,5 +1,6 @@
 package com.nekomaster1000.infernalexp.entities;
 
+import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.init.IEEffects;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -58,8 +59,12 @@ public class BlindsightEntity extends MonsterEntity {
         this.goalSelector.addGoal(3, new BlindsightEntity.FaceRandomGoal(this));
         this.goalSelector.addGoal(5, new BlindsightEntity.HopGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(1, new BlindsightEntity.TargetGlowsquitoGoal(this, true, false));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true, false));
+        if (InfernalExpansionConfig.MobInteractions.BLINDSIGHT_ATTACK_GLOWSQUITO.getBoolean()) {
+            this.targetSelector.addGoal(1, new BlindsightEntity.TargetGlowsquitoGoal(this, true, false));
+        }
+        if (InfernalExpansionConfig.MobInteractions.BLINDSIGHT_ATTACK_PLAYER.getBoolean()) {
+            this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true, false));
+        }
     }
 
     //EXP POINTS

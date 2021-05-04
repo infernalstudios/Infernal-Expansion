@@ -23,6 +23,21 @@ public class CommonConfig {
     final ForgeConfigSpec.BooleanValue ghastAttackEmbody;
     final ForgeConfigSpec.BooleanValue ghastAttackVoline;
     final ForgeConfigSpec.BooleanValue ghastAttackSkeleton;
+    final ForgeConfigSpec.BooleanValue ghastAttackGlowsquito;
+    final ForgeConfigSpec.BooleanValue glowsquitoAttackDwarf;
+    final ForgeConfigSpec.BooleanValue glowsquitoAttackLuminous;
+    final ForgeConfigSpec.BooleanValue dwarfAttackPiglin;
+    final ForgeConfigSpec.BooleanValue dwarfAttackZombiePiglin;
+    final ForgeConfigSpec.BooleanValue dwarfAttackSkeletalPiglin;
+    final ForgeConfigSpec.BooleanValue dwarfAttackPlayer;
+    final ForgeConfigSpec.BooleanValue blindsightAttackGlowsquito;
+    final ForgeConfigSpec.BooleanValue blindsightAttackPlayer;
+    final ForgeConfigSpec.BooleanValue giantAttackMagmaCube;
+    final ForgeConfigSpec.BooleanValue embodyAttackPiglin;
+    final ForgeConfigSpec.BooleanValue embodyAttackPlayer;
+    final ForgeConfigSpec.BooleanValue volineAttackFireResistance;
+    final ForgeConfigSpec.BooleanValue volineAttackPlayer;
+    final ForgeConfigSpec.BooleanValue volineAttackMagmaCube;
     final ForgeConfigSpec.DoubleValue glowsilkSpeed;
 
     //Mob Spawnable Biomes
@@ -74,7 +89,7 @@ public class CommonConfig {
                 .define("hoglinFearEmbody", true);
 
         spiderAttackWarpbeetle = builder
-                .comment("Determines if Spiders will attack Warpbeetles")
+                .comment("Determines if Spiders and Warpbeetles will fight")
                 .translation(InfernalExpansion.MOD_ID + ".config.tooltip.spiderAttackWarpbeetle")
                 .define("spiderAttackWarpbeetle", true);
 
@@ -132,6 +147,81 @@ public class CommonConfig {
                 .comment("Determines if Ghasts will shoot at Skeletons")
                 .translation(InfernalExpansion.MOD_ID + ".config.tooltip.ghastAttackSkeleton")
                 .define("ghastAttackSkeleton", false);
+
+        ghastAttackGlowsquito = builder
+            .comment("Determines if Ghasts will shoot at Glowsquitos")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.ghastAttackGlowsquito")
+            .define("ghastAttackGlowsquito", false);
+
+        glowsquitoAttackDwarf = builder
+            .comment("Determines if Glowsquitos and Blackstone Dwarves will fight")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.glowsquitoAttackDwarf")
+            .define("glowsquitoAttackDwarf", true);
+
+        glowsquitoAttackLuminous = builder
+            .comment("Determines if Glowsquitos will attack Entities with the Luminous Effect")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.glowsquitoAttackLuminous")
+            .define("glowsquitoAttackLuminous", true);
+
+        dwarfAttackPiglin = builder
+            .comment("Determines if Blackstone Dwarves will attack Piglins")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.dwarfAttackPiglin")
+            .define("dwarfAttackPiglin", true);
+
+        dwarfAttackZombiePiglin = builder
+            .comment("Determines if Blackstone Dwarves will attack Zombified Piglins")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.dwarfAttackZombiePiglin")
+            .define("dwarfAttackZombiePiglin", true);
+
+        dwarfAttackSkeletalPiglin = builder
+            .comment("Determines if Blackstone Dwarves will attack Skeletal Piglins")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.dwarfAttackSkeletalPiglin")
+            .define("dwarfAttackSkeletalPiglin", true);
+
+        dwarfAttackPlayer = builder
+            .comment("Determines if Blackstone Dwarves will attack Players")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.dwarfAttackPlayer")
+            .define("dwarfAttackPlayer", true);
+
+        blindsightAttackGlowsquito = builder
+            .comment("Determines if Blindsights will attack Glowsquitos")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.blindsightAttackGlowsquito")
+            .define("blindsightAttackGlowsquito", true);
+
+        blindsightAttackPlayer = builder
+            .comment("Determines if Blindsights will attack Players")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.blindsightAttackPlayer")
+            .define("blindsightAttackPlayer", true);
+
+        giantAttackMagmaCube = builder
+            .comment("Determines if Basalt Giants will attack Magma Cubes")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.giantAttackMagmaCube")
+            .define("giantAttackMagmaCube", true);
+
+        embodyAttackPiglin = builder
+            .comment("Determines if Embodies will attack Piglins")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.embodyAttackPiglin")
+            .define("embodyAttackPiglin", true);
+
+        embodyAttackPlayer = builder
+            .comment("Determines if Embodies will attack Players")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.embodyAttackPlayer")
+            .define("embodyAttackPlayer", true);
+
+        volineAttackFireResistance = builder
+            .comment("Determines if Voline will attack Entities with Fire Resistance")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.volineAttackFireResistance")
+            .define("volineAttackFireResistance", true);
+
+        volineAttackPlayer = builder
+            .comment("Determines if Voline will attack Players")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.volineAttackPlayer")
+            .define("volineAttackPlayer", true);
+
+        volineAttackMagmaCube = builder
+            .comment("Determines if Voline will attack small Magma Cubes")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.volineAttackMagmaCube")
+            .define("volineAttackMagmaCube", true);
 
         glowsilkSpeed = builder
             .comment("Determines the speed at which Glowsilk Moths fly")
