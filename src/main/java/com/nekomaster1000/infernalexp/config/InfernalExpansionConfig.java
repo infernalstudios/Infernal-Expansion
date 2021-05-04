@@ -85,6 +85,21 @@ public final class InfernalExpansionConfig {
         GHAST_ATTACK_EMBODY("ghastAttackEmbody", false),
         GHAST_ATTACK_VOLINE("ghastAttackVoline", false),
         GHAST_ATTACK_SKELETON("ghastAttackSkeleton", false),
+        GHAST_ATTACK_GLOWSQUITO("ghastAttackGlowsquito", false),
+        GLOWSQUITO_ATTACK_DWARF("glowsquitoAttackDwarf", false),
+        GLOWSQUITO_ATTACK_LUMINOUS("glowsquitoAttackLuminous", false),
+        DWARF_ATTACK_PIGLIN("dwarfAttackPiglin", false),
+        DWARF_ATTACK_ZOMBIE_PIGLIN("dwarfAttackZombiePiglin", false),
+        DWARF_ATTACK_SKELETAL_PIGLIN("dwarfAttackSkeletalPiglin", false),
+        DWARF_ATTACK_PLAYER("dwarfAttackPlayer", false),
+        BLINDSIGHT_ATTACK_GLOWSQUITO("blindsightAttackGlowsquito", false),
+        BLINDSIGHT_ATTACK_PLAYER("blindsightAttackPlayer", false),
+        GIANT_ATTACK_MAGMA_CUBE("giantAttackMagmaCube", false),
+        EMBODY_ATTACK_PIGLIN("embodyAttackPiglin", false),
+        EMBODY_ATTACK_PLAYER("embodyAttackPlayer", false),
+        VOLINE_ATTACK_FIRE_RESISTANCE("volineAttackFireResistance", false),
+        VOLINE_ATTACK_PLAYER("volineAttackPlayer", false),
+        VOLINE_ATTACK_MAGMA_CUBE("volineAttackMagmaCube", false),
         GLOWSILK_SPEED("glowsilkSpeed", true);
 
         private final String translationName;

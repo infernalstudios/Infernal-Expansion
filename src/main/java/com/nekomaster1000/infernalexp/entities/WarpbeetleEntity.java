@@ -1,5 +1,6 @@
 package com.nekomaster1000.infernalexp.entities;
 
+import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.entities.ai.TeleportPanicGoal;
 import com.nekomaster1000.infernalexp.init.IESoundEvents;
 import net.minecraft.block.BlockState;
@@ -60,7 +61,9 @@ public class WarpbeetleEntity extends CreatureEntity {
 		this.goalSelector.addGoal(5, new LookAtGoal(this, PlayerEntity.class, 8.0f));
 		this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
 		this.goalSelector.addGoal(7, new LookRandomlyGoal(this));
-		this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, SpiderEntity.class, true, false));
+		if (InfernalExpansionConfig.MobInteractions.SPIDER_ATTACK_WARPBEETLE.getBoolean()) {
+            this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, SpiderEntity.class, true, false));
+        }
 	}
 
 	@Override

@@ -35,6 +35,21 @@ public final class ConfigHelper {
         MobInteractions.GHAST_ATTACK_EMBODY.setBoolean(ConfigHolder.COMMON.ghastAttackEmbody.get());
         MobInteractions.GHAST_ATTACK_VOLINE.setBoolean(ConfigHolder.COMMON.ghastAttackVoline.get());
         MobInteractions.GHAST_ATTACK_SKELETON.setBoolean(ConfigHolder.COMMON.ghastAttackSkeleton.get());
+        MobInteractions.GHAST_ATTACK_GLOWSQUITO.setBoolean(ConfigHolder.COMMON.ghastAttackGlowsquito.get());
+        MobInteractions.GLOWSQUITO_ATTACK_DWARF.setBoolean(ConfigHolder.COMMON.glowsquitoAttackDwarf.get());
+        MobInteractions.GLOWSQUITO_ATTACK_LUMINOUS.setBoolean(ConfigHolder.COMMON.glowsquitoAttackLuminous.get());
+        MobInteractions.DWARF_ATTACK_PIGLIN.setBoolean(ConfigHolder.COMMON.dwarfAttackPiglin.get());
+        MobInteractions.DWARF_ATTACK_ZOMBIE_PIGLIN.setBoolean(ConfigHolder.COMMON.dwarfAttackZombiePiglin.get());
+        MobInteractions.DWARF_ATTACK_SKELETAL_PIGLIN.setBoolean(ConfigHolder.COMMON.dwarfAttackSkeletalPiglin.get());
+        MobInteractions.DWARF_ATTACK_PLAYER.setBoolean(ConfigHolder.COMMON.dwarfAttackPlayer.get());
+        MobInteractions.BLINDSIGHT_ATTACK_GLOWSQUITO.setBoolean(ConfigHolder.COMMON.blindsightAttackGlowsquito.get());
+        MobInteractions.BLINDSIGHT_ATTACK_PLAYER.setBoolean(ConfigHolder.COMMON.blindsightAttackPlayer.get());
+        MobInteractions.GIANT_ATTACK_MAGMA_CUBE.setBoolean(ConfigHolder.COMMON.giantAttackMagmaCube.get());
+        MobInteractions.EMBODY_ATTACK_PIGLIN.setBoolean(ConfigHolder.COMMON.embodyAttackPiglin.get());
+        MobInteractions.EMBODY_ATTACK_PLAYER.setBoolean(ConfigHolder.COMMON.embodyAttackPlayer.get());
+        MobInteractions.VOLINE_ATTACK_FIRE_RESISTANCE.setBoolean(ConfigHolder.COMMON.volineAttackFireResistance.get());
+        MobInteractions.VOLINE_ATTACK_PLAYER.setBoolean(ConfigHolder.COMMON.volineAttackPlayer.get());
+        MobInteractions.VOLINE_ATTACK_MAGMA_CUBE.setBoolean(ConfigHolder.COMMON.volineAttackMagmaCube.get());
         MobInteractions.GLOWSILK_SPEED.setDouble(ConfigHolder.COMMON.glowsilkSpeed.get());
 
         //Mob Spawnable Biomes
@@ -83,6 +98,21 @@ public final class ConfigHelper {
         ConfigHolder.COMMON.ghastAttackEmbody.set(MobInteractions.GHAST_ATTACK_EMBODY.getBoolean());
         ConfigHolder.COMMON.ghastAttackVoline.set(MobInteractions.GHAST_ATTACK_VOLINE.getBoolean());
         ConfigHolder.COMMON.ghastAttackSkeleton.set(MobInteractions.GHAST_ATTACK_SKELETON.getBoolean());
+        ConfigHolder.COMMON.ghastAttackGlowsquito.set(MobInteractions.GHAST_ATTACK_GLOWSQUITO.getBoolean());
+        ConfigHolder.COMMON.glowsquitoAttackDwarf.set(MobInteractions.GLOWSQUITO_ATTACK_DWARF.getBoolean());
+        ConfigHolder.COMMON.glowsquitoAttackLuminous.set(MobInteractions.GLOWSQUITO_ATTACK_LUMINOUS.getBoolean());
+        ConfigHolder.COMMON.dwarfAttackPiglin.set(MobInteractions.DWARF_ATTACK_PIGLIN.getBoolean());
+        ConfigHolder.COMMON.dwarfAttackZombiePiglin.set(MobInteractions.DWARF_ATTACK_ZOMBIE_PIGLIN.getBoolean());
+        ConfigHolder.COMMON.dwarfAttackSkeletalPiglin.set(MobInteractions.DWARF_ATTACK_SKELETAL_PIGLIN.getBoolean());
+        ConfigHolder.COMMON.dwarfAttackPlayer.set(MobInteractions.DWARF_ATTACK_PLAYER.getBoolean());
+        ConfigHolder.COMMON.blindsightAttackGlowsquito.set(MobInteractions.BLINDSIGHT_ATTACK_GLOWSQUITO.getBoolean());
+        ConfigHolder.COMMON.blindsightAttackPlayer.set(MobInteractions.BLINDSIGHT_ATTACK_PLAYER.getBoolean());
+        ConfigHolder.COMMON.giantAttackMagmaCube.set(MobInteractions.GIANT_ATTACK_MAGMA_CUBE.getBoolean());
+        ConfigHolder.COMMON.embodyAttackPiglin.set(MobInteractions.EMBODY_ATTACK_PIGLIN.getBoolean());
+        ConfigHolder.COMMON.embodyAttackPlayer.set(MobInteractions.EMBODY_ATTACK_PLAYER.getBoolean());
+        ConfigHolder.COMMON.volineAttackFireResistance.set(MobInteractions.VOLINE_ATTACK_FIRE_RESISTANCE.getBoolean());
+        ConfigHolder.COMMON.volineAttackPlayer.set(MobInteractions.VOLINE_ATTACK_PLAYER.getBoolean());
+        ConfigHolder.COMMON.volineAttackMagmaCube.set(MobInteractions.VOLINE_ATTACK_MAGMA_CUBE.getBoolean());
         ConfigHolder.COMMON.glowsilkSpeed.set(MobInteractions.GLOWSILK_SPEED.getDouble());
 
         //Mob Spawnable Biomes
