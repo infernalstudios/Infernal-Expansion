@@ -20,6 +20,7 @@ import net.minecraft.entity.monster.GhastEntity;
 import net.minecraft.entity.monster.HoglinEntity;
 import net.minecraft.entity.monster.MagmaCubeEntity;
 import net.minecraft.entity.monster.SkeletonEntity;
+import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.entity.monster.piglin.PiglinBruteEntity;
 import net.minecraft.entity.monster.piglin.PiglinEntity;
