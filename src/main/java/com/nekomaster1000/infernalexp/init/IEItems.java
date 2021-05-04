@@ -45,8 +45,7 @@ public class IEItems {
 	public static final RegistryObject<Item> MOLTEN_GOLD_CLUSTER = ITEMS.register("molten_gold_cluster", ItemBase::new);
 	public static final RegistryObject<Item> GLOWSILK = ITEMS.register("glowsilk", ItemBase::new);
 	public static final RegistryObject<Item> SOUL_SALT_CLUMP = ITEMS.register("soul_salt_clump", ItemBase::new);
-
-
+	
 	// Foods
 	public static final RegistryObject<SoupItem> BLINDSIGHT_TONGUE_STEW = registerItem("blindsight_tongue_stew",
 			() -> new SlurpSoupItem(new Item.Properties().maxStackSize(1).group(InfernalExpansion.TAB)
@@ -57,13 +56,21 @@ public class IEItems {
 
 	public static final RegistryObject<Item> CURED_JERKY = ITEMS.register("cured_jerky", () -> new Item(new Item.Properties().group(InfernalExpansion.TAB)
                     .food(new Food.Builder().hunger(5).saturation(0.6F)
-                    .build())));
+                        .build())));
 
 	public static final RegistryObject<Item> RAW_HOGCHOP = ITEMS.register("raw_hogchop", () -> new Item(new Item.Properties().group(InfernalExpansion.TAB)
-                    .food(new Food.Builder().hunger(4).saturation(0.3F).meat().build())));
+                    .food(new Food.Builder().hunger(4).saturation(0.3F).meat()
+                        .build())));
 
 	public static final RegistryObject<Item> COOKED_HOGCHOP = ITEMS.register("cooked_hogchop", () -> new Item(new Item.Properties().group(InfernalExpansion.TAB)
-                    .food(new Food.Builder().hunger(10).saturation(0.8F).meat().build())));
+                    .food(new Food.Builder().hunger(10).saturation(0.8F).meat()
+                        .build())));
+
+    public static final RegistryObject<Item> SPIRIT_EYE = ITEMS.register("spirit_eye", () -> new Item(new Item.Properties().group(InfernalExpansion.TAB)
+                    .food(new Food.Builder().setAlwaysEdible().hunger(1).saturation(0.1F)
+                        .effect(() ->
+                            new EffectInstance(Effects.GLOWING, 100, 0), 1.0F).meat()
+                        .build())));
 
 
 	// Spawn Eggs
