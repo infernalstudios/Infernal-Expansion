@@ -2,10 +2,12 @@ package com.nekomaster1000.infernalexp.config.gui.screens;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.nekomaster1000.infernalexp.InfernalExpansion;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.text.TranslationTextComponent;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

@@ -1,6 +1,7 @@
 package com.nekomaster1000.infernalexp.entities;
 
 import com.nekomaster1000.infernalexp.init.IEEffects;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -24,6 +25,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -65,7 +67,7 @@ public class BlindsightEntity extends MonsterEntity {
     //EXP POINTS
     @Override
     protected int getExperiencePoints(PlayerEntity player) {
-        return 1 + this.world.rand.nextInt(4);
+        return this.world.rand.nextInt(4) + 1;
     }
 
     //SOUNDS

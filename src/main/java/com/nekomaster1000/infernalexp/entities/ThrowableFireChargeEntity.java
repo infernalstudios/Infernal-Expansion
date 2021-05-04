@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.entities;
 
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.init.IEEntityTypes;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -13,6 +14,7 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+
 import net.minecraftforge.fml.network.NetworkHooks;
 
 public class ThrowableFireChargeEntity extends AbstractFireballEntity {

@@ -4,6 +4,7 @@ import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.ClientConfi
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.Miscellaneous;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.MobInteractions;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.MobSpawning;
+
 import net.minecraftforge.fml.config.ModConfig;
 
 import javax.annotation.Nullable;

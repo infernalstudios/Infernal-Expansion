@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.brewing;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionUtils;
+
 import net.minecraftforge.common.brewing.IBrewingRecipe;
 
 public class IEBrewingRecipe implements IBrewingRecipe {

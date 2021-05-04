@@ -98,7 +98,6 @@ public class GlowCampfireTileEntity extends TileEntity implements IClearable, IT
             for(int j = 0; j < this.inventory.size(); ++j) {
                 if (!this.inventory.get(j).isEmpty() && random.nextFloat() < 0.2F) {
                     Direction direction = Direction.byHorizontalIndex(Math.floorMod(j + l, 4));
-                    float f = 0.3125F;
                     double d0 = (double)blockpos.getX() + 0.5D - (double)((float)direction.getXOffset() * 0.3125F) + (double)((float)direction.rotateY().getXOffset() * 0.3125F);
                     double d1 = (double)blockpos.getY() + 0.5D;
                     double d2 = (double)blockpos.getZ() + 0.5D - (double)((float)direction.getZOffset() * 0.3125F) + (double)((float)direction.rotateY().getZOffset() * 0.3125F);

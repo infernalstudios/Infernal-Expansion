@@ -4,6 +4,7 @@ import com.nekomaster1000.infernalexp.entities.BlindsightEntity;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IEEffects;
 import com.nekomaster1000.infernalexp.init.IEItems;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -25,6 +26,7 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+
 import net.minecraftforge.common.IForgeShearable;
 
 import javax.annotation.Nonnull;
@@ -40,7 +42,7 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
 
     public DullthornsBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(AGE, Integer.valueOf(0)));
+        this.setDefaultState(this.stateContainer.getBaseState().with(AGE, 0));
     }
 
     @Override
@@ -101,11 +103,11 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
                 if(net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, blockpos, state, true)) {
                     if (j == 15) {
                         worldIn.setBlockState(blockpos, this.getDefaultState());
-                        BlockState blockstate = state.with(AGE, Integer.valueOf(0));
+                        BlockState blockstate = state.with(AGE, 0);
                         worldIn.setBlockState(pos, blockstate, 4);
                         blockstate.neighborChanged(worldIn, blockpos, this, pos, false);
                     } else {
-                        worldIn.setBlockState(pos, state.with(AGE, Integer.valueOf(j + 1)), 4);
+                        worldIn.setBlockState(pos, state.with(AGE, j + 1), 4);
                     }
                     net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
                 }

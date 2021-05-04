@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.items;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.Enchantment;
@@ -32,6 +33,7 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+
 import net.minecraftforge.common.ForgeMod;
 
 public class WhipItem extends TieredItem implements IWhipItem, IVanishable {

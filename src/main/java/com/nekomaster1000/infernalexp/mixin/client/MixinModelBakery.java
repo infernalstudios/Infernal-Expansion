@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.mixin.client;
 
 import java.util.Set;
 
+import com.nekomaster1000.infernalexp.util.DataUtil;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -28,7 +29,7 @@ public class MixinModelBakery {
 		LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_GLOW_FIRE_0);
 		LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_GLOW_FIRE_1);
 
-		if (ModList.get().isLoaded("endergetic")) {
+		if (DataUtil.isLoaded("endergetic")) {
 			LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_ENDER_FIRE_0);
 			LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_ENDER_FIRE_1);
 		}

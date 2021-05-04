@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.blocks;
 
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IEEntityTypes;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.FallingBlockEntity;

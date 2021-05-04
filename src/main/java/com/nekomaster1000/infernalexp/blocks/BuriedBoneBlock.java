@@ -1,6 +1,7 @@
 package com.nekomaster1000.infernalexp.blocks;
 
 import com.nekomaster1000.infernalexp.init.IEBlocks;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

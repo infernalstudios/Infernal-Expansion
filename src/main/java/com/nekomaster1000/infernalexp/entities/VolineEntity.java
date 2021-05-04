@@ -6,6 +6,7 @@ import com.nekomaster1000.infernalexp.events.MiscEvents;
 import com.nekomaster1000.infernalexp.init.IEItems;
 import com.nekomaster1000.infernalexp.init.IESoundEvents;
 import com.nekomaster1000.infernalexp.util.IBucketable;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
@@ -45,13 +46,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.function.Predicate;
-
 
 public class VolineEntity extends MonsterEntity implements IBucketable {
     private static final Predicate<LivingEntity> TARGETABLE_MAGMA_CUBES = (livingEntity) -> {

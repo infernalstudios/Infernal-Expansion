@@ -1,6 +1,7 @@
 package com.nekomaster1000.infernalexp.entities;
 
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntitySize;
@@ -129,7 +130,7 @@ public class GlowsilkMothEntity extends AmbientEntity {
      * Called when the entity is attacked.
      */
     public boolean attackEntityFrom(DamageSource source, float amount) {
-        return this.isInvulnerableTo(source) ? false : super.attackEntityFrom(source, amount);
+        return !this.isInvulnerableTo(source) && super.attackEntityFrom(source, amount);
     }
 
     protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {

@@ -9,7 +9,6 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
@@ -23,6 +22,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -236,14 +236,14 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
 			this(attacker, movespeed, maxAttackTime, maxAttackTime, maxAttackDistanceIn);
 		}
 
-		public RangedAttackUnInfectedGoal(IRangedAttackMob attacker, double movespeed, int p_i1650_4_, int maxAttackTime, float maxAttackDistanceIn) {
+		public RangedAttackUnInfectedGoal(IRangedAttackMob attacker, double movespeed, int attackIntervalMin, int maxAttackTime, float maxAttackDistanceIn) {
 			if (!(attacker instanceof LivingEntity)) {
 				throw new IllegalArgumentException("ArrowAttackGoal requires Mob implements RangedAttackMob");
 			} else {
 				this.rangedAttackEntityHost = attacker;
 				this.entityHost = (ShroomloinEntity) attacker;
 				this.entityMoveSpeed = movespeed;
-				this.attackIntervalMin = p_i1650_4_;
+				this.attackIntervalMin = attackIntervalMin;
 				this.maxRangedAttackTime = maxAttackTime;
 				this.attackRadius = maxAttackDistanceIn;
 				this.maxAttackDistance = maxAttackDistanceIn * maxAttackDistanceIn;

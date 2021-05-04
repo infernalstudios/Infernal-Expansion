@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 
 import com.google.common.base.Supplier;
+
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.client.ClientFireType;
 
@@ -30,7 +31,7 @@ public interface FireTypeAccess {
 	RenderMaterial LOCATION_ENDER_FIRE_0 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("endergetic", "block/ender_fire_0"));
 	RenderMaterial LOCATION_ENDER_FIRE_1 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("endergetic", "block/ender_fire_1"));
 
-	public static enum KnownFireTypes {
+	enum KnownFireTypes {
 		FIRE("fire", () -> new ClientFireType(ModelBakery.LOCATION_FIRE_0, ModelBakery.LOCATION_FIRE_1)),
 		SOUL_FIRE("soul_fire", () -> new ClientFireType(LOCATION_SOUL_FIRE_0, LOCATION_SOUL_FIRE_1)),
 		GLOW_FIRE("glow_fire", () -> new ClientFireType(LOCATION_GLOW_FIRE_0, LOCATION_GLOW_FIRE_1)),

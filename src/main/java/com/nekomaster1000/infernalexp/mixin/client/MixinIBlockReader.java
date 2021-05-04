@@ -13,6 +13,13 @@ import net.minecraft.world.IBlockReader;
 @Mixin(value = IBlockReader.class, priority = 200)
 public interface MixinIBlockReader {
 
+    /**
+     * @reason Unknown
+     * @author Unknown
+     * @param pos
+     * @return lightlevel for given blockPos.
+     */
+
 	@Overwrite
 	default int getLightValue(BlockPos pos) {
 		if (DynamicLightingHandler.LIGHT_SOURCES.containsKey(pos) && DynamicLightingHandler.LIGHT_SOURCES.get(pos).shouldKeep) {

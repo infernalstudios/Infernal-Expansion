@@ -58,6 +58,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -214,11 +215,11 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
 			}
 		}
 
-		private boolean func_220673_a(Vector3d p_220673_1_, int p_220673_2_) {
+		private boolean func_220673_a(Vector3d vector3d, int p_220673_2_) {
 			AxisAlignedBB axisalignedbb = this.parentEntity.getBoundingBox();
 
 			for (int i = 1; i < p_220673_2_; ++i) {
-				axisalignedbb = axisalignedbb.offset(p_220673_1_);
+				axisalignedbb = axisalignedbb.offset(vector3d);
 				if (!this.parentEntity.world.hasNoCollisions(this.parentEntity, axisalignedbb)) {
 					return false;
 				}

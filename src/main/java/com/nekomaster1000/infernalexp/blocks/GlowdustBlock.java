@@ -20,7 +20,7 @@ public class GlowdustBlock extends SnowBlock {
 		if (blockstate.matchesBlock(this)) {
 			int i = blockstate.get(LAYERS);
 			if (i < 7) {
-				return blockstate.with(LAYERS, Integer.valueOf(Math.min(8, i + 1)));
+				return blockstate.with(LAYERS, Math.min(8, i + 1));
 			} else {
 				return IEBlocks.GLOWDUST_SAND.get().getDefaultState();
 			}

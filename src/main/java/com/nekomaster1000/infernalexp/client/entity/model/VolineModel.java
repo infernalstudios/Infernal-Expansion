@@ -5,6 +5,7 @@ package com.nekomaster1000.infernalexp.client.entity.model;// Made with Blockben
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import com.nekomaster1000.infernalexp.entities.VolineEntity;
 
 import net.minecraft.client.renderer.entity.model.EntityModel;

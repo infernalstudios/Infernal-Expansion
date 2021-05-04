@@ -1,8 +1,10 @@
 package com.nekomaster1000.infernalexp.network;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
+
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
+
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;

@@ -22,19 +22,19 @@ import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 public class ModSpawnEggItem extends SpawnEggItem {
 
-    protected static final List<ModSpawnEggItem> UNADDED_EGGS = new ArrayList<>();
+    protected static final List<ModSpawnEggItem> IE_EGGS = new ArrayList<>();
     private final Lazy<? extends EntityType<?>> entityTypeSupplier;
 
-    public ModSpawnEggItem(final NonNullSupplier<? extends EntityType<?>> entityTypeSupplier, final int p_i48465_2_, final int p_i48465_3_, final Properties p_i48465_4_) {
-        super(null, p_i48465_2_, p_i48465_3_, p_i48465_4_);
+    public ModSpawnEggItem(final NonNullSupplier<? extends EntityType<?>> entityTypeSupplier, final int primaryColorln, final int secondaryColorln, final Properties itemProperties) {
+        super(null, primaryColorln, secondaryColorln, itemProperties);
         this.entityTypeSupplier = Lazy.of(entityTypeSupplier::get);
-        UNADDED_EGGS.add(this);
+        IE_EGGS.add(this);
     }
 
-    public ModSpawnEggItem(final RegistryObject<? extends EntityType<?>> entityTypeSupplier, final int p_i48465_2_, final int p_i48465_3_, final Properties p_i48465_4_) {
-        super(null, p_i48465_2_, p_i48465_3_, p_i48465_4_);
+    public ModSpawnEggItem(final RegistryObject<? extends EntityType<?>> entityTypeSupplier, final int primaryColorln, final int secondaryColorln, final Properties itemProperties) {
+        super(null, primaryColorln, secondaryColorln, itemProperties);
         this.entityTypeSupplier = Lazy.of(entityTypeSupplier);
-        UNADDED_EGGS.add(this);
+        IE_EGGS.add(this);
     }
 
     /**
@@ -54,12 +54,12 @@ public class ModSpawnEggItem extends SpawnEggItem {
                 return stack;
             }
         };
-        for (final SpawnEggItem egg : UNADDED_EGGS) {
+        for (final SpawnEggItem egg : IE_EGGS) {
             EGGS.put(egg.getType(null), egg);
             DispenserBlock.registerDispenseBehavior(egg, defaultDispenseItemBehavior);
             // ItemColors for each spawn egg don't need to be registered because this method is called before ItemColors is created
         }
-        UNADDED_EGGS.clear();
+        IE_EGGS.clear();
     }
 
     @Override

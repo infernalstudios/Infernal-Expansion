@@ -56,15 +56,17 @@ public class PyrnoEntity extends HoglinEntity {
         //SOUNDS
         @Override
         protected SoundEvent getAmbientSound() { return SoundEvents.ENTITY_PIG_AMBIENT; }
+
         @Override
         protected SoundEvent getDeathSound() { return SoundEvents.ENTITY_PIG_DEATH; }
+
         @Override
         protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
                 return SoundEvents.ENTITY_PIG_HURT;
                 }
+
         @Override
         protected void playStepSound(BlockPos pos, BlockState blockIn) {
                 this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
-                }
-
-                }
+        }
+}

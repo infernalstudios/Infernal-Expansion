@@ -1,6 +1,7 @@
 package com.nekomaster1000.infernalexp.entities;
 
 import com.nekomaster1000.infernalexp.init.IEBiomes;
+
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;

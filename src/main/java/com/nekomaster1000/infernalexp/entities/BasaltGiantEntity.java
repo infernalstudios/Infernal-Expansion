@@ -42,6 +42,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
@@ -237,7 +238,7 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
 	// EXP POINTS
 	@Override
 	protected int getExperiencePoints(PlayerEntity player) {
-		return 2 + this.world.rand.nextInt(2);
+		return this.world.rand.nextInt(2) + 2;
 	}
 
 	// SOUNDS

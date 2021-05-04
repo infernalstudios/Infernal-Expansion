@@ -84,8 +84,8 @@ public class MiscEvents {
             || event.getState().equals(Blocks.NETHER_WART_BLOCK.getDefaultState())) {
             List<?> list = event.getPlayer().world.getEntitiesWithinAABB(ShroomloinEntity.class,
                 event.getPlayer().getBoundingBox().grow(32.0D));
-            for (int j = 0; j < list.size(); j++) {
-                Entity entity = (Entity) list.get(j);
+            for (Object o : list) {
+                Entity entity = (Entity) o;
                 if (entity instanceof ShroomloinEntity) {
                     ShroomloinEntity shroomloinEntity = (ShroomloinEntity) entity;
                     shroomloinEntity.becomeAngryAt(event.getPlayer());

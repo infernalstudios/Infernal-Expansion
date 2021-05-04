@@ -191,6 +191,7 @@ public class InfernalExpansion {
                 World world = source.getWorld();
                 BlockPos blockpos = source.getBlockPos().offset(source.getBlockState().get(DispenserBlock.FACING));
                 ItemStack itemstack = stack.split(1);
+
                 if (world.getBlockState(blockpos).getBlock() == IEBlocks.DIMSTONE.get()) {
                     world.setBlockState(blockpos, Blocks.GLOWSTONE.getDefaultState());
                 } else if (world.getBlockState(blockpos).getBlock() == IEBlocks.DULLSTONE.get()) {
@@ -217,12 +218,10 @@ public class InfernalExpansion {
     }
 
     public static final ItemGroup TAB = new ItemGroup("InfernalTab") {
-
         @Override
         public ItemStack createIcon() {
             return new ItemStack(IEItems.BLINDSIGHT_TONGUE.get());
         }
-
     };
 
     public static SimpleReloadableResourceManager getDataResourceManager() {

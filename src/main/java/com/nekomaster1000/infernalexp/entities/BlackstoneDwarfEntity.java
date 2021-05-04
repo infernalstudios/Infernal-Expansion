@@ -128,7 +128,7 @@ public class BlackstoneDwarfEntity extends CreatureEntity implements IAngerable 
 	// EXP POINTS
 	@Override
 	protected int getExperiencePoints(PlayerEntity player) {
-		return 2 + this.world.rand.nextInt(2);
+		return this.world.rand.nextInt(2) + 2;
 	}
 
 	public boolean isImmuneToFire() {
