@@ -113,8 +113,10 @@ public class BlindsightEntity extends MonsterEntity {
         jumpDuration = 10;
         jumpTicks = 0;
 
+        //Randomizes jump height to vary how high the Blindsight jumps
         float f = this.getJumpUpwardsMotion() + (rand.nextFloat() * 0.7F);
 
+        //Copied from super.jump(), gives the Blindsight upwards motion
         Vector3d vector3d = this.getMotion();
         this.setMotion(vector3d.x, f, vector3d.z);
         if (this.isSprinting()) {
