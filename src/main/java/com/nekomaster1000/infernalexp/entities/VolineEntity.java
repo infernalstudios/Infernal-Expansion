@@ -282,9 +282,13 @@ public class VolineEntity extends MonsterEntity implements IBucketable {
 			// instance is deleted
 			super.consumeItem();
 
-			for (Map.Entry<Item, Integer> item : eatItemsMap.get(itemReference).entrySet()) {
-				entityIn.entityDropItem(new ItemStack(item.getKey(), item.getValue()), 1);
-			}
+            Map<Item, Integer> eatItem = eatItemsMap.get(itemReference);
+
+            if (eatItem != null) {
+                for (Map.Entry<Item, Integer> item : eatItem.entrySet()) {
+                    entityIn.entityDropItem(new ItemStack(item.getKey(), item.getValue()), 1);
+                }
+            }
 		}
 	}
 }
