@@ -10,7 +10,7 @@ import com.nekomaster1000.infernalexp.entities.GlowsquitoEntity;
 import com.nekomaster1000.infernalexp.entities.VolineEntity;
 import com.nekomaster1000.infernalexp.entities.WarpbeetleEntity;
 import com.nekomaster1000.infernalexp.entities.ai.AvoidBlockGoal;
-import com.nekomaster1000.infernalexp.init.IEBlocks;
+import com.nekomaster1000.infernalexp.init.IETags;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FlyingEntity;
@@ -164,27 +164,9 @@ public class MobEvents {
 		}
 
 		if (event.getEntity() instanceof MagmaCubeEntity) {
-            /*
 			((SlimeEntity) event.getEntity()).goalSelector.addGoal(0,
-					new AvoidBlockGoal((SlimeEntity) event.getEntity(), IEBlocks.GLOW_TORCH.get(),
-							16.0F));
-
-			((SlimeEntity) event.getEntity()).goalSelector.addGoal(0,
-					new AvoidBlockGoal((SlimeEntity) event.getEntity(), IEBlocks.GLOW_TORCH_WALL.get(),
-							16.0F));
-
-			((SlimeEntity) event.getEntity()).goalSelector.addGoal(0,
-					new AvoidBlockGoal((SlimeEntity) event.getEntity(), IEBlocks.GLOW_LANTERN.get(),
-							16.0F));
-
-			((SlimeEntity) event.getEntity()).goalSelector.addGoal(0,
-					new AvoidBlockGoal((SlimeEntity) event.getEntity(), IEBlocks.GLOW_CAMPFIRE.get(),
-							16.0F));
-
-			((SlimeEntity) event.getEntity()).goalSelector.addGoal(0,
-					new AvoidBlockGoal((SlimeEntity) event.getEntity(), IEBlocks.GLOW_FIRE.get(),
-							16.0F));
-		    */
+					new AvoidBlockGoal((SlimeEntity) event.getEntity(), IETags.Blocks.MAGMA_CUBE_AVOID_BLOCKS,
+							8));
         }
 
 	}

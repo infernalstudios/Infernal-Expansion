@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "infernalexp:glow_lantern",
+    "infernalexp:glow_torch",
+    "infernalexp:glow_torch_wall",
+    "infernalexp:glow_campfire",
+    "infernalexp:glow_fire"
+  ]
+}
