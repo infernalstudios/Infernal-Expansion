@@ -32,10 +32,12 @@ public class IEEntityTypes {
             .size(0.5f, 0.5f) // Hitbox Size
             .build(new ResourceLocation(InfernalExpansion.MOD_ID, "warpbeetle").toString()));
 
+    /*
     public static final RegistryObject<EntityType<CerobeetleEntity>> CEROBEETLE = ENTITY_TYPES.register("cerobeetle",
             () -> EntityType.Builder.create(CerobeetleEntity::new, EntityClassification.MONSTER)
             .size(2.0f, 1.5f) // Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "cerobeetle").toString()));
+     */
 
     public static final RegistryObject<EntityType<EmbodyEntity>> EMBODY = ENTITY_TYPES.register("embody",
             () -> EntityType.Builder.create(EmbodyEntity::new, EntityClassification.MONSTER)
@@ -62,10 +64,12 @@ public class IEEntityTypes {
                     .size(0.8f, 2.0f) // Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "skeletal_piglin").toString()));
 
+    /*
     public static final RegistryObject<EntityType<PyrnoEntity>> PYRNO = ENTITY_TYPES.register("pyrno",
             () -> EntityType.Builder.create(PyrnoEntity::new, EntityClassification.MONSTER)
                     .size(1.5f, 1.5f) // Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "pyrno").toString()));
+     */
 
     public static final RegistryObject<EntityType<BlindsightEntity>> BLINDSIGHT = ENTITY_TYPES.register("blindsight",
             () -> EntityType.Builder.create(BlindsightEntity::new, EntityClassification.MONSTER)
