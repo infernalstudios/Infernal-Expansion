@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.enchantment.IVanishable;
@@ -31,8 +32,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeMod;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 
@@ -53,7 +59,12 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 		this.attackKnockback = attackKnockbackIn;
 	}
 
-	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        tooltip.add(new StringTextComponent("\u00A76" + "Hold right click to charge, then release to strike!"));
+    }
+
+    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
 		if (entityLiving instanceof PlayerEntity) {
 			PlayerEntity playerentity = (PlayerEntity)entityLiving;
 

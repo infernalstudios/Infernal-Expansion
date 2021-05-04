@@ -220,8 +220,9 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
 		if (InfernalExpansionConfig.MobInteractions.SKELETON_ATTACK_GIANT.getBoolean()) {
 			this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, SkeletonEntity.class, true, false));
 		}
-		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, MagmaCubeEntity.class, true, false));
-
+		if (InfernalExpansionConfig.MobInteractions.GIANT_ATTACK_MAGMA_CUBE.getBoolean()) {
+            this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, MagmaCubeEntity.class, true, false));
+        }
 	}
 
 	@Override

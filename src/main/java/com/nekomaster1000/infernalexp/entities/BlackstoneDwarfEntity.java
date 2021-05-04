@@ -1,11 +1,7 @@
 package com.nekomaster1000.infernalexp.entities;
 
-import java.util.UUID;
-
-import javax.annotation.Nullable;
-
+import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.init.IESoundEvents;
-
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -23,7 +19,6 @@ import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.monster.ZombifiedPiglinEntity;
 import net.minecraft.entity.monster.piglin.AbstractPiglinEntity;
 import net.minecraft.entity.player.PlayerEntity;
-//import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.RangedInteger;
 import net.minecraft.util.TickRangeConverter;
@@ -31,6 +26,11 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import javax.annotation.Nullable;
+import java.util.UUID;
+
+//import net.minecraft.entity.projectile.ArrowEntity;
 
 public class BlackstoneDwarfEntity extends CreatureEntity implements IAngerable {
 	private static final RangedInteger RANGED_INT = TickRangeConverter.convertRange(20, 39);
@@ -113,16 +113,26 @@ public class BlackstoneDwarfEntity extends CreatureEntity implements IAngerable 
 	@Override
 	protected void registerGoals() {
 		super.registerGoals();
-		this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 0.6D, true));
-		this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, AbstractPiglinEntity.class, true, false));
-		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, ZombifiedPiglinEntity.class, true, false));
-		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, SkeletalPiglinEntity.class, true, false));
-		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
-		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, GlowsquitoEntity.class, true));
+		this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 0.6D, true));
 		this.goalSelector.addGoal(1, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
 		this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0f));
 		this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
+        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+        if (InfernalExpansionConfig.MobInteractions.DWARF_ATTACK_PIGLIN.getBoolean()) {
+            this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, AbstractPiglinEntity.class, true, false));
+        }
+        if (InfernalExpansionConfig.MobInteractions.DWARF_ATTACK_ZOMBIE_PIGLIN.getBoolean()) {
+            this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, ZombifiedPiglinEntity.class, true, false));
+        }
+        if (InfernalExpansionConfig.MobInteractions.DWARF_ATTACK_SKELETAL_PIGLIN.getBoolean()) {
+            this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, SkeletalPiglinEntity.class, true, false));
+        }
+        if (InfernalExpansionConfig.MobInteractions.DWARF_ATTACK_PLAYER.getBoolean()) {
+            this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+        }
+        if (InfernalExpansionConfig.MobInteractions.GLOWSQUITO_ATTACK_DWARF.getBoolean()) {
+            this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, GlowsquitoEntity.class, true));
+        }
 	}
 
 	// EXP POINTS

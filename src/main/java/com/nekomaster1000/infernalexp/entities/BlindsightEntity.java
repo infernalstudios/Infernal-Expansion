@@ -1,5 +1,6 @@
 package com.nekomaster1000.infernalexp.entities;
 
+import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.init.IEEffects;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -28,11 +29,13 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.EnumSet;
+import java.util.Random;
 
 public class BlindsightEntity extends MonsterEntity {
 
     private int jumpDuration;
     private int jumpTicks;
+    private Random rand = new Random();
 
     public BlindsightEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
@@ -58,8 +61,12 @@ public class BlindsightEntity extends MonsterEntity {
         this.goalSelector.addGoal(3, new BlindsightEntity.FaceRandomGoal(this));
         this.goalSelector.addGoal(5, new BlindsightEntity.HopGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(1, new BlindsightEntity.TargetGlowsquitoGoal(this, true, false));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true, false));
+        if (InfernalExpansionConfig.MobInteractions.BLINDSIGHT_ATTACK_GLOWSQUITO.getBoolean()) {
+            this.targetSelector.addGoal(1, new BlindsightEntity.TargetGlowsquitoGoal(this, true, false));
+        }
+        if (InfernalExpansionConfig.MobInteractions.BLINDSIGHT_ATTACK_PLAYER.getBoolean()) {
+            this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true, false));
+        }
     }
 
     //EXP POINTS
@@ -111,7 +118,19 @@ public class BlindsightEntity extends MonsterEntity {
         jumpDuration = 10;
         jumpTicks = 0;
 
-        super.jump();
+        //Randomizes jump height to vary how high the Blindsight jumps
+        float f = this.getJumpUpwardsMotion() + (rand.nextFloat() * 0.7F);
+
+        //Copied from super.jump(), gives the Blindsight upwards motion
+        Vector3d vector3d = this.getMotion();
+        this.setMotion(vector3d.x, f, vector3d.z);
+        if (this.isSprinting()) {
+            float f1 = this.rotationYaw * ((float)Math.PI / 180F);
+            this.setMotion(this.getMotion().add((-MathHelper.sin(f1) * 0.2F), 0.0D, (MathHelper.cos(f1) * 0.2F)));
+        }
+
+        this.isAirBorne = true;
+        net.minecraftforge.common.ForgeHooks.onLivingJump(this);
 
         if (!world.isRemote) {
             world.setEntityState(this, (byte) 1);
@@ -135,7 +154,7 @@ public class BlindsightEntity extends MonsterEntity {
 */
 
     protected int getJumpDelay() {
-        return this.rand.nextInt(20) + 10;
+        return (this.rand.nextInt(20) + 10) * 2;
     }
 
     protected SoundEvent getJumpSound() {

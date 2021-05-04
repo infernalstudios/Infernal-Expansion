@@ -145,11 +145,12 @@ public class SkeletalPiglinEntity extends MonsterEntity implements IAngerable {
 
         if (world.getBiome(this.getPosition()).getRegistryName().equals(IEBiomes.GLOWSTONE_CANYON.get().getRegistryName())) {
             getShovelType(Items.GOLDEN_SHOVEL, Items.IRON_SHOVEL, Items.STONE_SHOVEL);
-        } else if (world.getBiome(this.getPosition()).getRegistryName().equals(IEBiomes.DELTA_SHORES.get().getRegistryName())) {
-            getShovelType(Items.IRON_SHOVEL, Items.STONE_SHOVEL, Items.GOLDEN_SHOVEL);
         } else if (world.getBiome(this.getPosition()).getRegistryName().equals(Biomes.SOUL_SAND_VALLEY.getLocation())) {
             getShovelType(Items.STONE_SHOVEL, Items.GOLDEN_SHOVEL, Items.IRON_SHOVEL);
+        }  /* else if (world.getBiome(this.getPosition()).getRegistryName().equals(IEBiomes.DELTA_SHORES.get().getRegistryName())) {
+            getShovelType(Items.IRON_SHOVEL, Items.STONE_SHOVEL, Items.GOLDEN_SHOVEL);
         }
+         */
 
         return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
@@ -157,7 +158,7 @@ public class SkeletalPiglinEntity extends MonsterEntity implements IAngerable {
     private void getShovelType(Item primaryShovel, Item secondaryShovel, Item tertiaryShovel) {
         int shovelChance = this.rand.nextInt(10);
 
-        if (shovelChance <= 6) {
+        if (shovelChance <= 2) {
             shovelChance = this.rand.nextInt(10);
             if (shovelChance <= 7) {
                 this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(primaryShovel));

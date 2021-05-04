@@ -4,11 +4,9 @@ import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.entities.BasaltGiantEntity;
 import com.nekomaster1000.infernalexp.entities.BlackstoneDwarfEntity;
 import com.nekomaster1000.infernalexp.entities.BlindsightEntity;
-import com.nekomaster1000.infernalexp.entities.CerobeetleEntity;
 import com.nekomaster1000.infernalexp.entities.EmbodyEntity;
 import com.nekomaster1000.infernalexp.entities.GlowsilkMothEntity;
 import com.nekomaster1000.infernalexp.entities.GlowsquitoEntity;
-import com.nekomaster1000.infernalexp.entities.PyrnoEntity;
 import com.nekomaster1000.infernalexp.entities.ShroomloinEntity;
 import com.nekomaster1000.infernalexp.entities.SkeletalPiglinEntity;
 import com.nekomaster1000.infernalexp.entities.VolineEntity;
@@ -29,13 +27,13 @@ public class ModEntitySpawns {
         GlobalEntityTypeAttributes.put(IEEntityTypes.VOLINE.get(), VolineEntity.setCustomAttributes().create());
         GlobalEntityTypeAttributes.put(IEEntityTypes.SHROOMLOIN.get(), ShroomloinEntity.setCustomAttributes().create());
         GlobalEntityTypeAttributes.put(IEEntityTypes.WARPBEETLE.get(), WarpbeetleEntity.setCustomAttributes().create());
-        GlobalEntityTypeAttributes.put(IEEntityTypes.CEROBEETLE.get(), CerobeetleEntity.setCustomAttributes().create());
+        //GlobalEntityTypeAttributes.put(IEEntityTypes.CEROBEETLE.get(), CerobeetleEntity.setCustomAttributes().create());
         GlobalEntityTypeAttributes.put(IEEntityTypes.EMBODY.get(), EmbodyEntity.setCustomAttributes().create());
         GlobalEntityTypeAttributes.put(IEEntityTypes.BASALT_GIANT.get(), BasaltGiantEntity.setCustomAttributes().create());
         GlobalEntityTypeAttributes.put(IEEntityTypes.BLACKSTONE_DWARF.get(), BlackstoneDwarfEntity.setCustomAttributes().create());
         GlobalEntityTypeAttributes.put(IEEntityTypes.GLOWSQUITO.get(), GlowsquitoEntity.setCustomAttributes().create());
         GlobalEntityTypeAttributes.put(IEEntityTypes.SKELETAL_PIGLIN.get(), SkeletalPiglinEntity.setCustomAttributes().create());
-        GlobalEntityTypeAttributes.put(IEEntityTypes.PYRNO.get(), PyrnoEntity.setCustomAttributes().create());
+        //GlobalEntityTypeAttributes.put(IEEntityTypes.PYRNO.get(), PyrnoEntity.setCustomAttributes().create());
         GlobalEntityTypeAttributes.put(IEEntityTypes.BLINDSIGHT.get(), BlindsightEntity.setCustomAttributes().create());
         GlobalEntityTypeAttributes.put(IEEntityTypes.GLOWSILK_MOTH.get(), GlowsilkMothEntity.setCustomAttributes().create());
         }

@@ -20,7 +20,6 @@ import net.minecraft.entity.monster.GhastEntity;
 import net.minecraft.entity.monster.HoglinEntity;
 import net.minecraft.entity.monster.MagmaCubeEntity;
 import net.minecraft.entity.monster.SkeletonEntity;
-import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.entity.monster.piglin.PiglinBruteEntity;
 import net.minecraft.entity.monster.piglin.PiglinEntity;
@@ -142,9 +141,11 @@ public class MobEvents {
 
 		//Ghasts attack Voline, Embodies, Skeletons
 		if (event.getEntity() instanceof GhastEntity) {
-			((FlyingEntity) event.getEntity()).targetSelector.addGoal(4,
-					new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
-							GlowsquitoEntity.class, true, false));
+		    if (MobInteractions.GHAST_ATTACK_GLOWSQUITO.getBoolean()) {
+                ((FlyingEntity) event.getEntity()).targetSelector.addGoal(4,
+                    new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
+                        GlowsquitoEntity.class, true, false));
+            }
 
 			if (MobInteractions.GHAST_ATTACK_EMBODY.getBoolean()) {
 				((FlyingEntity) event.getEntity()).targetSelector.addGoal(3,

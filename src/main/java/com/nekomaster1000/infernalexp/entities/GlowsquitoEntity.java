@@ -1,16 +1,11 @@
 package com.nekomaster1000.infernalexp.entities;
 
-import java.util.EnumSet;
-import java.util.Random;
-
-import javax.annotation.Nullable;
-
+import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.entities.ai.TargetWithEffectGoal;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IEEffects;
 import com.nekomaster1000.infernalexp.init.IEEntityTypes;
 import com.nekomaster1000.infernalexp.init.IESoundEvents;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.CreatureAttribute;
@@ -60,6 +55,10 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import javax.annotation.Nullable;
+import java.util.EnumSet;
+import java.util.Random;
 
 // Extends AnimalEntity and implements IFlyingAnimal like BeeEntity class
 public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
@@ -333,9 +332,13 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
 		// this.goalSelector.addGoal(7, new GlowsquitoEntity.LookAroundGoal(this));
 		// this.goalSelector.addGoal(5, this.eatGrassGoal);
 		this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-		this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, CreatureEntity.class, true, false, IEEffects.LUMINOUS.get(), GlowsquitoEntity.class));
-		this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, MonsterEntity.class, true, false, IEEffects.LUMINOUS.get(), GlowsquitoEntity.class));
-		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, BlackstoneDwarfEntity.class, true));
+		if (InfernalExpansionConfig.MobInteractions.GLOWSQUITO_ATTACK_LUMINOUS.getBoolean()) {
+            this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, CreatureEntity.class, true, false, IEEffects.LUMINOUS.get(), GlowsquitoEntity.class));
+            this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, MonsterEntity.class, true, false, IEEffects.LUMINOUS.get(), GlowsquitoEntity.class));
+        }
+		if (InfernalExpansionConfig.MobInteractions.GLOWSQUITO_ATTACK_DWARF.getBoolean()) {
+            this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, BlackstoneDwarfEntity.class, true));
+        }
 	}
 
     public boolean isImmuneToFire() {
