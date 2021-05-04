@@ -1,0 +1,32 @@
+{
+  "parent": "infernalexp:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:crafting/crafting_shaped/glowsilk_bow"
+    ]
+  },
+  "criteria": {
+    "has_glowsilk": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "infernalexp:glowsilk"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:crafting/crafting_shaped/glowsilk_bow"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_glowsilk",
+      "has_the_recipe"
+    ]
+  ]
+}
