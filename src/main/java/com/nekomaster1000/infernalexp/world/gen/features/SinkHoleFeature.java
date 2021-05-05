@@ -26,8 +26,7 @@ public class SinkHoleFeature extends Feature<NoFeatureConfig> {
         BlockPos.Mutable mutableBlockPos = new BlockPos.Mutable().setPos(pos);
         if (!world.isAirBlock(mutableBlockPos) || world.getBlockState(mutableBlockPos.move(Direction.DOWN)).getBlock() != IEBlocks.GLOWDUST_SAND.get()) {
             return false;
-        }
-        else {
+        } else {
             int radius = minRadius + random.nextInt(maxRadius - minRadius);
             int depth = 10 + random.nextInt(6);
 
