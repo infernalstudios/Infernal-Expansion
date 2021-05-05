@@ -10,6 +10,11 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "weight": 9,
+          "name": "minecraft:bucket"
+        },
+        {
+          "type": "minecraft:item",
           "weight": 7,
           "name": "infernalexp:dimstone"
         },
