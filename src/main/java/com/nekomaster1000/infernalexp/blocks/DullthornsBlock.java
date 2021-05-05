@@ -40,7 +40,7 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
 
     public DullthornsBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(AGE, Integer.valueOf(0)));
+        this.setDefaultState(this.getDefaultState().with(AGE, Integer.valueOf(0)));
     }
 
     @Override

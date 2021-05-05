@@ -13,7 +13,7 @@ public class SmoothGlowstonePressurePlateBlock extends PressurePlateBlock {
 
 	public SmoothGlowstonePressurePlateBlock(Sensitivity sensitivityIn, Properties propertiesIn) {
 		super(sensitivityIn, propertiesIn);
-		this.setDefaultState(this.stateContainer.getBaseState().with(POWERED, false).with(LIT, false));
+		this.setDefaultState(this.getDefaultState().with(POWERED, false).with(LIT, false));
 	}
 
 	@Override

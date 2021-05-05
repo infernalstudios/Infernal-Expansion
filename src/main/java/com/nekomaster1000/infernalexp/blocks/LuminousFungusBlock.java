@@ -33,7 +33,7 @@ public class LuminousFungusBlock extends HorizontalBushBlock implements IGrowabl
 
     public LuminousFungusBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(FACE, AttachFace.FLOOR).with(HORIZONTAL_FACING, Direction.NORTH).with(LIT, Boolean.valueOf(false)));
+        this.setDefaultState(this.getDefaultState().with(FACE, AttachFace.FLOOR).with(HORIZONTAL_FACING, Direction.NORTH).with(LIT, Boolean.valueOf(false)));
     }
 
     @Override

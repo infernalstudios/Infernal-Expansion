@@ -40,8 +40,10 @@ public class WhipReachPacket {
 	public static void handle(WhipReachPacket message, Supplier<NetworkEvent.Context> context) {
 		context.get().enqueueWork(() -> {
 			PlayerEntity playerEntity = context.get().getSender();
+            playerEntity.getEntityWorld().playSound(playerEntity, playerEntity.getPosX(), playerEntity.getPosY(), playerEntity.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F));
 
-			if (playerEntity != null && playerEntity.getServer() != null) {
+
+            if (playerEntity != null && playerEntity.getServer() != null) {
 				ServerPlayerEntity player = playerEntity.getServer().getPlayerList().getPlayerByUUID(message.playerUUID);
 				Entity target = playerEntity.getEntityWorld().getEntityByID(message.targetEntityID);
 
@@ -50,9 +52,9 @@ public class WhipReachPacket {
 
 					if (player.getDistanceSq(target) < (reach * reach) * player.getCooledAttackStrength(0.0F)) {
 						player.attackTargetEntityWithCurrentItem(target);
+						player.getEntityWorld().playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F));
                         ((LivingEntity) target).applyKnockback(message.attackKnockback, MathHelper.sin(player.rotationYaw * ((float) Math.PI / 180F)), -MathHelper.cos(player.rotationYaw * ((float) Math.PI / 180F)));
-                        player.getServerWorld().playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F));
-                    }
+					}
 				}
 			}
 		});

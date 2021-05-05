@@ -21,7 +21,7 @@ public class ShroomlightFungusBlock extends HorizontalBushBlock {
 
     public ShroomlightFungusBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(FACE, AttachFace.FLOOR).with(HORIZONTAL_FACING, Direction.NORTH));
+        this.setDefaultState(this.getDefaultState().with(FACE, AttachFace.FLOOR).with(HORIZONTAL_FACING, Direction.NORTH));
     }
 
     @Override
