@@ -91,7 +91,7 @@ public class GlowLayerFeature extends Feature<NoFeatureConfig> {
         int radius = 2;
         for (int x = -radius; x <= radius; x++) {
             for (int z = -radius; z <= radius; z++) {
-                if(x == 0 && z == 0) continue;
+                if (x == 0 && z == 0) continue;
 
                 mutableBlockPosNeighbors.setPos(mutableBlockPos).move(x, 0, z);
                 BlockState neighborBlock = world.getBlockState(mutableBlockPosNeighbors);
