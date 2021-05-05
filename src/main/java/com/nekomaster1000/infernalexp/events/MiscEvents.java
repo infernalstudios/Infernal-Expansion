@@ -228,10 +228,10 @@ public class MiscEvents {
     @SubscribeEvent
     public void onLivingFinishUse(LivingEntityUseItemEvent.Finish event) {
         ItemStack item = event.getItem();
-        PlayerEntity player = (PlayerEntity) event.getEntity();
+        LivingEntity entity = (LivingEntity) event.getEntity();
 
-        if (item.isItemEqual(item) && item.getItem() == IEItems.CURED_JERKY.get() && item.getUseAction() == UseAction.EAT) {
-            player.addPotionEffect(new EffectInstance(Effects.SPEED, 20 * Miscellaneous.JERKY_EFFECT_DURATION.getInt(), Miscellaneous.JERKY_EFFECT_AMPLIFIER.getInt()));
+        if (item.getItem() == IEItems.CURED_JERKY.get() && item.getUseAction() == UseAction.EAT) {
+            entity.addPotionEffect(new EffectInstance(Effects.SPEED, 20 * Miscellaneous.JERKY_EFFECT_DURATION.getInt(), Miscellaneous.JERKY_EFFECT_AMPLIFIER.getInt()));
         }
     }
 
