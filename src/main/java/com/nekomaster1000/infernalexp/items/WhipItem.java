@@ -27,6 +27,8 @@ import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.EntityRayTraceResult;
@@ -80,6 +82,7 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
                 this.ticksSinceAttack = 36;
             }
 
+            playerentity.getEntityWorld().playSound(playerentity, playerentity.getPosX(), playerentity.getPosY(), playerentity.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F));
             handleExtendedReach(playerentity);
 
             playerentity.addStat(Stats.ITEM_USED.get(this));
