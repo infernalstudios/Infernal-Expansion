@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.util.ShapeUtil;
 import net.minecraft.block.Blocks;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
@@ -22,37 +23,53 @@ public class SinkHoleFeature extends Feature<NoFeatureConfig> {
 
     @Override
     public boolean generate(ISeedReader world, ChunkGenerator generator, Random random, BlockPos pos, NoFeatureConfig config) {
-        if (!world.isAirBlock(pos) || world.getBlockState(pos.down()).getBlock() != IEBlocks.GLOWDUST_SAND.get()) {
+        BlockPos.Mutable mutableBlockPos = new BlockPos.Mutable().setPos(pos);
+        if (!world.isAirBlock(mutableBlockPos) || world.getBlockState(mutableBlockPos.move(Direction.DOWN)).getBlock() != IEBlocks.GLOWDUST_SAND.get()) {
             return false;
-        } else {
+        }
+        else {
             int radius = minRadius + random.nextInt(maxRadius - minRadius);
             int depth = 10 + random.nextInt(6);
 
             // Check to see if we are on the bottom layer of the biome
+            mutableBlockPos.setPos(pos);
             for (int y = 1; y < depth; y++) {
-                if (world.getBlockState(pos.down(y)) == Blocks.AIR.getDefaultState()) return false;
+                mutableBlockPos.move(Direction.DOWN);
+                if (world.getBlockState(mutableBlockPos).matchesBlock(Blocks.AIR)) return false;
             }
 
             // Build the walls down a few blocks so if the sink hole spawns on a slope it isn't open from the side
             for (BlockPos point : ShapeUtil.generateSolidCircle(radius + 1)) {
+                mutableBlockPos.setPos(pos);
+                mutableBlockPos.move(point.getX(), point.getY(), point.getZ());
+                mutableBlockPos.move(Direction.UP, 2);
                 for (int y = 0; y < 3; y++) {
-                    world.setBlockState(pos.add(point).down(y + 1), IEBlocks.GLOWDUST_SAND.get().getDefaultState(), 2);
+                    world.setBlockState(mutableBlockPos.move(Direction.DOWN), IEBlocks.GLOWDUST_SAND.get().getDefaultState(), 2);
                 }
             }
 
             // Dig down by depth
             for (BlockPos point : ShapeUtil.generateSolidCircle(radius)) {
-                world.setBlockState(pos.add(point).down(), IEBlocks.TRAPPED_GLOWDUST_SAND.get().getDefaultState(), 2);
+                mutableBlockPos.setPos(pos);
+                mutableBlockPos.move(point.getX(), point.getY(), point.getZ());
+                mutableBlockPos.move(Direction.DOWN);
+                world.setBlockState(mutableBlockPos, IEBlocks.TRAPPED_GLOWDUST_SAND.get().getDefaultState(), 2);
+
+                // move down 1 move before loop
+                mutableBlockPos.move(Direction.DOWN);
 
                 for (int y = 2; y < depth; y++) {
-                    if (world.getBlockState(pos.add(point).down(y)) != Blocks.LAVA.getDefaultState())
-                        world.setBlockState(pos.add(point).down(y), Blocks.AIR.getDefaultState(), 2);
+                    mutableBlockPos.move(Direction.DOWN);
+                    carveSpot(world, generator, mutableBlockPos);
                 }
             }
 
             // Round off the bottom with a sphere
             for (BlockPos point : ShapeUtil.generateSolidSphere(radius)) {
-                world.setBlockState(pos.add(point).down(depth + 1), Blocks.AIR.getDefaultState(), 2);
+                mutableBlockPos.setPos(pos);
+                mutableBlockPos.move(point.getX(), point.getY(), point.getZ());
+                mutableBlockPos.move(Direction.DOWN, depth + 1);
+                carveSpot(world, generator, mutableBlockPos);
             }
 
             // Create fairy ring of luminous fungus around sinkhole
@@ -66,6 +83,19 @@ public class SinkHoleFeature extends Feature<NoFeatureConfig> {
 //            }
 
             return true;
+        }
+    }
+
+    private void carveSpot(ISeedReader world, ChunkGenerator generator, BlockPos.Mutable mutableBlockPos) {
+        // only carve spot if space isnt liquid and above isnt liquid
+        if (world.getBlockState(mutableBlockPos).getFluidState().isEmpty()) {
+
+            if (mutableBlockPos.getY() < generator.getSeaLevel()) {
+                world.setBlockState(mutableBlockPos, Blocks.LAVA.getDefaultState(), 3);
+            }
+            else {
+                world.setBlockState(mutableBlockPos, Blocks.AIR.getDefaultState(), 3);
+            }
         }
     }
 }
