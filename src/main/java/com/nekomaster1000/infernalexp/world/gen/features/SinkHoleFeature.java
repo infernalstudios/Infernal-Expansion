@@ -91,8 +91,7 @@ public class SinkHoleFeature extends Feature<NoFeatureConfig> {
 
             if (mutableBlockPos.getY() < generator.getSeaLevel()) {
                 world.setBlockState(mutableBlockPos, Blocks.LAVA.getDefaultState(), 3);
-            }
-            else {
+            } else {
                 world.setBlockState(mutableBlockPos, Blocks.AIR.getDefaultState(), 3);
             }
         }
