@@ -1,15 +1,13 @@
 package com.nekomaster1000.infernalexp.world.gen.features;
 
-import com.mojang.datafixers.optics.profunctors.ReCartesian;
 import com.mojang.serialization.Codec;
+import com.nekomaster1000.infernalexp.blocks.GlowdustBlock;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
-import com.nekomaster1000.infernalexp.init.IETags;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.Heightmap;
@@ -52,9 +50,10 @@ public class GlowLayerFeature extends Feature<NoFeatureConfig> {
                     if (currentBlock.matchesBlock(IEBlocks.GLOWDUST_SAND.get()) &&
                         cachedChunk.getBlockState(mutableBlockPos.move(Direction.UP)).isAir()) {
                         // we are now in the air space above Glowdust sand. Check if any of the 8 blocks around it is glowdust sand
-                        boolean validNeighbor = isGlowdustSandNearby(world, mutableBlockPos, mutableBlockPosNeighbors);
-                        if (validNeighbor) {
-                            world.setBlockState(mutableBlockPos, IEBlocks.GLOWDUST.get().getDefaultState(), 3);
+                        // maximum return is 8.
+                        int glowdustLayerHeight = numberOfGlowdustSandNearby(world, mutableBlockPos, mutableBlockPosNeighbors);
+                        if (glowdustLayerHeight > 0) {
+                            world.setBlockState(mutableBlockPos, IEBlocks.GLOWDUST.get().getDefaultState().with(GlowdustBlock.LAYERS, glowdustLayerHeight), 3);
                         }
                     }
                 }
@@ -87,17 +86,27 @@ public class GlowLayerFeature extends Feature<NoFeatureConfig> {
         return false;
     }
 
-    private boolean isGlowdustSandNearby(ISeedReader world, BlockPos.Mutable mutableBlockPos, BlockPos.Mutable mutableBlockPosNeighbors) {
-        for (int x = -1; x <= 1; x++) {
-            for (int z = -1; z <= 1; z++) {
+    private int numberOfGlowdustSandNearby(ISeedReader world, BlockPos.Mutable mutableBlockPos, BlockPos.Mutable mutableBlockPosNeighbors) {
+        int glowdustSandCount = 0;
+        int radius = 2;
+        for (int x = -radius; x <= radius; x++) {
+            for (int z = -radius; z <= radius; z++) {
+                if(x == 0 && z == 0) continue;
+
                 mutableBlockPosNeighbors.setPos(mutableBlockPos).move(x, 0, z);
                 BlockState neighborBlock = world.getBlockState(mutableBlockPosNeighbors);
                 // Do not use .isSolid check because Glowdust Sand is marked notSolid (cause it uses Glowstone properties)
                 if (neighborBlock.matchesBlock(IEBlocks.GLOWDUST_SAND.get())) {
-                    return true;
+                    glowdustSandCount++;
                 }
             }
         }
-        return false;
+        // changes the shape and height of layers. Modify the algorithm for neat effects
+
+        // change radius to 1 and use this version for only 1 layer high glowdust layer right next to ledges
+        //return Math.min(glowdustSandCount, 1);
+
+        // change radius to 2 and use this version for 2x2 barely sloping dust that looks neat
+        return Math.min((int)Math.ceil((glowdustSandCount) / 6D), 8);
     }
 }
