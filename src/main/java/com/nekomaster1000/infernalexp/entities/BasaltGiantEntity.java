@@ -67,7 +67,6 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
 
 	public BasaltGiantEntity(EntityType<? extends BasaltGiantEntity> type, World worldIn) {
 		super(type, worldIn);
-
 		this.stepHeight = 2.0f;
 	}
 
@@ -239,7 +238,7 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
 	// EXP POINTS
 	@Override
 	protected int getExperiencePoints(PlayerEntity player) {
-		return 2 + this.world.rand.nextInt(2);
+		return 73;
 	}
 
 	// SOUNDS
