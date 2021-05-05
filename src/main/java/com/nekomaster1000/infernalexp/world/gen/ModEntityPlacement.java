@@ -11,6 +11,7 @@ import com.nekomaster1000.infernalexp.entities.SkeletalPiglinEntity;
 import com.nekomaster1000.infernalexp.entities.VolineEntity;
 import com.nekomaster1000.infernalexp.entities.WarpbeetleEntity;
 import com.nekomaster1000.infernalexp.init.IEEntityTypes;
+
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.world.gen.Heightmap;
 

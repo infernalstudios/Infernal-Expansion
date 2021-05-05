@@ -5,7 +5,9 @@ import java.util.Random;
 import java.util.function.Function;
 
 import com.google.common.collect.ImmutableSet;
+
 import com.mojang.serialization.Codec;
+
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 
 import net.minecraft.block.Blocks;

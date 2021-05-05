@@ -1,0 +1,32 @@
+{
+  "parent": "infernalexp:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:crafting/crafting_shaped/soul_slate_pressure_plate"
+    ]
+  },
+  "criteria": {
+    "has_soul_slate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "infernalexp:soul_slate"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:crafting/crafting_shaped/soul_slate_pressure_plate"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_soul_slate",
+      "has_the_recipe"
+    ]
+  ]
+}

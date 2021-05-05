@@ -1,6 +1,7 @@
 package com.nekomaster1000.infernalexp.client.entity.render;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.client.entity.model.ShroomloinModel;
 import com.nekomaster1000.infernalexp.entities.ShroomloinEntity;
@@ -11,8 +12,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 
 public class ShroomloinRenderer extends MobRenderer<ShroomloinEntity, ShroomloinModel<ShroomloinEntity>> {
-
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity" + "/shroomloin.png");
+    protected static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID,
+        "textures/entity/shroomloin.png");
 
     public ShroomloinRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new ShroomloinModel<>(), 0.7f);

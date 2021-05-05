@@ -12,7 +12,9 @@ import com.nekomaster1000.infernalexp.entities.SkeletalPiglinEntity;
 import com.nekomaster1000.infernalexp.entities.VolineEntity;
 import com.nekomaster1000.infernalexp.entities.WarpbeetleEntity;
 import com.nekomaster1000.infernalexp.init.IEEntityTypes;
+
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
+
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;

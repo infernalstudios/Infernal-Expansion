@@ -1,6 +1,7 @@
 package com.nekomaster1000.infernalexp.blocks;
 
 import com.nekomaster1000.infernalexp.entities.BlindsightEntity;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;

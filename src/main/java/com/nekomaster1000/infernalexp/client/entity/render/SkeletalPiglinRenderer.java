@@ -10,8 +10,8 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.util.ResourceLocation;
 
 public class SkeletalPiglinRenderer extends BipedRenderer<SkeletalPiglinEntity, SkeletalPiglinModel<SkeletalPiglinEntity>> {
-
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/skeletal_piglin.png");
+    protected static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID,
+        "textures/entity/skeletal_piglin.png");
 
     public SkeletalPiglinRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new SkeletalPiglinModel<>(), 0.7f);

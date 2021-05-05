@@ -3,11 +3,13 @@ package com.nekomaster1000.infernalexp.client;
 import com.nekomaster1000.infernalexp.access.AbstractArrowEntityAccess;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.init.IEEffects;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.math.BlockPos;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

@@ -1,0 +1,76 @@
+{
+  "parent": "infernalexp:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:crafting/crafting_shaped/blindsight_tongue_stew"
+    ]
+  },
+  "criteria": {
+    "has_bowl": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:bowl"
+          }
+        ]
+      }
+    },
+    "has_luminous_fungus": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "infernalexp:luminous_fungus"
+          }
+        ]
+      }
+    },
+    "has_tongue": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "infernalexp:blindsight_tongue"
+          }
+        ]
+      }
+    },
+    "has_crimson_fungus": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:crimson_fungus"
+          }
+        ]
+      }
+    },
+    "has_warped_fungus": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:warped_fungus"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:crafting/crafting_shaped/blindsight_tongue_stew"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_bowl",
+      "has_crimson_fungus",
+      "has_warped_fungus",
+      "has_the_recipe",
+      "has_tongue",
+      "has_luminous_fungus"
+    ]
+  ]
+}

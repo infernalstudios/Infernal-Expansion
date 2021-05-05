@@ -1,0 +1,32 @@
+{
+  "parent": "infernalexp:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:crafting/crafting_shaped/cured_jerky"
+    ]
+  },
+  "criteria": {
+    "has_soul_salt_clump": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "infernalexp:soul_salt_clump"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:crafting/crafting_shaped/cured_jerky"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_soul_salt_clump",
+      "has_the_recipe"
+    ]
+  ]
+}

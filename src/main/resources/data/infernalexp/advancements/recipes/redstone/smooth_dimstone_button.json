@@ -1,0 +1,32 @@
+{
+  "parent": "infernalexp:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:crafting/crafting_shapeless/smooth_dimstone_button"
+    ]
+  },
+  "criteria": {
+    "has_smooth_dimstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "infernalexp:smooth_dimstone"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:crafting/crafting_shapeless/smooth_dimstone_button"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_smooth_dimstone",
+      "has_the_recipe"
+    ]
+  ]
+}

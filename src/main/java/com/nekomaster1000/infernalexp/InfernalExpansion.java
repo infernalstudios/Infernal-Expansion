@@ -28,6 +28,7 @@ import com.nekomaster1000.infernalexp.util.CompatibilityQuark;
 import com.nekomaster1000.infernalexp.util.ModSpawnEggItem;
 import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeProvider;
 import com.nekomaster1000.infernalexp.world.gen.ModEntityPlacement;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.DispenserBlock;
@@ -42,11 +43,10 @@ import net.minecraft.potion.PotionUtils;
 import net.minecraft.potion.Potions;
 import net.minecraft.resources.ResourcePackType;
 import net.minecraft.resources.SimpleReloadableResourceManager;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.carver.WorldCarver;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
@@ -61,6 +61,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

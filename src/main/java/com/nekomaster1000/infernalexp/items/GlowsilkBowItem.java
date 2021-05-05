@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.items;
 
 import com.nekomaster1000.infernalexp.access.AbstractArrowEntityAccess;
 import com.nekomaster1000.infernalexp.init.IEEffects;
+
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;

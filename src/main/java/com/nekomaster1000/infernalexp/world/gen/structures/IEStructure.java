@@ -1,7 +1,9 @@
 package com.nekomaster1000.infernalexp.world.gen.structures;
 
 import com.mojang.serialization.Codec;
+
 import com.nekomaster1000.infernalexp.init.IEBlocks;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;

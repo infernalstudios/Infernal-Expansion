@@ -11,6 +11,7 @@ import com.nekomaster1000.infernalexp.items.ItemBase;
 import com.nekomaster1000.infernalexp.items.SlurpSoupItem;
 import com.nekomaster1000.infernalexp.items.WhipItem;
 import com.nekomaster1000.infernalexp.util.ModSpawnEggItem;
+
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BowItem;

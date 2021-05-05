@@ -1,16 +1,14 @@
 package com.nekomaster1000.infernalexp.world.gen.surfacebuilders;
 
 import com.mojang.serialization.Codec;
-import com.nekomaster1000.infernalexp.InfernalExpansion;
+
 import com.nekomaster1000.infernalexp.init.IEBlocks;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunk;
-import net.minecraft.world.gen.NoiseChunkGenerator;
-import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 

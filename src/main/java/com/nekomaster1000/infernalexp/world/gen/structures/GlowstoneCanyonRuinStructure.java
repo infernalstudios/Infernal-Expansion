@@ -1,7 +1,9 @@
 package com.nekomaster1000.infernalexp.world.gen.structures;
 
 import com.mojang.serialization.Codec;
+
 import com.nekomaster1000.infernalexp.InfernalExpansion;
+
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
