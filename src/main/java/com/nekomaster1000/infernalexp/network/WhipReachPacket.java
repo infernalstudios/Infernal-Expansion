@@ -8,6 +8,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
+
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.fml.network.NetworkEvent;
 

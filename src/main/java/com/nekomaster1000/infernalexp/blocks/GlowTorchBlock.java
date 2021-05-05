@@ -1,6 +1,7 @@
 package com.nekomaster1000.infernalexp.blocks;
 
 import com.nekomaster1000.infernalexp.init.IEParticleTypes;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.block.TorchBlock;
 import net.minecraft.particles.ParticleTypes;

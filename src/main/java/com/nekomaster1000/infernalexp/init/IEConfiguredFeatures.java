@@ -1,8 +1,10 @@
 package com.nekomaster1000.infernalexp.init;
 
 import com.google.common.collect.ImmutableSet;
+
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.world.gen.features.config.GlowSpikeFeatureConfig;
+
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.util.ResourceLocation;

@@ -4,8 +4,10 @@ import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.config.gui.widgets.TextFieldOption;
 import com.nekomaster1000.infernalexp.config.gui.widgets.TitleOption;
+
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.text.TranslationTextComponent;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

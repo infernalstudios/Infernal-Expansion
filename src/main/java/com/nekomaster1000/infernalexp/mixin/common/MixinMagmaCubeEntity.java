@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.mixin.common;
 
 import com.nekomaster1000.infernalexp.init.IEItems;
 import com.nekomaster1000.infernalexp.util.IBucketable;
+
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SpawnReason;

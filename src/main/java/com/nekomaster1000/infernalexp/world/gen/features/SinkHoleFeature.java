@@ -1,8 +1,10 @@
 package com.nekomaster1000.infernalexp.world.gen.features;
 
 import com.mojang.serialization.Codec;
+
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.util.ShapeUtil;
+
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;

@@ -4,6 +4,7 @@ import com.nekomaster1000.infernalexp.init.IEEntityTypes;
 import com.nekomaster1000.infernalexp.init.IEItems;
 import com.nekomaster1000.infernalexp.network.IENetworkHandler;
 import com.nekomaster1000.infernalexp.network.SpawnInfernalPaintingPacket;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.PaintingEntity;
@@ -15,6 +16,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkDirection;

@@ -1,6 +1,7 @@
 package com.nekomaster1000.infernalexp.effects;
 
 import com.nekomaster1000.infernalexp.init.IEEffects;
+
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;

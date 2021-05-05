@@ -1,8 +1,10 @@
 package com.nekomaster1000.infernalexp.client.entity.model;
 
 import com.google.common.collect.ImmutableList;
+
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import com.nekomaster1000.infernalexp.entities.BlackstoneDwarfEntity;
 
 import net.minecraft.client.renderer.entity.model.SegmentedModel;
