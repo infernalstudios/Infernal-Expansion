@@ -31,6 +31,7 @@ public class IEConfiguredFeatures {
 
     public static final RuleTest BASALT = new BlockMatchRuleTest(Blocks.BASALT);
 
+    public static ConfiguredFeature<?, ?> GLOWDUST_LAYER = registerConfiguredFeature("glowdust_layer", IEFeatures.GLOWDUST_LAYER.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
     public static ConfiguredFeature<?, ?> GLOWSPIKE = registerConfiguredFeature("glowspike", IEFeatures.GLOWSPIKE.withConfiguration(new GlowSpikeFeatureConfig(3, 5, 8, 24, 7, 7, 0.3f, true)).withPlacement(Features.Placements.PATCH_PLACEMENT.count(30)));
     public static ConfiguredFeature<?, ?> GLOWSPIKELARGE = registerConfiguredFeature("glowspikelarge", IEFeatures.GLOWSPIKE.withConfiguration(new GlowSpikeFeatureConfig(4, 7, 12, 98, 12, 12, 0.2f, false)).withPlacement(Features.Placements.PATCH_PLACEMENT.count(30)));
     public static ConfiguredFeature<?, ?> DULLTHORN_TREE_PLANTED = registerConfiguredFeature("dullthorn_tree_planted", Feature.HUGE_FUNGUS.withConfiguration(new HugeFungusConfig(IEBlocks.GLOWDUST_SAND.get().getDefaultState(), IEBlocks.DULLTHORNS_BLOCK.get().getDefaultState(), IEBlocks.LUMINOUS_WART_BLOCK.get().getDefaultState(), IEBlocks.LUMINOUS_WART_BLOCK.get().getDefaultState(), true)));
