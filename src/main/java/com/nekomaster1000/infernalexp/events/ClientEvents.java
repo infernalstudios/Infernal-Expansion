@@ -1,4 +1,4 @@
-package com.nekomaster1000.infernalexp.util;
+package com.nekomaster1000.infernalexp.events;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.client.entity.render.BasaltGiantRenderer;
@@ -16,6 +16,8 @@ import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IEEntityTypes;
 import com.nekomaster1000.infernalexp.init.IETileEntityTypes;
 import com.nekomaster1000.infernalexp.tileentities.renderer.GlowCampfireTileEntityRenderer;
+import com.nekomaster1000.infernalexp.util.ModSpawnEggItem;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
@@ -31,7 +33,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 @Mod.EventBusSubscriber(modid = InfernalExpansion.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-public class ClientEventBusSubscriber {
+public class ClientEvents {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.VOLINE.get(), VolineRenderer::new);
