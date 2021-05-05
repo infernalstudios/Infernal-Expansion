@@ -11,6 +11,7 @@ import com.nekomaster1000.infernalexp.items.ItemBase;
 import com.nekomaster1000.infernalexp.items.SlurpSoupItem;
 import com.nekomaster1000.infernalexp.items.WhipItem;
 import com.nekomaster1000.infernalexp.util.ModSpawnEggItem;
+
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BowItem;
@@ -64,12 +65,6 @@ public class IEItems {
 
 	public static final RegistryObject<Item> COOKED_HOGCHOP = ITEMS.register("cooked_hogchop", () -> new Item(new Item.Properties().group(InfernalExpansion.TAB)
                     .food(new Food.Builder().hunger(10).saturation(0.8F).meat().build())));
-
-    public static final RegistryObject<Item> SPIRIT_EYE = ITEMS.register("spirit_eye", () -> new Item(new Item.Properties().group(InfernalExpansion.TAB)
-        .food(new Food.Builder().setAlwaysEdible().hunger(1).saturation(0.1F)
-            .effect(() ->
-                new EffectInstance(Effects.GLOWING, 100, 0), 1.0F).meat()
-            .build())));
 
 
 	// Spawn Eggs
