@@ -32,7 +32,7 @@ public class VerticalSlabBlock extends Block implements IWaterLoggable {
 
     public VerticalSlabBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(TYPE, VerticalSlabType.NORTH).with(WATERLOGGED, false));
+        this.setDefaultState(this.getDefaultState().with(TYPE, VerticalSlabType.NORTH).with(WATERLOGGED, false));
     }
 
     @Override

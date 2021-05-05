@@ -68,7 +68,7 @@ public class GlowCampfireBlock extends ContainerBlock implements IWaterLoggable 
         super(properties);
         this.smokey = smokey;
         this.fireDamage = fireDamage;
-        this.setDefaultState(this.stateContainer.getBaseState().with(LIT, Boolean.valueOf(true)).with(SIGNAL_FIRE, Boolean.valueOf(false)).with(WATERLOGGED, Boolean.valueOf(false)).with(FACING, Direction.NORTH));
+        this.setDefaultState(this.getDefaultState().with(LIT, Boolean.valueOf(true)).with(SIGNAL_FIRE, Boolean.valueOf(false)).with(WATERLOGGED, Boolean.valueOf(false)).with(FACING, Direction.NORTH));
     }
 
     @Nonnull

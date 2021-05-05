@@ -29,7 +29,7 @@ public class BuriedBoneBlock extends HorizontalBushBlock {
 
     public BuriedBoneBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(FACE, AttachFace.FLOOR));
+        this.setDefaultState(this.getDefaultState().with(FACE, AttachFace.FLOOR));
     }
 
     @CheckForNull
