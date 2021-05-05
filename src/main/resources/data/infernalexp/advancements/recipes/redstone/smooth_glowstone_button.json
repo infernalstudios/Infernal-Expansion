@@ -1,0 +1,32 @@
+{
+  "parent": "infernalexp:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:crafting/crafting_shapeless/smooth_glowstone_button"
+    ]
+  },
+  "criteria": {
+    "has_smooth_glowstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "infernalexp:smooth_glowstone"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:crafting/crafting_shapeless/smooth_glowstone_button"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_smooth_glowstone",
+      "has_the_recipe"
+    ]
+  ]
+}
