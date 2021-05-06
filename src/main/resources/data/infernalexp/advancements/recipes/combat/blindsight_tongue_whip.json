@@ -1,0 +1,32 @@
+{
+  "parent": "infernalexp:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:crafting/crafting_shaped/blindsight_tongue_whip"
+    ]
+  },
+  "criteria": {
+    "has_molten_gold_cluster": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "infernalexp:molten_gold_cluster"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:crafting/crafting_shaped/blindsight_tongue_whip"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_molten_gold_cluster",
+      "has_the_recipe"
+    ]
+  ]
+}

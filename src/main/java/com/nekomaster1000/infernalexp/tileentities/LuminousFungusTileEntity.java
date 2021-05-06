@@ -3,6 +3,7 @@ package com.nekomaster1000.infernalexp.tileentities;
 import com.nekomaster1000.infernalexp.blocks.LuminousFungusBlock;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.init.IETileEntityTypes;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;

@@ -1,6 +1,7 @@
 package com.nekomaster1000.infernalexp.items;
 
 import com.nekomaster1000.infernalexp.entities.InfernalPaintingEntity;
+
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.HangingEntityItem;
 import net.minecraft.item.ItemUseContext;

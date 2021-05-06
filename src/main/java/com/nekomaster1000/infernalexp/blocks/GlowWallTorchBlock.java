@@ -1,12 +1,14 @@
 package com.nekomaster1000.infernalexp.blocks;
 
 import com.nekomaster1000.infernalexp.init.IEParticleTypes;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.block.WallTorchBlock;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

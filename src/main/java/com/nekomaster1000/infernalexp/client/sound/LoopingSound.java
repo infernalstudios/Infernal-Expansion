@@ -5,6 +5,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -25,9 +26,9 @@ public abstract class LoopingSound<E extends Entity> extends TickableSound {
 
 	public void tick() {
 		if (this.entity.isAlive()) {
-			this.x = (double) ((float) this.entity.getPosX());
-			this.y = (double) ((float) this.entity.getPosY());
-			this.z = (double) ((float) this.entity.getPosZ());
+			this.x = (float) this.entity.getPosX();
+			this.y = (float) this.entity.getPosY();
+			this.z = (float) this.entity.getPosZ();
 			float f = MathHelper.sqrt(Entity.horizontalMag(this.entity.getMotion()));
 			if ((double) f >= 0.01D) {
 				this.pitch = MathHelper.lerp(MathHelper.clamp(f, this.getMinPitch(), this.getMaxPitch()), this.getMinPitch(), this.getMaxPitch());

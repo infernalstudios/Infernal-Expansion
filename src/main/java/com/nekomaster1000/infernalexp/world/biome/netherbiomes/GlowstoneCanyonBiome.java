@@ -8,6 +8,7 @@ import com.nekomaster1000.infernalexp.init.IESoundEvents;
 import com.nekomaster1000.infernalexp.init.IESurfaceBuilders;
 import com.nekomaster1000.infernalexp.world.biome.BiomeHelper;
 import com.nekomaster1000.infernalexp.world.biome.ModBiome;
+
 import net.minecraft.client.audio.BackgroundMusicTracks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -73,6 +74,7 @@ public class GlowstoneCanyonBiome extends ModBiome {
         generation.withStructure(StructureFeatures.RUINED_PORTAL_NETHER);
         generation.withStructure(StructureFeatures.FORTRESS);
         generation.withStructure(IEConfiguredStructures.GLOWSTONE_CANYON_RUIN);
+        generation.withStructure(IEConfiguredStructures.BASTION_OUTPOST);
 		generation.withCarver(GenerationStage.Carving.AIR, ConfiguredCarvers.NETHER_CAVE);
         //generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.DELTA);
         generation.withCarver(GenerationStage.Carving.AIR, IECarvers.CONFIGURED_GLOWSTONE_RAVINE);

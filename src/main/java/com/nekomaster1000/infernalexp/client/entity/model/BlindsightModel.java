@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.client.entity.model;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import com.nekomaster1000.infernalexp.entities.BlindsightEntity;
 
 import net.minecraft.client.renderer.entity.model.EntityModel;
@@ -30,44 +31,45 @@ public class BlindsightModel<T extends BlindsightEntity> extends EntityModel<T> 
         Body = new ModelRenderer(this);
         Body.setRotationPoint(0.0F, -4.0F, 7.0F);
         all.addChild(Body);
-		
 
-		Head = new ModelRenderer(this);
-		Head.setRotationPoint(0.0F, 0.0F, 0.0F);
-		Body.addChild(Head);
-		Head.setTextureOffset(0, 0).addBox(-8.0F, -8.0F, -12.0F, 16.0F, 8.0F, 12.0F, 0.0F, false);
 
-		MouthRoof = new ModelRenderer(this);
-		MouthRoof.setRotationPoint(0.0F, 6.0F, -8.0F);
-		Head.addChild(MouthRoof);
-		setRotationAngle(MouthRoof, -1.5708F, 0.0F, 0.0F);
-		MouthRoof.setTextureOffset(0, 41).addBox(-8.0F, -8.0F, -7.0F, 16.0F, 12.0F, 0.0F, 0.0F, false);
+        Head = new ModelRenderer(this);
+        Head.setRotationPoint(0.0F, 0.0F, 0.0F);
+        Body.addChild(Head);
+        setRotationAngle(Head, -0.3927F, 0.0F, 0.0F);
+        Head.setTextureOffset(0, 0).addBox(-8.0F, -8.0F, -12.0F, 16.0F, 8.0F, 12.0F, 0.0F, false);
 
-		LowerJaw = new ModelRenderer(this);
-		LowerJaw.setRotationPoint(0.0F, 0.0F, 0.0F);
-		Body.addChild(LowerJaw);
-		LowerJaw.setTextureOffset(0, 20).addBox(-8.0F, -1.0F, -12.0F, 16.0F, 3.0F, 12.0F, 0.0F, false);
-		LowerJaw.setTextureOffset(4, 41).addBox(-8.0F, 0.0F, -12.0F, 16.0F, 0.0F, 12.0F, 0.0F, false);
+        MouthRoof = new ModelRenderer(this);
+        MouthRoof.setRotationPoint(0.0F, 6.0F, -8.0F);
+        Head.addChild(MouthRoof);
+        setRotationAngle(MouthRoof, -1.5708F, 0.0F, 0.0F);
+        MouthRoof.setTextureOffset(32, 41).addBox(-8.0F, -8.0F, -7.0F, 16.0F, 12.0F, 0.0F, 0.0F, false);
 
-		FrontLeftLeg = new ModelRenderer(this);
-		FrontLeftLeg.setRotationPoint(6.0F, -2.0F, -3.0F);
-		all.addChild(FrontLeftLeg);
-		FrontLeftLeg.setTextureOffset(0, 35).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 2.0F, 2.0F, 0.0F, false);
+        LowerJaw = new ModelRenderer(this);
+        LowerJaw.setRotationPoint(0.0F, 0.0F, 0.0F);
+        Body.addChild(LowerJaw);
+        LowerJaw.setTextureOffset(0, 20).addBox(-8.0F, -1.0F, -12.0F, 16.0F, 3.0F, 12.0F, 0.0F, false);
+        LowerJaw.setTextureOffset(4, 41).addBox(-8.0F, 0.0F, -12.0F, 16.0F, 0.0F, 12.0F, 0.0F, false);
 
-		FrontRightLeg = new ModelRenderer(this);
-		FrontRightLeg.setRotationPoint(-6.0F, -2.0F, -3.0F);
-		all.addChild(FrontRightLeg);
-		FrontRightLeg.setTextureOffset(8, 35).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 2.0F, 2.0F, 0.0F, false);
+        FrontLeftLeg = new ModelRenderer(this);
+        FrontLeftLeg.setRotationPoint(6.0F, -2.0F, -3.0F);
+        all.addChild(FrontLeftLeg);
+        FrontLeftLeg.setTextureOffset(0, 35).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 2.0F, 2.0F, 0.001F, false);
 
-		BackLeftLeg = new ModelRenderer(this);
-		BackLeftLeg.setRotationPoint(7.0F, -2.0F, 5.0F);
-		all.addChild(BackLeftLeg);
-		BackLeftLeg.setTextureOffset(44, 56).addBox(-1.0F, 0.0F, -5.0F, 4.0F, 2.0F, 6.0F, 0.0F, true);
+        FrontRightLeg = new ModelRenderer(this);
+        FrontRightLeg.setRotationPoint(-6.0F, -2.0F, -3.0F);
+        all.addChild(FrontRightLeg);
+        FrontRightLeg.setTextureOffset(8, 35).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 2.0F, 2.0F, 0.001F, false);
 
-		BackRightLeg = new ModelRenderer(this);
-		BackRightLeg.setRotationPoint(-7.0F, -2.0F, 5.0F);
-		all.addChild(BackRightLeg);
-		BackRightLeg.setTextureOffset(44, 56).addBox(-3.0F, 0.0F, -5.0F, 4.0F, 2.0F, 6.0F, 0.0F, false);
+        BackLeftLeg = new ModelRenderer(this);
+        BackLeftLeg.setRotationPoint(7.0F, -2.0F, 5.0F);
+        all.addChild(BackLeftLeg);
+        BackLeftLeg.setTextureOffset(44, 56).addBox(-1.0F, 0.0F, -5.0F, 4.0F, 2.0F, 6.0F, 0.001F, true);
+
+        BackRightLeg = new ModelRenderer(this);
+        BackRightLeg.setRotationPoint(-7.0F, -2.0F, 5.0F);
+        all.addChild(BackRightLeg);
+        BackRightLeg.setTextureOffset(44, 56).addBox(-3.0F, 0.0F, -5.0F, 4.0F, 2.0F, 6.0F, 0.001F, false);
 	}
 
 	@Override

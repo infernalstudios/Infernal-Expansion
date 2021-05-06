@@ -1,6 +1,7 @@
 package com.nekomaster1000.infernalexp.blocks;
 
 import com.nekomaster1000.infernalexp.tileentities.GlowCampfireTileEntity;
+
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -46,6 +47,7 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -68,7 +70,7 @@ public class GlowCampfireBlock extends ContainerBlock implements IWaterLoggable 
         super(properties);
         this.smokey = smokey;
         this.fireDamage = fireDamage;
-        this.setDefaultState(this.getDefaultState().with(LIT, Boolean.valueOf(true)).with(SIGNAL_FIRE, Boolean.valueOf(false)).with(WATERLOGGED, Boolean.valueOf(false)).with(FACING, Direction.NORTH));
+        this.setDefaultState(this.getDefaultState().with(LIT, Boolean.TRUE).with(SIGNAL_FIRE, Boolean.FALSE).with(WATERLOGGED, Boolean.FALSE).with(FACING, Direction.NORTH));
     }
 
     @Nonnull

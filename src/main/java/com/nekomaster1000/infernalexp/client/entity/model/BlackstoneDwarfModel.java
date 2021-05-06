@@ -1,8 +1,10 @@
 package com.nekomaster1000.infernalexp.client.entity.model;
 
 import com.google.common.collect.ImmutableList;
+
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import com.nekomaster1000.infernalexp.entities.BlackstoneDwarfEntity;
 
 import net.minecraft.client.renderer.entity.model.SegmentedModel;
@@ -28,90 +30,90 @@ public class BlackstoneDwarfModel<T extends BlackstoneDwarfEntity> extends Segme
         private final ModelRenderer RightLegJoint;
 
         public BlackstoneDwarfModel() {
-			textureWidth = 128;
-			textureHeight = 128;
+            textureWidth = 128;
+            textureHeight = 128;
 
-			Body = new ModelRenderer(this);
-			Body.setRotationPoint(0.0F, 24.0F, -4.0F);
+            Body = new ModelRenderer(this);
+            Body.setRotationPoint(0.0F, 24.0F, -4.0F);
 
 
-			Torso = new ModelRenderer(this);
-			Torso.setRotationPoint(0.0F, -36.0F, 4.0F);
-			Body.addChild(Torso);
-			Torso.setTextureOffset(0, 50).addBox(-9.0F, 3.0F, -4.0F, 18.0F, 15.0F, 8.0F, 0.0F, false);
+            Torso = new ModelRenderer(this);
+            Torso.setRotationPoint(0.0F, -36.0F, 4.0F);
+            Body.addChild(Torso);
+            Torso.setTextureOffset(0, 50).addBox(-9.0F, 3.0F, -4.0F, 18.0F, 15.0F, 8.0F, 0.0F, false);
 
-			Torso2 = new ModelRenderer(this);
-			Torso2.setRotationPoint(0.0F, 7.0F, -1.0F);
-			Torso.addChild(Torso2);
-			Torso2.setTextureOffset(0, 0).addBox(-10.0F, -17.0F, -7.0F, 20.0F, 17.0F, 14.0F, 0.0F, false);
+            Torso2 = new ModelRenderer(this);
+            Torso2.setRotationPoint(0.0F, 7.0F, -1.0F);
+            Torso.addChild(Torso2);
+            Torso2.setTextureOffset(0, 0).addBox(-10.0F, -17.0F, -7.0F, 20.0F, 17.0F, 14.0F, 0.0F, false);
 
-			Head = new ModelRenderer(this);
-			Head.setRotationPoint(0.0F, -6.0F, -7.0F);
-			Torso2.addChild(Head);
-			Head.setTextureOffset(0, 73).addBox(-7.0F, -5.0F, -12.0F, 13.0F, 10.0F, 12.0F, 0.01F, false);
-			Head.setTextureOffset(0, 13).addBox(-3.0F, 2.0F, -13.0F, 5.0F, 3.0F, 1.0F, 0.01F, false);
+            Head = new ModelRenderer(this);
+            Head.setRotationPoint(0.0F, -6.0F, -7.0F);
+            Torso2.addChild(Head);
+            Head.setTextureOffset(0, 73).addBox(-7.0F, -5.0F, -12.0F, 13.0F, 10.0F, 12.0F, 0.01F, false);
+            Head.setTextureOffset(0, 0).addBox(-3.0F, 2.0F, -13.0F, 5.0F, 3.0F, 1.0F, 0.01F, false);
 
-			LeftEar = new ModelRenderer(this);
-			LeftEar.setRotationPoint(5.0F, -3.0F, -6.0F);
-			Head.addChild(LeftEar);
-			setRotationAngle(LeftEar, 0.0F, 0.0F, -0.3927F);
-			LeftEar.setTextureOffset(87, 9).addBox(0.0F, 0.0F, -6.0F, 2.0F, 10.0F, 12.0F, 0.0F, false);
+            LeftEar = new ModelRenderer(this);
+            LeftEar.setRotationPoint(5.0F, -3.0F, -6.0F);
+            Head.addChild(LeftEar);
+            setRotationAngle(LeftEar, 0.0F, 0.0F, -0.3927F);
+            LeftEar.setTextureOffset(100, 0).addBox(0.0F, 0.0F, -6.0F, 2.0F, 10.0F, 12.0F, 0.0F, false);
 
-			RightEar = new ModelRenderer(this);
-			RightEar.setRotationPoint(-6.0F, -3.0F, -6.0F);
-			Head.addChild(RightEar);
-			setRotationAngle(RightEar, 0.0F, 0.0F, 0.3927F);
-			RightEar.setTextureOffset(87, 9).addBox(-2.0F, 0.0F, -6.0F, 2.0F, 10.0F, 12.0F, 0.0F, true);
+            RightEar = new ModelRenderer(this);
+            RightEar.setRotationPoint(-6.0F, -3.0F, -6.0F);
+            Head.addChild(RightEar);
+            setRotationAngle(RightEar, 0.0F, 0.0F, 0.3927F);
+            RightEar.setTextureOffset(100, 0).addBox(-2.0F, 0.0F, -6.0F, 2.0F, 10.0F, 12.0F, 0.0F, true);
 
-			Jaw = new ModelRenderer(this);
-			Jaw.setRotationPoint(0.0F, 5.0F, 0.0F);
-			Head.addChild(Jaw);
-			Jaw.setTextureOffset(11, 102).addBox(-9.0F, -6.0F, -14.0F, 2.0F, 6.0F, 2.0F, 0.0F, false);
-			Jaw.setTextureOffset(0, 119).addBox(6.0F, -6.0F, -14.0F, 2.0F, 6.0F, 2.0F, 0.0F, false);
-			Jaw.setTextureOffset(0, 31).addBox(-9.0F, 0.0F, -14.0F, 17.0F, 5.0F, 14.0F, 0.0F, false);
+            Jaw = new ModelRenderer(this);
+            Jaw.setRotationPoint(0.0F, 5.0F, 0.0F);
+            Head.addChild(Jaw);
+            Jaw.setTextureOffset(11, 102).addBox(-9.0F, -6.0F, -14.0F, 2.0F, 6.0F, 2.0F, 0.0F, false);
+            Jaw.setTextureOffset(0, 119).addBox(6.0F, -6.0F, -14.0F, 2.0F, 6.0F, 2.0F, 0.0F, false);
+            Jaw.setTextureOffset(0, 31).addBox(-9.0F, 0.0F, -14.0F, 17.0F, 5.0F, 14.0F, 0.0F, false);
 
-			LeftArm = new ModelRenderer(this);
-			LeftArm.setRotationPoint(12.0F, -11.0F, -1.0F);
-			Torso2.addChild(LeftArm);
-			LeftArm.setTextureOffset(55, 64).addBox(-2.0F, -4.0F, -3.0F, 6.0F, 17.0F, 6.0F, 0.0F, false);
+            LeftArm = new ModelRenderer(this);
+            LeftArm.setRotationPoint(12.0F, -11.0F, -1.0F);
+            Torso2.addChild(LeftArm);
+            LeftArm.setTextureOffset(74, 0).addBox(-2.0F, -4.0F, -3.0F, 6.0F, 17.0F, 6.0F, 0.0F, false);
 
-			LeftArmJoint = new ModelRenderer(this);
-			LeftArmJoint.setRotationPoint(1.0F, 14.0F, 0.0F);
-			LeftArm.addChild(LeftArmJoint);
-			LeftArmJoint.setTextureOffset(51, 88).addBox(-4.0F, -2.0F, -4.0F, 8.0F, 11.0F, 8.0F, 0.0F, false);
-			LeftArmJoint.setTextureOffset(47, 108).addBox(-5.0F, 9.0F, -5.0F, 10.0F, 10.0F, 10.0F, 0.0F, false);
+            LeftArmJoint = new ModelRenderer(this);
+            LeftArmJoint.setRotationPoint(1.0F, 14.0F, 0.0F);
+            LeftArm.addChild(LeftArmJoint);
+            LeftArmJoint.setTextureOffset(70, 24).addBox(-4.0F, -2.0F, -4.0F, 8.0F, 11.0F, 8.0F, 0.0F, false);
+            LeftArmJoint.setTextureOffset(66, 44).addBox(-5.0F, 9.0F, -5.0F, 10.0F, 10.0F, 10.0F, 0.0F, false);
 
-			RightArm = new ModelRenderer(this);
-			RightArm.setRotationPoint(-13.0F, -11.0F, -0.9F);
-			Torso2.addChild(RightArm);
-			RightArm.setTextureOffset(55, 64).addBox(-3.0F, -4.0F, -3.1F, 6.0F, 17.0F, 6.0F, 0.0F, false);
+            RightArm = new ModelRenderer(this);
+            RightArm.setRotationPoint(-13.0F, -11.0F, -0.9F);
+            Torso2.addChild(RightArm);
+            RightArm.setTextureOffset(55, 64).addBox(-3.0F, -4.0F, -3.1F, 6.0F, 17.0F, 6.0F, 0.0F, false);
 
-			RightArmJoint = new ModelRenderer(this);
-			RightArmJoint.setRotationPoint(0.0F, 14.0F, 0.0F);
-			RightArm.addChild(RightArmJoint);
-			RightArmJoint.setTextureOffset(51, 88).addBox(-4.0F, -2.0F, -4.1F, 8.0F, 11.0F, 8.0F, 0.0F, false);
-			RightArmJoint.setTextureOffset(47, 108).addBox(-5.0F, 9.0F, -5.1F, 10.0F, 10.0F, 10.0F, 0.0F, false);
+            RightArmJoint = new ModelRenderer(this);
+            RightArmJoint.setRotationPoint(0.0F, 14.0F, 0.0F);
+            RightArm.addChild(RightArmJoint);
+            RightArmJoint.setTextureOffset(51, 88).addBox(-4.0F, -2.0F, -4.1F, 8.0F, 11.0F, 8.0F, 0.0F, false);
+            RightArmJoint.setTextureOffset(47, 108).addBox(-5.0F, 9.0F, -5.1F, 10.0F, 10.0F, 10.0F, 0.0F, false);
 
-			LeftLeg = new ModelRenderer(this);
-			LeftLeg.setRotationPoint(5.0F, -21.0F, 4.0F);
-			Body.addChild(LeftLeg);
-			LeftLeg.setTextureOffset(100, 63).addBox(-3.0F, -2.0F, -3.0F, 6.0F, 18.0F, 6.0F, 0.0F, false);
+            LeftLeg = new ModelRenderer(this);
+            LeftLeg.setRotationPoint(-5.0F, -21.0F, 4.0F);
+            Body.addChild(LeftLeg);
+            LeftLeg.setTextureOffset(100, 85).addBox(-3.0F, -2.0F, -3.0F, 6.0F, 18.0F, 6.0F, 0.0F, false);
 
-			LeftLegJoint = new ModelRenderer(this);
-			LeftLegJoint.setRotationPoint(0.0F, 12.0F, 0.0F);
-			LeftLeg.addChild(LeftLegJoint);
-			LeftLegJoint.setTextureOffset(96, 88).addBox(-4.0F, -1.0F, -4.0F, 8.0F, 10.0F, 8.0F, 0.0F, false);
+            LeftLegJoint = new ModelRenderer(this);
+            LeftLegJoint.setRotationPoint(0.0F, 12.0F, 0.0F);
+            LeftLeg.addChild(LeftLegJoint);
+            LeftLegJoint.setTextureOffset(96, 110).addBox(-4.0F, -1.0F, -4.0F, 8.0F, 10.0F, 8.0F, 0.0F, false);
 
-			RightLeg = new ModelRenderer(this);
-			RightLeg.setRotationPoint(-5.0F, -21.0F, 4.0F);
-			Body.addChild(RightLeg);
-			RightLeg.setTextureOffset(100, 63).addBox(-3.0F, -2.0F, -3.0F, 6.0F, 18.0F, 6.0F, 0.0F, false);
+            RightLeg = new ModelRenderer(this);
+            RightLeg.setRotationPoint(5.0F, -21.0F, 4.0F);
+            Body.addChild(RightLeg);
+            RightLeg.setTextureOffset(100, 85).addBox(-3.0F, -2.0F, -3.0F, 6.0F, 18.0F, 6.0F, 0.0F, false);
 
-			RightLegJoint = new ModelRenderer(this);
-			RightLegJoint.setRotationPoint(0.0F, 12.0F, 0.0F);
-			RightLeg.addChild(RightLegJoint);
-			RightLegJoint.setTextureOffset(96, 88).addBox(-4.0F, -1.0F, -4.0F, 8.0F, 10.0F, 8.0F, 0.0F, false);
-		}
+            RightLegJoint = new ModelRenderer(this);
+            RightLegJoint.setRotationPoint(0.0F, 12.0F, 0.0F);
+            RightLeg.addChild(RightLegJoint);
+            RightLegJoint.setTextureOffset(96, 110).addBox(-4.0F, -1.0F, -4.0F, 8.0F, 10.0F, 8.0F, 0.0F, false);
+        }
 
     @Override
     public void setRotationAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {

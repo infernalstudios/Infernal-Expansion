@@ -3,6 +3,7 @@ package com.nekomaster1000.infernalexp.entities;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.entities.ai.TeleportPanicGoal;
 import com.nekomaster1000.infernalexp.init.IESoundEvents;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.CreatureEntity;

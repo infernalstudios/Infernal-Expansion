@@ -1,12 +1,14 @@
 package com.nekomaster1000.infernalexp.config.gui.widgets;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.client.GameSettings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.IBidiTooltip;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.text.ITextComponent;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

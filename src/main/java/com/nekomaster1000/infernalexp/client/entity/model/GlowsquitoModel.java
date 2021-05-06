@@ -1,7 +1,9 @@
 package com.nekomaster1000.infernalexp.client.entity.model;
 
 import com.google.common.collect.ImmutableList;
+
 import com.nekomaster1000.infernalexp.entities.GlowsquitoEntity;
+
 import net.minecraft.client.renderer.entity.model.AgeableModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;

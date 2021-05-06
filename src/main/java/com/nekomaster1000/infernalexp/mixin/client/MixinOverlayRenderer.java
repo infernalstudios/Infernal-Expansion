@@ -5,6 +5,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+
 import com.nekomaster1000.infernalexp.access.FireTypeAccess;
 
 import net.minecraft.client.Minecraft;

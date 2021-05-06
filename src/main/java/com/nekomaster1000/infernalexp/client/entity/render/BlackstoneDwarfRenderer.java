@@ -9,8 +9,8 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
 
 public class BlackstoneDwarfRenderer extends MobRenderer<BlackstoneDwarfEntity, BlackstoneDwarfModel<BlackstoneDwarfEntity>> {
-    public static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity" +
-            "/blackstone_dwarf" + ".png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID,
+        "textures/entity/blackstone_dwarf.png");
 
     public BlackstoneDwarfRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new BlackstoneDwarfModel<>(), 0.7f);

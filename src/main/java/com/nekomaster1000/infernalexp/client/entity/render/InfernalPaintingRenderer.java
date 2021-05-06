@@ -2,7 +2,9 @@ package com.nekomaster1000.infernalexp.client.entity.render;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import com.nekomaster1000.infernalexp.InfernalExpansion;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
@@ -13,13 +15,14 @@ import net.minecraft.entity.item.PaintingEntity;
 import net.minecraft.entity.item.PaintingType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3f;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class InfernalPaintingRenderer extends PaintingRenderer {
-
-	public static final ResourceLocation BACK_TEXTURE_ATLAS_LOCATION = new ResourceLocation(InfernalExpansion.MOD_ID, "infernal_back");
+	public static final ResourceLocation BACK_TEXTURE_ATLAS_LOCATION = new ResourceLocation(InfernalExpansion.MOD_ID,
+        "infernal_back");
 
 	public InfernalPaintingRenderer(EntityRendererManager renderManagerIn) {
 		super(renderManagerIn);

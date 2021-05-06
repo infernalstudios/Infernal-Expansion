@@ -4,6 +4,7 @@ import com.nekomaster1000.infernalexp.entities.BlindsightEntity;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IEEffects;
 import com.nekomaster1000.infernalexp.init.IEItems;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -24,6 +25,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.IForgeShearable;
 
@@ -86,26 +88,27 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
     /**
      * Performs a random tick on a block.
      */
-    //I have no idea what overriding does LOL - Neko
-    //Shut up neko - Swan
+
     @Override
     public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
         BlockPos blockpos = pos.up();
         if (worldIn.isAirBlock(blockpos)) {
             int i;
-			for (i = 1; worldIn.getBlockState(pos.down(i)).matchesBlock(this); ++i) {
-			}
+            i = 1;
+            while (worldIn.getBlockState(pos.down(i)).matchesBlock(this)) {
+                ++i;
+            }
 
             if (i < 9) {
                 int j = state.get(AGE);
                 if(net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, blockpos, state, true)) {
                     if (j == 15) {
                         worldIn.setBlockState(blockpos, this.getDefaultState());
-                        BlockState blockstate = state.with(AGE, Integer.valueOf(0));
+                        BlockState blockstate = state.with(AGE, 0);
                         worldIn.setBlockState(pos, blockstate, 4);
                         blockstate.neighborChanged(worldIn, blockpos, this, pos, false);
                     } else {
-                        worldIn.setBlockState(pos, state.with(AGE, Integer.valueOf(j + 1)), 4);
+                        worldIn.setBlockState(pos, state.with(AGE, j + 1), 4);
                     }
                     net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
                 }

@@ -10,7 +10,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class BlindsightRenderer extends MobRenderer<BlindsightEntity, BlindsightModel<BlindsightEntity>> {
 
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/blindsight.png");
+    protected static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID,
+        "textures/entity/blindsight.png");
 
     public BlindsightRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new BlindsightModel<>(), 0.7f);

@@ -3,6 +3,7 @@ package com.nekomaster1000.infernalexp.init;
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.world.biome.netherbiomes.GlowstoneCanyonBiome;
 import net.minecraft.world.biome.Biome;
+
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;

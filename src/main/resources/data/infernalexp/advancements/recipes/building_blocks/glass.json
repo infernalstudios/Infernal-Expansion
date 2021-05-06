@@ -1,0 +1,32 @@
+{
+  "parent": "infernalexp:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:smelting/glass"
+    ]
+  },
+  "criteria": {
+    "has_silt": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "infernalexp:silt"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:smelting/glass"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_silt",
+      "has_the_recipe"
+    ]
+  ]
+}

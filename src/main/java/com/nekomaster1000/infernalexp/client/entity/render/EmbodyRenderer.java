@@ -10,7 +10,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class EmbodyRenderer extends MobRenderer<EmbodyEntity, EmbodyModel<EmbodyEntity>> {
 
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/embody.png");
+    protected static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID,
+        "textures/entity/embody.png");
 
     public EmbodyRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new EmbodyModel<>(), 0.7f);

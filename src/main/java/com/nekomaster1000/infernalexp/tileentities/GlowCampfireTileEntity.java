@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.tileentities;
 
 import com.nekomaster1000.infernalexp.blocks.GlowCampfireBlock;
 import com.nekomaster1000.infernalexp.init.IETileEntityTypes;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.inventory.IClearable;
 import net.minecraft.inventory.IInventory;
@@ -69,9 +70,7 @@ public class GlowCampfireTileEntity extends TileEntity implements IClearable, IT
                 int j = this.cookingTimes[i]++;
                 if (this.cookingTimes[i] >= this.cookingTotalTimes[i]) {
                     IInventory iinventory = new Inventory(itemstack);
-                    ItemStack itemstack1 = this.world.getRecipeManager().getRecipe(IRecipeType.CAMPFIRE_COOKING, iinventory, this.world).map((campfireRecipe) -> {
-                        return campfireRecipe.getCraftingResult(iinventory);
-                    }).orElse(itemstack);
+                    ItemStack itemstack1 = this.world.getRecipeManager().getRecipe(IRecipeType.CAMPFIRE_COOKING, iinventory, this.world).map((campfireRecipe) -> campfireRecipe.getCraftingResult(iinventory)).orElse(itemstack);
                     BlockPos blockpos = this.getPos();
                     InventoryHelper.spawnItemStack(this.world, blockpos.getX(), blockpos.getY(), blockpos.getZ(), itemstack1);
                     this.inventory.set(i, ItemStack.EMPTY);

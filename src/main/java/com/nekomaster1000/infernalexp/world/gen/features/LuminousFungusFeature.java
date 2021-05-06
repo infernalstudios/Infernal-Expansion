@@ -3,6 +3,7 @@ package com.nekomaster1000.infernalexp.world.gen.features;
 import java.util.Random;
 
 import com.mojang.serialization.Codec;
+
 import com.nekomaster1000.infernalexp.blocks.LuminousFungusBlock;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 

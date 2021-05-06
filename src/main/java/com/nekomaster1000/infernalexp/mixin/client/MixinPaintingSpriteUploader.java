@@ -1,9 +1,11 @@
 package com.nekomaster1000.infernalexp.mixin.client;
 
 import com.nekomaster1000.infernalexp.client.entity.render.InfernalPaintingRenderer;
+
 import net.minecraft.client.renderer.texture.PaintingSpriteUploader;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
+
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
