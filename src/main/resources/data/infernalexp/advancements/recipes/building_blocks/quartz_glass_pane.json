@@ -1,0 +1,32 @@
+{
+  "parent": "infernalexp:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:crafting/crafting_shaped/quartz_glass_pane"
+    ]
+  },
+  "criteria": {
+    "has_quartz_glass": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "infernalexp:quartz_glass"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:crafting/crafting_shaped/quartz_glass_pane"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_quartz_glass",
+      "has_the_recipe"
+    ]
+  ]
+}
