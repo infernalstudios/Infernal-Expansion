@@ -1,0 +1,32 @@
+{
+  "parent": "infernalexp:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:smelting/glow_glass"
+    ]
+  },
+  "criteria": {
+    "has_glowdust_sand": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "infernalexp:glowdust_sand"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:smelting/glow_glass"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_glowdust_sand",
+      "has_the_recipe"
+    ]
+  ]
+}

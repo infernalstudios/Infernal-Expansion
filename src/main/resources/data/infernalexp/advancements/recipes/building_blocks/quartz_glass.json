@@ -1,0 +1,43 @@
+{
+  "parent": "infernalexp:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:crafting/crafting_shaped/quartz_glass"
+    ]
+  },
+  "criteria": {
+    "has_quartz": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:quartz"
+          }
+        ]
+      }
+    },
+    "has_glass": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:glass"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:crafting/crafting_shaped/quartz_glass"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_quartz",
+      "has_glass",
+      "has_the_recipe"
+    ]
+  ]
+}
