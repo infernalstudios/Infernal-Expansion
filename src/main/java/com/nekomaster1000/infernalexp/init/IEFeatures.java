@@ -1,7 +1,15 @@
 package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
-import com.nekomaster1000.infernalexp.world.gen.features.*;
+import com.nekomaster1000.infernalexp.world.gen.features.GlowLayerFeature;
+import com.nekomaster1000.infernalexp.world.gen.features.GlowSpikeFeature;
+import com.nekomaster1000.infernalexp.world.gen.features.GlowstoneRavineFeature;
+import com.nekomaster1000.infernalexp.world.gen.features.LuminousFungusFeature;
+import com.nekomaster1000.infernalexp.world.gen.features.DullthornsFeature;
+import com.nekomaster1000.infernalexp.world.gen.features.BoulderFeature;
+import com.nekomaster1000.infernalexp.world.gen.features.SinkHoleFeature;
+import com.nekomaster1000.infernalexp.world.gen.features.ShroomlightTearFeature;
+import com.nekomaster1000.infernalexp.world.gen.features.HangingGiantBrownMushroomFeature;
 import com.nekomaster1000.infernalexp.world.gen.features.config.GlowSpikeFeatureConfig;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
