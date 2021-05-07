@@ -102,12 +102,19 @@ public class WarpbeetleModel<T extends WarpbeetleEntity> extends EntityModel<T> 
 
     @Override
     public void setRotationAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.left_leg_1.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F) * 1.4F * limbSwingAmount;
-        this.left_leg_2.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-        this.left_leg_3.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F) * 1.4F * limbSwingAmount;
-        this.right_leg_1.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-        this.right_leg_2.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F) * 1.4F * limbSwingAmount;
-        this.right_leg_3.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        this.left_leg_1.rotateAngleZ = -(MathHelper.abs(MathHelper.cos(limbSwing * 1.1F)) * 2.2F * limbSwingAmount) + 0.3927F;
+        this.left_leg_2.rotateAngleZ = -(MathHelper.abs(MathHelper.cos(Math.max(limbSwing - 4.0F, 0) * 1.1F)) * 2.2F * limbSwingAmount) + 0.3927F;
+        this.left_leg_3.rotateAngleZ = -(MathHelper.abs(MathHelper.cos(limbSwing * 1.1F)) * 2.2F * limbSwingAmount) + 0.3927F;
+        this.right_leg_1.rotateAngleZ = (MathHelper.abs(MathHelper.cos(Math.max(limbSwing - 4.0F, 0) * 1.1F)) * 2.2F * limbSwingAmount) - 0.3927F;
+        this.right_leg_2.rotateAngleZ = (MathHelper.abs(MathHelper.cos(limbSwing * 1.1F)) * 2.2F * limbSwingAmount) - 0.3927F;
+        this.right_leg_3.rotateAngleZ = (MathHelper.abs(MathHelper.cos(Math.max(limbSwing - 4.0F, 0) * 1.1F)) * 2.2F * limbSwingAmount) - 0.3927F;
+
+        this.left_leg_1.rotateAngleY = -MathHelper.sin(limbSwing * 1.1F) * 0.8F * limbSwingAmount;
+        this.left_leg_2.rotateAngleY = -MathHelper.sin(Math.max(limbSwing - 4.0F, 0) * 1.1F) * 0.9F * limbSwingAmount;
+        this.left_leg_3.rotateAngleY = -MathHelper.sin(limbSwing * 1.1F) * 1.4F * limbSwingAmount;
+        this.right_leg_1.rotateAngleY = MathHelper.sin(Math.max(limbSwing - 4.0F, 0) * 1.1F) * 0.8F * limbSwingAmount;
+        this.right_leg_2.rotateAngleY = MathHelper.sin(limbSwing * 1.1F) * 0.9F * limbSwingAmount;
+        this.right_leg_3.rotateAngleY = MathHelper.sin(Math.max(limbSwing - 4.0F, 0) * 1.1F) * 1.4F * limbSwingAmount;
 
         if (!entity.isOnGround()) {
             entity.shellRotationMultiplier += 0.1F;
