@@ -32,6 +32,7 @@ import net.minecraft.world.gen.placement.Placement;
 public class IEConfiguredFeatures {
 
     public static final RuleTest BASALT = new BlockMatchRuleTest(Blocks.BASALT);
+    public static final RuleTest SOUL_SOIL = new BlockMatchRuleTest(Blocks.SOUL_SOIL);
 
     public static ConfiguredFeature<?, ?> GLOWDUST_LAYER = registerConfiguredFeature("glowdust_layer", IEFeatures.GLOWDUST_LAYER.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
     public static ConfiguredFeature<?, ?> GLOWSPIKE = registerConfiguredFeature("glowspike", IEFeatures.GLOWSPIKE.withConfiguration(new GlowSpikeFeatureConfig(3, 5, 8, 24, 7, 7, 0.3f, true)).withPlacement(Features.Placements.PATCH_PLACEMENT.count(30)));
@@ -56,6 +57,7 @@ public class IEConfiguredFeatures {
     public static ConfiguredFeature<?, ?> PATCH_CRIMSON_CAP = registerConfiguredFeature("patch_crimson_cap", Feature.RANDOM_PATCH.withConfiguration((new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(IEBlocks.CRIMSON_FUNGUS_CAP.get().getDefaultState()), new SimpleBlockPlacer())).tries(64).whitelist(ImmutableSet.of(Blocks.WARPED_NYLIUM.getBlock())).preventProjection().build()).range(128).chance(16));
     public static ConfiguredFeature<?, ?> SHROOMLIGHT_TEAR = registerConfiguredFeature("shroomlight_tear", IEFeatures.SHROOMLIGHT_TEAR.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).range(128).square().count(100).chance(1));
     public static ConfiguredFeature<?, ?> PATCH_BURIED_BONE = registerConfiguredFeature("patch_buried_bone", Feature.RANDOM_PATCH.withConfiguration((new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(IEBlocks.BURIED_BONE.get().getDefaultState()), new SimpleBlockPlacer())).tries(128).whitelist(ImmutableSet.of(Blocks.SOUL_SOIL.getBlock())).preventProjection().build()).range(128).count(8).chance(3));
+    public static ConfiguredFeature<?, ?> ORE_SOUL_STONE = registerConfiguredFeature("ore_soul_stone", Feature.ORE.withConfiguration(new OreFeatureConfig(SOUL_SOIL, IEBlocks.SOUL_STONE.get().getDefaultState(), 20)).withPlacement(Features.Placements.NETHER_SPRING_ORE_PLACEMENT).square().count(45));
 
 
     //public static final ConfiguredFeature<?, ?> PATCH_CRIMSON_ROOTS = register("patch_crimson_roots", Feature.RANDOM_PATCH.withConfiguration((new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(Features.States.CRIMSON_ROOTS), new SimpleBlockPlacer())).tries(64).preventProjection().build()).range(128));

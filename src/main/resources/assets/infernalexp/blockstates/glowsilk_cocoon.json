@@ -1,6 +1,16 @@
 {
   "variants": {
-    "": {
-      "model": "infernalexp:block/glowsilk_cocoon" }
+    "axis=x": {
+      "model": "infernalexp:block/glowsilk_cocoon",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "infernalexp:block/glowsilk_cocoon"
+    },
+    "axis=z": {
+      "model": "infernalexp:block/glowsilk_cocoon",
+      "x": 90
+    }
   }
 }
