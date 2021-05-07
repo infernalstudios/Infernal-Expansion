@@ -3,10 +3,8 @@ package com.nekomaster1000.infernalexp.client;
 import com.nekomaster1000.infernalexp.config.gui.screens.ConfigScreen;
 import com.nekomaster1000.infernalexp.init.IEItems;
 import com.nekomaster1000.infernalexp.items.IWhipItem;
-
 import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.util.ResourceLocation;
-
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
