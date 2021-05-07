@@ -11,7 +11,6 @@ import com.nekomaster1000.infernalexp.entities.VolineEntity;
 import com.nekomaster1000.infernalexp.entities.WarpbeetleEntity;
 import com.nekomaster1000.infernalexp.entities.ai.AvoidBlockGoal;
 import com.nekomaster1000.infernalexp.init.IETags;
-
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FlyingEntity;
@@ -29,7 +28,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.ResourceLocationException;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.MobSpawnInfo;
-
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -38,7 +36,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Mod.EventBusSubscriber(modid = InfernalExpansion.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MobEvents {
@@ -178,38 +175,38 @@ public class MobEvents {
     private void addEntityToSpawner(BiomeLoadingEvent event, EntityType<?> entityType, SpawnrateManager.SpawnInfo spawnInfo) {
         // Check if creatureSpawnProbability is within the exclusive bounds of 0-1,
         // If so change the creatureSpawnProbability
-        if (spawnInfo.getCreatureSpawnProbability() > 0 && spawnInfo.getCreatureSpawnProbability() < 1) {
-            event.getSpawns().withCreatureSpawnProbability(spawnInfo.getCreatureSpawnProbability());
-        }
+//        if (spawnInfo.getCreatureSpawnProbability() > 0 && spawnInfo.getCreatureSpawnProbability() < 1) {
+//            event.getSpawns().withCreatureSpawnProbability(spawnInfo.getCreatureSpawnProbability());
+//        }
 
-        // Check if there are any other changes to be made to the spawner
-        Optional.ofNullable(spawnInfo.getChanges()).ifPresent(changes -> changes.forEach((changeEntity, changeSpawnInfo) -> {
-            // If so, get the entity type of the change
-            EntityType<?> changeEntityType = ForgeRegistries.ENTITIES.getValue(changeEntity);
-
-            // Check if the change entity type exists
-            if (changeEntityType == null) {
-                throw new ResourceLocationException("Invalid EntityType resource location " + entityType.toString());
-            }
-
-            // Check if the change entity type exists in the spawner
-            MobSpawnInfo.Spawners spawner = event.getSpawns().getSpawner(changeEntityType.getClassification()).stream().filter(s -> s.type == changeEntityType).findFirst().orElseThrow(
-                // If not, through an exception
-                () -> new RuntimeException("Can't make changes to " + changeEntity.toString() + " because it doesn't exist in the spawner")
-            );
-
-            // Find which data to update from SpawnrateManager
-            int spawnrate = changeSpawnInfo.getSpawnRate() != 0 ? changeSpawnInfo.getSpawnRate() : spawner.itemWeight;
-            int minCount = changeSpawnInfo.getMinCount() != 0 ? changeSpawnInfo.getMinCount() : spawner.minCount;
-            int maxCount = changeSpawnInfo.getMaxCount() != 0 ? changeSpawnInfo.getMaxCount() : spawner.maxCount;
-
-            // Remove entity from spawner to make changes
-            event.getSpawns().getSpawner(changeEntityType.getClassification()).remove(spawner);
-
-            // Add it back with changes
-            event.getSpawns().withSpawner(changeEntityType.getClassification(),
-                new MobSpawnInfo.Spawners(changeEntityType, spawnrate, minCount, maxCount));
-        }));
+//        // Check if there are any other changes to be made to the spawner
+//        Optional.ofNullable(spawnInfo.getChanges()).ifPresent(changes -> changes.forEach((changeEntity, changeSpawnInfo) -> {
+//            // If so, get the entity type of the change
+//            EntityType<?> changeEntityType = ForgeRegistries.ENTITIES.getValue(changeEntity);
+//
+//            // Check if the change entity type exists
+//            if (changeEntityType == null) {
+//                throw new ResourceLocationException("Invalid EntityType resource location " + entityType.toString());
+//            }
+//
+//            // Check if the change entity type exists in the spawner
+//            MobSpawnInfo.Spawners spawner = event.getSpawns().getSpawner(changeEntityType.getClassification()).stream().filter(s -> s.type == changeEntityType).findFirst().orElseThrow(
+//                // If not, through an exception
+//                () -> new RuntimeException("Can't make changes to " + changeEntity.toString() + " because it doesn't exist in the spawner")
+//            );
+//
+//            // Find which data to update from SpawnrateManager
+//            int spawnrate = changeSpawnInfo.getSpawnRate() != 0 ? changeSpawnInfo.getSpawnRate() : spawner.itemWeight;
+//            int minCount = changeSpawnInfo.getMinCount() != 0 ? changeSpawnInfo.getMinCount() : spawner.minCount;
+//            int maxCount = changeSpawnInfo.getMaxCount() != 0 ? changeSpawnInfo.getMaxCount() : spawner.maxCount;
+//
+//            // Remove entity from spawner to make changes
+//            event.getSpawns().getSpawner(changeEntityType.getClassification()).remove(spawner);
+//
+//            // Add it back with changes
+//            event.getSpawns().withSpawner(changeEntityType.getClassification(),
+//                new MobSpawnInfo.Spawners(changeEntityType, spawnrate, minCount, maxCount));
+//        }));
 
         // Add our entity to the spawner
         event.getSpawns().withSpawner(entityType.getClassification(),

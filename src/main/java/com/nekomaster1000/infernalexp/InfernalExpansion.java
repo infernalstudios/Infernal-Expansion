@@ -4,6 +4,7 @@ import com.nekomaster1000.infernalexp.brewing.IEBrewingRecipe;
 import com.nekomaster1000.infernalexp.client.InfernalExpansionClient;
 import com.nekomaster1000.infernalexp.config.ConfigHelper;
 import com.nekomaster1000.infernalexp.config.ConfigHolder;
+import com.nekomaster1000.infernalexp.data.SpawnrateManager;
 import com.nekomaster1000.infernalexp.events.MiscEvents;
 import com.nekomaster1000.infernalexp.events.MobEvents;
 import com.nekomaster1000.infernalexp.events.WorldEvents;
@@ -28,12 +29,10 @@ import com.nekomaster1000.infernalexp.util.CompatibilityQuark;
 import com.nekomaster1000.infernalexp.util.ModSpawnEggItem;
 import com.nekomaster1000.infernalexp.world.dimension.ModNetherBiomeProvider;
 import com.nekomaster1000.infernalexp.world.gen.ModEntityPlacement;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.FlowerPotBlock;
-import net.minecraft.client.Minecraft;
 import net.minecraft.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.item.ItemGroup;
@@ -41,12 +40,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.potion.Potions;
-import net.minecraft.resources.ResourcePackType;
-import net.minecraft.resources.SimpleReloadableResourceManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.carver.WorldCarver;
-
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
@@ -61,7 +57,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -74,8 +69,6 @@ import java.util.stream.Stream;
 public class InfernalExpansion {
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "infernalexp";
-
-    private static final SimpleReloadableResourceManager dataResourceManager = new SimpleReloadableResourceManager(ResourcePackType.SERVER_DATA);
 
     public InfernalExpansion() {
         final ModLoadingContext modLoadingContext = ModLoadingContext.get();
@@ -120,9 +113,11 @@ public class InfernalExpansion {
         event.enqueueWork(IEStructures::setupStructures);
         event.enqueueWork(IENetworkHandler::register);
 
-        // Add mod datapack to custom resource loader
-        event.enqueueWork(() -> dataResourceManager.addResourcePack(Minecraft.getInstance().getResourcePackList().getPackInfo("mod_resources").getResourcePack()));
+        // Create mob spawnrate config files, they get created on game load instead of world load
+        // just in case someone only launches the games once then goes and looks at the config files.
+        event.enqueueWork(SpawnrateManager::createResources);
 
+        // Add custom blocks to nether cave carver
         event.enqueueWork(() -> {
             Set<Block> newCarvableBlocks = Stream.of(IEBlocks.DULLSTONE.get(), IEBlocks.DIMSTONE.get(), Blocks.GLOWSTONE, IEBlocks.GLOWDUST_SAND.get(), IEBlocks.GLOWDUST.get(), IEBlocks.GLOWDUST_SANDSTONE.get()).collect(Collectors.toCollection(HashSet::new));
 
@@ -225,9 +220,5 @@ public class InfernalExpansion {
         }
 
     };
-
-    public static SimpleReloadableResourceManager getDataResourceManager() {
-        return dataResourceManager;
-    }
 
 }

@@ -275,7 +275,6 @@ public class MiscEvents {
         spawnrateManager = new SpawnrateManager();
 
         event.addListener(volineEatTable);
-        event.addListener(spawnrateManager);
     }
 
     public static Map<Item, Map<Item, Integer>> getVolineEatTable() {
