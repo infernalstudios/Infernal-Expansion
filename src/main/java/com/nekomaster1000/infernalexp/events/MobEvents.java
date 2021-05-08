@@ -213,12 +213,10 @@ public class MobEvents {
             new MobSpawnInfo.Spawners(entityType, spawnInfo.getSpawnRate(), spawnInfo.getMinCount(), spawnInfo.getMaxCount()));
 
         // Change spawn costs
-        if (spawnInfo.getSpawnCostPerEntity() != null) {
-            event.getSpawns().withSpawnCost(entityType, spawnInfo.getSpawnCostPerEntity(), event.getSpawns().getCost(entityType).getEntitySpawnCost());
-        }
-
-        if (spawnInfo.getMaxSpawnCost() != null) {
-            event.getSpawns().withSpawnCost(entityType, event.getSpawns().getCost(entityType).getMaxSpawnCost(), spawnInfo.getMaxSpawnCost());
+        if (spawnInfo.getSpawnCostPerEntity() != null && spawnInfo.getMaxSpawnCost() != null) {
+            event.getSpawns().withSpawnCost(entityType, spawnInfo.getSpawnCostPerEntity(), spawnInfo.getMaxSpawnCost());
+        } else if (spawnInfo.getSpawnCostPerEntity() != null || spawnInfo.getMaxSpawnCost() != null) {
+            InfernalExpansion.LOGGER.error("EntityType {} has incomplete spawn cost data. When editing spawn costs, make sure to set both \"spawn_cost_per_entity\" and \"max_spawn_cost\"", entityType.toString());
         }
     }
 
