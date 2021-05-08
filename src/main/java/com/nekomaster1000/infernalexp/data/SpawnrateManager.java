@@ -28,51 +28,53 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class SpawnrateManager {
 
     private static final Gson GSON_INSTANCE = new GsonBuilder().setPrettyPrinting().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
     private static final Map<String, Map<String, SpawnInfo>> SPAWNRATES = new HashMap<>();
 
+    // Set spawnCostPerEntity and maxSpawnCost to 0 to not change them
     private static final Map<String, Map<String, SpawnInfo>> configs = ImmutableMap.<String, Map<String, SpawnInfo>>builder()
         .put("basalt_giant", ImmutableMap.of(
-            "default", new SpawnInfo(10, 1, 1),
-            "minecraft:basalt_deltas", new SpawnInfo(30, 1, 1),
-            "infernalexp:delta_shores", new SpawnInfo(4, 1, 1)
+            "default", new SpawnInfo(10, 1, 1, 0, 0),
+            "minecraft:basalt_deltas", new SpawnInfo(30, 1, 1, 0, 0),
+            "infernalexp:delta_shores", new SpawnInfo(4, 1, 1, 0, 0)
         ))
         .put("blackstone_dwarf", ImmutableMap.of(
-            "default", new SpawnInfo(1, 1, 1)
+            "default", new SpawnInfo(1, 1, 1, 0, 0)
         ))
         .put("blindsight", ImmutableMap.of(
-            "default", new SpawnInfo(40, 1, 1),
-            "infernalexp:glowstone_canyon", new SpawnInfo(120, 1, 3)
+            "default", new SpawnInfo(40, 1, 1, 0, 0),
+            "infernalexp:glowstone_canyon", new SpawnInfo(120, 1, 3, 0, 0)
         ))
         .put("embody", ImmutableMap.of(
-            "default", new SpawnInfo(60, 1, 5)
+            "default", new SpawnInfo(60, 1, 5, 0, 0)
         ))
         .put("glowsilk_moth", ImmutableMap.of(
-            "default", new SpawnInfo(5, 1, 1),
-            "infernalexp:glowstone_canyon", new SpawnInfo(1, 1, 1)
+            "default", new SpawnInfo(5, 1, 1, 0, 0),
+            "infernalexp:glowstone_canyon", new SpawnInfo(1, 1, 1, 0, 0)
         ))
         .put("glowsquito", ImmutableMap.of(
-            "default", new SpawnInfo(20, 1, 3),
-            "infernalexp:delta_shores", new SpawnInfo(1, 1, 3),
-            "infernalexp:glowstone_canyon", new SpawnInfo(80, 1, 10)
+            "default", new SpawnInfo(20, 1, 3, 0, 0),
+            "infernalexp:delta_shores", new SpawnInfo(1, 1, 3, 0, 0),
+            "infernalexp:glowstone_canyon", new SpawnInfo(80, 1, 10, 0, 0)
         ))
         .put("shroomloin", ImmutableMap.of(
-            "default", new SpawnInfo(5, 1, 3)
+            "default", new SpawnInfo(5, 1, 3, 0, 0)
         ))
         .put("skeletal_piglin", ImmutableMap.of(
-            "default", new SpawnInfo(10, 1, 1),
-            "infernalexp:delta_shores", new SpawnInfo(6, 1, 1)
+            "default", new SpawnInfo(10, 1, 1, 0, 0),
+            "infernalexp:delta_shores", new SpawnInfo(6, 1, 1, 0, 0)
         ))
         .put("voline", ImmutableMap.of(
-            "default", new SpawnInfo(20, 1, 1),
-            "minecraft:nether_wastes", new SpawnInfo(50, 1, 3),
-            "minecraft:crimson_forest", new SpawnInfo(1, 1, 5)
+            "default", new SpawnInfo(20, 1, 1, 0, 0),
+            "minecraft:nether_wastes", new SpawnInfo(50, 1, 3, 0, 0),
+            "minecraft:crimson_forest", new SpawnInfo(1, 1, 5, 0, 0)
         ))
         .put("warpbeetle", ImmutableMap.of(
-            "default", new SpawnInfo(5, 1, 1)
+            "default", new SpawnInfo(5, 1, 1, 0, 0)
         ))
         .build();
 
@@ -151,7 +153,9 @@ public class SpawnrateManager {
                             new SpawnInfo(
                                 spawnInfo.get("spawn_rate").getAsInt(),
                                 spawnInfo.get("min_count").getAsInt(),
-                                spawnInfo.get("max_count").getAsInt()
+                                spawnInfo.get("max_count").getAsInt(),
+                                Optional.ofNullable(spawnInfo.get("spawn_cost_per_entity")).map(JsonElement::getAsDouble).orElse(0.0D),
+                                Optional.ofNullable(spawnInfo.get("max_spawn_cost")).map(JsonElement::getAsDouble).orElse(0.0D)
 //                                        Optional.ofNullable(entry.getAsJsonObject().get("creature_spawn_probability")).map(JsonElement::getAsFloat).orElse(0.0F),
 //                                        Optional.ofNullable(entry.getAsJsonObject().getAsJsonArray("spawn_info_changes")).map(changes ->
 //                                            new HashMap<ResourceLocation, SpawnInfo>() {{
@@ -191,16 +195,25 @@ public class SpawnrateManager {
         private final int minCount;
         private final int maxCount;
 
-//        private final float creatureSpawnProbability;
+        private final Double spawnCostPerEntity;
+        private final Double maxSpawnCost;
 
-//        private final Map<ResourceLocation, SpawnInfo> changes;
-
-        public SpawnInfo(int spawnRate, int minCount, int maxCount) {
+        public SpawnInfo(int spawnRate, int minCount, int maxCount, double spawnCostPerEntity, double maxSpawnCost) {
             this.spawnRate = spawnRate;
             this.minCount = minCount;
             this.maxCount = maxCount;
-//            this.creatureSpawnProbability = creatureSpawnProbability;
-//            this.changes = changes;
+
+            if (spawnCostPerEntity == 0) {
+                this.spawnCostPerEntity = null;
+            } else {
+                this.spawnCostPerEntity = spawnCostPerEntity;
+            }
+
+            if (maxSpawnCost == 0) {
+                this.maxSpawnCost = null;
+            } else {
+                this.maxSpawnCost = maxSpawnCost;
+            }
         }
 
         public int getSpawnRate() {
@@ -215,13 +228,13 @@ public class SpawnrateManager {
             return maxCount;
         }
 
-//        public float getCreatureSpawnProbability() {
-//            return creatureSpawnProbability;
-//        }
+        public Double getSpawnCostPerEntity() {
+            return spawnCostPerEntity;
+        }
 
-//        public Map<ResourceLocation, SpawnInfo> getChanges() {
-//            return changes;
-//        }
+        public Double getMaxSpawnCost() {
+            return maxSpawnCost;
+        }
     }
 
     private static class SpawnBiomeEntry {
