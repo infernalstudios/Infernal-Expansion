@@ -246,14 +246,12 @@ public class MobEvents {
             }
 
             // Find either the default spawn info or the spawn info for a specific biome from SpawnrateManager
-            for (String spawnableBiome : spawnableBiomes) {
-                if (value.containsKey(spawnableBiome)) {
-                    addEntityToSpawner(event, entityType, value.get(spawnableBiome));
-                } else if (value.containsKey("default")) {
-                    addEntityToSpawner(event, entityType, value.get("default"));
-                } else {
-                    InfernalExpansion.LOGGER.error(entity + " doesn't have a default spawn info entry");
-                }
+            if (value.containsKey(event.getName().toString()) && spawnableBiomes.contains(event.getName().toString())) {
+                addEntityToSpawner(event, entityType, value.get(event.getName().toString()));
+            } else if (value.containsKey("default") && spawnableBiomes.contains(event.getName().toString())) {
+                addEntityToSpawner(event, entityType, value.get("default"));
+            } else {
+                InfernalExpansion.LOGGER.error("{} doesn't have a default spawn entry", entity);
             }
         });
 	}

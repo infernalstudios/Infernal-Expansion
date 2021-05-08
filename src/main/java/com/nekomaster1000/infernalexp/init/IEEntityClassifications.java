@@ -4,10 +4,10 @@ import com.nekomaster1000.infernalexp.InfernalExpansion;
 import net.minecraft.entity.EntityClassification;
 
 public class IEEntityClassifications {
-    public static EntityClassification IEMOB;
+    public static EntityClassification IECREATURE;
 
     public static void register() {
-        IEMOB = EntityClassification.create("IE_mob", "IEMOB", 70, true, false, 128);
+        IECREATURE = EntityClassification.create("IE_CREATURE", "IECREATURE", 70, true, false, 128);
         InfernalExpansion.LOGGER.info("Infernal Expansion: Entity Classifications Registered!");
     }
 }
