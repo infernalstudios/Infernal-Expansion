@@ -211,6 +211,15 @@ public class MobEvents {
         // Add our entity to the spawner
         event.getSpawns().withSpawner(entityType.getClassification(),
             new MobSpawnInfo.Spawners(entityType, spawnInfo.getSpawnRate(), spawnInfo.getMinCount(), spawnInfo.getMaxCount()));
+
+        // Change spawn costs
+        if (spawnInfo.getSpawnCostPerEntity() != null) {
+            event.getSpawns().withSpawnCost(entityType, spawnInfo.getSpawnCostPerEntity(), event.getSpawns().getCost(entityType).getEntitySpawnCost());
+        }
+
+        if (spawnInfo.getMaxSpawnCost() != null) {
+            event.getSpawns().withSpawnCost(entityType, event.getSpawns().getCost(entityType).getMaxSpawnCost(), spawnInfo.getMaxSpawnCost());
+        }
     }
 
     //Mob Spawning in pre-existing biomes

@@ -25,12 +25,12 @@ public class IEEntityTypes {
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "voline").toString()));
 
     public static final RegistryObject<EntityType<ShroomloinEntity>> SHROOMLOIN = ENTITY_TYPES.register("shroomloin",
-            () -> EntityType.Builder.create(ShroomloinEntity::new, EntityClassification.MONSTER)
+            () -> EntityType.Builder.create(ShroomloinEntity::new, IEEntityClassifications.IEMOB)
                     .size(1.0f, 1.0f) // Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "shroomloin").toString()));
 
     public static final RegistryObject<EntityType<WarpbeetleEntity>> WARPBEETLE = ENTITY_TYPES.register("warpbeetle",
-        () -> EntityType.Builder.create(WarpbeetleEntity::new, EntityClassification.CREATURE)
+        () -> EntityType.Builder.create(WarpbeetleEntity::new, IEEntityClassifications.IEMOB)
             .size(0.5f, 0.5f) // Hitbox Size
             .build(new ResourceLocation(InfernalExpansion.MOD_ID, "warpbeetle").toString()));
 
@@ -47,7 +47,7 @@ public class IEEntityTypes {
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "embody").toString()));
 
     public static final RegistryObject<EntityType<BasaltGiantEntity>> BASALT_GIANT = ENTITY_TYPES.register("basalt_giant",
-            () -> EntityType.Builder.<BasaltGiantEntity>create(BasaltGiantEntity::new, EntityClassification.MONSTER)
+            () -> EntityType.Builder.<BasaltGiantEntity>create(BasaltGiantEntity::new, IEEntityClassifications.IEMOB)
                     .size(1.2f, 4.3f)// Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "basalt_giant").toString()));
 
@@ -57,12 +57,12 @@ public class IEEntityTypes {
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "blackstone_dwarf").toString()));
 
     public static final RegistryObject<EntityType<GlowsquitoEntity>> GLOWSQUITO = ENTITY_TYPES.register("glowsquito",
-            () -> EntityType.Builder.create(GlowsquitoEntity::new, EntityClassification.MONSTER)
+            () -> EntityType.Builder.create(GlowsquitoEntity::new, IEEntityClassifications.IEMOB)
                     .size(0.8f, 0.5f)// Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "glowsquito").toString()));
 
     public static final RegistryObject<EntityType<SkeletalPiglinEntity>> SKELETAL_PIGLIN = ENTITY_TYPES.register("skeletal_piglin",
-            () -> EntityType.Builder.create(SkeletalPiglinEntity::new, EntityClassification.MONSTER)
+            () -> EntityType.Builder.create(SkeletalPiglinEntity::new, IEEntityClassifications.IEMOB)
                     .size(0.8f, 2.0f) // Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "skeletal_piglin").toString()));
 
@@ -79,7 +79,7 @@ public class IEEntityTypes {
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "blindsight").toString()));
 
     public static final RegistryObject<EntityType<GlowsilkMothEntity>> GLOWSILK_MOTH = ENTITY_TYPES.register("glowsilk_moth",
-            () -> EntityType.Builder.create(GlowsilkMothEntity::new, EntityClassification.AMBIENT)
+            () -> EntityType.Builder.create(GlowsilkMothEntity::new, IEEntityClassifications.IEMOB)
                     .size(1.0F, 1.5F) //Hitbox Size
                     .build(new ResourceLocation(InfernalExpansion.MOD_ID, "glowsilk_moth").toString()));
 
