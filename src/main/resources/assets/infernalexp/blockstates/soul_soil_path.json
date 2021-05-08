@@ -3,18 +3,6 @@
     "": [
       {
         "model": "infernalexp:block/soul_soil_path"
-      },
-      {
-        "model": "infernalexp:block/soul_soil_path",
-        "y": 90
-      },
-      {
-        "model": "infernalexp:block/soul_soil_path",
-        "y": 180
-      },
-      {
-        "model": "infernalexp:block/soul_soil_path",
-        "y": 270
       }
     ]
   }
