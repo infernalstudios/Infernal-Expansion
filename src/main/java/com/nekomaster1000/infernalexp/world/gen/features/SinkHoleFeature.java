@@ -43,7 +43,6 @@ public class SinkHoleFeature extends Feature<NoFeatureConfig> {
             for (BlockPos point : ShapeUtil.generateSolidCircle(radius + 1)) {
                 mutableBlockPos.setPos(pos);
                 mutableBlockPos.move(point.getX(), point.getY(), point.getZ());
-                mutableBlockPos.move(Direction.UP, 2);
                 for (int y = 0; y < 3; y++) {
                     world.setBlockState(mutableBlockPos.move(Direction.DOWN), IEBlocks.GLOWDUST_SAND.get().getDefaultState(), 2);
                 }
