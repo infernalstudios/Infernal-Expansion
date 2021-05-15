@@ -27,7 +27,7 @@ import net.minecraft.world.server.ServerWorld;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class LuminousFungusBlock extends HorizontalBushBlock implements IGrowable{
+public class LuminousFungusBlock extends HorizontalBushBlock implements IGrowable {
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     protected static final VoxelShape FLOOR_SHAPE = Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 10.0D, 11.0D);
     protected static final VoxelShape CEILING_SHAPE = Block.makeCuboidShape(5.0D, 6.0D, 5.0D, 11.0D, 16.0D, 11.0D);
