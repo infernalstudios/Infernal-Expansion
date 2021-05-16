@@ -15,13 +15,13 @@ import com.nekomaster1000.infernalexp.client.entity.render.WarpbeetleRenderer;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IEEntityTypes;
 import com.nekomaster1000.infernalexp.init.IETileEntityTypes;
-import com.nekomaster1000.infernalexp.tileentities.renderer.GlowCampfireTileEntityRenderer;
 import com.nekomaster1000.infernalexp.util.ModSpawnEggItem;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
+import net.minecraft.client.renderer.tileentity.CampfireTileEntityRenderer;
 import net.minecraft.entity.EntityType;
 
 import net.minecraftforge.api.distmarker.Dist;
@@ -54,7 +54,7 @@ public class ClientEvents {
         RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.THROWABLE_FIRE_CHARGE.get(), manager -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
 		RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.INFERNAL_PAINTING.get(), InfernalPaintingRenderer::new);
 
-		ClientRegistry.bindTileEntityRenderer(IETileEntityTypes.GLOW_CAMPFIRE.get(), GlowCampfireTileEntityRenderer::new);
+		ClientRegistry.bindTileEntityRenderer(IETileEntityTypes.GLOW_CAMPFIRE.get(), CampfireTileEntityRenderer::new);
 
 		RenderTypeLookup.setRenderLayer(IEBlocks.LUMINOUS_FUNGUS.get(), RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(IEBlocks.DULLTHORNS.get(), RenderType.getCutout());

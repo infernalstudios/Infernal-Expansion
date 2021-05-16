@@ -45,7 +45,6 @@ public class ModSpawnEggItem extends SpawnEggItem {
      * but supplier based ones won't have had their EntityTypes created yet.
      */
     public static void initUnaddedEggs() {
-        final Map<EntityType<?>, SpawnEggItem> EGGS = ObfuscationReflectionHelper.getPrivateValue(SpawnEggItem.class, null, "field_195987_b");
         DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior() {
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                 Direction direction = source.getBlockState().get(DispenserBlock.FACING);
@@ -56,7 +55,7 @@ public class ModSpawnEggItem extends SpawnEggItem {
             }
         };
         for (final SpawnEggItem egg : UNADDED_EGGS) {
-            EGGS.put(egg.getType(null), egg);
+            SpawnEggItem.EGGS.put(egg.getType(null), egg);
             DispenserBlock.registerDispenseBehavior(egg, defaultDispenseItemBehavior);
             // ItemColors for each spawn egg don't need to be registered because this method is called before ItemColors is created
         }

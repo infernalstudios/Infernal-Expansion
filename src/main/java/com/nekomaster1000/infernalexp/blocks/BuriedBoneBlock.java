@@ -34,12 +34,7 @@ public class BuriedBoneBlock extends HorizontalBushBlock {
 
     @CheckForNull
     public BlockState getPlaceableState(World world, BlockPos pos, Direction placeSide) {
-        if ((world.isAirBlock(pos) ||
-                world.getBlockState(pos).getBlock() instanceof TallGrassBlock ||
-                world.getBlockState(pos).getBlock() instanceof NetherRootsBlock ||
-                world.getBlockState(pos).getBlock() instanceof NetherSproutsBlock ||
-                !world.getBlockState(pos).getFluidState().isEmpty()) &&
-                world.getBlockState(pos).getBlock() != IEBlocks.BURIED_BONE.get()) {
+        if (world.getBlockState(pos).getMaterial().isReplaceable() && world.getBlockState(pos).getBlock() != IEBlocks.BURIED_BONE.get()) {
             if (placeSide.getAxis() != Axis.Y) {
                 placeSide = Direction.UP;
             }

@@ -9,12 +9,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
+import net.minecraftforge.common.IPlantable;
 
 /**
  * A copy of the BushBlock class provided by MinecraftForge that extends HorizontalFaceBlock in order to allow for
  * bushes that are planted on the sides or bottoms of blocks.
  */
-public class HorizontalBushBlock extends HorizontalFaceBlock implements net.minecraftforge.common.IPlantable  {
+public class HorizontalBushBlock extends HorizontalFaceBlock implements IPlantable {
 
     public HorizontalBushBlock(Properties builder) {
         super(builder);

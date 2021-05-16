@@ -4,6 +4,7 @@ import com.nekomaster1000.infernalexp.entities.BlindsightEntity;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IEEffects;
 import com.nekomaster1000.infernalexp.init.IEItems;
+import com.nekomaster1000.infernalexp.init.IETags;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -32,6 +33,7 @@ import net.minecraftforge.common.IForgeShearable;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -53,27 +55,12 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
     @Nonnull
     @Override
     public List<ItemStack> onSheared(@Nullable PlayerEntity player, @Nonnull ItemStack item, World world, BlockPos pos, int fortune) {
-        return new ArrayList<>(Collections.singleton(new ItemStack(IEItems.DULLTHORNS.get())));
+        return Arrays.asList(new ItemStack(IEItems.DULLTHORNS.get()));
     }
 
     @Override
     protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
-        return
-			state.matchesBlock(IEBlocks.GLOWDUST_SAND.get()) || state.matchesBlock(Blocks.SAND) || state.matchesBlock(Blocks.RED_SAND) ||
-
-                state.matchesBlock(Blocks.GRASS_BLOCK) || state.matchesBlock(Blocks.DIRT) ||
-                state.matchesBlock(Blocks.COARSE_DIRT) || state.matchesBlock(Blocks.FARMLAND) ||
-				state.matchesBlock(Blocks.PODZOL) || state.matchesBlock(Blocks.MYCELIUM) ||
-
-				state.matchesBlock(Blocks.CRIMSON_NYLIUM) || state.matchesBlock(Blocks.WARPED_NYLIUM) ||
-
-				state.matchesBlock(Blocks.SOUL_SAND) || state.matchesBlock(Blocks.SOUL_SOIL) ||
-
-				state.matchesBlock(Blocks.GLOWSTONE) || state.matchesBlock(IEBlocks.DIMSTONE.get()) ||
-				state.matchesBlock(IEBlocks.DULLSTONE.get()) ||
-
-                state.matchesBlock(IEBlocks.DULLTHORNS.get())
-			;
+        return state.isIn(IETags.Blocks.DULLTHORNS_GROUND);
     }
 
     @Override

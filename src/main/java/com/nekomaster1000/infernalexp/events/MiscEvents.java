@@ -15,6 +15,7 @@ import com.nekomaster1000.infernalexp.init.IEEffects;
 import com.nekomaster1000.infernalexp.init.IEItems;
 import com.nekomaster1000.infernalexp.init.IEParticleTypes;
 import com.nekomaster1000.infernalexp.init.IESoundEvents;
+import com.nekomaster1000.infernalexp.init.IETags;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -77,13 +78,7 @@ public class MiscEvents {
     //Blocks being broken
     @SubscribeEvent
     public void onBlockBreak(BlockEvent.BreakEvent event) {
-        if (event.getState().equals(Blocks.CRIMSON_FUNGUS.getDefaultState())
-            || event.getState().equals(Blocks.CRIMSON_ROOTS.getDefaultState())
-            || event.getState().equals(Blocks.CRIMSON_STEM.getDefaultState())
-            || event.getState().equals(Blocks.STRIPPED_CRIMSON_STEM.getDefaultState())
-            || event.getState().equals(Blocks.WEEPING_VINES.getDefaultState())
-            || event.getState().equals(Blocks.WEEPING_VINES_PLANT.getDefaultState())
-            || event.getState().equals(Blocks.NETHER_WART_BLOCK.getDefaultState())) {
+        if (event.getState().isIn(IETags.Blocks.GUARDED_BY_SHROOMLOIN)) {
             List<?> list = event.getPlayer().world.getEntitiesWithinAABB(ShroomloinEntity.class,
                 event.getPlayer().getBoundingBox().grow(32.0D));
             for (int j = 0; j < list.size(); j++) {
@@ -123,11 +118,11 @@ public class MiscEvents {
         if (heldItemStack.getItem() == Items.GLOWSTONE_DUST) {
             if (world.getBlockState(pos).getBlock() == IEBlocks.DIMSTONE.get()) {
                 player.swingArm(event.getHand());
-                world.playSound(null, event.getPos(), IESoundEvents.GLOWSTONE_RECHARGE.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+                world.playSound(null, event.getPos(), IESoundEvents.GLOWSTONE_RECHARGE.get(), SoundCategory.BLOCKS, 1.0F, (float) (0.75F + event.getWorld().getRandom().nextDouble() / 2));
                 world.setBlockState(pos, Blocks.GLOWSTONE.getDefaultState());
             } else if (world.getBlockState(pos).getBlock() == IEBlocks.DULLSTONE.get()) {
                 player.swingArm(event.getHand());
-                world.playSound(null, event.getPos(), IESoundEvents.GLOWSTONE_RECHARGE.get(), SoundCategory.BLOCKS, 1.0F, 0.5F);
+                world.playSound(null, event.getPos(), IESoundEvents.GLOWSTONE_RECHARGE.get(), SoundCategory.BLOCKS, 1.0F, (float) (0.5F + event.getWorld().getRandom().nextDouble() / 3));
                 world.setBlockState(pos, IEBlocks.DIMSTONE.get().getDefaultState());
             }
         }

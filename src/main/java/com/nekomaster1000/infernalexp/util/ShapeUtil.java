@@ -37,7 +37,7 @@ public class ShapeUtil {
         // Checks distance away from the center to see if the point is within the circle
         for (int x = (int) -radius; x < radius; x++) {
             for (int z = (int) -radius; z < radius; z++) {
-                if (Math.pow(x, 2) + Math.pow(z, 2) <= Math.pow(radius, 2)) {
+                if ((x * x) + (z * z) <= (radius * radius)) {
                     posList.add(new BlockPos(x, 0, z));
                 }
             }
@@ -58,7 +58,7 @@ public class ShapeUtil {
         for (int x = (int) -radius; x < radius; x++) {
             for (int y = (int) -radius; y < radius; y++) {
                 for (int z = (int) -radius; z < radius; z++) {
-                    if (Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2) <= Math.pow(radius, 2)) {
+                    if ((x * x) + (y * y) + (z * z) <= (radius * radius)) {
                         posList.add(new BlockPos(x, y, z));
                     }
                 }
