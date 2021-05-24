@@ -143,6 +143,10 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 
     @Override
     public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (!isSelected) {
+            return;
+        }
+
         if (this.charging && this.ticksSinceAttack <= 30) {
             this.ticksSinceAttack++;
         }
