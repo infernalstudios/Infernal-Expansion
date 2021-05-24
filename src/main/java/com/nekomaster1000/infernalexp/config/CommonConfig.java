@@ -226,7 +226,7 @@ public class CommonConfig {
         glowsilkSpeed = builder
             .comment("Determines the speed at which Glowsilk Moths fly")
             .translation(InfernalExpansion.MOD_ID + ".config.tooltip.glowsilkSpeed")
-            .defineInRange("glowsilkSpeed", 3.0D, 0.0D, Double.MAX_VALUE);
+            .defineInRange("glowsilkSpeed", 1.3D, 0.0D, Double.MAX_VALUE);
 
         builder.pop();
 

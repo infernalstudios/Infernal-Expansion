@@ -67,6 +67,11 @@ public class IESoundEvents {
 	public static final RegistryObject<SoundEvent> BLACKSTONE_DWARF_HURT = add("entity.dwarf.hurt");
 	public static final RegistryObject<SoundEvent> BLACKSTONE_DWARF_DEATH = add("entity.dwarf.death");
 
+    // GLOWSILK_MOTH
+    public static final RegistryObject<SoundEvent> GLOWSILK_MOTH_AMBIENT = add("entity.glowsilk_moth.ambient");
+    public static final RegistryObject<SoundEvent> GLOWSILK_MOTH_HURT = add("entity.glowsilk_moth.hurt");
+    public static final RegistryObject<SoundEvent> GLOWSILK_MOTH_DEATH = add("entity.glowsilk_moth.death");
+
 	// GLAW
 	public static final RegistryObject<SoundEvent> GLAW_AMBIENT = add("entity.glaw.ambient");
 	public static final RegistryObject<SoundEvent> GLAW_HURT = add("entity.glaw.hurt");
@@ -91,6 +96,9 @@ public class IESoundEvents {
 	// RECORD DISCS
 	public static final RegistryObject<SoundEvent> MUSIC_DISC_SOUL_SPUNK = add("record.soul_spunk");
 
+    // GLOWSTONE RECHARGE
+    public static final RegistryObject<SoundEvent> GLOWSTONE_RECHARGE = add("block.glowstone.recharge");
+
 	// DULLSTONE
 	public static final RegistryObject<SoundEvent> DULLSTONE_BREAK = add("block.dullstone.break");
 	public static final RegistryObject<SoundEvent> DULLSTONE_STEP = add("block.dullstone.step");
@@ -98,14 +106,15 @@ public class IESoundEvents {
 	public static final RegistryObject<SoundEvent> DULLSTONE_HIT = add("block.dullstone.hit");
 	public static final RegistryObject<SoundEvent> DULLSTONE_FALL = add("block.dullstone.fall");
 
-	// GLOWSTONE
-    public static final RegistryObject<SoundEvent> GLOWSTONE_RECHARGE = add("block.glowstone.recharge");
+    // SOUL STONE
+    public static final RegistryObject<SoundEvent> SOUL_STONE_BREAK = add("block.soul_stone.break");
 
 	// SOUND TYPES
 	public static final SoundType DULLSTONE_TYPE = new ForgeSoundType(1.0F, 1.0F, () -> DULLSTONE_BREAK.get(), () -> DULLSTONE_STEP.get(), () -> DULLSTONE_PLACE.get(), () -> DULLSTONE_HIT.get(), () -> DULLSTONE_FALL.get());
 	public static final SoundType DIMSTONE_TYPE = new ForgeSoundType(1.0F, 1.0F, () -> SoundEvents.BLOCK_GLASS_BREAK, () -> DULLSTONE_STEP.get(), () -> SoundEvents.BLOCK_GLASS_PLACE, () -> SoundEvents.BLOCK_GLASS_HIT, () -> SoundEvents.BLOCK_GLASS_FALL);
+    public static final SoundType SOUL_STONE_TYPE = new ForgeSoundType(1.0F, 1.0F, () -> SOUL_STONE_BREAK.get(), () -> SoundEvents.BLOCK_SOUL_SOIL_STEP, () -> SoundEvents.BLOCK_SOUL_SOIL_PLACE, () -> SoundEvents.BLOCK_SOUL_SOIL_HIT, () -> SoundEvents.BLOCK_SOUL_SOIL_FALL);
 
-	public static final RegistryObject<SoundEvent> add(String id) {
+    public static final RegistryObject<SoundEvent> add(String id) {
 		ResourceLocation realId = new ResourceLocation(InfernalExpansion.MOD_ID, id);
 		return SOUND_EVENTS.register(id, () -> new SoundEvent(realId));
 	}
