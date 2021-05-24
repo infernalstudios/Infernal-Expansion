@@ -79,6 +79,9 @@ public class MiscEvents {
     @SubscribeEvent
     public void onBlockBreak(BlockEvent.BreakEvent event) {
         if (event.getState().isIn(IETags.Blocks.GUARDED_BY_SHROOMLOIN)) {
+            if (event.getPlayer().isCreative()) {
+                return;
+            }
             List<?> list = event.getPlayer().world.getEntitiesWithinAABB(ShroomloinEntity.class,
                 event.getPlayer().getBoundingBox().grow(32.0D));
             for (int j = 0; j < list.size(); j++) {
