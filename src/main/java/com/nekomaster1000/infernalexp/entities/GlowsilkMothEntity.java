@@ -49,7 +49,6 @@ public class GlowsilkMothEntity extends AmbientEntity {
         return super.getSoundPitch() * 0.95F;
     }
 
-    @Nullable
     /**
      * Returns true if this entity should push and be pushed by other entities when colliding.
      */

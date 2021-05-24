@@ -76,10 +76,10 @@ public class IEBlocks {
 
     // Blocks
     public static final RegistryObject<Block> DIMSTONE = registerBlockWithDefaultItem("dimstone",            () -> new Block(getProperties(Material.GLASS, 3.5F, 2.0F).sound(IESoundEvents.DIMSTONE_TYPE).setRequiresTool().harvestTool(ToolType.PICKAXE).setLightLevel(value -> 12)));
-    public static final RegistryObject<Block> DULLSTONE = registerBlockWithDefaultItem("dullstone",          () -> new Block(getProperties(Material.GLASS, 1.5F, 6.0F).sound(IESoundEvents.DULLSTONE_TYPE).setRequiresTool().harvestTool(ToolType.PICKAXE).setLightLevel(value -> 0)));
+    public static final RegistryObject<Block> DULLSTONE = registerBlockWithDefaultItem("dullstone",          () -> new Block(getProperties(Material.GLASS, 1.5F, 6.0F).sound(IESoundEvents.DULLSTONE_TYPE).setRequiresTool().harvestTool(ToolType.PICKAXE)));
     public static final RegistryObject<Block> SMOOTH_GLOWSTONE = registerBlockWithDefaultItem("smooth_glowstone",    () -> new Block(getProperties(Material.GLASS, 1.5F, 6.0F).sound(SoundType.GLASS).setRequiresTool().harvestTool(ToolType.PICKAXE).setLightLevel(value -> 15)));
     public static final RegistryObject<Block> SMOOTH_DIMSTONE = registerBlockWithDefaultItem("smooth_dimstone",      () -> new Block(getProperties(DIMSTONE.get()).hardnessAndResistance(1.5F, 6.0F).setLightLevel(value -> 12)));
-    public static final RegistryObject<Block> SMOOTH_DULLSTONE = registerBlockWithDefaultItem("smooth_dullstone",    () -> new Block(getProperties(DULLSTONE.get()).hardnessAndResistance(1.5F, 6.0F).setLightLevel(value -> 0)));
+    public static final RegistryObject<Block> SMOOTH_DULLSTONE = registerBlockWithDefaultItem("smooth_dullstone",    () -> new Block(getProperties(DULLSTONE.get()).hardnessAndResistance(1.5F, 6.0F)));
     public static final RegistryObject<Block> GLOWSTONE_BRICKS = registerBlockWithDefaultItem("glowstone_bricks",      () -> new Block(getProperties(SMOOTH_GLOWSTONE.get())));
     public static final RegistryObject<Block> DIMSTONE_BRICKS = registerBlockWithDefaultItem("dimstone_bricks",        () -> new Block(getProperties(SMOOTH_DIMSTONE.get())));
     public static final RegistryObject<Block> DULLSTONE_BRICKS = registerBlockWithDefaultItem("dullstone_bricks",      () -> new Block(getProperties(SMOOTH_DULLSTONE.get())));
@@ -125,17 +125,17 @@ public class IEBlocks {
 
     public static final RegistryObject<Block> LUMINOUS_WART_BLOCK = registerBlockWithDefaultItem("luminous_wart_block", () -> new Block(getProperties(Blocks.NETHER_WART_BLOCK).setLightLevel(value -> 8)));
 
-    public static final RegistryObject<Block> GLOWDUST = registerBlockWithDefaultItem("glowdust", () -> new GlowdustBlock(AbstractBlock.Properties.create(Material.SNOW, MaterialColor.SAND).setLightLevel(value -> 0).setRequiresTool().harvestTool(ToolType.SHOVEL).hardnessAndResistance(0.2f).notSolid().sound(SoundType.SAND)));
+    public static final RegistryObject<Block> GLOWDUST = registerBlockWithDefaultItem("glowdust", () -> new GlowdustBlock(AbstractBlock.Properties.create(Material.SNOW, MaterialColor.SAND).setRequiresTool().harvestTool(ToolType.SHOVEL).hardnessAndResistance(0.2f).notSolid().sound(SoundType.SAND)));
     public static final RegistryObject<Block> GLOWDUST_SAND = registerBlockWithDefaultItem("glowdust_sand", () -> new GlowSandBlock(0xFFC267, getProperties(GLOWDUST.get()).hardnessAndResistance(0.5F)));
     public static final RegistryObject<Block> TRAPPED_GLOWDUST_SAND = registerBlockWithDefaultItem("trapped_glowdust_sand", () -> new TrappedGlowSandBlock(0xFFC267, getProperties(GLOWDUST.get()).hardnessAndResistance(0.2F).setLightLevel(value -> 5)));
 
-    public static final RegistryObject<Block> GLOWDUST_STONE = registerBlockWithDefaultItem("glowdust_stone", () -> new Block(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 0)));
+    public static final RegistryObject<Block> GLOWDUST_STONE = registerBlockWithDefaultItem("glowdust_stone", () -> new Block(getProperties(Blocks.SANDSTONE)));
     public static final RegistryObject<Block> GLOWDUST_STONE_SLAB = registerBlockWithDefaultItem("glowdust_stone_slab", () -> new SlabBlock(getProperties(GLOWDUST_STONE.get())));
     public static final RegistryObject<Block> GLOWDUST_STONE_VERTICAL_SLAB = registerBlockWithDefaultItemConditioned("glowdust_stone_vertical_slab", () -> new VerticalSlabBlock(getProperties(GLOWDUST_STONE.get())), "quark");
     public static final RegistryObject<Block> GLOWDUST_STONE_STAIRS = registerBlockWithDefaultItem("glowdust_stone_stairs", () -> new StairsBlock(() -> GLOWDUST_STONE.get().getDefaultState(), getProperties(GLOWDUST_STONE.get())));
     public static final RegistryObject<Block> GLOWDUST_STONE_WALL = registerBlockWithDefaultItem("glowdust_stone_wall", () -> new WallBlock(getProperties(GLOWDUST_STONE.get())));
 
-    public static final RegistryObject<Block> GLOWDUST_STONE_BRICKS = registerBlockWithDefaultItem("glowdust_stone_bricks", () -> new Block(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 0)));
+    public static final RegistryObject<Block> GLOWDUST_STONE_BRICKS = registerBlockWithDefaultItem("glowdust_stone_bricks", () -> new Block(getProperties(Blocks.SANDSTONE)));
     public static final RegistryObject<Block> GLOWDUST_STONE_BRICK_SLAB = registerBlockWithDefaultItem("glowdust_stone_brick_slab",      () -> new SlabBlock(getProperties(GLOWDUST_STONE_BRICKS.get())));
     public static final RegistryObject<Block> GLOWDUST_STONE_BRICK_VERTICAL_SLAB = registerBlockWithDefaultItemConditioned("glowdust_stone_brick_vertical_slab", () -> new VerticalSlabBlock(getProperties(GLOWDUST_STONE_BRICKS.get())), "quark");
     public static final RegistryObject<Block> GLOWDUST_STONE_BRICK_STAIRS = registerBlockWithDefaultItem("glowdust_stone_brick_stairs",  () -> new StairsBlock(() -> GLOWDUST_STONE_BRICKS.get().getDefaultState(), getProperties(GLOWDUST_STONE_BRICKS.get())));
@@ -143,7 +143,7 @@ public class IEBlocks {
 	public static final RegistryObject<Block> CRACKED_GLOWDUST_STONE_BRICKS = registerBlockWithDefaultItem("cracked_glowdust_stone_bricks",	() -> new Block(getProperties(GLOWDUST_STONE_BRICKS.get())));
 	public static final RegistryObject<Block> CHISELED_GLOWDUST_STONE_BRICKS = registerBlockWithDefaultItem("chiseled_glowdust_stone_bricks",	() -> new Block(getProperties(GLOWDUST_STONE_BRICKS.get())));
 
-	public static final RegistryObject<Block> GLOWDUST_SANDSTONE = registerBlockWithDefaultItem("glowdust_sandstone",                    () -> new Block(getProperties(Blocks.SANDSTONE).setLightLevel(value -> 0)));
+	public static final RegistryObject<Block> GLOWDUST_SANDSTONE = registerBlockWithDefaultItem("glowdust_sandstone",                    () -> new Block(getProperties(Blocks.SANDSTONE)));
     public static final RegistryObject<Block> CUT_GLOWDUST_SANDSTONE = registerBlockWithDefaultItem("cut_glowdust_sandstone",            () -> new Block(getProperties(GLOWDUST_SANDSTONE.get())));
     public static final RegistryObject<Block> CHISELED_GLOWDUST_SANDSTONE = registerBlockWithDefaultItem("chiseled_glowdust_sandstone",  () -> new Block(getProperties(GLOWDUST_SANDSTONE.get())));
     public static final RegistryObject<Block> SMOOTH_GLOWDUST_SANDSTONE = registerBlockWithDefaultItem("smooth_glowdust_sandstone",      () -> new Block(getProperties(GLOWDUST_SANDSTONE.get())));
