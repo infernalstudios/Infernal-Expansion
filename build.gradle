@@ -109,6 +109,7 @@ dependencies {
     implementation 'org.spongepowered:noise:2.0.0-SNAPSHOT'
 
     compile 'org.spongepowered:mixin:0.8.1'
+    compile 'org.spongepowered:mixin:0.8.1:processor'
 
     // You may put jars on which you depend on in ./libs or you may define them like so..
     // compile "some.group:artifact:version:classifier"
