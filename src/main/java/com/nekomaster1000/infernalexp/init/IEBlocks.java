@@ -1,27 +1,7 @@
 package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
-import com.nekomaster1000.infernalexp.blocks.BasalticMagmaBlock;
-import com.nekomaster1000.infernalexp.blocks.BuriedBoneBlock;
-import com.nekomaster1000.infernalexp.blocks.CrumblingBlackstoneBlock;
-import com.nekomaster1000.infernalexp.blocks.DullthornsBlock;
-import com.nekomaster1000.infernalexp.blocks.DullthornsBlockBlock;
-import com.nekomaster1000.infernalexp.blocks.FungusCapBlock;
-import com.nekomaster1000.infernalexp.blocks.GlowCampfireBlock;
-import com.nekomaster1000.infernalexp.blocks.GlowFireBlock;
-import com.nekomaster1000.infernalexp.blocks.GlowSandBlock;
-import com.nekomaster1000.infernalexp.blocks.GlowTorchBlock;
-import com.nekomaster1000.infernalexp.blocks.GlowWallTorchBlock;
-import com.nekomaster1000.infernalexp.blocks.GlowdustBlock;
-import com.nekomaster1000.infernalexp.blocks.LuminousFungusBlock;
-import com.nekomaster1000.infernalexp.blocks.NetherrackPathBlock;
-import com.nekomaster1000.infernalexp.blocks.NetherCarpetBlock;
-import com.nekomaster1000.infernalexp.blocks.ShroomlightFungusBlock;
-import com.nekomaster1000.infernalexp.blocks.SmoothGlowstonePressurePlateBlock;
-import com.nekomaster1000.infernalexp.blocks.SoulSoilPathBlock;
-import com.nekomaster1000.infernalexp.blocks.TrappedGlowSandBlock;
-import com.nekomaster1000.infernalexp.blocks.VerticalSlabBlock;
-import com.nekomaster1000.infernalexp.blocks.BasaltIronOreBlock;
+import com.nekomaster1000.infernalexp.blocks.*;
 import com.nekomaster1000.infernalexp.util.DataUtil;
 
 import net.minecraft.block.Block;
@@ -96,7 +76,7 @@ public class IEBlocks {
     public static final RegistryObject<Block> SMOOTH_GLOWSTONE_VERTICAL_SLAB = registerBlockWithDefaultItemConditioned("smooth_glowstone_vertical_slab", () -> new VerticalSlabBlock(getProperties(SMOOTH_GLOWSTONE.get())), "quark");
     public static final RegistryObject<Block> SMOOTH_GLOWSTONE_STAIRS = registerBlockWithDefaultItem("smooth_glowstone_stairs",   () -> new StairsBlock(() -> SMOOTH_GLOWSTONE.get().getDefaultState(), getProperties(SMOOTH_GLOWSTONE.get())));
 	public static final RegistryObject<Block> SMOOTH_GLOWSTONE_BUTTON = registerBlockWithDefaultItem("smooth_glowstone_button",   () -> new StoneButtonBlock(getProperties(Material.MISCELLANEOUS, 0.5F).sound(SoundType.GLASS).setLightLevel(value -> 15).doesNotBlockMovement()));
-	public static final RegistryObject<Block> SMOOTH_GLOWSTONE_PRESSURE_PLATE = registerBlockWithDefaultItem("smooth_glowstone_pressure_plate", () -> new SmoothGlowstonePressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, getProperties(SMOOTH_GLOWSTONE.get()).setLightLevel(getLightValueLit(15))));
+	public static final RegistryObject<Block> SMOOTH_GLOWSTONE_PRESSURE_PLATE = registerBlockWithDefaultItem("smooth_glowstone_pressure_plate", () -> new LightUpPressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, getProperties(SMOOTH_GLOWSTONE.get()).setLightLevel(getLightValueLit(15))));
 
 	public static final RegistryObject<Block> SMOOTH_DIMSTONE_SLAB = registerBlockWithDefaultItem("smooth_dimstone_slab",         () -> new SlabBlock(getProperties(SMOOTH_DIMSTONE.get())));
 	public static final RegistryObject<Block> SMOOTH_DIMSTONE_VERTICAL_SLAB = registerBlockWithDefaultItemConditioned("smooth_dimstone_vertical_slab", () -> new VerticalSlabBlock(getProperties(SMOOTH_DIMSTONE.get())), "quark");
@@ -209,7 +189,7 @@ public class IEBlocks {
 	public static final RegistryObject<Block> SOUL_SLATE_VERTICAL_SLAB = registerBlockWithDefaultItemConditioned("soul_slate_vertical_slab", () -> new VerticalSlabBlock(getProperties(SOUL_SLATE.get())), "quark");
 	public static final RegistryObject<Block> SOUL_SLATE_STAIRS = registerBlockWithDefaultItem("soul_slate_stairs",	() -> new StairsBlock(() -> SOUL_SLATE.get().getDefaultState(), getProperties(SOUL_SLATE.get())));
 	public static final RegistryObject<Block> SOUL_SLATE_BUTTON = registerBlockWithDefaultItem("soul_slate_button",			() -> new StoneButtonBlock(getProperties(SOUL_SLATE.get())));
-	public static final RegistryObject<Block> SOUL_SLATE_PRESSURE_PLATE = registerBlockWithDefaultItem("soul_slate_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, (getProperties(SOUL_SLATE.get()))));
+	public static final RegistryObject<Block> SOUL_SLATE_PRESSURE_PLATE = registerBlockWithDefaultItem("soul_slate_pressure_plate", () -> new LightUpPressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, getProperties(SOUL_SLATE.get()).setLightLevel(getLightValueLit(15))));
 
     public static final RegistryObject<Block> SOUL_STONE_BRICKS = registerBlockWithDefaultItem("soul_stone_bricks",    		() -> new Block(getProperties(SOUL_STONE.get())));
     public static final RegistryObject<Block> SOUL_STONE_BRICK_SLAB = registerBlockWithDefaultItem("soul_stone_brick_slab", 	() -> new SlabBlock(getProperties(SOUL_STONE_BRICKS.get())));
