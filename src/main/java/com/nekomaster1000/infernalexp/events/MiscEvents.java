@@ -273,6 +273,7 @@ public class MiscEvents {
         spawnrateManager = new SpawnrateManager();
 
         event.addListener(volineEatTable);
+        spawnrateManager.loadResources();
     }
 
     public static Map<Item, Map<Item, Integer>> getVolineEatTable() {
