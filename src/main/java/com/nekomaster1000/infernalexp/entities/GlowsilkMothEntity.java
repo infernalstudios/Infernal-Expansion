@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.entities;
 
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 
+import com.nekomaster1000.infernalexp.init.IESoundEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntitySize;
@@ -46,19 +47,6 @@ public class GlowsilkMothEntity extends AmbientEntity {
      */
     protected float getSoundPitch() {
         return super.getSoundPitch() * 0.95F;
-    }
-
-    @Nullable
-    public SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_BAT_AMBIENT;
-    }
-
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.ENTITY_BAT_HURT;
-    }
-
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_BAT_DEATH;
     }
 
     /**
@@ -106,6 +94,21 @@ public class GlowsilkMothEntity extends AmbientEntity {
             this.rotationYaw += f1;
     }
 
+    // SOUNDS
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return IESoundEvents.GLOWSILK_MOTH_AMBIENT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return IESoundEvents.GLOWSILK_MOTH_DEATH.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return IESoundEvents.GLOWSILK_MOTH_HURT.get();
+    }
 
 
     protected boolean canTriggerWalking() {

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/pressure_plate_down",
   "textures": {
-    "texture": "infernalexp:block/soul_slate"
+    "texture": "infernalexp:block/soul_slate_lit"
   }
 }

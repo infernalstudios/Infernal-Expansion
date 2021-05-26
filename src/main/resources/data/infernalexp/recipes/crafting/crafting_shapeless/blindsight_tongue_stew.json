@@ -1,34 +1,23 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern":
+  "type": "minecraft:crafting_shapeless",
+  "ingredients":
   [
-    " b ",
-    "clw",
-    " o "
-  ],
-  "key":
-  {
-    "b":
     {
       "item": "infernalexp:blindsight_tongue"
     },
-    "c":
     {
       "item": "minecraft:crimson_fungus"
     },
-    "l":
     {
       "item": "infernalexp:luminous_fungus"
     },
-    "w":
     {
       "item": "minecraft:warped_fungus"
     },
-    "o":
     {
       "item": "minecraft:bowl"
     }
-  },
+  ],
   "result":
   {
     "item": "infernalexp:blindsight_tongue_stew"

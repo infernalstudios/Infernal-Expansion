@@ -7,11 +7,11 @@ import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 
-public class SmoothGlowstonePressurePlateBlock extends PressurePlateBlock {
+public class LightUpPressurePlateBlock extends PressurePlateBlock {
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 	public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
-	public SmoothGlowstonePressurePlateBlock(Sensitivity sensitivityIn, Properties propertiesIn) {
+	public LightUpPressurePlateBlock(Sensitivity sensitivityIn, Properties propertiesIn) {
 		super(sensitivityIn, propertiesIn);
 		this.setDefaultState(this.getDefaultState().with(POWERED, false).with(LIT, false));
 	}

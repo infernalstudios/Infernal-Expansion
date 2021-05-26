@@ -10,6 +10,21 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1.0,
+                "max": 12.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ],
+          "name": "infernalexp:silt"
+        },
+        {
+          "type": "minecraft:item",
           "weight": 7,
           "name": "minecraft:basalt"
         },

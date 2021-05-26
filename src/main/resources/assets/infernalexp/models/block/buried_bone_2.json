@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "infernalexp:block/buried_bone_2"
+  }
+}
