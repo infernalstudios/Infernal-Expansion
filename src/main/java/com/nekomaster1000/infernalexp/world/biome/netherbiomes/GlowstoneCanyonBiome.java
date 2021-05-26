@@ -90,9 +90,8 @@ public class GlowstoneCanyonBiome extends ModBiome {
         generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA_DOUBLE);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, IEConfiguredFeatures.GSC_SPRING_OPEN);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, IEConfiguredFeatures.GSC_SPRING_CLOSED);
-        //generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES,IEConfiguredFeatures.CANYON_BLACKSTONE_ORE);
-        //generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES,IEConfiguredFeatures.CANYON_CRUMBLING_BLACKSTONE_ORE);
-//        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.BLACKSTONE_BLOBS);
+        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES,IEConfiguredFeatures.CANYON_BLACKSTONE_BLOBS);
+        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.BLACKSTONE_BLOBS);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.PATCH_FIRE);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.PATCH_SOUL_FIRE);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.GLOWSTONE);
