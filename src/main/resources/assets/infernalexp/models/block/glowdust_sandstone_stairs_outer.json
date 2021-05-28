@@ -1,8 +1,0 @@
-{
-  "parent": "block/outer_stairs",
-  "textures": {
-    "bottom": "infernalexp:block/glowdust_stone",
-    "top": "infernalexp:block/glowdust_sandstone_top",
-    "side": "infernalexp:block/glowdust_sandstone"
-  }
-}
