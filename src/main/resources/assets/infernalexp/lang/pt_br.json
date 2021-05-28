@@ -61,20 +61,6 @@
   "block.infernalexp.cracked_glowdust_stone_bricks": "Cracked Glowdust Stone Bricks",
   "block.infernalexp.chiseled_glowdust_stone_bricks": "Chiseled Glowdust Stone Brick",
 
-  "block.infernalexp.glowdust_sandstone": "Arenito Luminoso",
-  "block.infernalexp.cut_glowdust_sandstone": "Arenito Luminoso cortado",
-  "block.infernalexp.chiseled_glowdust_sandstone": "Arenito Luminoso talhado",
-  "block.infernalexp.smooth_glowdust_sandstone": "Arenito Luminoso liso",
-  "block.infernalexp.glowdust_sandstone_slab": "Laje de Arenito Luminoso",
-  "block.infernalexp.glowdust_sandstone_vertical_slab": "Shimmer Sandstone Vertical Slab",
-  "block.infernalexp.glowdust_sandstone_stairs": "Escadas de Arenito Luminoso",
-  "block.infernalexp.cut_glowdust_sandstone_slab": "Laje de Arenito Luminoso cortado",
-  "block.infernalexp.cut_glowdust_sandstone_vertical_slab": "Cut Shimmer Sandstone Vertical Slab",
-
-  "block.infernalexp.smooth_glowdust_sandstone_slab": "Laje de Arenito Luminoso liso",
-  "block.infernalexp.smooth_glowdust_sandstone_vertical_slab": "Smooth Shimmer Sandstone Vertical Slab",
-  "block.infernalexp.smooth_glowdust_sandstone_stairs": "Escadas de Arenito Luminoso Liso",
-  "block.infernalexp.glowdust_sandstone_wall": "Parede de Arenito Luminoso",
   "block.infernalexp.crumbling_blackstone": "Pedra Negra Desmoronada",
 
   "block.infernalexp.silt": "Lodo",
