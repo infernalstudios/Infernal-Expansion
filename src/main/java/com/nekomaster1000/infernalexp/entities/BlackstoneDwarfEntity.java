@@ -131,9 +131,6 @@ public class BlackstoneDwarfEntity extends CreatureEntity implements IAngerable 
         if (InfernalExpansionConfig.MobInteractions.DWARF_ATTACK_ZOMBIE_PIGLIN.getBoolean()) {
             this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, ZombifiedPiglinEntity.class, true, false));
         }
-        if (InfernalExpansionConfig.MobInteractions.DWARF_ATTACK_SKELETAL_PIGLIN.getBoolean()) {
-            this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, SkeletalPiglinEntity.class, true, false));
-        }
         if (InfernalExpansionConfig.MobInteractions.DWARF_ATTACK_PLAYER.getBoolean()) {
             this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         }

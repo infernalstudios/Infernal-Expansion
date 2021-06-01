@@ -28,7 +28,6 @@ public class CommonConfig {
     final ForgeConfigSpec.BooleanValue glowsquitoAttackLuminous;
     final ForgeConfigSpec.BooleanValue dwarfAttackPiglin;
     final ForgeConfigSpec.BooleanValue dwarfAttackZombiePiglin;
-    final ForgeConfigSpec.BooleanValue dwarfAttackSkeletalPiglin;
     final ForgeConfigSpec.BooleanValue dwarfAttackPlayer;
     final ForgeConfigSpec.BooleanValue blindsightAttackGlowsquito;
     final ForgeConfigSpec.BooleanValue blindsightAttackPlayer;
@@ -50,7 +49,6 @@ public class CommonConfig {
     final ForgeConfigSpec.ConfigValue<String> glowsilkMothBiomes;
     final ForgeConfigSpec.ConfigValue<String> blindsightBiomes;
     final ForgeConfigSpec.ConfigValue<String> blackstoneDwarfBiomes;
-    final ForgeConfigSpec.ConfigValue<String> skeletalPiglinBiomes;
     
     //Bonemeal Behaviour
     final ForgeConfigSpec.DoubleValue shroomlightGrowChance;
@@ -173,11 +171,6 @@ public class CommonConfig {
             .translation(InfernalExpansion.MOD_ID + ".config.tooltip.dwarfAttackZombiePiglin")
             .define("dwarfAttackZombiePiglin", true);
 
-        dwarfAttackSkeletalPiglin = builder
-            .comment("Determines if Blackstone Dwarves will attack Skeletal Piglins")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.dwarfAttackSkeletalPiglin")
-            .define("dwarfAttackSkeletalPiglin", true);
-
         dwarfAttackPlayer = builder
             .comment("Determines if Blackstone Dwarves will attack Players")
             .translation(InfernalExpansion.MOD_ID + ".config.tooltip.dwarfAttackPlayer")
@@ -280,11 +273,6 @@ public class CommonConfig {
             .comment("Determines what biomes Blackstone Dwarfs will spawn in")
             .translation(InfernalExpansion.MOD_ID + ".config.tooltip.blackstone_dwarf.biomes")
             .define("blackstoneDwarfBiomes", "infernalexp:glowstone_canyon");
-
-        skeletalPiglinBiomes = builder
-            .comment("Determines what biomes Skeletal Piglins will spawn in")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.skeletal_piglin.biomes")
-            .define("skeletalPiglinBiomes", "minecraft:soul_sand_valley, infernalexp:glowstone_canyon, infernalexp:delta_shores");
 
         builder.pop();
         

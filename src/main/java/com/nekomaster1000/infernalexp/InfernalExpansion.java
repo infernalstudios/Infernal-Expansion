@@ -219,7 +219,7 @@ public class InfernalExpansion {
 
         @Override
         public ItemStack createIcon() {
-            return new ItemStack(IEItems.BLINDSIGHT_TONGUE.get());
+            return new ItemStack(IEItems.TAB_ITEM.get());
         }
 
     };
