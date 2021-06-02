@@ -90,7 +90,6 @@ public final class InfernalExpansionConfig {
         GLOWSQUITO_ATTACK_LUMINOUS("glowsquitoAttackLuminous", false),
         DWARF_ATTACK_PIGLIN("dwarfAttackPiglin", false),
         DWARF_ATTACK_ZOMBIE_PIGLIN("dwarfAttackZombiePiglin", false),
-        DWARF_ATTACK_SKELETAL_PIGLIN("dwarfAttackSkeletalPiglin", false),
         DWARF_ATTACK_PLAYER("dwarfAttackPlayer", false),
         BLINDSIGHT_ATTACK_GLOWSQUITO("blindsightAttackGlowsquito", false),
         BLINDSIGHT_ATTACK_PLAYER("blindsightAttackPlayer", false),
@@ -148,8 +147,7 @@ public final class InfernalExpansionConfig {
         GLOWSQUITO("glowsquito"),
         GLOWSILK_MOTH("glowsilk_moth"),
         BLINDSIGHT("blindsight"),
-        BLACKSTONE_DWARF("blackstone_dwarf"),
-        SKELETAL_PIGLIN("skeletal_piglin");
+        BLACKSTONE_DWARF("blackstone_dwarf");
 
         private final String translationName;
         private String spawnableBiomes;

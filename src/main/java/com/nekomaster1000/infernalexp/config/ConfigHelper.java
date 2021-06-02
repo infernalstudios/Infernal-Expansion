@@ -41,7 +41,6 @@ public final class ConfigHelper {
         MobInteractions.GLOWSQUITO_ATTACK_LUMINOUS.setBoolean(ConfigHolder.COMMON.glowsquitoAttackLuminous.get());
         MobInteractions.DWARF_ATTACK_PIGLIN.setBoolean(ConfigHolder.COMMON.dwarfAttackPiglin.get());
         MobInteractions.DWARF_ATTACK_ZOMBIE_PIGLIN.setBoolean(ConfigHolder.COMMON.dwarfAttackZombiePiglin.get());
-        MobInteractions.DWARF_ATTACK_SKELETAL_PIGLIN.setBoolean(ConfigHolder.COMMON.dwarfAttackSkeletalPiglin.get());
         MobInteractions.DWARF_ATTACK_PLAYER.setBoolean(ConfigHolder.COMMON.dwarfAttackPlayer.get());
         MobInteractions.BLINDSIGHT_ATTACK_GLOWSQUITO.setBoolean(ConfigHolder.COMMON.blindsightAttackGlowsquito.get());
         MobInteractions.BLINDSIGHT_ATTACK_PLAYER.setBoolean(ConfigHolder.COMMON.blindsightAttackPlayer.get());
@@ -63,7 +62,6 @@ public final class ConfigHelper {
         InfernalExpansionConfig.MobSpawning.GLOWSILK_MOTH.setSpawnableBiomes(ConfigHolder.COMMON.glowsilkMothBiomes.get());
         MobSpawning.BLINDSIGHT.setSpawnableBiomes(ConfigHolder.COMMON.blindsightBiomes.get());
         MobSpawning.BLACKSTONE_DWARF.setSpawnableBiomes(ConfigHolder.COMMON.blackstoneDwarfBiomes.get());
-        MobSpawning.SKELETAL_PIGLIN.setSpawnableBiomes(ConfigHolder.COMMON.skeletalPiglinBiomes.get());
 
         //Bonemeal Behaviour
         Miscellaneous.SHROOMLIGHT_GROWABLE.set(ConfigHolder.COMMON.isShroomlightGrowable.get());
@@ -104,7 +102,6 @@ public final class ConfigHelper {
         ConfigHolder.COMMON.glowsquitoAttackLuminous.set(MobInteractions.GLOWSQUITO_ATTACK_LUMINOUS.getBoolean());
         ConfigHolder.COMMON.dwarfAttackPiglin.set(MobInteractions.DWARF_ATTACK_PIGLIN.getBoolean());
         ConfigHolder.COMMON.dwarfAttackZombiePiglin.set(MobInteractions.DWARF_ATTACK_ZOMBIE_PIGLIN.getBoolean());
-        ConfigHolder.COMMON.dwarfAttackSkeletalPiglin.set(MobInteractions.DWARF_ATTACK_SKELETAL_PIGLIN.getBoolean());
         ConfigHolder.COMMON.dwarfAttackPlayer.set(MobInteractions.DWARF_ATTACK_PLAYER.getBoolean());
         ConfigHolder.COMMON.blindsightAttackGlowsquito.set(MobInteractions.BLINDSIGHT_ATTACK_GLOWSQUITO.getBoolean());
         ConfigHolder.COMMON.blindsightAttackPlayer.set(MobInteractions.BLINDSIGHT_ATTACK_PLAYER.getBoolean());
@@ -126,7 +123,6 @@ public final class ConfigHelper {
         ConfigHolder.COMMON.glowsilkMothBiomes.set(InfernalExpansionConfig.MobSpawning.GLOWSILK_MOTH.getSpawnableBiomes());
         ConfigHolder.COMMON.blindsightBiomes.set(InfernalExpansionConfig.MobSpawning.BLINDSIGHT.getSpawnableBiomes());
         ConfigHolder.COMMON.blackstoneDwarfBiomes.set(MobSpawning.BLACKSTONE_DWARF.getSpawnableBiomes());
-        ConfigHolder.COMMON.skeletalPiglinBiomes.set(InfernalExpansionConfig.MobSpawning.SKELETAL_PIGLIN.getSpawnableBiomes());
 
         ConfigHolder.COMMON.isShroomlightGrowable.set(Miscellaneous.SHROOMLIGHT_GROWABLE.getBool());
         ConfigHolder.COMMON.shroomlightGrowChance.set(Miscellaneous.SHROOMLIGHT_GROW_CHANCE.getDouble());
