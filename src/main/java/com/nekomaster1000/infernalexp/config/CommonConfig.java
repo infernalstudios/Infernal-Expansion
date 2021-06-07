@@ -61,6 +61,7 @@ public class CommonConfig {
     
     //Luminous Fungus
     final ForgeConfigSpec.DoubleValue luminousFungusActivateDistance;
+    final ForgeConfigSpec.BooleanValue luminousFungusGivesEffect;
 
     CommonConfig(final ForgeConfigSpec.Builder builder){
         //Mob Interactions
@@ -316,6 +317,11 @@ public class CommonConfig {
                 .comment("Determines the distance an entity has to be from a luminous fungus for it to activate (larger values have performance impact)")
                 .translation(InfernalExpansion.MOD_ID + ".config.luminousFungusActivateDistance")
                 .defineInRange("luminousFungusActivateDistance", 4.0D, 0.0D, Double.MAX_VALUE);
+
+        luminousFungusGivesEffect = builder
+            .comment("Determines whether Luminous Fungus gives the Luminance effect on collision with an entity")
+            .translation(InfernalExpansion.MOD_ID + ".config.luminousFungusActivateDistance")
+            .define("luminousFungusGivesEffect", true);
 
         builder.pop();
     }

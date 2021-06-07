@@ -222,7 +222,7 @@ public class IEBlocks {
 	public static final RegistryObject<Block> GLOWSILK_COCOON = registerBlockWithDefaultItem("glowsilk_cocoon", () -> new RotatedPillarBlock(getProperties(Material.LEAVES).sound(SoundType.CLOTH).setRequiresTool().harvestTool(ToolType.HOE).harvestLevel(3).hardnessAndResistance(5.0F, 1200.0F).setLightLevel(value -> 5)));
 	// Foliage
 	public static final RegistryObject<Block> LUMINOUS_FUNGUS = registerBlockWithDefaultItem("luminous_fungus", () -> new LuminousFungusBlock(getProperties(Material.PLANTS).setLightLevel(getLightValueLit(15)).doesNotBlockMovement().sound(SoundType.PLANT)));
-	public static final RegistryObject<Block> DULLTHORNS = registerBlock("dullthorns", () -> new DullthornsBlock(AbstractBlock.Properties.create(Material.CACTUS).setLightLevel(value -> 3).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0.1F).sound(SoundType.PLANT)));
+	public static final RegistryObject<Block> DULLTHORNS = registerBlock("dullthorns", () -> new DullthornsBlock(AbstractBlock.Properties.create(Material.PLANTS).setLightLevel(value -> 3).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0.1F).sound(SoundType.PLANT)));
 
 	public static final RegistryObject<Block> DULLTHORNS_BLOCK = registerBlockWithDefaultItem("dullthorns_block", () -> new DullthornsBlockBlock(AbstractBlock.Properties.create(Material.CACTUS).hardnessAndResistance(0.2F).sound(SoundType.WART)));
 

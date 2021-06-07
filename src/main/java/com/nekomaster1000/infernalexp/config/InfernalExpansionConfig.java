@@ -192,7 +192,8 @@ public final class InfernalExpansionConfig {
         LUMINOUS_FUNGUS_ACTIVATE_DISTANCE("luminousFungusActivateDistance", true, 0, 100, 1),
         FIRE_CHARGE_EXPLOSION("fireChargeExplosion", false, 0, 1, 1),
         JERKY_EFFECT_DURATION("jerkyEffectDuration", true, 1, 120, 1),
-        JERKY_EFFECT_AMPLIFIER("jerkyEffectAmplifier", true, 0, 2, 1);
+        JERKY_EFFECT_AMPLIFIER("jerkyEffectAmplifier", true, 0, 2, 1),
+        LUMINOUS_FUNGUS_GIVES_EFFECT("luminousFungusGivesEffect", false, 0, 0, 0);
 
         private final String translationName;
         private final boolean isSlider;
