@@ -335,9 +335,8 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
 		// this.goalSelector.addGoal(5, this.eatGrassGoal);
 		this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
 		if (InfernalExpansionConfig.MobInteractions.GLOWSQUITO_ATTACK_LUMINOUS.getBoolean()) {
-            this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, CreatureEntity.class, true, false, IEEffects.LUMINOUS.get(), GlowsquitoEntity.class));
-            this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, MonsterEntity.class, true, false, IEEffects.LUMINOUS.get(), GlowsquitoEntity.class));
-        }
+            this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, LivingEntity.class, true, false, IEEffects.LUMINOUS.get(), GlowsquitoEntity.class));
+		}
 		if (InfernalExpansionConfig.MobInteractions.GLOWSQUITO_ATTACK_DWARF.getBoolean()) {
             this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, BlackstoneDwarfEntity.class, true));
         }

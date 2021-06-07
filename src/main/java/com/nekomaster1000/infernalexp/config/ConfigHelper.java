@@ -73,6 +73,8 @@ public final class ConfigHelper {
         Miscellaneous.JERKY_EFFECT_AMPLIFIER.set(ConfigHolder.COMMON.jerkyEffectAmplifier.get());
 
         Miscellaneous.LUMINOUS_FUNGUS_ACTIVATE_DISTANCE.set(ConfigHolder.COMMON.luminousFungusActivateDistance.get());
+
+        Miscellaneous.LUMINOUS_FUNGUS_GIVES_EFFECT.set(ConfigHolder.COMMON.luminousFungusGivesEffect.get());
     }
 
     public static void saveToClient() {
@@ -132,6 +134,8 @@ public final class ConfigHelper {
         ConfigHolder.COMMON.jerkyEffectAmplifier.set(Miscellaneous.JERKY_EFFECT_AMPLIFIER.getInt());
 
         ConfigHolder.COMMON.luminousFungusActivateDistance.set(Miscellaneous.LUMINOUS_FUNGUS_ACTIVATE_DISTANCE.getDouble());
+
+        ConfigHolder.COMMON.luminousFungusGivesEffect.set(Miscellaneous.LUMINOUS_FUNGUS_GIVES_EFFECT.getBool());
 
         ConfigHolder.COMMON_SPEC.save();
     }

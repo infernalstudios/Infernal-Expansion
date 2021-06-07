@@ -1,18 +1,25 @@
 package com.nekomaster1000.infernalexp.blocks;
 
+import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
+import com.nekomaster1000.infernalexp.entities.BlindsightEntity;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IEConfiguredFeatures;
+import com.nekomaster1000.infernalexp.init.IEEffects;
 import com.nekomaster1000.infernalexp.tileentities.LuminousFungusTileEntity;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.IGrowable;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.AttachFace;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -77,6 +84,17 @@ public class LuminousFungusBlock extends HorizontalBushBlock implements IGrowabl
                 return CEILING_SHAPE.withOffset(vector3d.x, vector3d.y, vector3d.z);
         }
     }
+
+    @Override
+    public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
+        if (!worldIn.isRemote()) {
+            if (entityIn instanceof LivingEntity && entityIn.isAlive() && InfernalExpansionConfig.Miscellaneous.LUMINOUS_FUNGUS_GIVES_EFFECT.getBool()) {
+                LivingEntity livingEntity = (LivingEntity) entityIn;
+                livingEntity.addPotionEffect(new EffectInstance(IEEffects.LUMINOUS.get(), 120, 0, true, true));
+            }
+        }
+    }
+
 
     @Override
     public OffsetType getOffsetType() {
