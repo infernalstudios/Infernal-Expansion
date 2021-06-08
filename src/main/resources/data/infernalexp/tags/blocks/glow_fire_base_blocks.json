@@ -8,15 +8,8 @@
     "infernalexp:glowdust_stone_brick_slab",
     "infernalexp:glowdust_stone_brick_stairs",
     "infernalexp:trapped_glowdust_sand",
-    "infernalexp:glowdust_sandstone",
-    "infernalexp:cut_glowdust_sandstone",
-    "infernalexp:chiseled_glowdust_sandstone",
-    "infernalexp:smooth_glowdust_sandstone",
     "infernalexp:glowdust_sandstone_slab",
     "infernalexp:glowdust_sandstone_stairs",
-    "infernalexp:cut_glowdust_sandstone_slab",
-    "infernalexp:smooth_glowdust_sandstone_slab",
-    "infernalexp:smooth_glowdust_sandstone_stairs",
     "infernalexp:glowdust_sandstone_wall"
   ]
 }

@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "infernalexp:glowdust_sandstone_wall",
     "infernalexp:glowdust_stone_wall",
     "infernalexp:glowdust_stone_brick_wall",
     "infernalexp:glowstone_brick_wall",

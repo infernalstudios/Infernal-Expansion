@@ -61,20 +61,6 @@
   "block.infernalexp.cracked_glowdust_stone_bricks": "Cracked Glowdust Stone Bricks",
   "block.infernalexp.chiseled_glowdust_stone_bricks": "Chiseled Glowdust Stone Brick",
 
-  "block.infernalexp.glowdust_sandstone": "Gloeistof Zandsteen",
-  "block.infernalexp.cut_glowdust_sandstone": "Gesneden Gloeistof Zandsteen",
-  "block.infernalexp.chiseled_glowdust_sandstone": "Gebeiteld Gloeistof Zandsteen",
-  "block.infernalexp.smooth_glowdust_sandstone": "Glad Gloeistof Zandsteen",
-  "block.infernalexp.glowdust_sandstone_slab": "Gloeistof Zandstenen Plaat",
-  "block.infernalexp.glowdust_sandstone_vertical_slab": "Shimmer Sandstone Vertical Slab",
-  "block.infernalexp.glowdust_sandstone_stairs": "Gloeistof Zandstenen Trap",
-  "block.infernalexp.cut_glowdust_sandstone_slab": "Gesneden Gloeistof Zandstenen Plaat",
-  "block.infernalexp.cut_glowdust_sandstone_vertical_slab": "Cut Shimmer Sandstone Vertical Slab",
-
-  "block.infernalexp.smooth_glowdust_sandstone_slab": "Gladde Gloeistof Zandstenen Plaat",
-  "block.infernalexp.smooth_glowdust_sandstone_vertical_slab": "Smooth Shimmer Sandstone Vertical Slab",
-  "block.infernalexp.smooth_glowdust_sandstone_stairs": "Gladde Gloeistof Zandstenen Trap",
-  "block.infernalexp.glowdust_sandstone_wall": "Gloeistof Zandstenen Muur",
   "block.infernalexp.crumbling_blackstone": "Afbrokkelend Zwartsteen",
 
   "block.infernalexp.silt": "Basalt Slib",
