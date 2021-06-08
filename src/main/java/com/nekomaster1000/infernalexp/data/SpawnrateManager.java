@@ -65,7 +65,7 @@ public class SpawnrateManager {
         ))
         .put("shroomloin", ImmutableMap.of(
             "default", new SpawnInfo(5, 1, 3, 0, 0),
-            "minecraft:crimson_forest", new SpawnInfo(30, 1, 1, 7.2D, 0.1D)
+            "minecraft:crimson_forest", new SpawnInfo(30, 1, 1, 16.2D, 0.1D)
         ))
         .put("voline", ImmutableMap.of(
             "default", new SpawnInfo(20, 1, 1, 0, 0),
