@@ -90,7 +90,6 @@ public final class InfernalExpansionConfig {
         GLOWSQUITO_ATTACK_LUMINOUS("glowsquitoAttackLuminous", false),
         DWARF_ATTACK_PIGLIN("dwarfAttackPiglin", false),
         DWARF_ATTACK_ZOMBIE_PIGLIN("dwarfAttackZombiePiglin", false),
-        DWARF_ATTACK_SKELETAL_PIGLIN("dwarfAttackSkeletalPiglin", false),
         DWARF_ATTACK_PLAYER("dwarfAttackPlayer", false),
         BLINDSIGHT_ATTACK_GLOWSQUITO("blindsightAttackGlowsquito", false),
         BLINDSIGHT_ATTACK_PLAYER("blindsightAttackPlayer", false),
@@ -148,8 +147,7 @@ public final class InfernalExpansionConfig {
         GLOWSQUITO("glowsquito"),
         GLOWSILK_MOTH("glowsilk_moth"),
         BLINDSIGHT("blindsight"),
-        BLACKSTONE_DWARF("blackstone_dwarf"),
-        SKELETAL_PIGLIN("skeletal_piglin");
+        BLACKSTONE_DWARF("blackstone_dwarf");
 
         private final String translationName;
         private String spawnableBiomes;
@@ -194,7 +192,8 @@ public final class InfernalExpansionConfig {
         LUMINOUS_FUNGUS_ACTIVATE_DISTANCE("luminousFungusActivateDistance", true, 0, 100, 1),
         FIRE_CHARGE_EXPLOSION("fireChargeExplosion", false, 0, 1, 1),
         JERKY_EFFECT_DURATION("jerkyEffectDuration", true, 1, 120, 1),
-        JERKY_EFFECT_AMPLIFIER("jerkyEffectAmplifier", true, 0, 2, 1);
+        JERKY_EFFECT_AMPLIFIER("jerkyEffectAmplifier", true, 0, 2, 1),
+        LUMINOUS_FUNGUS_GIVES_EFFECT("luminousFungusGivesEffect", false, 0, 0, 0);
 
         private final String translationName;
         private final boolean isSlider;

@@ -2,6 +2,8 @@ package com.nekomaster1000.infernalexp.entities;
 
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.entities.ai.TeleportPanicGoal;
+import com.nekomaster1000.infernalexp.init.IEBlocks;
+import com.nekomaster1000.infernalexp.init.IEItems;
 import com.nekomaster1000.infernalexp.init.IESoundEvents;
 
 import net.minecraft.block.BlockState;
@@ -42,7 +44,7 @@ public class WarpbeetleEntity extends CreatureEntity {
 		super(type, worldIn);
 	}
 
-	public static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.CRIMSON_FUNGUS);
+	public static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.CRIMSON_FUNGUS, IEBlocks.CRIMSON_FUNGUS_CAP.get().asItem());
 
 	// ATTRIBUTES
 	public static AttributeModifierMap.MutableAttribute setCustomAttributes() {

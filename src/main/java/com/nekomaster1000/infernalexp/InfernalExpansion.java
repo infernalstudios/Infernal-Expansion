@@ -122,7 +122,7 @@ public class InfernalExpansion {
 
         // Add custom blocks to nether cave carver
         event.enqueueWork(() -> {
-            Set<Block> newCarvableBlocks = Stream.of(IEBlocks.DULLSTONE.get(), IEBlocks.DIMSTONE.get(), Blocks.GLOWSTONE, IEBlocks.GLOWDUST_SAND.get(), IEBlocks.GLOWDUST.get(), IEBlocks.GLOWDUST_SANDSTONE.get()).collect(Collectors.toCollection(HashSet::new));
+            Set<Block> newCarvableBlocks = Stream.of(IEBlocks.DULLSTONE.get(), IEBlocks.DIMSTONE.get(), Blocks.GLOWSTONE, IEBlocks.GLOWDUST_SAND.get(), IEBlocks.GLOWDUST.get()).collect(Collectors.toCollection(HashSet::new));
 
             newCarvableBlocks.addAll(((WorldCarverAccessor) WorldCarver.NETHER_CAVE).getCarvableBlocks());
             ((WorldCarverAccessor) WorldCarver.NETHER_CAVE).setCarvableBlocks(newCarvableBlocks);
@@ -219,7 +219,7 @@ public class InfernalExpansion {
 
         @Override
         public ItemStack createIcon() {
-            return new ItemStack(IEItems.BLINDSIGHT_TONGUE.get());
+            return new ItemStack(IEItems.TAB_ITEM.get());
         }
 
     };

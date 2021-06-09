@@ -6,21 +6,18 @@
     "infernalexp:basalt_slab",
     "infernalexp:dimstone_brick_slab",
     "infernalexp:dullstone_brick_slab",
-    "infernalexp:glowdust_sandstone_slab",
     "infernalexp:glowdust_stone_brick_slab",
     "infernalexp:glowstone_brick_slab",
     "infernalexp:polished_basalt_slab",
     "infernalexp:polished_basalt_tiles_slab",
     "infernalexp:smooth_dimstone_slab",
     "infernalexp:smooth_dullstone_slab",
-    "infernalexp:smooth_glowdust_sandstone_slab",
     "infernalexp:smooth_glowstone_slab",
     "infernalexp:soul_sand_slab",
     "infernalexp:soul_slate_brick_slab",
     "infernalexp:soul_slate_slab",
     "infernalexp:soul_soil_slab",
     "infernalexp:soul_stone_brick_slab",
-    "infernalexp:soul_stone_slab",
-    "infernalexp:cut_glowdust_sandstone_slab"
+    "infernalexp:soul_stone_slab"
   ]
 }
