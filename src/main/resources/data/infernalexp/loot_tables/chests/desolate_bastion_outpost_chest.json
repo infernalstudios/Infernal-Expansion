@@ -46,11 +46,6 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
-          "name": "infernalexp:glowdust_sandstone"
-        },
-        {
-          "type": "minecraft:item",
           "weight": 3,
           "name": "infernalexp:glowdust"
         },
@@ -59,12 +54,6 @@
           "weight": 5,
           "name": "infernalexp:glowdust_stone_brick_slab"
         },
-        {
-          "type": "minecraft:item",
-          "weight": 5,
-          "name": "infernalexp:cut_glowdust_sandstone_slab"
-        },
-
         {
           "type": "minecraft:item",
           "weight": 4,
