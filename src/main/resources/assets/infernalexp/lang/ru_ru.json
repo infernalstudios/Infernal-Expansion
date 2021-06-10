@@ -249,6 +249,7 @@
   "infernalexp.config.subtitle.spawnable_biomes": "В каких биомах должны спавниться мобы?",
   "infernalexp.config.option.piglinFearWarpbeetle": "Пиглины боятся Искажуков",
   "infernalexp.config.option.piglinFearEmbody": "Пиглины боятся Воплощений",
+  "infernalexp.config.option.piglinFearDwarf": "Piglins fear Blackstone Dwarves",
   "infernalexp.config.option.hoglinFearWarpbeetle": "Хоглины боятся Искажуков",
   "infernalexp.config.option.hoglinFearEmbody": "Хоглины боятся Воплощений",
   "infernalexp.config.option.spiderAttackWarpbeetle": "Пауки атакуют Искажуков",
@@ -282,6 +283,7 @@
 
   "infernalexp.config.tooltip.piglinFearWarpbeetle": "Определяет, будут ли Пиглины убегать от Искажуков",
   "infernalexp.config.tooltip.piglinFearEmbody": "Определяет, будут ли Пиглины убегать от Воплощений",
+  "infernalexp.config.tooltip.piglinFearDwarf": "Determines if Piglins will run away from Blackstone Dwarves",
   "infernalexp.config.tooltip.hoglinFearWarpbeetle": "Определяет, будут ли Хоглины убегать от Искажуков",
   "infernalexp.config.tooltip.hoglinFearEmbody": "Определяет, будут ли Хоглины убегать от Воплощений",
   "infernalexp.config.tooltip.spiderAttackWarpbeetle": "Определяет, будут ли Пауки атаковать Искажуков",
@@ -362,5 +364,9 @@
   "infernalexp.config.tooltip.jerkyEffectAmplifier": "Определяет силу эффекта от вяленого мяса",
 
   "infernalexp.config.option.luminousRefreshRate": "Скорость обновления эффекта Свечения",
-  "infernalexp.config.tooltip.luminousRefreshRate": "Определяет, как долго (в тиках) эффект свечения обновляется"
+  "infernalexp.config.tooltip.luminousRefreshRate": "Определяет, как долго (в тиках) эффект свечения обновляется",
+
+  "infernalexp.config.option.luminousFungusGivesEffect": "Luminous Fungus gives Luminance Effect",
+  "infernalexp.config.tooltip.luminousFungusGivesEffect": "Determines whether Luminous Fungus gives the Luminance effect on collision with an entity",
+
 }

@@ -249,6 +249,7 @@
   "infernalexp.config.subtitle.spawnable_biomes": "What biomes should mobs spawn in?",
   "infernalexp.config.option.piglinFearWarpbeetle": "Piglins fear Warpbeetles",
   "infernalexp.config.option.piglinFearEmbody": "Piglins fear Embodies",
+  "infernalexp.config.option.piglinFearDwarf": "Piglins fear Blackstone Dwarves",
   "infernalexp.config.option.hoglinFearWarpbeetle": "Hoglins fear Warpbeetles",
   "infernalexp.config.option.hoglinFearEmbody": "Hoglins fear Embodies",
   "infernalexp.config.option.spiderAttackWarpbeetle": "Spiders attack Warpbeetles",
@@ -282,6 +283,7 @@
 
   "infernalexp.config.tooltip.piglinFearWarpbeetle": "Determines if Piglins will run away from Warpbeetles",
   "infernalexp.config.tooltip.piglinFearEmbody": "Determines if Piglins will run away from Embodies",
+  "infernalexp.config.tooltip.piglinFearDwarf": "Determines if Piglins will run away from Blackstone Dwarves",
   "infernalexp.config.tooltip.hoglinFearWarpbeetle": "Determines if Hoglins will run away from Warpbeetles",
   "infernalexp.config.tooltip.hoglinFearEmbody": "Determines if Hoglins will run away from Embodies",
   "infernalexp.config.tooltip.spiderAttackWarpbeetle": "Determines if Spiders and Warpbeetles will fight",
