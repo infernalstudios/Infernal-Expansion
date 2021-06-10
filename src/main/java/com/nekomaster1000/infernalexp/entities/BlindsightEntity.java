@@ -50,7 +50,8 @@ public class BlindsightEntity extends MonsterEntity {
             .createMutableAttribute(Attributes.MAX_HEALTH, 24.0D)
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 2.0D)
                 .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.5D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.9D);
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.9D)
+                .createMutableAttribute(Attributes.FOLLOW_RANGE, 6.0D);
     }
 
     //BEHAVIOUR
@@ -263,7 +264,7 @@ public class BlindsightEntity extends MonsterEntity {
          * method as well.
          */
         public boolean shouldExecute() {
-            return !this.blindsight.isPassenger();
+            return !this.blindsight.isPassenger() && this.blindsight.getAttackTarget() != null;
         }
 
         /**
