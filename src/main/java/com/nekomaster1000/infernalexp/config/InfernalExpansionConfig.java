@@ -71,6 +71,7 @@ public final class InfernalExpansionConfig {
     public enum MobInteractions{
         PIGLIN_FEAR_WARPBEETLE("piglinFearWarpbeetle", false),
         PIGLIN_FEAR_EMBODY("piglinFearEmbody", false),
+        PIGLIN_FEAR_DWARF("piglinFearDwarf", false),
         HOGLIN_FEAR_WARPBEETLE("hoglinFearWarpbeetle", false),
         HOGLIN_FEAR_EMBODY("hoglinFearEmbody", false),
         SPIDER_ATTACK_WARPBEETLE("spiderAttackWarpbeetle", false),

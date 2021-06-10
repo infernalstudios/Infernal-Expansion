@@ -9,6 +9,7 @@ public class CommonConfig {
     //Mob Interactions
     final ForgeConfigSpec.BooleanValue piglinFearWarpbeetle;
     final ForgeConfigSpec.BooleanValue piglinFearEmbody;
+    final ForgeConfigSpec.BooleanValue piglinFearDwarf;
     final ForgeConfigSpec.BooleanValue hoglinFearWarpbeetle;
     final ForgeConfigSpec.BooleanValue hoglinFearEmbody;
     final ForgeConfigSpec.BooleanValue spiderAttackWarpbeetle;
@@ -76,6 +77,11 @@ public class CommonConfig {
                 .comment("Determines if Piglins will run away from Embodies")
                 .translation(InfernalExpansion.MOD_ID + ".config.tooltip.piglinFearEmbody")
                 .define("piglinFearEmbody", true);
+
+        piglinFearDwarf = builder
+            .comment("Determines if Piglins will run away from Blackstone Dwarves")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.piglinFearDwarf")
+            .define("piglinFearDwarf", true);
 
         hoglinFearWarpbeetle = builder
                 .comment("Determines if Hoglins will run away from Warpbeetles")

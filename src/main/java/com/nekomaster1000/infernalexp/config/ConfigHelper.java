@@ -22,6 +22,7 @@ public final class ConfigHelper {
         //Mob Interactions
         MobInteractions.PIGLIN_FEAR_WARPBEETLE.setBoolean(ConfigHolder.COMMON.piglinFearWarpbeetle.get());
         MobInteractions.PIGLIN_FEAR_EMBODY.setBoolean(ConfigHolder.COMMON.piglinFearEmbody.get());
+        MobInteractions.PIGLIN_FEAR_DWARF.setBoolean(ConfigHolder.COMMON.piglinFearDwarf.get());
         MobInteractions.HOGLIN_FEAR_WARPBEETLE.setBoolean(ConfigHolder.COMMON.hoglinFearWarpbeetle.get());
         MobInteractions.HOGLIN_FEAR_EMBODY.setBoolean(ConfigHolder.COMMON.hoglinFearEmbody.get());
         MobInteractions.SPIDER_ATTACK_WARPBEETLE.setBoolean(ConfigHolder.COMMON.spiderAttackWarpbeetle.get());
@@ -85,6 +86,7 @@ public final class ConfigHelper {
         //Mob Interactions
         ConfigHolder.COMMON.piglinFearWarpbeetle.set(MobInteractions.PIGLIN_FEAR_WARPBEETLE.getBoolean());
         ConfigHolder.COMMON.piglinFearEmbody.set(MobInteractions.PIGLIN_FEAR_EMBODY.getBoolean());
+        ConfigHolder.COMMON.piglinFearDwarf.set(MobInteractions.PIGLIN_FEAR_DWARF.getBoolean());
         ConfigHolder.COMMON.hoglinFearWarpbeetle.set(MobInteractions.HOGLIN_FEAR_WARPBEETLE.getBoolean());
         ConfigHolder.COMMON.hoglinFearEmbody.set(MobInteractions.HOGLIN_FEAR_EMBODY.getBoolean());
         ConfigHolder.COMMON.spiderAttackWarpbeetle.set(MobInteractions.SPIDER_ATTACK_WARPBEETLE.getBoolean());
