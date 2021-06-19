@@ -124,27 +124,27 @@
 		"sounds": [
 			"infernalexp:entity/embody/embody_death"
 		]
-  },
-  "entity.glowsilk_moth.ambient": {
-    "category": "block",
-    "subtitle": "Glowsilk Moth shimmers",
-    "sounds": [
-      "infernalexp:entity/glowsilk_moth/glowsilk_moth_ambient"
-    ]
-  },
-  "entity.glowsilk_moth.hurt": {
-    "category": "block",
-    "subtitle": "Glowsilk Moth hurts",
-    "sounds": [
-      "infernalexp:entity/glowsilk_moth/glowsilk_moth_hurt"
-    ]
-  },
-  "entity.glowsilk_moth.death": {
-    "category": "block",
-    "subtitle": "Glowsilk Moth dies",
-    "sounds": [
-      "infernalexp:entity/glowsilk_moth/glowsilk_moth_death"
-    ]
+	},
+	"entity.glowsilk_moth.ambient": {
+		"category": "block",
+		"subtitle": "Glowsilk Moth shimmers",
+		"sounds": [
+			"infernalexp:entity/glowsilk_moth/glowsilk_moth_ambient"
+		]
+	},
+	"entity.glowsilk_moth.hurt": {
+		"category": "block",
+		"subtitle": "Glowsilk Moth hurts",
+		"sounds": [
+			"infernalexp:entity/glowsilk_moth/glowsilk_moth_hurt"
+		]
+	},
+	"entity.glowsilk_moth.death": {
+		"category": "block",
+		"subtitle": "Glowsilk Moth dies",
+		"sounds": [
+			"infernalexp:entity/glowsilk_moth/glowsilk_moth_death"
+		]
 	},
 	"entity.glowsquito.loop": {
 		"sounds": [
@@ -395,6 +395,7 @@
 			{
 				"name": "infernalexp:music/nether/glowstone_canyon/spindle",
 				"stream": true,
+				"volume": 0.5,
 				"weight": 8
 			},
 			{
@@ -423,15 +424,15 @@
 			}
 		]
 	},
-  "block.soul_stone.break": {
-    "sounds": [
-      "infernalexp:block/soul_stone/break1",
-      "infernalexp:block/soul_stone/break2",
-      "infernalexp:block/soul_stone/break3",
-      "infernalexp:block/soul_stone/break4",
-      "infernalexp:block/soul_stone/break5"
-    ]
-  },
+	"block.soul_stone.break": {
+		"sounds": [
+			"infernalexp:block/soul_stone/break1",
+			"infernalexp:block/soul_stone/break2",
+			"infernalexp:block/soul_stone/break3",
+			"infernalexp:block/soul_stone/break4",
+			"infernalexp:block/soul_stone/break5"
+		]
+	},
 	"block.dullstone.break": {
 		"sounds": [
 			"infernalexp:block/dullstone/break1",
@@ -465,9 +466,9 @@
 			"infernalexp:block/dullstone/break2"
 		]
 	},
-  "block.glowstone.recharge": {
-    "sounds": [
-      "infernalexp:block/glowstone/recharge"
-    ]
-  }
+	"block.glowstone.recharge": {
+		"sounds": [
+			"infernalexp:block/glowstone/recharge"
+		]
+	}
 }
