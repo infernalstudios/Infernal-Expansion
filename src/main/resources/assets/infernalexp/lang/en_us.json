@@ -212,6 +212,9 @@
   "item.infernalexp.music_disc_soul_spunk": "Music Disc",
   "item.infernalexp.music_disc_soul_spunk.desc": "LudoCrypt - Soul Spunk",
 
+  "item.infernalexp.music_disc_flush": "Music Disc",
+  "item.infernalexp.music_disc_flush.desc": "LudoCrypt - flush",
+
   "entity.infernalexp.voline": "Voline",
   "entity.infernalexp.shroomloin": "Shroomloin",
   "entity.infernalexp.warpbeetle": "Warpbeetle",
