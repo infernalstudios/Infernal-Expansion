@@ -32,7 +32,7 @@ public class SinkHoleFeature extends Feature<NoFeatureConfig> {
             int radius = minRadius + random.nextInt(maxRadius - minRadius);
             int depth = 10 + random.nextInt(6);
 
-            // Check to see if we are on the bottom layer of the biome
+            // Check to see if we are on the bottom layer of the hole
             mutableBlockPos.setPos(pos);
             for (int y = 1; y < depth; y++) {
                 mutableBlockPos.move(Direction.DOWN);
@@ -54,9 +54,6 @@ public class SinkHoleFeature extends Feature<NoFeatureConfig> {
                 mutableBlockPos.move(point.getX(), point.getY(), point.getZ());
                 mutableBlockPos.move(Direction.DOWN);
                 world.setBlockState(mutableBlockPos, IEBlocks.TRAPPED_GLOWDUST_SAND.get().getDefaultState(), 2);
-
-                // move down 1 move before loop
-                mutableBlockPos.move(Direction.DOWN);
 
                 for (int y = 2; y < depth; y++) {
                     mutableBlockPos.move(Direction.DOWN);

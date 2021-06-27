@@ -95,7 +95,8 @@ public class IESoundEvents {
 
 	// RECORD DISCS
 	public static final RegistryObject<SoundEvent> MUSIC_DISC_SOUL_SPUNK = add("record.soul_spunk");
-
+	public static final RegistryObject<SoundEvent> MUSIC_DISC_FLUSH = add("record.flush");
+	
     // GLOWSTONE RECHARGE
     public static final RegistryObject<SoundEvent> GLOWSTONE_RECHARGE = add("block.glowstone.recharge");
 

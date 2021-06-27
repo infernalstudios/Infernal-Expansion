@@ -1,8 +1,0 @@
-{
-  "parent": "block/cube_bottom_top",
-  "textures": {
-    "top": "infernalexp:block/glowdust_sandstone_top",
-    "bottom": "infernalexp:block/glowdust_stone",
-    "side": "infernalexp:block/glowdust_sandstone"
-  }
-}

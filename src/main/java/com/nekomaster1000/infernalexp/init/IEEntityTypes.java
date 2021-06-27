@@ -61,11 +61,6 @@ public class IEEntityTypes {
             .size(0.8f, 0.5f)// Hitbox Size
             .build(new ResourceLocation(InfernalExpansion.MOD_ID, "glowsquito").toString()));
 
-    public static final RegistryObject<EntityType<SkeletalPiglinEntity>> SKELETAL_PIGLIN = ENTITY_TYPES.register("skeletal_piglin",
-        () -> EntityType.Builder.create(SkeletalPiglinEntity::new, IEEntityClassifications.IECREATURE)
-            .size(0.8f, 2.0f) // Hitbox Size
-            .build(new ResourceLocation(InfernalExpansion.MOD_ID, "skeletal_piglin").toString()));
-
     /*
     public static final RegistryObject<EntityType<PyrnoEntity>> PYRNO = ENTITY_TYPES.register("pyrno",
             () -> EntityType.Builder.create(PyrnoEntity::new, EntityClassification.MONSTER)

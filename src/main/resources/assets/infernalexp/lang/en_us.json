@@ -61,20 +61,6 @@
   "block.infernalexp.cracked_glowdust_stone_bricks": "Cracked Shimmer Stone Bricks",
   "block.infernalexp.chiseled_glowdust_stone_bricks": "Chiseled Shimmer Stone Brick",
 
-  "block.infernalexp.glowdust_sandstone": "Shimmer Sandstone",
-  "block.infernalexp.cut_glowdust_sandstone": "Cut Shimmer Sandstone",
-  "block.infernalexp.chiseled_glowdust_sandstone": "Chiseled Shimmer Sandstone",
-  "block.infernalexp.smooth_glowdust_sandstone": "Smooth Shimmer Sandstone",
-  "block.infernalexp.glowdust_sandstone_slab": "Shimmer Sandstone Slab",
-  "block.infernalexp.glowdust_sandstone_vertical_slab": "Shimmer Sandstone Vertical Slab",
-  "block.infernalexp.glowdust_sandstone_stairs": "Shimmer Sandstone Stairs",
-  "block.infernalexp.cut_glowdust_sandstone_slab": "Cut Shimmer Sandstone Slab",
-  "block.infernalexp.cut_glowdust_sandstone_vertical_slab": "Cut Shimmer Sandstone Vertical Slab",
-
-  "block.infernalexp.smooth_glowdust_sandstone_slab": "Smooth Shimmer Sandstone Slab",
-  "block.infernalexp.smooth_glowdust_sandstone_vertical_slab": "Smooth Shimmer Sandstone Vertical Slab",
-  "block.infernalexp.smooth_glowdust_sandstone_stairs": "Smooth Shimmer Sandstone Stairs",
-  "block.infernalexp.glowdust_sandstone_wall": "Shimmer Sandstone Wall",
   "block.infernalexp.crumbling_blackstone": "Crumbling Blackstone",
 
   "block.infernalexp.silt": "Basalt Silt",
@@ -219,13 +205,15 @@
   "item.infernalexp.basalt_giant_spawn_egg": "Basalt Giant Spawn Egg",
   "item.infernalexp.blackstone_dwarf_spawn_egg": "Blackstone Dwarf Spawn Egg",
   "item.infernalexp.glowsquito_spawn_egg": "Glowsquito Spawn Egg",
-  "item.infernalexp.skeletal_piglin_spawn_egg": "Skeletal Piglin Spawn Egg",
   "item.infernalexp.pyrno_spawn_egg": "Pyrno Spawn Egg",
   "item.infernalexp.blindsight_spawn_egg": "Blindsight Spawn Egg",
   "item.infernalexp.glowsilk_moth_spawn_egg": "Glowsilk Moth Spawn Egg",
   
   "item.infernalexp.music_disc_soul_spunk": "Music Disc",
   "item.infernalexp.music_disc_soul_spunk.desc": "LudoCrypt - Soul Spunk",
+
+  "item.infernalexp.music_disc_flush": "Music Disc",
+  "item.infernalexp.music_disc_flush.desc": "LudoCrypt - flush",
 
   "entity.infernalexp.voline": "Voline",
   "entity.infernalexp.shroomloin": "Shroomloin",
@@ -234,7 +222,6 @@
   "entity.infernalexp.basalt_giant": "Basalt Giant",
   "entity.infernalexp.blackstone_dwarf": "Blackstone Dwarf",
   "entity.infernalexp.glowsquito": "Glowsquito",
-  "entity.infernalexp.skeletal_piglin": "Skeletal Piglin",
   "entity.infernalexp.pyrno": "Pyrno",
   "entity.infernalexp.blindsight": "Blindsight",
   "entity.infernalexp.glowsilk_moth": "Glowsilk Moth",
@@ -265,6 +252,7 @@
   "infernalexp.config.subtitle.spawnable_biomes": "What biomes should mobs spawn in?",
   "infernalexp.config.option.piglinFearWarpbeetle": "Piglins fear Warpbeetles",
   "infernalexp.config.option.piglinFearEmbody": "Piglins fear Embodies",
+  "infernalexp.config.option.piglinFearDwarf": "Piglins fear Blackstone Dwarves",
   "infernalexp.config.option.hoglinFearWarpbeetle": "Hoglins fear Warpbeetles",
   "infernalexp.config.option.hoglinFearEmbody": "Hoglins fear Embodies",
   "infernalexp.config.option.spiderAttackWarpbeetle": "Spiders attack Warpbeetles",
@@ -298,6 +286,7 @@
 
   "infernalexp.config.tooltip.piglinFearWarpbeetle": "Determines if Piglins will run away from Warpbeetles",
   "infernalexp.config.tooltip.piglinFearEmbody": "Determines if Piglins will run away from Embodies",
+  "infernalexp.config.tooltip.piglinFearDwarf": "Determines if Piglins will run away from Blackstone Dwarves",
   "infernalexp.config.tooltip.hoglinFearWarpbeetle": "Determines if Hoglins will run away from Warpbeetles",
   "infernalexp.config.tooltip.hoglinFearEmbody": "Determines if Hoglins will run away from Embodies",
   "infernalexp.config.tooltip.spiderAttackWarpbeetle": "Determines if Spiders and Warpbeetles will fight",
@@ -378,5 +367,9 @@
   "infernalexp.config.tooltip.jerkyEffectAmplifier": "Determines the amplifier of the effect that Cured Jerky gives",
 
   "infernalexp.config.option.luminousRefreshRate": "Luminous Effect Refresh Rate",
-  "infernalexp.config.tooltip.luminousRefreshRate": "Determines how much (in ticks) the luminous effect should update"
+  "infernalexp.config.tooltip.luminousRefreshRate": "Determines how much (in ticks) the luminous effect should update",
+
+  "infernalexp.config.option.luminousFungusGivesEffect": "Luminous Fungus gives Luminance Effect",
+  "infernalexp.config.tooltip.luminousFungusGivesEffect": "Determines whether Luminous Fungus gives the Luminance effect on collision with an entity"
+
 }

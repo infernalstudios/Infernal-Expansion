@@ -83,6 +83,7 @@ public class BlackstoneDwarfEntity extends CreatureEntity implements IAngerable 
 	public boolean attackEntityAsMob(Entity entityIn) {
 		this.attackTimer = 10;
 		this.world.setEntityState(this, (byte) 4);
+        boolean disableShield = false;
 		float f = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
 		float f1 = (int) f > 0 ? f / 2.0F + (float) this.rand.nextInt((int) f) : f;
 		float f2 = (float) this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
@@ -90,6 +91,7 @@ public class BlackstoneDwarfEntity extends CreatureEntity implements IAngerable 
 		if (entityIn instanceof PlayerEntity && ((PlayerEntity) entityIn).getActiveItemStack().isShield((PlayerEntity) entityIn)) {
 			attackFling(entityIn, f2 * 3, 2.0);
 			entityIn.velocityChanged = true;
+			disableShield = true;
 		}
 
 		boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), f1);
@@ -97,6 +99,9 @@ public class BlackstoneDwarfEntity extends CreatureEntity implements IAngerable 
 		if (flag) {
 			attackFling(entityIn, f2, 0.6);
 		}
+		if (disableShield) {
+		    ((PlayerEntity) entityIn).disableShield(true);
+        }
 
 		this.playSound(IESoundEvents.BASALT_GIANT_HURT.get(), 1.0F, 1.0F);
 		return flag;
@@ -130,9 +135,6 @@ public class BlackstoneDwarfEntity extends CreatureEntity implements IAngerable 
         }
         if (InfernalExpansionConfig.MobInteractions.DWARF_ATTACK_ZOMBIE_PIGLIN.getBoolean()) {
             this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, ZombifiedPiglinEntity.class, true, false));
-        }
-        if (InfernalExpansionConfig.MobInteractions.DWARF_ATTACK_SKELETAL_PIGLIN.getBoolean()) {
-            this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, SkeletalPiglinEntity.class, true, false));
         }
         if (InfernalExpansionConfig.MobInteractions.DWARF_ATTACK_PLAYER.getBoolean()) {
             this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));

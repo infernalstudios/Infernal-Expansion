@@ -9,7 +9,6 @@ import com.nekomaster1000.infernalexp.client.entity.render.GlowsilkMothRenderer;
 import com.nekomaster1000.infernalexp.client.entity.render.GlowsquitoRenderer;
 import com.nekomaster1000.infernalexp.client.entity.render.InfernalPaintingRenderer;
 import com.nekomaster1000.infernalexp.client.entity.render.ShroomloinRenderer;
-import com.nekomaster1000.infernalexp.client.entity.render.SkeletalPiglinRenderer;
 import com.nekomaster1000.infernalexp.client.entity.render.VolineRenderer;
 import com.nekomaster1000.infernalexp.client.entity.render.WarpbeetleRenderer;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
@@ -45,7 +44,6 @@ public class ClientEvents {
         RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.BASALT_GIANT.get(), BasaltGiantRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.BLACKSTONE_DWARF.get(), BlackstoneDwarfRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.GLOWSQUITO.get(), GlowsquitoRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.SKELETAL_PIGLIN.get(), SkeletalPiglinRenderer::new);
         //RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.PYRNO.get(), PyrnoRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.BLINDSIGHT.get(), BlindsightRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.GLOWSILK_MOTH.get(), GlowsilkMothRenderer::new);

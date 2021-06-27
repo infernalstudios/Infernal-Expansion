@@ -61,20 +61,6 @@
   "block.infernalexp.cracked_glowdust_stone_bricks": "Потрескавшиеся светокаменные кирпичи",
   "block.infernalexp.chiseled_glowdust_stone_bricks": "Резные светокаменные кирпичи",
 
-  "block.infernalexp.glowdust_sandstone": "Светопесчаник",
-  "block.infernalexp.cut_glowdust_sandstone": "Резной светопесчаник",
-  "block.infernalexp.chiseled_glowdust_sandstone": "Декоративный светопесчаник",
-  "block.infernalexp.smooth_glowdust_sandstone": "Гладкий светопесчаник",
-  "block.infernalexp.glowdust_sandstone_slab": "Плита из светопесчаника",
-  "block.infernalexp.glowdust_sandstone_vertical_slab": "Вертикальная плита из светопесчаника",
-  "block.infernalexp.glowdust_sandstone_stairs": "Ступеньки из светопесчаника",
-  "block.infernalexp.cut_glowdust_sandstone_slab": "Резная плита из светопесчаника",
-  "block.infernalexp.cut_glowdust_sandstone_vertical_slab": "Вертикальная резная плита из светопесчаника",
-
-  "block.infernalexp.smooth_glowdust_sandstone_slab": "Плита из гладкого светопесчаника",
-  "block.infernalexp.smooth_glowdust_sandstone_vertical_slab": "Вертикальная плита из гладкого светопесчаника",
-  "block.infernalexp.smooth_glowdust_sandstone_stairs": "Ступеньки из гладкого светопесчаника",
-  "block.infernalexp.glowdust_sandstone_wall": "Светопесчаниковая ограда",
   "block.infernalexp.crumbling_blackstone": "Крошашийся чернит",
 
   "block.infernalexp.silt": "Базальтовый ил",
@@ -219,7 +205,6 @@
   "item.infernalexp.basalt_giant_spawn_egg": "Яйцо призыва Базальтового Гиганта",
   "item.infernalexp.blackstone_dwarf_spawn_egg": "Яйцо призыва Чернокаменного Дворфа",
   "item.infernalexp.glowsquito_spawn_egg": "Яйцо призыва Светомоскита",
-  "item.infernalexp.skeletal_piglin_spawn_egg": "Яйцо призыва Скелета Пиглина",
   "item.infernalexp.pyrno_spawn_egg": "PЯйцо призыва Пламерога",
   "item.infernalexp.blindsight_spawn_egg": "Яйо призыва Слеповзгляда",
   "item.infernalexp.glowsilk_moth_spawn_egg": "Яйцо призыва Светошелковой моли",
@@ -234,7 +219,6 @@
   "entity.infernalexp.basalt_giant": "Базальтовый Гигант",
   "entity.infernalexp.blackstone_dwarf": "Чернокаменный дворф",
   "entity.infernalexp.glowsquito": "Светомоскит",
-  "entity.infernalexp.skeletal_piglin": "Скелет пиглина",
   "entity.infernalexp.pyrno": "Пламерог",
   "entity.infernalexp.blindsight": "Слепогляд",
   "entity.infernalexp.glowsilk_moth": "Светошелковая моль",
@@ -265,6 +249,7 @@
   "infernalexp.config.subtitle.spawnable_biomes": "В каких биомах должны спавниться мобы?",
   "infernalexp.config.option.piglinFearWarpbeetle": "Пиглины боятся Искажуков",
   "infernalexp.config.option.piglinFearEmbody": "Пиглины боятся Воплощений",
+  "infernalexp.config.option.piglinFearDwarf": "Piglins fear Blackstone Dwarves",
   "infernalexp.config.option.hoglinFearWarpbeetle": "Хоглины боятся Искажуков",
   "infernalexp.config.option.hoglinFearEmbody": "Хоглины боятся Воплощений",
   "infernalexp.config.option.spiderAttackWarpbeetle": "Пауки атакуют Искажуков",
@@ -298,6 +283,7 @@
 
   "infernalexp.config.tooltip.piglinFearWarpbeetle": "Определяет, будут ли Пиглины убегать от Искажуков",
   "infernalexp.config.tooltip.piglinFearEmbody": "Определяет, будут ли Пиглины убегать от Воплощений",
+  "infernalexp.config.tooltip.piglinFearDwarf": "Determines if Piglins will run away from Blackstone Dwarves",
   "infernalexp.config.tooltip.hoglinFearWarpbeetle": "Определяет, будут ли Хоглины убегать от Искажуков",
   "infernalexp.config.tooltip.hoglinFearEmbody": "Определяет, будут ли Хоглины убегать от Воплощений",
   "infernalexp.config.tooltip.spiderAttackWarpbeetle": "Определяет, будут ли Пауки атаковать Искажуков",
@@ -378,5 +364,9 @@
   "infernalexp.config.tooltip.jerkyEffectAmplifier": "Определяет силу эффекта от вяленого мяса",
 
   "infernalexp.config.option.luminousRefreshRate": "Скорость обновления эффекта Свечения",
-  "infernalexp.config.tooltip.luminousRefreshRate": "Определяет, как долго (в тиках) эффект свечения обновляется"
+  "infernalexp.config.tooltip.luminousRefreshRate": "Определяет, как долго (в тиках) эффект свечения обновляется",
+
+  "infernalexp.config.option.luminousFungusGivesEffect": "Luminous Fungus gives Luminance Effect",
+  "infernalexp.config.tooltip.luminousFungusGivesEffect": "Determines whether Luminous Fungus gives the Luminance effect on collision with an entity",
+
 }
