@@ -370,6 +370,7 @@
   "infernalexp.config.tooltip.luminousRefreshRate": "Determines how much (in ticks) the luminous effect should update",
 
   "infernalexp.config.option.luminousFungusGivesEffect": "Luminous Fungus gives Luminance Effect",
-  "infernalexp.config.tooltip.luminousFungusGivesEffect": "Determines whether Luminous Fungus gives the Luminance effect on collision with an entity"
+  "infernalexp.config.tooltip.luminousFungusGivesEffect": "Determines whether Luminous Fungus gives the Luminance effect on collision with an entity",
 
+  "infernalexp.commands.setdimensionspawn.success": "Set %s's spawnpoint to %s, %s, %s [%s] in %s"
 }

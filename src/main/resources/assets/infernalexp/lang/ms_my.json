@@ -212,6 +212,9 @@
   "item.infernalexp.music_disc_soul_spunk": "Music Disc",
   "item.infernalexp.music_disc_soul_spunk.desc": "LudoCrypt - Soul Spunk",
 
+  "item.infernalexp.music_disc_flush": "Music Disc",
+  "item.infernalexp.music_disc_flush.desc": "LudoCrypt - flush",
+
   "entity.infernalexp.voline": "Voline",
   "entity.infernalexp.shroomloin": "Shroomloin",
   "entity.infernalexp.warpbeetle": "Kumbang Gila",
@@ -369,4 +372,5 @@
   "infernalexp.config.option.luminousFungusGivesEffect": "Luminous Fungus gives Luminance Effect",
   "infernalexp.config.tooltip.luminousFungusGivesEffect": "Determines whether Luminous Fungus gives the Luminance effect on collision with an entity",
 
+  "infernalexp.commands.setdimensionspawn.success": "Set %s's spawnpoint to %s, %s, %s [%s] in %s"
 }

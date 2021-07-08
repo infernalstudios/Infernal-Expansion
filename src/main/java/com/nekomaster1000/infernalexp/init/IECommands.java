@@ -2,21 +2,41 @@ package com.nekomaster1000.infernalexp.init;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.LiteralCommandNode;
-
+import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.util.NetherTeleportCommandUtil;
-
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraft.world.border.WorldBorder;
 import net.minecraft.world.server.ServerWorld;
 
 public class IECommands {
+
+    private static void netherSpawnCommand(CommandDispatcher<CommandSource> dispatcher) {
+        String commandString = "setdimensionspawn";
+
+        LiteralCommandNode<CommandSource> source = dispatcher.register(Commands.literal(commandString).requires(commandSource -> commandSource.hasPermissionLevel(2)).executes(command -> {
+            ServerPlayerEntity player = command.getSource().asPlayer();
+            BlockPos pos = player.getPosition();
+            World world = player.getEntityWorld();
+            String dimension = world.getDimensionKey().getLocation().toString();
+
+            //Sets Player's spawnpoint and spawn dimension
+            player.func_242111_a(world.getDimensionKey(), pos, 0.0F, true, false);
+
+            //Prints out the location of the new spawnpoint, including player, coordinates, rotation, and dimension
+            command.getSource().sendFeedback(new TranslationTextComponent(InfernalExpansion.MOD_ID + ".commands.setdimensionspawn.success", player.getDisplayName(), pos.getX(), pos.getY(), pos.getZ(), 0.0F, dimension), true);
+            return 1;
+        }));
+
+        dispatcher.register(Commands.literal(commandString).redirect(source));
+    }
 
     private static void dimensionTeleportCommand(CommandDispatcher<CommandSource> dispatcher) {
         String commandString = "ntp";
@@ -60,5 +80,6 @@ public class IECommands {
 
     public static void registerCommands(CommandDispatcher<CommandSource> dispatcher) {
         dimensionTeleportCommand(dispatcher);
+        netherSpawnCommand(dispatcher);
     }
 }
