@@ -5,6 +5,7 @@ import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.MobInteractions;
 import com.nekomaster1000.infernalexp.data.SpawnrateManager;
 import com.nekomaster1000.infernalexp.entities.BasaltGiantEntity;
+import com.nekomaster1000.infernalexp.entities.BlackstoneDwarfEntity;
 import com.nekomaster1000.infernalexp.entities.EmbodyEntity;
 import com.nekomaster1000.infernalexp.entities.GlowsquitoEntity;
 import com.nekomaster1000.infernalexp.entities.VolineEntity;
@@ -59,6 +60,11 @@ public class MobEvents {
 						new AvoidEntityGoal<>((CreatureEntity) event.getEntity(),
 								EmbodyEntity.class, 16.0F, 1.2D, 1.2D));
 			}
+            if (MobInteractions.PIGLIN_FEAR_DWARF.getBoolean()) {
+                ((CreatureEntity) event.getEntity()).goalSelector.addGoal(4,
+                    new AvoidEntityGoal<>((CreatureEntity) event.getEntity(),
+                        BlackstoneDwarfEntity.class, 16.0F, 1.2D, 1.2D));
+            }
 		}
 
 		if (event.getEntity() instanceof HoglinEntity){

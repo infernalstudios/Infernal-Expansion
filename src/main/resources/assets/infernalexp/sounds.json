@@ -1,150 +1,129 @@
 {
 	"entity.voline.ambient": {
-		"category": "block",
 		"subtitle": "Voline chatters",
 		"sounds": [
 			"infernalexp:entity/voline/voline_ambient"
 		]
 	},
 	"entity.voline.hurt": {
-		"category": "block",
 		"subtitle": "Voline hurts",
 		"sounds": [
 			"infernalexp:entity/voline/voline_hurt"
 		]
 	},
 	"entity.shroomloin.ambient": {
-		"category": "block",
 		"subtitle": "Voline hisses",
 		"sounds": [
 			"infernalexp:entity/shroomloin/shroomloin_ambient"
 		]
 	},
 	"entity.shroomloin.hurt": {
-		"category": "block",
 		"subtitle": "Shroomloin hurts",
 		"sounds": [
 			"infernalexp:entity/shroomloin/shroomloin_hurt"
 		]
 	},
 	"entity.shroomloin.death": {
-		"category": "block",
 		"subtitle": "Shroomloin dies",
 		"sounds": [
 			"infernalexp:entity/shroomloin/shroomloin_death"
 		]
 	},
 	"entity.basalt_giant.ambient": {
-		"category": "block",
 		"subtitle": "Basalt Giant grunts",
 		"sounds": [
 			"infernalexp:entity/basalt_giant/basalt_giant_ambient"
 		]
 	},
 	"entity.basalt_giant.hurt": {
-		"category": "block",
 		"subtitle": "Basalt Giant hurts",
 		"sounds": [
 			"infernalexp:entity/basalt_giant/basalt_giant_hurt"
 		]
 	},
 	"entity.basalt_giant.death": {
-		"category": "block",
 		"subtitle": "Basalt Giant dies",
 		"sounds": [
 			"infernalexp:entity/basalt_giant/basalt_giant_death"
 		]
 	},
 	"entity.warpbeetle.ambient": {
-		"category": "block",
 		"subtitle": "Warpbeetle squeaks",
 		"sounds": [
 			"infernalexp:entity/warpbeetle/warpbeetle_ambient"
 		]
 	},
 	"entity.warpbeetle.hurt": {
-		"category": "block",
 		"subtitle": "Warpbeetle hurts",
 		"sounds": [
 			"infernalexp:entity/warpbeetle/warpbeetle_hurt"
 		]
 	},
 	"entity.warpbeetle.death": {
-		"category": "block",
 		"subtitle": "Warpbeetle dies",
 		"sounds": [
 			"infernalexp:entity/warpbeetle/warpbeetle_death"
 		]
 	},
 	"entity.cerobeetle.ambient": {
-		"category": "block",
 		"subtitle": "Cerobeetle squeaks",
 		"sounds": [
 			"infernalexp:entity/cerobeetle/cerobeetle_ambient"
 		]
 	},
 	"entity.cerobeetle.hurt": {
-		"category": "block",
 		"subtitle": "Cerobeetle hurts",
 		"sounds": [
 			"infernalexp:entity/cerobeetle/cerobeetle_hurt"
 		]
 	},
 	"entity.cerobeetle.death": {
-		"category": "block",
 		"subtitle": "Cerobeetle dies",
 		"sounds": [
 			"infernalexp:entity/cerobeetle/cerobeetle_death"
 		]
 	},
 	"entity.cerobeetle.roar": {
-		"category": "block",
 		"subtitle": "Cerobeetle dies",
 		"sounds": [
 			"infernalexp:entity/cerobeetle/cerobeetle_roar"
 		]
 	},
 	"entity.embody.ambient": {
-		"category": "block",
 		"subtitle": "Embody hisses",
 		"sounds": [
 			"infernalexp:entity/embody/embody_ambient"
 		]
 	},
 	"entity.embody.hurt": {
-		"category": "block",
 		"subtitle": "Embody hurts",
 		"sounds": [
 			"infernalexp:entity/embody/embody_hurt"
 		]
 	},
 	"entity.embody.death": {
-		"category": "block",
 		"subtitle": "Embody dies",
 		"sounds": [
 			"infernalexp:entity/embody/embody_death"
 		]
-  },
-  "entity.glowsilk_moth.ambient": {
-    "category": "block",
-    "subtitle": "Glowsilk Moth shimmers",
-    "sounds": [
-      "infernalexp:entity/glowsilk_moth/glowsilk_moth_ambient"
-    ]
-  },
-  "entity.glowsilk_moth.hurt": {
-    "category": "block",
-    "subtitle": "Glowsilk Moth hurts",
-    "sounds": [
-      "infernalexp:entity/glowsilk_moth/glowsilk_moth_hurt"
-    ]
-  },
-  "entity.glowsilk_moth.death": {
-    "category": "block",
-    "subtitle": "Glowsilk Moth dies",
-    "sounds": [
-      "infernalexp:entity/glowsilk_moth/glowsilk_moth_death"
-    ]
+	},
+	"entity.glowsilk_moth.ambient": {
+		"subtitle": "Glowsilk Moth shimmers",
+		"sounds": [
+			"infernalexp:entity/glowsilk_moth/glowsilk_moth_ambient"
+		]
+	},
+	"entity.glowsilk_moth.hurt": {
+		"subtitle": "Glowsilk Moth hurts",
+		"sounds": [
+			"infernalexp:entity/glowsilk_moth/glowsilk_moth_hurt"
+		]
+	},
+	"entity.glowsilk_moth.death": {
+		"subtitle": "Glowsilk Moth dies",
+		"sounds": [
+			"infernalexp:entity/glowsilk_moth/glowsilk_moth_death"
+		]
 	},
 	"entity.glowsquito.loop": {
 		"sounds": [
@@ -395,6 +374,7 @@
 			{
 				"name": "infernalexp:music/nether/glowstone_canyon/spindle",
 				"stream": true,
+				"volume": 0.5,
 				"weight": 8
 			},
 			{
@@ -423,15 +403,24 @@
 			}
 		]
 	},
-  "block.soul_stone.break": {
-    "sounds": [
-      "infernalexp:block/soul_stone/break1",
-      "infernalexp:block/soul_stone/break2",
-      "infernalexp:block/soul_stone/break3",
-      "infernalexp:block/soul_stone/break4",
-      "infernalexp:block/soul_stone/break5"
-    ]
-  },
+	"record.flush": {
+		"sounds": [
+			{
+				"name": "infernalexp:record/flush",
+				"stream": true,
+				"volume": 2
+			}
+		]
+	},
+	"block.soul_stone.break": {
+		"sounds": [
+			"infernalexp:block/soul_stone/break1",
+			"infernalexp:block/soul_stone/break2",
+			"infernalexp:block/soul_stone/break3",
+			"infernalexp:block/soul_stone/break4",
+			"infernalexp:block/soul_stone/break5"
+		]
+	},
 	"block.dullstone.break": {
 		"sounds": [
 			"infernalexp:block/dullstone/break1",
@@ -465,9 +454,9 @@
 			"infernalexp:block/dullstone/break2"
 		]
 	},
-  "block.glowstone.recharge": {
-    "sounds": [
-      "infernalexp:block/glowstone/recharge"
-    ]
-  }
+	"block.glowstone.recharge": {
+		"sounds": [
+			"infernalexp:block/glowstone/recharge"
+		]
+	}
 }
