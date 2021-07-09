@@ -217,9 +217,9 @@ public class MiscEvents {
             }
 
             if (entity.isPotionActive(IEEffects.LUMINOUS.get())) {
-                if ((entity.getActivePotionEffect(IEEffects.LUMINOUS.get()).getDuration() & 10) == 0 && entity.getActivePotionEffect(IEEffects.LUMINOUS.get()).doesShowParticles()) {
+                if ((entity.getActivePotionEffect(IEEffects.LUMINOUS.get()).getDuration() & 50) == 0 && entity.getActivePotionEffect(IEEffects.LUMINOUS.get()).doesShowParticles()) {
                     // Use ServerWorld#spawnParticle instead of World#addParticle because this code is running on the server side
-                    ((ServerWorld) entity.getEntityWorld()).spawnParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get(), entity.getPosXRandom(entity.getBoundingBox().getXSize()), entity.getPosYRandom(), entity.getPosZRandom(entity.getBoundingBox().getZSize()), 0, 0, 0, 0, 1);
+                    ((ServerWorld) entity.getEntityWorld()).spawnParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get(), entity.getPosXRandom(entity.getBoundingBox().getXSize()), entity.getPosYRandom(), entity.getPosZRandom(entity.getBoundingBox().getZSize()), 0, 0, 0, 0, 0.2);
                 }
             }
         }
