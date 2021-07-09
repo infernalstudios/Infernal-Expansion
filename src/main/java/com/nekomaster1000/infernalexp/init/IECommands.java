@@ -6,6 +6,7 @@ import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.util.NetherTeleportCommandUtil;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
+import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
@@ -16,24 +17,45 @@ import net.minecraft.world.World;
 import net.minecraft.world.border.WorldBorder;
 import net.minecraft.world.server.ServerWorld;
 
+import java.util.Collection;
+
 public class IECommands {
 
     private static void netherSpawnCommand(CommandDispatcher<CommandSource> dispatcher) {
         String commandString = "setdimensionspawn";
 
+        // First the command is defined if no player is supplied, setting the user's spawn, then if there are players supplied as targets
         LiteralCommandNode<CommandSource> source = dispatcher.register(Commands.literal(commandString).requires(commandSource -> commandSource.hasPermissionLevel(2)).executes(command -> {
             ServerPlayerEntity player = command.getSource().asPlayer();
             BlockPos pos = player.getPosition();
             World world = player.getEntityWorld();
             String dimension = world.getDimensionKey().getLocation().toString();
 
-            //Sets Player's spawnpoint and spawn dimension
+            // Sets the player's spawnpoint and spawn dimension
             player.func_242111_a(world.getDimensionKey(), pos, 0.0F, true, false);
 
-            //Prints out the location of the new spawnpoint, including player, coordinates, rotation, and dimension
-            command.getSource().sendFeedback(new TranslationTextComponent(InfernalExpansion.MOD_ID + ".commands.setdimensionspawn.success", player.getDisplayName(), pos.getX(), pos.getY(), pos.getZ(), 0.0F, dimension), true);
+            // Prints out the location of the new spawnpoint, including player name, coordinates, rotation, and dimension
+            command.getSource().sendFeedback(new TranslationTextComponent(InfernalExpansion.MOD_ID + ".commands.setdimensionspawn.success.single", player.getDisplayName(), pos.getX(), pos.getY(), pos.getZ(), 0.0F, dimension), true);
             return 1;
-        }));
+        }).then(Commands.argument("players", EntityArgument.players()).executes(command -> {
+            Collection<ServerPlayerEntity> players = EntityArgument.getPlayers(command, "players");
+            BlockPos pos = command.getSource().asPlayer().getPosition();
+            World world = command.getSource().asPlayer().getEntityWorld();
+            String dimension = world.getDimensionKey().getLocation().toString();
+
+            // Sets each player's spawnpoint and spawn dimension
+            for (ServerPlayerEntity player : players) {
+                player.func_242111_a(world.getDimensionKey(), pos, 0.0F, true, false);
+            }
+
+            // Prints out the location of the new spawnpoint, including player if only one player targeted or how many if multiple, coordinates, rotation, and dimension
+            if (players.size() == 1) {
+                command.getSource().sendFeedback(new TranslationTextComponent(InfernalExpansion.MOD_ID + ".commands.setdimensionspawn.success.single", players.iterator().next().getDisplayName(), pos.getX(), pos.getY(), pos.getZ(), 0.0F, dimension), true);
+            } else {
+                command.getSource().sendFeedback(new TranslationTextComponent(InfernalExpansion.MOD_ID + ".commands.setdimensionspawn.success.multiple", players.size(), pos.getX(), pos.getY(), pos.getZ(), 0.0F, dimension), true);
+            }
+            return players.size();
+        })));
 
         dispatcher.register(Commands.literal(commandString).redirect(source));
     }
