@@ -91,7 +91,8 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 
     @OnlyIn(Dist.CLIENT)
     private boolean handleExtendedReach(PlayerEntity player) {
-        double reach = player.getAttribute(ForgeMod.REACH_DISTANCE.get()).getValue();
+        // Change the value added here to adjust the reach of the charge attack of the whip
+        double reach = player.getAttribute(ForgeMod.REACH_DISTANCE.get()).getValue() + 1.0D;
 
         Vector3d eyePos = player.getEyePosition(1.0F);
         Vector3d lookVec = player.getLookVec();
@@ -105,7 +106,7 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 
             if (distance < reach * reach) {
                 player.ticksSinceLastSwing = (int) player.getCooldownPeriod();
-                IENetworkHandler.sendToServer(new WhipReachPacket(player.getUniqueID(), traceResult.getEntity().getEntityId(), this.attackKnockback));
+                IENetworkHandler.sendToServer(new WhipReachPacket(player.getUniqueID(), traceResult.getEntity().getEntityId(), this.attackKnockback, reach));
 
                 return true;
             }
@@ -161,7 +162,7 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 
     @Override
     public boolean canPlayerBreakBlockWhileHolding(BlockState state, World worldIn, BlockPos pos, PlayerEntity player) {
-        return false;
+        return !player.isCreative();
     }
 
     public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
@@ -196,7 +197,6 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> attributeBuilder = ImmutableMultimap.builder();
         attributeBuilder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
         attributeBuilder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", this.attackSpeed, AttributeModifier.Operation.ADDITION));
-        attributeBuilder.put(ForgeMod.REACH_DISTANCE.get(), new AttributeModifier(REACH_MODIFIER_UUID, "Tool modifier", this.getReachDistanceModifier(), AttributeModifier.Operation.ADDITION));
         Multimap<Attribute, AttributeModifier> attributes = attributeBuilder.build();
         return equipmentSlot == EquipmentSlotType.MAINHAND ? attributes : super.getAttributeModifiers(equipmentSlot, itemStack);
     }
