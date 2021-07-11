@@ -47,7 +47,7 @@ public class GlowstoneCanyonRuinStructure extends IEStructure<NoFeatureConfig> {
 
 	@Override
 	public boolean shouldTransformLand() {
-		return true;
+		return false;
 	}
 
 	public static class Start extends IEStart<NoFeatureConfig> {
