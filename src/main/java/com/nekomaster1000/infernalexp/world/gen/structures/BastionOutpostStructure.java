@@ -66,7 +66,7 @@ public class BastionOutpostStructure extends IEStructure<NoFeatureConfig> {
             for (int curX = posX - 8; curX <= posX + 8; curX += 8) {
                 for (int curZ = posZ - 8; curZ <= posZ + 8; curZ += 8) {
 
-                    // Starts three blocks below to check for solid land in each column
+                    // Starts 5 blocks below to check for solid land in each column
                     BlockPos.Mutable mutable = new BlockPos.Mutable();
                     mutable.setPos(curX, posY - 5, curZ);
                     IBlockReader blockView = chunkGenerator.func_230348_a_(mutable.getX(), mutable.getZ());
@@ -134,7 +134,6 @@ public class BastionOutpostStructure extends IEStructure<NoFeatureConfig> {
 
         return 0;
     }
-
 
 	public static class Start extends IEStart<NoFeatureConfig> {
 	    private final long seed;
