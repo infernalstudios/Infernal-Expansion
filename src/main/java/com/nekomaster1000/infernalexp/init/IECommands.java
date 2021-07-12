@@ -56,8 +56,6 @@ public class IECommands {
             }
             return players.size();
         })));
-
-        dispatcher.register(Commands.literal(commandString).redirect(source));
     }
 
     private static void dimensionTeleportCommand(CommandDispatcher<CommandSource> dispatcher) {
@@ -96,8 +94,6 @@ public class IECommands {
             
             return 1;
         }));
-
-        dispatcher.register(Commands.literal(commandString).redirect(source));
     }
 
     public static void registerCommands(CommandDispatcher<CommandSource> dispatcher) {
