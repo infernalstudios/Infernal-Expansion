@@ -212,32 +212,6 @@ public class InfernalExpansion {
 
     private void clientSetup(final FMLClientSetupEvent event) {
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> InfernalExpansionClient::init);
-
-        loadInfernalResources();
-    }
-
-    private static void loadInfernalResources() {
-        // Creates file location for resource pack
-        File dir = new File(".", "resourcepacks");
-        File target = new File(dir, "Infernal Resources.zip");
-
-        // If the pack isn't already in the folder, copies the file over from the mod files
-        if(!target.exists())
-            try {
-                dir.mkdirs();
-                InputStream in = InfernalExpansion.class.getResourceAsStream("/assets/infernalexp/infernal_resources.zip");
-                FileOutputStream out = new FileOutputStream(target);
-
-                byte[] buf = new byte[16384];
-                int len = 0;
-                while((len = in.read(buf)) > 0)
-                    out.write(buf, 0, len);
-
-                in.close();
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
     }
 
     @SubscribeEvent
