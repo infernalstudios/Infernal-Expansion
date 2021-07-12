@@ -86,6 +86,8 @@ public class BastionOutpostStructure extends IEStructure<NoFeatureConfig> {
                         } else {
                             flag = false;
                         }
+
+                        mutable.move(Direction.UP);
                     }
 
                     // If there is no block with air above it in this range, the structure can't spawn
