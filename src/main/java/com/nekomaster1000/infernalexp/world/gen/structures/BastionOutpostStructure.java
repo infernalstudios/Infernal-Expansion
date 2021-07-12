@@ -43,12 +43,12 @@ public class BastionOutpostStructure extends IEStructure<NoFeatureConfig> {
 
 	@Override
 	public StructureSeparationSettings getSeparationSettings() {
-		return new StructureSeparationSettings(4, 2, 720435943);
+		return new StructureSeparationSettings(2, 1, 720435943);
 	}
 
 	@Override
 	public boolean shouldTransformLand() {
-		return false;
+		return true;
 	}
 
     @Override
@@ -58,25 +58,25 @@ public class BastionOutpostStructure extends IEStructure<NoFeatureConfig> {
         // Makes cheap check first, if it passes this check, it does a more in-depth check
         if (super.func_230363_a_(chunkGenerator, biomeProvider, seed, chunkRandom, chunkX, chunkZ, biome, chunkPos, config)) {
 
-            int posX = (chunkX << 4) + random.nextInt(16);
-            int posZ = (chunkZ << 4) + random.nextInt(16);
+            int posX = chunkX << 4;
+            int posZ = chunkZ << 4;
             int posY = getYPos(chunkGenerator, posX, posZ, random);
 
             // Checks 9 points within about a chunk of the initial location
-            for (int curX = posX - 8; curX <= posX + 8; curX += 4) {
-                for (int curZ = posZ - 8; curZ <= posZ + 8; curZ += 4) {
+            for (int curX = posX - 8; curX <= posX + 8; curX += 8) {
+                for (int curZ = posZ - 8; curZ <= posZ + 8; curZ += 8) {
 
                     // Starts three blocks below to check for solid land in each column
                     BlockPos.Mutable mutable = new BlockPos.Mutable();
-                    mutable.setPos(curX, posY - 3, curZ);
+                    mutable.setPos(curX, posY - 5, curZ);
                     IBlockReader blockView = chunkGenerator.func_230348_a_(mutable.getX(), mutable.getZ());
 
                     // Flag represents a block with air above it
                     boolean flag = false;
 
-                    while (mutable.getY() <= posY + 3) {
+                    while (mutable.getY() <= posY + 5) {
                         BlockState state = blockView.getBlockState(mutable);
-                        if (!state.isSolid()) {
+                        if (state.isSolid()) {
                             mutable.move(Direction.UP);
                             state = blockView.getBlockState(mutable);
 
@@ -95,8 +95,8 @@ public class BastionOutpostStructure extends IEStructure<NoFeatureConfig> {
                         return false;
                     }
 
-                    // Checks if there are 20 blocks of air above the 3 checked for solid to spawn the structure
-                    int minValidSpace = 20;
+                    // Checks if there are 15 blocks of air above the 5 checked for solid to spawn the structure
+                    int minValidSpace = 15;
                     int maxHeight = Math.min(chunkGenerator.getMaxBuildHeight(), posY + minValidSpace);
 
                     while (mutable.getY() < maxHeight) {
@@ -148,8 +148,8 @@ public class BastionOutpostStructure extends IEStructure<NoFeatureConfig> {
 		public void func_230364_a_(DynamicRegistries dynamicRegistryManager, ChunkGenerator chunkGenerator, TemplateManager templateManager, int chunkX, int chunkZ, Biome biome, NoFeatureConfig config) {
 			SharedSeedRandom random = new SharedSeedRandom(seed + (chunkX * (chunkZ * 17)));
 
-		    int x = (chunkX << 4) + random.nextInt(16);
-			int z = (chunkZ << 4) + random.nextInt(16);
+		    int x = chunkX << 4;
+			int z = chunkZ << 4;
 
 			BlockPos pos = new BlockPos(x, getYPos(chunkGenerator, x, z, random), z);
 
