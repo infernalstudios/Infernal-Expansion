@@ -58,7 +58,9 @@ public class InfernalExpansionClient {
                 FileOutputStream out = new FileOutputStream(target);
 
                 // The number of bytes here is how many can be read from the resource pack at one time
-                // 16K is standard for reading from disk and should not be tampered with
+                // 16kB is the most common disk chunk size, and using this array size
+                // reduces latency between reading and actually processing the data.
+                // The performance difference is not significant, but it's improved by using a 16kB array.
                 byte[] buf = new byte[16384];
                 int len = 0;
                 while((len = in.read(buf)) > 0)
