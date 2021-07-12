@@ -43,21 +43,19 @@ import net.minecraftforge.common.ForgeMod;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
+public class WhipItem extends TieredItem implements IVanishable {
 
     private final float attackDamage;
     private final float attackSpeed;
-    private final float attackKnockback;
 
     private int ticksSinceAttack = 0;
     private boolean attacking = false;
     private boolean charging = false;
 
-    public WhipItem(IItemTier tier, float attackDamageIn, float attackSpeedIn, float attackKnockbackIn, Item.Properties builderIn) {
+    public WhipItem(IItemTier tier, float attackDamageIn, float attackSpeedIn, Item.Properties builderIn) {
         super(tier, builderIn);
         this.attackDamage = attackDamageIn + tier.getAttackDamage();
         this.attackSpeed = attackSpeedIn;
-        this.attackKnockback = attackKnockbackIn;
     }
 
     @Override
@@ -91,7 +89,9 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 
     @OnlyIn(Dist.CLIENT)
     private boolean handleExtendedReach(PlayerEntity player) {
-        double reach = player.getAttribute(ForgeMod.REACH_DISTANCE.get()).getValue();
+
+        // Change the value added here to adjust the reach of the charge attack of the whip, must also be changed in WhipReachPacket
+        double reach = player.getAttribute(ForgeMod.REACH_DISTANCE.get()).getValue() + 1.0D;
 
         Vector3d eyePos = player.getEyePosition(1.0F);
         Vector3d lookVec = player.getLookVec();
@@ -105,7 +105,7 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 
             if (distance < reach * reach) {
                 player.ticksSinceLastSwing = (int) player.getCooldownPeriod();
-                IENetworkHandler.sendToServer(new WhipReachPacket(player.getUniqueID(), traceResult.getEntity().getEntityId(), this.attackKnockback));
+                IENetworkHandler.sendToServer(new WhipReachPacket(player.getUniqueID(), traceResult.getEntity().getEntityId()));
 
                 return true;
             }
@@ -161,7 +161,7 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
 
     @Override
     public boolean canPlayerBreakBlockWhileHolding(BlockState state, World worldIn, BlockPos pos, PlayerEntity player) {
-        return false;
+        return !player.isCreative();
     }
 
     public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
@@ -196,27 +196,22 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> attributeBuilder = ImmutableMultimap.builder();
         attributeBuilder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
         attributeBuilder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", this.attackSpeed, AttributeModifier.Operation.ADDITION));
-        attributeBuilder.put(ForgeMod.REACH_DISTANCE.get(), new AttributeModifier(REACH_MODIFIER_UUID, "Tool modifier", this.getReachDistanceModifier(), AttributeModifier.Operation.ADDITION));
         Multimap<Attribute, AttributeModifier> attributes = attributeBuilder.build();
         return equipmentSlot == EquipmentSlotType.MAINHAND ? attributes : super.getAttributeModifiers(equipmentSlot, itemStack);
     }
 
-    @Override
     public int getTicksSinceAttack() {
         return this.ticksSinceAttack;
     }
 
-    @Override
     public boolean getAttacking() {
         return this.attacking;
     }
 
-    @Override
     public boolean getCharging() {
         return this.charging;
     }
 
-    @Override
     public void setAttacking(boolean value) {
         this.attacking = value;
     }
