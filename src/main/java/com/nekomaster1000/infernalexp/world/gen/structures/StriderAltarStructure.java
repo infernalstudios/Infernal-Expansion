@@ -116,8 +116,8 @@ public class StriderAltarStructure extends IEStructure<NoFeatureConfig> {
 
         @Override
         public void func_230364_a_(DynamicRegistries dynamicRegistryManager, ChunkGenerator chunkGenerator, TemplateManager templateManager, int chunkX, int chunkZ, Biome biome, NoFeatureConfig config) {
-            int x = (chunkX << 4) + this.rand.nextInt(16);
-            int z = (chunkZ << 4) + this.rand.nextInt(16);
+            int x = chunkX << 4;
+            int z = chunkZ << 4;
 
             BlockPos pos = new BlockPos(x, getLavaY(chunkGenerator, x, z), z);
 
