@@ -43,7 +43,7 @@ import net.minecraftforge.common.ForgeMod;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
+public class WhipItem extends TieredItem implements IVanishable {
 
     private final float attackDamage;
     private final float attackSpeed;
@@ -201,22 +201,18 @@ public class WhipItem extends TieredItem implements IWhipItem, IVanishable {
         return equipmentSlot == EquipmentSlotType.MAINHAND ? attributes : super.getAttributeModifiers(equipmentSlot, itemStack);
     }
 
-    @Override
     public int getTicksSinceAttack() {
         return this.ticksSinceAttack;
     }
 
-    @Override
     public boolean getAttacking() {
         return this.attacking;
     }
 
-    @Override
     public boolean getCharging() {
         return this.charging;
     }
 
-    @Override
     public void setAttacking(boolean value) {
         this.attacking = value;
     }
