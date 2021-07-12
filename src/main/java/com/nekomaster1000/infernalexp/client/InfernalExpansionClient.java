@@ -51,7 +51,7 @@ public class InfernalExpansionClient {
         File target = new File(dir, "Infernal Resources.zip");
 
         // If the pack isn't already in the folder, copies the file over from the mod files
-        if(!target.exists())
+        if (!target.exists()) {
             try {
                 dir.mkdirs();
                 InputStream in = InfernalExpansion.class.getResourceAsStream("/assets/infernalexp/infernal_resources.zip");
@@ -69,6 +69,7 @@ public class InfernalExpansionClient {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
     }
 
 }
