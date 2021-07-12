@@ -47,17 +47,15 @@ public class WhipItem extends TieredItem implements IVanishable {
 
     private final float attackDamage;
     private final float attackSpeed;
-    private final float attackKnockback;
 
     private int ticksSinceAttack = 0;
     private boolean attacking = false;
     private boolean charging = false;
 
-    public WhipItem(IItemTier tier, float attackDamageIn, float attackSpeedIn, float attackKnockbackIn, Item.Properties builderIn) {
+    public WhipItem(IItemTier tier, float attackDamageIn, float attackSpeedIn, Item.Properties builderIn) {
         super(tier, builderIn);
         this.attackDamage = attackDamageIn + tier.getAttackDamage();
         this.attackSpeed = attackSpeedIn;
-        this.attackKnockback = attackKnockbackIn;
     }
 
     @Override
@@ -91,7 +89,8 @@ public class WhipItem extends TieredItem implements IVanishable {
 
     @OnlyIn(Dist.CLIENT)
     private boolean handleExtendedReach(PlayerEntity player) {
-        // Change the value added here to adjust the reach of the charge attack of the whip
+
+        // Change the value added here to adjust the reach of the charge attack of the whip, must also be changed in WhipReachPacket
         double reach = player.getAttribute(ForgeMod.REACH_DISTANCE.get()).getValue() + 1.0D;
 
         Vector3d eyePos = player.getEyePosition(1.0F);
@@ -106,7 +105,7 @@ public class WhipItem extends TieredItem implements IVanishable {
 
             if (distance < reach * reach) {
                 player.ticksSinceLastSwing = (int) player.getCooldownPeriod();
-                IENetworkHandler.sendToServer(new WhipReachPacket(player.getUniqueID(), traceResult.getEntity().getEntityId(), this.attackKnockback));
+                IENetworkHandler.sendToServer(new WhipReachPacket(player.getUniqueID(), traceResult.getEntity().getEntityId()));
 
                 return true;
             }
