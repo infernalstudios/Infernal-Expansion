@@ -26,7 +26,6 @@ import net.minecraft.world.gen.feature.template.TemplateManager;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
 
 public class BastionOutpostStructure extends IEStructure<NoFeatureConfig> {
-    private SharedSeedRandom random;
 
 	public BastionOutpostStructure(Codec<NoFeatureConfig> codec) {
 		super(codec);
@@ -54,14 +53,14 @@ public class BastionOutpostStructure extends IEStructure<NoFeatureConfig> {
 
     @Override
     protected boolean func_230363_a_(ChunkGenerator chunkGenerator, BiomeProvider biomeProvider, long seed, SharedSeedRandom chunkRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, NoFeatureConfig config) {
-        this.random = new SharedSeedRandom(seed + (chunkX * (chunkZ * 17)));
+        SharedSeedRandom random = new SharedSeedRandom(seed + (chunkX * (chunkZ * 17)));
 
         // Makes cheap check first, if it passes this check, it does a more in-depth check
         if (super.func_230363_a_(chunkGenerator, biomeProvider, seed, chunkRandom, chunkX, chunkZ, biome, chunkPos, config)) {
 
-            int posX = (chunkX << 4) + this.random.nextInt(16);
-            int posZ = (chunkZ << 4) + this.random.nextInt(16);
-            int posY = getYPos(chunkGenerator, posX, posZ);
+            int posX = (chunkX << 4) + random.nextInt(16);
+            int posZ = (chunkZ << 4) + random.nextInt(16);
+            int posY = getYPos(chunkGenerator, posX, posZ, random);
 
             // Checks 9 points within about a chunk of the initial location
             for (int curX = posX - 8; curX <= posX + 8; curX += 4) {
@@ -116,8 +115,8 @@ public class BastionOutpostStructure extends IEStructure<NoFeatureConfig> {
 
         return true;
     }
-    public int getYPos(ChunkGenerator chunkGenerator, int x, int z) {
-        int y = chunkGenerator.getSeaLevel() + this.random.nextInt(chunkGenerator.getMaxBuildHeight() - 2 - chunkGenerator.getSeaLevel());
+    public int getYPos(ChunkGenerator chunkGenerator, int x, int z, SharedSeedRandom random) {
+        int y = chunkGenerator.getSeaLevel() + random.nextInt(chunkGenerator.getMaxBuildHeight() - 2 - chunkGenerator.getSeaLevel());
         IBlockReader blockColumn = chunkGenerator.func_230348_a_(x, z);
 
         BlockPos pos = new BlockPos(x, y, z);
@@ -138,8 +137,7 @@ public class BastionOutpostStructure extends IEStructure<NoFeatureConfig> {
 
 
 	public static class Start extends IEStart<NoFeatureConfig> {
-	    private SharedSeedRandom random;
-	    private long seed;
+	    private final long seed;
 
 		public Start(Structure<NoFeatureConfig> structure, int chunkX, int chunkZ, MutableBoundingBox mutableBoundingBox, int reference, long seed) {
 			super(structure, chunkX, chunkZ, mutableBoundingBox, reference, seed);
@@ -148,10 +146,10 @@ public class BastionOutpostStructure extends IEStructure<NoFeatureConfig> {
 
 		@Override
 		public void func_230364_a_(DynamicRegistries dynamicRegistryManager, ChunkGenerator chunkGenerator, TemplateManager templateManager, int chunkX, int chunkZ, Biome biome, NoFeatureConfig config) {
-			random = new SharedSeedRandom(seed + (chunkX * (chunkZ * 17)));
+			SharedSeedRandom random = new SharedSeedRandom(seed + (chunkX * (chunkZ * 17)));
 
-		    int x = (chunkX << 4) + this.random.nextInt(16);
-			int z = (chunkZ << 4) + this.random.nextInt(16);
+		    int x = (chunkX << 4) + random.nextInt(16);
+			int z = (chunkZ << 4) + random.nextInt(16);
 
 			BlockPos pos = new BlockPos(x, getYPos(chunkGenerator, x, z, random), z);
 
