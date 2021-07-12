@@ -64,34 +64,35 @@ public class BastionOutpostStructure extends IEStructure<NoFeatureConfig> {
             int posY = getYPos(chunkGenerator, posX, posZ);
 
             // Checks 9 points within about a chunk of the initial location
-            for (int curX = posX - 8; curX <= posX + 8; curX += 8) {
-                for (int curZ = posZ - 8; curZ <= posZ + 8; curZ += 8) {
+            for (int curX = posX - 8; curX <= posX + 8; curX += 4) {
+                for (int curZ = posZ - 8; curZ <= posZ + 8; curZ += 4) {
 
                     // Starts three blocks below to check for solid land in each column
                     BlockPos.Mutable mutable = new BlockPos.Mutable();
                     mutable.setPos(curX, posY - 3, curZ);
                     IBlockReader blockView = chunkGenerator.func_230348_a_(mutable.getX(), mutable.getZ());
 
-                    // Flag represents a block while flag2 represents air above a block
+                    // Flag represents a block with air above it
                     boolean flag = false;
-                    boolean flag2 = false;
 
                     while (mutable.getY() <= posY + 3) {
                         BlockState state = blockView.getBlockState(mutable);
-                        if (!state.isAir()) {
-                            flag = true;
-                        } else if (flag && state.isAir()) {
-                            flag2 = true;
-                            break;
-                        } else {
-                            flag = false;
-                        }
+                        if (!state.isSolid()) {
+                            mutable.move(Direction.UP);
+                            state = blockView.getBlockState(mutable);
 
-                        mutable.move(Direction.UP);
+                            if (state.isAir()) {
+                                flag = true;
+                                break;
+                            }
+
+                        } else {
+                            mutable.move(Direction.UP);
+                        }
                     }
 
                     // If there is no block with air above it in this range, the structure can't spawn
-                    if (!flag2) {
+                    if (!flag) {
                         return false;
                     }
 
