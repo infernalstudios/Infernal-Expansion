@@ -6,6 +6,7 @@ import com.nekomaster1000.infernalexp.init.IEBlocks;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.util.Direction;
+import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.IBlockReader;
@@ -31,8 +32,8 @@ public abstract class IEStructure<F extends IFeatureConfig> extends Structure<F>
 			super(structure, chunkX, chunkY, mutableBoundingBox, reference, seed);
 		}
 
-		public int getYPos(ChunkGenerator chunkGenerator, int x, int z) {
-			int y = chunkGenerator.getSeaLevel() + this.rand.nextInt(chunkGenerator.getMaxBuildHeight() - 2 - chunkGenerator.getSeaLevel());
+		public int getYPos(ChunkGenerator chunkGenerator, int x, int z, SharedSeedRandom random) {
+			int y = chunkGenerator.getSeaLevel() + random.nextInt(chunkGenerator.getMaxBuildHeight() - 2 - chunkGenerator.getSeaLevel());
 			IBlockReader blockColumn = chunkGenerator.func_230348_a_(x, z);
 
 //			for(BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable(x, y, z); y > chunkGenerator.getSeaLevel(); --y) {

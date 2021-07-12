@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec;
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.util.registry.DynamicRegistries;
@@ -51,18 +52,23 @@ public class GlowstoneCanyonRuinStructure extends IEStructure<NoFeatureConfig> {
 	}
 
 	public static class Start extends IEStart<NoFeatureConfig> {
+        private SharedSeedRandom random;
+        private long seed;
+
 		public Start(Structure<NoFeatureConfig> structure, int chunkX, int chunkZ, MutableBoundingBox mutableBoundingBox, int reference, long seed) {
 			super(structure, chunkX, chunkZ, mutableBoundingBox, reference, seed);
+			this.seed = seed;
 		}
 
 
 
 		@Override
 		public void func_230364_a_(DynamicRegistries dynamicRegistryManager, ChunkGenerator chunkGenerator, TemplateManager templateManager, int chunkX, int chunkZ, Biome biome, NoFeatureConfig config) {
-			int x = (chunkX << 4) + this.rand.nextInt(16);
+            random = new SharedSeedRandom(seed + (chunkX * (chunkZ * 17)));
+		    int x = (chunkX << 4) + this.rand.nextInt(16);
 			int z = (chunkZ << 4) + this.rand.nextInt(16);
 
-			BlockPos pos = new BlockPos(x, getYPos(chunkGenerator, x, z), z);
+			BlockPos pos = new BlockPos(x, getYPos(chunkGenerator, x, z, random), z);
 
 			if (pos.getY() != 0) {
 				JigsawManager.func_242837_a(
