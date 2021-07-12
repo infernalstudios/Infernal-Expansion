@@ -106,7 +106,7 @@ public class WhipItem extends TieredItem implements IVanishable {
 
             if (distance < reach * reach) {
                 player.ticksSinceLastSwing = (int) player.getCooldownPeriod();
-                IENetworkHandler.sendToServer(new WhipReachPacket(player.getUniqueID(), traceResult.getEntity().getEntityId(), this.attackKnockback, reach));
+                IENetworkHandler.sendToServer(new WhipReachPacket(player.getUniqueID(), traceResult.getEntity().getEntityId(), this.attackKnockback));
 
                 return true;
             }

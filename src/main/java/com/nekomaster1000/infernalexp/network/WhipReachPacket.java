@@ -8,6 +8,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.Random;
@@ -18,25 +19,22 @@ public class WhipReachPacket {
 	private final UUID playerUUID;
 	private final int targetEntityID;
 	private final float attackKnockback;
-	private final double reach;
 	private static final Random random = new Random();
 
-	public WhipReachPacket(UUID playerUUID, int target, float attackKnockback, double reach) {
+	public WhipReachPacket(UUID playerUUID, int target, float attackKnockback) {
 		this.playerUUID = playerUUID;
 		this.targetEntityID = target;
 		this.attackKnockback = attackKnockback;
-		this.reach = reach;
 	}
 
 	public static void encode(WhipReachPacket message, PacketBuffer buffer) {
 		buffer.writeUniqueId(message.playerUUID);
 		buffer.writeVarInt(message.targetEntityID);
 		buffer.writeFloat(message.attackKnockback);
-		buffer.writeDouble(message.reach);
 	}
 
 	public static WhipReachPacket decode(PacketBuffer buffer) {
-		return new WhipReachPacket(buffer.readUniqueId(), buffer.readVarInt(), buffer.readFloat(), buffer.readDouble());
+		return new WhipReachPacket(buffer.readUniqueId(), buffer.readVarInt(), buffer.readFloat());
 	}
 
 	public static void handle(WhipReachPacket message, Supplier<NetworkEvent.Context> context) {
@@ -44,13 +42,14 @@ public class WhipReachPacket {
 			PlayerEntity playerEntity = context.get().getSender();
             playerEntity.getEntityWorld().playSound(playerEntity, playerEntity.getPosX(), playerEntity.getPosY(), playerEntity.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F));
 
-
             if (playerEntity != null && playerEntity.getServer() != null) {
 				ServerPlayerEntity player = playerEntity.getServer().getPlayerList().getPlayerByUUID(message.playerUUID);
 				Entity target = playerEntity.getEntityWorld().getEntityByID(message.targetEntityID);
 
+                double reach = player.getAttribute(ForgeMod.REACH_DISTANCE.get()).getValue() + 1.0D;
+
 				if (player != null && target != null) {
-					if (player.getDistanceSq(target) < (message.reach * message.reach) * player.getCooledAttackStrength(0.0F)) {
+					if (player.getDistanceSq(target) < (reach * reach) * player.getCooledAttackStrength(0.0F)) {
 						player.attackTargetEntityWithCurrentItem(target);
 						player.getEntityWorld().playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F));
                         ((LivingEntity) target).applyKnockback(message.attackKnockback, MathHelper.sin(player.rotationYaw * ((float) Math.PI / 180F)), -MathHelper.cos(player.rotationYaw * ((float) Math.PI / 180F)));
