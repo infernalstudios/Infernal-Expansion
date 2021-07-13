@@ -24,16 +24,16 @@ public class InfernalExpansionClient {
 			if (livingEntity == null) {
 				return 0.0F;
 			} else {
-				return livingEntity.getActiveItemStack() != itemStack ? 0.0F : (float) (itemStack.getUseDuration() - livingEntity.getItemInUseCount()) / 20.0F;
-			}
-		});
-		ItemModelsProperties.registerProperty(IEItems.GLOWSILK_BOW.get(), new ResourceLocation("pulling"), (itemStack, clientWorld, livingEntity) -> livingEntity != null && livingEntity.isHandActive() && livingEntity.getActiveItemStack() == itemStack ? 1.0F : 0.0F);
+                return livingEntity.getActiveItemStack() != itemStack ? 0.0F : (float) (itemStack.getUseDuration() - livingEntity.getItemInUseCount()) / 20.0F;
+            }
+        });
+        ItemModelsProperties.registerProperty(IEItems.GLOWSILK_BOW.get(), new ResourceLocation("pulling"), (itemStack, clientWorld, livingEntity) -> livingEntity != null && livingEntity.isHandActive() && livingEntity.getActiveItemStack() == itemStack ? 1.0F : 0.0F);
 
-		ItemModelsProperties.registerProperty(IEItems.BLINDSIGHT_TONGUE_WHIP.get(), new ResourceLocation("attack_frame"), (itemStack, clientWorld, livingEntity) -> 
-			livingEntity == null || livingEntity.getHeldItemMainhand() != itemStack ?
-				0 : (int) (((WhipItem) itemStack.getItem()).getTicksSinceAttack() / 6.0F)
-		);
+        ItemModelsProperties.registerProperty(IEItems.BLINDSIGHT_TONGUE_WHIP.get(), new ResourceLocation("attack_frame"), (itemStack, clientWorld, livingEntity) ->
+            livingEntity == null || livingEntity.getHeldItemMainhand() != itemStack ?
+                0 : (int) (((WhipItem) itemStack.getItem()).getTicksSinceAttack(itemStack) / 6.0F)
+        );
 
-		ItemModelsProperties.registerProperty(IEItems.BLINDSIGHT_TONGUE_WHIP.get(), new ResourceLocation("attacking"), (itemStack, clientWorld, livingEntity) -> livingEntity != null && (((WhipItem) itemStack.getItem()).getAttacking() || ((WhipItem) itemStack.getItem()).getCharging()) && livingEntity.getHeldItemMainhand() == itemStack ? 1.0F : 0.0F);
-	}
+        ItemModelsProperties.registerProperty(IEItems.BLINDSIGHT_TONGUE_WHIP.get(), new ResourceLocation("attacking"), (itemStack, clientWorld, livingEntity) -> livingEntity != null && (((WhipItem) itemStack.getItem()).getAttacking(itemStack) || ((WhipItem) itemStack.getItem()).getCharging(itemStack)) && livingEntity.getHeldItemMainhand() == itemStack ? 1.0F : 0.0F);
+    }
 }

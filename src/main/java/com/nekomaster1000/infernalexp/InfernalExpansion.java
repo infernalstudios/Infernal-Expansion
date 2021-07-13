@@ -10,6 +10,7 @@ import com.nekomaster1000.infernalexp.events.MobEvents;
 import com.nekomaster1000.infernalexp.events.WorldEvents;
 import com.nekomaster1000.infernalexp.init.IEBiomes;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
+import com.nekomaster1000.infernalexp.init.IECapabilities;
 import com.nekomaster1000.infernalexp.init.IECommands;
 import com.nekomaster1000.infernalexp.init.IECompostables;
 import com.nekomaster1000.infernalexp.init.IEEffects;
@@ -115,6 +116,7 @@ public class InfernalExpansion {
         event.enqueueWork(IEProcessors::registerProcessors);
         event.enqueueWork(IEStructures::setupStructures);
         event.enqueueWork(IENetworkHandler::register);
+        event.enqueueWork(IECapabilities::registerCapabilities);
 
         // Create mob spawnrate config files, they get created on game load instead of world load
         // just in case someone only launches the games once then goes and looks at the config files.

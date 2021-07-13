@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.items;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import com.nekomaster1000.infernalexp.capabilities.WhipUpdateCapability;
 import com.nekomaster1000.infernalexp.network.IENetworkHandler;
 import com.nekomaster1000.infernalexp.network.WhipReachPacket;
 import net.minecraft.block.BlockState;
@@ -23,6 +24,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.TieredItem;
 import net.minecraft.item.UseAction;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ActionResult;
@@ -39,6 +41,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -48,9 +51,9 @@ public class WhipItem extends TieredItem implements IVanishable {
     private final float attackDamage;
     private final float attackSpeed;
 
-    private int ticksSinceAttack = 0;
-    private boolean attacking = false;
-    private boolean charging = false;
+//    private int ticksSinceAttack = 0;
+//    private boolean attacking = false;
+//    private boolean charging = false;
 
     public WhipItem(IItemTier tier, float attackDamageIn, float attackSpeedIn, Item.Properties builderIn) {
         super(tier, builderIn);
