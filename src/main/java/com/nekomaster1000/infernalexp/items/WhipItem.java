@@ -51,10 +51,6 @@ public class WhipItem extends TieredItem implements IVanishable {
     private final float attackDamage;
     private final float attackSpeed;
 
-//    private int ticksSinceAttack = 0;
-//    private boolean attacking = false;
-//    private boolean charging = false;
-
     public WhipItem(IItemTier tier, float attackDamageIn, float attackSpeedIn, Item.Properties builderIn) {
         super(tier, builderIn);
         this.attackDamage = attackDamageIn + tier.getAttackDamage();
@@ -66,6 +62,7 @@ public class WhipItem extends TieredItem implements IVanishable {
         tooltip.add(new StringTextComponent("\u00A76" + "Hold right click to charge, then release to strike!"));
     }
 
+    @Override
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
         if (entityLiving instanceof PlayerEntity) {
             PlayerEntity playerEntity = (PlayerEntity) entityLiving;
@@ -75,13 +72,11 @@ public class WhipItem extends TieredItem implements IVanishable {
             int ticksSinceStart = this.getUseDuration(stack) - timeLeft;
 
             if (ticksSinceStart < 0 || timeLeft > 71985) {
-//                this.ticksSinceAttack = 0;
                 setTicksSinceAttack(stack, 0);
                 return;
             } else {
                 setAttacking(stack, true);
                 setTicksSinceAttack(stack, 36);
-//                this.ticksSinceAttack = 36;
             }
 
             playerEntity.getEntityWorld().playSound(playerEntity, playerEntity.getPosX(), playerEntity.getPosY(), playerEntity.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F));
@@ -125,10 +120,12 @@ public class WhipItem extends TieredItem implements IVanishable {
         return UseAction.BOW;
     }
 
+    @Override
     public int getUseDuration(ItemStack stack) {
         return 72000;
     }
 
+    @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
         playerIn.setActiveHand(handIn);
@@ -138,13 +135,10 @@ public class WhipItem extends TieredItem implements IVanishable {
     @Override
     public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
         if (getAttacking(stack)) {
-//            this.ticksSinceAttack = 0;
-//            this.attacking = false;
             setTicksSinceAttack(stack, 0);
             setAttacking(stack, false);
         }
 
-//        this.charging = true;
         setCharging(stack, true);
     }
 
@@ -155,19 +149,10 @@ public class WhipItem extends TieredItem implements IVanishable {
         }
 
         if ((getCharging(stack) && getTicksSinceAttack(stack) <= 30) || getAttacking(stack)) {
-//            this.ticksSinceAttack++;
             setTicksSinceAttack(stack, getTicksSinceAttack(stack) + 1);
         }
 
-//        if (this.attacking) {
-//            this.ticksSinceAttack++;
-//        }
-
         if (getTicksSinceAttack(stack) >= 60) {
-//            this.ticksSinceAttack = 0;
-//            this.attacking = false;
-//            this.charging = false;
-
             setTicksSinceAttack(stack, 0);
             setAttacking(stack, false);
             setCharging(stack, false);
@@ -179,6 +164,7 @@ public class WhipItem extends TieredItem implements IVanishable {
         return !player.isCreative();
     }
 
+    @Override
     public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         super.hitEntity(stack, target, attacker);
 
@@ -188,6 +174,7 @@ public class WhipItem extends TieredItem implements IVanishable {
         return true;
     }
 
+    @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
         if (state.getBlockHardness(worldIn, pos) != 0.0F) {
             stack.damageItem(2, entityLiving, (entity) -> {
@@ -198,15 +185,18 @@ public class WhipItem extends TieredItem implements IVanishable {
         return true;
     }
 
+    @Override
     public float getDestroySpeed(ItemStack stack, BlockState state) {
         Material material = state.getMaterial();
         return material != Material.PLANTS && material != Material.TALL_PLANTS && material != Material.CORAL && !state.isIn(BlockTags.LEAVES) && material != Material.GOURD ? 1.0F : 1.5F;
     }
 
+    @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
         return enchantment.type == (EnchantmentType.WEAPON);
     }
 
+    @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType equipmentSlot, ItemStack itemStack) {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> attributeBuilder = ImmutableMultimap.builder();
         attributeBuilder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
