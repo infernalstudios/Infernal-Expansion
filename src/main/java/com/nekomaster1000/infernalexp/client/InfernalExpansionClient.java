@@ -1,5 +1,6 @@
 package com.nekomaster1000.infernalexp.client;
 
+import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.config.gui.screens.ConfigScreen;
 import com.nekomaster1000.infernalexp.init.IEItems;
 import com.nekomaster1000.infernalexp.items.WhipItem;
@@ -11,6 +12,11 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 @OnlyIn(Dist.CLIENT)
 public class InfernalExpansionClient {
@@ -34,6 +40,38 @@ public class InfernalExpansionClient {
 				0 : (int) (((WhipItem) itemStack.getItem()).getTicksSinceAttack() / 6.0F)
 		);
 
-		ItemModelsProperties.registerProperty(IEItems.BLINDSIGHT_TONGUE_WHIP.get(), new ResourceLocation("attacking"), (itemStack, clientWorld, livingEntity) -> livingEntity != null && (((WhipItem) itemStack.getItem()).getAttacking() || ((WhipItem) itemStack.getItem()).getCharging()) && livingEntity.getHeldItemMainhand() == itemStack ? 1.0F : 0.0F);
-	}
+		ItemModelsProperties.registerProperty(IEItems.BLINDSIGHT_TONGUE_WHIP.get(), new ResourceLocation("attacking"), (itemStack, clientWorld, livingEntity) -> livingEntity != null && (((IWhipItem) itemStack.getItem()).getAttacking() || ((IWhipItem) itemStack.getItem()).getCharging()) && livingEntity.getHeldItemMainhand() == itemStack ? 1.0F : 0.0F);
+
+        InfernalExpansionClient.loadInfernalResources();
+    }
+
+    public static void loadInfernalResources() {
+        // Creates file location for resource pack
+        File dir = new File(".", "resourcepacks");
+        File target = new File(dir, "Infernal Resources.zip");
+
+        // If the pack isn't already in the folder, copies the file over from the mod files
+        if (!target.exists()) {
+            try {
+                dir.mkdirs();
+                InputStream in = InfernalExpansion.class.getResourceAsStream("/assets/infernalexp/infernal_resources.zip");
+                FileOutputStream out = new FileOutputStream(target);
+
+                // The number of bytes here is how many can be read from the resource pack at one time
+                // 16kB is the most common disk chunk size, and using this array size
+                // reduces latency between reading and actually processing the data.
+                // The performance difference is not significant, but it's improved by using a 16kB array.
+                byte[] buf = new byte[16384];
+                int len = 0;
+                while((len = in.read(buf)) > 0)
+                    out.write(buf, 0, len);
+
+                in.close();
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
