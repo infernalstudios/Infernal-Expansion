@@ -112,7 +112,7 @@ public class InfernalExpansion {
         //Search for all biomes to add to nether and register nether biome provider
         event.enqueueWork(ModNetherBiomeProvider::registerBiomeProvider);
 
-        //Setup and register structures and processors and packets
+        //Setup and register structures, processors, packets and capabilities
         event.enqueueWork(IEProcessors::registerProcessors);
         event.enqueueWork(IEStructures::setupStructures);
         event.enqueueWork(IENetworkHandler::register);
