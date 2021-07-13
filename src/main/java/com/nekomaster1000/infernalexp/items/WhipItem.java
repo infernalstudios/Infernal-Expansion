@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.items;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import com.nekomaster1000.infernalexp.capabilities.WhipUpdateCapability;
 import com.nekomaster1000.infernalexp.network.IENetworkHandler;
 import com.nekomaster1000.infernalexp.network.WhipReachPacket;
 import net.minecraft.block.BlockState;
@@ -23,6 +24,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.TieredItem;
 import net.minecraft.item.UseAction;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ActionResult;
@@ -39,6 +41,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -48,9 +51,9 @@ public class WhipItem extends TieredItem implements IVanishable {
     private final float attackDamage;
     private final float attackSpeed;
 
-    private int ticksSinceAttack = 0;
-    private boolean attacking = false;
-    private boolean charging = false;
+//    private int ticksSinceAttack = 0;
+//    private boolean attacking = false;
+//    private boolean charging = false;
 
     public WhipItem(IItemTier tier, float attackDamageIn, float attackSpeedIn, Item.Properties builderIn) {
         super(tier, builderIn);
@@ -63,27 +66,30 @@ public class WhipItem extends TieredItem implements IVanishable {
         tooltip.add(new StringTextComponent("\u00A76" + "Hold right click to charge, then release to strike!"));
     }
 
-    @OnlyIn(Dist.CLIENT)
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
         if (entityLiving instanceof PlayerEntity) {
-            PlayerEntity playerentity = (PlayerEntity) entityLiving;
+            PlayerEntity playerEntity = (PlayerEntity) entityLiving;
 
-            this.charging = false;
+            setCharging(stack, false);
 
-            int i = this.getUseDuration(stack) - timeLeft;
+            int ticksSinceStart = this.getUseDuration(stack) - timeLeft;
 
-            if (i < 0 || timeLeft > 71985) {
-                this.ticksSinceAttack = 0;
+            if (ticksSinceStart < 0 || timeLeft > 71985) {
+//                this.ticksSinceAttack = 0;
+                setTicksSinceAttack(stack, 0);
                 return;
             } else {
-                this.setAttacking(true);
-                this.ticksSinceAttack = 36;
+                setAttacking(stack, true);
+                setTicksSinceAttack(stack, 36);
+//                this.ticksSinceAttack = 36;
             }
 
-            playerentity.getEntityWorld().playSound(playerentity, playerentity.getPosX(), playerentity.getPosY(), playerentity.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F));
-            handleExtendedReach(playerentity);
+            playerEntity.getEntityWorld().playSound(playerEntity, playerEntity.getPosX(), playerEntity.getPosY(), playerEntity.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F));
+            playerEntity.addStat(Stats.ITEM_USED.get(this));
 
-            playerentity.addStat(Stats.ITEM_USED.get(this));
+            if (worldIn.isRemote()) {
+                handleExtendedReach(playerEntity);
+            }
         }
     }
 
@@ -131,11 +137,15 @@ public class WhipItem extends TieredItem implements IVanishable {
 
     @Override
     public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
-        if (this.attacking) {
-            this.ticksSinceAttack = 0;
-            this.attacking = false;
+        if (getAttacking(stack)) {
+//            this.ticksSinceAttack = 0;
+//            this.attacking = false;
+            setTicksSinceAttack(stack, 0);
+            setAttacking(stack, false);
         }
-        this.charging = true;
+
+//        this.charging = true;
+        setCharging(stack, true);
     }
 
     @Override
@@ -144,18 +154,23 @@ public class WhipItem extends TieredItem implements IVanishable {
             return;
         }
 
-        if (this.charging && this.ticksSinceAttack <= 30) {
-            this.ticksSinceAttack++;
+        if ((getCharging(stack) && getTicksSinceAttack(stack) <= 30) || getAttacking(stack)) {
+//            this.ticksSinceAttack++;
+            setTicksSinceAttack(stack, getTicksSinceAttack(stack) + 1);
         }
 
-        if (this.attacking) {
-            this.ticksSinceAttack++;
-        }
+//        if (this.attacking) {
+//            this.ticksSinceAttack++;
+//        }
 
-        if (this.ticksSinceAttack >= 60) {
-            this.ticksSinceAttack = 0;
-            this.attacking = false;
-            this.charging = false;
+        if (getTicksSinceAttack(stack) >= 60) {
+//            this.ticksSinceAttack = 0;
+//            this.attacking = false;
+//            this.charging = false;
+
+            setTicksSinceAttack(stack, 0);
+            setAttacking(stack, false);
+            setCharging(stack, false);
         }
     }
 
@@ -200,19 +215,35 @@ public class WhipItem extends TieredItem implements IVanishable {
         return equipmentSlot == EquipmentSlotType.MAINHAND ? attributes : super.getAttributeModifiers(equipmentSlot, itemStack);
     }
 
-    public int getTicksSinceAttack() {
-        return this.ticksSinceAttack;
+    @Nullable
+    @Override
+    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundNBT nbt) {
+        if (WhipUpdateCapability.INSTANCE == null) return null;
+
+        return WhipUpdateCapability.createProvider();
     }
 
-    public boolean getAttacking() {
-        return this.attacking;
+    public void setTicksSinceAttack(ItemStack itemStack, int ticksSinceAttack) {
+        WhipUpdateCapability.getWhipUpdate(itemStack).ifPresent(whipUpdate -> whipUpdate.setTicksSinceAttack(ticksSinceAttack));
     }
 
-    public boolean getCharging() {
-        return this.charging;
+    public int getTicksSinceAttack(ItemStack itemStack) {
+        return WhipUpdateCapability.getWhipUpdate(itemStack).orElse(null).getTicksSinceAttack();
     }
 
-    public void setAttacking(boolean value) {
-        this.attacking = value;
+    public void setAttacking(ItemStack itemStack, boolean attacking) {
+        WhipUpdateCapability.getWhipUpdate(itemStack).ifPresent(whipUpdate -> whipUpdate.setAttacking(attacking));
+    }
+
+    public boolean getAttacking(ItemStack itemStack) {
+        return WhipUpdateCapability.getWhipUpdate(itemStack).orElse(null).getAttacking();
+    }
+
+    public void setCharging(ItemStack itemStack, boolean charging) {
+        WhipUpdateCapability.getWhipUpdate(itemStack).ifPresent(whipUpdate -> whipUpdate.setCharging(charging));
+    }
+
+    public boolean getCharging(ItemStack itemStack) {
+        return WhipUpdateCapability.getWhipUpdate(itemStack).orElse(null).getCharging();
     }
 }
