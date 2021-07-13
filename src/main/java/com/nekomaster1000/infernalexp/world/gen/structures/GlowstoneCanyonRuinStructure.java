@@ -1,10 +1,7 @@
 package com.nekomaster1000.infernalexp.world.gen.structures;
 
 import com.mojang.serialization.Codec;
-
 import com.nekomaster1000.infernalexp.InfernalExpansion;
-
-import com.nekomaster1000.infernalexp.init.IEBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -68,8 +65,7 @@ public class GlowstoneCanyonRuinStructure extends IEStructure<NoFeatureConfig> {
                 for (int curZ = posZ - 4; curZ <= posZ + 4; curZ += 4) {
 
                     // Starts 5 blocks below to check for solid land in each column
-                    BlockPos.Mutable mutable = new BlockPos.Mutable();
-                    mutable.setPos(curX, posY - 5, curZ);
+                    BlockPos.Mutable mutable = new BlockPos.Mutable(curX, posY - 5, curZ);
                     IBlockReader blockView = chunkGenerator.func_230348_a_(mutable.getX(), mutable.getZ());
 
                     // Flag represents a block with air above it
@@ -109,31 +105,11 @@ public class GlowstoneCanyonRuinStructure extends IEStructure<NoFeatureConfig> {
                     }
                 }
             }
-        }
-        else {
+        } else {
             return false;
         }
 
         return true;
-    }
-    public int getYPos(ChunkGenerator chunkGenerator, int x, int z, SharedSeedRandom random) {
-        int y = chunkGenerator.getSeaLevel() + random.nextInt(chunkGenerator.getMaxBuildHeight() - 2 - chunkGenerator.getSeaLevel());
-        IBlockReader blockColumn = chunkGenerator.func_230348_a_(x, z);
-
-        BlockPos pos = new BlockPos(x, y, z);
-
-        while (y > chunkGenerator.getSeaLevel()) {
-            BlockState checkAir = blockColumn.getBlockState(pos.down(y));
-            BlockState checkBlock = blockColumn.getBlockState(pos.down(y + 1));
-
-            if (checkAir.isAir() && (checkBlock.matchesBlock(IEBlocks.GLOWDUST_SAND.get()) || checkBlock.isSolidSide(blockColumn, pos.down(y), Direction.UP))) {
-                return y;
-            }
-
-            y--;
-        }
-
-        return 0;
     }
 
 	public static class Start extends IEStart<NoFeatureConfig> {
@@ -143,8 +119,6 @@ public class GlowstoneCanyonRuinStructure extends IEStructure<NoFeatureConfig> {
 			super(structure, chunkX, chunkZ, mutableBoundingBox, reference, seed);
 			this.seed = seed;
 		}
-
-
 
 		@Override
 		public void func_230364_a_(DynamicRegistries dynamicRegistryManager, ChunkGenerator chunkGenerator, TemplateManager templateManager, int chunkX, int chunkZ, Biome biome, NoFeatureConfig config) {

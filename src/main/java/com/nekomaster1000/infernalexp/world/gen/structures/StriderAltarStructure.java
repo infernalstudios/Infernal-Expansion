@@ -58,8 +58,7 @@ public class StriderAltarStructure extends IEStructure<NoFeatureConfig> {
         // Makes cheap check first, if it passes this check, it does a more in-depth check
         if (super.func_230363_a_(chunkGenerator, biomeProvider, seed, chunkRandom, chunkX, chunkZ, biome, chunkPos, config)) {
 
-            BlockPos.Mutable mutable = new BlockPos.Mutable();
-            mutable.setPos(chunkX << 4, chunkGenerator.getSeaLevel(), chunkZ << 4);
+            BlockPos.Mutable mutable = new BlockPos.Mutable(chunkX << 4, chunkGenerator.getSeaLevel(), chunkZ << 4);
             IBlockReader blockView = chunkGenerator.func_230348_a_(mutable.getX(), mutable.getZ());
 
             // Makes sure there are at least 20 blocks of air above the lava ocean to spawn the altar
@@ -73,8 +72,7 @@ public class StriderAltarStructure extends IEStructure<NoFeatureConfig> {
                 }
                 mutable.move(Direction.UP);
             }
-        }
-        else {
+        } else {
             return false;
         }
 
