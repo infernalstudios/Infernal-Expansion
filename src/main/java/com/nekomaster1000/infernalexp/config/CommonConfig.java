@@ -50,7 +50,11 @@ public class CommonConfig {
     final ForgeConfigSpec.ConfigValue<String> glowsilkMothBiomes;
     final ForgeConfigSpec.ConfigValue<String> blindsightBiomes;
     final ForgeConfigSpec.ConfigValue<String> blackstoneDwarfBiomes;
-    
+
+    // World Generation
+    final ForgeConfigSpec.BooleanValue biomesWhitelistEnabled;
+    final ForgeConfigSpec.ConfigValue<String> biomesWhitelistOrBlacklist;
+
     //Bonemeal Behaviour
     final ForgeConfigSpec.DoubleValue shroomlightGrowChance;
     final ForgeConfigSpec.BooleanValue isShroomlightGrowable;
@@ -282,17 +286,32 @@ public class CommonConfig {
             .define("blackstoneDwarfBiomes", "infernalexp:glowstone_canyon");
 
         builder.pop();
-        
+
         builder.pop();
 
-      //Bonemeal Behaviour
+        // World Generation
+        builder.push("World Generation");
+
+        biomesWhitelistEnabled = builder
+            .comment("Should the biome list below act as a whitelist (True/On), or a blacklist (False/Off). CHANGING THIS REQUIRES A GAME RESTART.")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.biomesWhitelistEnabled")
+            .define("biomesWhitelistEnabled", false);
+
+        biomesWhitelistOrBlacklist = builder
+            .comment("List of biomes to either whitelist or blacklist from nether generation. Split biomes with a comma. To include all nether biomes from all loaded mods leave this blank. CHANGING THIS REQUIRES A GAME RESTART.")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.biomesWhitelistOrBlacklist")
+            .define("biomesWhitelistOrBlacklist", "");
+
+        builder.pop();
+
+        //Bonemeal Behaviour
         builder.push("Bonemeal Behaviour");
-        
+
         isShroomlightGrowable = builder
-                .comment("Determines if a shroomlight tear will grow when a shroomlight is bonemealed (overrides shroomlightGrowChance)")
-                .translation(InfernalExpansion.MOD_ID + ".config.isShroomlightGrowable")
-                .define("isShroomlightGrowable", true);
-        
+            .comment("Determines if a shroomlight tear will grow when a shroomlight is bonemealed (overrides shroomlightGrowChance)")
+            .translation(InfernalExpansion.MOD_ID + ".config.isShroomlightGrowable")
+            .define("isShroomlightGrowable", true);
+
         shroomlightGrowChance = builder
                 .comment("Determines the chance a shroomlight tear will grow when a shroomlight is bonemealed")
                 .translation(InfernalExpansion.MOD_ID + ".config.shroomlightGrowChance")
