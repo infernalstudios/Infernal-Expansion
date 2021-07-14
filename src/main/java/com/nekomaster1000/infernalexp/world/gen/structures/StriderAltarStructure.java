@@ -8,12 +8,15 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.util.registry.DynamicRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
@@ -46,6 +49,33 @@ public class StriderAltarStructure extends IEStructure<NoFeatureConfig> {
 
     @Override
     public boolean shouldTransformLand() {
+        return true;
+    }
+
+    @Override
+    protected boolean func_230363_a_(ChunkGenerator chunkGenerator, BiomeProvider biomeProvider, long seed, SharedSeedRandom chunkRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, NoFeatureConfig config) {
+
+        // Makes cheap check first, if it passes this check, it does a more in-depth check
+        if (super.func_230363_a_(chunkGenerator, biomeProvider, seed, chunkRandom, chunkX, chunkZ, biome, chunkPos, config)) {
+
+            BlockPos.Mutable mutable = new BlockPos.Mutable(chunkX << 4, chunkGenerator.getSeaLevel(), chunkZ << 4);
+            IBlockReader blockView = chunkGenerator.func_230348_a_(mutable.getX(), mutable.getZ());
+
+            // Makes sure there are at least 20 blocks of air above the lava ocean to spawn the altar
+            int minValidSpace = 20;
+            int maxHeight = Math.min(chunkGenerator.getMaxBuildHeight(), chunkGenerator.getSeaLevel() + minValidSpace);
+
+            while(mutable.getY() < maxHeight){
+                BlockState state = blockView.getBlockState(mutable);
+                if(!state.isAir()){
+                    return false;
+                }
+                mutable.move(Direction.UP);
+            }
+        } else {
+            return false;
+        }
+
         return true;
     }
 
@@ -84,8 +114,8 @@ public class StriderAltarStructure extends IEStructure<NoFeatureConfig> {
 
         @Override
         public void func_230364_a_(DynamicRegistries dynamicRegistryManager, ChunkGenerator chunkGenerator, TemplateManager templateManager, int chunkX, int chunkZ, Biome biome, NoFeatureConfig config) {
-            int x = (chunkX << 4) + this.rand.nextInt(16);
-            int z = (chunkZ << 4) + this.rand.nextInt(16);
+            int x = chunkX << 4;
+            int z = chunkZ << 4;
 
             BlockPos pos = new BlockPos(x, getLavaY(chunkGenerator, x, z), z);
 

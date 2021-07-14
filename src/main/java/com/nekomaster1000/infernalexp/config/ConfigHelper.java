@@ -4,6 +4,7 @@ import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.ClientConfi
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.Miscellaneous;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.MobInteractions;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.MobSpawning;
+import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.WorldGeneration;
 
 import net.minecraftforge.fml.config.ModConfig;
 
@@ -54,15 +55,19 @@ public final class ConfigHelper {
         MobInteractions.GLOWSILK_SPEED.setDouble(ConfigHolder.COMMON.glowsilkSpeed.get());
 
         //Mob Spawnable Biomes
-        InfernalExpansionConfig.MobSpawning.VOLINE.setSpawnableBiomes(ConfigHolder.COMMON.volineBiomes.get());
+        MobSpawning.VOLINE.setSpawnableBiomes(ConfigHolder.COMMON.volineBiomes.get());
         MobSpawning.WARPBEETLE.setSpawnableBiomes(ConfigHolder.COMMON.warpbeetleBiomes.get());
-        InfernalExpansionConfig.MobSpawning.SHROOMLOIN.setSpawnableBiomes(ConfigHolder.COMMON.shroomloinBiomes.get());
-        InfernalExpansionConfig.MobSpawning.BASALT_GIANT.setSpawnableBiomes(ConfigHolder.COMMON.basaltGiantBiomes.get());
-        InfernalExpansionConfig.MobSpawning.EMBODY.setSpawnableBiomes(ConfigHolder.COMMON.embodyBiomes.get());
+        MobSpawning.SHROOMLOIN.setSpawnableBiomes(ConfigHolder.COMMON.shroomloinBiomes.get());
+        MobSpawning.BASALT_GIANT.setSpawnableBiomes(ConfigHolder.COMMON.basaltGiantBiomes.get());
+        MobSpawning.EMBODY.setSpawnableBiomes(ConfigHolder.COMMON.embodyBiomes.get());
         MobSpawning.GLOWSQUITO.setSpawnableBiomes(ConfigHolder.COMMON.glowsquitoBiomes.get());
-        InfernalExpansionConfig.MobSpawning.GLOWSILK_MOTH.setSpawnableBiomes(ConfigHolder.COMMON.glowsilkMothBiomes.get());
+        MobSpawning.GLOWSILK_MOTH.setSpawnableBiomes(ConfigHolder.COMMON.glowsilkMothBiomes.get());
         MobSpawning.BLINDSIGHT.setSpawnableBiomes(ConfigHolder.COMMON.blindsightBiomes.get());
         MobSpawning.BLACKSTONE_DWARF.setSpawnableBiomes(ConfigHolder.COMMON.blackstoneDwarfBiomes.get());
+
+        // World Generation
+        WorldGeneration.BIOMES_LIST_IS_WHITELIST.set(ConfigHolder.COMMON.biomesListIsWhitelist.get());
+        WorldGeneration.BIOMES_LIST.set(ConfigHolder.COMMON.biomesList.get());
 
         //Bonemeal Behaviour
         Miscellaneous.SHROOMLIGHT_GROWABLE.set(ConfigHolder.COMMON.isShroomlightGrowable.get());
@@ -127,6 +132,10 @@ public final class ConfigHelper {
         ConfigHolder.COMMON.glowsilkMothBiomes.set(InfernalExpansionConfig.MobSpawning.GLOWSILK_MOTH.getSpawnableBiomes());
         ConfigHolder.COMMON.blindsightBiomes.set(InfernalExpansionConfig.MobSpawning.BLINDSIGHT.getSpawnableBiomes());
         ConfigHolder.COMMON.blackstoneDwarfBiomes.set(MobSpawning.BLACKSTONE_DWARF.getSpawnableBiomes());
+
+        // World Generation
+        ConfigHolder.COMMON.biomesListIsWhitelist.set((Boolean) WorldGeneration.BIOMES_LIST_IS_WHITELIST.get());
+        ConfigHolder.COMMON.biomesList.set((String) WorldGeneration.BIOMES_LIST.get());
 
         ConfigHolder.COMMON.isShroomlightGrowable.set(Miscellaneous.SHROOMLIGHT_GROWABLE.getBool());
         ConfigHolder.COMMON.shroomlightGrowChance.set(Miscellaneous.SHROOMLIGHT_GROW_CHANCE.getDouble());
