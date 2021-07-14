@@ -17,6 +17,8 @@ public class IETags {
         public static final ITag.INamedTag<Block> GLOW_FIRE_BASE_BLOCKS = tag("glow_fire_base_blocks");
         public static final ITag.INamedTag<Block> GUARDED_BY_SHROOMLOIN = tag("guarded_by_shroomloin");
         public static final ITag.INamedTag<Block> MAGMA_CUBE_AVOID_BLOCKS = tag("magma_cube_avoid_blocks");
+        public static final ITag.INamedTag<Block> BURIED_BONE_BASE_BLOCKS = tag("buried_bone_base_blocks");
+        public static final ITag.INamedTag<Block> PLANTED_QUARTZ_BASE_BLOCKS = tag("planted_quartz_base_blocks");
 
         private static ITag.INamedTag<Block> tag(String name) {
             return BlockTags.createOptional(new ResourceLocation(InfernalExpansion.MOD_ID, name));

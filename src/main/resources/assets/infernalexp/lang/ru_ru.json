@@ -144,6 +144,7 @@
   "block.infernalexp.shroomlight_fungus": "Слеза грибосвета",
 
   "block.infernalexp.buried_bone": "Погребенная кость",
+  "block.infernalexp.planted_quartz": "Planted Quartz",
 
   "block.infernalexp.warped_nylium_path": "Тропинка Искаженного нилия",
   "block.infernalexp.crimson_nylium_path": "Тропинка Багрового Нилия",
@@ -243,11 +244,13 @@
   "infernalexp.config.button.mobInteractions": "Взаимодействия мобов...",
   "infernalexp.config.button.mobSpawning": "Спаун мобов...",
   "infernalexp.config.button.miscellaneous": "Разное...",
+  "infernalexp.config.button.worldGeneration": "World Generation...",
   "infernalexp.config.button.clientConfig": "Конфигурация клиента...",
   "infernalexp.config.title": "Конфигурация Infernal Expansion",
   "infernalexp.config.title.mobInteractions": "Взаимодействия мобов",
   "infernalexp.config.title.mob_spawning": "Спаун мобов",
   "infernalexp.config.title.miscellaneous": "Разное",
+  "infernalexp.config.title.worldGeneration": "World Generation",
   "infernalexp.config.title.clientConfig": "Конфигурация клиента",
   "infernalexp.config.subtitle.spawnable_biomes": "В каких биомах должны спавниться мобы?",
   "infernalexp.config.option.piglinFearWarpbeetle": "Пиглины боятся Искажуков",
@@ -327,7 +330,6 @@
   "infernalexp.config.option.glowsilkGSC.enable": "Светошелковые Моли в Каньоне",
   "infernalexp.config.option.glowsilkDeltas.enable": "Светошелковые Моли в Дельтах",
   "infernalexp.config.option.glowsilkCrimson.enable": "Светошелковые Моли в Багровом лесу",
-
   "infernalexp.config.tooltip.volineWastes.enable": "Определяет, будут ли Вулкаши появляться в Пустошах Незера",
   "infernalexp.config.tooltip.shroomloinCrimson.enable": "Определяет, будут ли Гриблойны появляться в Багровых лесах",
   "infernalexp.config.tooltip.volineCrimson.enable": "Определяет, будут ли Вулкаши появляться в Багровых лесах",
@@ -337,9 +339,11 @@
   "infernalexp.config.tooltip.glowsilkGSC.enable": "Определяет, будут ли Светошелковые моли появляться в Светокаменном каньоне",
   "infernalexp.config.tooltip.glowsilkDeltas.enable": "Определяет, будут ли Светошелковые моли появляться в Базальтовых дельтах",
   "infernalexp.config.tooltip.glowsilkCrimson.enable": "Определяет, будут ли Светошелковые моли появляться в Багровых лесах",
-
+  "infernalexp.config.option.biomesListIsWhitelist": "Whitelist or Blacklist",
+  "infernalexp.config.option.biomesList": "Biome List",
+  "infernalexp.config.tooltip.biomesListIsWhitelist": "Should the biome list below act as a whitelist (True/On), or a blacklist (False/Off). CHANGING THIS REQUIRES A GAME RESTART.",
+  "infernalexp.config.tooltip.biomesList": "List of biomes to either whitelist or blacklist from nether generation. Split biomes with a comma. To include all nether biomes from all loaded mods leave this blank. CHANGING THIS REQUIRES A GAME RESTART.",
   "infernalexp.config.option.spawnrate": "Частота появления",
-
   "infernalexp.config.tooltip.volineWastes.spawnrate": "Определяет частоту появления Вулкашей в Пустошах Незера",
   "infernalexp.config.tooltip.shroomloinCrimson.spawnrate": "Определяет частоту появления Гриблоинов в Багровых лесах",
   "infernalexp.config.tooltip.volineCrimson.spawnrate": "Определяет частоту появления Вулкашей в Багровых лесах",

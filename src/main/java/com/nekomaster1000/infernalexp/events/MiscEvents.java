@@ -116,21 +116,7 @@ public class MiscEvents {
                 }
                 ForgeEventFactory.onBlockPlace(player, BlockSnapshot.create(world.getDimensionKey(), world, pos), face);
             }
-        }
-
-        if (heldItemStack.getItem() == Items.GLOWSTONE_DUST) {
-            if (world.getBlockState(pos).getBlock() == IEBlocks.DIMSTONE.get()) {
-                player.swingArm(event.getHand());
-                world.playSound(null, event.getPos(), IESoundEvents.GLOWSTONE_RECHARGE.get(), SoundCategory.BLOCKS, 1.0F, (float) (0.75F + event.getWorld().getRandom().nextDouble() / 2));
-                world.setBlockState(pos, Blocks.GLOWSTONE.getDefaultState());
-            } else if (world.getBlockState(pos).getBlock() == IEBlocks.DULLSTONE.get()) {
-                player.swingArm(event.getHand());
-                world.playSound(null, event.getPos(), IESoundEvents.GLOWSTONE_RECHARGE.get(), SoundCategory.BLOCKS, 1.0F, (float) (0.5F + event.getWorld().getRandom().nextDouble() / 3));
-                world.setBlockState(pos, IEBlocks.DIMSTONE.get().getDefaultState());
-            }
-        }
-
-        if (heldItemStack.getItem() == Items.QUARTZ) {
+        } else if (heldItemStack.getItem() == Items.QUARTZ) {
             pos = pos.offset(face);
             BlockState blockstate = IEBlocks.PLANTED_QUARTZ.get().getPlaceableState(world, pos, face);
             if (blockstate != null) {
@@ -144,6 +130,18 @@ public class MiscEvents {
                     heldItemStack.shrink(1);
                 }
                 ForgeEventFactory.onBlockPlace(player, BlockSnapshot.create(world.getDimensionKey(), world, pos), face);
+            }
+        }
+
+        if (heldItemStack.getItem() == Items.GLOWSTONE_DUST) {
+            if (world.getBlockState(pos).getBlock() == IEBlocks.DIMSTONE.get()) {
+                player.swingArm(event.getHand());
+                world.playSound(null, event.getPos(), IESoundEvents.GLOWSTONE_RECHARGE.get(), SoundCategory.BLOCKS, 1.0F, (float) (0.75F + event.getWorld().getRandom().nextDouble() / 2));
+                world.setBlockState(pos, Blocks.GLOWSTONE.getDefaultState());
+            } else if (world.getBlockState(pos).getBlock() == IEBlocks.DULLSTONE.get()) {
+                player.swingArm(event.getHand());
+                world.playSound(null, event.getPos(), IESoundEvents.GLOWSTONE_RECHARGE.get(), SoundCategory.BLOCKS, 1.0F, (float) (0.5F + event.getWorld().getRandom().nextDouble() / 3));
+                world.setBlockState(pos, IEBlocks.DIMSTONE.get().getDefaultState());
             }
         }
     }

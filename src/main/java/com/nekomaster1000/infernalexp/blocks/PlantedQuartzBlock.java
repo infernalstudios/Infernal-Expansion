@@ -1,9 +1,9 @@
 package com.nekomaster1000.infernalexp.blocks;
 
 import com.nekomaster1000.infernalexp.init.IEBlocks;
+import com.nekomaster1000.infernalexp.init.IETags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.state.StateContainer;
@@ -33,11 +33,7 @@ public class PlantedQuartzBlock extends HorizontalBushBlock {
 
     @Override
     protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
-        return state.matchesBlock(Blocks.QUARTZ_BLOCK) || state.matchesBlock(Blocks.CHISELED_QUARTZ_BLOCK)
-            || state.matchesBlock(Blocks.SMOOTH_QUARTZ) || state.matchesBlock(Blocks.QUARTZ_BRICKS)
-            || state.matchesBlock(Blocks.QUARTZ_PILLAR) || state.matchesBlock(Blocks.NETHER_QUARTZ_ORE)
-            || state.matchesBlock(Blocks.SOUL_SAND) || state.matchesBlock(Blocks.SOUL_SOIL)
-            || state.matchesBlock(Blocks.NETHERRACK);
+        return state.getBlock().isIn(IETags.Blocks.PLANTED_QUARTZ_BASE_BLOCKS);
     }
 
     @CheckForNull
