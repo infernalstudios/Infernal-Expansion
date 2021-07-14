@@ -9,11 +9,14 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
 
 public class WarpbeetleRenderer extends MobRenderer<WarpbeetleEntity, WarpbeetleModel<WarpbeetleEntity>> {
-
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/warpbeetle.png");
+    protected static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/warpbeetle/warpbeetle.png");
+    protected static final ResourceLocation CHORUS_TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/warpbeetle/chorus_warpbeetle.png");
 
     public WarpbeetleRenderer(EntityRendererManager renderManagerIn) { super(renderManagerIn, new WarpbeetleModel<>(), 0.7f); }
 
     @Override
-    public ResourceLocation getEntityTexture(WarpbeetleEntity entity) { return TEXTURE; }
+    public ResourceLocation getEntityTexture(WarpbeetleEntity entity) {
+        boolean i = entity.getVariant();
+        return i ? CHORUS_TEXTURE : TEXTURE;
+    }
 }

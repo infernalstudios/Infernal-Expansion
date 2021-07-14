@@ -22,9 +22,16 @@ import net.minecraft.entity.ai.goal.TemptGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -34,6 +41,7 @@ import net.minecraft.world.World;
 
 public class WarpbeetleEntity extends CreatureEntity {
     private int attackTimer;
+    public static final DataParameter<Boolean> CHORUS = EntityDataManager.createKey(WarpbeetleEntity.class, DataSerializers.BOOLEAN);
 
 	public float shellRotationMultiplier = 0.0F;
 
@@ -66,7 +74,49 @@ public class WarpbeetleEntity extends CreatureEntity {
         }
 	}
 
-	@Override
+    protected void registerData() {
+        super.registerData();
+        this.dataManager.register(CHORUS, false);
+    }
+
+    @Override
+    public void writeAdditional(CompoundNBT compound) {
+        super.writeAdditional(compound);
+        compound.putBoolean("variant", this.getVariant());
+    }
+
+    @Override
+    public void readAdditional(CompoundNBT compound) {
+        super.readAdditional(compound);
+        this.setVariant(compound.getBoolean("variant"));
+    }
+
+
+    public boolean getVariant() {
+	    return this.dataManager.get(CHORUS);
+    }
+
+    public void setVariant(boolean variant) {
+	    this.dataManager.set(CHORUS, variant);
+    }
+
+    @Override
+    protected ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
+        ItemStack stack = playerIn.getHeldItem(hand);
+        if (!this.getVariant() && stack.getItem() == Items.CHORUS_FRUIT) {
+            this.setVariant(true);
+            return ActionResultType.SUCCESS;
+        }
+        else if (this.getVariant() && stack.getItem() == Items.WARPED_FUNGUS) {
+            this.setVariant(false);
+            return ActionResultType.SUCCESS;
+        }
+        else {
+            return super.getEntityInteractionResult(playerIn, hand);
+        }
+    }
+
+    @Override
 	public void livingTick() {
 		super.livingTick();
 

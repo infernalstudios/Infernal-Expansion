@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.events;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.blocks.HorizontalBushBlock;
+import com.nekomaster1000.infernalexp.blocks.LuminousFungusBlock;
 import com.nekomaster1000.infernalexp.config.ConfigHelper;
 import com.nekomaster1000.infernalexp.config.ConfigHolder;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.Miscellaneous;
@@ -15,6 +16,7 @@ import com.nekomaster1000.infernalexp.init.IEEffects;
 import com.nekomaster1000.infernalexp.init.IEItems;
 import com.nekomaster1000.infernalexp.init.IEParticleTypes;
 import com.nekomaster1000.infernalexp.init.IESoundEvents;
+import com.nekomaster1000.infernalexp.init.IETileEntityTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -30,6 +32,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.state.properties.AttachFace;
 import net.minecraft.stats.Stats;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
@@ -75,24 +78,62 @@ public class MiscEvents {
     //Blocks being broken
     @SubscribeEvent
     public void onBlockBreak(BlockEvent.BreakEvent event) {
-        if (event.getState().equals(Blocks.CRIMSON_FUNGUS.getDefaultState())
-            || event.getState().equals(Blocks.CRIMSON_ROOTS.getDefaultState())
-            || event.getState().equals(Blocks.CRIMSON_STEM.getDefaultState())
-            || event.getState().equals(Blocks.STRIPPED_CRIMSON_STEM.getDefaultState())
-            || event.getState().equals(Blocks.WEEPING_VINES.getDefaultState())
-            || event.getState().equals(Blocks.WEEPING_VINES_PLANT.getDefaultState())
-            || event.getState().equals(Blocks.NETHER_WART_BLOCK.getDefaultState())) {
-            List<?> list = event.getPlayer().world.getEntitiesWithinAABB(ShroomloinEntity.class,
-                event.getPlayer().getBoundingBox().grow(32.0D));
-            for (int j = 0; j < list.size(); j++) {
-                Entity entity = (Entity) list.get(j);
-                if (entity instanceof ShroomloinEntity) {
-                    ShroomloinEntity shroomloinEntity = (ShroomloinEntity) entity;
-                    shroomloinEntity.becomeAngryAt(event.getPlayer());
+        BlockState state = event.getState();
+        World world = event.getPlayer().getEntityWorld();
+        BlockPos pos = event.getPos();
+        TileEntity getTile = world.getTileEntity(pos);
+        List<?> list = event.getPlayer().world.getEntitiesWithinAABB(ShroomloinEntity.class,
+            event.getPlayer().getBoundingBox().grow(32.0D));
+        for (int j = 0; j < list.size(); j++) {
+            Entity entity = (Entity) list.get(j);
+            if (entity instanceof ShroomloinEntity) {
+                ShroomloinEntity shroomloinEntity = (ShroomloinEntity) entity;
+                if (state.equals(Blocks.CRIMSON_NYLIUM.getDefaultState())
+                    || state.equals(Blocks.CRIMSON_STEM.getDefaultState())
+                    || state.equals(Blocks.STRIPPED_CRIMSON_STEM.getDefaultState())
+                    || state.equals(Blocks.WEEPING_VINES.getDefaultState())
+                    || state.equals(Blocks.WEEPING_VINES_PLANT.getDefaultState())
+                    || state.equals(Blocks.NETHER_WART_BLOCK.getDefaultState())) {
+                    if (((ShroomloinEntity) entity).getFungusType() == 1) {
+                        shroomloinEntity.becomeAngryAt(event.getPlayer());
+                    }
+                }
+
+                if (state.equals(Blocks.WARPED_NYLIUM.getDefaultState())
+                    || state.equals(Blocks.WARPED_STEM.getDefaultState())
+                    || state.equals(Blocks.STRIPPED_WARPED_STEM.getDefaultState())
+                    || state.equals(Blocks.TWISTING_VINES.getDefaultState())
+                    || state.equals(Blocks.TWISTING_VINES_PLANT.getDefaultState())
+                    || state.equals(Blocks.WARPED_WART_BLOCK.getDefaultState())) {
+                    if (((ShroomloinEntity) entity).getFungusType() == 2) {
+                        shroomloinEntity.becomeAngryAt(event.getPlayer());
+                    }
+                }
+                //Not entirely sure why but you need to check the lit states for the luminous fungus
+                if ( state.equals(IEBlocks.LUMINOUS_WART_BLOCK.get().getDefaultState())
+                    || state.equals(IEBlocks.LUMINOUS_FUNGUS_CAP.get().getDefaultState())
+                    || state.equals(IEBlocks.DULLTHORNS.get().getDefaultState())
+                    || state.equals(IEBlocks.DULLTHORNS_BLOCK.get().getDefaultState())) {
+                    if (((ShroomloinEntity) entity).getFungusType() == 3) {
+                        shroomloinEntity.becomeAngryAt(event.getPlayer());
+                    }
+                }
+                if (state.equals(Blocks.RED_MUSHROOM_BLOCK.getDefaultState())) {
+                    if (((ShroomloinEntity) entity).getFungusType() == 4) {
+                        shroomloinEntity.becomeAngryAt(event.getPlayer());
+                    }
+                }
+                if (state.equals(Blocks.BROWN_MUSHROOM_BLOCK.getDefaultState())) {
+                    if (((ShroomloinEntity) entity).getFungusType() == 5) {
+                        shroomloinEntity.becomeAngryAt(event.getPlayer());
+                    }
                 }
             }
         }
     }
+
+
+
 
     @SubscribeEvent
     public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {

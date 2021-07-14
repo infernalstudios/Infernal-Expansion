@@ -1,5 +1,6 @@
 package com.nekomaster1000.infernalexp.entities;
 
+import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IEEffects;
 import com.nekomaster1000.infernalexp.init.IEItems;
 import com.nekomaster1000.infernalexp.init.IESoundEvents;
@@ -9,14 +10,17 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -29,13 +33,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.EnumSet;
 
 public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob {
+    private static final DataParameter<Integer> FUNGUS_TYPE = EntityDataManager.createKey(ShroomloinEntity.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> STATE = EntityDataManager.createKey(ShroomloinEntity.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> IGNITED = EntityDataManager.createKey(ShroomloinEntity.class, DataSerializers.BOOLEAN);
 	private int lastActiveTime;
 	private int timeSinceIgnited;
 	private final int fuseTime = 59;
 
-	// public static final Ingredient TEMPTATION_ITEMS =
+    // public static final Ingredient TEMPTATION_ITEMS =
 	// Ingredient.fromItems(IEItems.DULLROCKS.get(), Items.MAGMA_CREAM);
 
 	public ShroomloinEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
@@ -51,9 +56,69 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
 		super.registerData();
 		this.dataManager.register(STATE, -1);
 		this.dataManager.register(IGNITED, false);
+		this.dataManager.register(FUNGUS_TYPE, 1);
 	}
 
-	/**
+
+
+    @Override
+    public void writeAdditional(CompoundNBT compound) {
+        super.writeAdditional(compound);
+        compound.putInt("fungusType", this.getFungusType());
+    }
+
+    @Override
+    public void readAdditional(CompoundNBT compound) {
+        super.readAdditional(compound);
+        this.setFungusType(compound.getInt("fungusType"));
+    }
+
+    public void setFungusType(int fungusType) {
+            this.dataManager.set(FUNGUS_TYPE, fungusType);
+    }
+
+    public int getFungusType() {
+	    return this.dataManager.get(FUNGUS_TYPE);
+    }
+
+    @Override
+    protected ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
+        ItemStack stack = playerIn.getHeldItem(hand);
+            if (this.getFungusType() != 1 && stack.getItem() == Items.CRIMSON_FUNGUS) {
+                this.setFungusType(1);
+                if (!playerIn.isCreative()) {
+                    stack.shrink(1);
+                }
+                return ActionResultType.SUCCESS;
+            } else if (this.getFungusType() != 2 && stack.getItem() == Items.WARPED_FUNGUS) {
+                this.setFungusType(2);
+                if (!playerIn.isCreative()) {
+                    stack.shrink(1);
+                }
+                return ActionResultType.SUCCESS;
+            } else if (this.getFungusType() != 3 && stack.getItem() == IEBlocks.LUMINOUS_FUNGUS.get().asItem()) {
+                this.setFungusType(3);
+                if (!playerIn.isCreative()) {
+                    stack.shrink(1);
+                }
+                return ActionResultType.SUCCESS;
+            } else if (this.getFungusType() != 4 && stack.getItem() == Items.RED_MUSHROOM) {
+                this.setFungusType(4);
+                if (!playerIn.isCreative()) {
+                    stack.shrink(1);
+                }
+                return ActionResultType.SUCCESS;
+            } else if (this.getFungusType() != 5 && stack.getItem() == Items.BROWN_MUSHROOM) {
+                this.setFungusType(5);
+                if (!playerIn.isCreative()) {
+                    stack.shrink(1);
+                }
+                return ActionResultType.SUCCESS;
+            }
+        return super.getEntityInteractionResult(playerIn, hand);
+    }
+
+    /**
 	 * Called to update the entity's position/logic.
 	 */
 	public void tick() {
