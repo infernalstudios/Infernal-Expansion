@@ -188,8 +188,8 @@ public final class InfernalExpansionConfig {
     }
 
     public enum WorldGeneration {
-        BIOMES_WHITELIST_ENABLED("biomesWhitelistEnabled", false),
-        BIOMES_WHITELIST_OR_BLACKLIST("biomesWhitelistOrBlacklist", "");
+        BIOMES_LIST_IS_WHITELIST("biomesListIsWhitelist", false),
+        BIOMES_LIST("biomesList", "");
 
         private final String translationName;
         private Object value;

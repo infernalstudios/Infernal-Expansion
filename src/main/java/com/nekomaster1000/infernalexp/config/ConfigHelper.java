@@ -66,8 +66,8 @@ public final class ConfigHelper {
         MobSpawning.BLACKSTONE_DWARF.setSpawnableBiomes(ConfigHolder.COMMON.blackstoneDwarfBiomes.get());
 
         // World Generation
-        WorldGeneration.BIOMES_WHITELIST_ENABLED.set(ConfigHolder.COMMON.biomesWhitelistEnabled.get());
-        WorldGeneration.BIOMES_WHITELIST_OR_BLACKLIST.set(ConfigHolder.COMMON.biomesWhitelistOrBlacklist.get());
+        WorldGeneration.BIOMES_LIST_IS_WHITELIST.set(ConfigHolder.COMMON.biomesListIsWhitelist.get());
+        WorldGeneration.BIOMES_LIST.set(ConfigHolder.COMMON.biomesList.get());
 
         //Bonemeal Behaviour
         Miscellaneous.SHROOMLIGHT_GROWABLE.set(ConfigHolder.COMMON.isShroomlightGrowable.get());
@@ -134,8 +134,8 @@ public final class ConfigHelper {
         ConfigHolder.COMMON.blackstoneDwarfBiomes.set(MobSpawning.BLACKSTONE_DWARF.getSpawnableBiomes());
 
         // World Generation
-        ConfigHolder.COMMON.biomesWhitelistEnabled.set((Boolean) WorldGeneration.BIOMES_WHITELIST_ENABLED.get());
-        ConfigHolder.COMMON.biomesWhitelistOrBlacklist.set((String) WorldGeneration.BIOMES_WHITELIST_OR_BLACKLIST.get());
+        ConfigHolder.COMMON.biomesListIsWhitelist.set((Boolean) WorldGeneration.BIOMES_LIST_IS_WHITELIST.get());
+        ConfigHolder.COMMON.biomesList.set((String) WorldGeneration.BIOMES_LIST.get());
 
         ConfigHolder.COMMON.isShroomlightGrowable.set(Miscellaneous.SHROOMLIGHT_GROWABLE.getBool());
         ConfigHolder.COMMON.shroomlightGrowChance.set(Miscellaneous.SHROOMLIGHT_GROW_CHANCE.getDouble());

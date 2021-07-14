@@ -18,16 +18,20 @@ public class ModNetherBiomeCollector {
     public static final ForgeRegistry<Biome> biomeRegistry = ((ForgeRegistry<Biome>) ForgeRegistries.BIOMES);
 
     public static List<RegistryKey<Biome>> netherBiomeList = new ArrayList<>();
-    public static List<String> whitelistOrBlacklist = Arrays.asList(((String) InfernalExpansionConfig.WorldGeneration.BIOMES_WHITELIST_OR_BLACKLIST.get()).replace(" ", "").split(","));
-    public static boolean whitelistEnabled = (Boolean) InfernalExpansionConfig.WorldGeneration.BIOMES_WHITELIST_ENABLED.get();
+    public static List<String> biomeList = Arrays.asList(((String) InfernalExpansionConfig.WorldGeneration.BIOMES_LIST.get()).replace(" ", "").split(","));
+    public static boolean isWhitelist = (Boolean) InfernalExpansionConfig.WorldGeneration.BIOMES_LIST_IS_WHITELIST.get();
 
     public static List<RegistryKey<Biome>> netherBiomeCollection(Registry<Biome> biomeRegistry) {
 
         for (Map.Entry<RegistryKey<Biome>, Biome> entry : biomeRegistry.getEntries()) {
             if (entry.getValue().getCategory() == Biome.Category.NETHER && !entry.getKey().getLocation().getNamespace().equals("ultra_amplified_dimension")) {
                 if (!netherBiomeList.contains(entry.getKey())) {
-                    if ((whitelistEnabled && whitelistOrBlacklist.contains(entry.getKey().getLocation().toString())) || (!whitelistEnabled && !whitelistOrBlacklist.contains(entry.getKey().getLocation().toString())) || whitelistOrBlacklist.isEmpty()) {
+                    if ((isWhitelist && biomeList.contains(entry.getKey().getLocation().toString()))
+                        || (!isWhitelist && !biomeList.contains(entry.getKey().getLocation().toString()))
+                        || biomeList.isEmpty()) {
+
                         netherBiomeList.add(entry.getKey());
+
                     }
                 }
             }

@@ -1,7 +1,6 @@
 package com.nekomaster1000.infernalexp.config;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
-
 import net.minecraftforge.common.ForgeConfigSpec;
 
 public class CommonConfig {
@@ -52,8 +51,8 @@ public class CommonConfig {
     final ForgeConfigSpec.ConfigValue<String> blackstoneDwarfBiomes;
 
     // World Generation
-    final ForgeConfigSpec.BooleanValue biomesWhitelistEnabled;
-    final ForgeConfigSpec.ConfigValue<String> biomesWhitelistOrBlacklist;
+    final ForgeConfigSpec.BooleanValue biomesListIsWhitelist;
+    final ForgeConfigSpec.ConfigValue<String> biomesList;
 
     //Bonemeal Behaviour
     final ForgeConfigSpec.DoubleValue shroomlightGrowChance;
@@ -292,15 +291,17 @@ public class CommonConfig {
         // World Generation
         builder.push("World Generation");
 
-        biomesWhitelistEnabled = builder
-            .comment("Should the biome list below act as a whitelist (True/On), or a blacklist (False/Off). CHANGING THIS REQUIRES A GAME RESTART.")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.biomesWhitelistEnabled")
-            .define("biomesWhitelistEnabled", false);
+        biomesListIsWhitelist = builder
+            .comment("Should the biome list below act as a whitelist (True/On), or a blacklist (False/Off).")
+            .comment("CHANGING THIS REQUIRES A GAME RESTART")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.biomesListIsWhitelist")
+            .define("biomesListIsWhitelist", false);
 
-        biomesWhitelistOrBlacklist = builder
-            .comment("List of biomes to either whitelist or blacklist from nether generation. Split biomes with a comma. To include all nether biomes from all loaded mods leave this blank. CHANGING THIS REQUIRES A GAME RESTART.")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.biomesWhitelistOrBlacklist")
-            .define("biomesWhitelistOrBlacklist", "");
+        biomesList = builder
+            .comment("List of biomes to either whitelist or blacklist from nether generation. Split biomes with a comma. To include all nether biomes from all loaded mods leave this blank.")
+            .comment("CHANGING THIS REQUIRES A GAME RESTART")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.biomesList")
+            .define("biomesList", "");
 
         builder.pop();
 
