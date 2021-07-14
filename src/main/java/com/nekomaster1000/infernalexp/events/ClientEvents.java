@@ -70,6 +70,7 @@ public class ClientEvents {
         RenderTypeLookup.setRenderLayer(IEBlocks.SHROOMLIGHT_FUNGUS.get(), RenderType.getCutout());
 
         RenderTypeLookup.setRenderLayer(IEBlocks.BURIED_BONE.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(IEBlocks.PLANTED_QUARTZ.get(), RenderType.getCutout());
 
         RenderTypeLookup.setRenderLayer(IEBlocks.GLOW_GLASS.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(IEBlocks.GLOW_GLASS_PANE.get(), RenderType.getCutout());

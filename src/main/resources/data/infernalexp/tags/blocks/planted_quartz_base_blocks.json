@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:quartz_block",
+    "minecraft:chiseled_quartz_block",
+    "minecraft:smooth_quartz",
+    "minecraft:quartz_bricks",
+    "minecraft:quartz_pillar",
+    "minecraft:nether_quartz_ore",
+    "minecraft:soul_sand",
+    "minecraft:soul_soil",
+    "minecraft:netherrack"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "replace": false,
+  "values": [
+    "infernalexp:glowdust_sand",
+    "infernalexp:crimson_fungus_cap",
+    "infernalexp:warped_fungus_cap",
+    "infernalexp:luminous_fungus_cap",
+    "infernalexp:silt",
+    "infernalexp:rubble",
+    "minecraft:sand",
+    "minecraft:red_sand",
+    "minecraft:grass_block",
+    "minecraft:dirt",
+    "minecraft:coarse_dirt",
+    "minecraft:podzol",
+    "minecraft:mycelium",
+    "minecraft:netherrack",
+    "minecraft:crimson_nylium",
+    "minecraft:nether_wart_block",
+    "minecraft:warped_nylium",
+    "minecraft:warped_wart_block",
+    "minecraft:soul_sand",
+    "minecraft:soul_soil"
+  ]
+}

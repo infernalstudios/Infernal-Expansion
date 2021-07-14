@@ -1,24 +1,44 @@
 package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
-import com.nekomaster1000.infernalexp.blocks.*;
+import com.nekomaster1000.infernalexp.blocks.BasaltIronOreBlock;
+import com.nekomaster1000.infernalexp.blocks.BasalticMagmaBlock;
+import com.nekomaster1000.infernalexp.blocks.BuriedBoneBlock;
+import com.nekomaster1000.infernalexp.blocks.CrumblingBlackstoneBlock;
+import com.nekomaster1000.infernalexp.blocks.DullthornsBlock;
+import com.nekomaster1000.infernalexp.blocks.DullthornsBlockBlock;
+import com.nekomaster1000.infernalexp.blocks.FungusCapBlock;
+import com.nekomaster1000.infernalexp.blocks.GlowCampfireBlock;
+import com.nekomaster1000.infernalexp.blocks.GlowFireBlock;
+import com.nekomaster1000.infernalexp.blocks.GlowSandBlock;
+import com.nekomaster1000.infernalexp.blocks.GlowTorchBlock;
+import com.nekomaster1000.infernalexp.blocks.GlowWallTorchBlock;
+import com.nekomaster1000.infernalexp.blocks.GlowdustBlock;
+import com.nekomaster1000.infernalexp.blocks.LightUpPressurePlateBlock;
+import com.nekomaster1000.infernalexp.blocks.LuminousFungusBlock;
+import com.nekomaster1000.infernalexp.blocks.NetherCarpetBlock;
+import com.nekomaster1000.infernalexp.blocks.NetherrackPathBlock;
+import com.nekomaster1000.infernalexp.blocks.PlantedQuartzBlock;
+import com.nekomaster1000.infernalexp.blocks.ShroomlightFungusBlock;
+import com.nekomaster1000.infernalexp.blocks.SoulSoilPathBlock;
+import com.nekomaster1000.infernalexp.blocks.TrappedGlowSandBlock;
+import com.nekomaster1000.infernalexp.blocks.VerticalSlabBlock;
 import com.nekomaster1000.infernalexp.util.DataUtil;
-
-import net.minecraft.block.Block;
 import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowerPotBlock;
 import net.minecraft.block.GlassBlock;
-import net.minecraft.block.PaneBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.LanternBlock;
+import net.minecraft.block.PaneBlock;
 import net.minecraft.block.PressurePlateBlock;
-import net.minecraft.block.StoneButtonBlock;
-import net.minecraft.block.StairsBlock;
-import net.minecraft.block.SlabBlock;
-import net.minecraft.block.WallBlock;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.RotatedPillarBlock;
+import net.minecraft.block.SlabBlock;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.StairsBlock;
+import net.minecraft.block.StoneButtonBlock;
+import net.minecraft.block.WallBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.EntityType;
@@ -27,7 +47,6 @@ import net.minecraft.item.Item;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
-
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
@@ -220,6 +239,8 @@ public class IEBlocks {
 
 	public static final RegistryObject<BuriedBoneBlock> BURIED_BONE = registerBlock("buried_bone", () -> new BuriedBoneBlock(getProperties(Material.PLANTS).doesNotBlockMovement().sound(SoundType.BONE)));
 	public static final RegistryObject<FlowerPotBlock> POTTED_BURIED_BONE = registerBlock("potted_buried_bone", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, BURIED_BONE, getProperties(Blocks.FLOWER_POT)));
+
+	public static final RegistryObject<PlantedQuartzBlock> PLANTED_QUARTZ = registerBlock("planted_quartz", () -> new PlantedQuartzBlock(getProperties(Material.ROCK).hardnessAndResistance(1.5F).harvestLevel(1).harvestTool(ToolType.PICKAXE).setRequiresTool().doesNotBlockMovement().sound(SoundType.NETHER_ORE)));
 
     public static final RegistryObject<Block> CRIMSON_NYLIUM_PATH = registerBlockWithDefaultItem("crimson_nylium_path", () -> new NetherrackPathBlock(getProperties(Blocks.NETHERRACK)));
     public static final RegistryObject<Block> WARPED_NYLIUM_PATH = registerBlockWithDefaultItem("warped_nylium_path", () -> new NetherrackPathBlock(getProperties(Blocks.NETHERRACK)));
