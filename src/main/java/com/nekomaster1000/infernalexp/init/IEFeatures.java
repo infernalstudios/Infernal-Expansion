@@ -7,10 +7,12 @@ import com.nekomaster1000.infernalexp.world.gen.features.GlowstoneRavineFeature;
 import com.nekomaster1000.infernalexp.world.gen.features.LuminousFungusFeature;
 import com.nekomaster1000.infernalexp.world.gen.features.DullthornsFeature;
 import com.nekomaster1000.infernalexp.world.gen.features.BoulderFeature;
+import com.nekomaster1000.infernalexp.world.gen.features.PlantedQuartzFeature;
 import com.nekomaster1000.infernalexp.world.gen.features.SinkHoleFeature;
 import com.nekomaster1000.infernalexp.world.gen.features.ShroomlightTearFeature;
 import com.nekomaster1000.infernalexp.world.gen.features.HangingGiantBrownMushroomFeature;
 import com.nekomaster1000.infernalexp.world.gen.features.config.GlowSpikeFeatureConfig;
+import com.nekomaster1000.infernalexp.world.gen.features.config.PlantedQuartzFeatureConfig;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.feature.BlockStateFeatureConfig;
@@ -34,6 +36,7 @@ public class IEFeatures {
 	public static final Feature<BlockStateFeatureConfig> BOULDER = registerFeature("blackstone_boulder", new BoulderFeature(BlockStateFeatureConfig.CODEC));
 	public static final Feature<NoFeatureConfig> DULLSTONE_DEATH_PIT = registerFeature("glowdust_sink_hole", new SinkHoleFeature(NoFeatureConfig.CODEC));
 	public static final Feature<NoFeatureConfig> SHROOMLIGHT_TEAR = registerFeature("shroomlight_tear", new ShroomlightTearFeature(NoFeatureConfig.CODEC));
+    public static final Feature<PlantedQuartzFeatureConfig> PATCH_PLANTED_QUARTZ = registerFeature("planted_quartz_patch", new PlantedQuartzFeature(PlantedQuartzFeatureConfig.CODEC));
 
 	public static <C extends IFeatureConfig, F extends Feature<C>> F registerFeature(String registryName, F feature) {
 		ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, registryName);

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "infernalexp:block/planted_quartz_2"
+  }
+}

@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableSet;
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.world.gen.features.config.GlowSpikeFeatureConfig;
 
+import com.nekomaster1000.infernalexp.world.gen.features.config.PlantedQuartzFeatureConfig;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.util.ResourceLocation;
@@ -57,7 +58,7 @@ public class IEConfiguredFeatures {
     public static ConfiguredFeature<?, ?> SHROOMLIGHT_TEAR = registerConfiguredFeature("shroomlight_tear", IEFeatures.SHROOMLIGHT_TEAR.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).range(128).square().count(100).chance(1));
     public static ConfiguredFeature<?, ?> PATCH_BURIED_BONE = registerConfiguredFeature("patch_buried_bone", Feature.RANDOM_PATCH.withConfiguration((new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(IEBlocks.BURIED_BONE.get().getDefaultState()), new SimpleBlockPlacer())).tries(128).whitelist(ImmutableSet.of(Blocks.SOUL_SOIL.getBlock())).preventProjection().build()).range(128).count(8).chance(3));
     public static ConfiguredFeature<?, ?> ORE_SOUL_STONE = registerConfiguredFeature("ore_soul_stone", Feature.ORE.withConfiguration(new OreFeatureConfig(SOUL_SOIL, IEBlocks.SOUL_STONE.get().getDefaultState(), 40)).withPlacement(Features.Placements.NETHER_SPRING_ORE_PLACEMENT).square().count(45));
-
+    public static ConfiguredFeature<?, ?> PATCH_PLANTED_QUARTZ = registerConfiguredFeature("planted_quartz_patch", IEFeatures.PATCH_PLANTED_QUARTZ.withConfiguration(new PlantedQuartzFeatureConfig(0.95F)).withPlacement(Features.Placements.PATCH_PLACEMENT.count(10)));
 
     //public static final ConfiguredFeature<?, ?> PATCH_CRIMSON_ROOTS = register("patch_crimson_roots", Feature.RANDOM_PATCH.withConfiguration((new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(Features.States.CRIMSON_ROOTS), new SimpleBlockPlacer())).tries(64).preventProjection().build()).range(128));
 

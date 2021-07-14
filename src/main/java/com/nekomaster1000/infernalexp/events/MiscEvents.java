@@ -129,6 +129,23 @@ public class MiscEvents {
                 world.setBlockState(pos, IEBlocks.DIMSTONE.get().getDefaultState());
             }
         }
+
+        if (heldItemStack.getItem() == Items.QUARTZ) {
+            pos = pos.offset(face);
+            BlockState blockstate = IEBlocks.PLANTED_QUARTZ.get().getPlaceableState(world, pos, face);
+            if (blockstate != null) {
+                player.swingArm(event.getHand());
+                if (!world.isAirBlock(pos) && !world.isRemote() && world.getBlockState(pos).getFluidState().isEmpty()) {
+                    world.destroyBlock(pos, true);
+                }
+                world.setBlockState(pos, blockstate, 3);
+                world.playSound(player, pos, blockstate.getSoundType().getPlaceSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+                if (!player.isCreative()) {
+                    heldItemStack.shrink(1);
+                }
+                ForgeEventFactory.onBlockPlace(player, BlockSnapshot.create(world.getDimensionKey(), world, pos), face);
+            }
+        }
     }
 
     @SubscribeEvent
