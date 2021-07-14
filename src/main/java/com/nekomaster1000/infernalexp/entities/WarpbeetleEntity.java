@@ -82,33 +82,33 @@ public class WarpbeetleEntity extends CreatureEntity {
     @Override
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
-        compound.putBoolean("variant", this.getVariant());
+        compound.putBoolean("variant", this.isChorus());
     }
 
     @Override
     public void readAdditional(CompoundNBT compound) {
         super.readAdditional(compound);
-        this.setVariant(compound.getBoolean("variant"));
+        this.setChorus(compound.getBoolean("variant"));
     }
 
 
-    public boolean getVariant() {
+    public boolean isChorus() {
 	    return this.dataManager.get(CHORUS);
     }
 
-    public void setVariant(boolean variant) {
+    public void setChorus(boolean variant) {
 	    this.dataManager.set(CHORUS, variant);
     }
 
     @Override
     protected ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
         ItemStack stack = playerIn.getHeldItem(hand);
-        if (!this.getVariant() && stack.getItem() == Items.CHORUS_FRUIT) {
-            this.setVariant(true);
+        if (!this.isChorus() && stack.getItem() == Items.CHORUS_FRUIT) {
+            this.setChorus(true);
             return ActionResultType.SUCCESS;
         }
-        else if (this.getVariant() && stack.getItem() == Items.WARPED_FUNGUS) {
-            this.setVariant(false);
+        else if (this.isChorus() && stack.getItem() == Items.WARPED_FUNGUS) {
+            this.setChorus(false);
             return ActionResultType.SUCCESS;
         }
         else {

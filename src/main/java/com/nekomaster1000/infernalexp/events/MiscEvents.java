@@ -81,50 +81,52 @@ public class MiscEvents {
         BlockState state = event.getState();
         World world = event.getPlayer().getEntityWorld();
         BlockPos pos = event.getPos();
-        TileEntity getTile = world.getTileEntity(pos);
         List<?> list = event.getPlayer().world.getEntitiesWithinAABB(ShroomloinEntity.class,
             event.getPlayer().getBoundingBox().grow(32.0D));
         for (int j = 0; j < list.size(); j++) {
             Entity entity = (Entity) list.get(j);
             if (entity instanceof ShroomloinEntity) {
                 ShroomloinEntity shroomloinEntity = (ShroomloinEntity) entity;
-                if (state.equals(Blocks.CRIMSON_NYLIUM.getDefaultState())
-                    || state.equals(Blocks.CRIMSON_STEM.getDefaultState())
-                    || state.equals(Blocks.STRIPPED_CRIMSON_STEM.getDefaultState())
-                    || state.equals(Blocks.WEEPING_VINES.getDefaultState())
-                    || state.equals(Blocks.WEEPING_VINES_PLANT.getDefaultState())
-                    || state.equals(Blocks.NETHER_WART_BLOCK.getDefaultState())) {
-                    if (((ShroomloinEntity) entity).getFungusType() == 1) {
+
+                if (((ShroomloinEntity) entity).getFungusType() == 1) {
+                    if (state.equals(Blocks.CRIMSON_NYLIUM.getDefaultState())
+                        || state.equals(Blocks.CRIMSON_STEM.getDefaultState())
+                        || state.equals(Blocks.STRIPPED_CRIMSON_STEM.getDefaultState())
+                        || state.equals(Blocks.WEEPING_VINES.getDefaultState())
+                        || state.equals(Blocks.WEEPING_VINES_PLANT.getDefaultState())
+                        || state.equals(Blocks.NETHER_WART_BLOCK.getDefaultState())) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
 
-                if (state.equals(Blocks.WARPED_NYLIUM.getDefaultState())
-                    || state.equals(Blocks.WARPED_STEM.getDefaultState())
-                    || state.equals(Blocks.STRIPPED_WARPED_STEM.getDefaultState())
-                    || state.equals(Blocks.TWISTING_VINES.getDefaultState())
-                    || state.equals(Blocks.TWISTING_VINES_PLANT.getDefaultState())
-                    || state.equals(Blocks.WARPED_WART_BLOCK.getDefaultState())) {
-                    if (((ShroomloinEntity) entity).getFungusType() == 2) {
+                if (((ShroomloinEntity) entity).getFungusType() == 2) {
+                    if (state.equals(Blocks.WARPED_NYLIUM.getDefaultState())
+                        || state.equals(Blocks.WARPED_STEM.getDefaultState())
+                        || state.equals(Blocks.STRIPPED_WARPED_STEM.getDefaultState())
+                        || state.equals(Blocks.TWISTING_VINES.getDefaultState())
+                        || state.equals(Blocks.TWISTING_VINES_PLANT.getDefaultState())
+                        || state.equals(Blocks.WARPED_WART_BLOCK.getDefaultState())) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
-                //Not entirely sure why but you need to check the lit states for the luminous fungus
-                if ( state.equals(IEBlocks.LUMINOUS_WART_BLOCK.get().getDefaultState())
-                    || state.equals(IEBlocks.LUMINOUS_FUNGUS_CAP.get().getDefaultState())
-                    || state.equals(IEBlocks.DULLTHORNS.get().getDefaultState())
-                    || state.equals(IEBlocks.DULLTHORNS_BLOCK.get().getDefaultState())) {
-                    if (((ShroomloinEntity) entity).getFungusType() == 3) {
+
+                if (((ShroomloinEntity) entity).getFungusType() == 3) {
+                    if ( state.equals(IEBlocks.LUMINOUS_WART_BLOCK.get().getDefaultState())
+                        || state.equals(IEBlocks.LUMINOUS_FUNGUS_CAP.get().getDefaultState())
+                        || state.equals(IEBlocks.DULLTHORNS.get().getDefaultState())
+                        || state.equals(IEBlocks.DULLTHORNS_BLOCK.get().getDefaultState())) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
-                if (state.equals(Blocks.RED_MUSHROOM_BLOCK.getDefaultState())) {
-                    if (((ShroomloinEntity) entity).getFungusType() == 4) {
+
+                if (((ShroomloinEntity) entity).getFungusType() == 4) {
+                    if (state.equals(Blocks.RED_MUSHROOM_BLOCK.getDefaultState())) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
-                if (state.equals(Blocks.BROWN_MUSHROOM_BLOCK.getDefaultState())) {
-                    if (((ShroomloinEntity) entity).getFungusType() == 5) {
+
+                if (((ShroomloinEntity) entity).getFungusType() == 5) {
+                    if (state.equals(Blocks.BROWN_MUSHROOM_BLOCK.getDefaultState())) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
