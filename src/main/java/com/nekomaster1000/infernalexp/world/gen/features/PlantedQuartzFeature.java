@@ -80,19 +80,16 @@ public class PlantedQuartzFeature extends Feature<PlantedQuartzFeatureConfig> {
     }
 
     public boolean findOre(ISeedReader world, BlockPos pos) {
-        boolean foundOre = false;
         final int radius = 3;
-        outerLoop:
         for (int x = pos.getX() - radius; x < pos.getX() + radius; x++) {
             for (int y = pos.getY() - radius; y < pos.getY() + radius; y++) {
                 for (int z = pos.getZ() - radius; z < pos.getZ() + radius; z++) {
                     if (world.getBlockState(new BlockPos(x, y, z)).getBlock().equals(Blocks.NETHER_QUARTZ_ORE)) {
-                        foundOre = true;
-                        break outerLoop;
+                        return true;
                     }
                 }
             }
         }
-        return foundOre;
+        return false;
     }
 }
