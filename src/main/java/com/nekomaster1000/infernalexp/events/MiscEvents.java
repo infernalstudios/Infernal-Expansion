@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.events;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.blocks.HorizontalBushBlock;
+import com.nekomaster1000.infernalexp.blocks.LuminousFungusBlock;
 import com.nekomaster1000.infernalexp.config.ConfigHelper;
 import com.nekomaster1000.infernalexp.config.ConfigHolder;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.Miscellaneous;
@@ -16,6 +17,7 @@ import com.nekomaster1000.infernalexp.init.IEItems;
 import com.nekomaster1000.infernalexp.init.IEParticleTypes;
 import com.nekomaster1000.infernalexp.init.IESoundEvents;
 import com.nekomaster1000.infernalexp.init.IETags;
+import com.nekomaster1000.infernalexp.init.IETileEntityTypes;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -32,6 +34,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.state.properties.AttachFace;
 import net.minecraft.stats.Stats;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
@@ -78,21 +81,49 @@ public class MiscEvents {
     //Blocks being broken
     @SubscribeEvent
     public void onBlockBreak(BlockEvent.BreakEvent event) {
-        if (event.getState().isIn(IETags.Blocks.GUARDED_BY_SHROOMLOIN)) {
-            if (event.getPlayer().isCreative()) {
-                return;
-            }
-            List<?> list = event.getPlayer().world.getEntitiesWithinAABB(ShroomloinEntity.class,
-                event.getPlayer().getBoundingBox().grow(32.0D));
-            for (int j = 0; j < list.size(); j++) {
-                Entity entity = (Entity) list.get(j);
-                if (entity instanceof ShroomloinEntity) {
-                    ShroomloinEntity shroomloinEntity = (ShroomloinEntity) entity;
-                    shroomloinEntity.becomeAngryAt(event.getPlayer());
+        BlockState state = event.getState();
+        List<?> list = event.getPlayer().world.getEntitiesWithinAABB(ShroomloinEntity.class,
+            event.getPlayer().getBoundingBox().grow(32.0D));
+        for (int j = 0; j < list.size(); j++) {
+            Entity entity = (Entity) list.get(j);
+            if (entity instanceof ShroomloinEntity) {
+                ShroomloinEntity shroomloinEntity = (ShroomloinEntity) entity;
+
+                if (((ShroomloinEntity) entity).getFungusType() == 1) {
+                    if (state.getBlock().isIn(IETags.Blocks.ANGER_CRIMSON_SHROOMLOIN_BLOCKS)) {
+                        shroomloinEntity.becomeAngryAt(event.getPlayer());
+                    }
+                }
+
+                if (((ShroomloinEntity) entity).getFungusType() == 2) {
+                    if (state.getBlock().isIn(IETags.Blocks.ANGER_WARPED_SHROOMLOIN_BLOCKS)) {
+                        shroomloinEntity.becomeAngryAt(event.getPlayer());
+                    }
+                }
+
+                if (((ShroomloinEntity) entity).getFungusType() == 3) {
+                    if (state.getBlock().isIn(IETags.Blocks.ANGER_LUMINOUS_SHROOMLOIN_BLOCKS)) {
+                        shroomloinEntity.becomeAngryAt(event.getPlayer());
+                    }
+                }
+
+                if (((ShroomloinEntity) entity).getFungusType() == 4) {
+                    if (state.getBlock().isIn(IETags.Blocks.ANGER_RED_SHROOMLOIN_BLOCKS)) {
+                        shroomloinEntity.becomeAngryAt(event.getPlayer());
+                    }
+                }
+
+                if (((ShroomloinEntity) entity).getFungusType() == 5) {
+                    if (state.getBlock().isIn(IETags.Blocks.ANGER_BROWN_SHROOMLOIN_BLOCKS)) {
+                        shroomloinEntity.becomeAngryAt(event.getPlayer());
+                    }
                 }
             }
         }
     }
+
+
+
 
     @SubscribeEvent
     public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {

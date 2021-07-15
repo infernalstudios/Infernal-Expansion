@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:warped_nylium",
+    "minecraft:warped_stem",
+    "minecraft:stripped_warped_stem",
+    "minecraft:twisting_vines",
+    "minecraft:twisting_vines_plant",
+    "minecraft:warped_wart_block",
+    "infernalexp:warped_fungus_cap"
+  ]
+}

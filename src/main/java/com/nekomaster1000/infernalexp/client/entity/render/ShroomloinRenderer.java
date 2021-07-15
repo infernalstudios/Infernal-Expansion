@@ -8,12 +8,11 @@ import com.nekomaster1000.infernalexp.entities.ShroomloinEntity;
 
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.entity.monster.AbstractSkeletonEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 
 public class ShroomloinRenderer extends MobRenderer<ShroomloinEntity, ShroomloinModel<ShroomloinEntity>> {
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID,
-        "textures/entity/shroomloin.png");
 
     public ShroomloinRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new ShroomloinModel<>(), 0.7f);
@@ -38,6 +37,14 @@ public class ShroomloinRenderer extends MobRenderer<ShroomloinEntity, Shroomloin
 
     @Override
     public ResourceLocation getEntityTexture(ShroomloinEntity entity) {
+        int i = entity.getFungusType();
+        String pathIn = "textures/entity/shroomloin/" + i + "_shroomloin.png";
+        ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID, pathIn);
         return TEXTURE;
+    }
+
+    @Override
+    protected boolean func_230495_a_(ShroomloinEntity entity) {
+        return super.func_230495_a_(entity) || entity.isShaking();
     }
 }
