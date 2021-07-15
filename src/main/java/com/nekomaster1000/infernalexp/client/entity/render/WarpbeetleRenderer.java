@@ -17,8 +17,7 @@ public class WarpbeetleRenderer extends MobRenderer<WarpbeetleEntity, Warpbeetle
 
     @Override
     public ResourceLocation getEntityTexture(WarpbeetleEntity entity) {
-        boolean i = entity.isChorus();
-        return i ? CHORUS_TEXTURE : TEXTURE;
+        return entity.isChorus() ? CHORUS_TEXTURE : TEXTURE;
     }
 
     @Override

@@ -3,9 +3,7 @@ package com.nekomaster1000.infernalexp.entities;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.entities.ai.TeleportPanicGoal;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
-import com.nekomaster1000.infernalexp.init.IEItems;
 import com.nekomaster1000.infernalexp.init.IESoundEvents;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.CreatureEntity;
@@ -136,8 +134,7 @@ public class WarpbeetleEntity extends CreatureEntity {
                 stack.shrink(1);
             }
             return ActionResultType.SUCCESS;
-        }
-        else if (this.isChorus() && stack.getItem() == Items.WARPED_FUNGUS) {
+        } else if (this.isChorus() && stack.getItem() == Items.WARPED_FUNGUS) {
             this.setChorus(false);
             this.conversionTicks = 40;
             this.setConverting(true);
@@ -145,8 +142,7 @@ public class WarpbeetleEntity extends CreatureEntity {
                 stack.shrink(1);
             }
             return ActionResultType.SUCCESS;
-        }
-        else {
+        } else {
             return super.getEntityInteractionResult(playerIn, hand);
         }
     }
