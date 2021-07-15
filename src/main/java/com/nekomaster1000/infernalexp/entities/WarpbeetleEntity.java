@@ -25,9 +25,16 @@ import net.minecraft.entity.ai.goal.TemptGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -37,6 +44,9 @@ import net.minecraft.world.World;
 
 public class WarpbeetleEntity extends CreatureEntity {
     private int attackTimer;
+    private int conversionTicks;
+    private static final DataParameter<Boolean> CONVERTING = EntityDataManager.createKey(ShroomloinEntity.class, DataSerializers.BOOLEAN);
+    public static final DataParameter<Boolean> CHORUS = EntityDataManager.createKey(WarpbeetleEntity.class, DataSerializers.BOOLEAN);
 
 	public float shellRotationMultiplier = 0.0F;
 
@@ -69,12 +79,93 @@ public class WarpbeetleEntity extends CreatureEntity {
         }
 	}
 
-	@Override
+    protected void registerData() {
+        super.registerData();
+        this.dataManager.register(CONVERTING, false);
+        this.dataManager.register(CHORUS, false);
+    }
+
+    public boolean isConverting() {
+        return this.dataManager.get(CONVERTING);
+    }
+
+    public void setConverting(boolean converting) {
+        this.dataManager.set(CONVERTING, converting);
+    }
+
+    public boolean isShaking() {
+        return this.isConverting();
+    }
+
+    @Override
+    public void writeAdditional(CompoundNBT compound) {
+        super.writeAdditional(compound);
+        compound.putBoolean("chorus", this.isChorus());
+        compound.putInt("WarpbeetleConversionTime", this.conversionTicks);
+    }
+
+    @Override
+    public void readAdditional(CompoundNBT compound) {
+        super.readAdditional(compound);
+        this.setChorus(compound.getBoolean("chorus"));
+        this.setConversionTime(compound.getInt("WarpbeetleConversionTime"));
+    }
+
+    private void setConversionTime(int time) {
+        this.conversionTicks = time;
+        this.dataManager.set(CONVERTING, true);
+    }
+
+
+    public boolean isChorus() {
+	    return this.dataManager.get(CHORUS);
+    }
+
+    public void setChorus(boolean chorus) {
+	    this.dataManager.set(CHORUS, chorus);
+    }
+
+    @Override
+    protected ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
+        ItemStack stack = playerIn.getHeldItem(hand);
+        if (!this.isChorus() && stack.getItem() == Items.CHORUS_FRUIT) {
+            this.setChorus(true);
+            this.conversionTicks = 40;
+            this.setConverting(true);
+            if (!playerIn.isCreative()) {
+                stack.shrink(1);
+            }
+            return ActionResultType.SUCCESS;
+        }
+        else if (this.isChorus() && stack.getItem() == Items.WARPED_FUNGUS) {
+            this.setChorus(false);
+            this.conversionTicks = 40;
+            this.setConverting(true);
+            if (!playerIn.isCreative()) {
+                stack.shrink(1);
+            }
+            return ActionResultType.SUCCESS;
+        }
+        else {
+            return super.getEntityInteractionResult(playerIn, hand);
+        }
+    }
+
+    @Override
 	public void livingTick() {
 		super.livingTick();
 
         if (this.attackTimer > 0) {
             --this.attackTimer;
+        }
+
+        if (this.isAlive()) {
+            if (this.isConverting() && this.conversionTicks > 0) {
+                this.conversionTicks--;
+                if (this.conversionTicks == 0) {
+                    this.setConverting(false);
+                }
+            }
         }
 
 		// This slows the falling speed
