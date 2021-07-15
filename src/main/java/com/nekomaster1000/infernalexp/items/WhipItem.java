@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.items;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import com.nekomaster1000.infernalexp.capabilities.IWhipUpdate;
 import com.nekomaster1000.infernalexp.capabilities.WhipUpdateCapability;
 import com.nekomaster1000.infernalexp.network.IENetworkHandler;
 import com.nekomaster1000.infernalexp.network.WhipReachPacket;
@@ -218,7 +219,8 @@ public class WhipItem extends TieredItem implements IVanishable {
     }
 
     public int getTicksSinceAttack(ItemStack itemStack) {
-        return WhipUpdateCapability.getWhipUpdate(itemStack).orElse(null).getTicksSinceAttack();
+        IWhipUpdate whipUpdate = WhipUpdateCapability.getWhipUpdate(itemStack).orElse(null);
+        return whipUpdate == null ? 0 : whipUpdate.getTicksSinceAttack();
     }
 
     public void setAttacking(ItemStack itemStack, boolean attacking) {
@@ -226,7 +228,8 @@ public class WhipItem extends TieredItem implements IVanishable {
     }
 
     public boolean getAttacking(ItemStack itemStack) {
-        return WhipUpdateCapability.getWhipUpdate(itemStack).orElse(null).getAttacking();
+        IWhipUpdate whipUpdate = WhipUpdateCapability.getWhipUpdate(itemStack).orElse(null);
+        return whipUpdate == null ? false : whipUpdate.getAttacking();
     }
 
     public void setCharging(ItemStack itemStack, boolean charging) {
@@ -234,6 +237,7 @@ public class WhipItem extends TieredItem implements IVanishable {
     }
 
     public boolean getCharging(ItemStack itemStack) {
-        return WhipUpdateCapability.getWhipUpdate(itemStack).orElse(null).getCharging();
+        IWhipUpdate whipUpdate = WhipUpdateCapability.getWhipUpdate(itemStack).orElse(null);
+        return whipUpdate == null ? false : whipUpdate.getCharging();
     }
 }
