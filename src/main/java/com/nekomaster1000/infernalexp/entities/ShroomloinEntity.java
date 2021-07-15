@@ -41,7 +41,7 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
 	private int lastActiveTime;
 	private int timeSinceIgnited;
 	private final int fuseTime = 59;
-    private int converstionTicks;
+    private int conversionTicks;
     // public static final Ingredient TEMPTATION_ITEMS =
 	// Ingredient.fromItems(IEItems.DULLROCKS.get(), Items.MAGMA_CREAM);
 
@@ -78,7 +78,7 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
         compound.putInt("fungusType", this.getFungusType());
-        compound.putInt("ShroomloinConversionTime", this.converstionTicks);
+        compound.putInt("ShroomloinConversionTime", this.conversionTicks);
     }
 
     @Override
@@ -89,7 +89,7 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
     }
 
     private void setConversionTime(int time) {
-        this.converstionTicks = time;
+        this.conversionTicks = time;
         this.dataManager.set(CONVERTING, true);
     }
 
@@ -106,7 +106,7 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
         ItemStack stack = playerIn.getHeldItem(hand);
             if (this.getFungusType() != 1 && stack.getItem() == Items.CRIMSON_FUNGUS) {
                 this.setFungusType(1);
-                this.converstionTicks = 40;
+                this.conversionTicks = 40;
                 this.setConverting(true);
                 if (!playerIn.isCreative()) {
                     stack.shrink(1);
@@ -114,7 +114,7 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
                 return ActionResultType.SUCCESS;
             } else if (this.getFungusType() != 2 && stack.getItem() == Items.WARPED_FUNGUS) {
                 this.setFungusType(2);
-                this.converstionTicks = 40;
+                this.conversionTicks = 40;
                 this.setConverting(true);
                 if (!playerIn.isCreative()) {
                     stack.shrink(1);
@@ -122,7 +122,7 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
                 return ActionResultType.SUCCESS;
             } else if (this.getFungusType() != 3 && stack.getItem() == IEBlocks.LUMINOUS_FUNGUS.get().asItem()) {
                 this.setFungusType(3);
-                this.converstionTicks = 40;
+                this.conversionTicks = 40;
                 this.setConverting(true);
                 if (!playerIn.isCreative()) {
                     stack.shrink(1);
@@ -130,7 +130,7 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
                 return ActionResultType.SUCCESS;
             } else if (this.getFungusType() != 4 && stack.getItem() == Items.RED_MUSHROOM) {
                 this.setFungusType(4);
-                this.converstionTicks = 40;
+                this.conversionTicks = 40;
                 this.setConverting(true);
                 if (!playerIn.isCreative()) {
                     stack.shrink(1);
@@ -138,7 +138,7 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
                 return ActionResultType.SUCCESS;
             } else if (this.getFungusType() != 5 && stack.getItem() == Items.BROWN_MUSHROOM) {
                 this.setFungusType(5);
-                this.converstionTicks = 40;
+                this.conversionTicks = 40;
                 this.setConverting(true);
                 if (!playerIn.isCreative()) {
                     stack.shrink(1);
@@ -153,9 +153,9 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
 	 */
 	public void tick() {
 		if (this.isAlive()) {
-		    if (this.isConverting() && this.converstionTicks > 0) {
-		        this.converstionTicks--;
-		        if (this.converstionTicks == 0) {
+		    if (this.isConverting() && this.conversionTicks > 0) {
+		        this.conversionTicks--;
+		        if (this.conversionTicks == 0) {
 		            this.setConverting(false);
                 }
             }
@@ -296,7 +296,11 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
 		this.world.addEntity(ascusBombEntity);
 	}
 
-	static class MeleeAttackInfectedGoal extends MeleeAttackGoal {
+    public boolean canConvert() {
+	    return this.conversionTicks == 0;
+    }
+
+    static class MeleeAttackInfectedGoal extends MeleeAttackGoal {
 
 		public MeleeAttackInfectedGoal(CreatureEntity creature, double speedIn, boolean useLongMemory) {
 			super(creature, speedIn, useLongMemory);

@@ -41,7 +41,7 @@ import net.minecraft.world.World;
 
 public class WarpbeetleEntity extends CreatureEntity {
     private int attackTimer;
-    private int converstionTicks;
+    private int conversionTicks;
     private static final DataParameter<Boolean> CONVERTING = EntityDataManager.createKey(ShroomloinEntity.class, DataSerializers.BOOLEAN);
     public static final DataParameter<Boolean> CHORUS = EntityDataManager.createKey(WarpbeetleEntity.class, DataSerializers.BOOLEAN);
 
@@ -98,7 +98,7 @@ public class WarpbeetleEntity extends CreatureEntity {
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
         compound.putBoolean("chorus", this.isChorus());
-        compound.putInt("WarpbeetleConversionTime", this.converstionTicks);
+        compound.putInt("WarpbeetleConversionTime", this.conversionTicks);
     }
 
     @Override
@@ -109,7 +109,7 @@ public class WarpbeetleEntity extends CreatureEntity {
     }
 
     private void setConversionTime(int time) {
-        this.converstionTicks = time;
+        this.conversionTicks = time;
         this.dataManager.set(CONVERTING, true);
     }
 
@@ -127,7 +127,7 @@ public class WarpbeetleEntity extends CreatureEntity {
         ItemStack stack = playerIn.getHeldItem(hand);
         if (!this.isChorus() && stack.getItem() == Items.CHORUS_FRUIT) {
             this.setChorus(true);
-            this.converstionTicks = 40;
+            this.conversionTicks = 40;
             this.setConverting(true);
             if (!playerIn.isCreative()) {
                 stack.shrink(1);
@@ -136,7 +136,7 @@ public class WarpbeetleEntity extends CreatureEntity {
         }
         else if (this.isChorus() && stack.getItem() == Items.WARPED_FUNGUS) {
             this.setChorus(false);
-            this.converstionTicks = 40;
+            this.conversionTicks = 40;
             this.setConverting(true);
             if (!playerIn.isCreative()) {
                 stack.shrink(1);
@@ -157,9 +157,9 @@ public class WarpbeetleEntity extends CreatureEntity {
         }
 
         if (this.isAlive()) {
-            if (this.isConverting() && this.converstionTicks > 0) {
-                this.converstionTicks--;
-                if (this.converstionTicks == 0) {
+            if (this.isConverting() && this.conversionTicks > 0) {
+                this.conversionTicks--;
+                if (this.conversionTicks == 0) {
                     this.setConverting(false);
                 }
             }

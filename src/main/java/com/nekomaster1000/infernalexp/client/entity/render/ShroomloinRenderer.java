@@ -44,6 +44,6 @@ public class ShroomloinRenderer extends MobRenderer<ShroomloinEntity, Shroomloin
 
     @Override
     protected boolean func_230495_a_(ShroomloinEntity entity) {
-        return entity.isShaking();
+        return super.func_230495_a_(entity) || entity.isShaking();
     }
 }

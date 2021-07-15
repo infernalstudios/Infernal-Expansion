@@ -88,31 +88,31 @@ public class MiscEvents {
                 ShroomloinEntity shroomloinEntity = (ShroomloinEntity) entity;
 
                 if (((ShroomloinEntity) entity).getFungusType() == 1) {
-                    if (state.getBlock().isIn(IETags.Blocks.ANGER_CRIMSON_BLOCKS)) {
+                    if (state.getBlock().isIn(IETags.Blocks.ANGER_CRIMSON_SHROOMLOIN_BLOCKS)) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
 
                 if (((ShroomloinEntity) entity).getFungusType() == 2) {
-                    if (state.getBlock().isIn(IETags.Blocks.ANGER_WARPED_BLOCKS)) {
+                    if (state.getBlock().isIn(IETags.Blocks.ANGER_WARPED_SHROOMLOIN_BLOCKS)) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
 
                 if (((ShroomloinEntity) entity).getFungusType() == 3) {
-                    if (state.getBlock().isIn(IETags.Blocks.ANGER_LUMINOUS_BLOCKS)) {
+                    if (state.getBlock().isIn(IETags.Blocks.ANGER_LUMINOUS_SHROOMLOIN_BLOCKS)) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
 
                 if (((ShroomloinEntity) entity).getFungusType() == 4) {
-                    if (state.getBlock().isIn(IETags.Blocks.ANGER_RED_MUSHROOM_BLOCKS)) {
+                    if (state.getBlock().isIn(IETags.Blocks.ANGER_RED_SHROOMLOIN_BLOCKS)) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
 
                 if (((ShroomloinEntity) entity).getFungusType() == 5) {
-                    if (state.getBlock().isIn(IETags.Blocks.ANGER_BROWN_MUSHROOM_BLOCKS)) {
+                    if (state.getBlock().isIn(IETags.Blocks.ANGER_BROWN_SHROOMLOIN_BLOCKS)) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
