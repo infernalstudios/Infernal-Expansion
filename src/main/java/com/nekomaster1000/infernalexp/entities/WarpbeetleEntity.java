@@ -41,6 +41,8 @@ import net.minecraft.world.World;
 
 public class WarpbeetleEntity extends CreatureEntity {
     private int attackTimer;
+    private int converstionTicks;
+    private static final DataParameter<Boolean> CONVERTING = EntityDataManager.createKey(ShroomloinEntity.class, DataSerializers.BOOLEAN);
     public static final DataParameter<Boolean> CHORUS = EntityDataManager.createKey(WarpbeetleEntity.class, DataSerializers.BOOLEAN);
 
 	public float shellRotationMultiplier = 0.0F;
@@ -76,19 +78,39 @@ public class WarpbeetleEntity extends CreatureEntity {
 
     protected void registerData() {
         super.registerData();
+        this.dataManager.register(CONVERTING, false);
         this.dataManager.register(CHORUS, false);
+    }
+
+    public boolean isConverting() {
+        return this.dataManager.get(CONVERTING);
+    }
+
+    public void setConverting(boolean converting) {
+        this.dataManager.set(CONVERTING, converting);
+    }
+
+    public boolean isShaking() {
+        return this.isConverting();
     }
 
     @Override
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
-        compound.putBoolean("variant", this.isChorus());
+        compound.putBoolean("chorus", this.isChorus());
+        compound.putInt("WarpbeetleConversionTime", this.converstionTicks);
     }
 
     @Override
     public void readAdditional(CompoundNBT compound) {
         super.readAdditional(compound);
-        this.setChorus(compound.getBoolean("variant"));
+        this.setChorus(compound.getBoolean("chorus"));
+        this.setConversionTime(compound.getInt("WarpbeetleConversionTime"));
+    }
+
+    private void setConversionTime(int time) {
+        this.converstionTicks = time;
+        this.dataManager.set(CONVERTING, true);
     }
 
 
@@ -96,8 +118,8 @@ public class WarpbeetleEntity extends CreatureEntity {
 	    return this.dataManager.get(CHORUS);
     }
 
-    public void setChorus(boolean variant) {
-	    this.dataManager.set(CHORUS, variant);
+    public void setChorus(boolean chorus) {
+	    this.dataManager.set(CHORUS, chorus);
     }
 
     @Override
@@ -105,10 +127,20 @@ public class WarpbeetleEntity extends CreatureEntity {
         ItemStack stack = playerIn.getHeldItem(hand);
         if (!this.isChorus() && stack.getItem() == Items.CHORUS_FRUIT) {
             this.setChorus(true);
+            this.converstionTicks = 40;
+            this.setConverting(true);
+            if (!playerIn.isCreative()) {
+                stack.shrink(1);
+            }
             return ActionResultType.SUCCESS;
         }
         else if (this.isChorus() && stack.getItem() == Items.WARPED_FUNGUS) {
             this.setChorus(false);
+            this.converstionTicks = 40;
+            this.setConverting(true);
+            if (!playerIn.isCreative()) {
+                stack.shrink(1);
+            }
             return ActionResultType.SUCCESS;
         }
         else {
@@ -122,6 +154,15 @@ public class WarpbeetleEntity extends CreatureEntity {
 
         if (this.attackTimer > 0) {
             --this.attackTimer;
+        }
+
+        if (this.isAlive()) {
+            if (this.isConverting() && this.converstionTicks > 0) {
+                this.converstionTicks--;
+                if (this.converstionTicks == 0) {
+                    this.setConverting(false);
+                }
+            }
         }
 
 		// This slows the falling speed

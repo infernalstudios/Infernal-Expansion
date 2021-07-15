@@ -30,16 +30,18 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.xml.crypto.Data;
 import java.util.EnumSet;
 
 public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob {
     private static final DataParameter<Integer> FUNGUS_TYPE = EntityDataManager.createKey(ShroomloinEntity.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> STATE = EntityDataManager.createKey(ShroomloinEntity.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> IGNITED = EntityDataManager.createKey(ShroomloinEntity.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> CONVERTING = EntityDataManager.createKey(ShroomloinEntity.class, DataSerializers.BOOLEAN);
 	private int lastActiveTime;
 	private int timeSinceIgnited;
 	private final int fuseTime = 59;
-
+    private int converstionTicks;
     // public static final Ingredient TEMPTATION_ITEMS =
 	// Ingredient.fromItems(IEItems.DULLROCKS.get(), Items.MAGMA_CREAM);
 
@@ -56,21 +58,39 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
 		super.registerData();
 		this.dataManager.register(STATE, -1);
 		this.dataManager.register(IGNITED, false);
+		this.dataManager.register(CONVERTING, false);
 		this.dataManager.register(FUNGUS_TYPE, 1);
 	}
 
+    public boolean isConverting() {
+	    return this.dataManager.get(CONVERTING);
+    }
 
+    public void setConverting(boolean converting) {
+	    this.dataManager.set(CONVERTING, converting);
+    }
+
+    public boolean isShaking() {
+	    return this.isConverting();
+    }
 
     @Override
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
         compound.putInt("fungusType", this.getFungusType());
+        compound.putInt("ShroomloinConversionTime", this.converstionTicks);
     }
 
     @Override
     public void readAdditional(CompoundNBT compound) {
         super.readAdditional(compound);
         this.setFungusType(compound.getInt("fungusType"));
+        this.setConversionTime(compound.getInt("ShroomloinConversion"));
+    }
+
+    private void setConversionTime(int time) {
+        this.converstionTicks = time;
+        this.dataManager.set(CONVERTING, true);
     }
 
     public void setFungusType(int fungusType) {
@@ -86,30 +106,40 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
         ItemStack stack = playerIn.getHeldItem(hand);
             if (this.getFungusType() != 1 && stack.getItem() == Items.CRIMSON_FUNGUS) {
                 this.setFungusType(1);
+                this.converstionTicks = 40;
+                this.setConverting(true);
                 if (!playerIn.isCreative()) {
                     stack.shrink(1);
                 }
                 return ActionResultType.SUCCESS;
             } else if (this.getFungusType() != 2 && stack.getItem() == Items.WARPED_FUNGUS) {
                 this.setFungusType(2);
+                this.converstionTicks = 40;
+                this.setConverting(true);
                 if (!playerIn.isCreative()) {
                     stack.shrink(1);
                 }
                 return ActionResultType.SUCCESS;
             } else if (this.getFungusType() != 3 && stack.getItem() == IEBlocks.LUMINOUS_FUNGUS.get().asItem()) {
                 this.setFungusType(3);
+                this.converstionTicks = 40;
+                this.setConverting(true);
                 if (!playerIn.isCreative()) {
                     stack.shrink(1);
                 }
                 return ActionResultType.SUCCESS;
             } else if (this.getFungusType() != 4 && stack.getItem() == Items.RED_MUSHROOM) {
                 this.setFungusType(4);
+                this.converstionTicks = 40;
+                this.setConverting(true);
                 if (!playerIn.isCreative()) {
                     stack.shrink(1);
                 }
                 return ActionResultType.SUCCESS;
             } else if (this.getFungusType() != 5 && stack.getItem() == Items.BROWN_MUSHROOM) {
                 this.setFungusType(5);
+                this.converstionTicks = 40;
+                this.setConverting(true);
                 if (!playerIn.isCreative()) {
                     stack.shrink(1);
                 }
@@ -123,6 +153,12 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
 	 */
 	public void tick() {
 		if (this.isAlive()) {
+		    if (this.isConverting() && this.converstionTicks > 0) {
+		        this.converstionTicks--;
+		        if (this.converstionTicks == 0) {
+		            this.setConverting(false);
+                }
+            }
 			if (this.isPotionActive(IEEffects.INFECTION.get()) || this.isPotionActive(Effects.POISON)) {
 				this.removeActivePotionEffect(IEEffects.INFECTION.get());
 				this.removeActivePotionEffect(Effects.POISON);

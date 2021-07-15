@@ -19,4 +19,9 @@ public class WarpbeetleRenderer extends MobRenderer<WarpbeetleEntity, Warpbeetle
         boolean i = entity.isChorus();
         return i ? CHORUS_TEXTURE : TEXTURE;
     }
+
+    @Override
+    protected boolean func_230495_a_(WarpbeetleEntity entity) {
+        return entity.isShaking();
+    }
 }
