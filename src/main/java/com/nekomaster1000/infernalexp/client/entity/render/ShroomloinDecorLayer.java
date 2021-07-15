@@ -10,7 +10,13 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.util.ResourceLocation;
 
 public class ShroomloinDecorLayer extends LayerRenderer<ShroomloinEntity, ShroomloinModel<ShroomloinEntity>> {
-    private static final ResourceLocation[] SHROOMLOIN_TEXTURES = new ResourceLocation[]{new ResourceLocation(InfernalExpansion.MOD_ID,"textures/entity/shroomloin/1_shroomloin.png"), new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/2_shroomloin.png"), new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/3_shroomloin.png"), new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/4_shroomloin.png"), new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/5_shroomloin.png")};
+    private static final ResourceLocation[] SHROOMLOIN_TEXTURES = new ResourceLocation[]{
+        new ResourceLocation(InfernalExpansion.MOD_ID,"textures/entity/shroomloin/1_shroomloin.png"),
+        new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/2_shroomloin.png"),
+        new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/3_shroomloin.png"),
+        new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/4_shroomloin.png"),
+        new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/5_shroomloin.png")
+    };
     private final ShroomloinModel<ShroomloinEntity> model = new ShroomloinModel<>();
 
     public ShroomloinDecorLayer(IEntityRenderer<ShroomloinEntity, ShroomloinModel<ShroomloinEntity>> entityRendererIn) {

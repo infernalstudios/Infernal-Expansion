@@ -4,26 +4,25 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.client.entity.model.ShroomloinModel;
-import com.nekomaster1000.infernalexp.entities.EmbodyEntity;
-
 import com.nekomaster1000.infernalexp.entities.ShroomloinEntity;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.IEntityRenderer;
-import net.minecraft.client.renderer.entity.layers.AbstractEyesLayer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import javax.annotation.Resource;
-
 @OnlyIn(Dist.CLIENT)
 public class ShroomloinGlowLayer extends LayerRenderer<ShroomloinEntity, ShroomloinModel<ShroomloinEntity>> {
-    private static final ResourceLocation[] SHROOMLOIN_GLOW_TEXTURES = new ResourceLocation[]{new ResourceLocation(InfernalExpansion.MOD_ID,"textures/entity/shroomloin/layer/1_shroomloin_glow.png"), new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/layer/2_shroomloin_glow.png"), new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/layer/3_shroomloin_glow.png"), new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/layer/4_shroomloin_glow.png"), new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/layer/5_shroomloin_glow.png")};
+    private static final ResourceLocation[] SHROOMLOIN_GLOW_TEXTURES = new ResourceLocation[]{
+        new ResourceLocation(InfernalExpansion.MOD_ID,"textures/entity/shroomloin/layer/1_shroomloin_glow.png"),
+        new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/layer/2_shroomloin_glow.png"),
+        new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/layer/3_shroomloin_glow.png"),
+        new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/layer/4_shroomloin_glow.png"),
+        new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/layer/5_shroomloin_glow.png")
+    };
 
     public ShroomloinGlowLayer(IEntityRenderer<ShroomloinEntity, ShroomloinModel<ShroomloinEntity>> entityRendererIn) {
         super(entityRendererIn);

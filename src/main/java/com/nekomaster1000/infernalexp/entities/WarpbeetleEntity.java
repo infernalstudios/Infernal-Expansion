@@ -151,11 +151,7 @@ public class WarpbeetleEntity extends CreatureEntity {
             if (this.isConverting() && this.conversionTicks > 0) {
                 this.conversionTicks--;
                 if (this.conversionTicks == 0) {
-                    if (!this.isChorus()) {
-                        this.setChorus(true);
-                    } else {
-                        this.setChorus(false);
-                    }
+                    this.setChorus(!this.isChorus());
                     this.setConverting(false);
                 }
             }
