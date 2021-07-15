@@ -41,9 +41,6 @@ public class ShroomloinRenderer extends MobRenderer<ShroomloinEntity, Shroomloin
 
     @Override
     public ResourceLocation getEntityTexture(ShroomloinEntity entity) {
-//        int i = entity.getFungusType();
-//        String pathIn = "textures/entity/shroomloin/" + i + "_shroomloin.png";
-//        ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID, pathIn);
         return TEXTURE;
     }
 
