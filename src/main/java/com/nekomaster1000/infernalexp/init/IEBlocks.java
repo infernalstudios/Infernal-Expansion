@@ -240,7 +240,7 @@ public class IEBlocks {
 	public static final RegistryObject<BuriedBoneBlock> BURIED_BONE = registerBlock("buried_bone", () -> new BuriedBoneBlock(getProperties(Material.PLANTS).doesNotBlockMovement().sound(SoundType.BONE)));
 	public static final RegistryObject<FlowerPotBlock> POTTED_BURIED_BONE = registerBlock("potted_buried_bone", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, BURIED_BONE, getProperties(Blocks.FLOWER_POT)));
 
-	public static final RegistryObject<PlantedQuartzBlock> PLANTED_QUARTZ = registerBlock("planted_quartz", () -> new PlantedQuartzBlock(getProperties(Material.ROCK).hardnessAndResistance(1.5F).harvestLevel(1).harvestTool(ToolType.PICKAXE).setRequiresTool().doesNotBlockMovement().sound(SoundType.NETHER_ORE)));
+	public static final RegistryObject<PlantedQuartzBlock> PLANTED_QUARTZ = registerBlock("planted_quartz", () -> new PlantedQuartzBlock(getProperties(Material.ROCK).hardnessAndResistance(1.5F).harvestLevel(0).harvestTool(ToolType.PICKAXE).setRequiresTool().doesNotBlockMovement().sound(SoundType.NETHER_ORE)));
 
     public static final RegistryObject<Block> CRIMSON_NYLIUM_PATH = registerBlockWithDefaultItem("crimson_nylium_path", () -> new NetherrackPathBlock(getProperties(Blocks.NETHERRACK)));
     public static final RegistryObject<Block> WARPED_NYLIUM_PATH = registerBlockWithDefaultItem("warped_nylium_path", () -> new NetherrackPathBlock(getProperties(Blocks.NETHERRACK)));
