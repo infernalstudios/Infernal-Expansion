@@ -5,16 +5,17 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.client.entity.model.ShroomloinModel;
 import com.nekomaster1000.infernalexp.entities.ShroomloinEntity;
-
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 
 public class ShroomloinRenderer extends MobRenderer<ShroomloinEntity, ShroomloinModel<ShroomloinEntity>> {
+    private static final ResourceLocation TEXTURE = ShroomloinDecorLayer.SHROOMLOIN_TEXTURES[0];
 
     public ShroomloinRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new ShroomloinModel<>(), 0.7f);
+        this.addLayer(new ShroomloinDecorLayer(this));
         this.addLayer(new ShroomloinGlowLayer(this));
     }
 
@@ -36,9 +37,6 @@ public class ShroomloinRenderer extends MobRenderer<ShroomloinEntity, Shroomloin
 
     @Override
     public ResourceLocation getEntityTexture(ShroomloinEntity entity) {
-        int i = entity.getFungusType();
-        String pathIn = "textures/entity/shroomloin/" + i + "_shroomloin.png";
-        ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID, pathIn);
         return TEXTURE;
     }
 

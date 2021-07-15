@@ -99,21 +99,14 @@ public class WarpbeetleEntity extends CreatureEntity {
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
         compound.putBoolean("chorus", this.isChorus());
-        compound.putInt("WarpbeetleConversionTime", this.conversionTicks);
+        compound.putInt("WarpbeetleConversionTime", this.isConverting() ? this.conversionTicks : -1);
     }
 
     @Override
     public void readAdditional(CompoundNBT compound) {
         super.readAdditional(compound);
         this.setChorus(compound.getBoolean("chorus"));
-        this.setConversionTime(compound.getInt("WarpbeetleConversionTime"));
     }
-
-    private void setConversionTime(int time) {
-        this.conversionTicks = time;
-        this.dataManager.set(CONVERTING, true);
-    }
-
 
     public boolean isChorus() {
 	    return this.dataManager.get(CHORUS);
@@ -127,7 +120,6 @@ public class WarpbeetleEntity extends CreatureEntity {
     protected ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
         ItemStack stack = playerIn.getHeldItem(hand);
         if (!this.isChorus() && stack.getItem() == Items.CHORUS_FRUIT) {
-            this.setChorus(true);
             this.conversionTicks = 40;
             this.setConverting(true);
             if (!playerIn.isCreative()) {
@@ -135,7 +127,6 @@ public class WarpbeetleEntity extends CreatureEntity {
             }
             return ActionResultType.SUCCESS;
         } else if (this.isChorus() && stack.getItem() == Items.WARPED_FUNGUS) {
-            this.setChorus(false);
             this.conversionTicks = 40;
             this.setConverting(true);
             if (!playerIn.isCreative()) {
@@ -159,6 +150,7 @@ public class WarpbeetleEntity extends CreatureEntity {
             if (this.isConverting() && this.conversionTicks > 0) {
                 this.conversionTicks--;
                 if (this.conversionTicks == 0) {
+                    this.setChorus(!this.isChorus());
                     this.setConverting(false);
                 }
             }
