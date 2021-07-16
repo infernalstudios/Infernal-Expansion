@@ -74,8 +74,8 @@ public class IEBlocks {
     			Furnace Recipes are included in the recipes folder. */
 
     // Blocks
-    public static final RegistryObject<Block> DIMSTONE = registerBlockWithDefaultItem("dimstone",            () -> new Block(getProperties(Material.GLASS, 3.5F, 2.0F).sound(IESoundEvents.DIMSTONE_TYPE).setRequiresTool().harvestTool(ToolType.PICKAXE).setLightLevel(value -> 12)));
-    public static final RegistryObject<Block> DULLSTONE = registerBlockWithDefaultItem("dullstone",          () -> new Block(getProperties(Material.GLASS, 1.5F, 6.0F).sound(IESoundEvents.DULLSTONE_TYPE).setRequiresTool().harvestTool(ToolType.PICKAXE)));
+    public static final RegistryObject<Block> DIMSTONE = registerBlockWithDefaultItem("dimstone", () -> new Block(getProperties(Material.GLASS, 1.8F, 2.0F).sound(IESoundEvents.DIMSTONE_TYPE).setRequiresTool().harvestTool(ToolType.PICKAXE).setLightLevel(value -> 12)));
+    public static final RegistryObject<Block> DULLSTONE = registerBlockWithDefaultItem("dullstone", () -> new Block(getProperties(Material.GLASS, 1.5F, 6.0F).sound(IESoundEvents.DULLSTONE_TYPE).setRequiresTool().harvestTool(ToolType.PICKAXE)));
     public static final RegistryObject<Block> SMOOTH_GLOWSTONE = registerBlockWithDefaultItem("smooth_glowstone",    () -> new Block(getProperties(Material.GLASS, 1.5F, 6.0F).sound(SoundType.GLASS).setRequiresTool().harvestTool(ToolType.PICKAXE).setLightLevel(value -> 15)));
     public static final RegistryObject<Block> SMOOTH_DIMSTONE = registerBlockWithDefaultItem("smooth_dimstone",      () -> new Block(getProperties(DIMSTONE.get()).hardnessAndResistance(1.5F, 6.0F).setLightLevel(value -> 12)));
     public static final RegistryObject<Block> SMOOTH_DULLSTONE = registerBlockWithDefaultItem("smooth_dullstone",    () -> new Block(getProperties(DULLSTONE.get()).hardnessAndResistance(1.5F, 6.0F)));

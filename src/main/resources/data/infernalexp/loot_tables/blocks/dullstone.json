@@ -5,13 +5,6 @@
       "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "infernalexp:glownuggets"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion",
           "type": "minecraft:alternatives",
           "children": [
             {
@@ -45,8 +38,16 @@
                   "function": "minecraft:set_count",
                   "count": {
                     "min": 1.0,
-                    "max": 4.0,
+                    "max": 2.0,
                     "type": "minecraft:uniform"
+                  }
+                },
+                {
+                  "function": "minecraft:apply_bonus",
+                  "enchantment": "minecraft:fortune",
+                  "formula": "minecraft:uniform_bonus_count",
+                  "parameters": {
+                    "bonusMultiplier": 1
                   }
                 }
               ],
@@ -58,3 +59,5 @@
     }
   ]
 }
+
+
