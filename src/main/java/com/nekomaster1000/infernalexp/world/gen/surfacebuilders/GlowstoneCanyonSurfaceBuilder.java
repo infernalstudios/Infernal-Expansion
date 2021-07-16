@@ -49,7 +49,16 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
 
                     if (y >= seaLevel) {
                         // The typical surface of the biome.
-                        chunk.setBlockState(mutable, topBlock, false);
+                        mutable.down();
+                        BlockState blockBelow = chunk.getBlockState(mutable);
+                        mutable.up();
+
+                        // If the block is floating, make it Glimmer Gravel, otherwise let it be the regular surface
+                        if (blockBelow.isAir()) {
+                            chunk.setBlockState(mutable, IEBlocks.TRAPPED_GLOWDUST_SAND.get().getDefaultState(), false);
+                        } else {
+                            chunk.setBlockState(mutable, topBlock, false);
+                        }
                     } else {
                         // Makes the blocks at sealevel be dullstone to make cool border with lava.
                         if (random.nextInt(70) == 1) {
