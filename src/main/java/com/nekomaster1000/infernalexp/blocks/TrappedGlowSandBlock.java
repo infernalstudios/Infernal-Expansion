@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.blocks;
 
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IEEntityTypes;
+import com.nekomaster1000.infernalexp.init.IEParticleTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.FallingBlockEntity;
@@ -19,6 +20,7 @@ public class TrappedGlowSandBlock extends GlowSandBlock {
     }
 
     private static final int updateRadius = 4;
+    private int ticksToFall = 10;
 
     @Override
     public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) { }
@@ -43,11 +45,19 @@ public class TrappedGlowSandBlock extends GlowSandBlock {
 
     public void startFalling(ServerWorld world, BlockPos pos) {
         if ((world.isAirBlock(pos.down()) || canFallThrough(world.getBlockState(pos.down())) && pos.getY() >= 0)) {
-			world.playSound(null, pos, SoundEvents.BLOCK_SAND_PLACE, SoundCategory.BLOCKS, 1.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 
-			FallingBlockEntity fallingblockentity = new FallingBlockEntity(world, (double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, world.getBlockState(pos));
-			this.onStartFalling(fallingblockentity);
-			world.addEntity(fallingblockentity);
+            if (this.ticksToFall == 0) {
+                world.playSound(null, pos, SoundEvents.BLOCK_SAND_PLACE, SoundCategory.BLOCKS, 1.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+
+                FallingBlockEntity fallingblockentity = new FallingBlockEntity(world, (double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, world.getBlockState(pos));
+                this.onStartFalling(fallingblockentity);
+                world.addEntity(fallingblockentity);
+
+                this.ticksToFall = 10;
+            } else {
+                world.spawnParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get(), pos.getX(), pos.getY(), pos.getZ(), 1, 0.0, 1.0, 0.0, 0.0);
+                this.ticksToFall--;
+            }
 		}
     }
 }
