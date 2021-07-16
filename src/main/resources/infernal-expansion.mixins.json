@@ -29,7 +29,6 @@
     "client.MixinModelBakery",
     "client.MixinOverlayRenderer",
     "client.MixinPaintingSpriteUploader",
-    "client.MixinPlayerRenderer",
-    "client.MixinItemModelsProperties"
+    "client.MixinPlayerRenderer"
   ]
 }
