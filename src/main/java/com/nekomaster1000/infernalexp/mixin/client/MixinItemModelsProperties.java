@@ -6,6 +6,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,9 +29,10 @@ public class MixinItemModelsProperties {
             clientWorld = (ClientWorld)entity.getEntityWorld();
         }
 
-        Optional<RegistryKey<Biome>> biome = clientWorld.func_242406_i(entity.getPosition());
+        Optional<RegistryKey<Biome>> biomeKey = clientWorld.func_242406_i(entity.getPosition());
+        RegistryKey<Biome> gscKey = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, IEBiomes.GLOWSTONE_CANYON.getId());
 
-        if (biome.isPresent() && biome.get().getLocation().equals(IEBiomes.GLOWSTONE_CANYON.getId())) {
+        if (biomeKey.isPresent() && biomeKey.get().equals(gscKey)) {
             return MathHelper.nextDouble(new Random(), 0.95, 1.05) % 1;
         }
         return in;
