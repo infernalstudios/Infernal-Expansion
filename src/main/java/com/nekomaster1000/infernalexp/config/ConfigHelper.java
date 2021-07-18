@@ -15,7 +15,7 @@ public final class ConfigHelper {
     //Client
     public static void bakeClient(@Nullable final ModConfig config) {
         //Luminous Effect
-        ClientConfig.LUMINOUS_REFRESH_RATE.set(ConfigHolder.CLIENT.luminousRefreshRate.get());
+        ClientConfig.LUMINOUS_REFRESH_DELAY.set(ConfigHolder.CLIENT.luminousRefreshDelay.get());
     }
 
     //Common
@@ -84,7 +84,7 @@ public final class ConfigHelper {
     }
 
     public static void saveToClient() {
-        ConfigHolder.CLIENT.luminousRefreshRate.set((int) ClientConfig.LUMINOUS_REFRESH_RATE.getDouble());
+        ConfigHolder.CLIENT.luminousRefreshDelay.set((int) ClientConfig.LUMINOUS_REFRESH_DELAY.getDouble());
     }
 
     public static void saveToCommon() {
