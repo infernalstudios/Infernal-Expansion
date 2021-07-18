@@ -26,6 +26,7 @@
     "client.MixinClientPlayNetHandler",
     "client.MixinEntityRendererManager",
     "client.MixinIBlockReader",
+    "client.MixinItemModelsProperties",
     "client.MixinModelBakery",
     "client.MixinOverlayRenderer",
     "client.MixinPaintingSpriteUploader",

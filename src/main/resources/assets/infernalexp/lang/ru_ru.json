@@ -370,8 +370,8 @@
   "infernalexp.config.tooltip.jerkyEffectDuration": "Определяет длительность эффекта от вяленого мяса",
   "infernalexp.config.tooltip.jerkyEffectAmplifier": "Определяет силу эффекта от вяленого мяса",
 
-  "infernalexp.config.option.luminousRefreshRate": "Скорость обновления эффекта Свечения",
-  "infernalexp.config.tooltip.luminousRefreshRate": "Определяет, как долго (в тиках) эффект свечения обновляется",
+  "infernalexp.config.option.luminousRefreshDelay": "Luminous Effect Refresh Delay",
+  "infernalexp.config.tooltip.luminousRefreshDelay": "Determines how often (in ticks) the luminous effect should update",
 
   "infernalexp.config.option.luminousFungusGivesEffect": "Luminous Fungus gives Luminance Effect",
   "infernalexp.config.tooltip.luminousFungusGivesEffect": "Determines whether Luminous Fungus gives the Luminance effect on collision with an entity",

@@ -370,8 +370,8 @@
   "infernalexp.config.tooltip.jerkyEffectDuration": "Determines the duration in seconds of the effect that Cured Jerky gives",
   "infernalexp.config.tooltip.jerkyEffectAmplifier": "Determines the amplifier of the effect that Cured Jerky gives",
 
-  "infernalexp.config.option.luminousRefreshRate": "Luminous Effect Refresh Rate",
-  "infernalexp.config.tooltip.luminousRefreshRate": "Determines how much (in ticks) the luminous effect should update",
+  "infernalexp.config.option.luminousRefreshDelay": "Luminous Effect Refresh Delay",
+  "infernalexp.config.tooltip.luminousRefreshDelay": "Determines how often (in ticks) the luminous effect should update",
 
   "infernalexp.config.option.luminousFungusGivesEffect": "Luminous Fungus gives Luminance Effect",
   "infernalexp.config.tooltip.luminousFungusGivesEffect": "Determines whether Luminous Fungus gives the Luminance effect on collision with an entity",

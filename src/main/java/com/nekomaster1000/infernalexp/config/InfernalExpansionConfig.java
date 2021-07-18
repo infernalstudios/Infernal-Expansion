@@ -9,7 +9,7 @@ public final class InfernalExpansionConfig {
 
     //Luminous Effect
     public enum ClientConfig {
-        LUMINOUS_REFRESH_RATE("luminousRefreshRate", true, 1, 20, 1);
+        LUMINOUS_REFRESH_DELAY("luminousRefreshDelay", true, 1, 20, 1);
 
         private final String translationName;
         private final boolean isSlider;

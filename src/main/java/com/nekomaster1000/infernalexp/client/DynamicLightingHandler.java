@@ -22,7 +22,7 @@ public class DynamicLightingHandler {
     public static final Map<BlockPos, LightData> LIGHT_SOURCES = new ConcurrentHashMap<>();
 
     public static void tick(LivingEntity entity) {
-        if (entity != null && MinecraftInstance.player != null && MinecraftInstance.player.ticksExisted % (int) InfernalExpansionConfig.ClientConfig.LUMINOUS_REFRESH_RATE.getDouble() == 0) {
+        if (entity != null && MinecraftInstance.player != null && MinecraftInstance.player.ticksExisted % (int) InfernalExpansionConfig.ClientConfig.LUMINOUS_REFRESH_DELAY.getDouble() == 0) {
             if (shouldGlow(entity)) {
                 LIGHT_SOURCES.put(entity.getPosition(), new LightData(getTimeAmplifier(entity)));
             }
@@ -34,7 +34,7 @@ public class DynamicLightingHandler {
                     if (data.time == 20 * data.amplifier || !data.shouldKeep) {
                         MinecraftInstance.world.getChunkProvider().getLightManager().checkBlock(pos);                        
                     }
-                    data.time -= (int) InfernalExpansionConfig.ClientConfig.LUMINOUS_REFRESH_RATE.getDouble();
+                    data.time -= (int) InfernalExpansionConfig.ClientConfig.LUMINOUS_REFRESH_DELAY.getDouble();
                 });
                 LIGHT_SOURCES.entrySet().removeIf(entry -> !entry.getValue().shouldKeep);
             }
@@ -42,7 +42,7 @@ public class DynamicLightingHandler {
     }
 
     public static void tick(AbstractArrowEntity entity) {
-		if (entity != null && MinecraftInstance.player != null && MinecraftInstance.player.ticksExisted % (int) InfernalExpansionConfig.ClientConfig.LUMINOUS_REFRESH_RATE.getDouble() == 0) {
+		if (entity != null && MinecraftInstance.player != null && MinecraftInstance.player.ticksExisted % (int) InfernalExpansionConfig.ClientConfig.LUMINOUS_REFRESH_DELAY.getDouble() == 0) {
 			if (shouldGlow(entity)) {
 				LIGHT_SOURCES.put(entity.getPosition(), new LightData(0.5));
 			}
