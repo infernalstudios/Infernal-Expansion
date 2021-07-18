@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public class AscusBombItem extends Item {
     public AscusBombItem() {
-        super(new Item.Properties().maxStackSize(1).group(InfernalExpansion.TAB));
+        super(new Item.Properties().maxStackSize(16).group(InfernalExpansion.TAB));
     }
 
     @Override
