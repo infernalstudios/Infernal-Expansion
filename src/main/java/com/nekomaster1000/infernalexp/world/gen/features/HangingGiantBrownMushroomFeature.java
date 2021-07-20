@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.util.DataUtil;
 import com.nekomaster1000.infernalexp.util.ShapeUtil;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -23,6 +24,8 @@ public class HangingGiantBrownMushroomFeature extends Feature<NoFeatureConfig> {
     private static final int minSize = 3;
     private static final int maxSize = 7;
 
+    private static final ResourceLocation enhancedMushroomsBrownStem = new ResourceLocation("enhanced_mushrooms", "brown_mushroom_stem");
+
     @Override
     public boolean generate(ISeedReader world, ChunkGenerator chunk, Random random, BlockPos pos, NoFeatureConfig config) {
         if (!world.isAirBlock(pos) || world.getBlockState(pos.up()) != IEBlocks.DULLSTONE.get().getDefaultState()) {
@@ -30,11 +33,16 @@ public class HangingGiantBrownMushroomFeature extends Feature<NoFeatureConfig> {
         } else {
             // Generate size between minSize and maxSize
             int size = minSize + random.nextInt(maxSize - minSize);
+            BlockState enhancedMushroomsBrownStemBlockState = null;
+
+            if (DataUtil.isLoaded("enhanced_mushrooms")) {
+                enhancedMushroomsBrownStemBlockState = ForgeRegistries.BLOCKS.getValue(enhancedMushroomsBrownStem).getDefaultState();
+            }
 
             // Generate stem
             for (int y = 0; y <= size; y++) {
-                if (DataUtil.isLoaded("enhanced_mushrooms")) {
-                    world.setBlockState(pos.down(y), ForgeRegistries.BLOCKS.getValue(new ResourceLocation("enhanced_mushrooms:brown_mushroom_stem")).getDefaultState(), 2);
+                if (enhancedMushroomsBrownStemBlockState != null) {
+                    world.setBlockState(pos.down(y), enhancedMushroomsBrownStemBlockState, 2);
                 } else {
                     world.setBlockState(pos.down(y), Blocks.MUSHROOM_STEM.getDefaultState(), 2);
                 }
