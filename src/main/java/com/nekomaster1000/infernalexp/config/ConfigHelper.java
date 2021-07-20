@@ -5,7 +5,6 @@ import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.Miscellaneo
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.MobInteractions;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.MobSpawning;
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.WorldGeneration;
-
 import net.minecraftforge.fml.config.ModConfig;
 
 import javax.annotation.Nullable;
@@ -52,6 +51,7 @@ public final class ConfigHelper {
         MobInteractions.VOLINE_ATTACK_FIRE_RESISTANCE.setBoolean(ConfigHolder.COMMON.volineAttackFireResistance.get());
         MobInteractions.VOLINE_ATTACK_PLAYER.setBoolean(ConfigHolder.COMMON.volineAttackPlayer.get());
         MobInteractions.VOLINE_ATTACK_MAGMA_CUBE.setBoolean(ConfigHolder.COMMON.volineAttackMagmaCube.get());
+        MobInteractions.USE_HOGCHOPS.setBoolean(ConfigHolder.COMMON.useHogchops.get());
         MobInteractions.GLOWSILK_SPEED.setDouble(ConfigHolder.COMMON.glowsilkSpeed.get());
 
         //Mob Spawnable Biomes
@@ -120,6 +120,7 @@ public final class ConfigHelper {
         ConfigHolder.COMMON.volineAttackFireResistance.set(MobInteractions.VOLINE_ATTACK_FIRE_RESISTANCE.getBoolean());
         ConfigHolder.COMMON.volineAttackPlayer.set(MobInteractions.VOLINE_ATTACK_PLAYER.getBoolean());
         ConfigHolder.COMMON.volineAttackMagmaCube.set(MobInteractions.VOLINE_ATTACK_MAGMA_CUBE.getBoolean());
+        ConfigHolder.COMMON.useHogchops.set(MobInteractions.USE_HOGCHOPS.getBoolean());
         ConfigHolder.COMMON.glowsilkSpeed.set(MobInteractions.GLOWSILK_SPEED.getDouble());
 
         //Mob Spawnable Biomes

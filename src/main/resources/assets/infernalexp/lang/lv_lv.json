@@ -285,6 +285,7 @@
 "infernalexp.config.option.volineAttackFireResistance": "Voline attack Fire Resistant Entities",
 "infernalexp.config.option.volineAttackPlayer": "Voline attack Players",
 "infernalexp.config.option.volineAttackMagmaCube": "Voline attack Magma Cubes",
+"infernalexp.config.option.useHogchops": "Use Hogchops Drop",
 "infernalexp.config.option.glowsilkSpeed": "Glowsilk Moth Speed",
 
 "infernalexp.config.tooltip.piglinFearWarpbeetle": "Determines if Piglins will run away from Warpbeetles",
@@ -319,6 +320,7 @@
 "infernalexp.config.tooltip.volineAttackFireResistance": "Determines if Voline will attack Entities with Fire Resistance",
 "infernalexp.config.tooltip.volineAttackPlayer": "Determines if Voline will attack Players",
 "infernalexp.config.tooltip.volineAttackMagmaCube": "Determines if Voline will attack small Magma Cubes",
+"infernalexp.config.tooltip.useHogchops": "Determines if Hogchops will replace Porkchops in Hoglin Drops",
 "infernalexp.config.tooltip.glowsilkSpeed": "Determines the speed at which Glowsilk Moths fly",
 
 "infernalexp.config.option.volineWastes.enable": "Voline in Wastes",

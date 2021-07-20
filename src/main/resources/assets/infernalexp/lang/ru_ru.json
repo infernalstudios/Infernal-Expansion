@@ -285,6 +285,7 @@
   "infernalexp.config.option.volineAttackFireResistance": "Вулкаши атакуют существ с эффектом Огнестойкости",
   "infernalexp.config.option.volineAttackPlayer": "Вулкаши атакуют игроков",
   "infernalexp.config.option.volineAttackMagmaCube": "Вулкаши атакуют магма-кубов",
+  "infernalexp.config.option.useHogchops": "Use Hogchops Drop",
   "infernalexp.config.option.glowsilkSpeed": "Скорость Светошелковых Молей",
 
   "infernalexp.config.tooltip.piglinFearWarpbeetle": "Определяет, будут ли Пиглины убегать от Искажуков",
@@ -319,6 +320,7 @@
   "infernalexp.config.tooltip.volineAttackFireResistance": "Определяет, будут ли Вулкаши атаковать существ с эффектом Огнестойкости",
   "infernalexp.config.tooltip.volineAttackPlayer": "Определяет, будут ли Вулкаши атаковать игроков",
   "infernalexp.config.tooltip.volineAttackMagmaCube": "Определяет, будут ли Вулкаши атаковать маленьких магмовых кубов",
+  "infernalexp.config.tooltip.useHogchops": "Determines if Hogchops will replace Porkchops in Hoglin Drops",
   "infernalexp.config.tooltip.glowsilkSpeed": "Определяет скорость полета Светошелковых Молей",
 
   "infernalexp.config.option.volineWastes.enable": "Вулкаши в Пустошах Незера",
