@@ -145,15 +145,11 @@ public class WhipItem extends TieredItem implements IVanishable {
 
     @Override
     public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-        if (!isSelected) {
-            return;
-        }
-
         if ((getCharging(stack) && getTicksSinceAttack(stack) <= 30) || getAttacking(stack)) {
             setTicksSinceAttack(stack, getTicksSinceAttack(stack) + 1);
         }
 
-        if (getTicksSinceAttack(stack) >= 60) {
+        if (getTicksSinceAttack(stack) >= 60 || (!isSelected && entityIn instanceof PlayerEntity && ((PlayerEntity) entityIn).getHeldItemOffhand() != stack)) {
             setTicksSinceAttack(stack, 0);
             setAttacking(stack, false);
             setCharging(stack, false);
