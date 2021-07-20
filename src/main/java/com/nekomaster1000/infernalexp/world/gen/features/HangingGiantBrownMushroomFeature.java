@@ -1,17 +1,19 @@
 package com.nekomaster1000.infernalexp.world.gen.features;
 
-import java.util.Random;
-
 import com.mojang.serialization.Codec;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
+import com.nekomaster1000.infernalexp.util.DataUtil;
 import com.nekomaster1000.infernalexp.util.ShapeUtil;
-
 import net.minecraft.block.Blocks;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.Random;
 
 public class HangingGiantBrownMushroomFeature extends Feature<NoFeatureConfig> {
     public HangingGiantBrownMushroomFeature(Codec<NoFeatureConfig> codec) {
@@ -31,7 +33,11 @@ public class HangingGiantBrownMushroomFeature extends Feature<NoFeatureConfig> {
 
             // Generate stem
             for (int y = 0; y <= size; y++) {
-                world.setBlockState(pos.down(y), Blocks.MUSHROOM_STEM.getDefaultState(), 2);
+                if (DataUtil.isLoaded("enhanced_mushrooms")) {
+                    world.setBlockState(pos.down(y), ForgeRegistries.BLOCKS.getValue(new ResourceLocation("enhanced_mushrooms:brown_mushroom_stem")).getDefaultState(), 2);
+                } else {
+                    world.setBlockState(pos.down(y), Blocks.MUSHROOM_STEM.getDefaultState(), 2);
+                }
             }
 
             // Generate mushroom cap
