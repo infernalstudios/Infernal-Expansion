@@ -100,6 +100,7 @@ public final class InfernalExpansionConfig {
         VOLINE_ATTACK_FIRE_RESISTANCE("volineAttackFireResistance", false),
         VOLINE_ATTACK_PLAYER("volineAttackPlayer", false),
         VOLINE_ATTACK_MAGMA_CUBE("volineAttackMagmaCube", false),
+        USE_HOGCHOPS("useHogchops", false),
         GLOWSILK_SPEED("glowsilkSpeed", true);
 
         private final String translationName;

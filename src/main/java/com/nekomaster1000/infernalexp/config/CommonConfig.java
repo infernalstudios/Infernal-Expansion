@@ -62,6 +62,7 @@ public class CommonConfig {
     final ForgeConfigSpec.BooleanValue fireChargeExplosion;
     final ForgeConfigSpec.IntValue jerkyEffectDuration;
     final ForgeConfigSpec.IntValue jerkyEffectAmplifier;
+    final ForgeConfigSpec.BooleanValue useHogchops;
     
     //Luminous Fungus
     final ForgeConfigSpec.DoubleValue luminousFungusActivateDistance;
@@ -225,6 +226,11 @@ public class CommonConfig {
             .comment("Determines if Voline will attack small Magma Cubes")
             .translation(InfernalExpansion.MOD_ID + ".config.tooltip.volineAttackMagmaCube")
             .define("volineAttackMagmaCube", true);
+
+        useHogchops = builder
+            .comment("Determines if Hogchops will replace Porkchops in Hoglin Drops")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.useHogchops")
+            .define("useHogchops", true);
 
         glowsilkSpeed = builder
             .comment("Determines the speed at which Glowsilk Moths fly")

@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.init;
 
 import com.google.gson.JsonObject;
 import com.nekomaster1000.infernalexp.InfernalExpansion;
+import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootContext;
@@ -37,6 +38,9 @@ public class IELootModifiers {
         @Nonnull
         @Override
         protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
+            if (!InfernalExpansionConfig.MobInteractions.USE_HOGCHOPS.getBoolean()) {
+                return generatedLoot;
+            }
 
             int numChops = 0;
             int numCookedChops = 0;
