@@ -155,8 +155,9 @@ public class WarpbeetleEntity extends CreatureEntity {
         if (this.isAlive()) {
             if (this.isConverting() && this.conversionTicks > 0) {
                 this.conversionTicks--;
-                this.addPotionEffect(new EffectInstance(Effects.SLOWNESS, this.conversionTicks, 2));
+                this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2D);
                 if (this.conversionTicks == 0) {
+                    this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.4D);
                     this.setChorus(!this.isChorus());
                     this.setConverting(false);
                 }
