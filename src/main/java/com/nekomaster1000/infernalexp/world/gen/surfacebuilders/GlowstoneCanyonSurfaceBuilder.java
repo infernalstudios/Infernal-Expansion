@@ -1,9 +1,7 @@
 package com.nekomaster1000.infernalexp.world.gen.surfacebuilders;
 
 import com.mojang.serialization.Codec;
-
 import com.nekomaster1000.infernalexp.init.IEBlocks;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -49,9 +47,7 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
 
                     if (y >= seaLevel) {
                         // The typical surface of the biome.
-                        mutable.down();
-                        BlockState blockBelow = chunk.getBlockState(mutable);
-                        mutable.up();
+                        BlockState blockBelow = chunk.getBlockState(mutable.down());
 
                         // If the block is floating, make it Glimmer Gravel, otherwise let it be the regular surface
                         if (blockBelow.isAir()) {
