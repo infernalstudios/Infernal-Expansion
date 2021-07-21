@@ -29,6 +29,8 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
@@ -118,6 +120,9 @@ public class WarpbeetleEntity extends CreatureEntity {
     @Override
     protected ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
         ItemStack stack = playerIn.getHeldItem(hand);
+        if (this.isConverting()) {
+            return ActionResultType.FAIL;
+        }
         if (!this.isChorus() && stack.getItem() == Items.CHORUS_FRUIT) {
             this.conversionTicks = 40;
             this.setConverting(true);
@@ -150,6 +155,7 @@ public class WarpbeetleEntity extends CreatureEntity {
         if (this.isAlive()) {
             if (this.isConverting() && this.conversionTicks > 0) {
                 this.conversionTicks--;
+                this.addPotionEffect(new EffectInstance(Effects.SLOWNESS, this.conversionTicks, 2));
                 if (this.conversionTicks == 0) {
                     this.setChorus(!this.isChorus());
                     this.setConverting(false);
