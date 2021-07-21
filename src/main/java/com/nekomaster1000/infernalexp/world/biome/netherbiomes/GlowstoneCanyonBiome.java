@@ -78,6 +78,7 @@ public class GlowstoneCanyonBiome extends ModBiome {
 		generation.withCarver(GenerationStage.Carving.AIR, ConfiguredCarvers.NETHER_CAVE);
         //generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.DELTA);
         generation.withCarver(GenerationStage.Carving.AIR, IECarvers.CONFIGURED_GLOWSTONE_RAVINE);
+        generation.withFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS,IEConfiguredFeatures.CANYON_BLACKSTONE_BLOBS);
 //        generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, IEConfiguredFeatures.BLACKSTONE_BOULDER);
         generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, IEConfiguredFeatures.GLOWSPIKE);
         generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, IEConfiguredFeatures.GLOWSPIKELARGE);
@@ -90,8 +91,6 @@ public class GlowstoneCanyonBiome extends ModBiome {
         generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA_DOUBLE);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, IEConfiguredFeatures.GSC_SPRING_OPEN);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, IEConfiguredFeatures.GSC_SPRING_CLOSED);
-        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES,IEConfiguredFeatures.CANYON_BLACKSTONE_BLOBS);
-        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.BLACKSTONE_BLOBS);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.PATCH_FIRE);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.PATCH_SOUL_FIRE);
         generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.GLOWSTONE);
