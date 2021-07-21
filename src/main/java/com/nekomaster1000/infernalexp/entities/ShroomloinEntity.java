@@ -25,6 +25,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
@@ -106,47 +107,50 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
     @Override
     protected ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
         ItemStack stack = playerIn.getHeldItem(hand);
-            if (this.getFungusType() != 0 && stack.getItem() == Items.CRIMSON_FUNGUS) {
-                this.predictedFungus = 0;
-                this.conversionTicks = 40;
-                this.setConverting(true);
-                if (!playerIn.isCreative()) {
-                    stack.shrink(1);
-                }
-                return ActionResultType.SUCCESS;
-            } else if (this.getFungusType() != 1 && stack.getItem() == Items.WARPED_FUNGUS) {
-                this.predictedFungus = 1;
-                this.conversionTicks = 40;
-                this.setConverting(true);
-                if (!playerIn.isCreative()) {
-                    stack.shrink(1);
-                }
-                return ActionResultType.SUCCESS;
-            } else if (this.getFungusType() != 2 && stack.getItem() == IEBlocks.LUMINOUS_FUNGUS.get().asItem()) {
-                this.predictedFungus = 2;
-                this.conversionTicks = 40;
-                this.setConverting(true);
-                if (!playerIn.isCreative()) {
-                    stack.shrink(1);
-                }
-                return ActionResultType.SUCCESS;
-            } else if (this.getFungusType() != 3 && stack.getItem() == Items.RED_MUSHROOM) {
-                this.predictedFungus = 3;
-                this.conversionTicks = 40;
-                this.setConverting(true);
-                if (!playerIn.isCreative()) {
-                    stack.shrink(1);
-                }
-                return ActionResultType.SUCCESS;
-            } else if (this.getFungusType() != 4 && stack.getItem() == Items.BROWN_MUSHROOM) {
-                this.predictedFungus = 4;
-                this.conversionTicks = 40;
-                this.setConverting(true);
-                if (!playerIn.isCreative()) {
-                    stack.shrink(1);
-                }
-                return ActionResultType.SUCCESS;
+        if (this.isConverting()) {
+            return ActionResultType.FAIL;
+        }
+        if (this.getFungusType() != 0 && stack.getItem() == Items.CRIMSON_FUNGUS) {
+            this.predictedFungus = 0;
+            this.conversionTicks = 40;
+            this.setConverting(true);
+            if (!playerIn.isCreative()) {
+                stack.shrink(1);
             }
+            return ActionResultType.SUCCESS;
+        } else if (this.getFungusType() != 1 && stack.getItem() == Items.WARPED_FUNGUS) {
+            this.predictedFungus = 1;
+            this.conversionTicks = 40;
+            this.setConverting(true);
+            if (!playerIn.isCreative()) {
+                stack.shrink(1);
+            }
+            return ActionResultType.SUCCESS;
+        } else if (this.getFungusType() != 2 && stack.getItem() == IEBlocks.LUMINOUS_FUNGUS.get().asItem()) {
+            this.predictedFungus = 2;
+            this.conversionTicks = 40;
+            this.setConverting(true);
+            if (!playerIn.isCreative()) {
+                stack.shrink(1);
+            }
+            return ActionResultType.SUCCESS;
+        } else if (this.getFungusType() != 3 && stack.getItem() == Items.RED_MUSHROOM) {
+            this.predictedFungus = 3;
+            this.conversionTicks = 40;
+            this.setConverting(true);
+            if (!playerIn.isCreative()) {
+                stack.shrink(1);
+            }
+            return ActionResultType.SUCCESS;
+        } else if (this.getFungusType() != 4 && stack.getItem() == Items.BROWN_MUSHROOM) {
+            this.predictedFungus = 4;
+            this.conversionTicks = 40;
+            this.setConverting(true);
+            if (!playerIn.isCreative()) {
+                stack.shrink(1);
+            }
+            return ActionResultType.SUCCESS;
+        }
         return super.getEntityInteractionResult(playerIn, hand);
     }
 
@@ -157,7 +161,9 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
 		if (this.isAlive()) {
 		    if (this.isConverting() && this.conversionTicks > 0) {
 		        this.conversionTicks--;
+		        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2D);
 		        if (this.conversionTicks == 0) {
+                    this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.6D);
 		            this.setFungusType(this.predictedFungus);
 		            this.setConverting(false);
                 }
