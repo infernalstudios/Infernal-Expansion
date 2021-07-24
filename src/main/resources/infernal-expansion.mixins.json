@@ -12,6 +12,7 @@
     "common.MixinAbstractFireBlock",
     "common.MixinArrowEntity",
     "common.MixinBubbleColumnBlock",
+    "common.MixinCrashReport",
     "common.MixinDimensionGeneratorSettings",
     "common.MixinDimensionType",
     "common.MixinEntity",
