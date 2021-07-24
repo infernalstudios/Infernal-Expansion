@@ -23,8 +23,11 @@ public class MixinCrashReport {
 
     @Inject(method = "getSectionsInStringBuilder", at = @At(value = "INVOKE", target = "Ljava/lang/StringBuilder;append(Ljava/lang/String;)Ljava/lang/StringBuilder;", ordinal = 0))
     private void IE_checkForBiomeConfigCrash(StringBuilder builder, CallbackInfo ci) {
-        if (this.cause.getMessage().equals("/ by zero") && Arrays.stream(this.stacktrace).anyMatch(element -> element.getClassName().equals(ModNetherBiomeCollector.class.getName()) &&
-            element.getMethodName().equals("getRandomNetherBiomes"))) {
+       if (
+            this.cause.getMessage().equals("/ by zero") &&
+            Arrays.stream(this.stacktrace).anyMatch(element -> element.getClassName().equals(ModNetherBiomeCollector.class.getName()) &&
+            element.getMethodName().equals("getRandomNetherBiomes"))
+        ) {
             builder.append("Comment added by Infernal Expansion:\n");
             builder.append("This issue is usually caused by blacklisting all biomes in 'config/infernalexp-common.toml',\nor using a whitelist that only has invalid biome names.\n\n");
         }
