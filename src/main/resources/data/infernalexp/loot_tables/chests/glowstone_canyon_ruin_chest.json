@@ -10,266 +10,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "weight": 9,
-          "name": "minecraft:bucket"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 7,
-          "name": "infernalexp:dimstone"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 7,
-          "name": "infernalexp:dullstone"
-        },
-
-        {
-          "type": "minecraft:item",
-          "weight": 7,
-          "name": "infernalexp:glowstone_bricks"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 7,
-          "name": "infernalexp:smooth_dimstone"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 7,
-          "name": "infernalexp:chiseled_dullstone_bricks"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 10,
-          "name": "infernalexp:glowdust_sand"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 10,
-          "name": "infernalexp:glowdust_stone"
-        },
-        {
-          "type": "minecraft:item",
           "weight": 3,
-          "name": "infernalexp:glowdust"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 5,
-          "name": "infernalexp:glowdust_stone_brick_slab"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 4,
-          "name": "infernalexp:smooth_glowstone_stairs"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 4,
-          "name": "infernalexp:dimstone_brick_slab"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 4,
-          "name": "infernalexp:dullstone_brick_wall"
-        },
-
-        {
-          "type": "minecraft:item",
-          "weight": 2,
-          "name": "infernalexp:smooth_glowstone_pressure_plate"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 2,
-          "name": "infernalexp:smooth_dimstone_button"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 2,
-          "name": "infernalexp:dullthorns_block"
-        },
-
-        {
-          "type": "minecraft:item",
-          "weight": 6,
-          "name": "minecraft:bowl"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 6,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 9.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "infernalexp:glowcoal"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 6,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 4.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:porkchop"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 5,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 4.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:crimson_fungus"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 5,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 4.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "infernalexp:luminous_fungus"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 4,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 2.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "infernalexp:luminous_fungus_cap"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 5,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 3.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "infernalexp:crimson_fungus_cap"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 2.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "infernalexp:blindsight_tongue"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "infernalexp:blindsight_tongue_stew"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "min": 0.3,
-                "max": 0.6
-              }
-            },
-            {
-              "function": "minecraft:enchant_randomly"
-            }
-          ],
-          "name": "infernalexp:blindsight_tongue_whip"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "min": 0.3,
-                "max": 1.0
-              }
-            },
-            {
-              "function": "minecraft:enchant_randomly"
-            }
-          ],
-          "name": "minecraft:golden_sword"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 2,
-          "name": "minecraft:damaged_anvil"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 2,
-          "name": "infernalexp:shroomlight_fungus"
-        },
-
-        {
-          "type": "minecraft:item",
-          "weight": 2,
-          "name": "infernalexp:ascus_bomb"
-        },
-
-        {
-          "type": "minecraft:item",
-          "weight": 2,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -282,7 +23,21 @@
           ],
           "name": "infernalexp:glownuggets"
         },
-
+        {
+          "type": "minecraft:item",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1.0,
+                "max": 5.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ],
+          "name": "minecraft:glowstone_dust"
+        },
         {
           "type": "minecraft:item",
           "weight": 2,
@@ -291,36 +46,46 @@
               "function": "minecraft:set_count",
               "count": {
                 "min": 1.0,
-                "max": 4.0,
+                "max": 1.0,
                 "type": "minecraft:uniform"
               }
             }
           ],
-          "name": "infernalexp:dullthorns"
+          "name": "infernalexp:glowsilk"
         },
-
         {
           "type": "minecraft:item",
-          "weight": 1,
-          "name": "infernalexp:music_disc_soul_spunk"
-        },
-
-        {
-          "type": "minecraft:item",
-          "weight": 1,
+          "weight": 5,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "min": 1.0,
-                "max": 3.0,
+                "max": 9.0,
                 "type": "minecraft:uniform"
               }
             }
           ],
-          "name": "infernalexp:moth_dust"
+          "name": "infernalexp:gold_ingot"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1.0,
+                "max": 1.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ],
+          "name": "infernalexp:music_disc_flush"
         }
       ]
     }
   ]
 }
+
+
