@@ -5,6 +5,7 @@ import com.nekomaster1000.infernalexp.init.IEEffects;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityPredicate;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
@@ -30,6 +31,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.Random;
 
@@ -51,7 +53,7 @@ public class BlindsightEntity extends MonsterEntity {
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 2.0D)
                 .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.5D)
                 .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.9D)
-                .createMutableAttribute(Attributes.FOLLOW_RANGE, 6.0D);
+                .createMutableAttribute(Attributes.FOLLOW_RANGE, 18.0D);
     }
 
     //BEHAVIOUR
@@ -68,7 +70,7 @@ public class BlindsightEntity extends MonsterEntity {
             this.targetSelector.addGoal(1, new BlindsightEntity.TargetGlowsquitoGoal(this, true, false));
         }
         if (InfernalExpansionConfig.MobInteractions.BLINDSIGHT_ATTACK_PLAYER.getBoolean()) {
-            this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true, false));
+            this.targetSelector.addGoal(2, new BlindsightEntity.TargetGoal<>(this, PlayerEntity.class, true, false));
         }
     }
 
@@ -248,6 +250,21 @@ public class BlindsightEntity extends MonsterEntity {
         @Override
         protected AxisAlignedBB getTargetableArea(double targetDistance) {
             return this.goalOwner.getBoundingBox().grow(targetDistance, 4.5D, targetDistance);
+        }
+    }
+
+    static class TargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
+
+        public TargetGoal(MobEntity goalOwnerIn, Class<T> targetClassIn, boolean checkSight, boolean nearbyOnlyIn) {
+            super(goalOwnerIn, targetClassIn, checkSight, nearbyOnlyIn);
+        }
+
+        @Override
+        protected boolean isSuitableTarget(@Nullable LivingEntity potentialTarget, EntityPredicate targetPredicate) {
+            return super.isSuitableTarget(potentialTarget, targetPredicate) &&
+                    (this.goalOwner.getDistanceSq(this.nearestTarget) <= 10.0F ||
+                      (this.goalOwner.getDistanceSq(this.nearestTarget) > 10.0F &&
+                        this.nearestTarget.isPotionActive(IEEffects.LUMINOUS.get())));
         }
     }
 
@@ -438,4 +455,3 @@ public class BlindsightEntity extends MonsterEntity {
         }
     }
 }
-
