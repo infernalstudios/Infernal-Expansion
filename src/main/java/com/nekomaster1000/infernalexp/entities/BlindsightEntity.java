@@ -261,13 +261,10 @@ public class BlindsightEntity extends MonsterEntity {
 
         @Override
         protected boolean isSuitableTarget(@Nullable LivingEntity potentialTarget, EntityPredicate targetPredicate) {
-            if (super.isSuitableTarget(potentialTarget, targetPredicate) &&
-                (this.goalOwner.getDistanceSq (this.nearestTarget) <= 10.0F ||
-                    (this.goalOwner.getDistanceSq(this.nearestTarget) > 10.0F && this.nearestTarget.isPotionActive(IEEffects.LUMINOUS.get())))) {
-                return true;
-            } else {
-                return false;
-            }
+            return super.isSuitableTarget(potentialTarget, targetPredicate) &&
+                    (this.goalOwner.getDistanceSq(this.nearestTarget) <= 10.0F ||
+                      (this.goalOwner.getDistanceSq(this.nearestTarget) > 10.0F &&
+                        this.nearestTarget.isPotionActive(IEEffects.LUMINOUS.get())));
         }
     }
 
@@ -458,4 +455,3 @@ public class BlindsightEntity extends MonsterEntity {
         }
     }
 }
-
