@@ -18,7 +18,6 @@ public class AvoidBlockGoal extends Goal {
     protected final SlimeEntity entity;
     protected Optional<BlockPos> avoidBlockPos;
     protected final int avoidDistance;
-    protected final SlimeEntity.MoveHelperController controller;
     protected final ITag avoidBlocks;
 
     public AvoidBlockGoal(SlimeEntity entityIn, ITag.INamedTag<Block> blocksToAvoidIn, int avoidDistanceIn) {
@@ -31,14 +30,13 @@ public class AvoidBlockGoal extends Goal {
         this.entity = entityIn;
         this.avoidBlocks = blocksToAvoidIn;
         this.avoidDistance = distance;
-        this.controller = (SlimeEntity.MoveHelperController) entityIn.getMoveHelper();
         this.setMutexFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
     }
 
     @Override
     public boolean shouldExecute() {
         this.avoidBlockPos = BlockPos.getClosestMatchingPosition(this.entity.getPosition(), this.avoidDistance, 4, (pos) -> this.entity.world.getBlockState(pos).isIn(avoidBlocks));
-        return avoidBlockPos.isPresent();
+        return avoidBlockPos.isPresent() && this.entity.getMoveHelper() instanceof SlimeEntity.MoveHelperController;
     }
 
     @Override
@@ -62,7 +60,7 @@ public class AvoidBlockGoal extends Goal {
     @Override
     public void tick() {
         faceAway();
-        this.controller.setSpeed(1.0);
+        ((SlimeEntity.MoveHelperController) this.entity.getMoveHelper()).setSpeed(1.0);
     }
 
     private void faceAway() {
@@ -76,7 +74,7 @@ public class AvoidBlockGoal extends Goal {
         this.entity.rotationPitch = updateRotation(this.entity.rotationPitch, f1, 10.0F);
         this.entity.rotationYaw = updateRotation(this.entity.rotationYaw, f + 180.0F, 10.0F);
 
-        this.controller.setDirection(this.entity.rotationYaw, false);
+        ((SlimeEntity.MoveHelperController) this.entity.getMoveHelper()).setDirection(this.entity.rotationYaw, false);
     }
 
     private float updateRotation(float angle, float targetAngle, float maxIncrease) {
