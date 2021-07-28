@@ -160,20 +160,26 @@ public class MiscEvents {
         }
 
         if (heldItemStack.getItem() == Items.GLOWSTONE_DUST) {
-            if (world.getBlockState(pos).getBlock() == IEBlocks.DIMSTONE.get()) {
+            if (world.getBlockState(pos).getBlock() == IEBlocks.DIMSTONE.get() && heldItemStack.getCount() >= 2) {
                 player.swingArm(event.getHand());
                 for (int i = 0; i < 20; i++) {
                     world.addParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get(), pos.getX(), pos.getY(), pos.getZ(), 0.0, 0.0, 0.0);
                 }
                 world.playSound(null, event.getPos(), IESoundEvents.GLOWSTONE_RECHARGE.get(), SoundCategory.BLOCKS, 1.0F, (float) (0.75F + event.getWorld().getRandom().nextDouble() / 2));
                 world.setBlockState(pos, Blocks.GLOWSTONE.getDefaultState());
-            } else if (world.getBlockState(pos).getBlock() == IEBlocks.DULLSTONE.get()) {
+                if (!player.isCreative()) {
+                    heldItemStack.shrink(2);
+                }
+            } else if (world.getBlockState(pos).getBlock() == IEBlocks.DULLSTONE.get() && heldItemStack.getCount() >= 2) {
                 player.swingArm(event.getHand());
                 for (int i = 0; i < 20; i++) {
                     world.addParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get(), pos.getX(), pos.getY(), pos.getZ(), 0.0, 0.0, 0.0);
                 }
                 world.playSound(null, event.getPos(), IESoundEvents.GLOWSTONE_RECHARGE.get(), SoundCategory.BLOCKS, 1.0F, (float) (0.5F + event.getWorld().getRandom().nextDouble() / 3));
                 world.setBlockState(pos, IEBlocks.DIMSTONE.get().getDefaultState());
+                if (!player.isCreative()) {
+                    heldItemStack.shrink(2);
+                }
             }
         }
     }
