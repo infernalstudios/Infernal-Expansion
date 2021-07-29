@@ -56,7 +56,7 @@ public abstract class MixinArrowEntity {
 
 	@Inject(at = @At("HEAD"), method = "spawnPotionParticles")
 	private void spawnCustomParticlesInfernalExpansion(int particleCount, CallbackInfo ci) {
-		if (((AbstractArrowEntityAccess) this).getLuminous()) {
+		if (((AbstractArrowEntityAccess) this).getLuminous() || ((AbstractArrowEntityAccess) this).getGlow()) {
 			for(int j = 0; j < particleCount; ++j) {
 				((ArrowEntity) (Object) this).world.addParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get(),
 					((ArrowEntity) (Object) this).getPosXRandom(0.5D), ((ArrowEntity) (Object) this).getPosYRandom(),
@@ -74,7 +74,7 @@ public abstract class MixinArrowEntity {
 
 	@Inject(at = @At("RETURN"), method = "arrowHit")
     private void onArrowHitInfernalExpansion(LivingEntity living, CallbackInfo ci) {
-	    if (((AbstractArrowEntityAccess) this).getLuminous()) {
+	    if (((AbstractArrowEntityAccess) this).getGlow()) {
 	        living.addPotionEffect(new EffectInstance(IEEffects.LUMINOUS.get(), 3600));
         }
     }
