@@ -159,8 +159,8 @@ public class MiscEvents {
             }
         }
 
-        if (heldItemStack.getItem() == Items.GLOWSTONE_DUST) {
-            if (world.getBlockState(pos).getBlock() == IEBlocks.DIMSTONE.get() && heldItemStack.getCount() >= 2) {
+        if (heldItemStack.getItem() == Items.GLOWSTONE_DUST && heldItemStack.getCount() >= 2) {
+            if (world.getBlockState(pos).getBlock() == IEBlocks.DIMSTONE.get()) {
                 player.swingArm(event.getHand());
                 for (int i = 0; i < 20; i++) {
                     world.addParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get(), pos.getX(), pos.getY(), pos.getZ(), 0.0, 0.0, 0.0);
@@ -170,7 +170,7 @@ public class MiscEvents {
                 if (!player.isCreative()) {
                     heldItemStack.shrink(2);
                 }
-            } else if (world.getBlockState(pos).getBlock() == IEBlocks.DULLSTONE.get() && heldItemStack.getCount() >= 2) {
+            } else if (world.getBlockState(pos).getBlock() == IEBlocks.DULLSTONE.get()) {
                 player.swingArm(event.getHand());
                 for (int i = 0; i < 20; i++) {
                     world.addParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get(), pos.getX(), pos.getY(), pos.getZ(), 0.0, 0.0, 0.0);
