@@ -47,34 +47,34 @@ public class SpawnrateManager {
         ))
         .put("blindsight", ImmutableMap.of(
             "default", new SpawnInfo(30, 1, 1, 0, 0),
-            "infernalexp:glowstone_canyon", new SpawnInfo(30, 1, 1, 7.2D, 0.9D)
+            "infernalexp:glowstone_canyon, byg:glowstone_gardens", new SpawnInfo(30, 1, 1, 7.2D, 0.9D)
         ))
         .put("embody", ImmutableMap.of(
             "default", new SpawnInfo(60, 1, 5, 0, 0),
-            "minecraft:soul_sand_valley", new SpawnInfo(120, 1, 3, 1.2D, 0.1D)
+            "minecraft:soul_sand_valley, byg:warped_desert, byg:wailing_garth, byg:withering_woods", new SpawnInfo(120, 1, 3, 1.2D, 0.1D)
         ))
         .put("glowsilk_moth", ImmutableMap.of(
             "default", new SpawnInfo(5, 1, 1, 0, 0),
-            "infernalexp:glowstone_canyon", new SpawnInfo(1, 1, 1, 4.2D, 0.1D),
+            "infernalexp:glowstone_canyon, byg:glowstone_gardens", new SpawnInfo(1, 1, 1, 4.2D, 0.1D),
             "minecraft:crimson_forest", new SpawnInfo(1, 1, 1, 8.2D, 0.1D),
             "minecraft:basalt_deltas", new SpawnInfo(1, 1, 1, 8.2D, 0.1D)
         ))
         .put("glowsquito", ImmutableMap.of(
             "default", new SpawnInfo(20, 1, 3, 0, 0),
-            "infernalexp:glowstone_canyon", new SpawnInfo(80, 1, 10, 1.2D, 0.1D)
+            "infernalexp:glowstone_canyon, byg:glowstone_gardens", new SpawnInfo(80, 1, 10, 1.2D, 0.1D)
         ))
         .put("shroomloin", ImmutableMap.of(
             "default", new SpawnInfo(5, 1, 3, 0, 0),
-            "minecraft:crimson_forest", new SpawnInfo(30, 1, 1, 16.2D, 0.1D)
+            "minecraft:crimson_forest, byg:crimson_gardens, byg:sythian_torrids", new SpawnInfo(30, 1, 1, 16.2D, 0.1D)
         ))
         .put("voline", ImmutableMap.of(
             "default", new SpawnInfo(20, 1, 1, 0, 0),
-            "minecraft:nether_wastes", new SpawnInfo(50, 1, 3, 1.2D, 0.1D),
+            "minecraft:nether_wastes, byg:magma_wastes", new SpawnInfo(50, 1, 3, 1.2D, 0.1D),
             "minecraft:crimson_forest", new SpawnInfo(1, 1, 5,  8.2D, 0.1D)
         ))
         .put("warpbeetle", ImmutableMap.of(
             "default", new SpawnInfo(5, 1, 1, 0, 0),
-            "minecraft:warped_forest", new SpawnInfo(50, 1, 3, 2.6D, 0.1D)
+            "minecraft:warped_forest, byg:warped_desert", new SpawnInfo(50, 1, 3, 2.6D, 0.1D)
         ))
         .build();
 
