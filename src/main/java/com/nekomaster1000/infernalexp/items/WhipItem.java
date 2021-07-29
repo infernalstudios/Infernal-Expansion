@@ -72,7 +72,7 @@ public class WhipItem extends TieredItem implements IVanishable {
 
             int ticksSinceStart = this.getUseDuration(stack) - timeLeft;
 
-            if (ticksSinceStart < 0 || timeLeft > 71985) {
+            if (ticksSinceStart < 0 || getTicksSinceAttack(stack) < 15) {
                 setTicksSinceAttack(stack, 0);
                 return;
             } else {
