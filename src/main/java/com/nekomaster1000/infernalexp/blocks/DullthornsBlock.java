@@ -103,6 +103,21 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
         }
     }
 
+    public boolean bonemealGrow(BlockState state, World worldIn, BlockPos pos) {
+        BlockPos posUp = pos.up();
+        if (worldIn.isAirBlock(posUp)) {
+            worldIn.setBlockState(posUp, this.getDefaultState());
+            BlockState blockstate = state.with(AGE, 0);
+            worldIn.setBlockState(pos, blockstate, 4);
+            blockstate.neighborChanged(worldIn, posUp, this, pos, false);
+            return true;
+        } else if (worldIn.getBlockState(posUp).getBlock() == IEBlocks.DULLTHORNS.get()) {
+            return ((DullthornsBlock) worldIn.getBlockState(posUp).getBlock()).bonemealGrow(state, worldIn, posUp);
+        } else {
+            return false;
+        }
+    }
+
     @Override
     public boolean isLadder(BlockState state, net.minecraft.world.IWorldReader world, BlockPos pos, net.minecraft.entity.LivingEntity entity) {
        return true;

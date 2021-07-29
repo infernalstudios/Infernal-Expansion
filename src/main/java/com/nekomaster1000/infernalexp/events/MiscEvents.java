@@ -1,6 +1,7 @@
 package com.nekomaster1000.infernalexp.events;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
+import com.nekomaster1000.infernalexp.blocks.DullthornsBlock;
 import com.nekomaster1000.infernalexp.blocks.HorizontalBushBlock;
 import com.nekomaster1000.infernalexp.config.ConfigHelper;
 import com.nekomaster1000.infernalexp.config.ConfigHolder;
@@ -27,6 +28,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.UseAction;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.state.properties.AttachFace;
@@ -157,28 +159,36 @@ public class MiscEvents {
                 }
                 ForgeEventFactory.onBlockPlace(player, BlockSnapshot.create(world.getDimensionKey(), world, pos), face);
             }
-        }
-
-        if (heldItemStack.getItem() == Items.GLOWSTONE_DUST && heldItemStack.getCount() >= 2) {
-            if (world.getBlockState(pos).getBlock() == IEBlocks.DIMSTONE.get()) {
+        } else if (heldItemStack.getItem() == Items.GLOWSTONE_DUST) {
+            if (heldItemStack.getCount() >= 2) {
+                if (world.getBlockState(pos).getBlock() == IEBlocks.DIMSTONE.get()) {
+                    player.swingArm(event.getHand());
+                    for (int i = 0; i < 20; i++) {
+                        world.addParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get(), pos.getX(), pos.getY(), pos.getZ(), 0.0, 0.0, 0.0);
+                    }
+                    world.playSound(null, event.getPos(), IESoundEvents.GLOWSTONE_RECHARGE.get(), SoundCategory.BLOCKS, 1.0F, (float) (0.75F + event.getWorld().getRandom().nextDouble() / 2));
+                    world.setBlockState(pos, Blocks.GLOWSTONE.getDefaultState());
+                    if (!player.isCreative()) {
+                        heldItemStack.shrink(2);
+                    }
+                } else if (world.getBlockState(pos).getBlock() == IEBlocks.DULLSTONE.get()) {
+                    player.swingArm(event.getHand());
+                    for (int i = 0; i < 20; i++) {
+                        world.addParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get(), pos.getX(), pos.getY(), pos.getZ(), 0.0, 0.0, 0.0);
+                    }
+                    world.playSound(null, event.getPos(), IESoundEvents.GLOWSTONE_RECHARGE.get(), SoundCategory.BLOCKS, 1.0F, (float) (0.5F + event.getWorld().getRandom().nextDouble() / 3));
+                    world.setBlockState(pos, IEBlocks.DIMSTONE.get().getDefaultState());
+                    if (!player.isCreative()) {
+                        heldItemStack.shrink(2);
+                    }
+                }
+            }
+            if (world.getBlockState(pos).getBlock() == IEBlocks.DULLTHORNS.get()) {
                 player.swingArm(event.getHand());
-                for (int i = 0; i < 20; i++) {
-                    world.addParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get(), pos.getX(), pos.getY(), pos.getZ(), 0.0, 0.0, 0.0);
-                }
-                world.playSound(null, event.getPos(), IESoundEvents.GLOWSTONE_RECHARGE.get(), SoundCategory.BLOCKS, 1.0F, (float) (0.75F + event.getWorld().getRandom().nextDouble() / 2));
-                world.setBlockState(pos, Blocks.GLOWSTONE.getDefaultState());
+                ((DullthornsBlock) world.getBlockState(pos).getBlock()).bonemealGrow(world.getBlockState(pos), world, pos);
+                world.playEvent(2005, pos, 0);
                 if (!player.isCreative()) {
-                    heldItemStack.shrink(2);
-                }
-            } else if (world.getBlockState(pos).getBlock() == IEBlocks.DULLSTONE.get()) {
-                player.swingArm(event.getHand());
-                for (int i = 0; i < 20; i++) {
-                    world.addParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get(), pos.getX(), pos.getY(), pos.getZ(), 0.0, 0.0, 0.0);
-                }
-                world.playSound(null, event.getPos(), IESoundEvents.GLOWSTONE_RECHARGE.get(), SoundCategory.BLOCKS, 1.0F, (float) (0.5F + event.getWorld().getRandom().nextDouble() / 3));
-                world.setBlockState(pos, IEBlocks.DIMSTONE.get().getDefaultState());
-                if (!player.isCreative()) {
-                    heldItemStack.shrink(2);
+                    heldItemStack.shrink(1);
                 }
             }
         }
@@ -235,6 +245,10 @@ public class MiscEvents {
                 if (world.getRandom().nextDouble() < Miscellaneous.SHROOMLIGHT_GROW_CHANCE.getDouble() && !world.isRemote()) {
                     world.setBlockState(pos, IEBlocks.SHROOMLIGHT_FUNGUS.get().getDefaultState().with(HorizontalBushBlock.FACE, AttachFace.CEILING), 3);
                 }
+            }
+        } else if (block == IEBlocks.DULLTHORNS.get()) {
+            if (((DullthornsBlock) world.getBlockState(pos).getBlock()).bonemealGrow(world.getBlockState(pos), world, pos)) {
+                event.setResult(Event.Result.ALLOW);
             }
         }
     }
