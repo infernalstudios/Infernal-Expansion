@@ -60,7 +60,7 @@ public class WhipItem extends TieredItem implements IVanishable {
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(new StringTextComponent("\u00A76" + "Hold right click to charge, then release to strike!"));
+        tooltip.add(new StringTextComponent("\u00A76" + "Hold right click to charge, then, when fully charged, release to strike!"));
     }
 
     @Override
@@ -72,12 +72,12 @@ public class WhipItem extends TieredItem implements IVanishable {
 
             int ticksSinceStart = this.getUseDuration(stack) - timeLeft;
 
-            if (ticksSinceStart < 0 || timeLeft > 71985) {
+            if (ticksSinceStart < 0 || getTicksSinceAttack(stack) < 15) {
                 setTicksSinceAttack(stack, 0);
                 return;
             } else {
                 setAttacking(stack, true);
-                setTicksSinceAttack(stack, 36);
+                setTicksSinceAttack(stack, 18);
             }
 
             playerEntity.getEntityWorld().playSound(playerEntity, playerEntity.getPosX(), playerEntity.getPosY(), playerEntity.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F));
@@ -145,11 +145,11 @@ public class WhipItem extends TieredItem implements IVanishable {
 
     @Override
     public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-        if ((getCharging(stack) && getTicksSinceAttack(stack) <= 30) || getAttacking(stack)) {
+        if ((getCharging(stack) && getTicksSinceAttack(stack) <= 15) || getAttacking(stack)) {
             setTicksSinceAttack(stack, getTicksSinceAttack(stack) + 1);
         }
 
-        if (getTicksSinceAttack(stack) >= 60 || (!isSelected && entityIn instanceof PlayerEntity && ((PlayerEntity) entityIn).getHeldItemOffhand() != stack)) {
+        if (getTicksSinceAttack(stack) >= 30 || (!isSelected && entityIn instanceof PlayerEntity && ((PlayerEntity) entityIn).getHeldItemOffhand() != stack)) {
             setTicksSinceAttack(stack, 0);
             setAttacking(stack, false);
             setCharging(stack, false);
