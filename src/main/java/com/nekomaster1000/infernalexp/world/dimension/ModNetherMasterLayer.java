@@ -15,6 +15,6 @@ public class ModNetherMasterLayer implements IAreaTransformer0 {
 
     @Override
     public int apply(INoiseRandom context, int x, int y) {
-        return ModNetherBiomeCollector.getRandomNetherBiomes(context);
+        return ModNetherBiomeCollector.getRandomNetherBiomes(context, this.dynamicRegistry);
     }
 }
