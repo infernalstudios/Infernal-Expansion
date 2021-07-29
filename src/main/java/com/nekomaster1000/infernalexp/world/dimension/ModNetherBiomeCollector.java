@@ -15,8 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 public class ModNetherBiomeCollector {
-    public static final ForgeRegistry<Biome> biomeRegistry = ((ForgeRegistry<Biome>) ForgeRegistries.BIOMES);
-
     public static List<RegistryKey<Biome>> netherBiomeList = new ArrayList<>();
     public static List<String> biomeList = Arrays.asList(((String) InfernalExpansionConfig.WorldGeneration.BIOMES_LIST.get()).replace(" ", "").split(","));
     public static boolean isWhitelist = (Boolean) InfernalExpansionConfig.WorldGeneration.BIOMES_LIST_IS_WHITELIST.get();
@@ -41,7 +39,7 @@ public class ModNetherBiomeCollector {
         return netherBiomeList;
     }
 
-    public static int getRandomNetherBiomes(INoiseRandom random) {
-        return biomeRegistry.getID(netherBiomeList.get(random.random(netherBiomeList.size())).getLocation());
+    public static int getRandomNetherBiomes(INoiseRandom random, Registry<Biome> registry) {
+        return registry.getId(registry.getValueForKey(netherBiomeList.get(random.random(netherBiomeList.size()))));
     }
 }
