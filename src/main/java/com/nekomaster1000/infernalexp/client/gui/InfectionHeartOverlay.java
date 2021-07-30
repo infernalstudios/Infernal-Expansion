@@ -22,7 +22,7 @@ import java.util.Random;
 @OnlyIn(Dist.CLIENT)
 public class InfectionHeartOverlay {
     protected int heartOffset;
-    private static final ResourceLocation INFECTION_HEART_TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID, "textures/gui/infection.png");
+    private static final ResourceLocation INFECTION_HEART_TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID, "textures/gui/infection_gui.png");
 
     @SubscribeEvent(priority = EventPriority.LOW)
     public void onPreRender(RenderGameOverlayEvent.Pre event) {
@@ -61,7 +61,7 @@ public class InfectionHeartOverlay {
         rand.setSeed(ticks * 312871L);
 
         float absorb = MathHelper.ceil(player.getAbsorptionAmount());
-        //boolean highlight = ForgeIngameGui.healthUpdateCounter > (long)ticks && (ForgeIngameGui.healthUpdateCounter - (long)ticks) / 3L %2L == 1L;
+        boolean highlight = mc.ingameGUI.healthUpdateCounter > (long)ticks && (mc.ingameGUI.healthUpdateCounter - (long)ticks) / 3L %2L == 1L;
 
 
         int healthRows = MathHelper.ceil((player.getMaxHealth() + absorb) / 2.0F / 10.0F);
@@ -73,26 +73,47 @@ public class InfectionHeartOverlay {
             regen = ticks % 25;
         }
 
+        final int TOP =  9 * (mc.world.getWorldInfo().isHardcore() ? 1 : 0);
+        final int BACKGROUND = (highlight ? 9 : 0);
+
+        float absorbRemaining = absorb;
+
 
         mc.getTextureManager().bindTexture(INFECTION_HEART_TEXTURE);
         RenderSystem.enableBlend();
 
+
         for (int i = MathHelper.ceil((player.getMaxHealth() + absorb) / 2.0F) - 1; i >= 0; --i) {
-            int row = MathHelper.ceil((float)(i + 1) / 10.0F) - 1;
+            int row = MathHelper.ceil((float) (i + 1) / 10.0F) - 1;
             int x = left + i % 10 * 8;
             int y = top - row * rowHeight;
 
             if (currentHealth <= 4) y += rand.nextInt(2);
-
-            if (ticks % (currentHealth * 3 + 1) == 0) {
-                y = top + (rand.nextInt(3) - 1);
-            }
             if (i == regen) y -= 2;
 
-            if (i * 2 + 1 < currentHealth)
-                mc.ingameGUI.blit(matrixStack, x, y, 0, 0, 18, 18, 18, 18);
-            else if (i * 2 + 1 == currentHealth)
-                mc.ingameGUI.blit(matrixStack, x, y, 0, 0, 18, 18, 18, 18);
+            mc.ingameGUI.blit(matrixStack, x, y, BACKGROUND, TOP, 9, 9);
+
+            if (highlight) {
+                if (i * 2 + 1 < mc.ingameGUI.lastPlayerHealth)
+                    mc.ingameGUI.blit(matrixStack, x, y, 54, TOP, 9, 9);
+                else if (i * 2 + 1 == mc.ingameGUI.lastPlayerHealth)
+                    mc.ingameGUI.blit(matrixStack, x, y, 63, TOP, 9, 9);
+            }
+
+            if (absorbRemaining > 0.0F) {
+                if (absorbRemaining == absorb && absorb % 2.0F == 1.0F) {
+                    mc.ingameGUI.blit(matrixStack, x, y, 63, TOP, 9, 9);
+                    absorbRemaining -= 1.0F;
+                } else {
+                    mc.ingameGUI.blit(matrixStack, x, y, 54, TOP, 9, 9);
+                    absorbRemaining -= 2.0F;
+                }
+            } else {
+                if (i * 2 + 1 < currentHealth)
+                    mc.ingameGUI.blit(matrixStack, x, y, 36, TOP, 9, 9);
+                else if (i * 2 + 1 == currentHealth)
+                    mc.ingameGUI.blit(matrixStack, x, y, 45, TOP, 9, 9);
+            }
         }
 
         RenderSystem.disableBlend();
