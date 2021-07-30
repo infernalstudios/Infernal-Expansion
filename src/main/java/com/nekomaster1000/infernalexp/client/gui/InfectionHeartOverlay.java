@@ -95,8 +95,7 @@ public class InfectionHeartOverlay {
             if (highlight) {
                 if (i * 2 + 1 < mc.ingameGUI.lastPlayerHealth) {
                     mc.ingameGUI.blit(matrixStack, x, y, 54, TOP, 9, 9);
-                }
-                else if (i * 2 + 1 == mc.ingameGUI.lastPlayerHealth) {
+                } else if (i * 2 + 1 == mc.ingameGUI.lastPlayerHealth) {
                     mc.ingameGUI.blit(matrixStack, x, y, 63, TOP, 9, 9);
                 }
             }
@@ -112,8 +111,7 @@ public class InfectionHeartOverlay {
             } else {
                 if (i * 2 + 1 < currentHealth) {
                     mc.ingameGUI.blit(matrixStack, x, y, 36, TOP, 9, 9);
-                }
-                else if (i * 2 + 1 == currentHealth) {
+                } else if (i * 2 + 1 == currentHealth) {
                     mc.ingameGUI.blit(matrixStack, x, y, 45, TOP, 9, 9);
                 }
             }
