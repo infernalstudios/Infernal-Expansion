@@ -3,6 +3,9 @@ package com.nekomaster1000.infernalexp.mixin.common;
 import com.nekomaster1000.infernalexp.access.AbstractArrowEntityAccess;
 import com.nekomaster1000.infernalexp.client.DynamicLightingHandler;
 
+import com.nekomaster1000.infernalexp.init.IEEffects;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
@@ -29,6 +32,8 @@ public class MixinAbstractArrowEntity implements AbstractArrowEntityAccess {
 	@Unique
 	private static final DataParameter<Boolean> INFECTION = EntityDataManager.createKey(AbstractArrowEntity.class, DataSerializers.BOOLEAN);
 
+	@Unique
+    private static final DataParameter<Boolean> INFECTED_SOURCE = EntityDataManager.createKey(AbstractArrowEntity.class, DataSerializers.BOOLEAN);
 
 	@OnlyIn(Dist.CLIENT)
 	@Inject(at = @At("RETURN"), method = "tick")
@@ -41,6 +46,7 @@ public class MixinAbstractArrowEntity implements AbstractArrowEntityAccess {
 		((AbstractArrowEntity) (Object) this).getDataManager().register(LUMINOUS, false);
 		((AbstractArrowEntity) (Object) this).getDataManager().register(INFECTION, false);
 		((AbstractArrowEntity) (Object) this).getDataManager().register(GLOW, false);
+        ((AbstractArrowEntity) (Object) this).getDataManager().register(INFECTED_SOURCE, false);
 	}
 
 	@Inject(at = @At("RETURN"), method = "writeAdditional")
@@ -48,6 +54,7 @@ public class MixinAbstractArrowEntity implements AbstractArrowEntityAccess {
 		compound.putBoolean("Luminous", ((AbstractArrowEntity) (Object) this).getDataManager().get(LUMINOUS));
 		compound.putBoolean("Infection", ((AbstractArrowEntity) (Object) this).getDataManager().get(INFECTION));
 		compound.putBoolean("Glow", ((AbstractArrowEntity) (Object) this).getDataManager().get(GLOW));
+		compound.putBoolean("InfectedSource", ((AbstractArrowEntity) (Object) this).getDataManager().get(INFECTED_SOURCE));
 	}
 
 	@Inject(at = @At("RETURN"), method = "readAdditional")
@@ -55,7 +62,19 @@ public class MixinAbstractArrowEntity implements AbstractArrowEntityAccess {
 		setLuminous(compound.getBoolean("Luminous"));
 		setInfection(compound.getBoolean("Infection"));
 		setGlow(compound.getBoolean("Glow"));
+		setInfectedSource(compound.getBoolean("InfectedSource"));
 	}
+
+	@Inject(at = @At("RETURN"), method = "setShooter")
+    private void setShooterInfernalExpansion(Entity entityIn, CallbackInfo ci) {
+	    if (entityIn instanceof LivingEntity) {
+            LivingEntity livingEntity = (LivingEntity) entityIn;
+            if (livingEntity.isPotionActive(IEEffects.INFECTION.get())) {
+                this.setInfectedSource(true);
+                this.setInfection(true);
+            }
+        }
+    }
 
 	@Override
 	public boolean getLuminous() {
@@ -76,6 +95,16 @@ public class MixinAbstractArrowEntity implements AbstractArrowEntityAccess {
 	public void setInfection(boolean isInfection) {
 		((AbstractArrowEntity) (Object) this).getDataManager().set(INFECTION, isInfection);
 	}
+
+    @Override
+    public boolean getInfectedSource() {
+        return ((AbstractArrowEntity) (Object) this).getDataManager().get(INFECTED_SOURCE);
+    }
+
+    @Override
+    public void setInfectedSource(boolean isInfectedSource) {
+        ((AbstractArrowEntity) (Object) this).getDataManager().set(INFECTED_SOURCE, isInfectedSource);
+    }
 
 	@Override
 	public boolean getGlow() {
