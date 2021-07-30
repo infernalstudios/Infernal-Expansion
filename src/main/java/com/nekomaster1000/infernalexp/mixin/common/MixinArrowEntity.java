@@ -6,6 +6,7 @@ import com.nekomaster1000.infernalexp.init.IEParticleTypes;
 import com.nekomaster1000.infernalexp.init.IEPotions;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
@@ -76,6 +77,10 @@ public abstract class MixinArrowEntity {
     private void onArrowHitInfernalExpansion(LivingEntity living, CallbackInfo ci) {
 	    if (((AbstractArrowEntityAccess) this).getGlow()) {
 	        living.addPotionEffect(new EffectInstance(IEEffects.LUMINOUS.get(), 3600));
+        }
+
+	    if (((AbstractArrowEntityAccess) this).getInfectedSource()) {
+	        living.addPotionEffect(new EffectInstance(IEEffects.INFECTION.get(), 600));
         }
     }
 }

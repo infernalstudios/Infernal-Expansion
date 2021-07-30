@@ -9,6 +9,10 @@ public interface AbstractArrowEntityAccess {
 
 	void setInfection(boolean isInfection);
 
+	boolean getInfectedSource();
+
+	void setInfectedSource(boolean isInfectedSource);
+
 	boolean getGlow();
 
 	void setGlow(boolean shouldGlow);
