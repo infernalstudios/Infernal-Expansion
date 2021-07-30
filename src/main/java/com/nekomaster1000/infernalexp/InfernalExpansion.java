@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp;
 
 import com.nekomaster1000.infernalexp.brewing.IEBrewingRecipe;
 import com.nekomaster1000.infernalexp.client.InfernalExpansionClient;
+import com.nekomaster1000.infernalexp.client.gui.InfectionHeartOverlay;
 import com.nekomaster1000.infernalexp.config.ConfigHelper;
 import com.nekomaster1000.infernalexp.config.ConfigHolder;
 import com.nekomaster1000.infernalexp.data.SpawnrateManager;
@@ -102,6 +103,8 @@ public class InfernalExpansion {
         MinecraftForge.EVENT_BUS.register(new MiscEvents());
         MinecraftForge.EVENT_BUS.register(new MobEvents());
         MinecraftForge.EVENT_BUS.register(new WorldEvents());
+
+        MinecraftForge.EVENT_BUS.register(new InfectionHeartOverlay());
 
         //Registering Configs
         modLoadingContext.registerConfig(ModConfig.Type.CLIENT, ConfigHolder.CLIENT_SPEC);
