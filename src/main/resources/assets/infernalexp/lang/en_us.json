@@ -51,6 +51,7 @@
   "block.infernalexp.glowdust_stone_stairs": "Shimmer Stone Stairs",
   "block.infernalexp.glowdust_stone_wall": "Shimmer Stone Wall",
   "block.infernalexp.trapped_glowdust_sand": "Glimmer Gravel",
+  "block.infernalexp.glow_fire": "Glow Fire",
 
   "block.infernalexp.glowdust_stone_bricks": "Shimmer Stone Bricks",
   "block.infernalexp.glowdust_stone_brick_slab": "Shimmer Stone Brick Slab",
@@ -226,6 +227,12 @@
   "entity.infernalexp.pyrno": "Pyrno",
   "entity.infernalexp.blindsight": "Blindsight",
   "entity.infernalexp.glowsilk_moth": "Glowsilk Moth",
+  "entity.infernalexp.ascus_bomb": "Ascus Bomb",
+  "entity.infernalexp.throwable_magma_cream": "Magma Cream",
+  "entity.infernalexp.throwable_fire_charge": "Fire Charge",
+  "entity.infernalexp.throwable_brick": "Brick",
+  "entity.infernalexp.throwable_nether_brick": "Nether Brick",
+  "entity.infernalexp.infernal_painting": "Infernal Painting",
 
   "biome.infernalexp.glowstone_canyon": "Glowstone Canyon",
   "biome.infernalexp.delta_shores": "Delta Shores",

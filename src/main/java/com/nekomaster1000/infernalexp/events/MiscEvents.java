@@ -8,8 +8,10 @@ import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig.Miscellaneo
 import com.nekomaster1000.infernalexp.data.SpawnrateManager;
 import com.nekomaster1000.infernalexp.data.VolineEatTable;
 import com.nekomaster1000.infernalexp.entities.ShroomloinEntity;
+import com.nekomaster1000.infernalexp.entities.ThrowableBrickEntity;
 import com.nekomaster1000.infernalexp.entities.ThrowableFireChargeEntity;
 import com.nekomaster1000.infernalexp.entities.ThrowableMagmaCreamEntity;
+import com.nekomaster1000.infernalexp.entities.ThrowableNetherBrickEntity;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IEEffects;
 import com.nekomaster1000.infernalexp.init.IEItems;
@@ -19,9 +21,12 @@ import com.nekomaster1000.infernalexp.init.IETags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.GlassBlock;
+import net.minecraft.block.PaneBlock;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -36,12 +41,15 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -84,31 +92,31 @@ public class MiscEvents {
             if (entity instanceof ShroomloinEntity) {
                 ShroomloinEntity shroomloinEntity = (ShroomloinEntity) entity;
 
-                if (((ShroomloinEntity) entity).getFungusType() == 1) {
+                if (((ShroomloinEntity) entity).getFungusType() == 0) {
                     if (state.getBlock().isIn(IETags.Blocks.ANGER_CRIMSON_SHROOMLOIN_BLOCKS)) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
 
-                if (((ShroomloinEntity) entity).getFungusType() == 2) {
+                if (((ShroomloinEntity) entity).getFungusType() == 1) {
                     if (state.getBlock().isIn(IETags.Blocks.ANGER_WARPED_SHROOMLOIN_BLOCKS)) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
 
-                if (((ShroomloinEntity) entity).getFungusType() == 3) {
+                if (((ShroomloinEntity) entity).getFungusType() == 2) {
                     if (state.getBlock().isIn(IETags.Blocks.ANGER_LUMINOUS_SHROOMLOIN_BLOCKS)) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
 
-                if (((ShroomloinEntity) entity).getFungusType() == 4) {
+                if (((ShroomloinEntity) entity).getFungusType() == 3) {
                     if (state.getBlock().isIn(IETags.Blocks.ANGER_RED_SHROOMLOIN_BLOCKS)) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
 
-                if (((ShroomloinEntity) entity).getFungusType() == 5) {
+                if (((ShroomloinEntity) entity).getFungusType() == 4) {
                     if (state.getBlock().isIn(IETags.Blocks.ANGER_BROWN_SHROOMLOIN_BLOCKS)) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
@@ -213,6 +221,85 @@ public class MiscEvents {
 
             if (!player.abilities.isCreativeMode) {
                 heldItemStack.shrink(1);
+            }
+        } else if (heldItemStack.getItem() == Items.BRICK) {
+            player.swingArm(event.getHand());
+
+            if (!world.isRemote) {
+                ThrowableBrickEntity throwableBrickEntity = new ThrowableBrickEntity(world, player);
+                throwableBrickEntity.setItem(heldItemStack);
+                throwableBrickEntity.setDirectionAndMovement(player, player.rotationPitch, player.rotationYaw, -20, 0.5F, 1);
+                world.addEntity(throwableBrickEntity);
+                world.playSound(null, event.getPos(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            }
+
+            player.addStat(Stats.ITEM_USED.get(heldItemStack.getItem()));
+
+            if (!player.abilities.isCreativeMode) {
+                heldItemStack.shrink(1);
+            }
+        } else if (heldItemStack.getItem() == Items.NETHER_BRICK) {
+            player.swingArm(event.getHand());
+
+            if (!world.isRemote) {
+                ThrowableNetherBrickEntity throwableNetherBrickEntity = new ThrowableNetherBrickEntity(world, player);
+                throwableNetherBrickEntity.setItem(heldItemStack);
+                throwableNetherBrickEntity.setDirectionAndMovement(player, player.rotationPitch, player.rotationYaw, -20, 0.3F, 1);
+                world.addEntity(throwableNetherBrickEntity);
+                world.playSound(null, event.getPos(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            }
+
+            player.addStat(Stats.ITEM_USED.get(heldItemStack.getItem()));
+
+            if (!player.abilities.isCreativeMode) {
+                heldItemStack.shrink(1);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onProjectileHit(ProjectileImpactEvent event) {
+        Entity entity = event.getEntity();
+        World world = entity.getEntityWorld();
+        RayTraceResult rayTraceResult = event.getRayTraceResult();
+        if (entity instanceof ThrowableBrickEntity) {
+            if (rayTraceResult.getType() == RayTraceResult.Type.BLOCK) {
+                if (world.getBlockState(((BlockRayTraceResult)rayTraceResult).getPos()).getBlock() == IEBlocks.QUARTZ_GLASS.get()
+                    || world.getBlockState(((BlockRayTraceResult)rayTraceResult).getPos()).getBlock() == IEBlocks.QUARTZ_GLASS_PANE.get()) {
+                    world.playSound(null, ((BlockRayTraceResult)rayTraceResult).getPos(), IESoundEvents.QUARTZ_GLASS_TYPE.getHitSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+                }
+                if ((world.getBlockState(((BlockRayTraceResult)rayTraceResult).getPos()).getBlock() instanceof GlassBlock
+                ||  world.getBlockState(((BlockRayTraceResult)rayTraceResult).getPos()).getBlock() instanceof PaneBlock)
+                    && !((world.getBlockState(((BlockRayTraceResult)rayTraceResult).getPos()).getBlock() == IEBlocks.QUARTZ_GLASS.get())
+                    || (world.getBlockState(((BlockRayTraceResult)rayTraceResult).getPos()).getBlock() == IEBlocks.QUARTZ_GLASS_PANE.get())
+                    )) {
+                    world.destroyBlock(((BlockRayTraceResult)rayTraceResult).getPos(), false);
+                    ((ThrowableBrickEntity) entity).shoot(entity.getMotion().x, entity.getMotion().y, entity.getMotion().z, 0.3F, 1);
+                } else {
+                    ItemEntity itemEntity = new ItemEntity(world, entity.getPosX(), entity.getPosY(), entity.getPosZ(), Items.BRICK.getDefaultInstance());
+                    world.addEntity(itemEntity);
+                    entity.remove();
+                }
+            }
+        }
+        if (entity instanceof ThrowableNetherBrickEntity) {
+            if (rayTraceResult.getType() == RayTraceResult.Type.BLOCK) {
+                if (world.getBlockState(((BlockRayTraceResult)rayTraceResult).getPos()).getBlock() == IEBlocks.QUARTZ_GLASS.get()
+                    || world.getBlockState(((BlockRayTraceResult)rayTraceResult).getPos()).getBlock() == IEBlocks.QUARTZ_GLASS_PANE.get()) {
+                    world.playSound(null, ((BlockRayTraceResult)rayTraceResult).getPos(), IESoundEvents.QUARTZ_GLASS_TYPE.getHitSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+                }
+                if ((world.getBlockState(((BlockRayTraceResult)rayTraceResult).getPos()).getBlock() instanceof GlassBlock
+                    ||  world.getBlockState(((BlockRayTraceResult)rayTraceResult).getPos()).getBlock() instanceof PaneBlock)
+                    && !((world.getBlockState(((BlockRayTraceResult)rayTraceResult).getPos()).getBlock() == IEBlocks.QUARTZ_GLASS.get())
+                    || (world.getBlockState(((BlockRayTraceResult)rayTraceResult).getPos()).getBlock() == IEBlocks.QUARTZ_GLASS_PANE.get())
+                    )) {
+                    world.destroyBlock(((BlockRayTraceResult)rayTraceResult).getPos(), false);
+                    ((ThrowableNetherBrickEntity) entity).shoot(entity.getMotion().x, entity.getMotion().y, entity.getMotion().z, 0.1F, 1);
+                } else {
+                    ItemEntity itemEntity = new ItemEntity(world, entity.getPosX(), entity.getPosY(), entity.getPosZ(), Items.NETHER_BRICK.getDefaultInstance());
+                    world.addEntity(itemEntity);
+                    entity.remove();
+                }
             }
         }
     }

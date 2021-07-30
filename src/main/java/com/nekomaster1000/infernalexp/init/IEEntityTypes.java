@@ -1,13 +1,25 @@
 package com.nekomaster1000.infernalexp.init;
 
 import com.nekomaster1000.infernalexp.InfernalExpansion;
-import com.nekomaster1000.infernalexp.entities.*;
-
+import com.nekomaster1000.infernalexp.entities.AscusBombEntity;
+import com.nekomaster1000.infernalexp.entities.BasaltGiantEntity;
+import com.nekomaster1000.infernalexp.entities.BlackstoneDwarfEntity;
+import com.nekomaster1000.infernalexp.entities.BlindsightEntity;
+import com.nekomaster1000.infernalexp.entities.EmbodyEntity;
+import com.nekomaster1000.infernalexp.entities.GlowsilkMothEntity;
+import com.nekomaster1000.infernalexp.entities.GlowsquitoEntity;
+import com.nekomaster1000.infernalexp.entities.InfernalPaintingEntity;
+import com.nekomaster1000.infernalexp.entities.ShroomloinEntity;
+import com.nekomaster1000.infernalexp.entities.ThrowableBrickEntity;
+import com.nekomaster1000.infernalexp.entities.ThrowableFireChargeEntity;
+import com.nekomaster1000.infernalexp.entities.ThrowableMagmaCreamEntity;
+import com.nekomaster1000.infernalexp.entities.ThrowableNetherBrickEntity;
+import com.nekomaster1000.infernalexp.entities.VolineEntity;
+import com.nekomaster1000.infernalexp.entities.WarpbeetleEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
-
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -98,7 +110,18 @@ public class IEEntityTypes {
 			.size(0.5F, 0.5F).trackingRange(10).updateInterval(Integer.MAX_VALUE)
 			.build(new ResourceLocation(InfernalExpansion.MOD_ID, "infernal_painting").toString()));
 
-	private static <T extends Entity> RegistryObject<EntityType<T>> register(String key, EntityType.IFactory<T> factoryIn, EntityClassification classificationIn, float size1, float size2) {
+    public static final RegistryObject<EntityType<ThrowableBrickEntity>> THROWABLE_BRICK = ENTITY_TYPES.register("throwable_brick",
+        () -> EntityType.Builder.<ThrowableBrickEntity>create(ThrowableBrickEntity::new, EntityClassification.MISC)
+        .size(0.25F, 0.25F).trackingRange(4).updateInterval(10)
+        .build(new ResourceLocation(InfernalExpansion.MOD_ID, "throwable_brick").toString()));
+
+    public static final RegistryObject<EntityType<ThrowableNetherBrickEntity>> THROWABLE_NETHER_BRICK = ENTITY_TYPES.register("throwable_nether_brick",
+        () -> EntityType.Builder.<ThrowableNetherBrickEntity>create(ThrowableNetherBrickEntity::new, EntityClassification.MISC)
+            .size(0.25F, 0.25F).trackingRange(4).updateInterval(10)
+            .build(new ResourceLocation(InfernalExpansion.MOD_ID, "throwable_nether_brick").toString()));
+
+
+    private static <T extends Entity> RegistryObject<EntityType<T>> register(String key, EntityType.IFactory<T> factoryIn, EntityClassification classificationIn, float size1, float size2) {
 		return ENTITY_TYPES.register(key, () -> EntityType.Builder.create(factoryIn, classificationIn)
 			.size(size1, size2)
 			.build(new ResourceLocation(InfernalExpansion.MOD_ID, key).toString()));

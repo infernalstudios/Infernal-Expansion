@@ -458,5 +458,10 @@
 		"sounds": [
 			"infernalexp:block/glowstone/recharge"
 		]
-	}
+	},
+  "block.quartz_glass.hit": {
+    "sounds": [
+      "infernalexp:block/quartz_glass/hit"
+    ]
+  }
 }

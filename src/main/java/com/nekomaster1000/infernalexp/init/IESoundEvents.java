@@ -110,10 +110,14 @@ public class IESoundEvents {
     // SOUL STONE
     public static final RegistryObject<SoundEvent> SOUL_STONE_BREAK = add("block.soul_stone.break");
 
+    //QUARTZ GLASS
+    public static final RegistryObject<SoundEvent> QUARTZ_GLASS_HIT = add("block.quartz_glass.hit");
+
 	// SOUND TYPES
 	public static final SoundType DULLSTONE_TYPE = new ForgeSoundType(1.0F, 1.0F, () -> DULLSTONE_BREAK.get(), () -> DULLSTONE_STEP.get(), () -> DULLSTONE_PLACE.get(), () -> DULLSTONE_HIT.get(), () -> DULLSTONE_FALL.get());
 	public static final SoundType DIMSTONE_TYPE = new ForgeSoundType(1.0F, 1.0F, () -> SoundEvents.BLOCK_GLASS_BREAK, () -> DULLSTONE_STEP.get(), () -> SoundEvents.BLOCK_GLASS_PLACE, () -> SoundEvents.BLOCK_GLASS_HIT, () -> SoundEvents.BLOCK_GLASS_FALL);
     public static final SoundType SOUL_STONE_TYPE = new ForgeSoundType(1.0F, 1.0F, () -> SOUL_STONE_BREAK.get(), () -> SoundEvents.BLOCK_SOUL_SOIL_STEP, () -> SoundEvents.BLOCK_SOUL_SOIL_PLACE, () -> SoundEvents.BLOCK_SOUL_SOIL_HIT, () -> SoundEvents.BLOCK_SOUL_SOIL_FALL);
+    public static final SoundType QUARTZ_GLASS_TYPE = new ForgeSoundType(1.0F, 1.0F, () -> SoundEvents.BLOCK_GLASS_BREAK, () -> SoundEvents.BLOCK_GLASS_STEP, () -> SoundEvents.BLOCK_GLASS_PLACE, () -> QUARTZ_GLASS_HIT.get(), () -> SoundEvents.BLOCK_GLASS_FALL);
 
     public static final RegistryObject<SoundEvent> add(String id) {
 		ResourceLocation realId = new ResourceLocation(InfernalExpansion.MOD_ID, id);
