@@ -32,11 +32,13 @@ import net.minecraft.entity.monster.piglin.AbstractPiglinEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
@@ -281,6 +283,11 @@ public class VolineEntity extends MonsterEntity implements IBucketable {
 			// Super call here so that we can get a reference of the item before the item
 			// instance is deleted
 			super.consumeItem();
+
+            if (itemReference == Items.GOLDEN_APPLE) {
+                entityIn.addPotionEffect(new EffectInstance(Effects.REGENERATION, 100, 1));
+                entityIn.addPotionEffect(new EffectInstance(Effects.ABSORPTION, 2400, 0));
+            }
 
             Map<Item, Integer> eatItem = eatItemsMap.get(itemReference);
 

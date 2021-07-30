@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients":
+  [
+    {
+      "item": "infernalexp:molten_gold_cluster"
+    },
+    {
+      "item": "infernalexp:molten_gold_cluster"
+    },
+    {
+      "item": "infernalexp:molten_gold_cluster"
+    },
+    {
+      "item": "infernalexp:molten_gold_cluster"
+    },
+    {
+      "item": "infernalexp:molten_gold_cluster"
+    },
+    {
+      "item": "infernalexp:molten_gold_cluster"
+    }
+  ],
+  "result":
+  {
+    "item": "minecraft:gold_ingot",
+    "count": 2
+  }
+}
