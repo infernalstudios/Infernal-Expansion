@@ -46,7 +46,7 @@ public class InfectionHeartOverlay {
         int top = mc.getMainWindow().getScaledHeight() - heartOffset;
 
         if (player.getActivePotionEffect(IEEffects.INFECTION.get()) != null) {
-            drawInfectionOverlay( mc, event.getMatrixStack(), left, top);
+            drawInfectionOverlay(mc, event.getMatrixStack(), left, top);
         }
     }
 
@@ -61,15 +61,14 @@ public class InfectionHeartOverlay {
         rand.setSeed(ticks * 312871L);
 
         float absorb = MathHelper.ceil(player.getAbsorptionAmount());
-        boolean highlight = mc.ingameGUI.healthUpdateCounter > (long)ticks && (mc.ingameGUI.healthUpdateCounter - (long)ticks) / 3L %2L == 1L;
+        boolean highlight = mc.ingameGUI.healthUpdateCounter > (long) ticks && (mc.ingameGUI.healthUpdateCounter - (long) ticks) / 3L % 2L == 1L;
 
 
         int healthRows = MathHelper.ceil((player.getMaxHealth() + absorb) / 2.0F / 10.0F);
         int rowHeight = Math.max(10 - (healthRows - 2), 3);
 
         int regen = -1;
-        if (player.isPotionActive(Effects.REGENERATION))
-        {
+        if (player.isPotionActive(Effects.REGENERATION)) {
             regen = ticks % 25;
         }
 
@@ -94,10 +93,12 @@ public class InfectionHeartOverlay {
             mc.ingameGUI.blit(matrixStack, x, y, BACKGROUND, TOP, 9, 9);
 
             if (highlight) {
-                if (i * 2 + 1 < mc.ingameGUI.lastPlayerHealth)
+                if (i * 2 + 1 < mc.ingameGUI.lastPlayerHealth) {
                     mc.ingameGUI.blit(matrixStack, x, y, 54, TOP, 9, 9);
-                else if (i * 2 + 1 == mc.ingameGUI.lastPlayerHealth)
+                }
+                else if (i * 2 + 1 == mc.ingameGUI.lastPlayerHealth) {
                     mc.ingameGUI.blit(matrixStack, x, y, 63, TOP, 9, 9);
+                }
             }
 
             if (absorbRemaining > 0.0F) {
@@ -109,10 +110,12 @@ public class InfectionHeartOverlay {
                     absorbRemaining -= 2.0F;
                 }
             } else {
-                if (i * 2 + 1 < currentHealth)
+                if (i * 2 + 1 < currentHealth) {
                     mc.ingameGUI.blit(matrixStack, x, y, 36, TOP, 9, 9);
-                else if (i * 2 + 1 == currentHealth)
+                }
+                else if (i * 2 + 1 == currentHealth) {
                     mc.ingameGUI.blit(matrixStack, x, y, 45, TOP, 9, 9);
+                }
             }
         }
 
