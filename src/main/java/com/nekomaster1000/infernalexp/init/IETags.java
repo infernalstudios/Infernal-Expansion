@@ -23,6 +23,7 @@ public class IETags {
         public static final ITag.INamedTag<Block> ANGER_LUMINOUS_SHROOMLOIN_BLOCKS = tag("anger_luminous_shroomloin_blocks");
         public static final ITag.INamedTag<Block> ANGER_RED_SHROOMLOIN_BLOCKS = tag("anger_red_shroomloin_blocks");
         public static final ITag.INamedTag<Block> ANGER_BROWN_SHROOMLOIN_BLOCKS = tag("anger_brown_shroomloin_blocks");
+        public static final ITag.INamedTag<Block> EMBODY_FALL_BLOCKS = tag("embody_fall_blocks");
 
         private static ITag.INamedTag<Block> tag(String name) {
             return BlockTags.createOptional(new ResourceLocation(InfernalExpansion.MOD_ID, name));
