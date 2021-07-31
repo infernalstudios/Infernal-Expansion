@@ -39,6 +39,9 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.monster.SkeletonEntity;
+import net.minecraft.entity.monster.ZombieEntity;
+import net.minecraft.entity.monster.ZombifiedPiglinEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -303,6 +306,10 @@ public class MiscEvents {
                 if ((entity.getActivePotionEffect(IEEffects.LUMINOUS.get()).getDuration() & 50) == 0 && entity.getActivePotionEffect(IEEffects.LUMINOUS.get()).doesShowParticles()) {
                     // Use ServerWorld#spawnParticle instead of World#addParticle because this code is running on the server side
                     ((ServerWorld) entity.getEntityWorld()).spawnParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get(), entity.getPosXRandom(entity.getBoundingBox().getXSize()), entity.getPosYRandom(), entity.getPosZRandom(entity.getBoundingBox().getZSize()), 0, 0, 0, 0, 0.2);
+                }
+
+                if ((entity instanceof ZombieEntity && !(entity instanceof ZombifiedPiglinEntity)) || entity instanceof SkeletonEntity) {
+                    entity.setFire(1);
                 }
             }
         }
