@@ -112,7 +112,7 @@ public class MiscEvents {
             output.setDamage(left.getDamage() - 200);
             cost += 4;
 
-            if (StringUtils.isBlank(event.getName())) {
+            if (event.getName().equals("")) {
                 if (left.hasDisplayName()) {
                     cost += 1;
                     output.clearCustomName();
