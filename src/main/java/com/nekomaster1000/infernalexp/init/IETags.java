@@ -19,8 +19,10 @@ package com.nekomaster1000.infernalexp.init;
 import com.nekomaster1000.infernalexp.InfernalExpansion;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 
 public class IETags {
@@ -43,6 +45,15 @@ public class IETags {
 
         private static ITag.INamedTag<Block> tag(String name) {
             return BlockTags.createOptional(new ResourceLocation(InfernalExpansion.MOD_ID, name));
+        }
+    }
+
+    public static class Items {
+
+        public static final ITag.INamedTag<Item> GLOWSILK_REPAIR_BLACKLIST = tag("glowsilk_repair_blacklist");
+
+        private static ITag.INamedTag<Item> tag(String name) {
+            return ItemTags.createOptional(new ResourceLocation(InfernalExpansion.MOD_ID, name));
         }
     }
 }
