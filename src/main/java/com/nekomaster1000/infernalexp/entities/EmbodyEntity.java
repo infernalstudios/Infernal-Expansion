@@ -1,8 +1,25 @@
+/*
+ * Copyright 2021 Infernal Studios
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.nekomaster1000.infernalexp.entities;
 
 import com.nekomaster1000.infernalexp.config.InfernalExpansionConfig;
 import com.nekomaster1000.infernalexp.init.IESoundEvents;
 
+import com.nekomaster1000.infernalexp.init.IETags;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
@@ -74,7 +91,15 @@ public class EmbodyEntity extends MonsterEntity {
 		return ((double) 0.45F + this.rand.nextDouble() * 0.3D + this.rand.nextDouble() * 0.3D + this.rand.nextDouble() * 0.3D) * 0.50D;
 	}
 
-	public boolean isImmuneToFire() {
+    @Override
+    public boolean attackEntityFrom(DamageSource source, float amount) {
+	    if (source.getDamageType().equals("fall") && this.getStateBelow().getBlock().isIn(IETags.Blocks.EMBODY_FALL_BLOCKS)) {
+	        return false;
+        }
+        return super.attackEntityFrom(source, amount);
+    }
+
+    public boolean isImmuneToFire() {
 		return true;
 	}
 
