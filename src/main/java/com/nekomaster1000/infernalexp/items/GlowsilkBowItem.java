@@ -74,10 +74,6 @@ public class GlowsilkBowItem extends BowItem {
 							abstractarrowentity.pickupStatus = AbstractArrowEntity.PickupStatus.CREATIVE_ONLY;
 						}
 
-						if (abstractarrowentity instanceof ArrowEntity) {
-							((ArrowEntity) abstractarrowentity).addEffect(new EffectInstance(IEEffects.LUMINOUS.get(), 3600));
-						}
-
 						((AbstractArrowEntityAccess) abstractarrowentity).setGlow(true);
 
 						worldIn.addEntity(abstractarrowentity);

@@ -24,11 +24,32 @@
             }
           ],
           "name": "infernalexp:glowcoal"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "n": 1,
+                "p": 0.1,
+                "type": "minecraft:binomial"
+              }
+            },
+            {
+              "function": "minecraft:looting_enchant",
+              "count": {
+                "min": 0.0,
+                "max": 1.0
+              }
+            }
+          ],
+          "name": "infernalexp:glownuggets"
         }
       ]
     },
     {
-      "rolls": 1.0,
+      "rolls": 1,
       "bonus_rolls": 0.0,
       "entries": [
         {
@@ -37,16 +58,9 @@
             {
               "function": "minecraft:set_count",
               "count": {
-                "min": 1.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
-              }
-            },
-            {
-              "function": "minecraft:looting_enchant",
-              "count": {
-                "min": 0.0,
-                "max": 1.0
+                "n": 1,
+                "p": 0.25,
+                "type": "minecraft:binomial"
               }
             }
           ],

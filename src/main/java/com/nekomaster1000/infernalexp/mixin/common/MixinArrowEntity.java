@@ -6,6 +6,7 @@ import com.nekomaster1000.infernalexp.init.IEParticleTypes;
 import com.nekomaster1000.infernalexp.init.IEPotions;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
@@ -56,7 +57,7 @@ public abstract class MixinArrowEntity {
 
 	@Inject(at = @At("HEAD"), method = "spawnPotionParticles")
 	private void spawnCustomParticlesInfernalExpansion(int particleCount, CallbackInfo ci) {
-		if (((AbstractArrowEntityAccess) this).getLuminous()) {
+		if (((AbstractArrowEntityAccess) this).getLuminous() || ((AbstractArrowEntityAccess) this).getGlow()) {
 			for(int j = 0; j < particleCount; ++j) {
 				((ArrowEntity) (Object) this).world.addParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get(),
 					((ArrowEntity) (Object) this).getPosXRandom(0.5D), ((ArrowEntity) (Object) this).getPosYRandom(),
@@ -74,8 +75,12 @@ public abstract class MixinArrowEntity {
 
 	@Inject(at = @At("RETURN"), method = "arrowHit")
     private void onArrowHitInfernalExpansion(LivingEntity living, CallbackInfo ci) {
-	    if (((AbstractArrowEntityAccess) this).getLuminous()) {
+	    if (((AbstractArrowEntityAccess) this).getGlow()) {
 	        living.addPotionEffect(new EffectInstance(IEEffects.LUMINOUS.get(), 3600));
+        }
+
+	    if (((AbstractArrowEntityAccess) this).getInfectedSource()) {
+	        living.addPotionEffect(new EffectInstance(IEEffects.INFECTION.get(), 600));
         }
     }
 }
