@@ -38,6 +38,11 @@ public class CommonConfig {
     final ForgeConfigSpec.BooleanValue volineAttackPlayer;
     final ForgeConfigSpec.BooleanValue volineAttackMagmaCube;
     final ForgeConfigSpec.DoubleValue glowsilkSpeed;
+    final ForgeConfigSpec.BooleanValue crimsonShroomloinTriggered;
+    final ForgeConfigSpec.BooleanValue warpedShroomloinTriggered;
+    final ForgeConfigSpec.BooleanValue luminousShroomloinTriggered;
+    final ForgeConfigSpec.BooleanValue redShroomloinTriggered;
+    final ForgeConfigSpec.BooleanValue brownShroomloinTriggered;
 
     //Mob Spawnable Biomes
     final ForgeConfigSpec.ConfigValue<String> volineBiomes;
@@ -236,6 +241,31 @@ public class CommonConfig {
             .comment("Determines the speed at which Glowsilk Moths fly")
             .translation(InfernalExpansion.MOD_ID + ".config.tooltip.glowsilkSpeed")
             .defineInRange("glowsilkSpeed", 1.3D, 0.0D, Double.MAX_VALUE);
+
+        crimsonShroomloinTriggered = builder
+            .comment("Determines if Crimson Shroomloin will attack players when they break Crimson related objects")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.crimsonShroomloinTriggered")
+            .define("crimsonShroomloinTriggered", true);
+
+        warpedShroomloinTriggered = builder
+            .comment("Determines if Warped Shroomloin will attack players when they break Warped related objects")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.warpedShroomloinTriggered")
+            .define("warpedShroomloinTriggered", true);
+
+        luminousShroomloinTriggered = builder
+            .comment("Determines if Luminous Shroomloin will attack players when they break Luminous related objects")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.luminousShroomloinTriggered")
+            .define("luminousShroomloinTriggered", true);
+
+        redShroomloinTriggered = builder
+            .comment("Determines if Red Shroomloin will attack players when they break Red Mushroom related objects")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.redShroomloinTriggered")
+            .define("redShroomloinTriggered", true);
+
+        brownShroomloinTriggered = builder
+            .comment("Determines if Brown Shroomloin will attack players when they break Brown Mushroom related objects")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.brownShroomloinTriggered")
+            .define("brownShroomloinTriggered", true);
 
         builder.pop();
 

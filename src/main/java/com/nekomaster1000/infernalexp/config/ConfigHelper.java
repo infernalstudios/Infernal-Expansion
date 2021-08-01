@@ -53,6 +53,11 @@ public final class ConfigHelper {
         MobInteractions.VOLINE_ATTACK_MAGMA_CUBE.setBoolean(ConfigHolder.COMMON.volineAttackMagmaCube.get());
         MobInteractions.USE_HOGCHOPS.setBoolean(ConfigHolder.COMMON.useHogchops.get());
         MobInteractions.GLOWSILK_SPEED.setDouble(ConfigHolder.COMMON.glowsilkSpeed.get());
+        MobInteractions.CRIMSON_TRIGGER.setBoolean(ConfigHolder.COMMON.crimsonShroomloinTriggered.get());
+        MobInteractions.WARPED_TRIGGER.setBoolean(ConfigHolder.COMMON.warpedShroomloinTriggered.get());
+        MobInteractions.LUMINOUS_TRIGGER.setBoolean(ConfigHolder.COMMON.luminousShroomloinTriggered.get());
+        MobInteractions.RED_TRIGGER.setBoolean(ConfigHolder.COMMON.redShroomloinTriggered.get());
+        MobInteractions.BROWN_TRIGGER.setBoolean(ConfigHolder.COMMON.brownShroomloinTriggered.get());
 
         //Mob Spawnable Biomes
         MobSpawning.VOLINE.setSpawnableBiomes(ConfigHolder.COMMON.volineBiomes.get());
@@ -122,6 +127,11 @@ public final class ConfigHelper {
         ConfigHolder.COMMON.volineAttackMagmaCube.set(MobInteractions.VOLINE_ATTACK_MAGMA_CUBE.getBoolean());
         ConfigHolder.COMMON.useHogchops.set(MobInteractions.USE_HOGCHOPS.getBoolean());
         ConfigHolder.COMMON.glowsilkSpeed.set(MobInteractions.GLOWSILK_SPEED.getDouble());
+        ConfigHolder.COMMON.crimsonShroomloinTriggered.set(MobInteractions.CRIMSON_TRIGGER.getBoolean());
+        ConfigHolder.COMMON.warpedShroomloinTriggered.set(MobInteractions.WARPED_TRIGGER.getBoolean());
+        ConfigHolder.COMMON.luminousShroomloinTriggered.set(MobInteractions.LUMINOUS_TRIGGER.getBoolean());
+        ConfigHolder.COMMON.redShroomloinTriggered.set(MobInteractions.RED_TRIGGER.getBoolean());
+        ConfigHolder.COMMON.brownShroomloinTriggered.set(MobInteractions.BROWN_TRIGGER.getBoolean());
 
         //Mob Spawnable Biomes
         ConfigHolder.COMMON.volineBiomes.set(MobSpawning.VOLINE.getSpawnableBiomes());

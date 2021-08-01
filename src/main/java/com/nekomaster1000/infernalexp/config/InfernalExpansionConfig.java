@@ -101,7 +101,12 @@ public final class InfernalExpansionConfig {
         VOLINE_ATTACK_PLAYER("volineAttackPlayer", false),
         VOLINE_ATTACK_MAGMA_CUBE("volineAttackMagmaCube", false),
         USE_HOGCHOPS("useHogchops", false),
-        GLOWSILK_SPEED("glowsilkSpeed", true);
+        GLOWSILK_SPEED("glowsilkSpeed", true),
+        CRIMSON_TRIGGER("crimsonTrigger", true),
+        WARPED_TRIGGER("warpedTrigger", true),
+        LUMINOUS_TRIGGER("luminousTrigger", true),
+        RED_TRIGGER("redTrigger", true),
+        BROWN_TRIGGER("brownTrigger", true);
 
         private final String translationName;
 		private final boolean isSlider;
