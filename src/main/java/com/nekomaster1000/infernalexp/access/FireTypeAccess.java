@@ -47,11 +47,19 @@ public interface FireTypeAccess {
 	RenderMaterial LOCATION_ENDER_FIRE_0 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("endergetic", "block/ender_fire_0"));
 	RenderMaterial LOCATION_ENDER_FIRE_1 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("endergetic", "block/ender_fire_1"));
 
+	RenderMaterial LOCATION_BORIC_FIRE_0 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("byg", "block/boric_fire_0"));
+    RenderMaterial LOCATION_BORIC_FIRE_1 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("byg", "block/boric_fire_1"));
+
+    RenderMaterial LOCATION_CRYPTIC_FIRE_0 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("byg", "block/cryptic_fire_0"));
+    RenderMaterial LOCATION_CRYPTIC_FIRE_1 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("byg", "block/cryptic_fire_1"));
+
 	public static enum KnownFireTypes {
 		FIRE("fire", () -> new ClientFireType(ModelBakery.LOCATION_FIRE_0, ModelBakery.LOCATION_FIRE_1)),
 		SOUL_FIRE("soul_fire", () -> new ClientFireType(LOCATION_SOUL_FIRE_0, LOCATION_SOUL_FIRE_1)),
 		GLOW_FIRE("glow_fire", () -> new ClientFireType(LOCATION_GLOW_FIRE_0, LOCATION_GLOW_FIRE_1)),
-		ENDER_FIRE("ender_fire", () -> new ClientFireType(LOCATION_ENDER_FIRE_0, LOCATION_ENDER_FIRE_1));
+		ENDER_FIRE("ender_fire", () -> new ClientFireType(LOCATION_ENDER_FIRE_0, LOCATION_ENDER_FIRE_1)),
+		BORIC_FIRE("boric_fire", () -> new ClientFireType(LOCATION_BORIC_FIRE_0, LOCATION_BORIC_FIRE_1)),
+        CRYPTIC_FIRE("cryptic_fire", () -> new ClientFireType(LOCATION_CRYPTIC_FIRE_0, LOCATION_CRYPTIC_FIRE_1));
 
 		public static final KnownFireTypes[] VALUES = values();
 		public static final Map<String, KnownFireTypes> NAME_LOOKUP = Arrays.stream(VALUES).collect(Collectors.toMap(KnownFireTypes::getName, (fireType) -> fireType));
