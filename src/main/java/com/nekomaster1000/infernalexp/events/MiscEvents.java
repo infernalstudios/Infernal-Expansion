@@ -87,43 +87,29 @@ public class MiscEvents {
             if (entity instanceof ShroomloinEntity) {
                 ShroomloinEntity shroomloinEntity = (ShroomloinEntity) entity;
 
-                if (InfernalExpansionConfig.MobInteractions.CRIMSON_TRIGGER.getBoolean()) {
-                    if (((ShroomloinEntity) entity).getFungusType() == 0) {
-                        if (state.getBlock().isIn(IETags.Blocks.ANGER_CRIMSON_SHROOMLOIN_BLOCKS)) {
-                            shroomloinEntity.becomeAngryAt(event.getPlayer());
-                        }
+                if (((ShroomloinEntity) entity).getFungusType() == 0) {
+                    if (state.getBlock().isIn(IETags.Blocks.ANGER_CRIMSON_SHROOMLOIN_BLOCKS)) {
+                        shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
-
-                if (InfernalExpansionConfig.MobInteractions.WARPED_TRIGGER.getBoolean()) {
-                    if (((ShroomloinEntity) entity).getFungusType() == 1) {
-                        if (state.getBlock().isIn(IETags.Blocks.ANGER_WARPED_SHROOMLOIN_BLOCKS)) {
-                            shroomloinEntity.becomeAngryAt(event.getPlayer());
-                        }
+                if (((ShroomloinEntity) entity).getFungusType() == 1) {
+                    if (state.getBlock().isIn(IETags.Blocks.ANGER_WARPED_SHROOMLOIN_BLOCKS)) {
+                        shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
-
-                if (InfernalExpansionConfig.MobInteractions.LUMINOUS_TRIGGER.getBoolean()) {
-                    if (((ShroomloinEntity) entity).getFungusType() == 2) {
-                        if (state.getBlock().isIn(IETags.Blocks.ANGER_LUMINOUS_SHROOMLOIN_BLOCKS)) {
-                            shroomloinEntity.becomeAngryAt(event.getPlayer());
-                        }
+                if (((ShroomloinEntity) entity).getFungusType() == 2) {
+                    if (state.getBlock().isIn(IETags.Blocks.ANGER_LUMINOUS_SHROOMLOIN_BLOCKS)) {
+                        shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
-
-                if (InfernalExpansionConfig.MobInteractions.RED_TRIGGER.getBoolean()) {
-                    if (((ShroomloinEntity) entity).getFungusType() == 3) {
-                        if (state.getBlock().isIn(IETags.Blocks.ANGER_RED_SHROOMLOIN_BLOCKS)) {
-                            shroomloinEntity.becomeAngryAt(event.getPlayer());
-                        }
+                if (((ShroomloinEntity) entity).getFungusType() == 3) {
+                    if (state.getBlock().isIn(IETags.Blocks.ANGER_RED_SHROOMLOIN_BLOCKS)) {
+                        shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
-
-                if (InfernalExpansionConfig.MobInteractions.BROWN_TRIGGER.getBoolean()) {
-                    if (((ShroomloinEntity) entity).getFungusType() == 4) {
-                        if (state.getBlock().isIn(IETags.Blocks.ANGER_BROWN_SHROOMLOIN_BLOCKS)) {
-                            shroomloinEntity.becomeAngryAt(event.getPlayer());
-                        }
+                if (((ShroomloinEntity) entity).getFungusType() == 4) {
+                    if (state.getBlock().isIn(IETags.Blocks.ANGER_BROWN_SHROOMLOIN_BLOCKS)) {
+                        shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
             }
@@ -203,8 +189,8 @@ public class MiscEvents {
             if (!world.isRemote) {
                 ThrowableMagmaCreamEntity throwableMagmaCreamEntity = new ThrowableMagmaCreamEntity(world, player);
                 throwableMagmaCreamEntity.setItem(heldItemStack);
-				throwableMagmaCreamEntity.setDirectionAndMovement(player, player.rotationPitch, player.rotationYaw, -20, 0.5f, 1);
-				world.addEntity(throwableMagmaCreamEntity);
+                throwableMagmaCreamEntity.setDirectionAndMovement(player, player.rotationPitch, player.rotationYaw, -20, 0.5f, 1);
+                world.addEntity(throwableMagmaCreamEntity);
                 world.playSound(null, event.getPos(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.BLOCKS, 1.0F, 1.0F);
             }
 
@@ -227,7 +213,9 @@ public class MiscEvents {
             if (!player.abilities.isCreativeMode) {
                 heldItemStack.shrink(1);
             }
-        } else if (heldItemStack.getItem() == Items.BRICK) {
+        }
+        if (InfernalExpansionConfig.MobInteractions.USE_THROWABLE_BRICKS.getBoolean()) {
+            if (heldItemStack.getItem() == Items.BRICK) {
             player.swingArm(event.getHand());
 
             if (!world.isRemote) {
@@ -243,7 +231,8 @@ public class MiscEvents {
             if (!player.abilities.isCreativeMode) {
                 heldItemStack.shrink(1);
             }
-        } else if (heldItemStack.getItem() == Items.NETHER_BRICK) {
+        }
+            if (heldItemStack.getItem() == Items.NETHER_BRICK) {
             player.swingArm(event.getHand());
 
             if (!world.isRemote) {
@@ -257,7 +246,8 @@ public class MiscEvents {
             player.addStat(Stats.ITEM_USED.get(heldItemStack.getItem()));
 
             if (!player.abilities.isCreativeMode) {
-                heldItemStack.shrink(1);
+                    heldItemStack.shrink(1);
+                }
             }
         }
     }
