@@ -58,7 +58,7 @@ public class BastionOutpostStructure extends IEStructure<NoFeatureConfig> {
 
 	@Override
 	public StructureSeparationSettings getSeparationSettings() {
-		return new StructureSeparationSettings(2, 1, 720435943);
+		return new StructureSeparationSettings(3, 1, 720435943);
 	}
 
 	@Override
