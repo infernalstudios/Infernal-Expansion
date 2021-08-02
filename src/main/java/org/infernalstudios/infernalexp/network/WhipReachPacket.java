@@ -16,6 +16,7 @@
 
 package org.infernalstudios.infernalexp.network;
 
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -60,7 +61,7 @@ public class WhipReachPacket {
                 ServerPlayerEntity player = playerEntity.getServer().getPlayerList().getPlayerByUUID(message.playerUUID);
                 Entity target = playerEntity.getEntityWorld().getEntityByID(message.targetEntityID);
 
-                double reach = player.getAttribute(ForgeMod.REACH_DISTANCE.get()).getValue() + 1.0D;
+                double reach = player.getAttributeValue(ForgeMod.REACH_DISTANCE.get()) + 1.0D;
 
                 if (player != null && target != null) {
                     if (player.getDistanceSq(target) < (reach * reach) * player.getCooledAttackStrength(0.0F)) {
@@ -68,7 +69,7 @@ public class WhipReachPacket {
                         player.getEntityWorld().playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F));
 
                         // Change the first float value to change the amount of knockback on hit
-                        ((LivingEntity) target).applyKnockback(1.0F, MathHelper.sin(player.rotationYaw * ((float) Math.PI / 180F)), -MathHelper.cos(player.rotationYaw * ((float) Math.PI / 180F)));
+                        ((LivingEntity) target).applyKnockback(EnchantmentHelper.getKnockbackModifier(player) * 0.5F, MathHelper.sin(player.rotationYaw * ((float) Math.PI / 180F)), -MathHelper.cos(player.rotationYaw * ((float) Math.PI / 180F)));
                     }
                 }
             }
