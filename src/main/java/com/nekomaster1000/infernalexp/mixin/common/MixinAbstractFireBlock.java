@@ -21,6 +21,7 @@ import com.nekomaster1000.infernalexp.access.FireTypeAccess.KnownFireTypes;
 import com.nekomaster1000.infernalexp.blocks.GlowFireBlock;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 
+import com.nekomaster1000.infernalexp.util.DataUtil;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.AbstractFireBlock;
 import net.minecraft.block.Block;
@@ -65,11 +66,19 @@ public abstract class MixinAbstractFireBlock extends Block {
 			access.setFireType(KnownFireTypes.FIRE);
 		}
 
-		if (ModList.get().isLoaded("endergetic")) {
+		if (DataUtil.isLoaded("endergetic")) {
 			if (state.getBlock().getRegistryName().equals(new ResourceLocation("endergetic", "ender_fire")) && state.getBlock() instanceof AbstractFireBlock) {
 				access.setFireType(KnownFireTypes.ENDER_FIRE);
 			}
 		}
+
+		if (DataUtil.isLoaded("byg")) {
+		    if (state.getBlock().getRegistryName().equals(new ResourceLocation("byg", "boric_fire")) && state.getBlock() instanceof AbstractFireBlock) {
+		        access.setFireType(KnownFireTypes.BORIC_FIRE);
+            } else if (state.getBlock().getRegistryName().equals(new ResourceLocation("byg", "cryptic_fire")) && state.getBlock() instanceof AbstractFireBlock) {
+		        access.setFireType(KnownFireTypes.CRYPTIC_FIRE);
+            }
+        }
 
 	}
 }

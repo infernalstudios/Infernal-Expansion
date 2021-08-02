@@ -10,90 +10,38 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "weight": 4,
+          "weight": 7,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
-                "min": 1.0,
-                "max": 12.0,
+                "min": 4.0,
+                "max": 22.0,
                 "type": "minecraft:uniform"
               }
             }
           ],
-          "name": "infernalexp:silt"
+          "name": "minecraft:iron_ingot"
         },
-        {
-          "type": "minecraft:item",
-          "weight": 7,
-          "name": "minecraft:basalt"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 7,
-          "name": "infernalexp:basalt_wall"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 7,
-          "name": "infernalexp:basalt_stairs"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 7,
-          "name": "infernalexp:basalt_slab"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 7,
-          "name": "infernalexp:polished_basalt_pressure_plate"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 6,
-          "name": "infernalexp:polished_basalt_tiles_slab"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 6,
-          "name": "infernalexp:basalt_bricks"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 6,
-          "name": "infernalexp:cracked_basalt_bricks"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 5,
-          "name": "infernalexp:chiseled_basalt_bricks"
-        },
-
         {
           "type": "minecraft:item",
           "weight": 4,
-          "name": "infernalexp:basalt_iron_ore"
+"functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 3.0,
+                "max": 10.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ],
+          "name": "minecraft:gold_ingot"
         },
         {
           "type": "minecraft:item",
           "weight": 3,
-          "name": "infernalexp:basaltic_magma"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 1,
-          "name": "infernalexp:magmatic_chiseled_basalt_bricks"
-        },
-
-        {
-          "type": "minecraft:item",
-          "weight": 6,
-          "name": "minecraft:bowl"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 4,
-          "functions": [
+"functions": [
             {
               "function": "minecraft:set_count",
               "count": {
@@ -103,216 +51,43 @@
               }
             }
           ],
-          "name": "infernalexp:glowcoal"
+          "name": "infernalexp:molten_gold_cluster"
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
-          "functions": [
+          "weight": 7,
+"functions": [
             {
               "function": "minecraft:set_count",
               "count": {
-                "min": 1.0,
-                "max": 4.0,
+                "min": 2.0,
+                "max": 5.0,
                 "type": "minecraft:uniform"
               }
             }
           ],
-          "name": "minecraft:porkchop"
+          "name": "minecraft:chain"
         },
         {
           "type": "minecraft:item",
-          "weight": 4,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 4.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:warped_fungus"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 3.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "infernalexp:luminous_fungus"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 2.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "infernalexp:luminous_fungus_cap"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 5,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 3.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
+          "weight": 7,
           "name": "infernalexp:strider_bucket"
         },
+
         {
           "type": "minecraft:item",
-          "weight": 1,
-          "functions": [
+          "weight": 4,
+"functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "min": 1.0,
-                "max": 2.0,
+                "max": 6.0,
                 "type": "minecraft:uniform"
               }
             }
           ],
-          "name": "infernalexp:blindsight_tongue"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "infernalexp:blindsight_tongue_stew"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "min": 0.3,
-                "max": 0.6
-              }
-            },
-            {
-              "function": "minecraft:enchant_randomly"
-            }
-          ],
-          "name": "infernalexp:blindsight_tongue_whip"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "min": 0.3,
-                "max": 1.0
-              }
-            },
-            {
-              "function": "minecraft:enchant_randomly"
-            }
-          ],
-          "name": "minecraft:golden_axe"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 1,
-          "name": "minecraft:damaged_anvil"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 3,
-          "name": "infernalexp:shroomlight_fungus"
-        },
-
-        {
-          "type": "minecraft:item",
-          "weight": 1,
-          "name": "infernalexp:ascus_bomb"
-        },
-
-        {
-          "type": "minecraft:item",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 5.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "infernalexp:glownuggets"
-        },
-
-        {
-          "type": "minecraft:item",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 4.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "infernalexp:dullthorns"
-        },
-
-        {
-          "type": "minecraft:item",
-          "weight": 1,
-          "name": "infernalexp:music_disc_soul_spunk"
-        },
-
-        {
-          "type": "minecraft:item",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 3.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "infernalexp:moth_dust"
+          "name": "minecraft:bone"
         }
       ]
     }

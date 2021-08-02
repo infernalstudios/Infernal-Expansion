@@ -47,7 +47,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.UseAction;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.state.properties.AttachFace;
@@ -57,10 +56,12 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.AddReloadListenerEvent;
+import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
@@ -91,6 +92,37 @@ public class MiscEvents {
             ConfigHelper.bakeClient(config);
         } else if (config.getSpec() == ConfigHolder.COMMON_SPEC) {
             ConfigHelper.bakeCommon(config);
+        }
+    }
+
+    @SubscribeEvent
+    public void onAnvilUpdate(AnvilUpdateEvent event) {
+        ItemStack left = event.getLeft();
+        ItemStack right = event.getRight();
+        int cost = event.getCost();
+
+        if (left.isDamageable() && right.getItem() == IEItems.GLOWSILK.get() && !left.getItem().isIn(IETags.Items.GLOWSILK_REPAIR_BLACKLIST)) {
+            if (left.getDamage() == 0) {
+                return;
+            }
+
+            ItemStack output = left.copy();
+            output.setDamage(left.getDamage() - 200);
+            cost += 4;
+
+            if (event.getName().equals("")) {
+                if (left.hasDisplayName()) {
+                    cost += 1;
+                    output.clearCustomName();
+                }
+            } else if (!left.getDisplayName().getString().equals(event.getName())) {
+                cost += 1;
+                output.setDisplayName(new StringTextComponent(event.getName()));
+            }
+
+            event.setMaterialCost(1);
+            event.setCost(cost);
+            event.setOutput(output);
         }
     }
 
