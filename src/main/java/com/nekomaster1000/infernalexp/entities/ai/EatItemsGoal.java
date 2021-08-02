@@ -44,7 +44,7 @@ public class EatItemsGoal<T extends MobEntity> extends Goal {
     protected final double range;
     protected final PathNavigator navigation;
 
-    public EatItemsGoal(T entityIn, Set<Item> itemsToEat, double range, double speedIn){
+    public EatItemsGoal(T entityIn, Set<Item> itemsToEat, double range, double speedIn) {
         this.entityIn = entityIn;
         this.eatItems = itemsToEat;
         this.range = range;
@@ -60,7 +60,7 @@ public class EatItemsGoal<T extends MobEntity> extends Goal {
             for (ItemEntity item : list) {
                 if (eatItems.contains(item.getItem().getItem())) {
                     this.path = this.navigation.getPathToPos(item.getPosition(), 0);
-					this.itemInstance = item;
+                    this.itemInstance = item;
                     return path != null;
                 }
             }

@@ -32,33 +32,33 @@ import net.minecraft.nbt.CompoundNBT;
 @Mixin(Entity.class)
 public abstract class MixinEntity implements FireTypeAccess {
 
-	@Unique
-	private KnownFireTypes fireType = KnownFireTypes.FIRE;
+    @Unique
+    private KnownFireTypes fireType = KnownFireTypes.FIRE;
 
-	@Inject(method = "writeWithoutTypeId", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundNBT;putShort(Ljava/lang/String;S)V", ordinal = 0, shift = Shift.AFTER))
-	private void IE_writeCustomFires(CompoundNBT tag, CallbackInfoReturnable<CompoundNBT> ci) {
-		tag.putString("fireType", fireType.getName());
-	}
+    @Inject(method = "writeWithoutTypeId", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundNBT;putShort(Ljava/lang/String;S)V", ordinal = 0, shift = Shift.AFTER))
+    private void IE_writeCustomFires(CompoundNBT tag, CallbackInfoReturnable<CompoundNBT> ci) {
+        tag.putString("fireType", fireType.getName());
+    }
 
-	@Inject(method = "read", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundNBT;getShort(Ljava/lang/String;)S", ordinal = 0, shift = Shift.AFTER))
-	private void IE_readCustomFires(CompoundNBT tag, CallbackInfo ci) {
-		fireType = KnownFireTypes.byName(tag.getString("fireType"));
-	}
+    @Inject(method = "read", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundNBT;getShort(Ljava/lang/String;)S", ordinal = 0, shift = Shift.AFTER))
+    private void IE_readCustomFires(CompoundNBT tag, CallbackInfo ci) {
+        fireType = KnownFireTypes.byName(tag.getString("fireType"));
+    }
 
-	@Inject(method = "setOnFireFromLava", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setFire(I)V", shift = Shift.BEFORE))
+    @Inject(method = "setOnFireFromLava", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setFire(I)V", shift = Shift.BEFORE))
     private void IE_setCustomFireFromLava(CallbackInfo ci) {
         FireTypeAccess access = ((FireTypeAccess) ((Entity) (Object) this));
         access.setFireType(KnownFireTypes.FIRE);
     }
 
-	@Override
-	public KnownFireTypes getFireType() {
-		return fireType;
-	}
+    @Override
+    public KnownFireTypes getFireType() {
+        return fireType;
+    }
 
-	@Override
-	public void setFireType(KnownFireTypes type) {
-		fireType = type;
-	}
+    @Override
+    public void setFireType(KnownFireTypes type) {
+        fireType = type;
+    }
 
 }

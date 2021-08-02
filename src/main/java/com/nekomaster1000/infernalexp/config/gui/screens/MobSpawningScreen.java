@@ -30,12 +30,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class MobSpawningScreen extends IESettingsScreen {
 
-	public MobSpawningScreen(Screen parentScreen) {
+    public MobSpawningScreen(Screen parentScreen) {
         super(parentScreen, new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.title.mob_spawning"));
     }
 
-	@Override
-	public void addSettings() {
+    @Override
+    public void addSettings() {
         optionsRowList.addOption(new TitleOption(InfernalExpansion.MOD_ID + ".config.subtitle.spawnable_biomes"));
 
         for (InfernalExpansionConfig.MobSpawning mobSpawn : InfernalExpansionConfig.MobSpawning.values()) {

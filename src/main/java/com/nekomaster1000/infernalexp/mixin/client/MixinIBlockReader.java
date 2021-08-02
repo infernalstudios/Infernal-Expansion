@@ -29,15 +29,15 @@ import net.minecraft.world.IBlockReader;
 @Mixin(value = IBlockReader.class, priority = 200)
 public interface MixinIBlockReader {
 
-	@Overwrite
-	default int getLightValue(BlockPos pos) {
-		if (DynamicLightingHandler.LIGHT_SOURCES.containsKey(pos) && DynamicLightingHandler.LIGHT_SOURCES.get(pos).shouldKeep) {
-			return 10;
-		}
-		return this.getBlockState(pos).getLightValue((IBlockReader) this, pos);
-	}
+    @Overwrite
+    default int getLightValue(BlockPos pos) {
+        if (DynamicLightingHandler.LIGHT_SOURCES.containsKey(pos) && DynamicLightingHandler.LIGHT_SOURCES.get(pos).shouldKeep) {
+            return 10;
+        }
+        return this.getBlockState(pos).getLightValue((IBlockReader) this, pos);
+    }
 
-	@Shadow
-	BlockState getBlockState(BlockPos pos);
+    @Shadow
+    BlockState getBlockState(BlockPos pos);
 
 }

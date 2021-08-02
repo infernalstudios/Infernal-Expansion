@@ -36,27 +36,27 @@ import net.minecraftforge.fml.ModList;
 @Mixin(ModelBakery.class)
 public class MixinModelBakery {
 
-	@Shadow
-	@Final
-	protected static Set<RenderMaterial> LOCATIONS_BUILTIN_TEXTURES;
+    @Shadow
+    @Final
+    protected static Set<RenderMaterial> LOCATIONS_BUILTIN_TEXTURES;
 
-	static {
-		LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_SOUL_FIRE_0);
-		LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_SOUL_FIRE_1);
-		LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_GLOW_FIRE_0);
-		LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_GLOW_FIRE_1);
+    static {
+        LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_SOUL_FIRE_0);
+        LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_SOUL_FIRE_1);
+        LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_GLOW_FIRE_0);
+        LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_GLOW_FIRE_1);
 
-		if (DataUtil.isLoaded("endergetic")) {
-			LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_ENDER_FIRE_0);
-			LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_ENDER_FIRE_1);
-		}
+        if (DataUtil.isLoaded("endergetic")) {
+            LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_ENDER_FIRE_0);
+            LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_ENDER_FIRE_1);
+        }
 
-		if (DataUtil.isLoaded("byg")) {
+        if (DataUtil.isLoaded("byg")) {
             LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_BORIC_FIRE_0);
             LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_BORIC_FIRE_1);
             LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_CRYPTIC_FIRE_0);
             LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_CRYPTIC_FIRE_1);
         }
-	}
+    }
 
 }

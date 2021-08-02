@@ -49,10 +49,10 @@ public class ModNetherBiomeProvider extends BiomeProvider {
 
     public static final Codec<ModNetherBiomeProvider> MOD_NETHER_CODEC =
         RecordCodecBuilder.create((instance) -> instance.group(
-            Codec.LONG.fieldOf("seed").orElseGet(WorldSeedHolder::getSeed).forGetter((biomeSource) -> biomeSource.seed),
-            RegistryLookupCodec.getLookUpCodec(Registry.BIOME_KEY).forGetter((biomeProvider) -> biomeProvider.biomeRegistry),
-            Codec.intRange(1, 20).fieldOf("biome_size").orElse(1).forGetter((biomeSource) -> biomeSource.biomeSize))
-                        .apply(instance, ModNetherBiomeProvider::new) );
+                Codec.LONG.fieldOf("seed").orElseGet(WorldSeedHolder::getSeed).forGetter((biomeSource) -> biomeSource.seed),
+                RegistryLookupCodec.getLookUpCodec(Registry.BIOME_KEY).forGetter((biomeProvider) -> biomeProvider.biomeRegistry),
+                Codec.intRange(1, 20).fieldOf("biome_size").orElse(1).forGetter((biomeSource) -> biomeSource.biomeSize))
+            .apply(instance, ModNetherBiomeProvider::new));
 
     public final long seed;
     private final int biomeSize;
@@ -60,7 +60,7 @@ public class ModNetherBiomeProvider extends BiomeProvider {
     protected final Registry<Biome> biomeRegistry;
 
     public ModNetherBiomeProvider(long seed, Registry<Biome> biomeRegistry, int size) {
-        super(ModNetherBiomeCollector.netherBiomeCollection(biomeRegistry).stream().map((registryKey) -> () -> (Biome)biomeRegistry.getValueForKey(registryKey)));
+        super(ModNetherBiomeCollector.netherBiomeCollection(biomeRegistry).stream().map((registryKey) -> () -> (Biome) biomeRegistry.getValueForKey(registryKey)));
 
         this.seed = seed;
         this.biomeLayer = buildWorldProcedure(seed, size, biomeRegistry);

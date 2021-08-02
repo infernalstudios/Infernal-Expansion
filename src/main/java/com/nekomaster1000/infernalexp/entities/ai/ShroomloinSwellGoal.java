@@ -23,7 +23,7 @@ import com.nekomaster1000.infernalexp.entities.ShroomloinEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 
-public class ShroomloinSwellGoal extends Goal{
+public class ShroomloinSwellGoal extends Goal {
     private final ShroomloinEntity swellingShroomloin;
     private LivingEntity shroomloinAttackTarget;
 

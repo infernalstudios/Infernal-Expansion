@@ -108,7 +108,7 @@ public interface IBucketable {
             entity.copyToStack(bucketItem);
             World world = entity.world;
             if (!world.isRemote) {
-                CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayerEntity)player, bucketItem);
+                CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayerEntity) player, bucketItem);
             }
 
             if (heldItem.isEmpty()) {

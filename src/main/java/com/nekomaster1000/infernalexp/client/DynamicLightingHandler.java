@@ -48,7 +48,7 @@ public class DynamicLightingHandler {
                         data.shouldKeep = false;
                     }
                     if (data.time == 20 * data.amplifier || !data.shouldKeep) {
-                        MinecraftInstance.world.getChunkProvider().getLightManager().checkBlock(pos);                        
+                        MinecraftInstance.world.getChunkProvider().getLightManager().checkBlock(pos);
                     }
                     data.time -= (int) InfernalExpansionConfig.ClientConfig.LUMINOUS_REFRESH_DELAY.getDouble();
                 });
@@ -58,12 +58,12 @@ public class DynamicLightingHandler {
     }
 
     public static void tick(AbstractArrowEntity entity) {
-		if (entity != null && MinecraftInstance.player != null && MinecraftInstance.player.ticksExisted % (int) InfernalExpansionConfig.ClientConfig.LUMINOUS_REFRESH_DELAY.getDouble() == 0) {
-			if (shouldGlow(entity)) {
-				LIGHT_SOURCES.put(entity.getPosition(), new LightData(0.5));
-			}
-		}
-	}
+        if (entity != null && MinecraftInstance.player != null && MinecraftInstance.player.ticksExisted % (int) InfernalExpansionConfig.ClientConfig.LUMINOUS_REFRESH_DELAY.getDouble() == 0) {
+            if (shouldGlow(entity)) {
+                LIGHT_SOURCES.put(entity.getPosition(), new LightData(0.5));
+            }
+        }
+    }
 
     public static int getTimeAmplifier(LivingEntity entity) {
         EffectInstance luminousEffect = entity.getActivePotionEffect(IEEffects.LUMINOUS.get());
@@ -74,13 +74,13 @@ public class DynamicLightingHandler {
     }
 
     public static boolean shouldGlow(AbstractArrowEntity entity) {
-    	return ((AbstractArrowEntityAccess) entity).getGlow();
-	}
+        return ((AbstractArrowEntityAccess) entity).getGlow();
+    }
 
-    public static boolean shouldGlow(LivingEntity entity) {       
+    public static boolean shouldGlow(LivingEntity entity) {
         return entity.isPotionActive(IEEffects.LUMINOUS.get());
     }
-    
+
     public static class LightData {
         public boolean shouldKeep = true;
         public double time;

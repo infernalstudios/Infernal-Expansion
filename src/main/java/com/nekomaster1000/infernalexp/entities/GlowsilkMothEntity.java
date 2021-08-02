@@ -48,7 +48,7 @@ public class GlowsilkMothEntity extends AmbientEntity {
     //ATTRIBUTES
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return MobEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.MAX_HEALTH, 6.0D);
+            .createMutableAttribute(Attributes.MAX_HEALTH, 6.0D);
     }
 
     /**
@@ -89,25 +89,25 @@ public class GlowsilkMothEntity extends AmbientEntity {
     protected void updateAITasks() {
         super.updateAITasks();
         if (this.spawnPosition != null && (!this.world.isAirBlock(this.spawnPosition) || this.spawnPosition.getY() < 1)) {
-                this.spawnPosition = null;
+            this.spawnPosition = null;
         }
 
         if (this.spawnPosition == null || this.rand.nextInt(30) == 0 || this.spawnPosition.withinDistance(this.getPositionVec(), 2.0D)) {
-                this.spawnPosition = new BlockPos(this.getPosX() + (double)this.rand.nextInt(7) - (double)this.rand.nextInt(7), this.getPosY() + (double)this.rand.nextInt(6) - (double)this.rand.nextInt(2), this.getPosZ() + (double)this.rand.nextInt(7) - (double)this.rand.nextInt(7));
+            this.spawnPosition = new BlockPos(this.getPosX() + (double) this.rand.nextInt(7) - (double) this.rand.nextInt(7), this.getPosY() + (double) this.rand.nextInt(6) - (double) this.rand.nextInt(2), this.getPosZ() + (double) this.rand.nextInt(7) - (double) this.rand.nextInt(7));
         }
 
-        	double speed = InfernalExpansionConfig.MobInteractions.GLOWSILK_SPEED.getDouble() * 0.1;
+        double speed = InfernalExpansionConfig.MobInteractions.GLOWSILK_SPEED.getDouble() * 0.1;
 
-            double d2 = (double)this.spawnPosition.getX() + 0.5D - this.getPosX();
-            double d0 = (double)this.spawnPosition.getY() + 0.1D - this.getPosY();
-            double d1 = (double)this.spawnPosition.getZ() + 0.5D - this.getPosZ();
-            Vector3d vector3d = this.getMotion();
-            Vector3d vector3d1 = vector3d.add((Math.signum(d2) * 0.5D - vector3d.x) * speed, (Math.signum(d0) * 0.7F - vector3d.y) * speed, (Math.signum(d1) * 0.5D - vector3d.z) * speed);
-            this.setMotion(vector3d1);
-            float f = (float)(MathHelper.atan2(vector3d1.z, vector3d1.x) * (double)(180F / (float)Math.PI)) - 90.0F;
-            float f1 = MathHelper.wrapDegrees(f - this.rotationYaw);
-            this.moveForward = 0.5F;
-            this.rotationYaw += f1;
+        double d2 = (double) this.spawnPosition.getX() + 0.5D - this.getPosX();
+        double d0 = (double) this.spawnPosition.getY() + 0.1D - this.getPosY();
+        double d1 = (double) this.spawnPosition.getZ() + 0.5D - this.getPosZ();
+        Vector3d vector3d = this.getMotion();
+        Vector3d vector3d1 = vector3d.add((Math.signum(d2) * 0.5D - vector3d.x) * speed, (Math.signum(d0) * 0.7F - vector3d.y) * speed, (Math.signum(d1) * 0.5D - vector3d.z) * speed);
+        this.setMotion(vector3d1);
+        float f = (float) (MathHelper.atan2(vector3d1.z, vector3d1.x) * (double) (180F / (float) Math.PI)) - 90.0F;
+        float f1 = MathHelper.wrapDegrees(f - this.rotationYaw);
+        this.moveForward = 0.5F;
+        this.rotationYaw += f1;
     }
 
     // SOUNDS

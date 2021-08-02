@@ -45,15 +45,15 @@ import java.util.Map;
 
 public class VolineEatTable extends JsonReloadListener {
 
-	private static final Gson GSON_INSTANCE = (new GsonBuilder()).create();
-	private static final Map<Item, Map<Item, Integer>> VOLINE_EAT_TABLE = new HashMap<>();
+    private static final Gson GSON_INSTANCE = (new GsonBuilder()).create();
+    private static final Map<Item, Map<Item, Integer>> VOLINE_EAT_TABLE = new HashMap<>();
 
-	public VolineEatTable() {
+    public VolineEatTable() {
         super(GSON_INSTANCE, "loot_tables/gameplay");
     }
 
-	@Override
-	protected void apply(Map<ResourceLocation, JsonElement> objectIn, IResourceManager resourceManagerIn, IProfiler profilerIn) {
+    @Override
+    protected void apply(Map<ResourceLocation, JsonElement> objectIn, IResourceManager resourceManagerIn, IProfiler profilerIn) {
         ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, "loot_tables/gameplay/voline_eat_table.json");
 
         try {
@@ -64,7 +64,7 @@ public class VolineEatTable extends JsonReloadListener {
                     if (jsonObject != null) {
                         for (JsonElement entry : jsonObject.getAsJsonArray("entries")) {
 
-							VOLINE_EAT_TABLE.put(ForgeRegistries.ITEMS.getValue(new ResourceLocation(entry.getAsJsonObject().get("accepted_item").getAsString())),
+                            VOLINE_EAT_TABLE.put(ForgeRegistries.ITEMS.getValue(new ResourceLocation(entry.getAsJsonObject().get("accepted_item").getAsString())),
                                 new HashMap<Item, Integer>() {{
                                     for (JsonElement item : entry.getAsJsonObject().getAsJsonArray("returned_items")) {
                                         put(ForgeRegistries.ITEMS.getValue(new ResourceLocation(item.getAsJsonObject().get("item").getAsString())),
@@ -72,24 +72,24 @@ public class VolineEatTable extends JsonReloadListener {
                                     }
                                 }}
                             );
-						}
-					}
+                        }
+                    }
 
-				} catch (RuntimeException | IOException exception) {
-					InfernalExpansion.LOGGER.error("Couldn't read voline eat table list {} in data pack {}", resourceLocation, iResource.getPackName(), exception);
+                } catch (RuntimeException | IOException exception) {
+                    InfernalExpansion.LOGGER.error("Couldn't read voline eat table list {} in data pack {}", resourceLocation, iResource.getPackName(), exception);
 
-				} finally {
-					IOUtils.closeQuietly(iResource);
-				}
-			}
-		} catch (IOException exception) {
-			InfernalExpansion.LOGGER.error("Couldn't read voline eat table from {}", resourceLocation, exception);
-		}
+                } finally {
+                    IOUtils.closeQuietly(iResource);
+                }
+            }
+        } catch (IOException exception) {
+            InfernalExpansion.LOGGER.error("Couldn't read voline eat table from {}", resourceLocation, exception);
+        }
 
-	}
+    }
 
-	public Map<Item, Map<Item, Integer>> getVolineEatTable() {
-		return VOLINE_EAT_TABLE;
-	}
+    public Map<Item, Map<Item, Integer>> getVolineEatTable() {
+        return VOLINE_EAT_TABLE;
+    }
 
 }

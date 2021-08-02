@@ -26,7 +26,7 @@
         {
           "type": "minecraft:item",
           "weight": 4,
-"functions": [
+          "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
@@ -41,7 +41,7 @@
         {
           "type": "minecraft:item",
           "weight": 3,
-"functions": [
+          "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
@@ -56,7 +56,7 @@
         {
           "type": "minecraft:item",
           "weight": 7,
-"functions": [
+          "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
@@ -73,11 +73,10 @@
           "weight": 7,
           "name": "infernalexp:strider_bucket"
         },
-
         {
           "type": "minecraft:item",
           "weight": 4,
-"functions": [
+          "functions": [
             {
               "function": "minecraft:set_count",
               "count": {

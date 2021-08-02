@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "infernalexp:block/soul_slate" }
+    "": {
+      "model": "infernalexp:block/soul_slate"
+    }
   }
 }

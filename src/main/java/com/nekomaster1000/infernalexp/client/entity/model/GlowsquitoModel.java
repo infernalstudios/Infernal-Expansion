@@ -88,7 +88,7 @@ public class GlowsquitoModel<T extends GlowsquitoEntity> extends AgeableModel<T>
     }
 
     @Override
-    public void setRotationAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
+    public void setRotationAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         // Flap wings back and forth constantly
         this.LeftWing.rotateAngleZ = MathHelper.cos(2.0F * ageInTicks);
         this.RightWing.rotateAngleZ = -MathHelper.cos(2.0F * ageInTicks);
@@ -102,7 +102,7 @@ public class GlowsquitoModel<T extends GlowsquitoEntity> extends AgeableModel<T>
     @Override
     protected Iterable<ModelRenderer> getBodyParts() {
         return ImmutableList.of(this.Body, this.Butt, this.RightWing, this.LeftWing,
-                this.RightArm, this.LeftArm, this.RightLeg, this.LeftLeg);
+            this.RightArm, this.LeftArm, this.RightLeg, this.LeftLeg);
     }
 
     public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {

@@ -27,7 +27,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class ShroomloinDecorLayer extends LayerRenderer<ShroomloinEntity, ShroomloinModel<ShroomloinEntity>> {
     public static final ResourceLocation[] SHROOMLOIN_TEXTURES = new ResourceLocation[]{
-        new ResourceLocation(InfernalExpansion.MOD_ID,"textures/entity/shroomloin/1_shroomloin.png"),
+        new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/1_shroomloin.png"),
         new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/2_shroomloin.png"),
         new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/3_shroomloin.png"),
         new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/4_shroomloin.png"),

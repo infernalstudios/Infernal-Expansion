@@ -30,23 +30,23 @@ import net.minecraft.world.IWorldReader;
 public class GlowFireBlock extends AbstractFireBlock {
 
     public GlowFireBlock(Properties builder) {
-            super(builder, 2.0F);
+        super(builder, 2.0F);
     }
 
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-            return this.isValidPosition(stateIn, worldIn, currentPos) ? this.getDefaultState() : Blocks.AIR.getDefaultState();
+        return this.isValidPosition(stateIn, worldIn, currentPos) ? this.getDefaultState() : Blocks.AIR.getDefaultState();
     }
 
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-            return isGlowFireBase(worldIn.getBlockState(pos.down()).getBlock());
+        return isGlowFireBase(worldIn.getBlockState(pos.down()).getBlock());
     }
 
     public static boolean isGlowFireBase(Block block) {
-            return block.isIn(IETags.Blocks.GLOW_FIRE_BASE_BLOCKS);
+        return block.isIn(IETags.Blocks.GLOW_FIRE_BASE_BLOCKS);
     }
 
     protected boolean canBurn(BlockState stateIn) {
-            return true;
+        return true;
     }
 
 }

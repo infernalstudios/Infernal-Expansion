@@ -72,7 +72,7 @@ public class InfectionHeartOverlay {
             regen = ticks % 25;
         }
 
-        final int TOP =  9 * (mc.world.getWorldInfo().isHardcore() ? 1 : 0);
+        final int TOP = 9 * (mc.world.getWorldInfo().isHardcore() ? 1 : 0);
         final int BACKGROUND = (highlight ? 9 : 0);
 
         float absorbRemaining = absorb;

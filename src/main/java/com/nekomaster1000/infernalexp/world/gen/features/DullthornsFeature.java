@@ -41,7 +41,8 @@ public class DullthornsFeature extends Feature<NoFeatureConfig> {
         } else {
             // Generate dullthorns up "height" blocks unless there is something in the way
             for (int i = 0; i < height; i++) {
-                if (worldIn.isAirBlock(pos.up(i))) worldIn.setBlockState(pos.up(i), IEBlocks.DULLTHORNS.get().getDefaultState(), 10);
+                if (worldIn.isAirBlock(pos.up(i)))
+                    worldIn.setBlockState(pos.up(i), IEBlocks.DULLTHORNS.get().getDefaultState(), 10);
             }
             return true;
         }

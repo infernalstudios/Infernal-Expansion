@@ -74,43 +74,43 @@ import java.util.function.Predicate;
 
 public class VolineEntity extends MonsterEntity implements IBucketable {
     private static final Predicate<LivingEntity> TARGETABLE_MAGMA_CUBES = (livingEntity) -> {
-        MagmaCubeEntity magmaCubeEntity = (MagmaCubeEntity)livingEntity;
+        MagmaCubeEntity magmaCubeEntity = (MagmaCubeEntity) livingEntity;
         return magmaCubeEntity.isSmallSlime() && !magmaCubeEntity.hasCustomName();
     };
 
-	private static final DataParameter<Float> VOLINE_SIZE = EntityDataManager.createKey(VolineEntity.class, DataSerializers.FLOAT);
-	private static final DataParameter<Boolean> FROM_BUCKET = EntityDataManager.createKey(VolineEntity.class, DataSerializers.BOOLEAN);
-	private boolean isEating;
+    private static final DataParameter<Float> VOLINE_SIZE = EntityDataManager.createKey(VolineEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<Boolean> FROM_BUCKET = EntityDataManager.createKey(VolineEntity.class, DataSerializers.BOOLEAN);
+    private boolean isEating;
 
-	public VolineEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
-		super(type, worldIn);
-	}
+    public VolineEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+        super(type, worldIn);
+    }
 
-	// ATTRIBUTES
-	public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
-		return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 16.0D).createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.0D).createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.0D).createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5D);
-	}
+    // ATTRIBUTES
+    public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
+        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 16.0D).createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.0D).createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.0D).createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5D);
+    }
 
-	@Nullable
-	@Override
-	public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
-		setVolineSize(1 + (world.getRandom().nextFloat() * 0.4F));
-		return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-	}
+    @Nullable
+    @Override
+    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+        setVolineSize(1 + (world.getRandom().nextFloat() * 0.4F));
+        return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    }
 
-	// BEHAVIOUR
-	@Override
-	protected void registerGoals() {
-		super.registerGoals();
-		// this.goalSelector.addGoal(0, new TemptGoal(this, 0.6D, TEMPTATION_ITEMS,
-		// false));
-		this.goalSelector.addGoal(0, new VolineEatItemsGoal(this, MiscEvents.getVolineEatTable(), 32.0D, getAttributeValue(Attributes.MOVEMENT_SPEED) * 2.0D));
-		this.goalSelector.addGoal(1, new MeleeAttackGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.2D, true));
+    // BEHAVIOUR
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+        // this.goalSelector.addGoal(0, new TemptGoal(this, 0.6D, TEMPTATION_ITEMS,
+        // false));
+        this.goalSelector.addGoal(0, new VolineEatItemsGoal(this, MiscEvents.getVolineEatTable(), 32.0D, getAttributeValue(Attributes.MOVEMENT_SPEED) * 2.0D));
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.2D, true));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED)));
-		this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0F));
-		this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
-		this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, AbstractPiglinEntity.class, 16.0F, getAttributeValue(Attributes.MOVEMENT_SPEED) * 2.0D, getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.5D));
-		this.goalSelector.addGoal(5, new PanicGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED) * 2.0D));
+        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+        this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, AbstractPiglinEntity.class, 16.0F, getAttributeValue(Attributes.MOVEMENT_SPEED) * 2.0D, getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.5D));
+        this.goalSelector.addGoal(5, new PanicGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED) * 2.0D));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         if (InfernalExpansionConfig.MobInteractions.VOLINE_ATTACK_FIRE_RESISTANCE.getBoolean()) {
             this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, LivingEntity.class, true, false, Effects.FIRE_RESISTANCE, null));
@@ -121,134 +121,134 @@ public class VolineEntity extends MonsterEntity implements IBucketable {
         if (InfernalExpansionConfig.MobInteractions.VOLINE_ATTACK_MAGMA_CUBE.getBoolean()) {
             this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, MagmaCubeEntity.class, 10, true, true, TARGETABLE_MAGMA_CUBES));
         }
-	}
+    }
 
-	@Override
-	public void livingTick() {
-		if (getAttributeValue(Attributes.MOVEMENT_SPEED) <= 0) {
+    @Override
+    public void livingTick() {
+        if (getAttributeValue(Attributes.MOVEMENT_SPEED) <= 0) {
 
-			world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, getPosXRandom(0.5D), getPosY() + 1.6D, getPosZRandom(0.5D), 0, 0.07D, 0);
-		}
+            world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, getPosXRandom(0.5D), getPosY() + 1.6D, getPosZRandom(0.5D), 0, 0.07D, 0);
+        }
 
-		super.livingTick();
-	}
+        super.livingTick();
+    }
 
-	@Override
-	protected void registerData() {
-		super.registerData();
-		dataManager.register(VOLINE_SIZE, 1.0F);
-		dataManager.register(FROM_BUCKET, false);
-	}
+    @Override
+    protected void registerData() {
+        super.registerData();
+        dataManager.register(VOLINE_SIZE, 1.0F);
+        dataManager.register(FROM_BUCKET, false);
+    }
 
-	public void setVolineSize(float size) {
-		size = Math.min(size, 2.0F);
+    public void setVolineSize(float size) {
+        size = Math.min(size, 2.0F);
 
-		dataManager.set(VOLINE_SIZE, size);
-		recenterBoundingBox();
-		recalculateSize();
-		getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.5F - ((size - 1.0F) / 2.0F));
-	}
+        dataManager.set(VOLINE_SIZE, size);
+        recenterBoundingBox();
+        recalculateSize();
+        getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.5F - ((size - 1.0F) / 2.0F));
+    }
 
-	public float getVolineSize() {
-		return dataManager.get(VOLINE_SIZE);
-	}
+    public float getVolineSize() {
+        return dataManager.get(VOLINE_SIZE);
+    }
 
-	@Override
-	public boolean isFromBucket() {
-	    return this.dataManager.get(FROM_BUCKET);
+    @Override
+    public boolean isFromBucket() {
+        return this.dataManager.get(FROM_BUCKET);
     }
 
     @Override
     public void setFromBucket(boolean fromBucket) {
-	    this.dataManager.set(FROM_BUCKET, fromBucket);
+        this.dataManager.set(FROM_BUCKET, fromBucket);
     }
 
     @Override
-	public void writeAdditional(CompoundNBT compound) {
-		super.writeAdditional(compound);
-		compound.putFloat("Size", getVolineSize());
-		compound.putBoolean("FromBucket", this.isFromBucket());
-	}
-
-	@Override
-	public void readAdditional(CompoundNBT compound) {
-		float size = Math.max(compound.getFloat("Size"), 1.0F);
-
-		setVolineSize(size);
-
-		this.setFromBucket(compound.getBoolean("FromBucket"));
-		super.readAdditional(compound);
-	}
+    public void writeAdditional(CompoundNBT compound) {
+        super.writeAdditional(compound);
+        compound.putFloat("Size", getVolineSize());
+        compound.putBoolean("FromBucket", this.isFromBucket());
+    }
 
     @Override
-	public void recalculateSize() {
-		super.recalculateSize();
-		setPosition(getPosX(), getPosY(), getPosZ());
-	}
+    public void readAdditional(CompoundNBT compound) {
+        float size = Math.max(compound.getFloat("Size"), 1.0F);
 
-	@Override
-	public EntitySize getSize(Pose poseIn) {
-		return super.getSize(poseIn).scale(0.85F * getVolineSize());
-	}
+        setVolineSize(size);
 
-	@Override
-	public void notifyDataManagerChange(DataParameter<?> key) {
-		if (VOLINE_SIZE.equals(key)) {
-			recalculateSize();
-		}
+        this.setFromBucket(compound.getBoolean("FromBucket"));
+        super.readAdditional(compound);
+    }
 
-		super.notifyDataManagerChange(key);
-	}
+    @Override
+    public void recalculateSize() {
+        super.recalculateSize();
+        setPosition(getPosX(), getPosY(), getPosZ());
+    }
 
-	// EXP POINTS
-	@Override
-	protected int getExperiencePoints(PlayerEntity player) {
-		return 1 + this.world.rand.nextInt(4);
-	}
+    @Override
+    public EntitySize getSize(Pose poseIn) {
+        return super.getSize(poseIn).scale(0.85F * getVolineSize());
+    }
 
-	// SOUNDS
-	@Override
-	protected SoundEvent getAmbientSound() {
-		return IESoundEvents.VOLINE_AMBIENT.get();
-	}
+    @Override
+    public void notifyDataManagerChange(DataParameter<?> key) {
+        if (VOLINE_SIZE.equals(key)) {
+            recalculateSize();
+        }
 
-	@Override
-	protected SoundEvent getDeathSound() {
-		return IESoundEvents.VOLINE_HURT.get();
-	}
+        super.notifyDataManagerChange(key);
+    }
 
-	@Override
-	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return IESoundEvents.VOLINE_HURT.get();
-	}
+    // EXP POINTS
+    @Override
+    protected int getExperiencePoints(PlayerEntity player) {
+        return 1 + this.world.rand.nextInt(4);
+    }
 
-	@Override
-	protected void playStepSound(BlockPos pos, BlockState blockIn) {
-		this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
-	}
+    // SOUNDS
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return IESoundEvents.VOLINE_AMBIENT.get();
+    }
 
-	public boolean isImmuneToFire() {
-		return true;
-	}
+    @Override
+    protected SoundEvent getDeathSound() {
+        return IESoundEvents.VOLINE_HURT.get();
+    }
 
-	@OnlyIn(Dist.CLIENT)
-	public boolean isEating() {
-		return isEating;
-	}
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return IESoundEvents.VOLINE_HURT.get();
+    }
 
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void handleStatusUpdate(byte id) {
-		if (id == 8) {
-			isEating = false;
-		} else if (id == 9) {
-			isEating = true;
-		} else {
-			super.handleStatusUpdate(id);
-		}
-	}
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState blockIn) {
+        this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
+    }
 
-	//BUCKETABLE
+    public boolean isImmuneToFire() {
+        return true;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public boolean isEating() {
+        return isEating;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @Override
+    public void handleStatusUpdate(byte id) {
+        if (id == 8) {
+            isEating = false;
+        } else if (id == 9) {
+            isEating = true;
+        } else {
+            super.handleStatusUpdate(id);
+        }
+    }
+
+    //BUCKETABLE
     @Override
     protected ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
         return IBucketable.tryBucketEntity(playerIn, hand, this).orElse(super.getEntityInteractionResult(playerIn, hand));
@@ -256,7 +256,7 @@ public class VolineEntity extends MonsterEntity implements IBucketable {
 
     @Override
     public void copyToStack(ItemStack stack) {
-	    CompoundNBT compoundNBT = stack.getOrCreateTag();
+        CompoundNBT compoundNBT = stack.getOrCreateTag();
         IBucketable.copyToStack(this, stack);
 
         compoundNBT.putFloat("Size", this.getVolineSize());
@@ -282,23 +282,23 @@ public class VolineEntity extends MonsterEntity implements IBucketable {
 
     public static class VolineEatItemsGoal extends EatItemsGoal<VolineEntity> {
 
-		private final Map<Item, Map<Item, Integer>> eatItemsMap;
+        private final Map<Item, Map<Item, Integer>> eatItemsMap;
 
-		public VolineEatItemsGoal(VolineEntity entityIn, Map<Item, Map<Item, Integer>> itemsToEat, double range, double speedIn) {
-			super(entityIn, itemsToEat.keySet(), range, speedIn);
+        public VolineEatItemsGoal(VolineEntity entityIn, Map<Item, Map<Item, Integer>> itemsToEat, double range, double speedIn) {
+            super(entityIn, itemsToEat.keySet(), range, speedIn);
 
-			this.eatItemsMap = itemsToEat;
-		}
+            this.eatItemsMap = itemsToEat;
+        }
 
-		@Override
-		public void consumeItem() {
-			entityIn.setVolineSize(entityIn.getVolineSize() + 0.2F);
+        @Override
+        public void consumeItem() {
+            entityIn.setVolineSize(entityIn.getVolineSize() + 0.2F);
 
-			Item itemReference = itemInstance.getItem().getItem();
+            Item itemReference = itemInstance.getItem().getItem();
 
-			// Super call here so that we can get a reference of the item before the item
-			// instance is deleted
-			super.consumeItem();
+            // Super call here so that we can get a reference of the item before the item
+            // instance is deleted
+            super.consumeItem();
 
             if (itemReference == Items.GOLDEN_APPLE) {
                 entityIn.addPotionEffect(new EffectInstance(Effects.REGENERATION, 100, 1));
@@ -312,6 +312,6 @@ public class VolineEntity extends MonsterEntity implements IBucketable {
                     entityIn.entityDropItem(new ItemStack(item.getKey(), item.getValue()), 1);
                 }
             }
-		}
-	}
+        }
+    }
 }

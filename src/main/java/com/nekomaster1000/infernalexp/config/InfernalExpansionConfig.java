@@ -84,7 +84,7 @@ public final class InfernalExpansionConfig {
 
     //Mob Interactions
     //Create enum and set values to false. These will get overridden by ConfigHelper to the actual config values
-    public enum MobInteractions{
+    public enum MobInteractions {
         PIGLIN_FEAR_WARPBEETLE("piglinFearWarpbeetle", false),
         PIGLIN_FEAR_EMBODY("piglinFearEmbody", false),
         PIGLIN_FEAR_DWARF("piglinFearDwarf", false),
@@ -120,7 +120,7 @@ public final class InfernalExpansionConfig {
         GLOWSILK_SPEED("glowsilkSpeed", true);
 
         private final String translationName;
-		private final boolean isSlider;
+        private final boolean isSlider;
         private boolean booleanValue;
         private double doubleValue;
 

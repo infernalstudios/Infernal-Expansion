@@ -47,74 +47,74 @@ import java.util.List;
 
 public class InfernalPaintingEntity extends PaintingEntity {
 
-	public InfernalPaintingEntity(EntityType<? extends InfernalPaintingEntity> type, World worldIn) {
-		super(type, worldIn);
-	}
+    public InfernalPaintingEntity(EntityType<? extends InfernalPaintingEntity> type, World worldIn) {
+        super(type, worldIn);
+    }
 
-	public InfernalPaintingEntity(World worldIn, BlockPos pos, Direction facing) {
-		this(IEEntityTypes.INFERNAL_PAINTING.get(), worldIn);
-		this.hangingPosition = pos;
-		updateFacingWithBoundingBox(facing);
+    public InfernalPaintingEntity(World worldIn, BlockPos pos, Direction facing) {
+        this(IEEntityTypes.INFERNAL_PAINTING.get(), worldIn);
+        this.hangingPosition = pos;
+        updateFacingWithBoundingBox(facing);
 
-		List<PaintingType> paintings = new ArrayList<>();
-		int maxSurfaceArea = 0;
+        List<PaintingType> paintings = new ArrayList<>();
+        int maxSurfaceArea = 0;
 
-		for (PaintingType paintingType : ForgeRegistries.PAINTING_TYPES) {
-			art = paintingType;
-			updateFacingWithBoundingBox(facing);
+        for (PaintingType paintingType : ForgeRegistries.PAINTING_TYPES) {
+            art = paintingType;
+            updateFacingWithBoundingBox(facing);
 
-			if (onValidSurface() && paintingType.getRegistryName().getNamespace().equals("infernalexp")) {
-				paintings.add(paintingType);
+            if (onValidSurface() && paintingType.getRegistryName().getNamespace().equals("infernalexp")) {
+                paintings.add(paintingType);
 
-				int surfaceArea = paintingType.getWidth() * paintingType.getHeight();
+                int surfaceArea = paintingType.getWidth() * paintingType.getHeight();
 
-				if (surfaceArea > maxSurfaceArea) {
-					maxSurfaceArea = surfaceArea;
-				}
-			}
-		}
+                if (surfaceArea > maxSurfaceArea) {
+                    maxSurfaceArea = surfaceArea;
+                }
+            }
+        }
 
-		if (!paintings.isEmpty()) {
-			Iterator<PaintingType> iterator = paintings.iterator();
+        if (!paintings.isEmpty()) {
+            Iterator<PaintingType> iterator = paintings.iterator();
 
-			while (iterator.hasNext()) {
-				PaintingType paintingType = iterator.next();
+            while (iterator.hasNext()) {
+                PaintingType paintingType = iterator.next();
 
-				if (paintingType.getWidth() * paintingType.getHeight() < maxSurfaceArea) {
-					iterator.remove();
-				}
-			}
+                if (paintingType.getWidth() * paintingType.getHeight() < maxSurfaceArea) {
+                    iterator.remove();
+                }
+            }
 
-			art = paintings.get(this.rand.nextInt(paintings.size()));
-		}
+            art = paintings.get(this.rand.nextInt(paintings.size()));
+        }
 
-		updateFacingWithBoundingBox(facing);
-	}
+        updateFacingWithBoundingBox(facing);
+    }
 
-	@OnlyIn(Dist.CLIENT)
-	public InfernalPaintingEntity(World world, BlockPos pos, Direction facing, PaintingType art) {
-		this(world, pos, facing);
-		this.art = art;
-		this.updateFacingWithBoundingBox(facing);
-	}
+    @OnlyIn(Dist.CLIENT)
+    public InfernalPaintingEntity(World world, BlockPos pos, Direction facing, PaintingType art) {
+        this(world, pos, facing);
+        this.art = art;
+        this.updateFacingWithBoundingBox(facing);
+    }
 
-	@Override
-	public void onBroken(@Nullable Entity brokenEntity) {
-		if (world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
-			playSound(SoundEvents.ENTITY_PAINTING_BREAK, 1.0F, 1.0F);
+    @Override
+    public void onBroken(@Nullable Entity brokenEntity) {
+        if (world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
+            playSound(SoundEvents.ENTITY_PAINTING_BREAK, 1.0F, 1.0F);
 
-			if (brokenEntity instanceof PlayerEntity) {
-				if (((PlayerEntity) brokenEntity).abilities.isCreativeMode) {
-					return;
-				}
-			}
+            if (brokenEntity instanceof PlayerEntity) {
+                if (((PlayerEntity) brokenEntity).abilities.isCreativeMode) {
+                    return;
+                }
+            }
 
-			entityDropItem(IEItems.INFERNAL_PAINTING.get());
-		}
-	}
+            entityDropItem(IEItems.INFERNAL_PAINTING.get());
+        }
+    }
 
-	@Override
-	public IPacket<?> createSpawnPacket() {
+    @Override
+    public IPacket<?> createSpawnPacket() {
         return IENetworkHandler.INSTANCE.toVanillaPacket(new SpawnInfernalPaintingPacket(this), NetworkDirection.PLAY_TO_CLIENT);
     }
 

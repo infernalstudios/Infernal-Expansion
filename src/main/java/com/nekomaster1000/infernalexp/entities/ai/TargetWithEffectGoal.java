@@ -43,27 +43,27 @@ public class TargetWithEffectGoal extends NearestAttackableTargetGoal {
     public TargetWithEffectGoal(MobEntity goalOwnerIn, Class targetClassIn, boolean checkSight, boolean nearbyOnlyIn, Effect effect, @Nullable Class invalidTargetClassIn) {
         super(goalOwnerIn, targetClassIn, checkSight, nearbyOnlyIn);
         this.effect = effect;
-		this.invalidTarget = invalidTargetClassIn;
+        this.invalidTarget = invalidTargetClassIn;
     }
 
     public TargetWithEffectGoal(MobEntity goalOwnerIn, Class targetClassIn, int targetChanceIn, boolean checkSight, boolean nearbyOnlyIn, Predicate targetPredicate, Effect effect, @Nullable Class invalidTargetClassIn) {
         super(goalOwnerIn, targetClassIn, targetChanceIn, checkSight, nearbyOnlyIn, targetPredicate);
         this.effect = effect;
-		this.invalidTarget = invalidTargetClassIn;
+        this.invalidTarget = invalidTargetClassIn;
     }
 
     @Override
     protected boolean isSuitableTarget(@Nullable LivingEntity potentialTarget, EntityPredicate targetPredicate) {
-    	if (this.invalidTarget != null && potentialTarget != null && potentialTarget.getClass() == this.invalidTarget) {
-    		return false;
-		}
+        if (this.invalidTarget != null && potentialTarget != null && potentialTarget.getClass() == this.invalidTarget) {
+            return false;
+        }
         return super.isSuitableTarget(potentialTarget, targetPredicate) && potentialTarget.isPotionActive(this.effect);
     }
 
     @Override
     protected void findNearestTarget() {
         super.findNearestTarget();
-        if(!isSuitableTarget(this.nearestTarget, this.targetEntitySelector)) {
+        if (!isSuitableTarget(this.nearestTarget, this.targetEntitySelector)) {
             this.nearestTarget = null;
         }
     }

@@ -26,15 +26,15 @@ import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
 
 public class GlowsilkMothModel<T extends GlowsilkMothEntity> extends EntityModel<T> {
-	private final ModelRenderer all;
-	private final ModelRenderer body;
-	private final ModelRenderer legs3_r1;
-	private final ModelRenderer legs2_r1;
-	private final ModelRenderer legs1_r1;
-	private final ModelRenderer bone_r1;
-	private final ModelRenderer antenna;
-	private final ModelRenderer leftwing;
-	private final ModelRenderer rightwing;
+    private final ModelRenderer all;
+    private final ModelRenderer body;
+    private final ModelRenderer legs3_r1;
+    private final ModelRenderer legs2_r1;
+    private final ModelRenderer legs1_r1;
+    private final ModelRenderer bone_r1;
+    private final ModelRenderer antenna;
+    private final ModelRenderer leftwing;
+    private final ModelRenderer rightwing;
 
     public GlowsilkMothModel() {
         textureWidth = 64;
@@ -92,19 +92,19 @@ public class GlowsilkMothModel<T extends GlowsilkMothEntity> extends EntityModel
         all.addChild(rightwing);
         rightwing.setTextureOffset(0, 41).addBox(-13.0F, -14.0F, 0.0F, 13.0F, 23.0F, 0.0F, 0.0F, false);
         rightwing.setTextureOffset(0, 17).addBox(-13.0F, -14.0F, 0.05F, 13.0F, 23.0F, 0.0F, 0.0F, false);
-	}
+    }
 
     @Override
-    public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
+    public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         // Flap wings back and forth constantly
         this.leftwing.rotateAngleY = MathHelper.cos(0.75F * ageInTicks);
         this.rightwing.rotateAngleY = -MathHelper.cos(0.75F * ageInTicks);
         this.antenna.rotateAngleX = MathHelper.cos(0.2F * ageInTicks) * 0.2F;
         this.all.rotateAngleX = 0.3927F;
-	}
+    }
 
     @Override
-    public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
+    public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         all.render(matrixStack, buffer, packedLight, packedOverlay);
     }
 

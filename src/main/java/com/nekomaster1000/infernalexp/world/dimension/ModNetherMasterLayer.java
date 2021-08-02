@@ -25,7 +25,7 @@ public class ModNetherMasterLayer implements IAreaTransformer0 {
 
     private final Registry<Biome> dynamicRegistry;
 
-    public ModNetherMasterLayer(long seed, Registry<Biome> dynamicRegistry){
+    public ModNetherMasterLayer(long seed, Registry<Biome> dynamicRegistry) {
         this.dynamicRegistry = dynamicRegistry;
     }
 

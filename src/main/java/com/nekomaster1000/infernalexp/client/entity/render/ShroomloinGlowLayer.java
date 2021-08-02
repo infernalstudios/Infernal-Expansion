@@ -33,7 +33,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class ShroomloinGlowLayer extends LayerRenderer<ShroomloinEntity, ShroomloinModel<ShroomloinEntity>> {
     private static final ResourceLocation[] SHROOMLOIN_GLOW_TEXTURES = new ResourceLocation[]{
-        new ResourceLocation(InfernalExpansion.MOD_ID,"textures/entity/shroomloin/layer/1_shroomloin_glow.png"),
+        new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/layer/1_shroomloin_glow.png"),
         new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/layer/2_shroomloin_glow.png"),
         new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/layer/3_shroomloin_glow.png"),
         new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/layer/4_shroomloin_glow.png"),

@@ -54,7 +54,7 @@ public class EntityBucketItem extends BucketItem {
     @Override
     public void onLiquidPlaced(World worldIn, ItemStack stack, BlockPos pos) {
         if (worldIn instanceof ServerWorld) {
-            this.placeEntity((ServerWorld)worldIn, stack, pos);
+            this.placeEntity((ServerWorld) worldIn, stack, pos);
         }
     }
 
@@ -66,7 +66,7 @@ public class EntityBucketItem extends BucketItem {
     private void placeEntity(ServerWorld worldIn, ItemStack stack, BlockPos pos) {
         Entity entity = this.entityTypeSupplier.get().spawn(worldIn, stack, null, pos, SpawnReason.BUCKET, true, true);
         if (entity instanceof IBucketable) {
-            IBucketable bucketable = (IBucketable)entity;
+            IBucketable bucketable = (IBucketable) entity;
             bucketable.copyFromAdditional(stack.getOrCreateTag());
             bucketable.setFromBucket(true);
         }

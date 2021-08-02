@@ -39,14 +39,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @Mixin(ClientPlayNetHandler.class)
 public class MixinClientPlayNetHandler {
 
-	@Shadow
-	private Minecraft client;
+    @Shadow
+    private Minecraft client;
 
-	@Inject(method = "handleSpawnMob", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/world/ClientWorld;addEntity(ILnet/minecraft/entity/Entity;)V", shift = Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD)
-	private void IE_playGlowsquitoSound(SSpawnMobPacket packetIn, CallbackInfo ci, double d0, double d1, double d2, float f, float f1, LivingEntity livingentity) {
-		if (livingentity instanceof GlowsquitoEntity) {
-			this.client.getSoundHandler().playOnNextTick(new GlowsquitoFlightSound((GlowsquitoEntity) livingentity));
-		}
-	}
+    @Inject(method = "handleSpawnMob", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/world/ClientWorld;addEntity(ILnet/minecraft/entity/Entity;)V", shift = Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD)
+    private void IE_playGlowsquitoSound(SSpawnMobPacket packetIn, CallbackInfo ci, double d0, double d1, double d2, float f, float f1, LivingEntity livingentity) {
+        if (livingentity instanceof GlowsquitoEntity) {
+            this.client.getSoundHandler().playOnNextTick(new GlowsquitoFlightSound((GlowsquitoEntity) livingentity));
+        }
+    }
 
 }

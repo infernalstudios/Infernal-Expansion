@@ -53,7 +53,6 @@
           ],
           "name": "gold_ingot"
         },
-
         {
           "type": "minecraft:item",
           "weight": 6,
@@ -69,7 +68,6 @@
           ],
           "name": "infernalexp:glownuggets"
         },
-
         {
           "type": "minecraft:item",
           "weight": 7,

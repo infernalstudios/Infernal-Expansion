@@ -26,15 +26,15 @@ import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
 
 public class BlindsightModel<T extends BlindsightEntity> extends EntityModel<T> {
-	private final ModelRenderer all;
-	private final ModelRenderer Body;
-	private final ModelRenderer Head;
-	private final ModelRenderer MouthRoof;
-	private final ModelRenderer LowerJaw;
-	private final ModelRenderer FrontLeftLeg;
-	private final ModelRenderer FrontRightLeg;
-	private final ModelRenderer BackLeftLeg;
-	private final ModelRenderer BackRightLeg;
+    private final ModelRenderer all;
+    private final ModelRenderer Body;
+    private final ModelRenderer Head;
+    private final ModelRenderer MouthRoof;
+    private final ModelRenderer LowerJaw;
+    private final ModelRenderer FrontLeftLeg;
+    private final ModelRenderer FrontRightLeg;
+    private final ModelRenderer BackLeftLeg;
+    private final ModelRenderer BackRightLeg;
 
     public BlindsightModel() {
         textureWidth = 64;
@@ -86,10 +86,10 @@ public class BlindsightModel<T extends BlindsightEntity> extends EntityModel<T> 
         BackRightLeg.setRotationPoint(-7.0F, -2.0F, 5.0F);
         all.addChild(BackRightLeg);
         BackRightLeg.setTextureOffset(44, 56).addBox(-3.0F, 0.0F, -5.0F, 4.0F, 2.0F, 6.0F, 0.001F, false);
-	}
+    }
 
-	@Override
-	public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    @Override
+    public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         float partialTick = ageInTicks - (float) entityIn.ticksExisted;
 
         float jumpRotation = MathHelper.sin(entityIn.getJumpCompletion(partialTick) * (float) Math.PI);
@@ -97,19 +97,19 @@ public class BlindsightModel<T extends BlindsightEntity> extends EntityModel<T> 
         this.BackRightLeg.rotateAngleX = jumpRotation * 50.0F * ((float) Math.PI / 180F);
     }
 
-	@Override
-	public void setLivingAnimations(T entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
-		this.Head.rotateAngleX = -MathHelper.abs(MathHelper.cos(0.4662F * limbSwing) * 1.2F * limbSwingAmount);
-	}
+    @Override
+    public void setLivingAnimations(T entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
+        this.Head.rotateAngleX = -MathHelper.abs(MathHelper.cos(0.4662F * limbSwing) * 1.2F * limbSwingAmount);
+    }
 
-	@Override
-	public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
-		all.render(matrixStack, buffer, packedLight, packedOverlay);
-	}
+    @Override
+    public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        all.render(matrixStack, buffer, packedLight, packedOverlay);
+    }
 
-	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
-		modelRenderer.rotateAngleX = x;
-		modelRenderer.rotateAngleY = y;
-		modelRenderer.rotateAngleZ = z;
-	}
+    public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
+        modelRenderer.rotateAngleX = x;
+        modelRenderer.rotateAngleY = y;
+        modelRenderer.rotateAngleZ = z;
+    }
 }

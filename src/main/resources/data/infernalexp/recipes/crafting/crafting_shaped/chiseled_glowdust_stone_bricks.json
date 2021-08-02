@@ -1,19 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
+  "pattern": [
     "x",
     "x"
   ],
-  "key":
-  {
-    "x":
-    {
+  "key": {
+    "x": {
       "item": "infernalexp:glowdust_stone_brick_slab"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "infernalexp:chiseled_glowdust_stone_bricks",
     "count": 1
   }

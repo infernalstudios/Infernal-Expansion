@@ -17,19 +17,19 @@
 package com.nekomaster1000.infernalexp.access;
 
 public interface AbstractArrowEntityAccess {
-	boolean getLuminous();
+    boolean getLuminous();
 
-	void setLuminous(boolean isLuminous);
+    void setLuminous(boolean isLuminous);
 
-	boolean getInfection();
+    boolean getInfection();
 
-	void setInfection(boolean isInfection);
+    void setInfection(boolean isInfection);
 
-	boolean getInfectedSource();
+    boolean getInfectedSource();
 
-	void setInfectedSource(boolean isInfectedSource);
+    void setInfectedSource(boolean isInfectedSource);
 
-	boolean getGlow();
+    boolean getGlow();
 
-	void setGlow(boolean shouldGlow);
+    void setGlow(boolean shouldGlow);
 }

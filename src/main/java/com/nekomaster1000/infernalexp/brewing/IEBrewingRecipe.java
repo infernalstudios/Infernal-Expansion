@@ -26,7 +26,7 @@ public class IEBrewingRecipe implements IBrewingRecipe {
     private final ItemStack output;
 
 
-    public IEBrewingRecipe(ItemStack input, ItemStack ingredient, ItemStack output){
+    public IEBrewingRecipe(ItemStack input, ItemStack ingredient, ItemStack output) {
         this.input = input;
         this.ingredient = ingredient;
         this.output = output;
@@ -35,7 +35,7 @@ public class IEBrewingRecipe implements IBrewingRecipe {
     @Override
     public boolean isInput(ItemStack input) {
         return input.isItemEqual(this.input) &&
-                PotionUtils.getPotionFromItem(input).equals(PotionUtils.getPotionFromItem(this.input));
+            PotionUtils.getPotionFromItem(input).equals(PotionUtils.getPotionFromItem(this.input));
     }
 
     @Override
@@ -46,7 +46,7 @@ public class IEBrewingRecipe implements IBrewingRecipe {
     @Override
     public ItemStack getOutput(ItemStack input, ItemStack ingredient) {
         return this.isInput(input) && this.isIngredient(ingredient) ?
-                this.output.copy() :
-                ItemStack.EMPTY;
+            this.output.copy() :
+            ItemStack.EMPTY;
     }
 }

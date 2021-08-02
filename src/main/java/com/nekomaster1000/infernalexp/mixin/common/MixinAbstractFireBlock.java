@@ -44,41 +44,41 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(AbstractFireBlock.class)
 public abstract class MixinAbstractFireBlock extends Block {
 
-	private MixinAbstractFireBlock(AbstractBlock.Properties properties) {
-		super(properties);
-	}
+    private MixinAbstractFireBlock(AbstractBlock.Properties properties) {
+        super(properties);
+    }
 
-	@Inject(method = "getFireForPlacement", at = @At("HEAD"), cancellable = true)
-	private static void IE_getFireForPlacement(IBlockReader reader, BlockPos pos, CallbackInfoReturnable<BlockState> info) {
-		if (GlowFireBlock.isGlowFireBase(reader.getBlockState(pos.down()).getBlock())) {
-			info.setReturnValue(IEBlocks.GLOW_FIRE.get().getDefaultState());
-		}
-	}
+    @Inject(method = "getFireForPlacement", at = @At("HEAD"), cancellable = true)
+    private static void IE_getFireForPlacement(IBlockReader reader, BlockPos pos, CallbackInfoReturnable<BlockState> info) {
+        if (GlowFireBlock.isGlowFireBase(reader.getBlockState(pos.down()).getBlock())) {
+            info.setReturnValue(IEBlocks.GLOW_FIRE.get().getDefaultState());
+        }
+    }
 
-	@Inject(method = "onEntityCollision", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;forceFireTicks(I)V"))
-	private void IE_setCustomFires(BlockState state, World worldIn, BlockPos pos, Entity entityIn, CallbackInfo info) {
-		FireTypeAccess access = ((FireTypeAccess) entityIn);
-		if (state.matchesBlock(Blocks.SOUL_FIRE)) {
-			access.setFireType(KnownFireTypes.SOUL_FIRE);
-		} else if (state.matchesBlock(IEBlocks.GLOW_FIRE.get())) {
-			access.setFireType(KnownFireTypes.GLOW_FIRE);
-		} else {
-			access.setFireType(KnownFireTypes.FIRE);
-		}
+    @Inject(method = "onEntityCollision", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;forceFireTicks(I)V"))
+    private void IE_setCustomFires(BlockState state, World worldIn, BlockPos pos, Entity entityIn, CallbackInfo info) {
+        FireTypeAccess access = ((FireTypeAccess) entityIn);
+        if (state.matchesBlock(Blocks.SOUL_FIRE)) {
+            access.setFireType(KnownFireTypes.SOUL_FIRE);
+        } else if (state.matchesBlock(IEBlocks.GLOW_FIRE.get())) {
+            access.setFireType(KnownFireTypes.GLOW_FIRE);
+        } else {
+            access.setFireType(KnownFireTypes.FIRE);
+        }
 
-		if (DataUtil.isLoaded("endergetic")) {
-			if (state.getBlock().getRegistryName().equals(new ResourceLocation("endergetic", "ender_fire")) && state.getBlock() instanceof AbstractFireBlock) {
-				access.setFireType(KnownFireTypes.ENDER_FIRE);
-			}
-		}
-
-		if (DataUtil.isLoaded("byg")) {
-		    if (state.getBlock().getRegistryName().equals(new ResourceLocation("byg", "boric_fire")) && state.getBlock() instanceof AbstractFireBlock) {
-		        access.setFireType(KnownFireTypes.BORIC_FIRE);
-            } else if (state.getBlock().getRegistryName().equals(new ResourceLocation("byg", "cryptic_fire")) && state.getBlock() instanceof AbstractFireBlock) {
-		        access.setFireType(KnownFireTypes.CRYPTIC_FIRE);
+        if (DataUtil.isLoaded("endergetic")) {
+            if (state.getBlock().getRegistryName().equals(new ResourceLocation("endergetic", "ender_fire")) && state.getBlock() instanceof AbstractFireBlock) {
+                access.setFireType(KnownFireTypes.ENDER_FIRE);
             }
         }
 
-	}
+        if (DataUtil.isLoaded("byg")) {
+            if (state.getBlock().getRegistryName().equals(new ResourceLocation("byg", "boric_fire")) && state.getBlock() instanceof AbstractFireBlock) {
+                access.setFireType(KnownFireTypes.BORIC_FIRE);
+            } else if (state.getBlock().getRegistryName().equals(new ResourceLocation("byg", "cryptic_fire")) && state.getBlock() instanceof AbstractFireBlock) {
+                access.setFireType(KnownFireTypes.CRYPTIC_FIRE);
+            }
+        }
+
+    }
 }

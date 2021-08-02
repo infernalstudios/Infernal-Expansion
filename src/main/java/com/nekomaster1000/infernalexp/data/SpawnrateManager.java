@@ -86,7 +86,7 @@ public class SpawnrateManager {
         .put("voline", ImmutableMap.of(
             "default", new SpawnInfo(20, 1, 1, 0, 0),
             "minecraft:nether_wastes", new SpawnInfo(50, 1, 3, 1.2D, 0.1D),
-            "minecraft:crimson_forest", new SpawnInfo(1, 1, 5,  8.2D, 0.1D)
+            "minecraft:crimson_forest", new SpawnInfo(1, 1, 5, 8.2D, 0.1D)
         ))
         .put("warpbeetle", ImmutableMap.of(
             "default", new SpawnInfo(5, 1, 1, 0, 0),

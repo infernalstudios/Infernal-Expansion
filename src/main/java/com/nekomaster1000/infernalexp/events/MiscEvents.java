@@ -171,8 +171,6 @@ public class MiscEvents {
     }
 
 
-
-
     @SubscribeEvent
     public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         ItemStack heldItemStack = event.getItemStack();
@@ -257,8 +255,8 @@ public class MiscEvents {
             if (!world.isRemote) {
                 ThrowableMagmaCreamEntity throwableMagmaCreamEntity = new ThrowableMagmaCreamEntity(world, player);
                 throwableMagmaCreamEntity.setItem(heldItemStack);
-				throwableMagmaCreamEntity.setDirectionAndMovement(player, player.rotationPitch, player.rotationYaw, -20, 0.5f, 1);
-				world.addEntity(throwableMagmaCreamEntity);
+                throwableMagmaCreamEntity.setDirectionAndMovement(player, player.rotationPitch, player.rotationYaw, -20, 0.5f, 1);
+                world.addEntity(throwableMagmaCreamEntity);
                 world.playSound(null, event.getPos(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.BLOCKS, 1.0F, 1.0F);
             }
 

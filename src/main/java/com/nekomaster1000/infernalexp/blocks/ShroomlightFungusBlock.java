@@ -43,19 +43,19 @@ public class ShroomlightFungusBlock extends HorizontalBushBlock {
     @Override
     protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
         return
-			state.matchesBlock(Blocks.GRASS_BLOCK) ||
-				state.matchesBlock(Blocks.DIRT) || state.matchesBlock(Blocks.COARSE_DIRT) || state.matchesBlock(Blocks.FARMLAND) ||
-				state.matchesBlock(Blocks.PODZOL) || state.matchesBlock(Blocks.MYCELIUM) ||
+            state.matchesBlock(Blocks.GRASS_BLOCK) ||
+                state.matchesBlock(Blocks.DIRT) || state.matchesBlock(Blocks.COARSE_DIRT) || state.matchesBlock(Blocks.FARMLAND) ||
+                state.matchesBlock(Blocks.PODZOL) || state.matchesBlock(Blocks.MYCELIUM) ||
 
                 state.matchesBlock(Blocks.NETHER_WART_BLOCK) || state.matchesBlock(Blocks.WARPED_WART_BLOCK) ||
-				state.matchesBlock(Blocks.CRIMSON_NYLIUM) || state.matchesBlock(Blocks.WARPED_NYLIUM) ||
+                state.matchesBlock(Blocks.CRIMSON_NYLIUM) || state.matchesBlock(Blocks.WARPED_NYLIUM) ||
 
-				state.matchesBlock(IEBlocks.CRIMSON_FUNGUS_CAP.get()) || state.matchesBlock(IEBlocks.WARPED_FUNGUS_CAP.get()) ||
+                state.matchesBlock(IEBlocks.CRIMSON_FUNGUS_CAP.get()) || state.matchesBlock(IEBlocks.WARPED_FUNGUS_CAP.get()) ||
                 state.matchesBlock(IEBlocks.LUMINOUS_FUNGUS_CAP.get()) ||
 
                 state.matchesBlock(Blocks.SOUL_SAND) || state.matchesBlock(Blocks.SOUL_SOIL) ||
 
-				state.matchesBlock(Blocks.SHROOMLIGHT);
+                state.matchesBlock(Blocks.SHROOMLIGHT);
     }
 
     public boolean canAttach(IWorldReader reader, BlockPos pos, Direction direction) {
@@ -72,7 +72,7 @@ public class ShroomlightFungusBlock extends HorizontalBushBlock {
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         Vector3d vector3d = state.getOffset(worldIn, pos);
 
-        switch(state.get(FACE)){
+        switch (state.get(FACE)) {
             case FLOOR:
                 return FLOOR_SHAPE.withOffset(vector3d.x, vector3d.y, vector3d.z);
             case CEILING:

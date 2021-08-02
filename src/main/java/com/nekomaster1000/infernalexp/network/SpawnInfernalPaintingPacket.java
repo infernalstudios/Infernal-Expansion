@@ -50,20 +50,20 @@ public class SpawnInfernalPaintingPacket {
     }
 
     public SpawnInfernalPaintingPacket(int entityID, UUID uniqueID, BlockPos pos, Direction facing, String title) {
-		this.entityID = entityID;
-		this.uniqueID = uniqueID;
-		this.pos = pos;
-		this.facing = facing;
-		this.title = title;
-	}
+        this.entityID = entityID;
+        this.uniqueID = uniqueID;
+        this.pos = pos;
+        this.facing = facing;
+        this.title = title;
+    }
 
-	public static void encode(SpawnInfernalPaintingPacket message, PacketBuffer packetBuffer) {
-		packetBuffer.writeVarInt(message.entityID);
-		packetBuffer.writeUniqueId(message.uniqueID);
-		packetBuffer.writeBlockPos(message.pos);
-		packetBuffer.writeByte(message.facing.getHorizontalIndex());
-		packetBuffer.writeString(message.title);
-	}
+    public static void encode(SpawnInfernalPaintingPacket message, PacketBuffer packetBuffer) {
+        packetBuffer.writeVarInt(message.entityID);
+        packetBuffer.writeUniqueId(message.uniqueID);
+        packetBuffer.writeBlockPos(message.pos);
+        packetBuffer.writeByte(message.facing.getHorizontalIndex());
+        packetBuffer.writeString(message.title);
+    }
 
     public static SpawnInfernalPaintingPacket decode(PacketBuffer packetBuffer) {
         return new SpawnInfernalPaintingPacket(
@@ -86,6 +86,6 @@ public class SpawnInfernalPaintingPacket {
             world.filter(ClientWorld.class::isInstance).ifPresent(w -> ((ClientWorld) w).addEntity(message.entityID, paintingEntity));
         });
 
-		ctx.get().setPacketHandled(true);
-	}
+        ctx.get().setPacketHandled(true);
+    }
 }

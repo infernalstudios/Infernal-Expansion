@@ -131,12 +131,12 @@ public class BasaltGiantModel<T extends BasaltGiantEntity> extends SegmentedMode
     public void setRotationAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 
         int i = entity.getAttackTimer();
-        if(i <= 0){
-            this.RightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.4F + (float)Math.PI) * 1.0F * limbSwingAmount;
+        if (i <= 0) {
+            this.RightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.4F + (float) Math.PI) * 1.0F * limbSwingAmount;
             this.Jaw.rotateAngleX = 0.0F;
         }
 
-        this.LeftArm.rotateAngleX = MathHelper.cos(limbSwing * 0.4F + (float)Math.PI) * 0.8F * limbSwingAmount;
+        this.LeftArm.rotateAngleX = MathHelper.cos(limbSwing * 0.4F + (float) Math.PI) * 0.8F * limbSwingAmount;
         this.RightArm.rotateAngleX = MathHelper.cos(limbSwing * 0.4F) * 0.8F * limbSwingAmount;
         this.LeftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.4F) * 1.0F * limbSwingAmount;
         this.Torso2.rotateAngleX = MathHelper.cos(limbSwing * 0.3332F) * 0.25F * limbSwingAmount;
@@ -159,8 +159,8 @@ public class BasaltGiantModel<T extends BasaltGiantEntity> extends SegmentedMode
 
     @Override
     public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		Body.render(matrixStack, buffer, packedLight, packedOverlay);
-	}
+        Body.render(matrixStack, buffer, packedLight, packedOverlay);
+    }
 
     public Iterable<ModelRenderer> getParts() {
         return ImmutableList.of(this.Body, this.Head, this.Jaw, this.Torso, this.Torso2, this.LeftArm, this.LeftArmJoint, this.RightArm, this.RightArmJoint, this.LeftLeg, this.LeftLegJoint, this.RightLeg, this.RightLegJoint);
@@ -169,8 +169,8 @@ public class BasaltGiantModel<T extends BasaltGiantEntity> extends SegmentedMode
     public void setLivingAnimations(T entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
         int i = entityIn.getAttackTimer();
         if (i > 0) {
-            this.RightLeg.rotateAngleX = -0.9F + 0.9F * MathHelper.func_233021_e_((float)i - partialTick, 10.0F);
-            this.Jaw.rotateAngleX = 0.375F - 0.375F * MathHelper.func_233021_e_((float)i - partialTick, 10.0F);
+            this.RightLeg.rotateAngleX = -0.9F + 0.9F * MathHelper.func_233021_e_((float) i - partialTick, 10.0F);
+            this.Jaw.rotateAngleX = 0.375F - 0.375F * MathHelper.func_233021_e_((float) i - partialTick, 10.0F);
         }
     }
 

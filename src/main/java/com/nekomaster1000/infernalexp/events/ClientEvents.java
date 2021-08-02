@@ -66,16 +66,16 @@ public class ClientEvents {
         RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.ASCUS_BOMB.get(), manager -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
         RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.THROWABLE_MAGMA_CREAM.get(), manager -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
         RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.THROWABLE_FIRE_CHARGE.get(), manager -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
-		RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.INFERNAL_PAINTING.get(), InfernalPaintingRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.INFERNAL_PAINTING.get(), InfernalPaintingRenderer::new);
 
-		ClientRegistry.bindTileEntityRenderer(IETileEntityTypes.GLOW_CAMPFIRE.get(), CampfireTileEntityRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(IETileEntityTypes.GLOW_CAMPFIRE.get(), CampfireTileEntityRenderer::new);
 
-		RenderTypeLookup.setRenderLayer(IEBlocks.LUMINOUS_FUNGUS.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(IEBlocks.DULLTHORNS.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(IEBlocks.LUMINOUS_FUNGUS.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(IEBlocks.DULLTHORNS.get(), RenderType.getCutout());
 
-		RenderTypeLookup.setRenderLayer(IEBlocks.POTTED_LUMINOUS_FUNGUS.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(IEBlocks.POTTED_DULLTHORNS.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(IEBlocks.POTTED_SHROOMLIGHT_FUNGUS.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(IEBlocks.POTTED_LUMINOUS_FUNGUS.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(IEBlocks.POTTED_DULLTHORNS.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(IEBlocks.POTTED_SHROOMLIGHT_FUNGUS.get(), RenderType.getCutout());
 
         RenderTypeLookup.setRenderLayer(IEBlocks.GLOW_TORCH.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(IEBlocks.GLOW_TORCH_WALL.get(), RenderType.getCutout());

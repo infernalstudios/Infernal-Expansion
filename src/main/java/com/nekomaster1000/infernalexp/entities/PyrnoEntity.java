@@ -39,48 +39,55 @@ import net.minecraft.world.World;
 
 public class PyrnoEntity extends HoglinEntity {
 
-        public static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(IEItems.GLOWCOAL.get(), Items.MAGMA_CREAM);
+    public static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(IEItems.GLOWCOAL.get(), Items.MAGMA_CREAM);
 
-        public PyrnoEntity(EntityType<? extends HoglinEntity> type, World worldIn) {
+    public PyrnoEntity(EntityType<? extends HoglinEntity> type, World worldIn) {
         super(type, worldIn);
-        }
+    }
 
-        //ATTRIBUTES
-        public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
+    //ATTRIBUTES
+    public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return MobEntity.func_233666_p_()
-        .createMutableAttribute(Attributes.MAX_HEALTH, 50.0D)
-        .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5D)
-        .createMutableAttribute(Attributes.ATTACK_DAMAGE, 5.0D);
-        }
+            .createMutableAttribute(Attributes.MAX_HEALTH, 50.0D)
+            .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5D)
+            .createMutableAttribute(Attributes.ATTACK_DAMAGE, 5.0D);
+    }
 
-        //BEHAVIOUR
-        @Override
-        protected void registerGoals() {
-                super.registerGoals();
-                this.goalSelector.addGoal(0, new TemptGoal(this, 0.5D, TEMPTATION_ITEMS, false));
-                this.goalSelector.addGoal(1, new WaterAvoidingRandomWalkingGoal(this, 0.5D));
-                this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0f));
-                this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
-        }
+    //BEHAVIOUR
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(0, new TemptGoal(this, 0.5D, TEMPTATION_ITEMS, false));
+        this.goalSelector.addGoal(1, new WaterAvoidingRandomWalkingGoal(this, 0.5D));
+        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0f));
+        this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
+    }
 
-        //EXP POINTS
-        @Override
-        protected int getExperiencePoints(PlayerEntity player) {
-                return 1 + this.world.rand.nextInt(4);
-                }
+    //EXP POINTS
+    @Override
+    protected int getExperiencePoints(PlayerEntity player) {
+        return 1 + this.world.rand.nextInt(4);
+    }
 
-        //SOUNDS
-        @Override
-        protected SoundEvent getAmbientSound() { return SoundEvents.ENTITY_PIG_AMBIENT; }
-        @Override
-        protected SoundEvent getDeathSound() { return SoundEvents.ENTITY_PIG_DEATH; }
-        @Override
-        protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-                return SoundEvents.ENTITY_PIG_HURT;
-                }
-        @Override
-        protected void playStepSound(BlockPos pos, BlockState blockIn) {
-                this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
-                }
+    //SOUNDS
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return SoundEvents.ENTITY_PIG_AMBIENT;
+    }
 
-                }
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.ENTITY_PIG_DEATH;
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return SoundEvents.ENTITY_PIG_HURT;
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState blockIn) {
+        this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
+    }
+
+}

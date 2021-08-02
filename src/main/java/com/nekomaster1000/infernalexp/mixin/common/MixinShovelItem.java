@@ -52,10 +52,10 @@ public class MixinShovelItem {
             GlowCampfireBlock.extinguish(world, pos, state);
             world.setBlockState(pos, state.with(GlowCampfireBlock.LIT, false));
             cir.setReturnValue(ActionResultType.SUCCESS);
-        } else if (state.getBlock() instanceof NyliumBlock || state.getBlock().matchesBlock(Blocks.SOUL_SOIL) ) {
+        } else if (state.getBlock() instanceof NyliumBlock || state.getBlock().matchesBlock(Blocks.SOUL_SOIL)) {
             if (state.getBlock().matchesBlock(Blocks.CRIMSON_NYLIUM)) {
                 state = IEBlocks.CRIMSON_NYLIUM_PATH.get().getDefaultState();
-            } else if (state.getBlock().matchesBlock(Blocks.WARPED_NYLIUM)){
+            } else if (state.getBlock().matchesBlock(Blocks.WARPED_NYLIUM)) {
                 state = IEBlocks.WARPED_NYLIUM_PATH.get().getDefaultState();
             } else {
                 state = IEBlocks.SOUL_SOIL_PATH.get().getDefaultState();

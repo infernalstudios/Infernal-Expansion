@@ -26,18 +26,21 @@ public abstract class ModBiome {
 
     /**
      * Method to configure category
+     *
      * @return Category for biome to use
      */
     protected abstract Biome.Category configureCategory();
 
     /**
      * Method to configure depth value
+     *
      * @return Depth value for biome to use
      */
     protected abstract float configureDepth();
 
     /**
      * Method to configure scale value
+     *
      * @return Scale value for biome to use
      */
     protected abstract float configureScale();
@@ -69,6 +72,7 @@ public abstract class ModBiome {
 
     /**
      * Builds the biome
+     *
      * @return Returns the finished, built biome
      */
     public final Biome build() {
@@ -100,7 +104,7 @@ public abstract class ModBiome {
         // Configure biome mob spawn settings
         MobSpawnInfo.Builder spawns = new MobSpawnInfo.Builder();
         this.configureSpawns(spawns);
-		builder.withMobSpawnSettings(spawns.build());
+        builder.withMobSpawnSettings(spawns.build());
 
         return builder.build();
     }

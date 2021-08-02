@@ -1,18 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
+  "pattern": [
     "xxx"
   ],
-  "key":
-  {
-    "x":
-    {
+  "key": {
+    "x": {
       "item": "infernalexp:polished_basalt_tiles"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "infernalexp:polished_basalt_tiles_slab",
     "count": 6
   }

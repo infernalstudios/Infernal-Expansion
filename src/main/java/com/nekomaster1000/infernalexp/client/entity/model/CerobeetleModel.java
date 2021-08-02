@@ -118,11 +118,11 @@ public class CerobeetleModel<T extends CerobeetleEntity> extends EntityModel<T> 
          }
 */
         this.left_leg_1.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F) * 1.4F * limbSwingAmount;
-        this.left_leg_2.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        this.left_leg_2.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
         this.left_leg_3.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F) * 1.4F * limbSwingAmount;
-        this.right_leg_1.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        this.right_leg_1.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
         this.right_leg_2.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F) * 1.4F * limbSwingAmount;
-        this.right_leg_3.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        this.right_leg_3.rotateAngleZ = MathHelper.cos(limbSwing * 1.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
 
         if (!entity.isOnGround()) {
             entity.shellRotationMultiplier += 0.1F;
@@ -159,7 +159,7 @@ public class CerobeetleModel<T extends CerobeetleEntity> extends EntityModel<T> 
 
 
     @Override
-    public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
+    public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         body.render(matrixStack, buffer, packedLight, packedOverlay);
         head.render(matrixStack, buffer, packedLight, packedOverlay);
         left_shield.render(matrixStack, buffer, packedLight, packedOverlay);
@@ -180,7 +180,7 @@ public class CerobeetleModel<T extends CerobeetleEntity> extends EntityModel<T> 
 
         int i = entity.getAttackTimer();
         if (i > 0) {
-            this.head.rotateAngleX = -0.9F + 0.9F * MathHelper.func_233021_e_((float)i - partialTick, 10.0F);
+            this.head.rotateAngleX = -0.9F + 0.9F * MathHelper.func_233021_e_((float) i - partialTick, 10.0F);
         }
     }
 

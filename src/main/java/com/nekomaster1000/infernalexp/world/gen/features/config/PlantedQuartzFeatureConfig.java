@@ -23,7 +23,7 @@ import net.minecraft.world.gen.feature.IFeatureConfig;
 public class PlantedQuartzFeatureConfig implements IFeatureConfig {
     public static final Codec<PlantedQuartzFeatureConfig> CODEC = RecordCodecBuilder.create((builder) -> {
         return builder.group(
-            Codec.FLOAT.fieldOf("chance_to_fail").forGetter((config) -> config.chanceToFail))
+                Codec.FLOAT.fieldOf("chance_to_fail").forGetter((config) -> config.chanceToFail))
             .apply(builder, PlantedQuartzFeatureConfig::new);
     });
 

@@ -29,7 +29,9 @@ public class WarpbeetleRenderer extends MobRenderer<WarpbeetleEntity, Warpbeetle
     protected static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/warpbeetle/warpbeetle.png");
     protected static final ResourceLocation CHORUS_TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/warpbeetle/chorus_warpbeetle.png");
 
-    public WarpbeetleRenderer(EntityRendererManager renderManagerIn) { super(renderManagerIn, new WarpbeetleModel<>(), 0.7f); }
+    public WarpbeetleRenderer(EntityRendererManager renderManagerIn) {
+        super(renderManagerIn, new WarpbeetleModel<>(), 0.7f);
+    }
 
     @Override
     public ResourceLocation getEntityTexture(WarpbeetleEntity entity) {

@@ -33,13 +33,13 @@ import net.minecraft.world.World;
 
 public class GlowsilkBowItem extends BowItem {
 
-	public GlowsilkBowItem(Properties builder) {
-		super(builder);
-	}
+    public GlowsilkBowItem(Properties builder) {
+        super(builder);
+    }
 
-	@Override
-	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
-		if (entityLiving instanceof PlayerEntity) {
+    @Override
+    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
+        if (entityLiving instanceof PlayerEntity) {
             PlayerEntity playerEntity = (PlayerEntity) entityLiving;
             ItemStack itemStack = playerEntity.findAmmo(stack);
             boolean hasInfinity = playerEntity.abilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack) > 0;
@@ -111,7 +111,7 @@ public class GlowsilkBowItem extends BowItem {
 
                     playerEntity.addStat(Stats.ITEM_USED.get(this));
                 }
-			}
-		}
-	}
+            }
+        }
+    }
 }

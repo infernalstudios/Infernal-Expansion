@@ -81,7 +81,8 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
 
     @Override
     public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
-        if (!worldIn.isAreaLoaded(pos, 1)) return; // Forge: prevent growing cactus from loading unloaded chunks with block update
+        if (!worldIn.isAreaLoaded(pos, 1))
+            return; // Forge: prevent growing cactus from loading unloaded chunks with block update
         if (!state.isValidPosition(worldIn, pos)) {
             worldIn.destroyBlock(pos, true);
         }
@@ -104,7 +105,7 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
 
             if (i < 9) {
                 int j = state.get(AGE);
-                if(net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, blockpos, state, true)) {
+                if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, blockpos, state, true)) {
                     if (j == 15) {
                         worldIn.setBlockState(blockpos, this.getDefaultState());
                         BlockState blockstate = state.with(AGE, 0);
@@ -136,23 +137,23 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
 
     @Override
     public boolean isLadder(BlockState state, net.minecraft.world.IWorldReader world, BlockPos pos, net.minecraft.entity.LivingEntity entity) {
-       return true;
+        return true;
     }
 
     @Override
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
         if (!worldIn.isRemote()) {
-            if (entityIn instanceof LivingEntity && entityIn.isAlive() && !(entityIn instanceof BlindsightEntity) ) {
+            if (entityIn instanceof LivingEntity && entityIn.isAlive() && !(entityIn instanceof BlindsightEntity)) {
                 LivingEntity livingEntity = (LivingEntity) entityIn;
                 livingEntity.addPotionEffect(new EffectInstance(IEEffects.LUMINOUS.get(), 200, 0, true, true));
             }
             entityIn.attackEntityFrom(DamageSource.CACTUS, 1.0F);
         }
     }
-    
+
     @Override
     public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
-    	return false;
+        return false;
     }
 
     @Override

@@ -171,44 +171,44 @@ public class InfernalExpansion {
             IEItems.MOTH_DUST.get().getDefaultInstance(),
             PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LUMINOUS.get())));
         BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
-                PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LUMINOUS.get()),
-                Items.GUNPOWDER.getDefaultInstance(),
-                PotionUtils.addPotionToItemStack(Items.SPLASH_POTION.getDefaultInstance(), IEPotions.LUMINOUS.get())));
+            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LUMINOUS.get()),
+            Items.GUNPOWDER.getDefaultInstance(),
+            PotionUtils.addPotionToItemStack(Items.SPLASH_POTION.getDefaultInstance(), IEPotions.LUMINOUS.get())));
         BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
-                PotionUtils.addPotionToItemStack(Items.SPLASH_POTION.getDefaultInstance(), IEPotions.LUMINOUS.get()),
-                Items.DRAGON_BREATH.getDefaultInstance(),
-                PotionUtils.addPotionToItemStack(Items.LINGERING_POTION.getDefaultInstance(), IEPotions.LUMINOUS.get())));
+            PotionUtils.addPotionToItemStack(Items.SPLASH_POTION.getDefaultInstance(), IEPotions.LUMINOUS.get()),
+            Items.DRAGON_BREATH.getDefaultInstance(),
+            PotionUtils.addPotionToItemStack(Items.LINGERING_POTION.getDefaultInstance(), IEPotions.LUMINOUS.get())));
         BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
-                PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LUMINOUS.get()),
-                Items.REDSTONE.getDefaultInstance(),
-                PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LONG_LUMINOUS.get())));
+            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LUMINOUS.get()),
+            Items.REDSTONE.getDefaultInstance(),
+            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LONG_LUMINOUS.get())));
         BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
-                PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LUMINOUS.get()),
-                Items.GLOWSTONE_DUST.getDefaultInstance(),
-                PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.STRONG_LUMINOUS.get())));
+            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LUMINOUS.get()),
+            Items.GLOWSTONE_DUST.getDefaultInstance(),
+            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.STRONG_LUMINOUS.get())));
 
-		BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
-			PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), Potions.AWKWARD),
-			IEItems.ASCUS_BOMB.get().getDefaultInstance(),
-			PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.INFECTION.get())));
-		BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
-			PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.INFECTION.get()),
-			Items.GUNPOWDER.getDefaultInstance(),
-			PotionUtils.addPotionToItemStack(Items.SPLASH_POTION.getDefaultInstance(), IEPotions.INFECTION.get())));
-		BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
-			PotionUtils.addPotionToItemStack(Items.SPLASH_POTION.getDefaultInstance(), IEPotions.INFECTION.get()),
-			Items.DRAGON_BREATH.getDefaultInstance(),
-			PotionUtils.addPotionToItemStack(Items.LINGERING_POTION.getDefaultInstance(), IEPotions.INFECTION.get())));
-		BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
-			PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.INFECTION.get()),
-			Items.REDSTONE.getDefaultInstance(),
-			PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LONG_INFECTION.get())));
-		BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
-			PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.INFECTION.get()),
-			Items.GLOWSTONE_DUST.getDefaultInstance(),
-			PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.STRONG_INFECTION.get())));
+        BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
+            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), Potions.AWKWARD),
+            IEItems.ASCUS_BOMB.get().getDefaultInstance(),
+            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.INFECTION.get())));
+        BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
+            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.INFECTION.get()),
+            Items.GUNPOWDER.getDefaultInstance(),
+            PotionUtils.addPotionToItemStack(Items.SPLASH_POTION.getDefaultInstance(), IEPotions.INFECTION.get())));
+        BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
+            PotionUtils.addPotionToItemStack(Items.SPLASH_POTION.getDefaultInstance(), IEPotions.INFECTION.get()),
+            Items.DRAGON_BREATH.getDefaultInstance(),
+            PotionUtils.addPotionToItemStack(Items.LINGERING_POTION.getDefaultInstance(), IEPotions.INFECTION.get())));
+        BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
+            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.INFECTION.get()),
+            Items.REDSTONE.getDefaultInstance(),
+            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LONG_INFECTION.get())));
+        BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
+            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.INFECTION.get()),
+            Items.GLOWSTONE_DUST.getDefaultInstance(),
+            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.STRONG_INFECTION.get())));
 
-		//Custom Dispenser Behavior
+        //Custom Dispenser Behavior
         DispenserBlock.registerDispenseBehavior(Items.GLOWSTONE_DUST, new DefaultDispenseItemBehavior() {
             @Override
             protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {

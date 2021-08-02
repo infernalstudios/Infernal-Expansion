@@ -44,8 +44,8 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import java.util.List;
 
 @OnlyIn(
-        value = Dist.CLIENT,
-        _interface = IRendersAsItem.class
+    value = Dist.CLIENT,
+    _interface = IRendersAsItem.class
 )
 public class AscusBombEntity extends ProjectileItemEntity implements IRendersAsItem {
 
@@ -81,7 +81,7 @@ public class AscusBombEntity extends ProjectileItemEntity implements IRendersAsI
 
     }
 
-    private void spawnExplosionCloud(){
+    private void spawnExplosionCloud() {
         AreaEffectCloudEntity areaeffectcloudentity = new AreaEffectCloudEntity(this.world, this.getPosX(), this.getPosY() + 0.6, this.getPosZ());
 
         areaeffectcloudentity.setRadius(0.1F);

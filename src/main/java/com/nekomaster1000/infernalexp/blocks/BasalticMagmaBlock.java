@@ -36,10 +36,10 @@ public class BasalticMagmaBlock extends MagmaBlock {
 
     @Override
     public BlockState rotate(BlockState state, Rotation rot) {
-        switch(rot) {
+        switch (rot) {
             case COUNTERCLOCKWISE_90:
             case CLOCKWISE_90:
-                switch(state.get(AXIS)) {
+                switch (state.get(AXIS)) {
                     case X:
                         return state.with(AXIS, Direction.Axis.Z);
                     case Z:

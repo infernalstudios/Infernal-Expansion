@@ -69,7 +69,7 @@ public class BuriedBoneBlock extends HorizontalBushBlock {
         }
         return null;
     }
-    
+
     @Override
     protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
         return state.getBlock().isIn(IETags.Blocks.BURIED_BONE_BASE_BLOCKS);
@@ -89,7 +89,7 @@ public class BuriedBoneBlock extends HorizontalBushBlock {
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         Vector3d vector3d = state.getOffset(worldIn, pos);
 
-        switch(state.get(FACE)){
+        switch (state.get(FACE)) {
             case FLOOR:
                 return FLOOR_SHAPE.withOffset(vector3d.x, vector3d.y, vector3d.z);
             case CEILING:

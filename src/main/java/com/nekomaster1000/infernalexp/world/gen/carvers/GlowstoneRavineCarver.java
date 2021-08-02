@@ -68,7 +68,7 @@ public class GlowstoneRavineCarver extends CanyonWorldCarver {
         Random random = new Random(seed);
         float stretch = 1.0F;
 
-        for(int y1 = 0; y1 < 256; ++y1) {
+        for (int y1 = 0; y1 < 256; ++y1) {
             if (y1 == 0 || random.nextInt(3) == 0) {
                 stretch = 1.0F + random.nextFloat() * random.nextFloat();
             }
@@ -79,12 +79,12 @@ public class GlowstoneRavineCarver extends CanyonWorldCarver {
         float yawChange = 0.0F;
         float pitchChange = 0.0F;
 
-        for(int i = branchStartIndex; i < branchCount; i++) {
-            double scaledYaw = 1.5D + (double)(MathHelper.sin((float)i * 3.1415927F / (float)branchCount) * width);
+        for (int i = branchStartIndex; i < branchCount; i++) {
+            double scaledYaw = 1.5D + (double) (MathHelper.sin((float) i * 3.1415927F / (float) branchCount) * width);
             double scaledPitch = scaledYaw * yawMultiplier;
 
-            scaledYaw *= (double)random.nextFloat() * 0.25D + 0.75D;
-            scaledPitch *= (double)random.nextFloat() * 0.25D + 0.75D;
+            scaledYaw *= (double) random.nextFloat() * 0.25D + 0.75D;
+            scaledPitch *= (double) random.nextFloat() * 0.25D + 0.75D;
 
             float deltaXZ = MathHelper.cos(pitch);
             float deltaY = MathHelper.sin(pitch);

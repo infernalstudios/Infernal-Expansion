@@ -123,6 +123,6 @@ public class GlowLayerFeature extends Feature<NoFeatureConfig> {
         //return Math.min(glowdustSandCount, 1);
 
         // change radius to 2 and use this version for 2x2 barely sloping dust that looks neat
-        return Math.min((int)Math.ceil((glowdustSandCount) / 6D), 8);
+        return Math.min((int) Math.ceil((glowdustSandCount) / 6D), 8);
     }
 }

@@ -81,9 +81,9 @@ public class StriderAltarStructure extends IEStructure<NoFeatureConfig> {
             int minValidSpace = 20;
             int maxHeight = Math.min(chunkGenerator.getMaxBuildHeight(), chunkGenerator.getSeaLevel() + minValidSpace);
 
-            while(mutable.getY() < maxHeight){
+            while (mutable.getY() < maxHeight) {
                 BlockState state = blockView.getBlockState(mutable);
-                if(!state.isAir()){
+                if (!state.isAir()) {
                     return false;
                 }
                 mutable.move(Direction.UP);
@@ -117,7 +117,7 @@ public class StriderAltarStructure extends IEStructure<NoFeatureConfig> {
                 BlockState checkBlock = blockColumn.getBlockState(pos.down(topDown + 1));
 
                 if (checkLava.matchesBlock(Blocks.LAVA) && checkBlock.isSolidSide(blockColumn, pos.down(y), Direction.UP)) {
-                    return y-topDown;
+                    return y - topDown;
                 }
 
                 topDown++;
@@ -125,7 +125,6 @@ public class StriderAltarStructure extends IEStructure<NoFeatureConfig> {
 
             return 0;
         }
-
 
 
         @Override

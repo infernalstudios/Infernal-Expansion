@@ -1,20 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
+  "pattern": [
     "xxx",
     "xxx",
     "xxx"
   ],
-  "key":
-  {
-    "x":
-    {
+  "key": {
+    "x": {
       "item": "minecraft:glowstone_dust"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "infernalexp:glowdust_sand",
     "count": 4
   }

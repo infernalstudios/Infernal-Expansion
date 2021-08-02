@@ -41,29 +41,29 @@ import net.minecraft.world.gen.feature.template.TemplateManager;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
 
 public class SoulSandValleyRuinStructure extends IEStructure<NoFeatureConfig> {
-	public SoulSandValleyRuinStructure(Codec<NoFeatureConfig> codec) {
-		super(codec);
-	}
+    public SoulSandValleyRuinStructure(Codec<NoFeatureConfig> codec) {
+        super(codec);
+    }
 
-	@Override
-	public IStartFactory<NoFeatureConfig> getStartFactory() {
-		return SoulSandValleyRuinStructure.Start::new;
-	}
+    @Override
+    public IStartFactory<NoFeatureConfig> getStartFactory() {
+        return SoulSandValleyRuinStructure.Start::new;
+    }
 
-	@Override
-	public GenerationStage.Decoration getDecorationStage() {
-		return GenerationStage.Decoration.SURFACE_STRUCTURES;
-	}
+    @Override
+    public GenerationStage.Decoration getDecorationStage() {
+        return GenerationStage.Decoration.SURFACE_STRUCTURES;
+    }
 
-	@Override
-	public StructureSeparationSettings getSeparationSettings() {
-		return new StructureSeparationSettings(4, 2, 29456392);
-	}
+    @Override
+    public StructureSeparationSettings getSeparationSettings() {
+        return new StructureSeparationSettings(4, 2, 29456392);
+    }
 
-	@Override
-	public boolean shouldTransformLand() {
-		return true;
-	}
+    @Override
+    public boolean shouldTransformLand() {
+        return true;
+    }
 
     @Override
     protected boolean func_230363_a_(ChunkGenerator chunkGenerator, BiomeProvider biomeProvider, long seed, SharedSeedRandom chunkRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, NoFeatureConfig config) {
@@ -128,38 +128,38 @@ public class SoulSandValleyRuinStructure extends IEStructure<NoFeatureConfig> {
         return true;
     }
 
-	public static class Start extends IEStart<NoFeatureConfig> {
+    public static class Start extends IEStart<NoFeatureConfig> {
         private final long seed;
 
-		public Start(Structure<NoFeatureConfig> structure, int chunkX, int chunkZ, MutableBoundingBox mutableBoundingBox, int reference, long seed) {
-			super(structure, chunkX, chunkZ, mutableBoundingBox, reference, seed);
+        public Start(Structure<NoFeatureConfig> structure, int chunkX, int chunkZ, MutableBoundingBox mutableBoundingBox, int reference, long seed) {
+            super(structure, chunkX, chunkZ, mutableBoundingBox, reference, seed);
             this.seed = seed;
-		}
+        }
 
-		@Override
-		public void func_230364_a_(DynamicRegistries dynamicRegistryManager, ChunkGenerator chunkGenerator, TemplateManager templateManager, int chunkX, int chunkZ, Biome biome, NoFeatureConfig config) {
+        @Override
+        public void func_230364_a_(DynamicRegistries dynamicRegistryManager, ChunkGenerator chunkGenerator, TemplateManager templateManager, int chunkX, int chunkZ, Biome biome, NoFeatureConfig config) {
             SharedSeedRandom random = new SharedSeedRandom(seed + (chunkX * (chunkZ * 17)));
-		    int x = chunkX << 4;
-			int z = chunkZ << 4;
+            int x = chunkX << 4;
+            int z = chunkZ << 4;
 
-			BlockPos pos = new BlockPos(x, getYPos(chunkGenerator, x, z, random), z);
+            BlockPos pos = new BlockPos(x, getYPos(chunkGenerator, x, z, random), z);
 
-			if (pos.getY() != 0) {
-				JigsawManager.func_242837_a(
-						dynamicRegistryManager,
-						new VillageConfig(() -> dynamicRegistryManager.getRegistry(Registry.JIGSAW_POOL_KEY).getOrDefault(new ResourceLocation(InfernalExpansion.MOD_ID, "soul_sand_valley_ruin/start_pool")), 1),
-						AbstractVillagePiece::new,
-						chunkGenerator,
-						templateManager,
-						pos,
-						this.components,
-						this.rand,
-						false,
-						false
-				);
+            if (pos.getY() != 0) {
+                JigsawManager.func_242837_a(
+                    dynamicRegistryManager,
+                    new VillageConfig(() -> dynamicRegistryManager.getRegistry(Registry.JIGSAW_POOL_KEY).getOrDefault(new ResourceLocation(InfernalExpansion.MOD_ID, "soul_sand_valley_ruin/start_pool")), 1),
+                    AbstractVillagePiece::new,
+                    chunkGenerator,
+                    templateManager,
+                    pos,
+                    this.components,
+                    this.rand,
+                    false,
+                    false
+                );
 
-				this.recalculateStructureSize();
-			}
-		}
-	}
+                this.recalculateStructureSize();
+            }
+        }
+    }
 }

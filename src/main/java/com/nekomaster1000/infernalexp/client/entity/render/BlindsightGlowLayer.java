@@ -31,7 +31,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class BlindsightGlowLayer<T extends GlowsquitoEntity, M extends EntityModel<T>> extends AbstractEyesLayer<T, M> {
     private static final RenderType RENDER_TYPE = RenderType.getEyes(new ResourceLocation(InfernalExpansion.MOD_ID,
-            "textures/entity/blindsight_glow.png"));
+        "textures/entity/blindsight_glow.png"));
 
     public BlindsightGlowLayer(IEntityRenderer<T, M> rendererIn) {
         super(rendererIn);

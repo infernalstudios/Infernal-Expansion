@@ -1,24 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
+  "pattern": [
     "x",
     "y",
-  	"x"
+    "x"
   ],
-  "key":
-  {
-    "x":
-    {
+  "key": {
+    "x": {
       "item": "infernalexp:soul_slate_brick_slab"
     },
-    "y":
-    {
+    "y": {
       "item": "infernalexp:soul_salt_clump"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "infernalexp:charged_chiseled_soul_slate_bricks",
     "count": 1
   }

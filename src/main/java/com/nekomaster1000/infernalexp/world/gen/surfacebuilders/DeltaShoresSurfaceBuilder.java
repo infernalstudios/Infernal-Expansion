@@ -28,10 +28,10 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 
 import java.util.Random;
 
-public class DeltaShoresSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig>{
-	public DeltaShoresSurfaceBuilder(Codec<SurfaceBuilderConfig> p_i232136_1_) {
-		super(p_i232136_1_);
-	}
+public class DeltaShoresSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> {
+    public DeltaShoresSurfaceBuilder(Codec<SurfaceBuilderConfig> p_i232136_1_) {
+        super(p_i232136_1_);
+    }
 
 
     @Override
@@ -43,7 +43,7 @@ public class DeltaShoresSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConf
         BlockPos.Mutable mutable = new BlockPos.Mutable();
         int depth = -1; // Will be used to know how deep we are in solid blocks so we know when to stop placing middleBlock
         int siltMixThreshold = 63;
-        int middleBlockExtraDepth = (int)(noise / 3.0D + 1.0D + random.nextDouble() * 0.25D);
+        int middleBlockExtraDepth = (int) (noise / 3.0D + 1.0D + random.nextDouble() * 0.25D);
 
         // Start at top land and loop downward
         for (int y = terrainHeight; y >= seaLevel; --y) {
@@ -67,7 +67,7 @@ public class DeltaShoresSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConf
                     chunk.setBlockState(mutable, middleBlock, false);
                 } else if (y <= siltMixThreshold) {
                     // replaces all underground solid blocks below y = 63 with basalt/silt mix
-                    float percentage = ((float) y / 63) - ((float)noise / 6.5f);
+                    float percentage = ((float) y / 63) - ((float) noise / 6.5f);
                     if (percentage <= 0.10) {
                         chunk.setBlockState(mutable, topBlock, false);
                     } else {

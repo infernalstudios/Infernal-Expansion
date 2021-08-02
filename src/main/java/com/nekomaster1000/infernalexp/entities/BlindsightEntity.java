@@ -66,10 +66,10 @@ public class BlindsightEntity extends MonsterEntity {
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return MobEntity.func_233666_p_()
             .createMutableAttribute(Attributes.MAX_HEALTH, 24.0D)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 2.0D)
-                .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.5D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.9D)
-                .createMutableAttribute(Attributes.FOLLOW_RANGE, 18.0D);
+            .createMutableAttribute(Attributes.ATTACK_DAMAGE, 2.0D)
+            .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.5D)
+            .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.9D)
+            .createMutableAttribute(Attributes.FOLLOW_RANGE, 18.0D);
     }
 
     //BEHAVIOUR
@@ -146,7 +146,7 @@ public class BlindsightEntity extends MonsterEntity {
         Vector3d vector3d = this.getMotion();
         this.setMotion(vector3d.x, f, vector3d.z);
         if (this.isSprinting()) {
-            float f1 = this.rotationYaw * ((float)Math.PI / 180F);
+            float f1 = this.rotationYaw * ((float) Math.PI / 180F);
             this.setMotion(this.getMotion().add((-MathHelper.sin(f1) * 0.2F), 0.0D, (MathHelper.cos(f1) * 0.2F)));
         }
 
@@ -184,7 +184,7 @@ public class BlindsightEntity extends MonsterEntity {
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
-        if(source == DamageSource.FALL){
+        if (source == DamageSource.FALL) {
             return false;
         }
         return super.attackEntityFrom(source, amount);
@@ -199,7 +199,7 @@ public class BlindsightEntity extends MonsterEntity {
 
     protected void dealDamage(LivingEntity entityIn) {
         if (this.isAlive()) {
-            if (this.canEntityBeSeen(entityIn) && entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE))) {
+            if (this.canEntityBeSeen(entityIn) && entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE))) {
                 entityIn.addPotionEffect(new EffectInstance(IEEffects.LUMINOUS.get(), 600, 0, true, true));
                 this.playSound(SoundEvents.ENTITY_SLIME_ATTACK, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
                 this.applyEnchantments(this, entityIn);
@@ -278,8 +278,8 @@ public class BlindsightEntity extends MonsterEntity {
         @Override
         protected boolean isSuitableTarget(@Nullable LivingEntity potentialTarget, EntityPredicate targetPredicate) {
             return super.isSuitableTarget(potentialTarget, targetPredicate) &&
-                    (this.goalOwner.getDistanceSq(this.nearestTarget) <= 10.0F ||
-                      (this.goalOwner.getDistanceSq(this.nearestTarget) > 10.0F &&
+                (this.goalOwner.getDistanceSq(this.nearestTarget) <= 10.0F ||
+                    (this.goalOwner.getDistanceSq(this.nearestTarget) > 10.0F &&
                         this.nearestTarget.isPotionActive(IEEffects.LUMINOUS.get())));
         }
     }
@@ -438,7 +438,7 @@ public class BlindsightEntity extends MonsterEntity {
                 this.chosenDegrees = (float) this.blindsight.getRNG().nextInt(360);
             }
 
-            ((BlindsightEntity.MoveHelperController)this.blindsight.getMoveHelper()).setDirection(this.chosenDegrees);
+            ((BlindsightEntity.MoveHelperController) this.blindsight.getMoveHelper()).setDirection(this.chosenDegrees);
         }
     }
 

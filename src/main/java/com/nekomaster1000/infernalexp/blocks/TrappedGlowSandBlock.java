@@ -39,7 +39,8 @@ public class TrappedGlowSandBlock extends GlowSandBlock {
     private int ticksToFall = 10;
 
     @Override
-    public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) { }
+    public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
+    }
 
     @Override
     public void onEntityWalk(World world, BlockPos pos, Entity entity) {
@@ -74,6 +75,6 @@ public class TrappedGlowSandBlock extends GlowSandBlock {
                 world.spawnParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get(), pos.getX(), pos.getY(), pos.getZ(), 1, 0.0, 1.0, 0.0, 0.0);
                 this.ticksToFall--;
             }
-		}
+        }
     }
 }

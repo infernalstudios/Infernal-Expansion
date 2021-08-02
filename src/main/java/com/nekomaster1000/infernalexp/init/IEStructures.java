@@ -40,52 +40,52 @@ import java.util.Map;
 
 public class IEStructures {
 
-	public static List<IEStructure<?>> structures = new ArrayList<>();
+    public static List<IEStructure<?>> structures = new ArrayList<>();
 
 
-	public static final IEStructure<NoFeatureConfig> GLOWSTONE_CANYON_RUIN = registerStructure("glowstone_canyon_ruin", new GlowstoneCanyonRuinStructure(NoFeatureConfig.CODEC));
-	public static final IEStructure<NoFeatureConfig> BASTION_OUTPOST = registerStructure("bastion_outpost", new BastionOutpostStructure(NoFeatureConfig.CODEC));
-	public static final IEStructure<NoFeatureConfig> SOUL_SAND_VALLEY_RUIN = registerStructure("soul_sand_valley_ruin", new SoulSandValleyRuinStructure(NoFeatureConfig.CODEC));
+    public static final IEStructure<NoFeatureConfig> GLOWSTONE_CANYON_RUIN = registerStructure("glowstone_canyon_ruin", new GlowstoneCanyonRuinStructure(NoFeatureConfig.CODEC));
+    public static final IEStructure<NoFeatureConfig> BASTION_OUTPOST = registerStructure("bastion_outpost", new BastionOutpostStructure(NoFeatureConfig.CODEC));
+    public static final IEStructure<NoFeatureConfig> SOUL_SAND_VALLEY_RUIN = registerStructure("soul_sand_valley_ruin", new SoulSandValleyRuinStructure(NoFeatureConfig.CODEC));
     public static final IEStructure<NoFeatureConfig> STRIDER_ALTAR = registerStructure("strider_altar", new StriderAltarStructure(NoFeatureConfig.CODEC));
 
-	public static <C extends IFeatureConfig, F extends IEStructure<C>> F registerStructure(String registryName, F structure) {
-		ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, registryName);
+    public static <C extends IFeatureConfig, F extends IEStructure<C>> F registerStructure(String registryName, F structure) {
+        ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, registryName);
 
-		if (Registry.STRUCTURE_FEATURE.keySet().contains(resourceLocation))
-			throw new IllegalStateException("Structure ID: \"" + resourceLocation.toString() + "\" is already in the registry!");
+        if (Registry.STRUCTURE_FEATURE.keySet().contains(resourceLocation))
+            throw new IllegalStateException("Structure ID: \"" + resourceLocation.toString() + "\" is already in the registry!");
 
-		structure.setRegistryName(resourceLocation);
-		structures.add(structure);
+        structure.setRegistryName(resourceLocation);
+        structures.add(structure);
 
-		return structure;
-	}
+        return structure;
+    }
 
-	public static void setupStructures() {
-		structures.forEach(structure -> setupMapSpacingAndLand(structure, structure.getSeparationSettings(), structure.shouldTransformLand()));
-	}
+    public static void setupStructures() {
+        structures.forEach(structure -> setupMapSpacingAndLand(structure, structure.getSeparationSettings(), structure.shouldTransformLand()));
+    }
 
-	public static <F extends Structure<?>> void setupMapSpacingAndLand(F structure, StructureSeparationSettings structureSeparationSettings, boolean transformSurroundingLand) {
-		Structure.NAME_STRUCTURE_BIMAP.put(structure.getRegistryName().toString(), structure);
+    public static <F extends Structure<?>> void setupMapSpacingAndLand(F structure, StructureSeparationSettings structureSeparationSettings, boolean transformSurroundingLand) {
+        Structure.NAME_STRUCTURE_BIMAP.put(structure.getRegistryName().toString(), structure);
 
-		if (transformSurroundingLand) {
-			Structure.field_236384_t_ = ImmutableList.<Structure<?>>builder().addAll(Structure.field_236384_t_).add(structure).build();
-		}
+        if (transformSurroundingLand) {
+            Structure.field_236384_t_ = ImmutableList.<Structure<?>>builder().addAll(Structure.field_236384_t_).add(structure).build();
+        }
 
-		DimensionStructuresSettings.field_236191_b_ = ImmutableMap.<Structure<?>, StructureSeparationSettings>builder().putAll(DimensionStructuresSettings.field_236191_b_).put(structure, structureSeparationSettings).build();
+        DimensionStructuresSettings.field_236191_b_ = ImmutableMap.<Structure<?>, StructureSeparationSettings>builder().putAll(DimensionStructuresSettings.field_236191_b_).put(structure, structureSeparationSettings).build();
 
-		WorldGenRegistries.NOISE_SETTINGS.getEntries().forEach(settings -> {
-			Map<Structure<?>, StructureSeparationSettings> structureMap = settings.getValue().getStructures().func_236195_a_();
+        WorldGenRegistries.NOISE_SETTINGS.getEntries().forEach(settings -> {
+            Map<Structure<?>, StructureSeparationSettings> structureMap = settings.getValue().getStructures().func_236195_a_();
 
-			if (structureMap instanceof ImmutableMap) {
-				Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(structureMap);
+            if (structureMap instanceof ImmutableMap) {
+                Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(structureMap);
 
-				tempMap.put(structure, structureSeparationSettings);
-				settings.getValue().getStructures().field_236193_d_ = tempMap;
+                tempMap.put(structure, structureSeparationSettings);
+                settings.getValue().getStructures().field_236193_d_ = tempMap;
 
-			} else {
-				structureMap.put(structure, structureSeparationSettings);
-			}
-		});
-	}
+            } else {
+                structureMap.put(structure, structureSeparationSettings);
+            }
+        });
+    }
 
 }

@@ -35,14 +35,14 @@ import java.util.Random;
 @Mixin(targets = "net.minecraft.item.ItemModelsProperties$1")
 public class MixinItemModelsProperties {
 
-	@ModifyVariable(method = "call", at = @At(value = "STORE", ordinal = 1 /* this ordinal is when its set to Math.random(), the second time d0 is set to something */), ordinal = 0 /* this ordinal means the first double variable */)
-	private double IE_daytimeInGSC(double in, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
-	    ClientWorld clientWorld = world;
+    @ModifyVariable(method = "call", at = @At(value = "STORE", ordinal = 1 /* this ordinal is when its set to Math.random(), the second time d0 is set to something */), ordinal = 0 /* this ordinal means the first double variable */)
+    private double IE_daytimeInGSC(double in, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
+        ClientWorld clientWorld = world;
         if (entity == null) {
             return in;
         }
         if (world == null && entity.world instanceof ClientWorld) {
-            clientWorld = (ClientWorld)entity.getEntityWorld();
+            clientWorld = (ClientWorld) entity.getEntityWorld();
         }
 
         Optional<RegistryKey<Biome>> biomeKey = clientWorld.func_242406_i(entity.getPosition());
@@ -52,5 +52,5 @@ public class MixinItemModelsProperties {
             return MathHelper.nextDouble(new Random(), 0.95, 1.05) % 1;
         }
         return in;
-	}
+    }
 }

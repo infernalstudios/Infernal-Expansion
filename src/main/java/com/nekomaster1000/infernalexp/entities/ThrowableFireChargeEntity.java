@@ -52,9 +52,9 @@ public class ThrowableFireChargeEntity extends AbstractFireballEntity {
     protected void onImpact(RayTraceResult result) {
         RayTraceResult.Type raytraceresult$type = result.getType();
         if (raytraceresult$type == RayTraceResult.Type.ENTITY) {
-            this.onEntityHit((EntityRayTraceResult)result);
+            this.onEntityHit((EntityRayTraceResult) result);
         } else if (raytraceresult$type == RayTraceResult.Type.BLOCK) {
-            this.func_230299_a_((BlockRayTraceResult)result);
+            this.func_230299_a_((BlockRayTraceResult) result);
         }
 
         if (!this.world.isRemote) {
@@ -72,7 +72,7 @@ public class ThrowableFireChargeEntity extends AbstractFireballEntity {
             Entity entity1 = this.getShooter();
             entity.attackEntityFrom(DamageSource.causeOnFireDamage(this, entity1), 6.0F);
             if (entity1 instanceof LivingEntity) {
-                this.applyEnchantments((LivingEntity)entity1, entity);
+                this.applyEnchantments((LivingEntity) entity1, entity);
             }
 
         }

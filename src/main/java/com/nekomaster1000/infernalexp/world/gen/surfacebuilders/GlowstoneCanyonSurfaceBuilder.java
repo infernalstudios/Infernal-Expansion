@@ -28,10 +28,10 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 
 import java.util.Random;
 
-public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig>{
-	public GlowstoneCanyonSurfaceBuilder(Codec<SurfaceBuilderConfig> p_i232136_1_) {
-		super(p_i232136_1_);
-	}
+public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> {
+    public GlowstoneCanyonSurfaceBuilder(Codec<SurfaceBuilderConfig> p_i232136_1_) {
+        super(p_i232136_1_);
+    }
 
 
     @Override
@@ -42,7 +42,7 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
     protected void buildSurface(Random random, IChunk chunk, Biome biome, int x, int z, int terrainHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, BlockState topBlock, BlockState middleBlock, BlockState underwaterBlock, int seaLevel) {
         BlockPos.Mutable mutable = new BlockPos.Mutable();
         int depth = -1; // Will be used to know how deep we are in solid blocks so we know when to stop placing middleBlock
-        int middleBlockExtraDepth = (int)(noise / 3.0D + 3.0D + random.nextDouble() * 0.25D);
+        int middleBlockExtraDepth = (int) (noise / 3.0D + 3.0D + random.nextDouble() * 0.25D);
 
         // Start at top land and loop downward
         for (int y = terrainHeight; y >= 0; --y) {
@@ -93,7 +93,7 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
                     // replaces all underground solid blocks with dullstone/dimstone mix
                     if (random.nextInt(50) == 1) {
                         chunk.setBlockState(mutable, IEBlocks.DIMSTONE.get().getDefaultState(), false);
-                    } else{
+                    } else {
                         chunk.setBlockState(mutable, IEBlocks.DULLSTONE.get().getDefaultState(), false);
                     }
                 }

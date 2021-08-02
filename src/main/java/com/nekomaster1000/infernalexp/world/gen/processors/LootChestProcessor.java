@@ -46,32 +46,32 @@ public class LootChestProcessor extends StructureProcessor {
 	Make sure to add the dashes in between, as that is what separates the data
 	 */
 
-	public static final LootChestProcessor INSTANCE = new LootChestProcessor();
-	public static final Codec<LootChestProcessor> CODEC = Codec.unit(() -> INSTANCE);
+    public static final LootChestProcessor INSTANCE = new LootChestProcessor();
+    public static final Codec<LootChestProcessor> CODEC = Codec.unit(() -> INSTANCE);
 
-	@ParametersAreNonnullByDefault
-	@Nullable
-	@Override
-	public Template.BlockInfo process(IWorldReader worldView, BlockPos pos, BlockPos blockPos, Template.BlockInfo structureBlockInfoRelative, Template.BlockInfo structureBlockInfoGlobal, PlacementSettings placementSettings, @Nullable Template template) {
-		BlockState blockState = structureBlockInfoGlobal.state;
+    @ParametersAreNonnullByDefault
+    @Nullable
+    @Override
+    public Template.BlockInfo process(IWorldReader worldView, BlockPos pos, BlockPos blockPos, Template.BlockInfo structureBlockInfoRelative, Template.BlockInfo structureBlockInfoGlobal, PlacementSettings placementSettings, @Nullable Template template) {
+        BlockState blockState = structureBlockInfoGlobal.state;
 
-		if (blockState.matchesBlock(Blocks.STRUCTURE_BLOCK)) {
-			String[] nbtData = structureBlockInfoGlobal.nbt.getString("metadata").split("-");
+        if (blockState.matchesBlock(Blocks.STRUCTURE_BLOCK)) {
+            String[] nbtData = structureBlockInfoGlobal.nbt.getString("metadata").split("-");
 
-			if (nbtData[0].equals("chest")) {
-				ChestTileEntity tileEntity = new ChestTileEntity();
-				tileEntity.setLootTable(new ResourceLocation(nbtData[2]), new Random().nextLong());
+            if (nbtData[0].equals("chest")) {
+                ChestTileEntity tileEntity = new ChestTileEntity();
+                tileEntity.setLootTable(new ResourceLocation(nbtData[2]), new Random().nextLong());
 
-				return new Template.BlockInfo(structureBlockInfoGlobal.pos, Blocks.CHEST.getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, Objects.requireNonNull(Direction.byName(nbtData[1]))), tileEntity.serializeNBT());
-			}
-		}
+                return new Template.BlockInfo(structureBlockInfoGlobal.pos, Blocks.CHEST.getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, Objects.requireNonNull(Direction.byName(nbtData[1]))), tileEntity.serializeNBT());
+            }
+        }
 
-		return structureBlockInfoGlobal;
-	}
+        return structureBlockInfoGlobal;
+    }
 
-	@Override
-	protected IStructureProcessorType<?> getType() {
-		return IEProcessors.LOOT_CHEST_PROCESSOR;
-	}
+    @Override
+    protected IStructureProcessorType<?> getType() {
+        return IEProcessors.LOOT_CHEST_PROCESSOR;
+    }
 
 }

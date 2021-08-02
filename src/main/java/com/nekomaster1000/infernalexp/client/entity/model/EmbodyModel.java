@@ -66,13 +66,13 @@ public class EmbodyModel<E extends EmbodyEntity> extends EntityModel<EmbodyEntit
 
     @Override
     public void setRotationAngles(EmbodyEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        right_arm.rotateAngleX = MathHelper.sin(limbSwing)/2 - 45;
-        left_arm.rotateAngleX = MathHelper.sin(-limbSwing)/2 - 45;
-        body.rotateAngleZ = MathHelper.sin(limbSwing)/8;
+        right_arm.rotateAngleX = MathHelper.sin(limbSwing) / 2 - 45;
+        left_arm.rotateAngleX = MathHelper.sin(-limbSwing) / 2 - 45;
+        body.rotateAngleZ = MathHelper.sin(limbSwing) / 8;
     }
 
     @Override
-    public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
+    public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         body.render(matrixStack, buffer, packedLight, packedOverlay);
     }
 

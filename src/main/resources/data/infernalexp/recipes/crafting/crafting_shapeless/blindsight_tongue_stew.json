@@ -1,7 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "ingredients":
-  [
+  "ingredients": [
     {
       "item": "infernalexp:blindsight_tongue"
     },
@@ -18,8 +17,7 @@
       "item": "minecraft:bowl"
     }
   ],
-  "result":
-  {
+  "result": {
     "item": "infernalexp:blindsight_tongue_stew"
   }
 }

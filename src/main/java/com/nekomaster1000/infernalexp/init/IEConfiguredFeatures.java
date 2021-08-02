@@ -68,7 +68,7 @@ public class IEConfiguredFeatures {
     public static ConfiguredFeature<?, ?> ORE_BASALT_IRON_BASALT_DELTA = registerConfiguredFeature("ore_basalt_iron_basalt_deltas", Feature.ORE.withConfiguration(new OreFeatureConfig(BASALT, IEBlocks.BASALT_IRON_ORE.get().getDefaultState(), 8)).withPlacement(Features.Placements.NETHER_SPRING_ORE_PLACEMENT).square().count(18));
     public static ConfiguredFeature<?, ?> ORE_BASALT_IRON_DELTA_SHORES = registerConfiguredFeature("ore_basalt_iron_delta_shores", Feature.ORE.withConfiguration(new OreFeatureConfig(BASALT, IEBlocks.BASALT_IRON_ORE.get().getDefaultState(), 8)).withPlacement(Features.Placements.NETHER_SPRING_ORE_PLACEMENT).square().count(8));
     public static ConfiguredFeature<?, ?> PATCH_GLOW_FIRE = registerConfiguredFeature("patch_glow_fire", Feature.RANDOM_PATCH.withConfiguration((new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(IEBlocks.GLOW_FIRE.get().getDefaultState()), SimpleBlockPlacer.PLACER)).tries(64).whitelist(ImmutableSet.of(IEBlocks.GLOWDUST_SAND.get())).preventProjection().build()).withPlacement(Features.Placements.FIRE_PLACEMENT));
-    public static ConfiguredFeature<?, ?> BASALTIC_MAGMA = registerConfiguredFeature("basaltic_magma", Feature.ORE.withConfiguration(new OreFeatureConfig(BASALT, IEBlocks.BASALTIC_MAGMA.get().getDefaultState(),10)).withPlacement(Features.Placements.NETHER_SPRING_ORE_PLACEMENT).square().count(8));
+    public static ConfiguredFeature<?, ?> BASALTIC_MAGMA = registerConfiguredFeature("basaltic_magma", Feature.ORE.withConfiguration(new OreFeatureConfig(BASALT, IEBlocks.BASALTIC_MAGMA.get().getDefaultState(), 10)).withPlacement(Features.Placements.NETHER_SPRING_ORE_PLACEMENT).square().count(8));
     public static ConfiguredFeature<?, ?> PATCH_WARPED_CAP = registerConfiguredFeature("patch_warped_cap", Feature.RANDOM_PATCH.withConfiguration((new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(IEBlocks.WARPED_FUNGUS_CAP.get().getDefaultState()), new SimpleBlockPlacer())).tries(64).whitelist(ImmutableSet.of(Blocks.WARPED_NYLIUM.getBlock())).preventProjection().build()).range(128).chance(16));
     public static ConfiguredFeature<?, ?> PATCH_CRIMSON_CAP = registerConfiguredFeature("patch_crimson_cap", Feature.RANDOM_PATCH.withConfiguration((new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(IEBlocks.CRIMSON_FUNGUS_CAP.get().getDefaultState()), new SimpleBlockPlacer())).tries(64).whitelist(ImmutableSet.of(Blocks.WARPED_NYLIUM.getBlock())).preventProjection().build()).range(128).chance(16));
     public static ConfiguredFeature<?, ?> SHROOMLIGHT_TEAR = registerConfiguredFeature("shroomlight_tear", IEFeatures.SHROOMLIGHT_TEAR.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).range(128).square().count(100).chance(1));
@@ -87,12 +87,12 @@ public class IEConfiguredFeatures {
 //            LUMINOUS_FUNGUS)).withPlacement(Placement.field_242897_C.configure(new FeatureSpreadConfig(15))));
 
     public static ConfiguredFeature<?, ?> registerConfiguredFeature(String registryName, ConfiguredFeature<?, ?> configuredFeature) {
-		ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, registryName);
+        ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, registryName);
 
-		if (WorldGenRegistries.CONFIGURED_FEATURE.keySet().contains(resourceLocation))
-			throw new IllegalStateException("Configured Feature ID: \"" + resourceLocation.toString() + "\" is already in the registry!");
+        if (WorldGenRegistries.CONFIGURED_FEATURE.keySet().contains(resourceLocation))
+            throw new IllegalStateException("Configured Feature ID: \"" + resourceLocation.toString() + "\" is already in the registry!");
 
-		return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, resourceLocation, configuredFeature);
-	}
+        return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, resourceLocation, configuredFeature);
+    }
 
 }

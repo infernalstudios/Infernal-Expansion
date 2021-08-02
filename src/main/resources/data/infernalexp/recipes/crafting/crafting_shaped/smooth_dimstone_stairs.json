@@ -1,20 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
+  "pattern": [
     "x  ",
     "xx ",
     "xxx"
   ],
-  "key":
-  {
-    "x":
-    {
+  "key": {
+    "x": {
       "item": "infernalexp:smooth_dimstone"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "infernalexp:smooth_dimstone_stairs",
     "count": 4
   }

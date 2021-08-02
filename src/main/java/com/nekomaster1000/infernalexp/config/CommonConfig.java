@@ -79,24 +79,24 @@ public class CommonConfig {
     final ForgeConfigSpec.IntValue jerkyEffectDuration;
     final ForgeConfigSpec.IntValue jerkyEffectAmplifier;
     final ForgeConfigSpec.BooleanValue useHogchops;
-    
+
     //Luminous Fungus
     final ForgeConfigSpec.DoubleValue luminousFungusActivateDistance;
     final ForgeConfigSpec.BooleanValue luminousFungusGivesEffect;
 
-    CommonConfig(final ForgeConfigSpec.Builder builder){
+    CommonConfig(final ForgeConfigSpec.Builder builder) {
         //Mob Interactions
         builder.push("Mob Interactions");
 
         piglinFearWarpbeetle = builder
-                .comment("Determines if Piglins will run away from Warpbeetles")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.piglinFearWarpbeetle")
-                .define("piglinFearWarpbeetle", true);
+            .comment("Determines if Piglins will run away from Warpbeetles")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.piglinFearWarpbeetle")
+            .define("piglinFearWarpbeetle", true);
 
         piglinFearEmbody = builder
-                .comment("Determines if Piglins will run away from Embodies")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.piglinFearEmbody")
-                .define("piglinFearEmbody", true);
+            .comment("Determines if Piglins will run away from Embodies")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.piglinFearEmbody")
+            .define("piglinFearEmbody", true);
 
         piglinFearDwarf = builder
             .comment("Determines if Piglins will run away from Blackstone Dwarves")
@@ -104,74 +104,74 @@ public class CommonConfig {
             .define("piglinFearDwarf", true);
 
         hoglinFearWarpbeetle = builder
-                .comment("Determines if Hoglins will run away from Warpbeetles")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.hoglinFearWarpbeetle")
-                .define("hoglinFearWarpbeetle", true);
+            .comment("Determines if Hoglins will run away from Warpbeetles")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.hoglinFearWarpbeetle")
+            .define("hoglinFearWarpbeetle", true);
 
         hoglinFearEmbody = builder
-                .comment("Determines if Hoglins will run away from Embodies")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.hoglinFearEmbody")
-                .define("hoglinFearEmbody", true);
+            .comment("Determines if Hoglins will run away from Embodies")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.hoglinFearEmbody")
+            .define("hoglinFearEmbody", true);
 
         spiderAttackWarpbeetle = builder
-                .comment("Determines if Spiders and Warpbeetles will fight")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.spiderAttackWarpbeetle")
-                .define("spiderAttackWarpbeetle", true);
+            .comment("Determines if Spiders and Warpbeetles will fight")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.spiderAttackWarpbeetle")
+            .define("spiderAttackWarpbeetle", true);
 
         skeletonAttackPiglin = builder
-                .comment("Determines if Skeletons will attack Piglins")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.skeletonAttackPiglin")
-                .define("skeletonAttackPiglin", true);
+            .comment("Determines if Skeletons will attack Piglins")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.skeletonAttackPiglin")
+            .define("skeletonAttackPiglin", true);
 
         skeletonAttackBrute = builder
-                .comment("Determines if Skeletons will attack Piglin Brutes")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.skeletonAttackBrute")
-                .define("skeletonAttackBrute", true);
+            .comment("Determines if Skeletons will attack Piglin Brutes")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.skeletonAttackBrute")
+            .define("skeletonAttackBrute", true);
 
         skeletonAttackEmbody = builder
-                .comment("Determines if Skeletons and Embodies will fight")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.skeletonAttackEmbody")
-                .define("skeletonAttackEmbody", true);
+            .comment("Determines if Skeletons and Embodies will fight")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.skeletonAttackEmbody")
+            .define("skeletonAttackEmbody", true);
 
         skeletonAttackGiant = builder
-                .comment("Determines if Skeletons and Basalt Giants will fight")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.skeletonAttackGiant")
-                .define("skeletonAttackGiant", true);
+            .comment("Determines if Skeletons and Basalt Giants will fight")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.skeletonAttackGiant")
+            .define("skeletonAttackGiant", true);
 
         piglinAttackSkeleton = builder
-                .comment("Determines if Piglins will attack Skeletons")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.piglinAttackSkeleton")
-                .define("piglinAttackSkeleton", true);
+            .comment("Determines if Piglins will attack Skeletons")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.piglinAttackSkeleton")
+            .define("piglinAttackSkeleton", true);
 
         piglinAttackVoline = builder
-                .comment("Determines if Piglins will attack Volines")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.piglinAttackVoline")
-                .define("piglinAttackVoline", true);
+            .comment("Determines if Piglins will attack Volines")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.piglinAttackVoline")
+            .define("piglinAttackVoline", true);
 
         bruteAttackSkeleton = builder
-                .comment("Determines if Piglin Brutes will attack Skeletons")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.bruteAttackSkeleton")
-                .define("bruteAttackSkeleton", true);
+            .comment("Determines if Piglin Brutes will attack Skeletons")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.bruteAttackSkeleton")
+            .define("bruteAttackSkeleton", true);
 
         bruteAttackVoline = builder
-                .comment("Determines if Piglin Brutes will attack Volines")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.bruteAttackVoline")
-                .define("bruteAttackVoline", true);
+            .comment("Determines if Piglin Brutes will attack Volines")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.bruteAttackVoline")
+            .define("bruteAttackVoline", true);
 
         ghastAttackEmbody = builder
-                .comment("Determines if Ghasts will shoot at Embodies")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.ghastAttackEmbody")
-                .define("ghastAttackEmbody", false);
+            .comment("Determines if Ghasts will shoot at Embodies")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.ghastAttackEmbody")
+            .define("ghastAttackEmbody", false);
 
         ghastAttackVoline = builder
-                .comment("Determines if Ghasts will shoot at Volines")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.ghastAttackVoline")
-                .define("ghastAttackVoline", false);
+            .comment("Determines if Ghasts will shoot at Volines")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.ghastAttackVoline")
+            .define("ghastAttackVoline", false);
 
         ghastAttackSkeleton = builder
-                .comment("Determines if Ghasts will shoot at Skeletons")
-                .translation(InfernalExpansion.MOD_ID + ".config.tooltip.ghastAttackSkeleton")
-                .define("ghastAttackSkeleton", false);
+            .comment("Determines if Ghasts will shoot at Skeletons")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.ghastAttackSkeleton")
+            .define("ghastAttackSkeleton", false);
 
         ghastAttackGlowsquito = builder
             .comment("Determines if Ghasts will shoot at Glowsquitos")
@@ -336,9 +336,9 @@ public class CommonConfig {
             .define("isShroomlightGrowable", true);
 
         shroomlightGrowChance = builder
-                .comment("Determines the chance a shroomlight tear will grow when a shroomlight is bonemealed")
-                .translation(InfernalExpansion.MOD_ID + ".config.shroomlightGrowChance")
-                .defineInRange("shroomlightGrowChance", 1.0D, 0.0D, 1.0D);
+            .comment("Determines the chance a shroomlight tear will grow when a shroomlight is bonemealed")
+            .translation(InfernalExpansion.MOD_ID + ".config.shroomlightGrowChance")
+            .defineInRange("shroomlightGrowChance", 1.0D, 0.0D, 1.0D);
 
         builder.pop();
 
@@ -358,13 +358,13 @@ public class CommonConfig {
             .comment("Determines the amplifier of the effect that Cured Jerky gives")
             .translation(InfernalExpansion.MOD_ID + ".config.jerkyEffectAmplifier")
             .defineInRange("jerkyEffectAmplifier", 1, 0, 2);
-        
+
         builder.push("Luminous Fungus");
-        
+
         luminousFungusActivateDistance = builder
-                .comment("Determines the distance an entity has to be from a luminous fungus for it to activate (larger values have performance impact)")
-                .translation(InfernalExpansion.MOD_ID + ".config.luminousFungusActivateDistance")
-                .defineInRange("luminousFungusActivateDistance", 4.0D, 0.0D, Double.MAX_VALUE);
+            .comment("Determines the distance an entity has to be from a luminous fungus for it to activate (larger values have performance impact)")
+            .translation(InfernalExpansion.MOD_ID + ".config.luminousFungusActivateDistance")
+            .defineInRange("luminousFungusActivateDistance", 4.0D, 0.0D, Double.MAX_VALUE);
 
         luminousFungusGivesEffect = builder
             .comment("Determines whether Luminous Fungus gives the Luminance effect on collision with an entity")

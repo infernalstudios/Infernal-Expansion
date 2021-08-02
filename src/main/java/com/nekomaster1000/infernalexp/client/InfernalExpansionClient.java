@@ -43,12 +43,13 @@ public class InfernalExpansionClient {
         MinecraftForge.EVENT_BUS.addListener((LivingUpdateEvent event) -> DynamicLightingHandler.tick(event.getEntityLiving()));
 
         ItemModelsProperties.registerProperty(IEItems.GLOWSILK_BOW.get(), new ResourceLocation("pull"), (itemStack, clientWorld, livingEntity) -> {
-          if (livingEntity == null) {
-              return 0.0F;
-          } else {
-              return livingEntity.getActiveItemStack() != itemStack ? 0.0F : (float) (itemStack.getUseDuration() - livingEntity.getItemInUseCount()) / 20.0F;
-        }});
-        
+            if (livingEntity == null) {
+                return 0.0F;
+            } else {
+                return livingEntity.getActiveItemStack() != itemStack ? 0.0F : (float) (itemStack.getUseDuration() - livingEntity.getItemInUseCount()) / 20.0F;
+            }
+        });
+
         ItemModelsProperties.registerProperty(IEItems.GLOWSILK_BOW.get(), new ResourceLocation("pulling"), (itemStack, clientWorld, livingEntity) -> livingEntity != null && livingEntity.isHandActive() && livingEntity.getActiveItemStack() == itemStack ? 1.0F : 0.0F);
 
         ItemModelsProperties.registerProperty(IEItems.BLINDSIGHT_TONGUE_WHIP.get(), new ResourceLocation("attack_frame"), (itemStack, clientWorld, livingEntity) ->
@@ -79,7 +80,7 @@ public class InfernalExpansionClient {
                 // The performance difference is not significant, but it's improved by using a 16kB array.
                 byte[] buf = new byte[16384];
                 int len = 0;
-                while((len = in.read(buf)) > 0)
+                while ((len = in.read(buf)) > 0)
                     out.write(buf, 0, len);
 
                 in.close();

@@ -26,15 +26,15 @@ import net.minecraft.util.ResourceLocation;
 
 public class PyrnoRenderer extends MobRenderer<PyrnoEntity, PyrnoModel<PyrnoEntity>> {
 
-protected static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID,
-    "textures/entity/pyrno.png");
+    protected static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID,
+        "textures/entity/pyrno.png");
 
-public PyrnoRenderer(EntityRendererManager renderManagerIn) {
+    public PyrnoRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new PyrnoModel<>(), 0.7f);
-        }
+    }
 
-@Override
-public ResourceLocation getEntityTexture(PyrnoEntity entity) {
+    @Override
+    public ResourceLocation getEntityTexture(PyrnoEntity entity) {
         return TEXTURE;
-        }
-        }
+    }
+}

@@ -1,20 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
+  "pattern": [
     "xxx",
     "xxx",
     "xxx"
   ],
-  "key":
-  {
-    "x":
-    {
+  "key": {
+    "x": {
       "item": "infernalexp:shroomlight_fungus"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "minecraft:shroomlight",
     "count": 1
   }

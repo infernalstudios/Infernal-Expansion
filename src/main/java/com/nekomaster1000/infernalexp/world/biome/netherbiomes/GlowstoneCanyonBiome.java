@@ -63,16 +63,16 @@ public class GlowstoneCanyonBiome extends ModBiome {
     @Override
     protected void configureAmbience(BiomeAmbience.Builder ambience) {
         ambience
-                .setWaterColor(13408563)
-                .setWaterFogColor(10053120)
-                .setFogColor(-2916568)
-                .withSkyColor(BiomeHelper.calcSkyColor(2.0f))
-                .setParticle(new ParticleEffectAmbience(ParticleTypes.WHITE_ASH, 0.118093334F))
-                .setAmbientSound(IESoundEvents.AMBIENT_GLOWSTONE_CANYON_LOOP.get())
-                .setMoodSound(new MoodSoundAmbience(IESoundEvents.AMBIENT_GLOWSTONE_CANYON_MOOD.get(), 2500, 4, 2.0D))
-                .setAdditionsSound(new SoundAdditionsAmbience(IESoundEvents.AMBIENT_GLOWSTONE_CANYON_ADDITIONS.get(), 0.0111D))
-                .setMusic(BackgroundMusicTracks.getDefaultBackgroundMusicSelector(IESoundEvents.MUSIC_NETHER_GLOWSTONE_CANYON.get()))
-                .setParticle(new ParticleEffectAmbience(IEParticleTypes.GLOWSTONE_SPARKLE.get(), 0.005F));
+            .setWaterColor(13408563)
+            .setWaterFogColor(10053120)
+            .setFogColor(-2916568)
+            .withSkyColor(BiomeHelper.calcSkyColor(2.0f))
+            .setParticle(new ParticleEffectAmbience(ParticleTypes.WHITE_ASH, 0.118093334F))
+            .setAmbientSound(IESoundEvents.AMBIENT_GLOWSTONE_CANYON_LOOP.get())
+            .setMoodSound(new MoodSoundAmbience(IESoundEvents.AMBIENT_GLOWSTONE_CANYON_MOOD.get(), 2500, 4, 2.0D))
+            .setAdditionsSound(new SoundAdditionsAmbience(IESoundEvents.AMBIENT_GLOWSTONE_CANYON_ADDITIONS.get(), 0.0111D))
+            .setMusic(BackgroundMusicTracks.getDefaultBackgroundMusicSelector(IESoundEvents.MUSIC_NETHER_GLOWSTONE_CANYON.get()))
+            .setParticle(new ParticleEffectAmbience(IEParticleTypes.GLOWSTONE_SPARKLE.get(), 0.005F));
     }
 
     @Override
@@ -91,10 +91,10 @@ public class GlowstoneCanyonBiome extends ModBiome {
         generation.withStructure(StructureFeatures.FORTRESS);
         generation.withStructure(IEConfiguredStructures.GLOWSTONE_CANYON_RUIN);
         generation.withStructure(IEConfiguredStructures.BASTION_OUTPOST);
-		generation.withCarver(GenerationStage.Carving.AIR, ConfiguredCarvers.NETHER_CAVE);
+        generation.withCarver(GenerationStage.Carving.AIR, ConfiguredCarvers.NETHER_CAVE);
         //generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.DELTA);
         generation.withCarver(GenerationStage.Carving.AIR, IECarvers.CONFIGURED_GLOWSTONE_RAVINE);
-        generation.withFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS,IEConfiguredFeatures.CANYON_BLACKSTONE_BLOBS);
+        generation.withFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, IEConfiguredFeatures.CANYON_BLACKSTONE_BLOBS);
 //        generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, IEConfiguredFeatures.BLACKSTONE_BOULDER);
         generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, IEConfiguredFeatures.GLOWSPIKE);
         generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, IEConfiguredFeatures.GLOWSPIKELARGE);

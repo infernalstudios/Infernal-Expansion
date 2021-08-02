@@ -23,8 +23,8 @@ import net.minecraft.util.SoundCategory;
 
 public class GlowsquitoFlightSound extends LoopingSound<GlowsquitoEntity> {
 
-	public GlowsquitoFlightSound(GlowsquitoEntity entity) {
-		super(entity, IESoundEvents.GLOWSQUITO_LOOP.get(), SoundCategory.NEUTRAL);
-	}
+    public GlowsquitoFlightSound(GlowsquitoEntity entity) {
+        super(entity, IESoundEvents.GLOWSQUITO_LOOP.get(), SoundCategory.NEUTRAL);
+    }
 
 }

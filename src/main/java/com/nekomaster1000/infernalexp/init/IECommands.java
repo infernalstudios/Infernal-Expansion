@@ -81,33 +81,33 @@ public class IECommands {
             ServerPlayerEntity player = command.getSource().asPlayer();
             MinecraftServer server = command.getSource().getServer();
             ServerWorld targetWorld = player.getEntityWorld().getDimensionKey() == World.THE_NETHER ? server.getWorld(World.OVERWORLD) : server.getWorld(World.THE_NETHER);
-            
+
             // Safeguard the teleport to not teleport outside the world border
             WorldBorder worldborder = targetWorld.getWorldBorder();
-            
+
             // Makes sure world border is within bounds and min/max is safely within the world border
             double minX = Math.max(-2.9999872E7D, worldborder.minX() + 16.0D);
             double minZ = Math.max(-2.9999872E7D, worldborder.minZ() + 16.0D);
             double maxX = Math.min(2.9999872E7D, worldborder.maxX() - 16.0D);
             double maxZ = Math.min(2.9999872E7D, worldborder.maxZ() - 16.0D);
-            
+
             // Adds support to modded dimensions
             double coordinateDifference = DimensionType.getCoordinateDifference(player.world.getDimensionType(), targetWorld.getDimensionType());
-            
+
             // MathHelper.clamp() returns the middle value (in this case, prevents teleporting outside the world border)
             BlockPos baseTeleportLocation = new BlockPos(
-                    MathHelper.clamp(player.getPosX() * coordinateDifference, minX, maxX),
-                    player.getPosY(),
-                    MathHelper.clamp(player.getPosZ() * coordinateDifference, minZ, maxZ));
-            
+                MathHelper.clamp(player.getPosX() * coordinateDifference, minX, maxX),
+                player.getPosY(),
+                MathHelper.clamp(player.getPosZ() * coordinateDifference, minZ, maxZ));
+
             BlockPos safeTeleportLocation = NetherTeleportCommandUtil.getSafePosition(targetWorld, baseTeleportLocation);
-            
+
             if (safeTeleportLocation == null) {
                 return 0;
             }
-            
+
             player.teleport(targetWorld, safeTeleportLocation.getX(), safeTeleportLocation.getY(), safeTeleportLocation.getZ(), player.getYaw(0.0F), player.getPitch(0.0F));
-            
+
             return 1;
         }));
     }

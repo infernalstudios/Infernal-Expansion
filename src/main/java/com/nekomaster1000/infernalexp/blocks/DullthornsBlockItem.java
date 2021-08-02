@@ -58,11 +58,11 @@ public class DullthornsBlockItem extends BlockItemBase {
             if (!world.isRemote && !World.isValid(placepos)) {
                 PlayerEntity player = context.getPlayer();
                 if (player instanceof ServerPlayerEntity && placepos.getY() >= worldHeight) {
-                   SChatPacket schatpacket = new SChatPacket((new TranslationTextComponent("build.tooHigh", worldHeight)).mergeStyle(TextFormatting.RED), ChatType.GAME_INFO, Util.DUMMY_UUID);
-                   ((ServerPlayerEntity) player).connection.sendPacket(schatpacket);
+                    SChatPacket schatpacket = new SChatPacket((new TranslationTextComponent("build.tooHigh", worldHeight)).mergeStyle(TextFormatting.RED), ChatType.GAME_INFO, Util.DUMMY_UUID);
+                    ((ServerPlayerEntity) player).connection.sendPacket(schatpacket);
                 }
                 return null;
-             }
+            }
         }
 
         if (world.isAirBlock(placepos)) {

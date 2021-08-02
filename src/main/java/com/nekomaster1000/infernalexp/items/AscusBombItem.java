@@ -39,8 +39,8 @@ public class AscusBombItem extends Item {
         if (!worldIn.isRemote) {
             AscusBombEntity ascusBombEntity = new AscusBombEntity(worldIn, playerIn);
             ascusBombEntity.setItem(itemStack);
-			ascusBombEntity.setDirectionAndMovement(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, -20, 0.5f, 1);
-			worldIn.addEntity(ascusBombEntity);
+            ascusBombEntity.setDirectionAndMovement(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, -20, 0.5f, 1);
+            worldIn.addEntity(ascusBombEntity);
         }
 
         playerIn.addStat(Stats.ITEM_USED.get(this));

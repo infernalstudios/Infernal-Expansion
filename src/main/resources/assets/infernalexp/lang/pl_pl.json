@@ -1,6 +1,5 @@
 {
   "itemGroup.InfernalTab": "Piekielna Ekspansja",
-
   "block.minecraft.glowstone": "Jasnogłaz",
   "block.infernalexp.dimstone": "Gasnogłaz",
   "block.infernalexp.dullstone": "Cieniogłaz",
@@ -41,7 +40,6 @@
   "block.infernalexp.dullstone_brick_vertical_slab": "Pionowa cieniogłazowa ceglana płyta",
   "block.infernalexp.dullstone_brick_stairs": "Cieniogłazowe ceglane schody",
   "block.infernalexp.dullstone_brick_wall": "Cieniogłazowy ceglany murek",
-
   "block.infernalexp.luminous_wart_block": "Świetlisty blok brodawki",
   "block.infernalexp.glowdust": "Warstwa jasnopyłu",
   "block.infernalexp.glowdust_sand": "Jasnopyłowy piasek",
@@ -51,40 +49,31 @@
   "block.infernalexp.glowdust_stone_stairs": "Jasnopyłowe kamienne schody",
   "block.infernalexp.glowdust_stone_wall": "Jasnopyłowy kamienny murek",
   "block.infernalexp.trapped_glowdust_sand": "Ruchomy jasnopyłowy piasek",
-
   "block.infernalexp.glowdust_stone_bricks": "Jasnopyłowe kamienne cegły",
   "block.infernalexp.glowdust_stone_brick_slab": "Jasnopyłowa kamienna ceglana płyta",
   "block.infernalexp.glowdust_stone_brick_vertical_slab": "Pionowa jasnopyłowa kamienna ceglana płyta",
   "block.infernalexp.glowdust_stone_brick_stairs": "Jasnopyłowe kamienne ceglane schody",
   "block.infernalexp.glowdust_stone_brick_wall": "Jasnopyłowy kamienny ceglany murek",
-
   "block.infernalexp.cracked_glowdust_stone_bricks": "Popękana jasnopyłowa kamienna cegły",
   "block.infernalexp.chiseled_glowdust_stone_bricks": "Rzeźbione jasnopyłowe kamienne cegły",
-
   "block.infernalexp.crumbling_blackstone": "Kruchy czernit",
-
   "block.infernalexp.silt": "Bazaltowy muł",
   "block.infernalexp.rubble": "Czernitowy gruz",
-
   "block.infernalexp.dullthorns_block": "Blok tępokolców",
-
   "block.infernalexp.basalt_cobbled": "Bazaltowy bruk",
   "block.infernalexp.basalt_cobbled_slab": "Płyta z bazaltowego bruku",
   "block.infernalexp.basalt_cobbled_vertical_slab": "Pionowa płyta z bazaltowego bruku",
-
   "block.infernalexp.basalt_wall": "Bazaltowy murek",
   "block.infernalexp.basalt_stairs": "Bazaltowe schody",
   "block.infernalexp.basalt_button": "Bazaltowy przycisk",
   "block.infernalexp.basalt_slab": "Bazaltowa płyta",
   "block.infernalexp.basalt_vertical_slab": "Pionowa bazaltowa płyta",
-
   "block.infernalexp.polished_basalt_pressure_plate": "Wypolerowana bazaltowa płyta naciskowa",
   "block.infernalexp.polished_basalt_slab": "Wypolerowana bazaltowa płyta",
   "block.infernalexp.polished_basalt_vertical_slab": "Pionowa wypolerowana bazaltowa płyta",
   "block.infernalexp.polished_basalt_tiles_slab": "Płyta wypolerowanych bazaltowych kafelków",
   "block.infernalexp.polished_basalt_tiles_vertical_slab": "Pionowa płyta wypolerowanych bazaltowych kafelków",
   "block.infernalexp.polished_basalt_tiles": "Wypolerowane bazaltowe kafelki",
-
   "block.infernalexp.basalt_bricks": "Bazaltowe cegły",
   "block.infernalexp.basalt_brick_wall": "Bazaltowy ceglany murek",
   "block.infernalexp.basalt_brick_stairs": "Bazaltowe ceglane schody",
@@ -93,24 +82,19 @@
   "block.infernalexp.cracked_basalt_bricks": "Popękane bazaltowe cegły",
   "block.infernalexp.chiseled_basalt_bricks": "Rzeźbione bazaltowe cegły",
   "block.infernalexp.magmatic_chiseled_basalt_bricks": "Rzeźbione magmowe bazaltowe cegły",
-
   "block.infernalexp.basalt_iron_ore": "Bazaltowa ruda żelaza",
   "block.infernalexp.basaltic_magma": "Magma bazaltowa",
-
   "block.infernalexp.soul_sand_stairs": "Schody z piasku dusz",
   "block.infernalexp.soul_sand_slab": "Płyta z piasku dusz",
   "block.infernalexp.soul_sand_vertical_slab": "Pionowa płyta z piasku dusz",
-
   "block.infernalexp.soul_soil_stairs": "Schody z gleby dusz",
   "block.infernalexp.soul_soil_slab": "Płyta z gleby dusz",
   "block.infernalexp.soul_soil_vertical_slab": "Pionowa płyta z gleby dusz",
-
   "block.infernalexp.soul_stone": "Kamień dusz",
   "block.infernalexp.soul_stone_slab": "Płyta z kamienia dusz",
   "block.infernalexp.soul_stone_vertical_slab": "Pionowa płyta z kamienia dusz",
   "block.infernalexp.soul_stone_stairs": "Schody z kamienia dusz",
   "block.infernalexp.soul_stone_wall": "Murek z kamienia dusz",
-
   "block.infernalexp.soul_stone_bricks": "Kamienne cegły dusz",
   "block.infernalexp.soul_stone_brick_wall": "Murek z kamiennych cegieł dusz",
   "block.infernalexp.soul_stone_brick_stairs": "Schody z kamiennych cegieł dusz",
@@ -119,7 +103,6 @@
   "block.infernalexp.cracked_soul_stone_bricks": "Popękane kamienne cegły dusz",
   "block.infernalexp.chiseled_soul_stone_bricks": "Rzeźbione kamienne cegły dusz",
   "block.infernalexp.charged_chiseled_soul_stone_bricks": "Wcielone kamienne cegły dusz",
-
   "block.infernalexp.soul_slate": "Łupek dusz",
   "block.infernalexp.soul_slate_wall": "Murek z łupku dusz",
   "block.infernalexp.soul_slate_stairs": "Schody z łupku dusz",
@@ -127,7 +110,6 @@
   "block.infernalexp.soul_slate_slab": "Płyta z łupku dusz",
   "block.infernalexp.soul_slate_vertical_slab": "Pionowa płyta z łupku dusz",
   "block.infernalexp.soul_slate_pressure_plate": "Płyta naciskowa z łupku dusz",
-
   "block.infernalexp.soul_slate_bricks": "Cegły łupku dusz",
   "block.infernalexp.soul_slate_brick_wall": "Murek z ciegieł łupku dusz",
   "block.infernalexp.soul_slate_brick_stairs": "Schody z ciegieł łupku dusz",
@@ -136,19 +118,14 @@
   "block.infernalexp.cracked_soul_slate_bricks": "Popękane cegły łupku dusz",
   "block.infernalexp.chiseled_soul_slate_bricks": "Rzeźbione cegły łupku dusz",
   "block.infernalexp.charged_chiseled_soul_slate_bricks": "Wcielone cegły łupku dusz",
-
   "block.infernalexp.crimson_fungus_cap": "Kapelusz szkarłatnego grzyba",
   "block.infernalexp.warped_fungus_cap": "Kapelusz spaczonego grzyba",
   "block.infernalexp.luminous_fungus_cap": "Kapelusz świecącego grzyba",
-
   "block.infernalexp.shroomlight_fungus": "Łza światłogrzyba",
-
   "block.infernalexp.buried_bone": "Pogrzebane kości",
   "block.infernalexp.planted_quartz": "Planted Quartz",
-
   "block.infernalexp.warped_nylium_path": "Ścieżka spaczonego nylium",
   "block.infernalexp.crimson_nylium_path": "Ścieżka szkarłatnego nylium",
-
   "block.infernalexp.glow_lantern": "Błyszcząca latarnia",
   "block.infernalexp.glow_torch": "Błyszcząca pochodnia",
   "block.infernalexp.glow_campfire": "Błyszczące ognisko",
@@ -156,20 +133,14 @@
   "block.infernalexp.glow_glass_pane": "Błyszcząca szyba",
   "block.infernalexp.luminous_fungus": "Świecący grzyb",
   "block.infernalexp.dullthorns": "Gasnokolce",
-
   "block.infernalexp.glowsilk_cocoon": "Kokon z błyskojedwabiu",
-
   "block.infernalexp.warped_nylium_carpet": "Dywan spaczonego nylium",
   "block.infernalexp.crimson_nylium_carpet": "Dywan szkarłatnego nylium",
-
   "block.infernalexp.soul_soil_path": "Ścieżka gleby dusz",
-
   "block.infernalexp.quartz_glass": "Szkło kwarcowe",
   "block.infernalexp.quartz_glass_pane": "Szyba z kwarcowego szkła",
-
   "block.minecraft.nether_sprouts": "Spaczone kiełki",
   "block.minecraft.nether_wart_block": "Blok szkarłatnej brodawki",
-
   "item.infernalexp.glowcoal": "Blaskogiel",
   "item.infernalexp.glownuggets": "Blaskorodki",
   "item.infernalexp.blindsight_tongue": "Język Oślepca",
@@ -178,18 +149,14 @@
   "item.infernalexp.glowsilk": "Błyskojedwab",
   "item.infernalexp.soul_salt_clump": "Bryłka soli dusz",
   "item.infernalexp.infernal_painting": "Piekielny obraz",
-
   "item.infernalexp.strider_bucket": "Wiadro z magmołazem",
   "item.infernalexp.magma_cube_bucket": "Wiadro z kostką magmy",
   "item.infernalexp.voline_bucket": "Wiadro z volinem",
-
   "item.infernalexp.blindsight_tongue_stew": "Potrawka z grzyba i języka",
   "item.infernalexp.cured_jerky": "Suszek solony",
   "item.infernalexp.raw_hogchop": "Surowa hoglinina",
   "item.infernalexp.cooked_hogchop": "Pieczona hoglinina",
-
   "item.infernalexp.ascus_bomb": "Bomba infekcyjna",
-
   "item.infernalexp.frostbitten_sword": "Odmrożony netherytowy miecz",
   "item.infernalexp.frostbitten_pickaxe": "Odmrożony netherytowy kilof",
   "item.infernalexp.frostbitten_axe": "Odmrożony netherytowy topór",
@@ -197,7 +164,6 @@
   "item.infernalexp.frostbitten_hoe": "Odmrożona netherytowa motyka",
   "item.infernalexp.glowsilk_bow": "Łuk błyskojedwabny",
   "item.infernalexp.blindsight_tongue_whip": "Bicz z języka oślepieńca",
-
   "item.infernalexp.voline_spawn_egg": "Jajo przyzywające volina",
   "item.infernalexp.shroomloin_spawn_egg": "Jajo przyzywające shroomloina",
   "item.infernalexp.warpbeetle_spawn_egg": "Jajo przyzywające spaczonego żuka",
@@ -209,13 +175,10 @@
   "item.infernalexp.pyrno_spawn_egg": "Pyrno Spawn Egg",
   "item.infernalexp.blindsight_spawn_egg": "Jajo przyzywające oślepieńca",
   "item.infernalexp.glowsilk_moth_spawn_egg": "Jajo przyzywające ćmę błyskojedwabną",
-
   "item.infernalexp.music_disc_soul_spunk": "Płyta muzyczka",
   "item.infernalexp.music_disc_soul_spunk.desc": "LudoCrypt - Soul Spunk",
-
   "item.infernalexp.music_disc_flush": "Music Disc",
   "item.infernalexp.music_disc_flush.desc": "LudoCrypt - flush",
-
   "entity.infernalexp.voline": "Voline",
   "entity.infernalexp.shroomloin": "Shroomloin",
   "entity.infernalexp.warpbeetle": "Spaczony żuk",
@@ -226,13 +189,10 @@
   "entity.infernalexp.pyrno": "Pyrno",
   "entity.infernalexp.blindsight": "Oślepieniec",
   "entity.infernalexp.glowsilk_moth": "Ćma błyskojedwabna",
-
   "biome.infernalexp.glowstone_canyon": "Kanion jasnogłazowy",
   "biome.infernalexp.delta_shores": "Brzegi deltowe",
-
   "effect.infernalexp.luminous": "Świetlistość",
   "effect.infernalexp.infection": "Infekcja",
-
   "item.minecraft.potion.effect.luminous": "Mikstura świetlistości",
   "item.minecraft.splash_potion.effect.luminous": "Miotana mikstura świetlistości",
   "item.minecraft.lingering_potion.effect.luminous": "Trwała mikstura świetlistości",
@@ -287,7 +247,6 @@
   "infernalexp.config.option.volineAttackMagmaCube": "Voline'y atakują kostki magmy",
   "infernalexp.config.option.useHogchops": "Use Hogchops Drop",
   "infernalexp.config.option.glowsilkSpeed": "Szybkość ćmy błyskojedwabnej",
-
   "infernalexp.config.tooltip.piglinFearWarpbeetle": "Określa czy pigliny uciekają przed spaczonymi żukami",
   "infernalexp.config.tooltip.piglinFearEmbody": "Określa czy pigliny uciekają przed wcieleńcami",
   "infernalexp.config.tooltip.piglinFearDwarf": "Determines if Piglins will run away from Blackstone Dwarves",
@@ -322,7 +281,6 @@
   "infernalexp.config.tooltip.volineAttackMagmaCube": "Określa czy voline'y będą atakowały małe kostki magmy",
   "infernalexp.config.tooltip.useHogchops": "Determines if Hogchops will replace Porkchops in Hoglin Drops",
   "infernalexp.config.tooltip.glowsilkSpeed": "Określa prędkość lotu ćmy błyskojedwabnej",
-
   "infernalexp.config.option.volineWastes.enable": "Voline'y na netherowych pustkowiach",
   "infernalexp.config.option.shroomloinCrimson.enable": "Grzybiki w szkarłatnych lasach",
   "infernalexp.config.option.volineCrimson.enable": "Voline'y w szkarłatnych lasach",
@@ -355,29 +313,22 @@
   "infernalexp.config.tooltip.glowsilkGSC.spawnrate": "Określa częstotliwość pojawiania się ciem błyskojedwabnych w kanionach jasnogłazowych",
   "infernalexp.config.tooltip.glowsilkDeltas.spawnrate": "Określa częstotliwość pojawiania się ciem błyskojedwabnych na bazaltowych deltach",
   "infernalexp.config.tooltip.glowsilkCrimson.spawnrate": "Określa częstotliwość pojawiania się ciem błyskojedwabnych w szkarłatnych lasach",
-
   "infernalexp.config.option.isShroomlightGrowable": "Możliwość hodowli światłogrzyba",
   "infernalexp.config.option.shroomlightGrowChance": "Szansa wzrostu światłogrzyba",
   "infernalexp.config.option.luminousFungusActivateDistance": "Dystans dla aktywacji świecącego grzyba",
-
   "infernalexp.config.tooltip.isShroomlightGrowable": "Określa czy łza światłogrzyba może urosnąć gdy światłogrzyb zostanie użyźniony (nadpisuje szansę porostu światłogrzyba)",
   "infernalexp.config.tooltip.shroomlightGrowChance": "Określa czy łza światłogrzyba może urosnąć gdy światłogrzyb zostanie użyźniony",
   "infernalexp.config.tooltip.luminousFungusActivateDistance": "Określa dystans bytu od świecącego grzyba do jego aktywacji(wyższe wartości powodują spadki wydajności)",
-
   "infernalexp.config.option.fireChargeExplosion": "Eksplozja ognistej kuli",
   "infernalexp.config.option.jerkyEffectDuration": "Czas trwania efektu suszka",
   "infernalexp.config.option.jerkyEffectAmplifier": "Moc efektu suszka",
-
   "infernalexp.config.tooltip.fireChargeExplosion": "Określa czy miotane kule ogniste wybuchną po zderzeniu",
   "infernalexp.config.tooltip.jerkyEffectDuration": "Określa czas trwania efektu szarpka w sekundach",
   "infernalexp.config.tooltip.jerkyEffectAmplifier": "Określa moc efektu szarpka",
-
   "infernalexp.config.option.luminousRefreshDelay": "Luminous Effect Refresh Delay",
   "infernalexp.config.tooltip.luminousRefreshDelay": "Determines how often (in ticks) the luminous effect should update",
-
   "infernalexp.config.option.luminousFungusGivesEffect": "Luminous Fungus gives Luminance Effect",
   "infernalexp.config.tooltip.luminousFungusGivesEffect": "Determines whether Luminous Fungus gives the Luminance effect on collision with an entity",
-
   "infernalexp.commands.setdimensionspawn.success.single": "Set %s's spawnpoint to %s, %s, %s [%s] in %s",
   "infernalexp.commands.setdimensionspawn.success.multiple": "Set %s players' spawnpoints to %s, %s, %s [%s] in %s"
 }

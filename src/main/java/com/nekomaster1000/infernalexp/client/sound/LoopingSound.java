@@ -27,51 +27,51 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public abstract class LoopingSound<E extends Entity> extends TickableSound {
-	protected final E entity;
+    protected final E entity;
 
-	public LoopingSound(E entity, SoundEvent event, SoundCategory category) {
-		super(event, category);
-		this.entity = entity;
-		this.x = entity.getPosX();
-		this.y = entity.getPosY();
-		this.z = entity.getPosZ();
-		this.repeat = true;
-		this.repeatDelay = 0;
-		this.volume = 0.0F;
-	}
+    public LoopingSound(E entity, SoundEvent event, SoundCategory category) {
+        super(event, category);
+        this.entity = entity;
+        this.x = entity.getPosX();
+        this.y = entity.getPosY();
+        this.z = entity.getPosZ();
+        this.repeat = true;
+        this.repeatDelay = 0;
+        this.volume = 0.0F;
+    }
 
-	public void tick() {
-		if (this.entity.isAlive()) {
-			this.x = (float) this.entity.getPosX();
-			this.y = (float) this.entity.getPosY();
-			this.z = (float) this.entity.getPosZ();
-			float f = MathHelper.sqrt(Entity.horizontalMag(this.entity.getMotion()));
-			if ((double) f >= 0.01D) {
-				this.pitch = MathHelper.lerp(MathHelper.clamp(f, this.getMinPitch(), this.getMaxPitch()), this.getMinPitch(), this.getMaxPitch());
-				this.volume = MathHelper.lerp(MathHelper.clamp(f, 0.0F, 0.5F), 0.0F, 1.2F);
-			} else {
-				this.pitch = 0.0F;
-				this.volume = 0.0F;
-			}
+    public void tick() {
+        if (this.entity.isAlive()) {
+            this.x = (float) this.entity.getPosX();
+            this.y = (float) this.entity.getPosY();
+            this.z = (float) this.entity.getPosZ();
+            float f = MathHelper.sqrt(Entity.horizontalMag(this.entity.getMotion()));
+            if ((double) f >= 0.01D) {
+                this.pitch = MathHelper.lerp(MathHelper.clamp(f, this.getMinPitch(), this.getMaxPitch()), this.getMinPitch(), this.getMaxPitch());
+                this.volume = MathHelper.lerp(MathHelper.clamp(f, 0.0F, 0.5F), 0.0F, 1.2F);
+            } else {
+                this.pitch = 0.0F;
+                this.volume = 0.0F;
+            }
 
-		} else {
-			this.finishPlaying();
-		}
-	}
+        } else {
+            this.finishPlaying();
+        }
+    }
 
-	private float getMinPitch() {
-		return 0.7F;
-	}
+    private float getMinPitch() {
+        return 0.7F;
+    }
 
-	private float getMaxPitch() {
-		return 1.1F;
-	}
+    private float getMaxPitch() {
+        return 1.1F;
+    }
 
-	public boolean canBeSilent() {
-		return true;
-	}
+    public boolean canBeSilent() {
+        return true;
+    }
 
-	public boolean shouldPlaySound() {
-		return !this.entity.isSilent();
-	}
+    public boolean shouldPlaySound() {
+        return !this.entity.isSilent();
+    }
 }

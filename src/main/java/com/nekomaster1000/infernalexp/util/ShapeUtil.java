@@ -27,6 +27,7 @@ public class ShapeUtil {
 
     /**
      * Generates an array of BlockPos that creates a circle
+     *
      * @param radius Radius of the generated circle
      * @return Returns an ArrayList of BlockPos
      */
@@ -44,6 +45,7 @@ public class ShapeUtil {
 
     /**
      * Generates an array of BlockPos that creates a filled circle
+     *
      * @param radius Radius of the generated solid circle
      * @return Returns an ArrayList of BlockPos
      */
@@ -64,6 +66,7 @@ public class ShapeUtil {
 
     /**
      * Generates an array of BlockPos that creates a solid sphere
+     *
      * @param radius Radius of the generated solid sphere
      * @return Returns an ArrayList of BlockPos
      */

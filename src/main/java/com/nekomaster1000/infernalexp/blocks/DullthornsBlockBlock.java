@@ -29,20 +29,20 @@ import net.minecraft.world.World;
 
 public class DullthornsBlockBlock extends Block {
 
-	public DullthornsBlockBlock(Properties properties) {
-		super(properties);
+    public DullthornsBlockBlock(Properties properties) {
+        super(properties);
 
-	}
+    }
 
-	@Override
-	public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
-		if (!worldIn.isRemote()) {
-			if (entityIn instanceof LivingEntity && entityIn.isAlive() && !(entityIn instanceof BlindsightEntity)) {
-				LivingEntity livingEntity = (LivingEntity) entityIn;
-				livingEntity.addPotionEffect(new EffectInstance(IEEffects.LUMINOUS.get(), 300, 0));
-			}
-			entityIn.attackEntityFrom(DamageSource.CACTUS, 1.0F);
-		}
-	}
+    @Override
+    public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
+        if (!worldIn.isRemote()) {
+            if (entityIn instanceof LivingEntity && entityIn.isAlive() && !(entityIn instanceof BlindsightEntity)) {
+                LivingEntity livingEntity = (LivingEntity) entityIn;
+                livingEntity.addPotionEffect(new EffectInstance(IEEffects.LUMINOUS.get(), 300, 0));
+            }
+            entityIn.attackEntityFrom(DamageSource.CACTUS, 1.0F);
+        }
+    }
 
 }

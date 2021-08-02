@@ -21,7 +21,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.world.gen.feature.IFeatureConfig;
 
-public class    GlowSpikeFeatureConfig implements IFeatureConfig {
+public class GlowSpikeFeatureConfig implements IFeatureConfig {
     public static final Codec<GlowSpikeFeatureConfig> CODEC = RecordCodecBuilder.create((builder) -> {
         return builder.group(
                 Codec.INT.fieldOf("min_diameter").forGetter((config) -> config.minDiameter),
@@ -32,7 +32,7 @@ public class    GlowSpikeFeatureConfig implements IFeatureConfig {
                 Codec.INT.fieldOf("max_z_offset").forGetter((config) -> config.maxZOffset),
                 Codec.FLOAT.fieldOf("block_dithering_amount").forGetter((config) -> config.blockDitheringAmount),
                 Codec.BOOL.fieldOf("dark_at_top").forGetter((config) -> config.darkAtTop))
-                .apply(builder, GlowSpikeFeatureConfig::new);
+            .apply(builder, GlowSpikeFeatureConfig::new);
     });
 
     public final int minDiameter;

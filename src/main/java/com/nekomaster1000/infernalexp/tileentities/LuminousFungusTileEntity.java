@@ -33,7 +33,7 @@ import java.util.List;
 public class LuminousFungusTileEntity extends TileEntity implements ITickableTileEntity {
 
     private int lightTime = 0;
-    
+
     public LuminousFungusTileEntity() {
         super(IETileEntityTypes.LUMINOUS_FUNGUS_TILE_ENTITY.get());
     }
@@ -42,7 +42,7 @@ public class LuminousFungusTileEntity extends TileEntity implements ITickableTil
     public void tick() {
         if (!this.world.isRemote()) {
             List<Entity> nearbyEntities = this.getWorld().getEntitiesWithinAABB(Entity.class,
-                    new AxisAlignedBB(this.getPos()).grow(InfernalExpansionConfig.Miscellaneous.LUMINOUS_FUNGUS_ACTIVATE_DISTANCE.getDouble()));
+                new AxisAlignedBB(this.getPos()).grow(InfernalExpansionConfig.Miscellaneous.LUMINOUS_FUNGUS_ACTIVATE_DISTANCE.getDouble()));
             Vector3d blockPos = new Vector3d(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ());
             nearbyEntities.removeIf((entity) -> {
                 Vector3d entityPos = new Vector3d(entity.getPosX(), entity.getPosYEye(), entity.getPosZ());
@@ -54,15 +54,15 @@ public class LuminousFungusTileEntity extends TileEntity implements ITickableTil
                     double velX = Math.abs(entity.getPosX() - entity.lastTickPosX);
                     double velY = Math.abs(entity.getPosY() - entity.lastTickPosY);
                     double velZ = Math.abs(entity.getPosZ() - entity.lastTickPosZ);
-                    if (velX >= (double)0.003F || velY >= (double)0.003F || velZ >= (double)0.003F) {
-                        shouldLight = true;                                    
+                    if (velX >= (double) 0.003F || velY >= (double) 0.003F || velZ >= (double) 0.003F) {
+                        shouldLight = true;
                         break;
                     }
                 } else if (
                     entity.distanceWalkedModified - entity.prevDistanceWalkedModified > 0 ||
-                    entity.getMotion().length() > 0.1D
+                        entity.getMotion().length() > 0.1D
                 ) {
-                    shouldLight = true;                                    
+                    shouldLight = true;
                     break;
                 }
             }

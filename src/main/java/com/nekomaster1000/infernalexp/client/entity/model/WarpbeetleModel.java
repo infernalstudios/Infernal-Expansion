@@ -160,7 +160,7 @@ public class WarpbeetleModel<T extends WarpbeetleEntity> extends EntityModel<T> 
 
 
     @Override
-    public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
+    public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         warpbeetle.render(matrixStack, buffer, packedLight, packedOverlay);
     }
 

@@ -24,10 +24,10 @@ import net.minecraft.world.gen.feature.template.IStructureProcessorType;
 
 public class IEProcessors {
 
-	public static IStructureProcessorType<LootChestProcessor> LOOT_CHEST_PROCESSOR = () -> LootChestProcessor.CODEC;
+    public static IStructureProcessorType<LootChestProcessor> LOOT_CHEST_PROCESSOR = () -> LootChestProcessor.CODEC;
 
-	public static void registerProcessors() {
-		Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(InfernalExpansion.MOD_ID, "loot_chest_processor"), LOOT_CHEST_PROCESSOR);
-	}
+    public static void registerProcessors() {
+        Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(InfernalExpansion.MOD_ID, "loot_chest_processor"), LOOT_CHEST_PROCESSOR);
+    }
 
 }

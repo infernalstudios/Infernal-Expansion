@@ -68,14 +68,14 @@ public class LuminousFungusBlock extends HorizontalBushBlock implements IGrowabl
     @Override
     protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
         return
-			state.matchesBlock(IEBlocks.GLOWDUST_SAND.get()) || state.matchesBlock(Blocks.SAND) || state.matchesBlock(Blocks.RED_SAND)
-				|| state.matchesBlock(Blocks.GRASS) || state.matchesBlock(Blocks.GRASS_BLOCK) ||
-				state.matchesBlock(Blocks.DIRT) || state.matchesBlock(Blocks.COARSE_DIRT) || state.matchesBlock(Blocks.FARMLAND) ||
-				state.matchesBlock(Blocks.PODZOL) || state.matchesBlock(Blocks.MYCELIUM) ||
-				state.matchesBlock(Blocks.CRIMSON_NYLIUM) || state.matchesBlock(Blocks.WARPED_NYLIUM) ||
-				state.matchesBlock(Blocks.SOUL_SOIL) || state.matchesBlock(Blocks.GLOWSTONE) || state.matchesBlock(IEBlocks.DIMSTONE.get()) ||
-				state.matchesBlock(IEBlocks.DULLSTONE.get()) || state.matchesBlock(IEBlocks.DULLTHORNS.get())
-			;
+            state.matchesBlock(IEBlocks.GLOWDUST_SAND.get()) || state.matchesBlock(Blocks.SAND) || state.matchesBlock(Blocks.RED_SAND)
+                || state.matchesBlock(Blocks.GRASS) || state.matchesBlock(Blocks.GRASS_BLOCK) ||
+                state.matchesBlock(Blocks.DIRT) || state.matchesBlock(Blocks.COARSE_DIRT) || state.matchesBlock(Blocks.FARMLAND) ||
+                state.matchesBlock(Blocks.PODZOL) || state.matchesBlock(Blocks.MYCELIUM) ||
+                state.matchesBlock(Blocks.CRIMSON_NYLIUM) || state.matchesBlock(Blocks.WARPED_NYLIUM) ||
+                state.matchesBlock(Blocks.SOUL_SOIL) || state.matchesBlock(Blocks.GLOWSTONE) || state.matchesBlock(IEBlocks.DIMSTONE.get()) ||
+                state.matchesBlock(IEBlocks.DULLSTONE.get()) || state.matchesBlock(IEBlocks.DULLTHORNS.get())
+            ;
     }
 
     public boolean canAttach(IWorldReader reader, BlockPos pos, Direction direction) {
@@ -92,7 +92,7 @@ public class LuminousFungusBlock extends HorizontalBushBlock implements IGrowabl
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         Vector3d vector3d = state.getOffset(worldIn, pos);
 
-        switch(state.get(FACE)){
+        switch (state.get(FACE)) {
             case FLOOR:
                 return FLOOR_SHAPE.withOffset(vector3d.x, vector3d.y, vector3d.z);
             case CEILING:
@@ -121,26 +121,26 @@ public class LuminousFungusBlock extends HorizontalBushBlock implements IGrowabl
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builderIn) {
         builderIn.add(HORIZONTAL_FACING, FACE, LIT);
     }
-    
-	/**
-	 * Whether this IGrowable can grow
-	 */
-	@Override
-	public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
-		Block block = ((HugeFungusConfig) (IEConfiguredFeatures.DULLTHORN_TREE_PLANTED).config).validBaseBlock.getBlock();
-		Block block1 = worldIn.getBlockState(pos.down()).getBlock();
-		return block1 == block;
-	}
 
-	@Override
-	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) {
-		return (double) rand.nextFloat() < 0.4D;
-	}
+    /**
+     * Whether this IGrowable can grow
+     */
+    @Override
+    public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
+        Block block = ((HugeFungusConfig) (IEConfiguredFeatures.DULLTHORN_TREE_PLANTED).config).validBaseBlock.getBlock();
+        Block block1 = worldIn.getBlockState(pos.down()).getBlock();
+        return block1 == block;
+    }
 
-	@Override
-	public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
-		IEConfiguredFeatures.DULLTHORN_TREE_PLANTED.generate(worldIn, worldIn.getChunkProvider().getChunkGenerator(), rand, pos);
-	}
+    @Override
+    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) {
+        return (double) rand.nextFloat() < 0.4D;
+    }
+
+    @Override
+    public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
+        IEConfiguredFeatures.DULLTHORN_TREE_PLANTED.generate(worldIn, worldIn.getChunkProvider().getChunkGenerator(), rand, pos);
+    }
 
     @Nullable
     @Override

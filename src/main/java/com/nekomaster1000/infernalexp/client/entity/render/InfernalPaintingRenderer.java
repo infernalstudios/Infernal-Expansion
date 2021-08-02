@@ -37,31 +37,31 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class InfernalPaintingRenderer extends PaintingRenderer {
-	public static final ResourceLocation BACK_TEXTURE_ATLAS_LOCATION = new ResourceLocation(InfernalExpansion.MOD_ID,
+    public static final ResourceLocation BACK_TEXTURE_ATLAS_LOCATION = new ResourceLocation(InfernalExpansion.MOD_ID,
         "infernal_back");
 
-	public InfernalPaintingRenderer(EntityRendererManager renderManagerIn) {
-		super(renderManagerIn);
-	}
+    public InfernalPaintingRenderer(EntityRendererManager renderManagerIn) {
+        super(renderManagerIn);
+    }
 
-	@Override
-	public void render(PaintingEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-		matrixStackIn.push();
-		matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180.0F - entityYaw));
-		matrixStackIn.scale(0.0625F, 0.0625F, 0.0625F);
+    @Override
+    public void render(PaintingEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
+        matrixStackIn.push();
+        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180.0F - entityYaw));
+        matrixStackIn.scale(0.0625F, 0.0625F, 0.0625F);
 
-		PaintingType paintingType = entityIn.art;
-		IVertexBuilder iVertexBuilder = bufferIn.getBuffer(RenderType.getEntitySolid(this.getEntityTexture(entityIn)));
-		PaintingSpriteUploader paintingSpriteUploader = Minecraft.getInstance().getPaintingSpriteUploader();
-		func_229122_a_(matrixStackIn, iVertexBuilder, entityIn, paintingType.getWidth(), paintingType.getHeight(), paintingSpriteUploader.getSpriteForPainting(paintingType), paintingSpriteUploader.getSprite(BACK_TEXTURE_ATLAS_LOCATION));
+        PaintingType paintingType = entityIn.art;
+        IVertexBuilder iVertexBuilder = bufferIn.getBuffer(RenderType.getEntitySolid(this.getEntityTexture(entityIn)));
+        PaintingSpriteUploader paintingSpriteUploader = Minecraft.getInstance().getPaintingSpriteUploader();
+        func_229122_a_(matrixStackIn, iVertexBuilder, entityIn, paintingType.getWidth(), paintingType.getHeight(), paintingSpriteUploader.getSpriteForPainting(paintingType), paintingSpriteUploader.getSprite(BACK_TEXTURE_ATLAS_LOCATION));
 
-		matrixStackIn.pop();
+        matrixStackIn.pop();
 
-		// Can't call super because it will override the custom back texture
-		net.minecraftforge.client.event.RenderNameplateEvent renderNameplateEvent = new net.minecraftforge.client.event.RenderNameplateEvent(entityIn, entityIn.getDisplayName(), this, matrixStackIn, bufferIn, packedLightIn, partialTicks);
-		net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(renderNameplateEvent);
-		if (renderNameplateEvent.getResult() != net.minecraftforge.eventbus.api.Event.Result.DENY && (renderNameplateEvent.getResult() == net.minecraftforge.eventbus.api.Event.Result.ALLOW || this.canRenderName(entityIn))) {
-			renderName(entityIn, renderNameplateEvent.getContent(), matrixStackIn, bufferIn, packedLightIn);
-		}
-	}
+        // Can't call super because it will override the custom back texture
+        net.minecraftforge.client.event.RenderNameplateEvent renderNameplateEvent = new net.minecraftforge.client.event.RenderNameplateEvent(entityIn, entityIn.getDisplayName(), this, matrixStackIn, bufferIn, packedLightIn, partialTicks);
+        net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(renderNameplateEvent);
+        if (renderNameplateEvent.getResult() != net.minecraftforge.eventbus.api.Event.Result.DENY && (renderNameplateEvent.getResult() == net.minecraftforge.eventbus.api.Event.Result.ALLOW || this.canRenderName(entityIn))) {
+            renderName(entityIn, renderNameplateEvent.getContent(), matrixStackIn, bufferIn, packedLightIn);
+        }
+    }
 }

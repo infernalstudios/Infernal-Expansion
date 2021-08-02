@@ -26,13 +26,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class TitleOption extends AbstractOption {
 
-	public TitleOption(String translationKeyIn) {
-		super(translationKeyIn);
-	}
+    public TitleOption(String translationKeyIn) {
+        super(translationKeyIn);
+    }
 
-	@Override
-	public Widget createWidget(GameSettings options, int xIn, int yIn, int widthIn) {
-		return new TitleWidget(xIn, yIn, widthIn, 20, getBaseMessageTranslation());
-	}
+    @Override
+    public Widget createWidget(GameSettings options, int xIn, int yIn, int widthIn) {
+        return new TitleWidget(xIn, yIn, widthIn, 20, getBaseMessageTranslation());
+    }
 
 }

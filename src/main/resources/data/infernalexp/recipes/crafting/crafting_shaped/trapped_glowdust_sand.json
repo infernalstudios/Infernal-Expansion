@@ -1,24 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
+  "pattern": [
     "xox",
     "oxo",
     "xox"
   ],
-  "key":
-  {
-    "x":
-    {
+  "key": {
+    "x": {
       "item": "minecraft:glowstone_dust"
     },
-    "o":
-    {
+    "o": {
       "item": "minecraft:gravel"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "infernalexp:trapped_glowdust_sand",
     "count": 1
   }

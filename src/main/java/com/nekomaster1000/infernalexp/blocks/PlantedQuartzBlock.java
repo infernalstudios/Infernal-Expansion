@@ -105,7 +105,7 @@ public class PlantedQuartzBlock extends HorizontalBushBlock {
                     default:
                         return WALL_SHAPE_WEST;
                 }
-            case FLOOR :
+            case FLOOR:
                 return FLOOR_SHAPE;
             case CEILING:
             default:

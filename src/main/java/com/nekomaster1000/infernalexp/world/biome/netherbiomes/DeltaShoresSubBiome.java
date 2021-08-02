@@ -60,15 +60,15 @@ public class DeltaShoresSubBiome extends ModBiome {
     @Override
     protected void configureAmbience(BiomeAmbience.Builder ambience) {
         ambience
-                .setWaterColor(4144704)
-                .setWaterFogColor(4341314)
-                .setFogColor(6840176)
-                .withSkyColor(BiomeHelper.calcSkyColor(2.0f))
-                .setParticle(new ParticleEffectAmbience(ParticleTypes.WHITE_ASH, 0.118093334F))
-                .setAmbientSound(SoundEvents.AMBIENT_BASALT_DELTAS_LOOP)
-                .setMoodSound(new MoodSoundAmbience(SoundEvents.AMBIENT_BASALT_DELTAS_MOOD, 8000, 8, 2.0D))
-                .setAdditionsSound(new SoundAdditionsAmbience(SoundEvents.AMBIENT_BASALT_DELTAS_ADDITIONS, 0.0111D))
-                .setMusic(BackgroundMusicTracks.getDefaultBackgroundMusicSelector(SoundEvents.MUSIC_NETHER_BASALT_DELTAS));
+            .setWaterColor(4144704)
+            .setWaterFogColor(4341314)
+            .setFogColor(6840176)
+            .withSkyColor(BiomeHelper.calcSkyColor(2.0f))
+            .setParticle(new ParticleEffectAmbience(ParticleTypes.WHITE_ASH, 0.118093334F))
+            .setAmbientSound(SoundEvents.AMBIENT_BASALT_DELTAS_LOOP)
+            .setMoodSound(new MoodSoundAmbience(SoundEvents.AMBIENT_BASALT_DELTAS_MOOD, 8000, 8, 2.0D))
+            .setAdditionsSound(new SoundAdditionsAmbience(SoundEvents.AMBIENT_BASALT_DELTAS_ADDITIONS, 0.0111D))
+            .setMusic(BackgroundMusicTracks.getDefaultBackgroundMusicSelector(SoundEvents.MUSIC_NETHER_BASALT_DELTAS));
     }
 
     @Override
@@ -77,16 +77,17 @@ public class DeltaShoresSubBiome extends ModBiome {
     }
 
     @Override
-    protected ConfiguredSurfaceBuilder<?> configureSurfaceBuilder() { return BiomeHelper.newConfiguredSurfaceBuilder
+    protected ConfiguredSurfaceBuilder<?> configureSurfaceBuilder() {
+        return BiomeHelper.newConfiguredSurfaceBuilder
             ("delta_shores", new ConfiguredSurfaceBuilder(IESurfaceBuilders.DELTA_SHORES_SURFACE_BUILDER,
-                    IESurfaceBuilders.ModSurfaceBuilderConfig.DELTA_SHORES_CONFIG));
+                IESurfaceBuilders.ModSurfaceBuilderConfig.DELTA_SHORES_CONFIG));
     }
 
     @Override
     protected void configureGeneration(BiomeGenerationSettings.Builder generation) {
         generation.withStructure(StructureFeatures.RUINED_PORTAL_NETHER);
         generation.withStructure(StructureFeatures.FORTRESS);
-		generation.withCarver(GenerationStage.Carving.AIR, ConfiguredCarvers.NETHER_CAVE);
+        generation.withCarver(GenerationStage.Carving.AIR, ConfiguredCarvers.NETHER_CAVE);
         //generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.DELTA);
                 /*FeatureSpread.func_242253_a(3, 4), FeatureSpread.func_242253_a(0, 2),
                 (((Placement.COUNT_MULTILAYER.configure(new FeatureSpreadConfig(40))));*/

@@ -1,9 +1,15 @@
 {
   "variants": {
     "": [
-      { "model": "infernalexp:block/crumbling_blackstone/1" },
-      { "model": "infernalexp:block/crumbling_blackstone/2" },
-      { "model": "infernalexp:block/crumbling_blackstone/3" }
+      {
+        "model": "infernalexp:block/crumbling_blackstone/1"
+      },
+      {
+        "model": "infernalexp:block/crumbling_blackstone/2"
+      },
+      {
+        "model": "infernalexp:block/crumbling_blackstone/3"
+      }
     ]
   }
 }

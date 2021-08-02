@@ -29,9 +29,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-class BlackstoneDwarfGlowLayer<T extends BasaltGiantEntity, M extends EntityModel<T>> extends AbstractEyesLayer<T,M> {
+class BlackstoneDwarfGlowLayer<T extends BasaltGiantEntity, M extends EntityModel<T>> extends AbstractEyesLayer<T, M> {
     private static final RenderType RENDER_TYPE = RenderType.getEyes(new ResourceLocation(InfernalExpansion.MOD_ID,
-            "textures/entity/blackstone_dwarf_glow.png"));
+        "textures/entity/blackstone_dwarf_glow.png"));
 
     public BlackstoneDwarfGlowLayer(IEntityRenderer<T, M> rendererIn) {
         super(rendererIn);

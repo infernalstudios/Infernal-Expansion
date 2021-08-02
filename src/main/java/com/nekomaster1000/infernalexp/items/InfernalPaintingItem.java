@@ -27,35 +27,35 @@ import net.minecraft.util.math.BlockPos;
 
 public class InfernalPaintingItem extends HangingEntityItem {
 
-	public InfernalPaintingItem(Properties properties) {
-		super(EntityType.PAINTING, properties);
-	}
+    public InfernalPaintingItem(Properties properties) {
+        super(EntityType.PAINTING, properties);
+    }
 
-	@Override
-	public ActionResultType onItemUse(ItemUseContext context) {
-		BlockPos blockPos = context.getPos().offset(context.getFace());
+    @Override
+    public ActionResultType onItemUse(ItemUseContext context) {
+        BlockPos blockPos = context.getPos().offset(context.getFace());
 
-		if (context.getPlayer() == null || !this.canPlace(context.getPlayer(), context.getFace(), context.getItem(), blockPos)) {
-			return ActionResultType.FAIL;
-		} else {
-			InfernalPaintingEntity paintingEntity = new InfernalPaintingEntity(context.getWorld(), blockPos, context.getFace());
+        if (context.getPlayer() == null || !this.canPlace(context.getPlayer(), context.getFace(), context.getItem(), blockPos)) {
+            return ActionResultType.FAIL;
+        } else {
+            InfernalPaintingEntity paintingEntity = new InfernalPaintingEntity(context.getWorld(), blockPos, context.getFace());
 
-			CompoundNBT compoundNBT = context.getItem().getTag();
-			if (compoundNBT != null) {
-				EntityType.applyItemNBT(context.getWorld(), context.getPlayer(), paintingEntity, compoundNBT);
-			}
+            CompoundNBT compoundNBT = context.getItem().getTag();
+            if (compoundNBT != null) {
+                EntityType.applyItemNBT(context.getWorld(), context.getPlayer(), paintingEntity, compoundNBT);
+            }
 
-			if (paintingEntity.onValidSurface()) {
-				if (!context.getWorld().isRemote()) {
-					paintingEntity.playPlaceSound();
-					context.getWorld().addEntity(paintingEntity);
-				}
+            if (paintingEntity.onValidSurface()) {
+                if (!context.getWorld().isRemote()) {
+                    paintingEntity.playPlaceSound();
+                    context.getWorld().addEntity(paintingEntity);
+                }
 
-				context.getItem().shrink(1);
-				return ActionResultType.func_233537_a_(context.getWorld().isRemote());
-			} else {
-				return ActionResultType.CONSUME;
-			}
-		}
-	}
+                context.getItem().shrink(1);
+                return ActionResultType.func_233537_a_(context.getWorld().isRemote());
+            } else {
+                return ActionResultType.CONSUME;
+            }
+        }
+    }
 }
