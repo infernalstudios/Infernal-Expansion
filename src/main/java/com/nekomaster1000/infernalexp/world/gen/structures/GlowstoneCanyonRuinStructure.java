@@ -2,6 +2,7 @@ package com.nekomaster1000.infernalexp.world.gen.structures;
 
 import com.mojang.serialization.Codec;
 import com.nekomaster1000.infernalexp.InfernalExpansion;
+import com.nekomaster1000.infernalexp.init.IEStructures;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -41,7 +42,7 @@ public class GlowstoneCanyonRuinStructure extends IEStructure<NoFeatureConfig> {
 
 	@Override
 	public StructureSeparationSettings getSeparationSettings() {
-		return new StructureSeparationSettings(2, 1, 20394857);
+		return new StructureSeparationSettings(1, 0, 20394857);
 	}
 
     @Override
@@ -61,8 +62,8 @@ public class GlowstoneCanyonRuinStructure extends IEStructure<NoFeatureConfig> {
             int posY = getYPos(chunkGenerator, posX, posZ, random);
 
             // Checks 9 points within a small area of the spawn location
-            for (int curX = posX - 4; curX <= posX + 4; curX += 4) {
-                for (int curZ = posZ - 4; curZ <= posZ + 4; curZ += 4) {
+            for (int curX = posX - 3; curX <= posX + 3; curX += 3) {
+                for (int curZ = posZ - 3; curZ <= posZ + 3; curZ += 3) {
 
                     // Starts 5 blocks below to check for solid land in each column
                     BlockPos.Mutable mutable = new BlockPos.Mutable(curX, posY - 5, curZ);
@@ -92,7 +93,7 @@ public class GlowstoneCanyonRuinStructure extends IEStructure<NoFeatureConfig> {
                         return false;
                     }
 
-                    // Checks if there are 55 blocks of air above the 5 checked for solid to spawn the structure
+                    // Checks if there are 5 blocks of air above the 5 checked for solid to spawn the structure
                     int minValidSpace = 5;
                     int maxHeight = Math.min(chunkGenerator.getMaxBuildHeight(), posY + minValidSpace);
 
@@ -107,6 +108,20 @@ public class GlowstoneCanyonRuinStructure extends IEStructure<NoFeatureConfig> {
             }
         } else {
             return false;
+        }
+
+        //cannot be near other specified structure
+        for (int curChunkX = chunkX - 1; curChunkX <= chunkX + 1; curChunkX++) {
+            for (int curChunkZ = chunkZ - 1; curChunkZ <= chunkZ + 1; curChunkZ++) {
+
+                StructureSeparationSettings structureConfig = chunkGenerator.func_235957_b_().func_236197_a_(IEStructures.BASTION_OUTPOST);
+                if (structureConfig != null) {
+                    ChunkPos chunkPos2 = IEStructures.BASTION_OUTPOST.getChunkPosForStructure(structureConfig, seed, chunkRandom, curChunkX, curChunkZ);
+                    if (curChunkX == chunkPos2.x && curChunkZ == chunkPos2.z) {
+                        return false;
+                    }
+                }
+            }
         }
 
         return true;

@@ -36,7 +36,7 @@
               }
             }
           ],
-          "name": "infernalexp:basalt_iron"
+          "name": "infernalexp:basalt_iron_ore"
         },
         {
           "type": "minecraft:item",
@@ -114,6 +114,21 @@
             }
           ],
           "name": "minecraft:gold_block"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1.0,
+                "max": 3.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ],
+          "name": "minecraft:lapis_lazuli"
         }
       ]
     }
