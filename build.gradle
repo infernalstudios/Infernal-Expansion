@@ -17,7 +17,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 version = '2.0.0+20210802.1'
-group = 'com.nekomaster1000.infernalexp' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = 'org.infernalstudios.infernalexp' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'infernal-expansion'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
@@ -140,7 +140,7 @@ jar {
                 "Implementation-Vendor" :"examplemodsareus",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
                 "MixinConfigs": "infernal-expansion.mixins.json",
-                "MixinConnector": "com.nekomaster1000.infernalexp.mixin.MixinConnector"
+                "MixinConnector": "org.infernalstudios.infernalexp.mixin.MixinConnector"
         ])
     }
 }

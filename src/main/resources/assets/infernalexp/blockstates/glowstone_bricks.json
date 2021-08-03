@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "infernalexp:block/glowstone_bricks" }
+    "": {
+      "model": "infernalexp:block/glowstone_bricks"
+    }
   }
 }

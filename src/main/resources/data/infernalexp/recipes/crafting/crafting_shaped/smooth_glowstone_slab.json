@@ -1,18 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
+  "pattern": [
     "xxx"
   ],
-  "key":
-  {
-    "x":
-    {
+  "key": {
+    "x": {
       "item": "infernalexp:smooth_glowstone"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "infernalexp:smooth_glowstone_slab",
     "count": 6
   }

@@ -1,19 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
+  "pattern": [
     "xx",
     "xx"
   ],
-  "key":
-  {
-    "x":
-    {
+  "key": {
+    "x": {
       "item": "infernalexp:glownuggets"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "infernalexp:dullstone",
     "count": 1
   }

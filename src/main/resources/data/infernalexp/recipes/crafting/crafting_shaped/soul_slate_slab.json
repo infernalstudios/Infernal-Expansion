@@ -1,18 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
+  "pattern": [
     "xxx"
   ],
-  "key":
-  {
-    "x":
-    {
+  "key": {
+    "x": {
       "item": "infernalexp:soul_slate"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "infernalexp:soul_slate_slab",
     "count": 6
   }

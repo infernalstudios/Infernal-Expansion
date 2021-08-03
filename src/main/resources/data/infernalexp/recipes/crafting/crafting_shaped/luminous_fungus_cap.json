@@ -1,19 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
+  "pattern": [
     "xx",
     "xx"
   ],
-  "key":
-  {
-    "x":
-    {
+  "key": {
+    "x": {
       "item": "infernalexp:luminous_fungus"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "infernalexp:luminous_fungus_cap",
     "count": 1
   }

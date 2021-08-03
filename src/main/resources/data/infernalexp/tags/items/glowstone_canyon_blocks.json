@@ -35,7 +35,6 @@
     "infernalexp:dullstone_brick_slab",
     "infernalexp:dullstone_brick_stairs",
     "infernalexp:dullstone_brick_wall",
-
     "infernalexp:luminous_wart_block",
     "infernalexp:glowdust",
     "infernalexp:glowdust_sand",
@@ -44,17 +43,13 @@
     "infernalexp:glowdust_stone_stairs",
     "infernalexp:glowdust_stone_wall",
     "infernalexp:trapped_glowdust_sand",
-
     "infernalexp:glowdust_stone_bricks",
     "infernalexp:glowdust_stone_brick_slab",
     "infernalexp:glowdust_stone_brick_stairs",
     "infernalexp:glowdust_stone_brick_wall",
-
     "infernalexp:cracked_glowdust_stone_bricks",
     "infernalexp:chiseled_glowdust_stone_bricks",
-
     "infernalexp:crumbling_blackstone",
-
     "infernalexp:dullthorns_block"
   ]
 }

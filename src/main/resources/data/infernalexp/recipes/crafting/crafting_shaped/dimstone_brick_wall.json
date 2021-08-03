@@ -1,19 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
+  "pattern": [
     "xxx",
     "xxx"
   ],
-  "key":
-  {
-    "x":
-    {
+  "key": {
+    "x": {
       "item": "infernalexp:dimstone_bricks"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "infernalexp:dimstone_brick_wall",
     "count": 6
   }

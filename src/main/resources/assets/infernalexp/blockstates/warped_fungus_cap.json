@@ -1,6 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "infernalexp:block/warped_fungus_cap" }
+      "model": "infernalexp:block/warped_fungus_cap"
+    }
   }
 }

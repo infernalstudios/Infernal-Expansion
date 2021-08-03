@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "infernalexp:block/soul_stone_bricks" }
+    "": {
+      "model": "infernalexp:block/soul_stone_bricks"
+    }
   }
 }

@@ -1,20 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern":
-  [
+  "pattern": [
     "xxx",
     "xxx",
     "xxx"
   ],
-  "key":
-  {
-    "x":
-    {
+  "key": {
+    "x": {
       "item": "infernalexp:molten_gold_cluster"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "minecraft:gold_ingot",
     "count": 3
   }

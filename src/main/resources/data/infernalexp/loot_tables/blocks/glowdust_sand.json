@@ -37,7 +37,7 @@
                     "type": "minecraft:uniform"
                   }
                 }
-                ],
+              ],
               "conditions": [
                 {
                   "condition": "minecraft:survives_explosion"

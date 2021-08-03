@@ -1,6 +1,5 @@
 {
   "itemGroup.InfernalTab": "Expansión infernal",
-
   "block.minecraft.glowstone": "Piedra luminosa",
   "block.infernalexp.dimstone": "Piedra tenue",
   "block.infernalexp.dullstone": "Piedra sombría",
@@ -41,7 +40,6 @@
   "block.infernalexp.dullstone_brick_vertical_slab": "Losa vertical de ladrillos de piedra sombría",
   "block.infernalexp.dullstone_brick_stairs": "Escaleras de ladrillos de piedra sombría",
   "block.infernalexp.dullstone_brick_wall": "Muro de ladrillos de piedra sombría",
-
   "block.infernalexp.luminous_wart_block": "Bloque de verrugas luminosas",
   "block.infernalexp.glowdust": "Polvo luminoso",
   "block.infernalexp.glowdust_sand": "Arena de polvo luminoso",
@@ -51,40 +49,31 @@
   "block.infernalexp.glowdust_stone_stairs": "Escaleras de piedra de polvo luminoso",
   "block.infernalexp.glowdust_stone_wall": "Muro de piedra de polvo luminoso",
   "block.infernalexp.trapped_glowdust_sand": "Arena de polvo luminoso inestable",
-
   "block.infernalexp.glowdust_stone_bricks": "Ladrillos de piedra de polvo luminoso",
   "block.infernalexp.glowdust_stone_brick_slab": "Losa de ladrillos de piedra de polvo luminoso",
   "block.infernalexp.glowdust_stone_brick_vertical_slab": "Losa vertical de ladrillos de piedra de polvo luminoso",
   "block.infernalexp.glowdust_stone_brick_stairs": "Escaleras de ladrillos de piedra de polvo luminoso",
   "block.infernalexp.glowdust_stone_brick_wall": "Muro de ladrillos de piedra de polvo luminoso",
-
   "block.infernalexp.cracked_glowdust_stone_bricks": "Ladrillos de piedra de polvo luminoso agrietados",
   "block.infernalexp.chiseled_glowdust_stone_bricks": "Ladrillos de piedra de polvo luminoso cincelados",
-
   "block.infernalexp.crumbling_blackstone": "Piedra negra desmoronada",
-
   "block.infernalexp.silt": "Cieno de basalto",
   "block.infernalexp.rubble": "Escombros de piedra negra",
-
   "block.infernalexp.dullthorns_block": "Bloque de espinas sombrías",
-
   "block.infernalexp.basalt_cobbled": "Basalto rocoso",
   "block.infernalexp.basalt_cobbled_slab": "Losa de basalto rocoso",
   "block.infernalexp.basalt_cobbled_vertical_slab": "Losa vertical de basalto rocoso",
-
   "block.infernalexp.basalt_wall": "Muro de basalto",
   "block.infernalexp.basalt_stairs": "Escaleras de basalto",
   "block.infernalexp.basalt_button": "Botón de basalto",
   "block.infernalexp.basalt_slab": "Losa de basalto",
   "block.infernalexp.basalt_vertical_slab": "Losa vertical de basalto",
-
   "block.infernalexp.polished_basalt_pressure_plate": "Placa de presión de basalto pulido",
   "block.infernalexp.polished_basalt_slab": "Losa de basalto pulido",
   "block.infernalexp.polished_basalt_vertical_slab": "Losa vertical de basalto pulido",
   "block.infernalexp.polished_basalt_tiles_slab": "Losa de baldosas de basalto pulido",
   "block.infernalexp.polished_basalt_tiles_vertical_slab": "Losa vertical de baldosas de basalto pulido",
   "block.infernalexp.polished_basalt_tiles": "Baldosas de basalto pulido",
-
   "block.infernalexp.basalt_bricks": "Ladrillos de basalto",
   "block.infernalexp.basalt_brick_wall": "Muro de ladrillos de basalto",
   "block.infernalexp.basalt_brick_stairs": "Escaleras de ladrillos de basalto",
@@ -93,24 +82,19 @@
   "block.infernalexp.cracked_basalt_bricks": "Ladrillos de basalto agrietados",
   "block.infernalexp.chiseled_basalt_bricks": "Ladrillos de basalto cincelados",
   "block.infernalexp.magmatic_chiseled_basalt_bricks": "Ladrillos de basalto cincelados magmáticos",
-
   "block.infernalexp.basalt_iron_ore": "Mena de hierro de basalto",
   "block.infernalexp.basaltic_magma": "Basalto magmático",
-
   "block.infernalexp.soul_sand_stairs": "Escaleras de arena de almas",
   "block.infernalexp.soul_sand_slab": "Losa de arena de almas",
   "block.infernalexp.soul_sand_vertical_slab": "Losa vertical de arena de almas",
-
   "block.infernalexp.soul_soil_stairs": "Escaleras de tierra de almas",
   "block.infernalexp.soul_soil_slab": "Losa de tierra de almas",
   "block.infernalexp.soul_soil_vertical_slab": "Losa vertical de tierra de almas",
-
   "block.infernalexp.soul_stone": "Piedra de almas",
   "block.infernalexp.soul_stone_slab": "Losa de piedra de almas",
   "block.infernalexp.soul_stone_vertical_slab": "Losa vertical de piedra de almas",
   "block.infernalexp.soul_stone_stairs": "Escaleras de piedra de almas",
   "block.infernalexp.soul_stone_wall": "Muro de piedra de almas",
-
   "block.infernalexp.soul_stone_bricks": "Ladrillos de piedra de almas",
   "block.infernalexp.soul_stone_brick_wall": "Muro de ladrillos de piedra de almas",
   "block.infernalexp.soul_stone_brick_stairs": "Escaleras de ladrillos de piedra de almas",
@@ -119,7 +103,6 @@
   "block.infernalexp.cracked_soul_stone_bricks": "Ladrillos de piedra de almas agrietados",
   "block.infernalexp.chiseled_soul_stone_bricks": "Ladrillos de piedra de almas cincelados",
   "block.infernalexp.charged_chiseled_soul_stone_bricks": "Ladrillos de piedra de almas cincelados cargados",
-
   "block.infernalexp.soul_slate": "Pizarra de almas",
   "block.infernalexp.soul_slate_wall": "Muro de pizarra de almas",
   "block.infernalexp.soul_slate_stairs": "Escaleras de pizarra de almas",
@@ -127,7 +110,6 @@
   "block.infernalexp.soul_slate_slab": "Losa de pizarra de almas",
   "block.infernalexp.soul_slate_vertical_slab": "Losa vertical de pizarra de almas",
   "block.infernalexp.soul_slate_pressure_plate": "Placa de presión de pizarra de almas",
-
   "block.infernalexp.soul_slate_bricks": "Ladrillos de pizarra de almas",
   "block.infernalexp.soul_slate_brick_wall": "Muro de ladrillos de pizarra de almas",
   "block.infernalexp.soul_slate_brick_stairs": "Escaleras de ladrillos de pizarra de almas",
@@ -136,19 +118,14 @@
   "block.infernalexp.cracked_soul_slate_bricks": "Ladrillos de pizarra de almas agrietados",
   "block.infernalexp.chiseled_soul_slate_bricks": "Ladrillos de pizarra de almas cincelados",
   "block.infernalexp.charged_chiseled_soul_slate_bricks": "Ladrillos de pizarra de almas cincelados cargados",
-
   "block.infernalexp.crimson_fungus_cap": "Sombrero de hongo carmesí",
   "block.infernalexp.warped_fungus_cap": "Sombrero de hongo distorsionado",
   "block.infernalexp.luminous_fungus_cap": "Sombrero de hongo luminoso",
-
   "block.infernalexp.shroomlight_fungus": "Lágrima de brillongo",
-
   "block.infernalexp.buried_bone": "Hueso enterrado",
   "block.infernalexp.planted_quartz": "Planted Quartz",
-
   "block.infernalexp.warped_nylium_path": "Camino de necelio distorsionado",
   "block.infernalexp.crimson_nylium_path": "Camino de necelio carmesí",
-
   "block.infernalexp.glow_lantern": "Farol luminoso",
   "block.infernalexp.glow_torch": "Antorcha luminosa",
   "block.infernalexp.glow_campfire": "Hoguera luminosa",
@@ -156,20 +133,14 @@
   "block.infernalexp.glow_glass_pane": "Panel de cristal luminoso",
   "block.infernalexp.luminous_fungus": "Hongo luminoso",
   "block.infernalexp.dullthorns": "Espinas sombrías",
-
   "block.infernalexp.glowsilk_cocoon": "Capullo de seda luminosa",
-
   "block.infernalexp.warped_nylium_carpet": "Alfombra de necelio distorsionado",
   "block.infernalexp.crimson_nylium_carpet": "Alfombra de necelio carmesí",
-
   "block.infernalexp.soul_soil_path": "Camino de tierra de almas",
-
   "block.infernalexp.quartz_glass": "Cristal de cuarzo",
   "block.infernalexp.quartz_glass_pane": "Panel de cristal de cuarzo",
-
   "block.minecraft.nether_sprouts": "Brotes distorsionados",
   "block.minecraft.nether_wart_block": "Bloque de verrugas carmesí",
-
   "item.infernalexp.glowcoal": "Carbón luminoso",
   "item.infernalexp.glownuggets": "Rocas sombrías",
   "item.infernalexp.blindsight_tongue": "Lengua de deslumbrado",
@@ -178,18 +149,14 @@
   "item.infernalexp.glowsilk": "Seda luminosa",
   "item.infernalexp.soul_salt_clump": "Cúmulo de sal de almas",
   "item.infernalexp.infernal_painting": "Cuadro infernal",
-
   "item.infernalexp.strider_bucket": "Cubo con lavagante",
   "item.infernalexp.magma_cube_bucket": "Cubo con cubo de magma",
   "item.infernalexp.voline_bucket": "Cubo con volin",
-
   "item.infernalexp.blindsight_tongue_stew": "Estofado de lengua y hongos",
   "item.infernalexp.cured_jerky": "Carne purificada",
   "item.infernalexp.raw_hogchop": "Chuleta de hoglin cruda",
   "item.infernalexp.cooked_hogchop": "Chuleta de hoglin cocinada",
-
   "item.infernalexp.ascus_bomb": "Bomba de ascas",
-
   "item.infernalexp.frostbitten_sword": "Espada de netherita congelada",
   "item.infernalexp.frostbitten_pickaxe": "Pico de netherita congelado",
   "item.infernalexp.frostbitten_axe": "Hacha de netherita congelada",
@@ -197,7 +164,6 @@
   "item.infernalexp.frostbitten_hoe": "Azada de netherita congelada",
   "item.infernalexp.glowsilk_bow": "Arco de seda luminosa",
   "item.infernalexp.blindsight_tongue_whip": "Látigo de lengua de deslumbrado",
-
   "item.infernalexp.voline_spawn_egg": "Generar volín",
   "item.infernalexp.shroomloin_spawn_egg": "Generar hongolín",
   "item.infernalexp.warpbeetle_spawn_egg": "Generar escarabajo distorsionado",
@@ -209,13 +175,10 @@
   "item.infernalexp.pyrno_spawn_egg": "Generar oroceronte",
   "item.infernalexp.blindsight_spawn_egg": "Generar deslumbrado",
   "item.infernalexp.glowsilk_moth_spawn_egg": "Generar polilla de seda luminosa",
-
   "item.infernalexp.music_disc_soul_spunk": "Disco de música",
   "item.infernalexp.music_disc_soul_spunk.desc": "LudoCrypt - Soul Spunk",
-
   "item.infernalexp.music_disc_flush": "Disco de música",
   "item.infernalexp.music_disc_flush.desc": "LudoCrypt - flush",
-
   "entity.infernalexp.voline": "Volín",
   "entity.infernalexp.shroomloin": "Hongolín",
   "entity.infernalexp.warpbeetle": "Escarabajo distorsionado",
@@ -226,13 +189,10 @@
   "entity.infernalexp.pyrno": "Oroceronte",
   "entity.infernalexp.blindsight": "Deslumbrado",
   "entity.infernalexp.glowsilk_moth": "Polilla de seda luminosa",
-
   "biome.infernalexp.glowstone_canyon": "Cañón de piedra luminosa",
   "biome.infernalexp.delta_shores": "Orillas de basalto",
-
   "effect.infernalexp.luminous": "Brillo",
   "effect.infernalexp.infection": "Infección",
-
   "item.minecraft.potion.effect.luminous": "Poción de brillo",
   "item.minecraft.splash_potion.effect.luminous": "Poción de brillo arrojadiza",
   "item.minecraft.lingering_potion.effect.luminous": "Poción de brillo persistente",
@@ -287,7 +247,6 @@
   "infernalexp.config.option.volineAttackMagmaCube": "Voline attack Magma Cubes",
   "infernalexp.config.option.useHogchops": "Use Hogchops Drop",
   "infernalexp.config.option.glowsilkSpeed": "Glowsilk Moth Speed",
-
   "infernalexp.config.tooltip.piglinFearWarpbeetle": "Determines if Piglins will run away from Warpbeetles",
   "infernalexp.config.tooltip.piglinFearEmbody": "Determines if Piglins will run away from Embodies",
   "infernalexp.config.tooltip.piglinFearDwarf": "Determines if Piglins will run away from Blackstone Dwarves",
@@ -322,7 +281,6 @@
   "infernalexp.config.tooltip.volineAttackMagmaCube": "Determines if Voline will attack small Magma Cubes",
   "infernalexp.config.tooltip.useHogchops": "Determines if Hogchops will replace Porkchops in Hoglin Drops",
   "infernalexp.config.tooltip.glowsilkSpeed": "Determines the speed at which Glowsilk Moths fly",
-
   "infernalexp.config.option.volineWastes.enable": "Voline in Wastes",
   "infernalexp.config.option.shroomloinCrimson.enable": "Shroomloin in Crimson",
   "infernalexp.config.option.volineCrimson.enable": "Voline in Crimson",
@@ -355,29 +313,22 @@
   "infernalexp.config.tooltip.glowsilkGSC.spawnrate": "Determines the rate at which Glowsilk Moths spawn in the Glowstone Canyons",
   "infernalexp.config.tooltip.glowsilkDeltas.spawnrate": "Determines the rate at which Glowsilk Moths spawn in the Basalt Deltas",
   "infernalexp.config.tooltip.glowsilkCrimson.spawnrate": "Determines the rate at which Glowsilk Moths spawn in the Crimson Forests",
-
   "infernalexp.config.option.isShroomlightGrowable": "Shroomlight Growable",
   "infernalexp.config.option.shroomlightGrowChance": "Shroomlight Grow Chance",
   "infernalexp.config.option.luminousFungusActivateDistance": "Luminous Fungus Activate Distance",
-
   "infernalexp.config.tooltip.isShroomlightGrowable": "Determines if a shroomlight tear will grow when a shroomlight is bonemealed (overrides Shroomlight Grow Chance)",
   "infernalexp.config.tooltip.shroomlightGrowChance": "Determines the chance a shroomlight tear will grow when a shroomlight is bonemealed",
   "infernalexp.config.tooltip.luminousFungusActivateDistance": "Determines the distance an entity has to be from a luminous fungus for it to activate (larger values have performance impact)",
-
   "infernalexp.config.option.fireChargeExplosion": "Fire Charge Explosion",
   "infernalexp.config.option.jerkyEffectDuration": "Jerky Effect Duration",
   "infernalexp.config.option.jerkyEffectAmplifier": "Jerky Effect Amplifier",
-
   "infernalexp.config.tooltip.fireChargeExplosion": "Determines if thrown fire charges will explode on impact",
   "infernalexp.config.tooltip.jerkyEffectDuration": "Determines the duration in seconds of the effect that Cured Jerky gives",
   "infernalexp.config.tooltip.jerkyEffectAmplifier": "Determines the amplifier of the effect that Cured Jerky gives",
-
   "infernalexp.config.option.luminousRefreshDelay": "Luminous Effect Refresh Delay",
   "infernalexp.config.tooltip.luminousRefreshDelay": "Determines how often (in ticks) the luminous effect should update",
-
   "infernalexp.config.option.luminousFungusGivesEffect": "Luminous Fungus gives Luminance Effect",
   "infernalexp.config.tooltip.luminousFungusGivesEffect": "Determines whether Luminous Fungus gives the Luminance effect on collision with an entity",
-
   "infernalexp.commands.setdimensionspawn.success.single": "Set %s's spawnpoint to %s, %s, %s [%s] in %s",
   "infernalexp.commands.setdimensionspawn.success.multiple": "Set %s players' spawnpoints to %s, %s, %s [%s] in %s"
 }

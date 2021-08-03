@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "infernalexp:block/glowdust_stone" }
+    "": {
+      "model": "infernalexp:block/glowdust_stone"
+    }
   }
 }

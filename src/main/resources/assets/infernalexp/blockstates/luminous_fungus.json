@@ -47,7 +47,7 @@
       "y": 270,
       "x": 90
     },
-	"face=ceiling,facing=east,lit=true": {
+    "face=ceiling,facing=east,lit=true": {
       "model": "infernalexp:block/luminous_fungus_on",
       "x": 180
     },

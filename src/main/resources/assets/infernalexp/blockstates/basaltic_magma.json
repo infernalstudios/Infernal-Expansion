@@ -14,9 +14,3 @@
     }
   }
 }
-
-{
-  "variants": {
-    "": { "model": "infernalexp:block/basaltic_magma" }
-  }
-}
