@@ -201,6 +201,7 @@
   "item.minecraft.splash_potion.effect.infection": "Splash Potion of Infection",
   "item.minecraft.lingering_potion.effect.infection": "Lingering Potion of Infection",
   "item.minecraft.tipped_arrow.effect.infection": "Arrow of Infection",
+  "generator.infernalexp.compat_world_type": "IE Compatibility",
   "infernalexp.config.button.mobInteractions": "Mob Interactions...",
   "infernalexp.config.button.mobSpawning": "Mob Spawning...",
   "infernalexp.config.button.miscellaneous": "Miscellaneous...",
