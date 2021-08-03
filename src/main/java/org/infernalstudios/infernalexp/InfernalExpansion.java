@@ -16,7 +16,33 @@
 
 package org.infernalstudios.infernalexp;
 
-import org.infernalstudios.infernalexp.brewing.IEBrewingRecipe;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.DispenserBlock;
+import net.minecraft.block.FlowerPotBlock;
+import net.minecraft.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.dispenser.IBlockSource;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.gen.carver.WorldCarver;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.infernalstudios.infernalexp.client.InfernalExpansionClient;
 import org.infernalstudios.infernalexp.client.gui.InfectionHeartOverlay;
 import org.infernalstudios.infernalexp.config.ConfigHelper;
@@ -27,6 +53,7 @@ import org.infernalstudios.infernalexp.events.MobEvents;
 import org.infernalstudios.infernalexp.events.WorldEvents;
 import org.infernalstudios.infernalexp.init.IEBiomes;
 import org.infernalstudios.infernalexp.init.IEBlocks;
+import org.infernalstudios.infernalexp.init.IEBrewingRecipes;
 import org.infernalstudios.infernalexp.init.IECapabilities;
 import org.infernalstudios.infernalexp.init.IECommands;
 import org.infernalstudios.infernalexp.init.IECompostables;
@@ -48,36 +75,6 @@ import org.infernalstudios.infernalexp.util.CompatibilityQuark;
 import org.infernalstudios.infernalexp.util.ModSpawnEggItem;
 import org.infernalstudios.infernalexp.world.dimension.ModNetherBiomeProvider;
 import org.infernalstudios.infernalexp.world.gen.ModEntityPlacement;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.FlowerPotBlock;
-import net.minecraft.dispenser.DefaultDispenseItemBehavior;
-import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.potion.PotionUtils;
-import net.minecraft.potion.Potions;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.carver.WorldCarver;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -131,11 +128,12 @@ public class InfernalExpansion {
         //Search for all biomes to add to nether and register nether biome provider
         event.enqueueWork(ModNetherBiomeProvider::registerBiomeProvider);
 
-        //Setup and register structures, processors, packets and capabilities
+        //Setup and register structures, processors, packets, capabilities and brewing recipes
         event.enqueueWork(IEProcessors::registerProcessors);
         event.enqueueWork(IEStructures::setupStructures);
         event.enqueueWork(IENetworkHandler::register);
         event.enqueueWork(IECapabilities::registerCapabilities);
+        event.enqueueWork(IEBrewingRecipes::registerBrewingRecipes);
 
         // Create mob spawnrate config files, they get created on game load instead of world load
         // just in case someone only launches the games once then goes and looks at the config files.
@@ -160,49 +158,6 @@ public class InfernalExpansion {
         flowerPot.addPlant(IEBlocks.DULLTHORNS.getId(), IEBlocks.POTTED_DULLTHORNS);
         flowerPot.addPlant(IEBlocks.LUMINOUS_FUNGUS.getId(), IEBlocks.POTTED_LUMINOUS_FUNGUS);
         flowerPot.addPlant(IEBlocks.SHROOMLIGHT_FUNGUS.getId(), IEBlocks.POTTED_SHROOMLIGHT_FUNGUS);
-
-        //Register Brewing Recipes for Potions
-        BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
-            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), Potions.AWKWARD),
-            IEItems.MOTH_DUST.get().getDefaultInstance(),
-            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LUMINOUS.get())));
-        BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
-            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LUMINOUS.get()),
-            Items.GUNPOWDER.getDefaultInstance(),
-            PotionUtils.addPotionToItemStack(Items.SPLASH_POTION.getDefaultInstance(), IEPotions.LUMINOUS.get())));
-        BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
-            PotionUtils.addPotionToItemStack(Items.SPLASH_POTION.getDefaultInstance(), IEPotions.LUMINOUS.get()),
-            Items.DRAGON_BREATH.getDefaultInstance(),
-            PotionUtils.addPotionToItemStack(Items.LINGERING_POTION.getDefaultInstance(), IEPotions.LUMINOUS.get())));
-        BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
-            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LUMINOUS.get()),
-            Items.REDSTONE.getDefaultInstance(),
-            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LONG_LUMINOUS.get())));
-        BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
-            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LUMINOUS.get()),
-            Items.GLOWSTONE_DUST.getDefaultInstance(),
-            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.STRONG_LUMINOUS.get())));
-
-        BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
-            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), Potions.AWKWARD),
-            IEItems.ASCUS_BOMB.get().getDefaultInstance(),
-            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.INFECTION.get())));
-        BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
-            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.INFECTION.get()),
-            Items.GUNPOWDER.getDefaultInstance(),
-            PotionUtils.addPotionToItemStack(Items.SPLASH_POTION.getDefaultInstance(), IEPotions.INFECTION.get())));
-        BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
-            PotionUtils.addPotionToItemStack(Items.SPLASH_POTION.getDefaultInstance(), IEPotions.INFECTION.get()),
-            Items.DRAGON_BREATH.getDefaultInstance(),
-            PotionUtils.addPotionToItemStack(Items.LINGERING_POTION.getDefaultInstance(), IEPotions.INFECTION.get())));
-        BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
-            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.INFECTION.get()),
-            Items.REDSTONE.getDefaultInstance(),
-            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.LONG_INFECTION.get())));
-        BrewingRecipeRegistry.addRecipe(new IEBrewingRecipe(
-            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.INFECTION.get()),
-            Items.GLOWSTONE_DUST.getDefaultInstance(),
-            PotionUtils.addPotionToItemStack(Items.POTION.getDefaultInstance(), IEPotions.STRONG_INFECTION.get())));
 
         //Custom Dispenser Behavior
         DispenserBlock.registerDispenseBehavior(Items.GLOWSTONE_DUST, new DefaultDispenseItemBehavior() {
