@@ -54,7 +54,7 @@ public class SpawnrateManager {
     // Set spawnCostPerEntity and maxSpawnCost to 0 to not change them
     private static final Map<String, Map<String, SpawnInfo>> configs = ImmutableMap.<String, Map<String, SpawnInfo>>builder()
         .put("basalt_giant", ImmutableMap.of(
-            "default", new SpawnInfo(10, 1, 1, 0, 0),
+            "default", new SpawnInfo(5, 1, 1, 3.2D, 0.1D),
             "minecraft:basalt_deltas", new SpawnInfo(30, 1, 1, 3.2D, 0.1D),
             "infernalexp:delta_shores", new SpawnInfo(4, 1, 1, 100.2D, 0.1D)
         ))
@@ -66,11 +66,11 @@ public class SpawnrateManager {
             "infernalexp:glowstone_canyon", new SpawnInfo(30, 1, 1, 7.2D, 0.9D)
         ))
         .put("embody", ImmutableMap.of(
-            "default", new SpawnInfo(60, 1, 5, 0, 0),
+            "default", new SpawnInfo(90, 1, 5, 0, 0),
             "minecraft:soul_sand_valley", new SpawnInfo(120, 1, 3, 1.2D, 0.1D)
         ))
         .put("glowsilk_moth", ImmutableMap.of(
-            "default", new SpawnInfo(5, 1, 1, 0, 0),
+            "default", new SpawnInfo(5, 1, 1, 6.2D, 0.1D),
             "infernalexp:glowstone_canyon", new SpawnInfo(1, 1, 1, 4.2D, 0.1D),
             "minecraft:crimson_forest", new SpawnInfo(1, 1, 1, 8.2D, 0.1D),
             "minecraft:basalt_deltas", new SpawnInfo(1, 1, 1, 8.2D, 0.1D)
@@ -80,13 +80,13 @@ public class SpawnrateManager {
             "infernalexp:glowstone_canyon", new SpawnInfo(80, 1, 10, 1.2D, 0.1D)
         ))
         .put("shroomloin", ImmutableMap.of(
-            "default", new SpawnInfo(5, 1, 3, 0, 0),
+            "default", new SpawnInfo(5, 1, 3, 7.2D, 0.1D),
             "minecraft:crimson_forest", new SpawnInfo(30, 1, 1, 16.2D, 0.1D)
         ))
         .put("voline", ImmutableMap.of(
-            "default", new SpawnInfo(20, 1, 1, 0, 0),
+            "default", new SpawnInfo(30, 1, 3, 0, 0),
             "minecraft:nether_wastes", new SpawnInfo(50, 1, 3, 1.2D, 0.1D),
-            "minecraft:crimson_forest", new SpawnInfo(1, 1, 5,  8.2D, 0.1D)
+            "minecraft:crimson_forest", new SpawnInfo(1, 1, 5, 8.2D, 0.1D)
         ))
         .put("warpbeetle", ImmutableMap.of(
             "default", new SpawnInfo(5, 1, 1, 0, 0),
