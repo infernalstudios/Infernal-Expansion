@@ -294,6 +294,7 @@
   "infernalexp.config.option.volineAttackMagmaCube": "Voline attack Magma Cubes",
   "infernalexp.config.option.useHogchops": "Use Hogchops Drop",
   "infernalexp.config.option.glowsilkSpeed": "Glowsilk Moth Speed",
+  "infernalexp.config.option.useThrowableBricks": "Use Throwable Bricks",
 
   "infernalexp.config.tooltip.piglinFearWarpbeetle": "Determines if Piglins will run away from Warpbeetles",
   "infernalexp.config.tooltip.piglinFearEmbody": "Determines if Piglins will run away from Embodies",
@@ -329,6 +330,7 @@
   "infernalexp.config.tooltip.volineAttackMagmaCube": "Determines if Voline will attack small Magma Cubes",
   "infernalexp.config.tooltip.useHogchops": "Determines if Hogchops will replace Porkchops in Hoglin Drops",
   "infernalexp.config.tooltip.glowsilkSpeed": "Determines the speed at which Glowsilk Moths fly",
+  "infernalexp.config.tooltip.useThrowableBricks": "Determines if bricks are throwable or not",
 
   "infernalexp.config.option.volineWastes.enable": "Voline in Wastes",
   "infernalexp.config.option.shroomloinCrimson.enable": "Shroomloin in Crimson",
