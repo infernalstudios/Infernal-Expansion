@@ -16,6 +16,7 @@
 
 package org.infernalstudios.infernalexp.entities;
 
+import net.minecraft.entity.CreatureAttribute;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 
 import org.infernalstudios.infernalexp.init.IESoundEvents;
@@ -123,6 +124,10 @@ public class GlowsilkMothEntity extends AmbientEntity {
         return IESoundEvents.GLOWSILK_MOTH_HURT.get();
     }
 
+    @Override
+    public CreatureAttribute getCreatureAttribute() {
+        return CreatureAttribute.ARTHROPOD;
+    }
 
     protected boolean canTriggerWalking() {
         return false;
