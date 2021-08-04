@@ -214,7 +214,7 @@ public class MiscEvents {
                 heldItemStack.shrink(1);
             }
         }
-        if (InfernalExpansionConfig.MobInteractions.USE_THROWABLE_BRICKS.getBoolean()) {
+        if (InfernalExpansionConfig.Miscellaneous.USE_THROWABLE_BRICKS.getBool()) {
             if (heldItemStack.getItem() == Items.BRICK) {
             player.swingArm(event.getHand());
 

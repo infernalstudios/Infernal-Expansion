@@ -53,7 +53,6 @@ public final class ConfigHelper {
         MobInteractions.VOLINE_ATTACK_MAGMA_CUBE.setBoolean(ConfigHolder.COMMON.volineAttackMagmaCube.get());
         MobInteractions.USE_HOGCHOPS.setBoolean(ConfigHolder.COMMON.useHogchops.get());
         MobInteractions.GLOWSILK_SPEED.setDouble(ConfigHolder.COMMON.glowsilkSpeed.get());
-        MobInteractions.USE_THROWABLE_BRICKS.setBoolean(ConfigHolder.COMMON.useThrowableBricks.get());
 
         //Mob Spawnable Biomes
         MobSpawning.VOLINE.setSpawnableBiomes(ConfigHolder.COMMON.volineBiomes.get());
@@ -82,6 +81,8 @@ public final class ConfigHelper {
         Miscellaneous.LUMINOUS_FUNGUS_ACTIVATE_DISTANCE.set(ConfigHolder.COMMON.luminousFungusActivateDistance.get());
 
         Miscellaneous.LUMINOUS_FUNGUS_GIVES_EFFECT.set(ConfigHolder.COMMON.luminousFungusGivesEffect.get());
+
+        Miscellaneous.USE_THROWABLE_BRICKS.set(ConfigHolder.COMMON.useThrowableBricks.get());
     }
 
     public static void saveToClient() {
@@ -123,7 +124,6 @@ public final class ConfigHelper {
         ConfigHolder.COMMON.volineAttackMagmaCube.set(MobInteractions.VOLINE_ATTACK_MAGMA_CUBE.getBoolean());
         ConfigHolder.COMMON.useHogchops.set(MobInteractions.USE_HOGCHOPS.getBoolean());
         ConfigHolder.COMMON.glowsilkSpeed.set(MobInteractions.GLOWSILK_SPEED.getDouble());
-        ConfigHolder.COMMON.useThrowableBricks.set(MobInteractions.USE_THROWABLE_BRICKS.getBoolean());
 
         //Mob Spawnable Biomes
         ConfigHolder.COMMON.volineBiomes.set(MobSpawning.VOLINE.getSpawnableBiomes());
@@ -150,6 +150,8 @@ public final class ConfigHelper {
         ConfigHolder.COMMON.luminousFungusActivateDistance.set(Miscellaneous.LUMINOUS_FUNGUS_ACTIVATE_DISTANCE.getDouble());
 
         ConfigHolder.COMMON.luminousFungusGivesEffect.set(Miscellaneous.LUMINOUS_FUNGUS_GIVES_EFFECT.getBool());
+
+        ConfigHolder.COMMON.useThrowableBricks.set(Miscellaneous.USE_THROWABLE_BRICKS.getBool());
 
         ConfigHolder.COMMON_SPEC.save();
     }

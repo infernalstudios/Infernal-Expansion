@@ -238,11 +238,6 @@ public class CommonConfig {
             .translation(InfernalExpansion.MOD_ID + ".config.tooltip.glowsilkSpeed")
             .defineInRange("glowsilkSpeed", 1.3D, 0.0D, Double.MAX_VALUE);
 
-        useThrowableBricks = builder
-            .comment("Determines if bricks are throwable or not")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.useThrowableBricks")
-            .define("useThrowableBricks", true);
-
         builder.pop();
 
         //Mob Spawning
@@ -362,5 +357,10 @@ public class CommonConfig {
             .define("luminousFungusGivesEffect", true);
 
         builder.pop();
+
+        useThrowableBricks = builder
+            .comment("Determines if bricks are throwable or not")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.useThrowableBricks")
+            .define("useThrowableBricks", true);
     }
 }
