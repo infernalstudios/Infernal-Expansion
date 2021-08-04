@@ -265,47 +265,47 @@ public class CommonConfig {
         volineBiomes = builder
             .comment("Determines what biomes Volines will spawn in")
             .translation(InfernalExpansion.MOD_ID + ".config.tooltip.voline.biomes")
-            .define("volineBiomes", "minecraft:nether_wastes, minecraft:crimson_forest");
+            .define("volineBiomes", "minecraft:nether_wastes, minecraft:crimson_forest, byg:magma_wastes");
 
         warpbeetleBiomes = builder
             .comment("Determines what biomes Warpbeetles will spawn in")
             .translation(InfernalExpansion.MOD_ID + ".config.tooltip.warpbeetle.biomes")
-            .define("warpbeetleBiomes", "minecraft:warped_forest");
+            .define("warpbeetleBiomes", "minecraft:warped_forest, byg:warped_desert");
 
         shroomloinBiomes = builder
             .comment("Determines what biomes Shroomloins will spawn in")
             .translation(InfernalExpansion.MOD_ID + ".config.tooltip.shroomloin.biomes")
-            .define("shroomloinBiomes", "minecraft:crimson_forest, byg:glowstone_gardens, byg:embur_bog, byg:sythian_torrids");
+            .define("shroomloinBiomes", "minecraft:crimson_forest, byg:crimson_gardens, byg:glowstone_gardens, byg:embur_bog, byg:sythian_torrids");
 
         basaltGiantBiomes = builder
             .comment("Determines what biomes Basalt Giants will spawn in")
             .translation(InfernalExpansion.MOD_ID + ".config.tooltip.basalt_giant.biomes")
-            .define("basaltGiantBiomes", "minecraft:basalt_deltas, infernalexp:delta_shores");
+            .define("basaltGiantBiomes", "minecraft:basalt_deltas, infernalexp:delta_shores, byg:magma_wastes");
 
         embodyBiomes = builder
             .comment("Determines what biomes Embodies will spawn in")
             .translation(InfernalExpansion.MOD_ID + ".config.tooltip.embody.biomes")
-            .define("embodyBiomes", "minecraft:soul_sand_valley");
+            .define("embodyBiomes", "minecraft:soul_sand_valley, byg:warped_desert, byg:wailing_garth, byg:withering_woods");
 
         glowsquitoBiomes = builder
             .comment("Determines what biomes Glowsquitos will spawn in")
             .translation(InfernalExpansion.MOD_ID + ".config.tooltip.glowsquito.biomes")
-            .define("glowsquitoBiomes", "infernalexp:glowstone_canyon");
+            .define("glowsquitoBiomes", "infernalexp:glowstone_canyon, byg:glowstone_gardens");
 
         glowsilkMothBiomes = builder
             .comment("Determines what biomes Glowsilk Moths will spawn in")
             .translation(InfernalExpansion.MOD_ID + ".config.tooltip.glowsilk_moth.biomes")
-            .define("glowsilkMothBiomes", "minecraft:crimson_forest, minecraft:basalt_deltas, infernalexp:glowstone_canyon");
+            .define("glowsilkMothBiomes", "minecraft:crimson_forest, minecraft:basalt_deltas, infernalexp:glowstone_canyon, byg:glowstone_gardens");
 
         blindsightBiomes = builder
             .comment("Determines what biomes Blindsights will spawn in")
             .translation(InfernalExpansion.MOD_ID + ".config.tooltip.blindsight.biomes")
-            .define("blindsightBiomes", "infernalexp:glowstone_canyon");
+            .define("blindsightBiomes", "infernalexp:glowstone_canyon, byg:glowstone_gardens");
 
         blackstoneDwarfBiomes = builder
             .comment("Determines what biomes Blackstone Dwarfs will spawn in")
             .translation(InfernalExpansion.MOD_ID + ".config.tooltip.blackstone_dwarf.biomes")
-            .define("blackstoneDwarfBiomes", "infernalexp:glowstone_canyon");
+            .define("blackstoneDwarfBiomes", "infernalexp:glowstone_canyon, byg:magma_wastes");
 
         builder.pop();
 
