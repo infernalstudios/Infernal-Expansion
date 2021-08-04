@@ -16,6 +16,11 @@
 
 package org.infernalstudios.infernalexp.blocks;
 
+import net.minecraft.block.Blocks;
+import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.state.BooleanProperty;
+import net.minecraft.util.Direction;
+import net.minecraft.world.IWorld;
 import org.infernalstudios.infernalexp.entities.BlindsightEntity;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IEEffects;
@@ -53,11 +58,12 @@ import java.util.Random;
 
 public class DullthornsBlock extends BushBlock implements IForgeShearable {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_0_15;
+    public static final BooleanProperty TIP = BooleanProperty.create("tip");
     protected static final VoxelShape SHAPE = Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 15.0D, 11.0D);
 
     public DullthornsBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.getDefaultState().with(AGE, Integer.valueOf(0)));
+        this.setDefaultState(this.getDefaultState().with(AGE, Integer.valueOf(0)).with(TIP, false));
     }
 
     @Override
@@ -83,7 +89,6 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
         if (!state.isValidPosition(worldIn, pos)) {
             worldIn.destroyBlock(pos, true);
         }
-
     }
 
     /**
@@ -148,6 +153,37 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
         }
     }
 
+    @Nullable
+    @Override
+    public BlockState getStateForPlacement(BlockItemUseContext context) {
+        BlockState aboveBlockState = context.getWorld().getBlockState(context.getPos().up());
+        boolean aboveIsDullthorns = aboveBlockState.matchesBlock(IEBlocks.DULLTHORNS.get());
+
+        if (aboveIsDullthorns) {
+            return this.getDefaultState();
+        } else {
+            return this.getDefaultState().with(TIP, true);
+        }
+    }
+
+    @Override
+    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+        BlockState aboveBlockState = worldIn.getBlockState(currentPos.up());
+        boolean aboveIsDullthorns = aboveBlockState.matchesBlock(IEBlocks.DULLTHORNS.get());
+
+        if (!stateIn.isValidPosition(worldIn, currentPos)) {
+            return Blocks.AIR.getDefaultState();
+        }
+
+        if (!aboveIsDullthorns && !stateIn.get(TIP)) {
+            return !stateIn.isValidPosition(worldIn, currentPos) ? Blocks.AIR.getDefaultState() : stateIn.with(TIP, true);
+        } else if (aboveIsDullthorns && stateIn.get(TIP)) {
+            return !stateIn.isValidPosition(worldIn, currentPos) ? Blocks.AIR.getDefaultState() : stateIn.with(TIP, false);
+        } else {
+            return stateIn;
+        }
+    }
+
     @Override
     public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
         return false;
@@ -166,5 +202,6 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
 
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(AGE);
+        builder.add(TIP);
     }
 }

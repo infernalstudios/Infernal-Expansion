@@ -18,6 +18,7 @@ package org.infernalstudios.infernalexp.events;
 
 import com.mojang.serialization.Codec;
 
+import net.minecraftforge.common.world.ForgeWorldType;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.init.IECarvers;
 import org.infernalstudios.infernalexp.init.IEConfiguredFeatures;
@@ -50,6 +51,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import org.infernalstudios.infernalexp.world.type.CompatWorldType;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -77,6 +79,11 @@ public class WorldEvents {
     @SubscribeEvent
     public static void registerWorldCarvers(RegistryEvent.Register<WorldCarver<?>> event) {
         IECarvers.carvers.forEach(carver -> event.getRegistry().register(carver));
+    }
+
+    @SubscribeEvent
+    public static void registerWorldTypes(RegistryEvent.Register<ForgeWorldType> event) {
+        event.getRegistry().register(new CompatWorldType().setRegistryName(new ResourceLocation(InfernalExpansion.MOD_ID, "compat_world_type")));
     }
 
     @SubscribeEvent
