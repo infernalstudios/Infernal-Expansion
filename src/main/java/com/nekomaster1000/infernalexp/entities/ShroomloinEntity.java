@@ -1,15 +1,19 @@
 package com.nekomaster1000.infernalexp.entities;
 
+import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.init.IEBlocks;
 import com.nekomaster1000.infernalexp.init.IEEffects;
 import com.nekomaster1000.infernalexp.init.IEItems;
 import com.nekomaster1000.infernalexp.init.IESoundEvents;
+import com.nekomaster1000.infernalexp.util.DataUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.Goal;
@@ -19,6 +23,7 @@ import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -29,15 +34,20 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ForgeRegistries;
 
+import javax.annotation.Nullable;
 import java.util.EnumSet;
 
 public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob {
@@ -49,7 +59,7 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
 	private int timeSinceIgnited;
 	private final int fuseTime = 59;
     private int conversionTicks;
-    private int predictedFungus;
+    private FungusType predictedFungus;
     // public static final Ingredient TEMPTATION_ITEMS =
 	// Ingredient.fromItems(IEItems.DULLROCKS.get(), Items.MAGMA_CREAM);
 
@@ -92,15 +102,48 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
     @Override
     public void readAdditional(CompoundNBT compound) {
         super.readAdditional(compound);
-        this.setFungusType(compound.getInt("fungusType"));
+        this.setVariant(compound.getInt("fungusType"));
     }
 
-    public void setFungusType(int fungusType) {
-	    this.dataManager.set(FUNGUS_TYPE, fungusType);
+    @Nullable
+    @Override
+    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+	    ResourceLocation biome = worldIn.getBiome(this.getPosition()).getRegistryName();
+	    if (reason == SpawnReason.NATURAL) {
+	        if (DataUtil.isLoaded("byg")) {
+                if (biome.equals(new ResourceLocation("byg", "glowstone_gardens"))) {
+                    if (rand.nextBoolean()) {
+                        this.setFungusType(FungusType.SOUL_SHROOM);
+                    } else {
+                        this.setFungusType(FungusType.DEATH_CAP);
+                    }
+                }
+                if (biome.equals(new ResourceLocation("byg", "embur_bog"))) {
+                    this.setFungusType(FungusType.EMBUR);
+                }
+                if (biome.equals(new ResourceLocation("byg", "sythian_torrids"))) {
+                    this.setFungusType(FungusType.SYTHIAN_FUNGUS);
+                }
+            }
+        }
+
+	    return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    }
+
+    public void setVariant(int fungusVal) {
+	    this.dataManager.set(FUNGUS_TYPE, fungusVal);
+    }
+
+    public void setFungusType(FungusType fungusType) {
+	    this.dataManager.set(FUNGUS_TYPE, fungusType.getId());
     }
 
     public int getFungusType() {
 	    return this.dataManager.get(FUNGUS_TYPE);
+    }
+
+    public Item getFungusItem(FungusType fungus) {
+	    return fungus.getItem();
     }
 
     @Override
@@ -109,46 +152,28 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
         if (this.isConverting()) {
             return ActionResultType.FAIL;
         }
-        if (this.getFungusType() != 0 && stack.getItem() == Items.CRIMSON_FUNGUS) {
-            this.predictedFungus = 0;
-            this.conversionTicks = 40;
-            this.setConverting(true);
-            if (!playerIn.isCreative()) {
-                stack.shrink(1);
-            }
-            return ActionResultType.SUCCESS;
-        } else if (this.getFungusType() != 1 && stack.getItem() == Items.WARPED_FUNGUS) {
-            this.predictedFungus = 1;
-            this.conversionTicks = 40;
-            this.setConverting(true);
-            if (!playerIn.isCreative()) {
-                stack.shrink(1);
-            }
-            return ActionResultType.SUCCESS;
-        } else if (this.getFungusType() != 2 && stack.getItem() == IEBlocks.LUMINOUS_FUNGUS.get().asItem()) {
-            this.predictedFungus = 2;
-            this.conversionTicks = 40;
-            this.setConverting(true);
-            if (!playerIn.isCreative()) {
-                stack.shrink(1);
-            }
-            return ActionResultType.SUCCESS;
-        } else if (this.getFungusType() != 3 && stack.getItem() == Items.RED_MUSHROOM) {
-            this.predictedFungus = 3;
-            this.conversionTicks = 40;
-            this.setConverting(true);
-            if (!playerIn.isCreative()) {
-                stack.shrink(1);
-            }
-            return ActionResultType.SUCCESS;
-        } else if (this.getFungusType() != 4 && stack.getItem() == Items.BROWN_MUSHROOM) {
-            this.predictedFungus = 4;
-            this.conversionTicks = 40;
-            this.setConverting(true);
-            if (!playerIn.isCreative()) {
-                stack.shrink(1);
-            }
-            return ActionResultType.SUCCESS;
+        for (FungusType fungusType : FungusType.values()) {
+                if (stack.getItem() == this.getFungusItem(fungusType)) {
+                    if (fungusType.getId() == this.getFungusType()) {
+                        return ActionResultType.FAIL;
+                    }
+                    if (-1 != fungusType.getId()) {
+
+                        if (this.getFungusItem(fungusType) == Items.AIR) {
+                            return ActionResultType.FAIL;
+                        }
+
+                        this.predictedFungus = fungusType;
+                        this.conversionTicks = 40;
+                        this.setConverting(true);
+
+                        if (!playerIn.isCreative()) {
+                            stack.shrink(1);
+                        }
+
+                        return ActionResultType.SUCCESS;
+                    }
+                }
         }
         return super.getEntityInteractionResult(playerIn, hand);
     }
@@ -163,7 +188,7 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
 		        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2D);
 		        if (this.conversionTicks == 0) {
                     this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.6D);
-		            this.setFungusType(this.predictedFungus);
+                    this.setFungusType(this.predictedFungus);
 		            this.setConverting(false);
                 }
             }
@@ -188,7 +213,7 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
 		super.tick();
 	}
 
-	// BEHAVIOUR
+    // BEHAVIOUR
 	@Override
 	protected void registerGoals() {
 		super.registerGoals();
@@ -264,7 +289,7 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
 		return 1 + this.world.rand.nextInt(4);
 	}
 
-	// SOUNDS
+    // SOUNDS
 	@Override
 	protected SoundEvent getAmbientSound() {
 		return IESoundEvents.SHROOMLOIN_AMBIENT.get();
@@ -303,10 +328,6 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
 		this.setShroomloinState(-1);
 		this.world.addEntity(ascusBombEntity);
 	}
-
-    public boolean canConvert() {
-	    return this.conversionTicks == 0;
-    }
 
     static class MeleeAttackInfectedGoal extends MeleeAttackGoal {
 
@@ -434,4 +455,63 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
 			}
 		}
 	}
+
+	public enum FungusType {
+	    CRIMSON(Items.CRIMSON_FUNGUS, 0, "minecraft"),
+        WARPED(Items.WARPED_FUNGUS, 1, "minecraft"),
+        LUMINOUS(IEBlocks.LUMINOUS_FUNGUS.get().asItem(), 2, InfernalExpansion.MOD_ID),
+        RED(Items.RED_MUSHROOM, 3, "minecraft"),
+        BROWN(Items.BROWN_MUSHROOM, 4, "minecraft"),
+        GLOWSHROOM(ForgeRegistries.ITEMS.getValue(new ResourceLocation("darkerdepths", "glowshroom")), 5, "darkerdepths"),
+        WOOD_BLEWIT(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "wood_blewit")), 6, "byg"),
+        BLUE_GLOWSHROOM(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "blue_glowshroom")), 7, "byg"),
+        BULBIS_ANOMALY(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "bulbis_anomaly")), 8, "byg"),
+        DEATH_CAP(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "death_cap")), 9, "byg"),
+        EMBUR(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "embur_wart")), 10, "byg"),
+        FUNGAL_IMPARIUS(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "fungal_imparius")), 11, "byg"),
+        GREEN_MUSHROOM(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "green_mushroom")), 12, "byg"),
+        IMPARIUS_MUSHROOM(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "imparius_mushroom")), 13, "byg"),
+        WEEPING_MILKCAP(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "weeping_milkcap")), 14, "byg"),
+        BLACK_PUFF(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "black_puff")), 15, "byg"),
+        PURPLE_GLOWSHROOM(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "purple_glowshroom")), 16, "byg"),
+        SHULKREN_FUNGUS(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "shulkren_fungus")), 17, "byg"),
+        SOUL_SHROOM(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "soul_shroom")), 18, "byg"),
+        SYTHIAN_FUNGUS(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "sythian_fungus")), 19, "byg"),
+        TOADSTOOL(ForgeRegistries.ITEMS.getValue(new ResourceLocation("biomesoplenty", "toadstool")), 20, "biomesoplenty"),
+        POISE(ForgeRegistries.ITEMS.getValue(new ResourceLocation("endergetic", "poise_bush")), 21, "endergetic"),
+        IMPOSTER(Items.AIR, 22, "minecraft"),
+        INVERTED(Items.AIR, 23, "minecraft"),
+        PIZZA(Items.AIR, 24, "minecraft"),
+        SANS(Items.AIR, 25, "minecraft"),
+        FAIRY_RING(ForgeRegistries.ITEMS.getValue(new ResourceLocation("habitat", "fairy_ring_mushroom")), 26, "habitat"),
+        QUARK_GLOWSHROOM(ForgeRegistries.ITEMS.getValue(new ResourceLocation("quark", "glowshroom")), 27, "quark"),
+        BLUE(ForgeRegistries.ITEMS.getValue(new ResourceLocation("shroomed", "blue_mushroom")), 28, "shroomed"),
+        ORANGE(ForgeRegistries.ITEMS.getValue(new ResourceLocation("shroomed", "orange_mushroom")), 29, "shroomed"),
+        PURPLE(ForgeRegistries.ITEMS.getValue(new ResourceLocation("shroomed", "purple_mushroom")), 30, "shroomed"),
+        MASS(ForgeRegistries.ITEMS.getValue(new ResourceLocation("twist", "lightcap")), 31, "twist"),
+        BLOOD(ForgeRegistries.ITEMS.getValue(new ResourceLocation("undergarden", "blood_mushroom")), 32, "undergarden"),
+        INDIGO(ForgeRegistries.ITEMS.getValue(new ResourceLocation("undergarden", "indigo_mushroom")), 33, "undergarden"),
+        INK(ForgeRegistries.ITEMS.getValue(new ResourceLocation("undergarden", "ink_mushroom")), 34, "undergarden"),
+        VEIL(ForgeRegistries.ITEMS.getValue(new ResourceLocation("undergarden", "veil_mushroom")), 35, "undergarden"),
+        BOPGLOWSHROOM(ForgeRegistries.ITEMS.getValue(new ResourceLocation("biomesoplenty", "glowshroom")), 36, "biomesoplenty");
+
+        private Item item;
+	    private int id;
+
+        FungusType(Item item, int id, String modid) {
+            if (DataUtil.isLoaded(modid)) {
+                this.item = item;
+                this.id = id;
+            }
+        }
+
+        public Item getItem() {
+            return item;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+    }
 }

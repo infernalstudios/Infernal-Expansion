@@ -1,8 +1,6 @@
 package com.nekomaster1000.infernalexp.client.entity.render;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-
-import com.nekomaster1000.infernalexp.InfernalExpansion;
 import com.nekomaster1000.infernalexp.client.entity.model.ShroomloinModel;
 import com.nekomaster1000.infernalexp.entities.ShroomloinEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -17,6 +15,7 @@ public class ShroomloinRenderer extends MobRenderer<ShroomloinEntity, Shroomloin
         super(renderManagerIn, new ShroomloinModel<>(), 0.7f);
         this.addLayer(new ShroomloinDecorLayer(this));
         this.addLayer(new ShroomloinGlowLayer(this));
+        this.addLayer(new ShroomloinNameDecorLayer(this));
     }
 
     protected void preRenderCallback(ShroomloinEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {

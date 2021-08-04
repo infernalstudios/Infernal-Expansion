@@ -259,7 +259,7 @@ public class CommonConfig {
         shroomloinBiomes = builder
             .comment("Determines what biomes Shroomloins will spawn in")
             .translation(InfernalExpansion.MOD_ID + ".config.tooltip.shroomloin.biomes")
-            .define("shroomloinBiomes", "minecraft:crimson_forest");
+            .define("shroomloinBiomes", "minecraft:crimson_forest, byg:glowstone_gardens, byg:embur_bog, byg:sythian_torrids");
 
         basaltGiantBiomes = builder
             .comment("Determines what biomes Basalt Giants will spawn in")
