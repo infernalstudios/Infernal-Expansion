@@ -43,11 +43,11 @@ public abstract class MixinEntity implements FireTypeAccess {
     protected EntityDataManager dataManager;
 
     @Unique
-    private static final DataParameter<String> FIRE_TYPE_ORDINAL = EntityDataManager.createKey(Entity.class, DataSerializers.STRING);
+    private static final DataParameter<String> FIRE_TYPE = EntityDataManager.createKey(Entity.class, DataSerializers.STRING);
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void IE_init(EntityType<?> entityTypeIn, World worldIn, CallbackInfo ci) {
-        this.dataManager.register(FIRE_TYPE_ORDINAL, KnownFireTypes.FIRE.getName());
+        this.dataManager.register(FIRE_TYPE, KnownFireTypes.FIRE.getName());
     }
 
     @Inject(method = "writeWithoutTypeId", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundNBT;putShort(Ljava/lang/String;S)V", ordinal = 0, shift = Shift.AFTER))
@@ -67,12 +67,12 @@ public abstract class MixinEntity implements FireTypeAccess {
 
     @Override
     public KnownFireTypes getFireType() {
-        return KnownFireTypes.byName(this.dataManager.get(FIRE_TYPE_ORDINAL));
+        return KnownFireTypes.byName(this.dataManager.get(FIRE_TYPE));
     }
 
     @Override
     public void setFireType(KnownFireTypes type) {
-        this.dataManager.set(FIRE_TYPE_ORDINAL, type.getName());
+        this.dataManager.set(FIRE_TYPE, type.getName());
     }
 
 }
