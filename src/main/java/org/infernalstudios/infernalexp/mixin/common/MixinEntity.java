@@ -42,28 +42,22 @@ public abstract class MixinEntity implements FireTypeAccess {
     @Final
     protected EntityDataManager dataManager;
 
-    // An integer is better for enum values as long as when we add more enum values it adds onto the end, and everything stays in its original place :wink:
     @Unique
-    private static final DataParameter<Integer> FIRE_TYPE_ORDINAL = EntityDataManager.createKey(Entity.class, DataSerializers.VARINT);
+    private static final DataParameter<String> FIRE_TYPE_ORDINAL = EntityDataManager.createKey(Entity.class, DataSerializers.STRING);
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void IE_init(EntityType<?> entityTypeIn, World worldIn, CallbackInfo ci) {
-        this.dataManager.register(FIRE_TYPE_ORDINAL, 0);
+        this.dataManager.register(FIRE_TYPE_ORDINAL, KnownFireTypes.FIRE.getName());
     }
 
     @Inject(method = "writeWithoutTypeId", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundNBT;putShort(Ljava/lang/String;S)V", ordinal = 0, shift = Shift.AFTER))
     private void IE_writeCustomFires(CompoundNBT tag, CallbackInfoReturnable<CompoundNBT> ci) {
-        tag.putInt("fireType", this.getFireType().ordinal());
+        tag.putString("fireType", this.getFireType().getName());
     }
 
     @Inject(method = "read", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundNBT;getShort(Ljava/lang/String;)S", ordinal = 0, shift = Shift.AFTER))
     private void IE_readCustomFires(CompoundNBT tag, CallbackInfo ci) {
-        // Checking if its a string as opposed to an integer (to preserve old worlds)
-        if (tag.contains("fireType", 8)) {
-            this.setFireType(KnownFireTypes.byName(tag.getString("fireType")));
-        } else {
-            this.setFireType(KnownFireTypes.values()[tag.getInt("fireType")]);
-        }
+        this.setFireType(KnownFireTypes.byName(tag.getString("fireType")));
     }
 
     @Inject(method = "setOnFireFromLava", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setFire(I)V", shift = Shift.BEFORE))
@@ -73,12 +67,12 @@ public abstract class MixinEntity implements FireTypeAccess {
 
     @Override
     public KnownFireTypes getFireType() {
-        return KnownFireTypes.values()[this.dataManager.get(FIRE_TYPE_ORDINAL)];
+        return KnownFireTypes.byName(this.dataManager.get(FIRE_TYPE_ORDINAL));
     }
 
     @Override
     public void setFireType(KnownFireTypes type) {
-        this.dataManager.set(FIRE_TYPE_ORDINAL, type.ordinal());
+        this.dataManager.set(FIRE_TYPE_ORDINAL, type.getName());
     }
 
 }
