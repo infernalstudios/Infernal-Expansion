@@ -32,6 +32,7 @@ public class ShroomloinRenderer extends MobRenderer<ShroomloinEntity, Shroomloin
         super(renderManagerIn, new ShroomloinModel<>(), 0.7f);
         this.addLayer(new ShroomloinDecorLayer(this));
         this.addLayer(new ShroomloinGlowLayer(this));
+        this.addLayer(new ShroomloinNameDecorLayer(this));
     }
 
     protected void preRenderCallback(ShroomloinEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {

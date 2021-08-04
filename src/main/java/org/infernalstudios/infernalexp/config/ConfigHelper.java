@@ -21,6 +21,7 @@ import org.infernalstudios.infernalexp.config.InfernalExpansionConfig.Miscellane
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig.MobInteractions;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig.MobSpawning;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig.WorldGeneration;
+
 import net.minecraftforge.fml.config.ModConfig;
 
 import javax.annotation.Nullable;
@@ -97,6 +98,8 @@ public final class ConfigHelper {
         Miscellaneous.LUMINOUS_FUNGUS_ACTIVATE_DISTANCE.set(ConfigHolder.COMMON.luminousFungusActivateDistance.get());
 
         Miscellaneous.LUMINOUS_FUNGUS_GIVES_EFFECT.set(ConfigHolder.COMMON.luminousFungusGivesEffect.get());
+
+        Miscellaneous.USE_THROWABLE_BRICKS.set(ConfigHolder.COMMON.useThrowableBricks.get());
     }
 
     public static void saveToClient() {
@@ -164,6 +167,8 @@ public final class ConfigHelper {
         ConfigHolder.COMMON.luminousFungusActivateDistance.set(Miscellaneous.LUMINOUS_FUNGUS_ACTIVATE_DISTANCE.getDouble());
 
         ConfigHolder.COMMON.luminousFungusGivesEffect.set(Miscellaneous.LUMINOUS_FUNGUS_GIVES_EFFECT.getBool());
+
+        ConfigHolder.COMMON.useThrowableBricks.set(Miscellaneous.USE_THROWABLE_BRICKS.getBool());
 
         ConfigHolder.COMMON_SPEC.save();
     }

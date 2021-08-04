@@ -79,6 +79,7 @@ public class CommonConfig {
     final ForgeConfigSpec.IntValue jerkyEffectDuration;
     final ForgeConfigSpec.IntValue jerkyEffectAmplifier;
     final ForgeConfigSpec.BooleanValue useHogchops;
+    final ForgeConfigSpec.BooleanValue useThrowableBricks;
 
     //Luminous Fungus
     final ForgeConfigSpec.DoubleValue luminousFungusActivateDistance;
@@ -274,7 +275,7 @@ public class CommonConfig {
         shroomloinBiomes = builder
             .comment("Determines what biomes Shroomloins will spawn in")
             .translation(InfernalExpansion.MOD_ID + ".config.tooltip.shroomloin.biomes")
-            .define("shroomloinBiomes", "minecraft:crimson_forest");
+            .define("shroomloinBiomes", "minecraft:crimson_forest, byg:glowstone_gardens, byg:embur_bog, byg:sythian_torrids");
 
         basaltGiantBiomes = builder
             .comment("Determines what biomes Basalt Giants will spawn in")
@@ -372,5 +373,10 @@ public class CommonConfig {
             .define("luminousFungusGivesEffect", true);
 
         builder.pop();
+
+        useThrowableBricks = builder
+            .comment("Determines if bricks are throwable or not")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.useThrowableBricks")
+            .define("useThrowableBricks", true);
     }
 }

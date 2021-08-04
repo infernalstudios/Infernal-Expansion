@@ -21,12 +21,15 @@ import org.infernalstudios.infernalexp.blocks.DullthornsBlock;
 import org.infernalstudios.infernalexp.blocks.HorizontalBushBlock;
 import org.infernalstudios.infernalexp.config.ConfigHelper;
 import org.infernalstudios.infernalexp.config.ConfigHolder;
+import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig.Miscellaneous;
 import org.infernalstudios.infernalexp.data.SpawnrateManager;
 import org.infernalstudios.infernalexp.data.VolineEatTable;
 import org.infernalstudios.infernalexp.entities.ShroomloinEntity;
+import org.infernalstudios.infernalexp.entities.ThrowableBrickEntity;
 import org.infernalstudios.infernalexp.entities.ThrowableFireChargeEntity;
 import org.infernalstudios.infernalexp.entities.ThrowableMagmaCreamEntity;
+import org.infernalstudios.infernalexp.entities.ThrowableNetherBrickEntity;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IEEffects;
 import org.infernalstudios.infernalexp.init.IEItems;
@@ -137,31 +140,27 @@ public class MiscEvents {
             if (entity instanceof ShroomloinEntity) {
                 ShroomloinEntity shroomloinEntity = (ShroomloinEntity) entity;
 
-                if (((ShroomloinEntity) entity).getFungusType() == 1) {
+                if (((ShroomloinEntity) entity).getFungusType() == 0) {
                     if (state.getBlock().isIn(IETags.Blocks.ANGER_CRIMSON_SHROOMLOIN_BLOCKS)) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
-
-                if (((ShroomloinEntity) entity).getFungusType() == 2) {
+                if (((ShroomloinEntity) entity).getFungusType() == 1) {
                     if (state.getBlock().isIn(IETags.Blocks.ANGER_WARPED_SHROOMLOIN_BLOCKS)) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
-
-                if (((ShroomloinEntity) entity).getFungusType() == 3) {
+                if (((ShroomloinEntity) entity).getFungusType() == 2) {
                     if (state.getBlock().isIn(IETags.Blocks.ANGER_LUMINOUS_SHROOMLOIN_BLOCKS)) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
-
-                if (((ShroomloinEntity) entity).getFungusType() == 4) {
+                if (((ShroomloinEntity) entity).getFungusType() == 3) {
                     if (state.getBlock().isIn(IETags.Blocks.ANGER_RED_SHROOMLOIN_BLOCKS)) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
-
-                if (((ShroomloinEntity) entity).getFungusType() == 5) {
+                if (((ShroomloinEntity) entity).getFungusType() == 4) {
                     if (state.getBlock().isIn(IETags.Blocks.ANGER_BROWN_SHROOMLOIN_BLOCKS)) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
@@ -278,6 +277,42 @@ public class MiscEvents {
 
             if (!player.abilities.isCreativeMode) {
                 heldItemStack.shrink(1);
+            }
+        }
+        if (InfernalExpansionConfig.Miscellaneous.USE_THROWABLE_BRICKS.getBool()) {
+            if (heldItemStack.getItem() == Items.BRICK) {
+            player.swingArm(event.getHand());
+
+            if (!world.isRemote) {
+                ThrowableBrickEntity throwableBrickEntity = new ThrowableBrickEntity(world, player);
+                throwableBrickEntity.setItem(heldItemStack);
+                throwableBrickEntity.setDirectionAndMovement(player, player.rotationPitch, player.rotationYaw, -20, 0.5F, 1);
+                world.addEntity(throwableBrickEntity);
+                world.playSound(null, event.getPos(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            }
+
+            player.addStat(Stats.ITEM_USED.get(heldItemStack.getItem()));
+
+            if (!player.abilities.isCreativeMode) {
+                heldItemStack.shrink(1);
+            }
+        }
+            if (heldItemStack.getItem() == Items.NETHER_BRICK) {
+            player.swingArm(event.getHand());
+
+            if (!world.isRemote) {
+                ThrowableNetherBrickEntity throwableNetherBrickEntity = new ThrowableNetherBrickEntity(world, player);
+                throwableNetherBrickEntity.setItem(heldItemStack);
+                throwableNetherBrickEntity.setDirectionAndMovement(player, player.rotationPitch, player.rotationYaw, -20, 0.3F, 1);
+                world.addEntity(throwableNetherBrickEntity);
+                world.playSound(null, event.getPos(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            }
+
+            player.addStat(Stats.ITEM_USED.get(heldItemStack.getItem()));
+
+            if (!player.abilities.isCreativeMode) {
+                    heldItemStack.shrink(1);
+                }
             }
         }
     }
