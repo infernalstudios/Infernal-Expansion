@@ -17,7 +17,9 @@
 package org.infernalstudios.infernalexp.mixin.common;
 
 import org.infernalstudios.infernalexp.access.FireTypeAccess;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.At.Shift;
@@ -26,38 +28,57 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.world.World;
 
 @Mixin(Entity.class)
 public abstract class MixinEntity implements FireTypeAccess {
 
-    @Unique
-    private KnownFireTypes fireType = KnownFireTypes.FIRE;
+	@Shadow
+	@Final
+	protected EntityDataManager dataManager;
 
-    @Inject(method = "writeWithoutTypeId", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundNBT;putShort(Ljava/lang/String;S)V", ordinal = 0, shift = Shift.AFTER))
-    private void IE_writeCustomFires(CompoundNBT tag, CallbackInfoReturnable<CompoundNBT> ci) {
-        tag.putString("fireType", fireType.getName());
-    }
+	// An integer is better for enum values as long as when we add more enum values it adds onto the end, and everything stays in its original place :wink:
+	@Unique
+	private static final DataParameter<Integer> FIRE_TYPE_ORDINAL = EntityDataManager.createKey(Entity.class, DataSerializers.VARINT);
 
-    @Inject(method = "read", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundNBT;getShort(Ljava/lang/String;)S", ordinal = 0, shift = Shift.AFTER))
-    private void IE_readCustomFires(CompoundNBT tag, CallbackInfo ci) {
-        fireType = KnownFireTypes.byName(tag.getString("fireType"));
-    }
+	@Inject(method = "<init>", at = @At("TAIL"))
+	private void IE_init(EntityType<?> entityTypeIn, World worldIn, CallbackInfo ci) {
+		this.dataManager.register(FIRE_TYPE_ORDINAL, 0);
+	}
 
-    @Inject(method = "setOnFireFromLava", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setFire(I)V", shift = Shift.BEFORE))
-    private void IE_setCustomFireFromLava(CallbackInfo ci) {
-        FireTypeAccess access = ((FireTypeAccess) ((Entity) (Object) this));
-        access.setFireType(KnownFireTypes.FIRE);
-    }
+	@Inject(method = "writeWithoutTypeId", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundNBT;putShort(Ljava/lang/String;S)V", ordinal = 0, shift = Shift.AFTER))
+	private void IE_writeCustomFires(CompoundNBT tag, CallbackInfoReturnable<CompoundNBT> ci) {
+		tag.putInt("fireType", this.getFireType().ordinal());
+	}
 
-    @Override
-    public KnownFireTypes getFireType() {
-        return fireType;
-    }
+	@Inject(method = "read", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundNBT;getShort(Ljava/lang/String;)S", ordinal = 0, shift = Shift.AFTER))
+	private void IE_readCustomFires(CompoundNBT tag, CallbackInfo ci) {
+		// Checking if its a string as opposed to an integer (to preserve old worlds)
+		if (tag.contains("fireType", 8)) {
+			this.setFireType(KnownFireTypes.byName(tag.getString("fireType")));
+		} else {
+			this.setFireType(KnownFireTypes.values()[tag.getInt("fireType")]);
+		}
+	}
 
-    @Override
-    public void setFireType(KnownFireTypes type) {
-        fireType = type;
-    }
+	@Inject(method = "setOnFireFromLava", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setFire(I)V", shift = Shift.BEFORE))
+	private void IE_setCustomFireFromLava(CallbackInfo ci) {
+		this.setFireType(KnownFireTypes.FIRE);
+	}
+
+	@Override
+	public KnownFireTypes getFireType() {
+		return KnownFireTypes.values()[this.dataManager.get(FIRE_TYPE_ORDINAL)];
+	}
+
+	@Override
+	public void setFireType(KnownFireTypes type) {
+		this.dataManager.set(FIRE_TYPE_ORDINAL, type.ordinal());
+	}
 
 }
