@@ -16,10 +16,6 @@
 
 package org.infernalstudios.infernalexp.client;
 
-import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.config.gui.screens.ConfigScreen;
-import org.infernalstudios.infernalexp.init.IEItems;
-import org.infernalstudios.infernalexp.items.WhipItem;
 import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -28,6 +24,11 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
+import org.infernalstudios.infernalexp.InfernalExpansion;
+import org.infernalstudios.infernalexp.client.gui.InfectionHeartOverlay;
+import org.infernalstudios.infernalexp.config.gui.screens.ConfigScreen;
+import org.infernalstudios.infernalexp.init.IEItems;
+import org.infernalstudios.infernalexp.items.WhipItem;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -40,6 +41,7 @@ public class InfernalExpansionClient {
         // Register GUI Factories
         ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.CONFIGGUIFACTORY, () -> (mc, screen) -> new ConfigScreen());
 
+        MinecraftForge.EVENT_BUS.register(new InfectionHeartOverlay());
         MinecraftForge.EVENT_BUS.addListener((LivingUpdateEvent event) -> DynamicLightingHandler.tick(event.getEntityLiving()));
 
         ItemModelsProperties.registerProperty(IEItems.GLOWSILK_BOW.get(), new ResourceLocation("pull"), (itemStack, clientWorld, livingEntity) -> {
