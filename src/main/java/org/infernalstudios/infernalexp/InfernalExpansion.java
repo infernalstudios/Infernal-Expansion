@@ -44,7 +44,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.infernalstudios.infernalexp.client.InfernalExpansionClient;
-import org.infernalstudios.infernalexp.client.gui.InfectionHeartOverlay;
 import org.infernalstudios.infernalexp.config.ConfigHelper;
 import org.infernalstudios.infernalexp.config.ConfigHolder;
 import org.infernalstudios.infernalexp.data.SpawnrateManager;
@@ -112,8 +111,6 @@ public class InfernalExpansion {
         MinecraftForge.EVENT_BUS.register(new MiscEvents());
         MinecraftForge.EVENT_BUS.register(new MobEvents());
         MinecraftForge.EVENT_BUS.register(new WorldEvents());
-
-        MinecraftForge.EVENT_BUS.register(new InfectionHeartOverlay());
 
         // Registering Configs
         modLoadingContext.registerConfig(ModConfig.Type.CLIENT, ConfigHolder.CLIENT_SPEC);
