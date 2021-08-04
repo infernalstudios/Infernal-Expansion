@@ -93,7 +93,7 @@ public class InfernalExpansion {
         modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(this::commonSetup);
 
-        //Registering deferred registers to the mod bus
+        // Registering deferred registers to the mod bus
         IEParticleTypes.PARTICLES.register(modEventBus);
         IESoundEvents.register(modEventBus);
         IEBlocks.register(modEventBus);
@@ -115,20 +115,20 @@ public class InfernalExpansion {
 
         MinecraftForge.EVENT_BUS.register(new InfectionHeartOverlay());
 
-        //Registering Configs
+        // Registering Configs
         modLoadingContext.registerConfig(ModConfig.Type.CLIENT, ConfigHolder.CLIENT_SPEC);
         modLoadingContext.registerConfig(ModConfig.Type.COMMON, ConfigHolder.COMMON_SPEC);
 
-        //Baking Configs
+        // Baking Configs
         ConfigHelper.bakeClient(null);
         ConfigHelper.bakeCommon(null);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        //Search for all biomes to add to nether and register nether biome provider
+        // Search for all biomes to add to nether and register nether biome provider
         event.enqueueWork(ModNetherBiomeProvider::registerBiomeProvider);
 
-        //Setup and register structures, processors, packets, capabilities and brewing recipes
+        // Setup and register structures, processors, packets, capabilities and brewing recipes
         event.enqueueWork(IEProcessors::registerProcessors);
         event.enqueueWork(IEStructures::setupStructures);
         event.enqueueWork(IENetworkHandler::register);
@@ -147,19 +147,19 @@ public class InfernalExpansion {
             ((WorldCarverAccessor) WorldCarver.NETHER_CAVE).setCarvableBlocks(newCarvableBlocks);
         });
 
-        //Register for Quark Compatibility in recipe
+        // Register for Quark Compatibility in recipe
         CraftingHelper.register(new CompatibilityQuark.Serializer());
 
-        //Places entity spawn locations on the ground
+        // Places entity spawn locations on the ground
         ModEntityPlacement.spawnPlacement();
 
-        //Register New Flowers to be Able to Place in Pots
+        // Register New Flowers to be Able to Place in Pots
         FlowerPotBlock flowerPot = (FlowerPotBlock) Blocks.FLOWER_POT;
         flowerPot.addPlant(IEBlocks.DULLTHORNS.getId(), IEBlocks.POTTED_DULLTHORNS);
         flowerPot.addPlant(IEBlocks.LUMINOUS_FUNGUS.getId(), IEBlocks.POTTED_LUMINOUS_FUNGUS);
         flowerPot.addPlant(IEBlocks.SHROOMLIGHT_FUNGUS.getId(), IEBlocks.POTTED_SHROOMLIGHT_FUNGUS);
 
-        //Custom Dispenser Behavior
+        // Custom Dispenser Behavior
         DispenserBlock.registerDispenseBehavior(Items.GLOWSTONE_DUST, new DefaultDispenseItemBehavior() {
             @Override
             protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
