@@ -24,15 +24,10 @@ import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.util.ResourceLocation;
+import org.infernalstudios.infernalexp.init.IEShroomloinTypes;
+import org.infernalstudios.infernalexp.util.ShroomloinType;
 
 public class ShroomloinDecorLayer extends LayerRenderer<ShroomloinEntity, ShroomloinModel<ShroomloinEntity>> {
-    public static final ResourceLocation[] SHROOMLOIN_TEXTURES = new ResourceLocation[]{
-        new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/1_shroomloin.png"),
-        new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/2_shroomloin.png"),
-        new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/3_shroomloin.png"),
-        new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/4_shroomloin.png"),
-        new ResourceLocation(InfernalExpansion.MOD_ID, "textures/entity/shroomloin/5_shroomloin.png")
-    };
     private final ShroomloinModel<ShroomloinEntity> model = new ShroomloinModel<>();
 
     public ShroomloinDecorLayer(IEntityRenderer<ShroomloinEntity, ShroomloinModel<ShroomloinEntity>> entityRendererIn) {
@@ -41,7 +36,7 @@ public class ShroomloinDecorLayer extends LayerRenderer<ShroomloinEntity, Shroom
 
     @Override
     public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, ShroomloinEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        ResourceLocation texture = SHROOMLOIN_TEXTURES[entitylivingbaseIn.getFungusType()];
+        ResourceLocation texture = ShroomloinType.getById(entitylivingbaseIn.getShroomloinType().getId()).getTextureLocation();
         renderCopyCutoutModel(this.getEntityModel(), model, texture, matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTicks, 1.0F, 1.0F, 1.0F);
     }
 }

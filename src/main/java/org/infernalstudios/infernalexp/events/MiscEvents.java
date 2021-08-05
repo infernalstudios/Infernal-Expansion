@@ -34,6 +34,7 @@ import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IEEffects;
 import org.infernalstudios.infernalexp.init.IEItems;
 import org.infernalstudios.infernalexp.init.IEParticleTypes;
+import org.infernalstudios.infernalexp.init.IEShroomloinTypes;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
 import org.infernalstudios.infernalexp.init.IETags;
 import net.minecraft.block.Block;
@@ -140,27 +141,27 @@ public class MiscEvents {
             if (entity instanceof ShroomloinEntity) {
                 ShroomloinEntity shroomloinEntity = (ShroomloinEntity) entity;
 
-                if (((ShroomloinEntity) entity).getFungusType() == 0) {
+                if (shroomloinEntity.getShroomloinType() == IEShroomloinTypes.CRIMSON) {
                     if (state.getBlock().isIn(IETags.Blocks.ANGER_CRIMSON_SHROOMLOIN_BLOCKS)) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
-                if (((ShroomloinEntity) entity).getFungusType() == 1) {
+                if (shroomloinEntity.getShroomloinType() == IEShroomloinTypes.WARPED) {
                     if (state.getBlock().isIn(IETags.Blocks.ANGER_WARPED_SHROOMLOIN_BLOCKS)) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
-                if (((ShroomloinEntity) entity).getFungusType() == 2) {
+                if (shroomloinEntity.getShroomloinType() == IEShroomloinTypes.LUMINOUS) {
                     if (state.getBlock().isIn(IETags.Blocks.ANGER_LUMINOUS_SHROOMLOIN_BLOCKS)) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
-                if (((ShroomloinEntity) entity).getFungusType() == 3) {
+                if (shroomloinEntity.getShroomloinType() == IEShroomloinTypes.RED) {
                     if (state.getBlock().isIn(IETags.Blocks.ANGER_RED_SHROOMLOIN_BLOCKS)) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
-                if (((ShroomloinEntity) entity).getFungusType() == 4) {
+                if (shroomloinEntity.getShroomloinType() == IEShroomloinTypes.BROWN) {
                     if (state.getBlock().isIn(IETags.Blocks.ANGER_BROWN_SHROOMLOIN_BLOCKS)) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }

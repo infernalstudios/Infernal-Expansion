@@ -1,9 +1,8 @@
 package org.infernalstudios.infernalexp.entities;
 
-import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IEEffects;
 import org.infernalstudios.infernalexp.init.IEItems;
+import org.infernalstudios.infernalexp.init.IEShroomloinTypes;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
 import org.infernalstudios.infernalexp.util.DataUtil;
 import net.minecraft.block.BlockState;
@@ -25,7 +24,6 @@ import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -45,13 +43,17 @@ import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ForgeRegistries;
+import org.infernalstudios.infernalexp.util.ShroomloinType;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 
+/**
+ * Looking for ShroomloinType?
+ * @see org.infernalstudios.infernalexp.util.ShroomloinType
+ */
 public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob {
-    private static final DataParameter<Integer> FUNGUS_TYPE = EntityDataManager.createKey(ShroomloinEntity.class, DataSerializers.VARINT);
+    private static final DataParameter<String> TYPE = EntityDataManager.createKey(ShroomloinEntity.class, DataSerializers.STRING);
 	private static final DataParameter<Integer> STATE = EntityDataManager.createKey(ShroomloinEntity.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> IGNITED = EntityDataManager.createKey(ShroomloinEntity.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> CONVERTING = EntityDataManager.createKey(ShroomloinEntity.class, DataSerializers.BOOLEAN);
@@ -59,7 +61,7 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
 	private int timeSinceIgnited;
 	private final int fuseTime = 59;
     private int conversionTicks;
-    private FungusType predictedFungus;
+    private ShroomloinType predictedType;
     // public static final Ingredient TEMPTATION_ITEMS =
 	// Ingredient.fromItems(IEItems.DULLROCKS.get(), Items.MAGMA_CREAM);
 
@@ -69,7 +71,11 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
 
 	// ATTRIBUTES
 	public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
-		return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 24.0D).createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.5D).createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.5D).createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.6D);
+		return MobEntity.func_233666_p_()
+                .createMutableAttribute(Attributes.MAX_HEALTH, 24.0D)
+                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.5D)
+                .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.5D)
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.6D);
 	}
 
 	protected void registerData() {
@@ -77,7 +83,7 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
 		this.dataManager.register(STATE, -1);
 		this.dataManager.register(IGNITED, false);
 		this.dataManager.register(CONVERTING, false);
-		this.dataManager.register(FUNGUS_TYPE, 0);
+		this.dataManager.register(TYPE, IEShroomloinTypes.CRIMSON.getId().toString());
 	}
 
     public boolean isConverting() {
@@ -95,14 +101,14 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
     @Override
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
-        compound.putInt("fungusType", this.getFungusType());
+        compound.putString("ShroomloinType", this.getShroomloinType().getId().toString());
         compound.putInt("ShroomloinConversionTime", this.isConverting() ? this.conversionTicks : -1);
     }
 
     @Override
     public void readAdditional(CompoundNBT compound) {
         super.readAdditional(compound);
-        this.setVariant(compound.getInt("fungusType"));
+        this.setShroomloinType(ShroomloinType.getById(compound.getString("ShroomloinType")));
     }
 
     @Nullable
@@ -113,16 +119,14 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
 	        if (DataUtil.isLoaded("byg")) {
                 if (biome.equals(new ResourceLocation("byg", "glowstone_gardens"))) {
                     if (rand.nextBoolean()) {
-                        this.setFungusType(FungusType.SOUL_SHROOM);
+                        this.setShroomloinType(IEShroomloinTypes.SOUL_SHROOM);
                     } else {
-                        this.setFungusType(FungusType.DEATH_CAP);
+                        this.setShroomloinType(IEShroomloinTypes.DEATH_CAP);
                     }
-                }
-                if (biome.equals(new ResourceLocation("byg", "embur_bog"))) {
-                    this.setFungusType(FungusType.EMBUR);
-                }
-                if (biome.equals(new ResourceLocation("byg", "sythian_torrids"))) {
-                    this.setFungusType(FungusType.SYTHIAN_FUNGUS);
+                } else if (biome.equals(new ResourceLocation("byg", "embur_bog"))) {
+                    this.setShroomloinType(IEShroomloinTypes.EMBUR);
+                } else if (biome.equals(new ResourceLocation("byg", "sythian_torrids"))) {
+                    this.setShroomloinType(IEShroomloinTypes.SYTHIAN_FUNGUS);
                 }
             }
         }
@@ -130,52 +134,44 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
 	    return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
-    public void setVariant(int fungusVal) {
-	    this.dataManager.set(FUNGUS_TYPE, fungusVal);
+    public void setShroomloinType(ShroomloinType shroomloinType) {
+	    this.dataManager.set(TYPE, shroomloinType.getId().toString());
     }
 
-    public void setFungusType(FungusType fungusType) {
-	    this.dataManager.set(FUNGUS_TYPE, fungusType.getId());
+    public ShroomloinType getShroomloinType() {
+	    return ShroomloinType.getById(this.dataManager.get(TYPE));
     }
 
-    public int getFungusType() {
-	    return this.dataManager.get(FUNGUS_TYPE);
-    }
-
-    public Item getFungusItem(FungusType fungus) {
-	    return fungus.getItem();
+    public Item getConversionItem() {
+	    return this.getShroomloinType().getConversionItem();
     }
 
     @Override
     protected ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
-        ItemStack stack = playerIn.getHeldItem(hand);
         if (this.isConverting()) {
             return ActionResultType.FAIL;
         }
-        for (FungusType fungusType : FungusType.values()) {
-                if (stack.getItem() == this.getFungusItem(fungusType)) {
-                    if (fungusType.getId() == this.getFungusType()) {
-                        return ActionResultType.FAIL;
-                    }
-                    if (-1 != fungusType.getId()) {
 
-                        if (this.getFungusItem(fungusType) == Items.AIR) {
-                            return ActionResultType.FAIL;
-                        }
+        ItemStack stack = playerIn.getHeldItem(hand);
+        ShroomloinType shroomloinType = ShroomloinType.getByItem(stack.getItem());
 
-                        this.predictedFungus = fungusType;
-                        this.conversionTicks = 40;
-                        this.setConverting(true);
-
-                        if (!playerIn.isCreative()) {
-                            stack.shrink(1);
-                        }
-
-                        return ActionResultType.SUCCESS;
-                    }
-                }
+        if (shroomloinType == null || shroomloinType.getConversionItem() == null) {
+            return super.getEntityInteractionResult(playerIn, hand);
         }
-        return super.getEntityInteractionResult(playerIn, hand);
+
+        if (shroomloinType.getId().equals(this.getShroomloinType().getId()) || shroomloinType == IEShroomloinTypes.PIZZA) {
+            return ActionResultType.FAIL;
+        }
+
+        this.predictedType = shroomloinType;
+        this.conversionTicks = 40;
+        this.setConverting(true);
+
+        if (!playerIn.isCreative()) {
+            stack.shrink(1);
+        }
+
+        return ActionResultType.SUCCESS;
     }
 
     /**
@@ -183,19 +179,28 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
 	 */
 	public void tick() {
 		if (this.isAlive()) {
+		    if (this.getName().getUnformattedComponentText().equals("pizza")) {
+		        if (getShroomloinType() != IEShroomloinTypes.PIZZA && this.predictedType != IEShroomloinTypes.PIZZA) {
+                    this.predictedType = IEShroomloinTypes.PIZZA;
+                    this.conversionTicks = 40;
+                    this.setConverting(true);
+                }
+            }
 		    if (this.isConverting() && this.conversionTicks > 0) {
 		        this.conversionTicks--;
 		        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2D);
 		        if (this.conversionTicks == 0) {
                     this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.6D);
-                    this.setFungusType(this.predictedFungus);
+                    this.setShroomloinType(this.predictedType);
 		            this.setConverting(false);
                 }
             }
-			if (this.isPotionActive(IEEffects.INFECTION.get()) || this.isPotionActive(Effects.POISON)) {
+			if (this.isPotionActive(IEEffects.INFECTION.get())) {
 				this.removeActivePotionEffect(IEEffects.INFECTION.get());
-				this.removeActivePotionEffect(Effects.POISON);
 			}
+			if (this.isPotionActive(Effects.POISON)) {
+				this.removeActivePotionEffect(Effects.POISON);
+            }
 		}
 
 		this.lastActiveTime = this.timeSinceIgnited;
@@ -455,63 +460,4 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
 			}
 		}
 	}
-
-	public enum FungusType {
-	    CRIMSON(Items.CRIMSON_FUNGUS, 0, "minecraft"),
-        WARPED(Items.WARPED_FUNGUS, 1, "minecraft"),
-        LUMINOUS(IEBlocks.LUMINOUS_FUNGUS.get().asItem(), 2, InfernalExpansion.MOD_ID),
-        RED(Items.RED_MUSHROOM, 3, "minecraft"),
-        BROWN(Items.BROWN_MUSHROOM, 4, "minecraft"),
-        GLOWSHROOM(ForgeRegistries.ITEMS.getValue(new ResourceLocation("darkerdepths", "glowshroom")), 5, "darkerdepths"),
-        WOOD_BLEWIT(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "wood_blewit")), 6, "byg"),
-        BLUE_GLOWSHROOM(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "blue_glowshroom")), 7, "byg"),
-        BULBIS_ANOMALY(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "bulbis_anomaly")), 8, "byg"),
-        DEATH_CAP(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "death_cap")), 9, "byg"),
-        EMBUR(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "embur_wart")), 10, "byg"),
-        FUNGAL_IMPARIUS(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "fungal_imparius")), 11, "byg"),
-        GREEN_MUSHROOM(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "green_mushroom")), 12, "byg"),
-        IMPARIUS_MUSHROOM(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "imparius_mushroom")), 13, "byg"),
-        WEEPING_MILKCAP(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "weeping_milkcap")), 14, "byg"),
-        BLACK_PUFF(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "black_puff")), 15, "byg"),
-        PURPLE_GLOWSHROOM(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "purple_glowshroom")), 16, "byg"),
-        SHULKREN_FUNGUS(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "shulkren_fungus")), 17, "byg"),
-        SOUL_SHROOM(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "soul_shroom")), 18, "byg"),
-        SYTHIAN_FUNGUS(ForgeRegistries.ITEMS.getValue(new ResourceLocation("byg", "sythian_fungus")), 19, "byg"),
-        TOADSTOOL(ForgeRegistries.ITEMS.getValue(new ResourceLocation("biomesoplenty", "toadstool")), 20, "biomesoplenty"),
-        POISE(ForgeRegistries.ITEMS.getValue(new ResourceLocation("endergetic", "poise_bush")), 21, "endergetic"),
-        IMPOSTER(Items.AIR, 22, "minecraft"),
-        INVERTED(Items.AIR, 23, "minecraft"),
-        PIZZA(Items.AIR, 24, "minecraft"),
-        SANS(Items.AIR, 25, "minecraft"),
-        FAIRY_RING(ForgeRegistries.ITEMS.getValue(new ResourceLocation("habitat", "fairy_ring_mushroom")), 26, "habitat"),
-        QUARK_GLOWSHROOM(ForgeRegistries.ITEMS.getValue(new ResourceLocation("quark", "glowshroom")), 27, "quark"),
-        BLUE(ForgeRegistries.ITEMS.getValue(new ResourceLocation("shroomed", "blue_mushroom")), 28, "shroomed"),
-        ORANGE(ForgeRegistries.ITEMS.getValue(new ResourceLocation("shroomed", "orange_mushroom")), 29, "shroomed"),
-        PURPLE(ForgeRegistries.ITEMS.getValue(new ResourceLocation("shroomed", "purple_mushroom")), 30, "shroomed"),
-        MASS(ForgeRegistries.ITEMS.getValue(new ResourceLocation("twist", "lightcap")), 31, "twist"),
-        BLOOD(ForgeRegistries.ITEMS.getValue(new ResourceLocation("undergarden", "blood_mushroom")), 32, "undergarden"),
-        INDIGO(ForgeRegistries.ITEMS.getValue(new ResourceLocation("undergarden", "indigo_mushroom")), 33, "undergarden"),
-        INK(ForgeRegistries.ITEMS.getValue(new ResourceLocation("undergarden", "ink_mushroom")), 34, "undergarden"),
-        VEIL(ForgeRegistries.ITEMS.getValue(new ResourceLocation("undergarden", "veil_mushroom")), 35, "undergarden"),
-        BOPGLOWSHROOM(ForgeRegistries.ITEMS.getValue(new ResourceLocation("biomesoplenty", "glowshroom")), 36, "biomesoplenty");
-
-        private Item item;
-	    private int id;
-
-        FungusType(Item item, int id, String modid) {
-            if (DataUtil.isLoaded(modid)) {
-                this.item = item;
-                this.id = id;
-            }
-        }
-
-        public Item getItem() {
-            return item;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-    }
 }

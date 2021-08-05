@@ -24,15 +24,14 @@ import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+import org.infernalstudios.infernalexp.init.IEShroomloinTypes;
 
 public class ShroomloinRenderer extends MobRenderer<ShroomloinEntity, ShroomloinModel<ShroomloinEntity>> {
-    private static final ResourceLocation TEXTURE = ShroomloinDecorLayer.SHROOMLOIN_TEXTURES[0];
 
     public ShroomloinRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new ShroomloinModel<>(), 0.7f);
         this.addLayer(new ShroomloinDecorLayer(this));
         this.addLayer(new ShroomloinGlowLayer(this));
-        this.addLayer(new ShroomloinNameDecorLayer(this));
     }
 
     protected void preRenderCallback(ShroomloinEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
@@ -53,7 +52,7 @@ public class ShroomloinRenderer extends MobRenderer<ShroomloinEntity, Shroomloin
 
     @Override
     public ResourceLocation getEntityTexture(ShroomloinEntity entity) {
-        return TEXTURE;
+        return IEShroomloinTypes.CRIMSON.getTextureLocation();
     }
 
     @Override

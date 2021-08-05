@@ -66,6 +66,7 @@ import org.infernalstudios.infernalexp.init.IEPaintings;
 import org.infernalstudios.infernalexp.init.IEParticleTypes;
 import org.infernalstudios.infernalexp.init.IEPotions;
 import org.infernalstudios.infernalexp.init.IEProcessors;
+import org.infernalstudios.infernalexp.init.IEShroomloinTypes;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
 import org.infernalstudios.infernalexp.init.IEStructures;
 import org.infernalstudios.infernalexp.init.IETileEntityTypes;
@@ -105,6 +106,7 @@ public class InfernalExpansion {
         IETileEntityTypes.register(modEventBus);
         IEBiomes.register(modEventBus);
         IELootModifiers.register(modEventBus);
+        IEShroomloinTypes.registerAll();
 
         IEEntityClassifications.register();
 
