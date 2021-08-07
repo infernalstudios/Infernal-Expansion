@@ -22,9 +22,13 @@ import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.Potions;
+import net.minecraftforge.common.crafting.IIngredientSerializer;
+import net.minecraftforge.common.crafting.VanillaIngredientSerializer;
+
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.apache.commons.lang3.tuple.Triple;
 import org.infernalstudios.infernalexp.util.PotionBrewingReflection;
+import org.infernalstudios.infernalexp.mixin.common.IngredientAccessor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +41,8 @@ public class IEBrewingRecipes {
 
     public static void registerBrewingRecipes() {
         // Register potions
-        addBrewingRecipe(() -> new IngredientWrapper(IEItems.MOTH_DUST.get()), IEPotions.LUMINOUS.get(), IEPotions.LONG_LUMINOUS.get(), IEPotions.STRONG_LUMINOUS.get());
-        addBrewingRecipe(() -> new IngredientWrapper(IEItems.ASCUS_BOMB.get()), IEPotions.INFECTION.get(), IEPotions.LONG_INFECTION.get(), IEPotions.STRONG_INFECTION.get());
+        addBrewingRecipe(() -> getIngredient(IEItems.MOTH_DUST.get()), IEPotions.LUMINOUS.get(), IEPotions.LONG_LUMINOUS.get(), IEPotions.STRONG_LUMINOUS.get());
+        addBrewingRecipe(() -> getIngredient(IEItems.ASCUS_BOMB.get()), IEPotions.INFECTION.get(), IEPotions.LONG_INFECTION.get(), IEPotions.STRONG_INFECTION.get());
 
         for (Triple<Potion, Supplier<Ingredient>, Potion> recipe : brewingRecipes) {
             PotionBrewingReflection.addBrewingRecipe(recipe.getLeft(), recipe.getMiddle().get(), recipe.getRight());
@@ -53,20 +57,16 @@ public class IEBrewingRecipes {
         add(Potions.AWKWARD, reagent, normalPotion);
 
         // Add strong and long variants
-        add(normalPotion, () -> new IngredientWrapper(Items.GLOWSTONE_DUST), strongPotion);
-        add(normalPotion, () -> new IngredientWrapper(Items.REDSTONE), longPotion);
+        add(normalPotion, () -> getIngredient(Items.GLOWSTONE_DUST), strongPotion);
+        add(normalPotion, () -> getIngredient(Items.REDSTONE), longPotion);
     }
 
     private static void add(Potion from, Supplier<Ingredient> reagent, Potion to) {
         brewingRecipes.add(new ImmutableTriple<>(from, reagent, to));
     }
 
-    private static class IngredientWrapper extends Ingredient {
-
-        private IngredientWrapper(Item ingredient) {
-            super(Stream.of(new SingleItemList(new ItemStack(ingredient))));
-        }
-
+    private static Ingredient getIngredient(Item ingredient) {
+        return IngredientAccessor.createIngredient(Stream.of(new Ingredient.SingleItemList(new ItemStack(ingredient))));
     }
 
 }
