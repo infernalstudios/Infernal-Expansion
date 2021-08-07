@@ -81,8 +81,12 @@ public class IEBlocks {
     			(If a block is animated, pull the name of the animation texture.)
     			/item pulls from the individual json file in /model/block.
 
-    			If the block is a BUTTON, PRESSURE PLATE, WALL, or WART BLOCK, add it to the corresponding tag file
+    			If the block is a SLAB, STAIR, BUTTON, PRESSURE PLATE, WALL, or WART BLOCK, add it to the corresponding tag file
     			in data/minecraft.tags.
+
+				If the block is a VERTICAL SLAB, add it to the corresponding tag file for quark in data/quark.tags.
+				
+				Make sure tags for blocks have both .tags.block and .tags.items if they exist in the respective categories.
 
     			When that's done, make sure they have a LOOT TABLE, found in data/infernalexp/loot_tables.
     			For RECIPES, make sure the block is craftable in some form if not a biome-building block.
