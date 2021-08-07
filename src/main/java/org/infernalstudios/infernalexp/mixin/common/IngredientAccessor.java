@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 import net.minecraft.item.crafting.Ingredient;
 
 @Mixin(Ingredient.class)
-public interface MixinIngredientAccessor {
+public interface IngredientAccessor {
 
     @Invoker("<init>")
     public static Ingredient createIngredient(Stream<? extends Ingredient.IItemList> itemLists) {

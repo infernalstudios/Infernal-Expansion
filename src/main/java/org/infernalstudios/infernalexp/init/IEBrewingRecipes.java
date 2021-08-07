@@ -28,7 +28,7 @@ import net.minecraftforge.common.crafting.VanillaIngredientSerializer;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.apache.commons.lang3.tuple.Triple;
 import org.infernalstudios.infernalexp.util.PotionBrewingReflection;
-import org.infernalstudios.infernalexp.mixin.common.MixinIngredientAccessor;
+import org.infernalstudios.infernalexp.mixin.common.IngredientAccessor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +66,7 @@ public class IEBrewingRecipes {
     }
 
     private static Ingredient getIngredient(Item ingredient) {
-        return MixinIngredientAccessor.createIngredient(Stream.of(new Ingredient.SingleItemList(new ItemStack(ingredient))));
+        return IngredientAccessor.createIngredient(Stream.of(new Ingredient.SingleItemList(new ItemStack(ingredient))));
     }
 
 }

@@ -8,6 +8,7 @@
     "defaultRequire": 1
   },
   "mixins": [
+    "common.IngredientAccessor",
     "common.MixinAbstractArrowEntity",
     "common.MixinAbstractFireBlock",
     "common.MixinArrowEntity",
@@ -21,8 +22,7 @@
     "common.MixinShearsItem",
     "common.MixinShovelItem",
     "common.MixinStriderEntity",
-    "common.WorldCarverAccessor",
-    "common.MixinIngredientAccessor"
+    "common.WorldCarverAccessor"
   ],
   "client": [
     "client.MixinClientPlayNetHandler",
