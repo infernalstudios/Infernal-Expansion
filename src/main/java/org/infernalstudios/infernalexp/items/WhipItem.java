@@ -100,13 +100,13 @@ public class WhipItem extends TieredItem implements IVanishable {
             playerEntity.addStat(Stats.ITEM_USED.get(this));
 
             if (worldIn.isRemote()) {
-                handleExtendedReach(playerEntity);
+                handleExtendedReach(playerEntity, stack);
             }
         }
     }
 
     @OnlyIn(Dist.CLIENT)
-    private boolean handleExtendedReach(PlayerEntity player) {
+    private boolean handleExtendedReach(PlayerEntity player, ItemStack stack) {
 
         // Change the value added here to adjust the reach of the charge attack of the whip, must also be changed in WhipReachPacket
         double reach = player.getAttribute(ForgeMod.REACH_DISTANCE.get()).getValue() + 1.0D;
@@ -123,7 +123,7 @@ public class WhipItem extends TieredItem implements IVanishable {
 
             if (distance < reach * reach) {
                 player.ticksSinceLastSwing = (int) player.getCooldownPeriod();
-                IENetworkHandler.sendToServer(new WhipReachPacket(player.getUniqueID(), traceResult.getEntity().getEntityId()));
+                IENetworkHandler.sendToServer(new WhipReachPacket(player.getUniqueID(), traceResult.getEntity().getEntityId(), stack));
 
                 return true;
             }
