@@ -40,21 +40,6 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "infernalexp:glowsilk"
-        },
-        {
-          "type": "minecraft:item",
           "weight": 5,
           "functions": [
             {
