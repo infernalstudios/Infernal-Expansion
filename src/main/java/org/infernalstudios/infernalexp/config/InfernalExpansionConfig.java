@@ -18,6 +18,7 @@ package org.infernalstudios.infernalexp.config;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
+import java.util.Locale;
 
 public final class InfernalExpansionConfig {
 
@@ -192,7 +193,7 @@ public final class InfernalExpansionConfig {
          * @return the enum constant
          */
         public static MobSpawning getByName(@Nonnull String name) {
-            return MobSpawning.valueOf(name.toUpperCase());
+            return MobSpawning.valueOf(name.toUpperCase(Locale.ROOT));
         }
 
         /**
