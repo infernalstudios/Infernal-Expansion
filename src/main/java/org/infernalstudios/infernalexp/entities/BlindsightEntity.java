@@ -16,9 +16,6 @@
 
 package org.infernalstudios.infernalexp.entities;
 
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-import org.infernalstudios.infernalexp.init.IEEffects;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityPredicate;
@@ -43,9 +40,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.infernalstudios.infernalexp.config.IEConfig;
+import org.infernalstudios.infernalexp.init.IEEffects;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -82,10 +80,10 @@ public class BlindsightEntity extends MonsterEntity {
         this.goalSelector.addGoal(3, new BlindsightEntity.FaceRandomGoal(this));
         this.goalSelector.addGoal(5, new BlindsightEntity.HopGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        if (InfernalExpansionConfig.MobInteractions.BLINDSIGHT_ATTACK_GLOWSQUITO.getBoolean()) {
+        if (IEConfig.getBoolean(IEConfig.MobInteractions.BLINDSIGHT_ATTACK_GLOWSQUITO)) {
             this.targetSelector.addGoal(1, new BlindsightEntity.TargetGlowsquitoGoal(this, true, false));
         }
-        if (InfernalExpansionConfig.MobInteractions.BLINDSIGHT_ATTACK_PLAYER.getBoolean()) {
+        if (IEConfig.getBoolean(IEConfig.MobInteractions.BLINDSIGHT_ATTACK_PLAYER)) {
             this.targetSelector.addGoal(2, new BlindsightEntity.TargetGoal<>(this, PlayerEntity.class, true, false));
         }
     }

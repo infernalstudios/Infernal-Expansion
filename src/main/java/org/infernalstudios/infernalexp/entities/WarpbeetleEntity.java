@@ -16,10 +16,6 @@
 
 package org.infernalstudios.infernalexp.entities;
 
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-import org.infernalstudios.infernalexp.entities.ai.TeleportPanicGoal;
-import org.infernalstudios.infernalexp.init.IEBlocks;
-import org.infernalstudios.infernalexp.init.IESoundEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.CreatureEntity;
@@ -55,6 +51,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import org.infernalstudios.infernalexp.config.IEConfig;
+import org.infernalstudios.infernalexp.entities.ai.TeleportPanicGoal;
+import org.infernalstudios.infernalexp.init.IEBlocks;
+import org.infernalstudios.infernalexp.init.IESoundEvents;
 
 public class WarpbeetleEntity extends CreatureEntity {
     private int attackTimer;
@@ -88,7 +88,7 @@ public class WarpbeetleEntity extends CreatureEntity {
         this.goalSelector.addGoal(5, new LookAtGoal(this, PlayerEntity.class, 8.0f));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
         this.goalSelector.addGoal(7, new LookRandomlyGoal(this));
-        if (InfernalExpansionConfig.MobInteractions.SPIDER_ATTACK_WARPBEETLE.getBoolean()) {
+        if (IEConfig.getBoolean(IEConfig.MobInteractions.SPIDER_ATTACK_WARPBEETLE)) {
             this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, SpiderEntity.class, true, false));
         }
     }

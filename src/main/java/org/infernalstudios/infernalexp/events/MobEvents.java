@@ -16,17 +16,6 @@
 
 package org.infernalstudios.infernalexp.events;
 
-import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-import org.infernalstudios.infernalexp.data.SpawnrateManager;
-import org.infernalstudios.infernalexp.entities.BasaltGiantEntity;
-import org.infernalstudios.infernalexp.entities.BlackstoneDwarfEntity;
-import org.infernalstudios.infernalexp.entities.EmbodyEntity;
-import org.infernalstudios.infernalexp.entities.GlowsquitoEntity;
-import org.infernalstudios.infernalexp.entities.VolineEntity;
-import org.infernalstudios.infernalexp.entities.WarpbeetleEntity;
-import org.infernalstudios.infernalexp.entities.ai.AvoidBlockGoal;
-import org.infernalstudios.infernalexp.init.IETags;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
@@ -46,6 +35,18 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.infernalstudios.infernalexp.InfernalExpansion;
+import org.infernalstudios.infernalexp.config.IEConfig;
+import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
+import org.infernalstudios.infernalexp.data.SpawnrateManager;
+import org.infernalstudios.infernalexp.entities.BasaltGiantEntity;
+import org.infernalstudios.infernalexp.entities.BlackstoneDwarfEntity;
+import org.infernalstudios.infernalexp.entities.EmbodyEntity;
+import org.infernalstudios.infernalexp.entities.GlowsquitoEntity;
+import org.infernalstudios.infernalexp.entities.VolineEntity;
+import org.infernalstudios.infernalexp.entities.WarpbeetleEntity;
+import org.infernalstudios.infernalexp.entities.ai.AvoidBlockGoal;
+import org.infernalstudios.infernalexp.init.IETags;
 
 import java.util.Arrays;
 import java.util.List;
@@ -62,17 +63,17 @@ public class MobEvents {
 
         //Piglins fear Warpbeetles and Embodies
         if (event.getEntity() instanceof PiglinEntity) {
-            if (InfernalExpansionConfig.MobInteractions.PIGLIN_FEAR_WARPBEETLE.getBoolean()) {
+            if (IEConfig.getBoolean(IEConfig.MobInteractions.PIGLIN_FEAR_WARPBEETLE)) {
                 ((PiglinEntity) event.getEntity()).goalSelector.addGoal(4,
                     new AvoidEntityGoal<>((PiglinEntity) event.getEntity(),
                         WarpbeetleEntity.class, 16.0F, 1.2D, 1.2D));
             }
-            if (InfernalExpansionConfig.MobInteractions.PIGLIN_FEAR_EMBODY.getBoolean()) {
+            if (IEConfig.getBoolean(IEConfig.MobInteractions.PIGLIN_FEAR_EMBODY)) {
                 ((PiglinEntity) event.getEntity()).goalSelector.addGoal(4,
                     new AvoidEntityGoal<>((PiglinEntity) event.getEntity(),
                         EmbodyEntity.class, 16.0F, 1.2D, 1.2D));
             }
-            if (InfernalExpansionConfig.MobInteractions.PIGLIN_FEAR_DWARF.getBoolean()) {
+            if (IEConfig.getBoolean(IEConfig.MobInteractions.PIGLIN_FEAR_DWARF)) {
                 ((PiglinEntity) event.getEntity()).goalSelector.addGoal(4,
                     new AvoidEntityGoal<>((PiglinEntity) event.getEntity(),
                         BlackstoneDwarfEntity.class, 16.0F, 1.2D, 1.2D));
@@ -80,12 +81,12 @@ public class MobEvents {
         }
 
         if (event.getEntity() instanceof HoglinEntity) {
-            if (InfernalExpansionConfig.MobInteractions.HOGLIN_FEAR_WARPBEETLE.getBoolean()) {
+            if (IEConfig.getBoolean(IEConfig.MobInteractions.HOGLIN_FEAR_WARPBEETLE)) {
                 ((HoglinEntity) event.getEntity()).goalSelector.addGoal(4,
                     new AvoidEntityGoal<>((HoglinEntity) event.getEntity(),
                         WarpbeetleEntity.class, 16.0F, 1.2D, 1.2D));
             }
-            if (InfernalExpansionConfig.MobInteractions.HOGLIN_FEAR_EMBODY.getBoolean()) {
+            if (IEConfig.getBoolean(IEConfig.MobInteractions.HOGLIN_FEAR_EMBODY)) {
                 ((HoglinEntity) event.getEntity()).goalSelector.addGoal(4,
                     new AvoidEntityGoal<>((HoglinEntity) event.getEntity(),
                         EmbodyEntity.class, 16.0F, 1.2D, 1.2D));
@@ -97,7 +98,7 @@ public class MobEvents {
         //
 
         //Spiders attack Warp beetles
-        if (event.getEntity() instanceof SpiderEntity && InfernalExpansionConfig.MobInteractions.SPIDER_ATTACK_WARPBEETLE.getBoolean()) {
+        if (event.getEntity() instanceof SpiderEntity && IEConfig.getBoolean(IEConfig.MobInteractions.SPIDER_ATTACK_WARPBEETLE)) {
             ((SpiderEntity) event.getEntity()).targetSelector.addGoal(4,
                 new NearestAttackableTargetGoal<>((SpiderEntity) event.getEntity(),
                     WarpbeetleEntity.class, true, false));
@@ -106,22 +107,22 @@ public class MobEvents {
 
         //Skeletons attacks Piglins, Brutes, Embodies & Basalt Giants
         if (event.getEntity() instanceof SkeletonEntity) {
-            if (InfernalExpansionConfig.MobInteractions.SKELETON_ATTACK_PIGLIN.getBoolean()) {
+            if (IEConfig.getBoolean(IEConfig.MobInteractions.SKELETON_ATTACK_PIGLIN)) {
                 ((SkeletonEntity) event.getEntity()).targetSelector.addGoal(2,
                     new NearestAttackableTargetGoal<>((SkeletonEntity) event.getEntity(),
                         PiglinEntity.class, true, false));
             }
-            if (InfernalExpansionConfig.MobInteractions.SKELETON_ATTACK_BRUTE.getBoolean()) {
+            if (IEConfig.getBoolean(IEConfig.MobInteractions.SKELETON_ATTACK_BRUTE)) {
                 ((SkeletonEntity) event.getEntity()).targetSelector.addGoal(2,
                     new NearestAttackableTargetGoal<>((SkeletonEntity) event.getEntity(),
                         PiglinBruteEntity.class, true, false));
             }
-            if (InfernalExpansionConfig.MobInteractions.SKELETON_ATTACK_EMBODY.getBoolean()) {
+            if (IEConfig.getBoolean(IEConfig.MobInteractions.SKELETON_ATTACK_EMBODY)) {
                 ((SkeletonEntity) event.getEntity()).targetSelector.addGoal(3,
                     new NearestAttackableTargetGoal<>((SkeletonEntity) event.getEntity(),
                         EmbodyEntity.class, true, false));
             }
-            if (InfernalExpansionConfig.MobInteractions.SKELETON_ATTACK_GIANT.getBoolean()) {
+            if (IEConfig.getBoolean(IEConfig.MobInteractions.SKELETON_ATTACK_GIANT)) {
                 ((SkeletonEntity) event.getEntity()).targetSelector.addGoal(2,
                     new NearestAttackableTargetGoal<>((SkeletonEntity) event.getEntity(),
                         BasaltGiantEntity.class, true, false));
@@ -130,12 +131,12 @@ public class MobEvents {
 
         //Piglins attack Skeletons & Voline
         if (event.getEntity() instanceof PiglinEntity) {
-            if (InfernalExpansionConfig.MobInteractions.PIGLIN_ATTACK_SKELETON.getBoolean()) {
+            if (IEConfig.getBoolean(IEConfig.MobInteractions.PIGLIN_ATTACK_SKELETON)) {
                 ((PiglinEntity) event.getEntity()).targetSelector.addGoal(2,
                     new NearestAttackableTargetGoal<>((PiglinEntity) event.getEntity(),
                         SkeletonEntity.class, true, false));
             }
-            if (InfernalExpansionConfig.MobInteractions.PIGLIN_ATTACK_VOLINE.getBoolean()) {
+            if (IEConfig.getBoolean(IEConfig.MobInteractions.PIGLIN_ATTACK_VOLINE)) {
                 ((PiglinEntity) event.getEntity()).targetSelector.addGoal(2,
                     new NearestAttackableTargetGoal<>((PiglinEntity) event.getEntity(),
                         VolineEntity.class, true, false));
@@ -143,12 +144,12 @@ public class MobEvents {
         }
 
         if (event.getEntity() instanceof PiglinBruteEntity) {
-            if (InfernalExpansionConfig.MobInteractions.BRUTE_ATTACK_SKELETON.getBoolean()) {
+            if (IEConfig.getBoolean(IEConfig.MobInteractions.BRUTE_ATTACK_SKELETON)) {
                 ((PiglinBruteEntity) event.getEntity()).targetSelector.addGoal(2,
                     new NearestAttackableTargetGoal<>((PiglinBruteEntity) event.getEntity(),
                         SkeletonEntity.class, true, false));
             }
-            if (InfernalExpansionConfig.MobInteractions.BRUTE_ATTACK_VOLINE.getBoolean()) {
+            if (IEConfig.getBoolean(IEConfig.MobInteractions.BRUTE_ATTACK_VOLINE)) {
                 ((PiglinBruteEntity) event.getEntity()).targetSelector.addGoal(2,
                     new NearestAttackableTargetGoal<>((PiglinBruteEntity) event.getEntity(),
                         VolineEntity.class, true, false));
@@ -158,23 +159,23 @@ public class MobEvents {
 
         //Ghasts attack Voline, Embodies, Skeletons
         if (event.getEntity() instanceof GhastEntity) {
-            if (InfernalExpansionConfig.MobInteractions.GHAST_ATTACK_GLOWSQUITO.getBoolean()) {
+            if (IEConfig.getBoolean(IEConfig.MobInteractions.GHAST_ATTACK_GLOWSQUITO)) {
                 ((GhastEntity) event.getEntity()).targetSelector.addGoal(4,
                     new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
                         GlowsquitoEntity.class, true, false));
             }
 
-            if (InfernalExpansionConfig.MobInteractions.GHAST_ATTACK_EMBODY.getBoolean()) {
+            if (IEConfig.getBoolean(IEConfig.MobInteractions.GHAST_ATTACK_EMBODY)) {
                 ((GhastEntity) event.getEntity()).targetSelector.addGoal(3,
                     new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
                         EmbodyEntity.class, true, false));
             }
-            if (InfernalExpansionConfig.MobInteractions.GHAST_ATTACK_VOLINE.getBoolean()) {
+            if (IEConfig.getBoolean(IEConfig.MobInteractions.GHAST_ATTACK_VOLINE)) {
                 ((GhastEntity) event.getEntity()).targetSelector.addGoal(2,
                     new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
                         VolineEntity.class, true, false));
             }
-            if (InfernalExpansionConfig.MobInteractions.GHAST_ATTACK_SKELETON.getBoolean()) {
+            if (IEConfig.getBoolean(IEConfig.MobInteractions.GHAST_ATTACK_SKELETON)) {
                 ((GhastEntity) event.getEntity()).targetSelector.addGoal(3,
                     new NearestAttackableTargetGoal<>((GhastEntity) event.getEntity(),
                         SkeletonEntity.class, true, false));

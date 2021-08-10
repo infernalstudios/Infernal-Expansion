@@ -16,18 +16,19 @@
 
 package org.infernalstudios.infernalexp.config.gui.screens;
 
-import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.settings.BooleanOption;
 import net.minecraft.client.settings.SliderPercentageOption;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.infernalstudios.infernalexp.InfernalExpansion;
+import org.infernalstudios.infernalexp.config.CommonConfig;
+import org.infernalstudios.infernalexp.config.values.CachedBooleanValue;
+import org.infernalstudios.infernalexp.config.values.CachedConfigValue;
+import org.infernalstudios.infernalexp.config.values.CachedDoubleValue;
 
 @OnlyIn(Dist.CLIENT)
 public class MobInteractionsScreen extends IESettingsScreen {
@@ -38,22 +39,26 @@ public class MobInteractionsScreen extends IESettingsScreen {
 
     @Override
     public void addSettings() {
-        for (InfernalExpansionConfig.MobInteractions mobInteraction : InfernalExpansionConfig.MobInteractions.values()) {
-            if (mobInteraction.isSlider()) {
-                optionsRowList.addOption(new SliderPercentageOption(InfernalExpansion.MOD_ID + ".config.option." + mobInteraction.getTranslationName(),
-                    0.2D, 10.0D, 0.2F,
-                    settings -> mobInteraction.getDouble(), (settings, value) -> mobInteraction.setDouble(value),
+        for (CachedConfigValue<?> mobInteraction : CommonConfig.mobInteractions.values()) {
+            if (mobInteraction instanceof CachedDoubleValue) {
+                CachedDoubleValue mobInteractionDouble = (CachedDoubleValue) mobInteraction;
+
+                optionsRowList.addOption(new SliderPercentageOption(InfernalExpansion.MOD_ID + ".config.option." + mobInteractionDouble.getTranslationName(),
+                    mobInteractionDouble.getMinValue(), mobInteractionDouble.getMaxValue(), mobInteractionDouble.getStepValue(),
+                    settings -> mobInteractionDouble.get(), (settings, value) -> mobInteractionDouble.set(value),
                     (settings, option) -> {
                         option.setOptionValues(Minecraft.getInstance().fontRenderer.trimStringToWidth(
-                            new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + mobInteraction.getTranslationName()), 200));
+                            new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + mobInteractionDouble.getTranslationName()), 200));
 
                         return new TranslationTextComponent("options.generic_value", option.getBaseMessageTranslation(),
                             new StringTextComponent(Double.toString((double) Math.round(option.get(settings) * 100) / 100)));
                     }));
-            } else {
-                optionsRowList.addOption(new BooleanOption(InfernalExpansion.MOD_ID + ".config.option." + mobInteraction.getTranslationName(),
-                    new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + mobInteraction.getTranslationName()),
-                    settings -> mobInteraction.getBoolean(), (settings, value) -> mobInteraction.setBoolean(value)));
+            } else if (mobInteraction instanceof CachedBooleanValue) {
+                CachedBooleanValue mobInteractionBoolean = (CachedBooleanValue) mobInteraction;
+
+                optionsRowList.addOption(new BooleanOption(InfernalExpansion.MOD_ID + ".config.option." + mobInteractionBoolean.getTranslationName(),
+                    new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + mobInteractionBoolean.getTranslationName()),
+                    settings -> mobInteractionBoolean.get(), (settings, value) -> mobInteractionBoolean.set(value)));
             }
         }
     }

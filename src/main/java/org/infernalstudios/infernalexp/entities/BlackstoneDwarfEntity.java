@@ -16,9 +16,6 @@
 
 package org.infernalstudios.infernalexp.entities;
 
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-import org.infernalstudios.infernalexp.init.IESoundEvents;
-
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -41,9 +38,10 @@ import net.minecraft.util.RangedInteger;
 import net.minecraft.util.TickRangeConverter;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.infernalstudios.infernalexp.config.IEConfig;
+import org.infernalstudios.infernalexp.init.IESoundEvents;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
@@ -146,16 +144,16 @@ public class BlackstoneDwarfEntity extends CreatureEntity implements IAngerable 
         this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0f));
         this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        if (InfernalExpansionConfig.MobInteractions.DWARF_ATTACK_PIGLIN.getBoolean()) {
+        if (IEConfig.getBoolean(IEConfig.MobInteractions.DWARF_ATTACK_PIGLIN)) {
             this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, AbstractPiglinEntity.class, true, false));
         }
-        if (InfernalExpansionConfig.MobInteractions.DWARF_ATTACK_ZOMBIE_PIGLIN.getBoolean()) {
+        if (IEConfig.getBoolean(IEConfig.MobInteractions.DWARF_ATTACK_ZOMBIE_PIGLIN)) {
             this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, ZombifiedPiglinEntity.class, true, false));
         }
-        if (InfernalExpansionConfig.MobInteractions.DWARF_ATTACK_PLAYER.getBoolean()) {
+        if (IEConfig.getBoolean(IEConfig.MobInteractions.DWARF_ATTACK_PLAYER)) {
             this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         }
-        if (InfernalExpansionConfig.MobInteractions.GLOWSQUITO_ATTACK_DWARF.getBoolean()) {
+        if (IEConfig.getBoolean(IEConfig.MobInteractions.GLOWSQUITO_ATTACK_DWARF)) {
             this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, GlowsquitoEntity.class, true));
         }
     }

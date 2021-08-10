@@ -16,44 +16,16 @@
 
 package org.infernalstudios.infernalexp.config;
 
-import org.infernalstudios.infernalexp.InfernalExpansion;
 import net.minecraftforge.common.ForgeConfigSpec;
+import org.infernalstudios.infernalexp.InfernalExpansion;
+import org.infernalstudios.infernalexp.config.IEConfig.MobInteractions;
+import org.infernalstudios.infernalexp.config.values.CachedBooleanValue;
+import org.infernalstudios.infernalexp.config.values.CachedConfigValue;
+import org.infernalstudios.infernalexp.config.values.CachedDoubleValue;
+
+import java.util.EnumMap;
 
 public class CommonConfig {
-
-    //Mob Interactions
-    final ForgeConfigSpec.BooleanValue piglinFearWarpbeetle;
-    final ForgeConfigSpec.BooleanValue piglinFearEmbody;
-    final ForgeConfigSpec.BooleanValue piglinFearDwarf;
-    final ForgeConfigSpec.BooleanValue hoglinFearWarpbeetle;
-    final ForgeConfigSpec.BooleanValue hoglinFearEmbody;
-    final ForgeConfigSpec.BooleanValue spiderAttackWarpbeetle;
-    final ForgeConfigSpec.BooleanValue skeletonAttackPiglin;
-    final ForgeConfigSpec.BooleanValue skeletonAttackBrute;
-    final ForgeConfigSpec.BooleanValue skeletonAttackEmbody;
-    final ForgeConfigSpec.BooleanValue skeletonAttackGiant;
-    final ForgeConfigSpec.BooleanValue piglinAttackSkeleton;
-    final ForgeConfigSpec.BooleanValue piglinAttackVoline;
-    final ForgeConfigSpec.BooleanValue bruteAttackSkeleton;
-    final ForgeConfigSpec.BooleanValue bruteAttackVoline;
-    final ForgeConfigSpec.BooleanValue ghastAttackEmbody;
-    final ForgeConfigSpec.BooleanValue ghastAttackVoline;
-    final ForgeConfigSpec.BooleanValue ghastAttackSkeleton;
-    final ForgeConfigSpec.BooleanValue ghastAttackGlowsquito;
-    final ForgeConfigSpec.BooleanValue glowsquitoAttackDwarf;
-    final ForgeConfigSpec.BooleanValue glowsquitoAttackLuminous;
-    final ForgeConfigSpec.BooleanValue dwarfAttackPiglin;
-    final ForgeConfigSpec.BooleanValue dwarfAttackZombiePiglin;
-    final ForgeConfigSpec.BooleanValue dwarfAttackPlayer;
-    final ForgeConfigSpec.BooleanValue blindsightAttackGlowsquito;
-    final ForgeConfigSpec.BooleanValue blindsightAttackPlayer;
-    final ForgeConfigSpec.BooleanValue giantAttackMagmaCube;
-    final ForgeConfigSpec.BooleanValue embodyAttackPiglin;
-    final ForgeConfigSpec.BooleanValue embodyAttackPlayer;
-    final ForgeConfigSpec.BooleanValue volineAttackFireResistance;
-    final ForgeConfigSpec.BooleanValue volineAttackPlayer;
-    final ForgeConfigSpec.BooleanValue volineAttackMagmaCube;
-    final ForgeConfigSpec.DoubleValue glowsilkSpeed;
 
     //Mob Spawnable Biomes
     final ForgeConfigSpec.ConfigValue<String> volineBiomes;
@@ -79,181 +51,85 @@ public class CommonConfig {
     final ForgeConfigSpec.BooleanValue fireChargeExplosion;
     final ForgeConfigSpec.IntValue jerkyEffectDuration;
     final ForgeConfigSpec.IntValue jerkyEffectAmplifier;
-    final ForgeConfigSpec.BooleanValue useHogchops;
+    //    final ForgeConfigSpec.BooleanValue useHogchops;
     final ForgeConfigSpec.BooleanValue useThrowableBricks;
 
     //Luminous Fungus
     final ForgeConfigSpec.DoubleValue luminousFungusActivateDistance;
     final ForgeConfigSpec.BooleanValue luminousFungusGivesEffect;
 
+    public static final EnumMap<MobInteractions, CachedConfigValue<?>> mobInteractions = new EnumMap<>(MobInteractions.class);
+
     CommonConfig(final ForgeConfigSpec.Builder builder) {
         //Mob Interactions
         builder.push("Mob Interactions");
 
-        piglinFearWarpbeetle = builder
-            .comment("Determines if Piglins will run away from Warpbeetles")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.piglinFearWarpbeetle")
-            .define("piglinFearWarpbeetle", true);
-
-        piglinFearEmbody = builder
-            .comment("Determines if Piglins will run away from Embodies")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.piglinFearEmbody")
-            .define("piglinFearEmbody", true);
-
-        piglinFearDwarf = builder
-            .comment("Determines if Piglins will run away from Blackstone Dwarves")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.piglinFearDwarf")
-            .define("piglinFearDwarf", true);
-
-        hoglinFearWarpbeetle = builder
-            .comment("Determines if Hoglins will run away from Warpbeetles")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.hoglinFearWarpbeetle")
-            .define("hoglinFearWarpbeetle", true);
-
-        hoglinFearEmbody = builder
-            .comment("Determines if Hoglins will run away from Embodies")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.hoglinFearEmbody")
-            .define("hoglinFearEmbody", true);
-
-        spiderAttackWarpbeetle = builder
-            .comment("Determines if Spiders and Warpbeetles will fight")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.spiderAttackWarpbeetle")
-            .define("spiderAttackWarpbeetle", true);
-
-        skeletonAttackPiglin = builder
-            .comment("Determines if Skeletons will attack Piglins")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.skeletonAttackPiglin")
-            .define("skeletonAttackPiglin", true);
-
-        skeletonAttackBrute = builder
-            .comment("Determines if Skeletons will attack Piglin Brutes")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.skeletonAttackBrute")
-            .define("skeletonAttackBrute", true);
-
-        skeletonAttackEmbody = builder
-            .comment("Determines if Skeletons and Embodies will fight")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.skeletonAttackEmbody")
-            .define("skeletonAttackEmbody", true);
-
-        skeletonAttackGiant = builder
-            .comment("Determines if Skeletons and Basalt Giants will fight")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.skeletonAttackGiant")
-            .define("skeletonAttackGiant", true);
-
-        piglinAttackSkeleton = builder
-            .comment("Determines if Piglins will attack Skeletons")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.piglinAttackSkeleton")
-            .define("piglinAttackSkeleton", true);
-
-        piglinAttackVoline = builder
-            .comment("Determines if Piglins will attack Volines")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.piglinAttackVoline")
-            .define("piglinAttackVoline", true);
-
-        bruteAttackSkeleton = builder
-            .comment("Determines if Piglin Brutes will attack Skeletons")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.bruteAttackSkeleton")
-            .define("bruteAttackSkeleton", true);
-
-        bruteAttackVoline = builder
-            .comment("Determines if Piglin Brutes will attack Volines")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.bruteAttackVoline")
-            .define("bruteAttackVoline", true);
-
-        ghastAttackEmbody = builder
-            .comment("Determines if Ghasts will shoot at Embodies")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.ghastAttackEmbody")
-            .define("ghastAttackEmbody", false);
-
-        ghastAttackVoline = builder
-            .comment("Determines if Ghasts will shoot at Volines")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.ghastAttackVoline")
-            .define("ghastAttackVoline", false);
-
-        ghastAttackSkeleton = builder
-            .comment("Determines if Ghasts will shoot at Skeletons")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.ghastAttackSkeleton")
-            .define("ghastAttackSkeleton", false);
-
-        ghastAttackGlowsquito = builder
-            .comment("Determines if Ghasts will shoot at Glowsquitos")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.ghastAttackGlowsquito")
-            .define("ghastAttackGlowsquito", false);
-
-        glowsquitoAttackDwarf = builder
-            .comment("Determines if Glowsquitos and Blackstone Dwarves will fight")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.glowsquitoAttackDwarf")
-            .define("glowsquitoAttackDwarf", true);
-
-        glowsquitoAttackLuminous = builder
-            .comment("Determines if Glowsquitos will attack Entities with the Luminous Effect")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.glowsquitoAttackLuminous")
-            .define("glowsquitoAttackLuminous", true);
-
-        dwarfAttackPiglin = builder
-            .comment("Determines if Blackstone Dwarves will attack Piglins")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.dwarfAttackPiglin")
-            .define("dwarfAttackPiglin", true);
-
-        dwarfAttackZombiePiglin = builder
-            .comment("Determines if Blackstone Dwarves will attack Zombified Piglins")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.dwarfAttackZombiePiglin")
-            .define("dwarfAttackZombiePiglin", true);
-
-        dwarfAttackPlayer = builder
-            .comment("Determines if Blackstone Dwarves will attack Players")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.dwarfAttackPlayer")
-            .define("dwarfAttackPlayer", true);
-
-        blindsightAttackGlowsquito = builder
-            .comment("Determines if Blindsights will attack Glowsquitos")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.blindsightAttackGlowsquito")
-            .define("blindsightAttackGlowsquito", true);
-
-        blindsightAttackPlayer = builder
-            .comment("Determines if Blindsights will attack Players")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.blindsightAttackPlayer")
-            .define("blindsightAttackPlayer", true);
-
-        giantAttackMagmaCube = builder
-            .comment("Determines if Basalt Giants will attack Magma Cubes")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.giantAttackMagmaCube")
-            .define("giantAttackMagmaCube", true);
-
-        embodyAttackPiglin = builder
-            .comment("Determines if Embodies will attack Piglins")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.embodyAttackPiglin")
-            .define("embodyAttackPiglin", true);
-
-        embodyAttackPlayer = builder
-            .comment("Determines if Embodies will attack Players")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.embodyAttackPlayer")
-            .define("embodyAttackPlayer", true);
-
-        volineAttackFireResistance = builder
-            .comment("Determines if Voline will attack Entities with Fire Resistance")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.volineAttackFireResistance")
-            .define("volineAttackFireResistance", true);
-
-        volineAttackPlayer = builder
-            .comment("Determines if Voline will attack Players")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.volineAttackPlayer")
-            .define("volineAttackPlayer", true);
-
-        volineAttackMagmaCube = builder
-            .comment("Determines if Voline will attack small Magma Cubes")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.volineAttackMagmaCube")
-            .define("volineAttackMagmaCube", true);
-
-        useHogchops = builder
-            .comment("Determines if Hogchops will replace Porkchops in Hoglin Drops")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.useHogchops")
-            .define("useHogchops", true);
-
-        glowsilkSpeed = builder
-            .comment("Determines the speed at which Glowsilk Moths fly")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.glowsilkSpeed")
-            .defineInRange("glowsilkSpeed", 1.3D, 0.0D, Double.MAX_VALUE);
+        mobInteractions.put(MobInteractions.PIGLIN_FEAR_WARPBEETLE, new CachedBooleanValue("piglinFearWarpbeetle",
+            "Determines if Piglins will run away from Warpbeetles", true, builder));
+        mobInteractions.put(MobInteractions.PIGLIN_FEAR_EMBODY, new CachedBooleanValue("piglinFearEmbody",
+            "Determines if Piglins will run away from Embodies", true, builder));
+        mobInteractions.put(MobInteractions.PIGLIN_FEAR_DWARF, new CachedBooleanValue("piglinFearDwarf",
+            "Determines if Piglins will run away from Blackstone Dwarves", true, builder));
+        mobInteractions.put(MobInteractions.HOGLIN_FEAR_EMBODY, new CachedBooleanValue("hoglinFearWarpbeetle",
+            "Determines if Hoglins will run away from Embodies", true, builder));
+        mobInteractions.put(MobInteractions.HOGLIN_FEAR_WARPBEETLE, new CachedBooleanValue("hoglinFearEmbody",
+            "Determines if Hoglins will run away from Warpbeetles", true, builder));
+        mobInteractions.put(MobInteractions.SPIDER_ATTACK_WARPBEETLE, new CachedBooleanValue("spiderAttackWarpbeetle",
+            "Determines if Spiders and Warpbeetles will fight", true, builder));
+        mobInteractions.put(MobInteractions.SKELETON_ATTACK_PIGLIN, new CachedBooleanValue("skeletonAttackPiglin",
+            "Determines if Skeletons will attack Piglins", true, builder));
+        mobInteractions.put(MobInteractions.SKELETON_ATTACK_BRUTE, new CachedBooleanValue("skeletonAttackBrute",
+            "Determines if Skeletons will attack Piglin Brutes", true, builder));
+        mobInteractions.put(MobInteractions.SKELETON_ATTACK_EMBODY, new CachedBooleanValue("skeletonAttackEmbody",
+            "Determines if Skeletons and Embodies will fight", true, builder));
+        mobInteractions.put(MobInteractions.SKELETON_ATTACK_GIANT, new CachedBooleanValue("skeletonAttackGiant",
+            "Determines if Skeletons and Basalt Giants will fight", true, builder));
+        mobInteractions.put(MobInteractions.PIGLIN_ATTACK_SKELETON, new CachedBooleanValue("piglinAttackSkeleton",
+            "Determines if Piglins will attack Skeletons", true, builder));
+        mobInteractions.put(MobInteractions.PIGLIN_ATTACK_VOLINE, new CachedBooleanValue("piglinAttackVoline",
+            "Determines if Piglins will attack Voline\"", true, builder));
+        mobInteractions.put(MobInteractions.BRUTE_ATTACK_SKELETON, new CachedBooleanValue("bruteAttackSkeleton",
+            "Determines if Piglin Brutes will attack Skeletons", true, builder));
+        mobInteractions.put(MobInteractions.BRUTE_ATTACK_VOLINE, new CachedBooleanValue("bruteAttackVoline",
+            "Determines if Piglin Brutes will attack Voline", true, builder));
+        mobInteractions.put(MobInteractions.GHAST_ATTACK_EMBODY, new CachedBooleanValue("ghastAttackEmbody",
+            "Determines if Ghasts will shoot at Embodies", false, builder));
+        mobInteractions.put(MobInteractions.GHAST_ATTACK_VOLINE, new CachedBooleanValue("ghastAttackVoline",
+            "Determines if Ghasts will shoot at Voline", false, builder));
+        mobInteractions.put(MobInteractions.GHAST_ATTACK_SKELETON, new CachedBooleanValue("ghastAttackSkeleton",
+            "Determines if Ghasts will shoot at Skeletons", false, builder));
+        mobInteractions.put(MobInteractions.GHAST_ATTACK_GLOWSQUITO, new CachedBooleanValue("ghastAttackGlowsquito",
+            "Determines if Ghasts will shoot at Glowsquitos\"", false, builder));
+        mobInteractions.put(MobInteractions.GLOWSQUITO_ATTACK_DWARF, new CachedBooleanValue("glowsquitoAttackDwarf",
+            "Determines if Glowsquitos and Blackstone Dwarves will fight", true, builder));
+        mobInteractions.put(MobInteractions.GLOWSQUITO_ATTACK_LUMINOUS, new CachedBooleanValue("glowsquitoAttackLuminous",
+            "Determines if Glowsquitos will attack Entities with the Luminance Effect", true, builder));
+        mobInteractions.put(MobInteractions.DWARF_ATTACK_PIGLIN, new CachedBooleanValue("dwarfAttackPiglin",
+            "Determines if Blackstone Dwarves will attack Piglins", true, builder));
+        mobInteractions.put(MobInteractions.DWARF_ATTACK_ZOMBIE_PIGLIN, new CachedBooleanValue("dwarfAttackZombiePiglin",
+            "Determines if Blackstone Dwarves will attack Zombified Piglins", true, builder));
+        mobInteractions.put(MobInteractions.DWARF_ATTACK_PLAYER, new CachedBooleanValue("dwarfAttackPlayer",
+            "Determines if Blackstone Dwarves will attack Players", true, builder));
+        mobInteractions.put(MobInteractions.BLINDSIGHT_ATTACK_GLOWSQUITO, new CachedBooleanValue("blindsightAttackGlowsquito",
+            "Determines if Blindsights will attack Glowsquitos", true, builder));
+        mobInteractions.put(MobInteractions.BLINDSIGHT_ATTACK_PLAYER, new CachedBooleanValue("blindsightAttackPlayer",
+            "Determines if Blindsights will attack Players", true, builder));
+        mobInteractions.put(MobInteractions.GIANT_ATTACK_MAGMA_CUBE, new CachedBooleanValue("giantAttackMagmaCube",
+            "Determines if Basalt Giants will attack Magma Cubes", true, builder));
+        mobInteractions.put(MobInteractions.EMBODY_ATTACK_PIGLIN, new CachedBooleanValue("embodyAttackPiglin",
+            "Determines if Embodies will attack Piglins", true, builder));
+        mobInteractions.put(MobInteractions.EMBODY_ATTACK_PLAYER, new CachedBooleanValue("embodyAttackPlayer",
+            "Determines if Embodies will attack Players", true, builder));
+        mobInteractions.put(MobInteractions.VOLINE_ATTACK_FIRE_RESISTANCE, new CachedBooleanValue("volineAttackFireResistance",
+            "Determines if Voline will attack Entities with Fire Resistance", true, builder));
+        mobInteractions.put(MobInteractions.VOLINE_ATTACK_PLAYER, new CachedBooleanValue("volineAttackPlayer",
+            "Determines if Voline will attack Players", true, builder));
+        mobInteractions.put(MobInteractions.VOLINE_ATTACK_MAGMA_CUBE, new CachedBooleanValue("volineAttackMagmaCube",
+            "Determines if Voline will attack small Magma Cubes", true, builder));
+        mobInteractions.put(MobInteractions.USE_HOGCHOPS, new CachedBooleanValue("useHogchops",
+            "Determines if Hogchops will replace Porkchops in Hoglin Drops", true, builder));
+        mobInteractions.put(MobInteractions.GLOWSILK_SPEED, new CachedDoubleValue("glowsilkSpeed",
+            "Determines the speed at which Glowsilk Moths fly", 1.3D, 0.0D, 10.0D, 0.2F, builder));
 
         builder.pop();
 

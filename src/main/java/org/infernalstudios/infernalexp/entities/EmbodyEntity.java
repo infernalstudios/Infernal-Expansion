@@ -16,10 +16,6 @@
 
 package org.infernalstudios.infernalexp.entities;
 
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-import org.infernalstudios.infernalexp.init.IESoundEvents;
-
-import org.infernalstudios.infernalexp.init.IETags;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
@@ -42,6 +38,9 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
+import org.infernalstudios.infernalexp.config.IEConfig;
+import org.infernalstudios.infernalexp.init.IESoundEvents;
+import org.infernalstudios.infernalexp.init.IETags;
 
 import javax.annotation.Nullable;
 
@@ -74,13 +73,13 @@ public class EmbodyEntity extends MonsterEntity {
         this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
         this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0f));
         this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
-        if (InfernalExpansionConfig.MobInteractions.SKELETON_ATTACK_EMBODY.getBoolean()) {
+        if (IEConfig.getBoolean(IEConfig.MobInteractions.SKELETON_ATTACK_EMBODY)) {
             this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, AbstractSkeletonEntity.class, true, false));
         }
-        if (InfernalExpansionConfig.MobInteractions.EMBODY_ATTACK_PLAYER.getBoolean()) {
+        if (IEConfig.getBoolean(IEConfig.MobInteractions.EMBODY_ATTACK_PLAYER)) {
             this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         }
-        if (InfernalExpansionConfig.MobInteractions.EMBODY_ATTACK_PIGLIN.getBoolean()) {
+        if (IEConfig.getBoolean(IEConfig.MobInteractions.EMBODY_ATTACK_PIGLIN)) {
             this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, AbstractPiglinEntity.class, true, false));
         }
     }

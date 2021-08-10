@@ -16,14 +16,6 @@
 
 package org.infernalstudios.infernalexp.entities;
 
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-import org.infernalstudios.infernalexp.entities.ai.EatItemsGoal;
-import org.infernalstudios.infernalexp.entities.ai.TargetWithEffectGoal;
-import org.infernalstudios.infernalexp.events.MiscEvents;
-import org.infernalstudios.infernalexp.init.IEItems;
-import org.infernalstudios.infernalexp.init.IESoundEvents;
-import org.infernalstudios.infernalexp.util.IBucketable;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
@@ -67,6 +59,13 @@ import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.infernalstudios.infernalexp.config.IEConfig;
+import org.infernalstudios.infernalexp.entities.ai.EatItemsGoal;
+import org.infernalstudios.infernalexp.entities.ai.TargetWithEffectGoal;
+import org.infernalstudios.infernalexp.events.MiscEvents;
+import org.infernalstudios.infernalexp.init.IEItems;
+import org.infernalstudios.infernalexp.init.IESoundEvents;
+import org.infernalstudios.infernalexp.util.IBucketable;
 
 import javax.annotation.Nullable;
 import java.util.Map;
@@ -112,13 +111,13 @@ public class VolineEntity extends MonsterEntity implements IBucketable {
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, AbstractPiglinEntity.class, 16.0F, getAttributeValue(Attributes.MOVEMENT_SPEED) * 2.0D, getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.5D));
         this.goalSelector.addGoal(5, new PanicGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED) * 2.0D));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        if (InfernalExpansionConfig.MobInteractions.VOLINE_ATTACK_FIRE_RESISTANCE.getBoolean()) {
+        if (IEConfig.getBoolean(IEConfig.MobInteractions.VOLINE_ATTACK_FIRE_RESISTANCE)) {
             this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, LivingEntity.class, true, false, Effects.FIRE_RESISTANCE, null));
         }
-        if (InfernalExpansionConfig.MobInteractions.VOLINE_ATTACK_PLAYER.getBoolean()) {
+        if (IEConfig.getBoolean(IEConfig.MobInteractions.VOLINE_ATTACK_PLAYER)) {
             this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         }
-        if (InfernalExpansionConfig.MobInteractions.VOLINE_ATTACK_MAGMA_CUBE.getBoolean()) {
+        if (IEConfig.getBoolean(IEConfig.MobInteractions.VOLINE_ATTACK_MAGMA_CUBE)) {
             this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, MagmaCubeEntity.class, 10, true, true, TARGETABLE_MAGMA_CUBES));
         }
     }

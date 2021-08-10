@@ -16,11 +16,8 @@
 
 package org.infernalstudios.infernalexp.entities;
 
-import net.minecraft.entity.CreatureAttribute;
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-
-import org.infernalstudios.infernalexp.init.IESoundEvents;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
@@ -35,6 +32,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import org.infernalstudios.infernalexp.config.IEConfig;
+import org.infernalstudios.infernalexp.init.IESoundEvents;
 
 public class GlowsilkMothEntity extends AmbientEntity {
     private BlockPos spawnPosition;
@@ -94,7 +93,7 @@ public class GlowsilkMothEntity extends AmbientEntity {
             this.spawnPosition = new BlockPos(this.getPosX() + (double) this.rand.nextInt(7) - (double) this.rand.nextInt(7), this.getPosY() + (double) this.rand.nextInt(6) - (double) this.rand.nextInt(2), this.getPosZ() + (double) this.rand.nextInt(7) - (double) this.rand.nextInt(7));
         }
 
-        double speed = InfernalExpansionConfig.MobInteractions.GLOWSILK_SPEED.getDouble() * 0.1;
+        double speed = IEConfig.getDouble(IEConfig.MobInteractions.GLOWSILK_SPEED) * 0.1;
 
         double d2 = (double) this.spawnPosition.getX() + 0.5D - this.getPosX();
         double d0 = (double) this.spawnPosition.getY() + 0.1D - this.getPosY();

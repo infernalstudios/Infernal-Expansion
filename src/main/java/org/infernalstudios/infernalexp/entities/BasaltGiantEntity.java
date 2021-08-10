@@ -16,8 +16,6 @@
 
 package org.infernalstudios.infernalexp.entities;
 
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-import org.infernalstudios.infernalexp.init.IESoundEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
@@ -60,6 +58,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
+import org.infernalstudios.infernalexp.config.IEConfig;
+import org.infernalstudios.infernalexp.init.IESoundEvents;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
@@ -231,10 +231,10 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
 //        this.goalSelector.addGoal(5, new TemptGoal(this, 0.6D, TEMPTATION_ITEMS, false));
 
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        if (InfernalExpansionConfig.MobInteractions.SKELETON_ATTACK_GIANT.getBoolean()) {
+        if (IEConfig.getBoolean(IEConfig.MobInteractions.SKELETON_ATTACK_GIANT)) {
             this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, SkeletonEntity.class, true, false));
         }
-        if (InfernalExpansionConfig.MobInteractions.GIANT_ATTACK_MAGMA_CUBE.getBoolean()) {
+        if (IEConfig.getBoolean(IEConfig.MobInteractions.GIANT_ATTACK_MAGMA_CUBE)) {
             this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, MagmaCubeEntity.class, true, false));
         }
     }

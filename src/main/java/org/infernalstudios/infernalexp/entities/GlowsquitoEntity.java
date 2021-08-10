@@ -16,13 +16,6 @@
 
 package org.infernalstudios.infernalexp.entities;
 
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-import org.infernalstudios.infernalexp.entities.ai.TargetWithEffectGoal;
-import org.infernalstudios.infernalexp.init.IEBlocks;
-import org.infernalstudios.infernalexp.init.IEEffects;
-import org.infernalstudios.infernalexp.init.IEEntityTypes;
-import org.infernalstudios.infernalexp.init.IESoundEvents;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.CreatureAttribute;
@@ -68,9 +61,14 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.infernalstudios.infernalexp.config.IEConfig;
+import org.infernalstudios.infernalexp.entities.ai.TargetWithEffectGoal;
+import org.infernalstudios.infernalexp.init.IEBlocks;
+import org.infernalstudios.infernalexp.init.IEEffects;
+import org.infernalstudios.infernalexp.init.IEEntityTypes;
+import org.infernalstudios.infernalexp.init.IESoundEvents;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -348,10 +346,10 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
         // this.goalSelector.addGoal(7, new GlowsquitoEntity.LookAroundGoal(this));
         // this.goalSelector.addGoal(5, this.eatGrassGoal);
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        if (InfernalExpansionConfig.MobInteractions.GLOWSQUITO_ATTACK_LUMINOUS.getBoolean()) {
+        if (IEConfig.getBoolean(IEConfig.MobInteractions.GLOWSQUITO_ATTACK_LUMINOUS)) {
             this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, LivingEntity.class, true, false, IEEffects.LUMINOUS.get(), GlowsquitoEntity.class));
         }
-        if (InfernalExpansionConfig.MobInteractions.GLOWSQUITO_ATTACK_DWARF.getBoolean()) {
+        if (IEConfig.getBoolean(IEConfig.MobInteractions.GLOWSQUITO_ATTACK_DWARF)) {
             this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, BlackstoneDwarfEntity.class, true));
         }
     }
