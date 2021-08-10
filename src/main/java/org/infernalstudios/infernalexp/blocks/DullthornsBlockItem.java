@@ -49,9 +49,9 @@ public class DullthornsBlockItem extends BlockItemBase {
         Direction placedirection = context.isInside() ? context.getFace() : context.getFace().getOpposite();
         BlockPos placepos = context.getPos().offset(placedirection);
         int worldHeight = world.getHeight();
-        BlockState dullthorns = this.getBlock().getDefaultState();
+        Block dullthorns = this.getBlock();
 
-        while (world.getBlockState(placepos) == dullthorns) {
+        while (world.getBlockState(placepos).getBlock() == dullthorns) {
             placepos = placepos.up();
 
             // Prevent placing outside world
