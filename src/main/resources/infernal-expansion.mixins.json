@@ -8,11 +8,13 @@
     "defaultRequire": 1
   },
   "mixins": [
+    "common.ChunkGeneratorAccessor",
     "common.IngredientAccessor",
     "common.MixinAbstractArrowEntity",
     "common.MixinAbstractFireBlock",
     "common.MixinArrowEntity",
     "common.MixinBubbleColumnBlock",
+    "common.MixinChunkGenerator",
     "common.MixinCrashReport",
     "common.MixinDimensionGeneratorSettings",
     "common.MixinDimensionType",
@@ -22,6 +24,7 @@
     "common.MixinShearsItem",
     "common.MixinShovelItem",
     "common.MixinStriderEntity",
+    "common.NoiseChunkGeneratorAccessor",
     "common.WorldCarverAccessor"
   ],
   "client": [
