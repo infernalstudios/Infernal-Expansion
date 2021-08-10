@@ -131,42 +131,6 @@ public final class InfernalExpansionConfig {
         }
     }
 
-    public enum WorldGeneration {
-        BIOMES_LIST_IS_WHITELIST("biomesListIsWhitelist", false),
-        BIOMES_LIST("biomesList", ""),
-        REPLACE_NETHER_BIOME_PROVIDER("replaceNetherBiomeProvider", false, true);
-
-        private final String translationName;
-        private final boolean isDangerous;
-        private Object value;
-
-        WorldGeneration(String translationName, Object value) {
-            this(translationName, value, false);
-        }
-
-        WorldGeneration(String translationName, Object value, boolean isDangerous) {
-            this.translationName = translationName;
-            this.value = value;
-            this.isDangerous = isDangerous;
-        }
-
-        public String getTranslationName() {
-            return translationName;
-        }
-
-        public void set(Object value) {
-            this.value = value;
-        }
-
-        public Object get() {
-            return value;
-        }
-
-        public boolean isDangerous() {
-            return isDangerous;
-        }
-    }
-
     public enum Miscellaneous {
         SHROOMLIGHT_GROWABLE("isShroomlightGrowable", false, 0, 0, 0),
         SHROOMLIGHT_GROW_CHANCE("shroomlightGrowChance", true, 0, 1, 0.01f),

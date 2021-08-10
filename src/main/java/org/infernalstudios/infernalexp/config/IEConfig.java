@@ -16,6 +16,11 @@
 
 package org.infernalstudios.infernalexp.config;
 
+import org.infernalstudios.infernalexp.InfernalExpansion;
+import org.infernalstudios.infernalexp.config.values.CachedConfigValue;
+
+import java.util.EnumMap;
+
 public class IEConfig {
 
     // This class will replace InfernalExpansionConfig because it has a shorter name. The aim of this class is to make it easier to access config options without having to remember if they're from the client or common configs
@@ -56,20 +61,46 @@ public class IEConfig {
         GLOWSILK_SPEED
     }
 
-    public static boolean getBoolean(Enum<?> configOption) {
+    public enum WorldGeneration {
+        BIOMES_LIST_IS_WHITELIST,
+        BIOMES_LIST,
+        REPLACE_NETHER_BIOME_PROVIDER // Dangerous
+    }
+
+    public static final EnumMap<MobInteractions, CachedConfigValue<?>> mobInteractions = new EnumMap<>(MobInteractions.class);
+    public static final EnumMap<WorldGeneration, CachedConfigValue<?>> worldGeneration = new EnumMap<>(WorldGeneration.class);
+
+    public static Boolean getBoolean(Enum<?> configOption) {
         if (configOption instanceof MobInteractions) {
-            return (Boolean) CommonConfig.mobInteractions.get(configOption).get();
+            return (Boolean) mobInteractions.get(configOption).get();
+        } else if (configOption instanceof WorldGeneration) {
+            return (Boolean) worldGeneration.get(configOption).get();
         }
 
+        InfernalExpansion.LOGGER.error("Couldn't find Enum constant {}", configOption);
         return false;
     }
 
-    public static double getDouble(Enum<?> configOption) {
+    public static Double getDouble(Enum<?> configOption) {
         if (configOption instanceof MobInteractions) {
-            return (Double) CommonConfig.mobInteractions.get(configOption).get();
+            return (Double) mobInteractions.get(configOption).get();
+        } else if (configOption instanceof WorldGeneration) {
+            return (Double) worldGeneration.get(configOption).get();
         }
 
+        InfernalExpansion.LOGGER.error("Couldn't find Enum constant {}", configOption);
         return 0.0D;
+    }
+
+    public static String getString(Enum<?> configOption) {
+        if (configOption instanceof MobInteractions) {
+            return (String) mobInteractions.get(configOption).get();
+        } else if (configOption instanceof WorldGeneration) {
+            return (String) worldGeneration.get(configOption).get();
+        }
+
+        InfernalExpansion.LOGGER.error("Couldn't find Enum constant {}", configOption);
+        return "";
     }
 
 }

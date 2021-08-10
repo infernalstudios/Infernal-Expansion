@@ -16,11 +16,11 @@
 
 package org.infernalstudios.infernalexp.world.dimension;
 
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.INoiseRandom;
+import org.infernalstudios.infernalexp.config.IEConfig;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,8 +30,8 @@ import java.util.Map;
 
 public class ModNetherBiomeCollector {
     public static List<RegistryKey<Biome>> netherBiomeList = new ArrayList<>();
-    public static List<String> biomeList = Arrays.asList(((String) InfernalExpansionConfig.WorldGeneration.BIOMES_LIST.get()).replace(" ", "").split(","));
-    public static boolean isWhitelist = (Boolean) InfernalExpansionConfig.WorldGeneration.BIOMES_LIST_IS_WHITELIST.get();
+    public static List<String> biomeList = Arrays.asList((IEConfig.getString(IEConfig.WorldGeneration.BIOMES_LIST)).replace(" ", "").split(","));
+    public static boolean isWhitelist = IEConfig.getBoolean(IEConfig.WorldGeneration.BIOMES_LIST_IS_WHITELIST);
 
     public static List<RegistryKey<Biome>> netherBiomeCollection(Registry<Biome> biomeRegistry) {
 

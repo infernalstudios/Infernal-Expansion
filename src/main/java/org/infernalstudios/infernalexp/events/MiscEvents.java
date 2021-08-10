@@ -19,6 +19,7 @@ package org.infernalstudios.infernalexp.events;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.blocks.DullthornsBlock;
 import org.infernalstudios.infernalexp.blocks.HorizontalBushBlock;
+import org.infernalstudios.infernalexp.config.CommonConfig;
 import org.infernalstudios.infernalexp.config.ConfigHelper;
 import org.infernalstudios.infernalexp.config.ConfigHolder;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
@@ -95,7 +96,7 @@ public class MiscEvents {
         if (config.getSpec() == ConfigHolder.CLIENT_SPEC) {
             ConfigHelper.bakeClient(config);
         } else if (config.getSpec() == ConfigHolder.COMMON_SPEC) {
-            ConfigHelper.bakeCommon(config);
+            CommonConfig.bake();
         }
     }
 

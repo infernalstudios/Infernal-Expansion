@@ -16,14 +16,17 @@
 
 package org.infernalstudios.infernalexp.config.gui.screens;
 
-import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-import org.infernalstudios.infernalexp.config.gui.widgets.TextFieldOption;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.settings.BooleanOption;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.infernalstudios.infernalexp.InfernalExpansion;
+import org.infernalstudios.infernalexp.config.IEConfig;
+import org.infernalstudios.infernalexp.config.gui.widgets.TextFieldOption;
+import org.infernalstudios.infernalexp.config.values.CachedBooleanValue;
+import org.infernalstudios.infernalexp.config.values.CachedConfigValue;
+import org.infernalstudios.infernalexp.config.values.CachedStringValue;
 
 @OnlyIn(Dist.CLIENT)
 public class WorldGenerationScreen extends IESettingsScreen {
@@ -34,20 +37,25 @@ public class WorldGenerationScreen extends IESettingsScreen {
 
     @Override
     public void addSettings() {
-        for (InfernalExpansionConfig.WorldGeneration worldGeneration : InfernalExpansionConfig.WorldGeneration.values()) {
+        for (CachedConfigValue<?> configValue : IEConfig.worldGeneration.values()) {
             // Do not allow dangerous configs to appear in config
-            if (worldGeneration.isDangerous()) {
+            if (configValue.isDangerous()) {
                 continue;
             }
-            if (worldGeneration.get() instanceof Boolean) {
-                optionsRowList.addOption(new BooleanOption(InfernalExpansion.MOD_ID + ".config.option." + worldGeneration.getTranslationName(),
-                    new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + worldGeneration.getTranslationName()),
-                    settings -> (Boolean) worldGeneration.get(), (settings, value) -> worldGeneration.set(value)));
 
-            } else if (worldGeneration.get() instanceof String) {
-                optionsRowList.addOption(new TextFieldOption(InfernalExpansion.MOD_ID + ".config.option." + worldGeneration.getTranslationName(),
-                    new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + worldGeneration.getTranslationName()),
-                    settings -> (String) worldGeneration.get(), (settings, value) -> worldGeneration.set(value)));
+            if (configValue instanceof CachedBooleanValue) {
+                CachedBooleanValue castedConfigValue = (CachedBooleanValue) configValue;
+
+                optionsRowList.addOption(new BooleanOption(InfernalExpansion.MOD_ID + ".config.option." + castedConfigValue.getTranslationName(),
+                    new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + castedConfigValue.getTranslationName()),
+                    settings -> castedConfigValue.get(), (settings, value) -> castedConfigValue.set(value)));
+
+            } else if (configValue instanceof CachedStringValue) {
+                CachedStringValue castedConfigValue = (CachedStringValue) configValue;
+
+                optionsRowList.addOption(new TextFieldOption(InfernalExpansion.MOD_ID + ".config.option." + castedConfigValue.getTranslationName(),
+                    new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + castedConfigValue.getTranslationName()),
+                    settings -> castedConfigValue.get(), (settings, value) -> castedConfigValue.set(value)));
             }
         }
     }

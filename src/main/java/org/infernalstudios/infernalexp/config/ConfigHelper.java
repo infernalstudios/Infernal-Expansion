@@ -20,8 +20,6 @@ import net.minecraftforge.fml.config.ModConfig;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig.ClientConfig;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig.Miscellaneous;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig.MobSpawning;
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig.WorldGeneration;
-import org.infernalstudios.infernalexp.util.NoiseChunkGeneratorUtil;
 
 import javax.annotation.Nullable;
 
@@ -45,21 +43,6 @@ public final class ConfigHelper {
         MobSpawning.GLOWSILK_MOTH.setSpawnableBiomes(ConfigHolder.COMMON.glowsilkMothBiomes.get());
         MobSpawning.BLINDSIGHT.setSpawnableBiomes(ConfigHolder.COMMON.blindsightBiomes.get());
         MobSpawning.BLACKSTONE_DWARF.setSpawnableBiomes(ConfigHolder.COMMON.blackstoneDwarfBiomes.get());
-
-        // World Generation
-        WorldGeneration.BIOMES_LIST_IS_WHITELIST.set(ConfigHolder.COMMON.biomesListIsWhitelist.get());
-        WorldGeneration.BIOMES_LIST.set(ConfigHolder.COMMON.biomesList.get());
-
-        // We need to change the behaviour ourselves, so let's do it here.
-        final Boolean prevReplaceNetherBiomeProvider = (Boolean) WorldGeneration.REPLACE_NETHER_BIOME_PROVIDER.get();
-        WorldGeneration.REPLACE_NETHER_BIOME_PROVIDER.set(ConfigHolder.COMMON.replaceNetherBiomeProvider.get());
-        if (prevReplaceNetherBiomeProvider != (Boolean) WorldGeneration.REPLACE_NETHER_BIOME_PROVIDER.get()) {
-            if ((boolean) WorldGeneration.REPLACE_NETHER_BIOME_PROVIDER.get()) {
-                NoiseChunkGeneratorUtil.useCustomNetherBiomeProvider();
-            } else {
-                NoiseChunkGeneratorUtil.useDefaultNetherBiomeProvider();
-            }
-        }
 
         //Bonemeal Behaviour
         Miscellaneous.SHROOMLIGHT_GROWABLE.set(ConfigHolder.COMMON.isShroomlightGrowable.get());
@@ -92,11 +75,6 @@ public final class ConfigHelper {
         ConfigHolder.COMMON.glowsilkMothBiomes.set(InfernalExpansionConfig.MobSpawning.GLOWSILK_MOTH.getSpawnableBiomes());
         ConfigHolder.COMMON.blindsightBiomes.set(InfernalExpansionConfig.MobSpawning.BLINDSIGHT.getSpawnableBiomes());
         ConfigHolder.COMMON.blackstoneDwarfBiomes.set(MobSpawning.BLACKSTONE_DWARF.getSpawnableBiomes());
-
-        // World Generation
-        ConfigHolder.COMMON.biomesListIsWhitelist.set((Boolean) WorldGeneration.BIOMES_LIST_IS_WHITELIST.get());
-        ConfigHolder.COMMON.biomesList.set((String) WorldGeneration.BIOMES_LIST.get());
-        ConfigHolder.COMMON.replaceNetherBiomeProvider.set((Boolean) WorldGeneration.REPLACE_NETHER_BIOME_PROVIDER.get());
 
         ConfigHolder.COMMON.isShroomlightGrowable.set(Miscellaneous.SHROOMLIGHT_GROWABLE.getBool());
         ConfigHolder.COMMON.shroomlightGrowChance.set(Miscellaneous.SHROOMLIGHT_GROW_CHANCE.getDouble());

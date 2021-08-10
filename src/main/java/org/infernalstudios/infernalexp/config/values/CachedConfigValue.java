@@ -21,6 +21,8 @@ import net.minecraftforge.common.ForgeConfigSpec;
 public class CachedConfigValue<T> {
 
     private final String translationName;
+    private boolean dangerous = false;
+
     protected final ForgeConfigSpec.ConfigValue<T> internal;
     protected T cachedValue;
     protected boolean synced;
@@ -48,5 +50,22 @@ public class CachedConfigValue<T> {
         cachedValue = value;
 
         synced = true;
+    }
+
+    public void clearCache() {
+        synced = false;
+    }
+
+    /**
+     * Sets whether the config option is dangerous. Default is false. Dangerous config options will not show up in config GUI
+     */
+    public CachedConfigValue<T> setDangerous(boolean dangerous) {
+        this.dangerous = dangerous;
+
+        return this;
+    }
+
+    public boolean isDangerous() {
+        return dangerous;
     }
 }

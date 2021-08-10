@@ -19,11 +19,16 @@ package org.infernalstudios.infernalexp.config;
 import net.minecraftforge.common.ForgeConfigSpec;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.config.IEConfig.MobInteractions;
+import org.infernalstudios.infernalexp.config.IEConfig.WorldGeneration;
 import org.infernalstudios.infernalexp.config.values.CachedBooleanValue;
 import org.infernalstudios.infernalexp.config.values.CachedConfigValue;
 import org.infernalstudios.infernalexp.config.values.CachedDoubleValue;
+import org.infernalstudios.infernalexp.config.values.CachedFunctionalBooleanValue;
+import org.infernalstudios.infernalexp.config.values.CachedStringValue;
+import org.infernalstudios.infernalexp.util.NoiseChunkGeneratorUtil;
 
-import java.util.EnumMap;
+import static org.infernalstudios.infernalexp.config.IEConfig.mobInteractions;
+import static org.infernalstudios.infernalexp.config.IEConfig.worldGeneration;
 
 public class CommonConfig {
 
@@ -37,11 +42,6 @@ public class CommonConfig {
     final ForgeConfigSpec.ConfigValue<String> glowsilkMothBiomes;
     final ForgeConfigSpec.ConfigValue<String> blindsightBiomes;
     final ForgeConfigSpec.ConfigValue<String> blackstoneDwarfBiomes;
-
-    // World Generation
-    final ForgeConfigSpec.BooleanValue biomesListIsWhitelist;
-    final ForgeConfigSpec.ConfigValue<String> biomesList;
-    final ForgeConfigSpec.BooleanValue replaceNetherBiomeProvider; // Dangerous
 
     //Bonemeal Behaviour
     final ForgeConfigSpec.DoubleValue shroomlightGrowChance;
@@ -58,76 +58,106 @@ public class CommonConfig {
     final ForgeConfigSpec.DoubleValue luminousFungusActivateDistance;
     final ForgeConfigSpec.BooleanValue luminousFungusGivesEffect;
 
-    public static final EnumMap<MobInteractions, CachedConfigValue<?>> mobInteractions = new EnumMap<>(MobInteractions.class);
-
     CommonConfig(final ForgeConfigSpec.Builder builder) {
         //Mob Interactions
         builder.push("Mob Interactions");
 
         mobInteractions.put(MobInteractions.PIGLIN_FEAR_WARPBEETLE, new CachedBooleanValue("piglinFearWarpbeetle",
             "Determines if Piglins will run away from Warpbeetles", true, builder));
+
         mobInteractions.put(MobInteractions.PIGLIN_FEAR_EMBODY, new CachedBooleanValue("piglinFearEmbody",
             "Determines if Piglins will run away from Embodies", true, builder));
+
         mobInteractions.put(MobInteractions.PIGLIN_FEAR_DWARF, new CachedBooleanValue("piglinFearDwarf",
             "Determines if Piglins will run away from Blackstone Dwarves", true, builder));
+
         mobInteractions.put(MobInteractions.HOGLIN_FEAR_EMBODY, new CachedBooleanValue("hoglinFearWarpbeetle",
             "Determines if Hoglins will run away from Embodies", true, builder));
+
         mobInteractions.put(MobInteractions.HOGLIN_FEAR_WARPBEETLE, new CachedBooleanValue("hoglinFearEmbody",
             "Determines if Hoglins will run away from Warpbeetles", true, builder));
+
         mobInteractions.put(MobInteractions.SPIDER_ATTACK_WARPBEETLE, new CachedBooleanValue("spiderAttackWarpbeetle",
             "Determines if Spiders and Warpbeetles will fight", true, builder));
+
         mobInteractions.put(MobInteractions.SKELETON_ATTACK_PIGLIN, new CachedBooleanValue("skeletonAttackPiglin",
             "Determines if Skeletons will attack Piglins", true, builder));
+
         mobInteractions.put(MobInteractions.SKELETON_ATTACK_BRUTE, new CachedBooleanValue("skeletonAttackBrute",
             "Determines if Skeletons will attack Piglin Brutes", true, builder));
+
         mobInteractions.put(MobInteractions.SKELETON_ATTACK_EMBODY, new CachedBooleanValue("skeletonAttackEmbody",
             "Determines if Skeletons and Embodies will fight", true, builder));
+
         mobInteractions.put(MobInteractions.SKELETON_ATTACK_GIANT, new CachedBooleanValue("skeletonAttackGiant",
             "Determines if Skeletons and Basalt Giants will fight", true, builder));
+
         mobInteractions.put(MobInteractions.PIGLIN_ATTACK_SKELETON, new CachedBooleanValue("piglinAttackSkeleton",
             "Determines if Piglins will attack Skeletons", true, builder));
+
         mobInteractions.put(MobInteractions.PIGLIN_ATTACK_VOLINE, new CachedBooleanValue("piglinAttackVoline",
             "Determines if Piglins will attack Voline\"", true, builder));
+
         mobInteractions.put(MobInteractions.BRUTE_ATTACK_SKELETON, new CachedBooleanValue("bruteAttackSkeleton",
             "Determines if Piglin Brutes will attack Skeletons", true, builder));
+
         mobInteractions.put(MobInteractions.BRUTE_ATTACK_VOLINE, new CachedBooleanValue("bruteAttackVoline",
             "Determines if Piglin Brutes will attack Voline", true, builder));
+
         mobInteractions.put(MobInteractions.GHAST_ATTACK_EMBODY, new CachedBooleanValue("ghastAttackEmbody",
             "Determines if Ghasts will shoot at Embodies", false, builder));
+
         mobInteractions.put(MobInteractions.GHAST_ATTACK_VOLINE, new CachedBooleanValue("ghastAttackVoline",
             "Determines if Ghasts will shoot at Voline", false, builder));
+
         mobInteractions.put(MobInteractions.GHAST_ATTACK_SKELETON, new CachedBooleanValue("ghastAttackSkeleton",
             "Determines if Ghasts will shoot at Skeletons", false, builder));
+
         mobInteractions.put(MobInteractions.GHAST_ATTACK_GLOWSQUITO, new CachedBooleanValue("ghastAttackGlowsquito",
             "Determines if Ghasts will shoot at Glowsquitos\"", false, builder));
+
         mobInteractions.put(MobInteractions.GLOWSQUITO_ATTACK_DWARF, new CachedBooleanValue("glowsquitoAttackDwarf",
             "Determines if Glowsquitos and Blackstone Dwarves will fight", true, builder));
+
         mobInteractions.put(MobInteractions.GLOWSQUITO_ATTACK_LUMINOUS, new CachedBooleanValue("glowsquitoAttackLuminous",
             "Determines if Glowsquitos will attack Entities with the Luminance Effect", true, builder));
+
         mobInteractions.put(MobInteractions.DWARF_ATTACK_PIGLIN, new CachedBooleanValue("dwarfAttackPiglin",
             "Determines if Blackstone Dwarves will attack Piglins", true, builder));
+
         mobInteractions.put(MobInteractions.DWARF_ATTACK_ZOMBIE_PIGLIN, new CachedBooleanValue("dwarfAttackZombiePiglin",
             "Determines if Blackstone Dwarves will attack Zombified Piglins", true, builder));
+
         mobInteractions.put(MobInteractions.DWARF_ATTACK_PLAYER, new CachedBooleanValue("dwarfAttackPlayer",
             "Determines if Blackstone Dwarves will attack Players", true, builder));
+
         mobInteractions.put(MobInteractions.BLINDSIGHT_ATTACK_GLOWSQUITO, new CachedBooleanValue("blindsightAttackGlowsquito",
             "Determines if Blindsights will attack Glowsquitos", true, builder));
+
         mobInteractions.put(MobInteractions.BLINDSIGHT_ATTACK_PLAYER, new CachedBooleanValue("blindsightAttackPlayer",
             "Determines if Blindsights will attack Players", true, builder));
+
         mobInteractions.put(MobInteractions.GIANT_ATTACK_MAGMA_CUBE, new CachedBooleanValue("giantAttackMagmaCube",
             "Determines if Basalt Giants will attack Magma Cubes", true, builder));
+
         mobInteractions.put(MobInteractions.EMBODY_ATTACK_PIGLIN, new CachedBooleanValue("embodyAttackPiglin",
             "Determines if Embodies will attack Piglins", true, builder));
+
         mobInteractions.put(MobInteractions.EMBODY_ATTACK_PLAYER, new CachedBooleanValue("embodyAttackPlayer",
             "Determines if Embodies will attack Players", true, builder));
+
         mobInteractions.put(MobInteractions.VOLINE_ATTACK_FIRE_RESISTANCE, new CachedBooleanValue("volineAttackFireResistance",
             "Determines if Voline will attack Entities with Fire Resistance", true, builder));
+
         mobInteractions.put(MobInteractions.VOLINE_ATTACK_PLAYER, new CachedBooleanValue("volineAttackPlayer",
             "Determines if Voline will attack Players", true, builder));
+
         mobInteractions.put(MobInteractions.VOLINE_ATTACK_MAGMA_CUBE, new CachedBooleanValue("volineAttackMagmaCube",
             "Determines if Voline will attack small Magma Cubes", true, builder));
+
         mobInteractions.put(MobInteractions.USE_HOGCHOPS, new CachedBooleanValue("useHogchops",
             "Determines if Hogchops will replace Porkchops in Hoglin Drops", true, builder));
+
         mobInteractions.put(MobInteractions.GLOWSILK_SPEED, new CachedDoubleValue("glowsilkSpeed",
             "Determines the speed at which Glowsilk Moths fly", 1.3D, 0.0D, 10.0D, 0.2F, builder));
 
@@ -191,24 +221,16 @@ public class CommonConfig {
         // World Generation
         builder.push("World Generation");
 
-        biomesListIsWhitelist = builder
-            .comment("Should the biome list below act as a whitelist (True/On), or a blacklist (False/Off).")
-            .comment("CHANGING THIS REQUIRES A GAME RESTART")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.biomesListIsWhitelist")
-            .define("biomesListIsWhitelist", false);
+        worldGeneration.put(WorldGeneration.BIOMES_LIST_IS_WHITELIST, new CachedBooleanValue("biomesListIsWhitelist",
+            "Should the biome list below act as a whitelist (True/On), or a blacklist (False/Off).\nCHANGING THIS REQUIRES A GAME RESTART", false, builder));
 
-        biomesList = builder
-            .comment("List of biomes to either whitelist or blacklist from nether generation. Split biomes with a comma. To include all nether biomes from all loaded mods leave this blank.")
-            .comment("CHANGING THIS REQUIRES A GAME RESTART")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.biomesList")
-            .define("biomesList", "");
+        worldGeneration.put(WorldGeneration.BIOMES_LIST, new CachedStringValue("biomesList",
+            "List of biomes to either whitelist or blacklist from nether generation. Split biomes with a comma. To include all nether biomes from all loaded mods leave this blank.\nCHANGING THIS REQUIRES A GAME RESTART", "", builder));
 
         builder.push("Dangerous Configs");
 
-        replaceNetherBiomeProvider = builder
-            .comment("Replaces existing worlds' vanilla nether biome provider with ours.\nTHIS CAN BREAK YOUR WORLD, DO NOT TURN ON IF YOU DON'T KNOW WHAT YOU'RE DOING")
-            .translation(InfernalExpansion.MOD_ID + ".config.replaceNetherBiomeProvider")
-            .define("replaceNetherBiomeProvider", false);
+        worldGeneration.put(WorldGeneration.REPLACE_NETHER_BIOME_PROVIDER, new CachedFunctionalBooleanValue("replaceNetherBiomeProvider",
+            "Replaces existing worlds' vanilla nether biome provider with IE's.\nTHIS CAN BREAK YOUR WORLD, DO NOT TURN ON IF YOU DON'T KNOW WHAT YOU'RE DOING", false, NoiseChunkGeneratorUtil::useCustomNetherBiomeProvider, NoiseChunkGeneratorUtil::useDefaultNetherBiomeProvider, builder).setDangerous(true));
 
         builder.pop();
 
@@ -266,5 +288,17 @@ public class CommonConfig {
             .define("useThrowableBricks", true);
 
         builder.pop();
+    }
+
+    public static void bake() {
+        clearCache();
+
+        mobInteractions.values().forEach(CachedConfigValue::get);
+        worldGeneration.values().forEach(CachedConfigValue::get);
+    }
+
+    private static void clearCache() {
+        mobInteractions.values().forEach(CachedConfigValue::clearCache);
+        worldGeneration.values().forEach(CachedConfigValue::clearCache);
     }
 }

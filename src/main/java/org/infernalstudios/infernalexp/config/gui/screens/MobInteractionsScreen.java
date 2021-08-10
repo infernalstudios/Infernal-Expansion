@@ -25,7 +25,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.config.CommonConfig;
+import org.infernalstudios.infernalexp.config.IEConfig;
 import org.infernalstudios.infernalexp.config.values.CachedBooleanValue;
 import org.infernalstudios.infernalexp.config.values.CachedConfigValue;
 import org.infernalstudios.infernalexp.config.values.CachedDoubleValue;
@@ -39,26 +39,30 @@ public class MobInteractionsScreen extends IESettingsScreen {
 
     @Override
     public void addSettings() {
-        for (CachedConfigValue<?> mobInteraction : CommonConfig.mobInteractions.values()) {
-            if (mobInteraction instanceof CachedDoubleValue) {
-                CachedDoubleValue mobInteractionDouble = (CachedDoubleValue) mobInteraction;
+        for (CachedConfigValue<?> configValue : IEConfig.mobInteractions.values()) {
+            if (configValue.isDangerous()) {
+                continue;
+            }
 
-                optionsRowList.addOption(new SliderPercentageOption(InfernalExpansion.MOD_ID + ".config.option." + mobInteractionDouble.getTranslationName(),
-                    mobInteractionDouble.getMinValue(), mobInteractionDouble.getMaxValue(), mobInteractionDouble.getStepValue(),
-                    settings -> mobInteractionDouble.get(), (settings, value) -> mobInteractionDouble.set(value),
+            if (configValue instanceof CachedDoubleValue) {
+                CachedDoubleValue castedConfigValue = (CachedDoubleValue) configValue;
+
+                optionsRowList.addOption(new SliderPercentageOption(InfernalExpansion.MOD_ID + ".config.option." + castedConfigValue.getTranslationName(),
+                    castedConfigValue.getMinValue(), castedConfigValue.getMaxValue(), castedConfigValue.getStepValue(),
+                    settings -> castedConfigValue.get(), (settings, value) -> castedConfigValue.set(value),
                     (settings, option) -> {
                         option.setOptionValues(Minecraft.getInstance().fontRenderer.trimStringToWidth(
-                            new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + mobInteractionDouble.getTranslationName()), 200));
+                            new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + castedConfigValue.getTranslationName()), 200));
 
                         return new TranslationTextComponent("options.generic_value", option.getBaseMessageTranslation(),
                             new StringTextComponent(Double.toString((double) Math.round(option.get(settings) * 100) / 100)));
                     }));
-            } else if (mobInteraction instanceof CachedBooleanValue) {
-                CachedBooleanValue mobInteractionBoolean = (CachedBooleanValue) mobInteraction;
+            } else if (configValue instanceof CachedBooleanValue) {
+                CachedBooleanValue castedConfigValue = (CachedBooleanValue) configValue;
 
-                optionsRowList.addOption(new BooleanOption(InfernalExpansion.MOD_ID + ".config.option." + mobInteractionBoolean.getTranslationName(),
-                    new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + mobInteractionBoolean.getTranslationName()),
-                    settings -> mobInteractionBoolean.get(), (settings, value) -> mobInteractionBoolean.set(value)));
+                optionsRowList.addOption(new BooleanOption(InfernalExpansion.MOD_ID + ".config.option." + castedConfigValue.getTranslationName(),
+                    new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + castedConfigValue.getTranslationName()),
+                    settings -> castedConfigValue.get(), (settings, value) -> castedConfigValue.set(value)));
             }
         }
     }
