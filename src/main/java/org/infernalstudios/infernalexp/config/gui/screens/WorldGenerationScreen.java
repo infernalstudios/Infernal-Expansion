@@ -35,6 +35,10 @@ public class WorldGenerationScreen extends IESettingsScreen {
     @Override
     public void addSettings() {
         for (InfernalExpansionConfig.WorldGeneration worldGeneration : InfernalExpansionConfig.WorldGeneration.values()) {
+            // Do not allow dangerous configs to appear in config
+            if (worldGeneration.isDangerous()) {
+                continue;
+            }
             if (worldGeneration.get() instanceof Boolean) {
                 optionsRowList.addOption(new BooleanOption(InfernalExpansion.MOD_ID + ".config.option." + worldGeneration.getTranslationName(),
                     new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + worldGeneration.getTranslationName()),
