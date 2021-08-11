@@ -3,7 +3,17 @@
 </h1>
 
 <div align="center">
-    <img alt="Discord" src="https://img.shields.io/discord/681976442220839008?color=yellow&label=Discord&style=for-the-badge"> <img alt="CurseForge Downloads" src="https://img.shields.io/badge/dynamic/json?color=orange&style=for-the-badge&label=CurseForge&query=%24.downloads.total&suffix=%20Downloads&url=https%3A%2F%2Fapi.cfwidget.com%2F395078"> <img alt="Modrinth Downloads" src="https://img.shields.io/badge/dynamic/json?color=red&style=for-the-badge&label=Modrinth&query=%24.downloads&suffix=%20Downloads&url=https%3A%2F%2Fapi.modrinth.com%2Fapi%2Fv1%2Fmod%2FZrpxHZN4">
+  <a href="https://infernalstudios.org/discord">
+    <img alt="Discord" src="https://img.shields.io/discord/681976442220839008?color=yellow&label=Discord&style=for-the-badge">
+  </a>
+
+  <a href="https://infernalstudios.org/infernalexpansion/curseforge">
+    <img alt="CurseForge Downloads" src="https://img.shields.io/badge/dynamic/json?color=orange&style=for-the-badge&label=CurseForge&query=%24.downloads.total&suffix=%20Downloads&url=https%3A%2F%2Fapi.cfwidget.com%2F395078">
+  </a>
+  
+  <a href="https://infernalstudios.org/infernalexpansion/modrinth">
+    <img alt="Modrinth Downloads" src="https://img.shields.io/badge/dynamic/json?color=red&style=for-the-badge&label=Modrinth&query=%24.downloads&suffix=%20Downloads&url=https%3A%2F%2Fapi.modrinth.com%2Fapi%2Fv1%2Fmod%2FZrpxHZN4">
+  </a>
 </div>
 <br>
 <br>
