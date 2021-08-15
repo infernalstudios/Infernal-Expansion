@@ -21,6 +21,7 @@ import net.minecraft.world.biome.BiomeAmbience;
 import net.minecraft.world.biome.BiomeGenerationSettings;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
+import net.minecraftforge.common.BiomeDictionary;
 
 public abstract class ModBiome {
 
@@ -69,6 +70,8 @@ public abstract class ModBiome {
      * Method to configure mob spawn settings
      */
     protected abstract void configureSpawns(MobSpawnInfo.Builder spawns);
+
+    public abstract BiomeDictionary.Type[] getBiomeTypes();
 
     /**
      * Builds the biome

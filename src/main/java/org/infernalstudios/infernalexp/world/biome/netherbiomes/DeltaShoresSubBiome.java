@@ -16,6 +16,7 @@
 
 package org.infernalstudios.infernalexp.world.biome.netherbiomes;
 
+import net.minecraftforge.common.BiomeDictionary;
 import org.infernalstudios.infernalexp.init.IEConfiguredFeatures;
 import org.infernalstudios.infernalexp.init.IESurfaceBuilders;
 import org.infernalstudios.infernalexp.world.biome.BiomeHelper;
@@ -122,5 +123,10 @@ public class DeltaShoresSubBiome extends ModBiome {
     protected void configureSpawns(MobSpawnInfo.Builder spawns) {
 //        spawns.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(IEEntityTypes.GLOWSQUITO.get(), 1, 1, 3));
         spawns.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.STRIDER, 60, 1, 2));
+    }
+
+    @Override
+    public BiomeDictionary.Type[] getBiomeTypes() {
+        return new BiomeDictionary.Type[]{BiomeDictionary.Type.NETHER};
     }
 }

@@ -16,6 +16,7 @@
 
 package org.infernalstudios.infernalexp.world.biome.netherbiomes;
 
+import net.minecraftforge.common.BiomeDictionary;
 import org.infernalstudios.infernalexp.init.IECarvers;
 import org.infernalstudios.infernalexp.init.IEConfiguredFeatures;
 import org.infernalstudios.infernalexp.init.IEConfiguredStructures;
@@ -128,5 +129,10 @@ public class GlowstoneCanyonBiome extends ModBiome {
 
         //It doesn't work properly. Glowsquitos don't spawn at all and Blindsights spawn en-masse regardless of if
         // they're set to 1 or 100. Putting spawning for new biomes back in IEEvents for now.
+    }
+
+    @Override
+    public BiomeDictionary.Type[] getBiomeTypes() {
+        return new BiomeDictionary.Type[]{BiomeDictionary.Type.NETHER, BiomeDictionary.Type.HOT, BiomeDictionary.Type.DRY, BiomeDictionary.Type.SANDY};
     }
 }
