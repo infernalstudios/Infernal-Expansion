@@ -1,20 +1,23 @@
 buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
+        maven { url = 'https://repo.spongepowered.org/maven/' }
+
         jcenter()
         mavenCentral()
-        maven { url = 'https://dist.creeper.host/Sponge/maven' }
-        maven { url = 'https://repo.spongepowered.org/maven/' }
     }
+
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
+
 apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
+apply plugin: 'org.spongepowered.mixin'
 
 version = '2.2.0'
 group = 'org.infernalstudios.infernalexp' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -90,11 +93,12 @@ minecraft {
     }
 }
 
-repositories {
-    maven { url = 'https://repo.repsy.io/mvn/gandiber/geckolib' }
+mixin {
+    add sourceSets.main, "infernal-expansion.refmap.json"
+}
 
+repositories {
     maven { url = 'https://repo.spongepowered.org/maven/' }
-    maven { url = 'https://dist.creeper.host/Sponge/maven' }
 
     jcenter()
     mavenCentral()
@@ -162,10 +166,4 @@ publishing {
             url "file:///${project.projectDir}/mcmodsrepo"
         }
     }
-}
-
-apply plugin: 'org.spongepowered.mixin'
-
-mixin {
-    add sourceSets.main, "infernal-expansion.refmap.json"
 }
