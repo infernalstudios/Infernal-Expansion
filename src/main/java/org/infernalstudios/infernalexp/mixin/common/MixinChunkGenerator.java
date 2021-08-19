@@ -17,6 +17,7 @@
 package org.infernalstudios.infernalexp.mixin.common;
 
 import net.minecraft.world.gen.ChunkGenerator;
+import org.infernalstudios.infernalexp.config.InfernalExpansionConfig.WorldGeneration;
 import org.infernalstudios.infernalexp.util.NoiseChunkGeneratorUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,7 +29,9 @@ public class MixinChunkGenerator {
 
     @Inject(at = @At("HEAD"), method = "<clinit>")
     private static void IE_clinit(CallbackInfo ci) {
-        NoiseChunkGeneratorUtil.useCustomNetherBiomeProvider();
+        if ((boolean) WorldGeneration.REPLACE_NETHER_BIOME_PROVIDER.get()) {
+            NoiseChunkGeneratorUtil.useCustomNetherBiomeProvider();
+        }
     }
 
 }
