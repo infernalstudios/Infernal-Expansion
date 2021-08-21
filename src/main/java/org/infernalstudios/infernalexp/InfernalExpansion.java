@@ -105,8 +105,8 @@ public class InfernalExpansion {
         IETileEntityTypes.register(modEventBus);
         IEBiomes.register(modEventBus);
         IELootModifiers.register(modEventBus);
-        IEShroomloinTypes.registerAll();
 
+        IEShroomloinTypes.registerAll();
         IEEntityClassifications.register();
 
         MinecraftForge.EVENT_BUS.register(this);
@@ -132,7 +132,7 @@ public class InfernalExpansion {
         event.enqueueWork(IEStructures::setupStructures);
         event.enqueueWork(IENetworkHandler::register);
         event.enqueueWork(IECapabilities::registerCapabilities);
-        event.enqueueWork(IEBrewingRecipes::registerBrewingRecipes);
+        event.enqueueWork(IEBrewingRecipes::register);
 
         // Create mob spawnrate config files, they get created on game load instead of world load
         // just in case someone only launches the games once then goes and looks at the config files.
