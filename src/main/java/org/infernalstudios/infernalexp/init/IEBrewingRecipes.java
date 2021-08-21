@@ -22,12 +22,10 @@ import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.Potions;
-import net.minecraftforge.common.crafting.IIngredientSerializer;
-import net.minecraftforge.common.crafting.VanillaIngredientSerializer;
 
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.apache.commons.lang3.tuple.Triple;
-import org.infernalstudios.infernalexp.util.PotionBrewingReflection;
+import org.infernalstudios.infernalexp.brewing.BrewingHelper;
 import org.infernalstudios.infernalexp.mixin.common.IngredientAccessor;
 
 import java.util.ArrayList;
@@ -45,7 +43,7 @@ public class IEBrewingRecipes {
         addBrewingRecipe(() -> getIngredient(IEItems.ASCUS_BOMB.get()), IEPotions.INFECTION.get(), IEPotions.LONG_INFECTION.get(), IEPotions.STRONG_INFECTION.get());
 
         for (Triple<Potion, Supplier<Ingredient>, Potion> recipe : brewingRecipes) {
-            PotionBrewingReflection.addBrewingRecipe(recipe.getLeft(), recipe.getMiddle().get(), recipe.getRight());
+            BrewingHelper.registerBrewingRecipe(recipe.getLeft(), recipe.getMiddle().get(), recipe.getRight());
         }
     }
 

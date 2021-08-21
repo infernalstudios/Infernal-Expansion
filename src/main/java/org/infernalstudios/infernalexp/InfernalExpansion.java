@@ -72,7 +72,7 @@ import org.infernalstudios.infernalexp.init.IETileEntityTypes;
 import org.infernalstudios.infernalexp.mixin.common.WorldCarverAccessor;
 import org.infernalstudios.infernalexp.network.IENetworkHandler;
 import org.infernalstudios.infernalexp.util.CompatibilityQuark;
-import org.infernalstudios.infernalexp.util.ModSpawnEggItem;
+import org.infernalstudios.infernalexp.items.IESpawnEggItem;
 import org.infernalstudios.infernalexp.world.dimension.ModNetherBiomeProvider;
 import org.infernalstudios.infernalexp.world.gen.ModEntityPlacement;
 
@@ -178,7 +178,7 @@ public class InfernalExpansion {
         });
 
         IECompostables.registerCompostables();
-        ModSpawnEggItem.initUnaddedEggs();
+        IESpawnEggItem.initUnaddedEggs();
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {

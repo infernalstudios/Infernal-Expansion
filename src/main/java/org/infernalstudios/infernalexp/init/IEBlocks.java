@@ -16,6 +16,7 @@
 
 package org.infernalstudios.infernalexp.init;
 
+import net.minecraftforge.fml.ModList;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.blocks.BasaltIronOreBlock;
 import org.infernalstudios.infernalexp.blocks.BasalticMagmaBlock;
@@ -39,7 +40,6 @@ import org.infernalstudios.infernalexp.blocks.ShroomlightFungusBlock;
 import org.infernalstudios.infernalexp.blocks.SoulSoilPathBlock;
 import org.infernalstudios.infernalexp.blocks.TrappedGlowSandBlock;
 import org.infernalstudios.infernalexp.blocks.VerticalSlabBlock;
-import org.infernalstudios.infernalexp.util.DataUtil;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -314,7 +314,7 @@ public class IEBlocks {
     }
 
     public static <T extends Block> RegistryObject<T> registerBlockWithDefaultItemConditioned(String name, Supplier<? extends T> blockSupplier, String modID) {
-        if (DataUtil.isLoaded(modID)) {
+        if (ModList.get().isLoaded(modID)) {
             RegistryObject<T> block = BLOCKS.register(name, blockSupplier);
             IEItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(InfernalExpansion.TAB)));
             return block;

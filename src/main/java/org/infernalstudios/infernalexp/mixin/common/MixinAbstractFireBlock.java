@@ -16,11 +16,6 @@
 
 package org.infernalstudios.infernalexp.mixin.common;
 
-import org.infernalstudios.infernalexp.access.FireTypeAccess;
-import org.infernalstudios.infernalexp.blocks.GlowFireBlock;
-import org.infernalstudios.infernalexp.init.IEBlocks;
-
-import org.infernalstudios.infernalexp.util.DataUtil;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.AbstractFireBlock;
 import net.minecraft.block.Block;
@@ -31,7 +26,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-
+import net.minecraftforge.fml.ModList;
+import org.infernalstudios.infernalexp.access.FireTypeAccess;
+import org.infernalstudios.infernalexp.blocks.GlowFireBlock;
+import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -63,13 +61,13 @@ public abstract class MixinAbstractFireBlock extends Block {
             access.setFireType(FireTypeAccess.KnownFireTypes.FIRE);
         }
 
-        if (DataUtil.isLoaded("endergetic")) {
+        if (ModList.get().isLoaded("endergetic")) {
             if (state.getBlock().getRegistryName().equals(new ResourceLocation("endergetic", "ender_fire")) && state.getBlock() instanceof AbstractFireBlock) {
                 access.setFireType(FireTypeAccess.KnownFireTypes.ENDER_FIRE);
             }
         }
 
-        if (DataUtil.isLoaded("byg")) {
+        if (ModList.get().isLoaded("byg")) {
             if (state.getBlock().getRegistryName().equals(new ResourceLocation("byg", "boric_fire")) && state.getBlock() instanceof AbstractFireBlock) {
                 access.setFireType(FireTypeAccess.KnownFireTypes.BORIC_FIRE);
             } else if (state.getBlock().getRegistryName().equals(new ResourceLocation("byg", "cryptic_fire")) && state.getBlock() instanceof AbstractFireBlock) {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.infernalstudios.infernalexp.util;
+package org.infernalstudios.infernalexp.brewing;
 
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.potion.Potion;
@@ -29,7 +29,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.List;
 
-public class PotionBrewingReflection {
+public class BrewingHelper {
 
     /**
      * This code is a slightly modified version of Quark's PotionReflection class.
@@ -58,7 +58,7 @@ public class PotionBrewingReflection {
     }
 
     @SuppressWarnings("unchecked")
-    public static void addBrewingRecipe(Potion input, Ingredient reagent, Potion output) {
+    public static void registerBrewingRecipe(Potion input, Ingredient reagent, Potion output) {
         try {
             Object mixPredicate = CREATE_NEW_MIX_PREDICATE.invokeExact((ForgeRegistryEntry<?>) input, reagent, (ForgeRegistryEntry<?>) output);
             List<Object> typeConversions = (List<Object>) GET_POTION_TYPE_CONVERSIONS_LIST.invokeExact();

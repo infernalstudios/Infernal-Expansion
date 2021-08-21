@@ -16,7 +16,7 @@
 
 package org.infernalstudios.infernalexp.items;
 
-import org.infernalstudios.infernalexp.util.IBucketable;
+import org.infernalstudios.infernalexp.entities.IBucketable;
 
 import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.entity.Entity;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.infernalstudios.infernalexp.util;
+package org.infernalstudios.infernalexp.entities;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.LivingEntity;

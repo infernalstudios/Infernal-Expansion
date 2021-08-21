@@ -17,9 +17,6 @@
 package org.infernalstudios.infernalexp.world.gen.features;
 
 import com.mojang.serialization.Codec;
-import org.infernalstudios.infernalexp.init.IEBlocks;
-import org.infernalstudios.infernalexp.util.DataUtil;
-import org.infernalstudios.infernalexp.util.ShapeUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.ResourceLocation;
@@ -28,7 +25,10 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.infernalstudios.infernalexp.init.IEBlocks;
+import org.infernalstudios.infernalexp.util.ShapeUtil;
 
 import java.util.Random;
 
@@ -51,7 +51,7 @@ public class HangingGiantBrownMushroomFeature extends Feature<NoFeatureConfig> {
             int size = minSize + random.nextInt(maxSize - minSize);
             BlockState enhancedMushroomsBrownStemBlockState = null;
 
-            if (DataUtil.isLoaded("enhanced_mushrooms")) {
+            if (ModList.get().isLoaded("enhanced_mushrooms")) {
                 enhancedMushroomsBrownStemBlockState = ForgeRegistries.BLOCKS.getValue(enhancedMushroomsBrownStem).getDefaultState();
             }
 

@@ -16,19 +16,17 @@
 
 package org.infernalstudios.infernalexp.mixin.client;
 
-import java.util.Set;
-
-import org.infernalstudios.infernalexp.util.DataUtil;
+import net.minecraft.client.renderer.model.ModelBakery;
+import net.minecraft.client.renderer.model.RenderMaterial;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.ModList;
 import org.infernalstudios.infernalexp.access.FireTypeAccess;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
-import net.minecraft.client.renderer.model.ModelBakery;
-import net.minecraft.client.renderer.model.RenderMaterial;
-
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import java.util.Set;
 
 @OnlyIn(Dist.CLIENT)
 @Mixin(ModelBakery.class)
@@ -44,12 +42,12 @@ public class MixinModelBakery {
         LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_GLOW_FIRE_0);
         LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_GLOW_FIRE_1);
 
-        if (DataUtil.isLoaded("endergetic")) {
+        if (ModList.get().isLoaded("endergetic")) {
             LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_ENDER_FIRE_0);
             LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_ENDER_FIRE_1);
         }
 
-        if (DataUtil.isLoaded("byg")) {
+        if (ModList.get().isLoaded("byg")) {
             LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_BORIC_FIRE_0);
             LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_BORIC_FIRE_1);
             LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_CRYPTIC_FIRE_0);

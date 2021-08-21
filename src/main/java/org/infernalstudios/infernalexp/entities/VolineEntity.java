@@ -22,7 +22,6 @@ import org.infernalstudios.infernalexp.entities.ai.TargetWithEffectGoal;
 import org.infernalstudios.infernalexp.events.MiscEvents;
 import org.infernalstudios.infernalexp.init.IEItems;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
-import org.infernalstudios.infernalexp.util.IBucketable;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntitySize;

@@ -1,10 +1,5 @@
 package org.infernalstudios.infernalexp.entities;
 
-import org.infernalstudios.infernalexp.init.IEEffects;
-import org.infernalstudios.infernalexp.init.IEItems;
-import org.infernalstudios.infernalexp.init.IEShroomloinTypes;
-import org.infernalstudios.infernalexp.init.IESoundEvents;
-import org.infernalstudios.infernalexp.util.DataUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
@@ -43,6 +38,11 @@ import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.ModList;
+import org.infernalstudios.infernalexp.init.IEEffects;
+import org.infernalstudios.infernalexp.init.IEItems;
+import org.infernalstudios.infernalexp.init.IEShroomloinTypes;
+import org.infernalstudios.infernalexp.init.IESoundEvents;
 import org.infernalstudios.infernalexp.util.ShroomloinType;
 
 import javax.annotation.Nullable;
@@ -116,7 +116,7 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
     public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
 	    ResourceLocation biome = worldIn.getBiome(this.getPosition()).getRegistryName();
 	    if (reason == SpawnReason.NATURAL) {
-	        if (DataUtil.isLoaded("byg")) {
+            if (ModList.get().isLoaded("byg")) {
                 if (biome.equals(new ResourceLocation("byg", "glowstone_gardens"))) {
                     if (rand.nextBoolean()) {
                         this.setShroomloinType(IEShroomloinTypes.SOUL_SHROOM);

@@ -30,7 +30,7 @@ import org.infernalstudios.infernalexp.client.entity.render.WarpbeetleRenderer;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
 import org.infernalstudios.infernalexp.init.IETileEntityTypes;
-import org.infernalstudios.infernalexp.util.ModSpawnEggItem;
+import org.infernalstudios.infernalexp.items.IESpawnEggItem;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
@@ -99,6 +99,6 @@ public class ClientEvents {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onPostRegisterEntities(final RegistryEvent.Register<EntityType<?>> event) {
-        ModSpawnEggItem.initUnaddedEggs();
+        IESpawnEggItem.initUnaddedEggs();
     }
 }

@@ -14,12 +14,7 @@
  * limitations under the License.
  */
 
-package org.infernalstudios.infernalexp.util;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nullable;
+package org.infernalstudios.infernalexp.items;
 
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.dispenser.DefaultDispenseItemBehavior;
@@ -30,23 +25,26 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
-
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.common.util.NonNullSupplier;
 import net.minecraftforge.fml.RegistryObject;
 
-public class ModSpawnEggItem extends SpawnEggItem {
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
-    protected static final List<ModSpawnEggItem> UNADDED_EGGS = new ArrayList<>();
+public class IESpawnEggItem extends SpawnEggItem {
+
+    protected static final List<IESpawnEggItem> UNADDED_EGGS = new ArrayList<>();
     private final Lazy<? extends EntityType<?>> entityTypeSupplier;
 
-    public ModSpawnEggItem(final NonNullSupplier<? extends EntityType<?>> entityTypeSupplier, final int primaryColor, final int secondaryColor, final Properties properties) {
+    public IESpawnEggItem(final NonNullSupplier<? extends EntityType<?>> entityTypeSupplier, final int primaryColor, final int secondaryColor, final Properties properties) {
         super(null, primaryColor, secondaryColor, properties);
         this.entityTypeSupplier = Lazy.of(entityTypeSupplier::get);
         UNADDED_EGGS.add(this);
     }
 
-    public ModSpawnEggItem(final RegistryObject<? extends EntityType<?>> entityTypeSupplier, final int primaryColor, final int secondaryColor, final Properties properties) {
+    public IESpawnEggItem(final RegistryObject<? extends EntityType<?>> entityTypeSupplier, final int primaryColor, final int secondaryColor, final Properties properties) {
         super(null, primaryColor, secondaryColor, properties);
         this.entityTypeSupplier = Lazy.of(entityTypeSupplier);
         UNADDED_EGGS.add(this);

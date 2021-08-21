@@ -17,7 +17,7 @@
 package org.infernalstudios.infernalexp.mixin.common;
 
 import org.infernalstudios.infernalexp.init.IEItems;
-import org.infernalstudios.infernalexp.util.IBucketable;
+import org.infernalstudios.infernalexp.entities.IBucketable;
 
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityType;
