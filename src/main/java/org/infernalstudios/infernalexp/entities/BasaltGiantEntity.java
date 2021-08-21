@@ -64,7 +64,7 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class BasaltGiantEntity extends CreatureEntity implements IEntityAdditionalSpawnData, IAngerable {
+public class BasaltGiantEntity extends CreatureEntity implements IAngerable, IEntityAdditionalSpawnData, IResizable {
 
     //    private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.BASALT, Items.POLISHED_BASALT);
     private static final RangedInteger RANGED_INT = TickRangeConverter.convertRange(20, 39);
@@ -99,7 +99,7 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
         float size = rand.nextFloat();
         size /= BASE_ENTITY_HEIGHT / (MAX_ENTITY_HEIGHT - MIN_ENTITY_HEIGHT);
         size += MIN_ENTITY_HEIGHT / BASE_ENTITY_HEIGHT;
-        this.setGiantSize(size);
+        this.setEntitySize(size);
 
         return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
@@ -123,23 +123,27 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
         dataManager.register(GIANT_SIZE, 1.0F);
     }
 
-    public void setGiantSize(float size) {
+    @Override
+    public float getEntitySize() {
+        return this.dataManager.get(GIANT_SIZE);
+    }
+
+    @Override
+    public void setEntitySize(float size) {
         getDataManager().set(GIANT_SIZE, size);
         recenterBoundingBox();
         recalculateSize();
     }
 
-    public float getGiantSize() {
-        return this.dataManager.get(GIANT_SIZE);
-    }
-
+    @Override
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
-        compound.putFloat("Size", getGiantSize());
+        compound.putFloat("Size", getEntitySize());
     }
 
+    @Override
     public void readAdditional(CompoundNBT compound) {
-        setGiantSize(compound.getFloat("Size"));
+        setEntitySize(compound.getFloat("Size"));
         super.readAdditional(compound);
     }
 
@@ -151,7 +155,7 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
 
     @Override
     public EntitySize getSize(Pose poseIn) {
-        return super.getSize(poseIn).scale(getGiantSize());
+        return super.getSize(poseIn).scale(getEntitySize());
     }
 
     @Override
@@ -241,7 +245,7 @@ public class BasaltGiantEntity extends CreatureEntity implements IEntityAddition
 
     @Override
     public void writeSpawnData(PacketBuffer buffer) {
-        buffer.writeFloat(getGiantSize());
+        buffer.writeFloat(getEntitySize());
     }
 
     @Override

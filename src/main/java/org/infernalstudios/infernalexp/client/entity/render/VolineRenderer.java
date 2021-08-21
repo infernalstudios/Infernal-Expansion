@@ -41,13 +41,13 @@ public class VolineRenderer extends MobRenderer<VolineEntity, VolineModel<Voline
 
     @Override
     public void render(VolineEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-        shadowSize = 0.25F * entityIn.getVolineSize();
+        shadowSize = 0.25F * entityIn.getEntitySize();
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 
     @Override
     protected void preRenderCallback(VolineEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
-        matrixStackIn.scale(entitylivingbaseIn.getVolineSize(), entitylivingbaseIn.getVolineSize(), entitylivingbaseIn.getVolineSize());
+        matrixStackIn.scale(entitylivingbaseIn.getEntitySize(), entitylivingbaseIn.getEntitySize(), entitylivingbaseIn.getEntitySize());
     }
 
     @Override

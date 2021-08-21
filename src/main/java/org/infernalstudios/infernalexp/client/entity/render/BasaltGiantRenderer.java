@@ -38,13 +38,13 @@ public class BasaltGiantRenderer extends MobRenderer<BasaltGiantEntity, BasaltGi
 
     @Override
     public void render(BasaltGiantEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-        shadowSize = 0.25F * entityIn.getGiantSize();
+        shadowSize = 0.25F * entityIn.getEntitySize();
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 
     @Override
     protected void preRenderCallback(BasaltGiantEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
-        matrixStackIn.scale(entitylivingbaseIn.getGiantSize(), entitylivingbaseIn.getGiantSize(), entitylivingbaseIn.getGiantSize());
+        matrixStackIn.scale(entitylivingbaseIn.getEntitySize(), entitylivingbaseIn.getEntitySize(), entitylivingbaseIn.getEntitySize());
     }
 
     @Override

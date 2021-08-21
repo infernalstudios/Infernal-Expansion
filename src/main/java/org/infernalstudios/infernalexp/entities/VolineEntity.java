@@ -72,7 +72,7 @@ import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.function.Predicate;
 
-public class VolineEntity extends MonsterEntity implements IBucketable {
+public class VolineEntity extends MonsterEntity implements IBucketable, IResizable {
     private static final Predicate<LivingEntity> TARGETABLE_MAGMA_CUBES = (livingEntity) -> {
         MagmaCubeEntity magmaCubeEntity = (MagmaCubeEntity) livingEntity;
         return magmaCubeEntity.isSmallSlime() && !magmaCubeEntity.hasCustomName();
@@ -94,7 +94,7 @@ public class VolineEntity extends MonsterEntity implements IBucketable {
     @Nullable
     @Override
     public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
-        setVolineSize(1 + (world.getRandom().nextFloat() * 0.4F));
+        setEntitySize(1 + (world.getRandom().nextFloat() * 0.4F));
         return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
@@ -140,17 +140,19 @@ public class VolineEntity extends MonsterEntity implements IBucketable {
         dataManager.register(FROM_BUCKET, false);
     }
 
-    public void setVolineSize(float size) {
+    @Override
+    public float getEntitySize() {
+        return dataManager.get(VOLINE_SIZE);
+    }
+
+    @Override
+    public void setEntitySize(float size) {
         size = Math.min(size, 2.0F);
 
         dataManager.set(VOLINE_SIZE, size);
         recenterBoundingBox();
         recalculateSize();
         getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.5F - ((size - 1.0F) / 2.0F));
-    }
-
-    public float getVolineSize() {
-        return dataManager.get(VOLINE_SIZE);
     }
 
     @Override
@@ -166,7 +168,7 @@ public class VolineEntity extends MonsterEntity implements IBucketable {
     @Override
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
-        compound.putFloat("Size", getVolineSize());
+        compound.putFloat("Size", getEntitySize());
         compound.putBoolean("FromBucket", this.isFromBucket());
     }
 
@@ -174,7 +176,7 @@ public class VolineEntity extends MonsterEntity implements IBucketable {
     public void readAdditional(CompoundNBT compound) {
         float size = Math.max(compound.getFloat("Size"), 1.0F);
 
-        setVolineSize(size);
+        setEntitySize(size);
 
         this.setFromBucket(compound.getBoolean("FromBucket"));
         super.readAdditional(compound);
@@ -188,7 +190,7 @@ public class VolineEntity extends MonsterEntity implements IBucketable {
 
     @Override
     public EntitySize getSize(Pose poseIn) {
-        return super.getSize(poseIn).scale(0.85F * getVolineSize());
+        return super.getSize(poseIn).scale(0.85F * getEntitySize());
     }
 
     @Override
@@ -259,14 +261,14 @@ public class VolineEntity extends MonsterEntity implements IBucketable {
         CompoundNBT compoundNBT = stack.getOrCreateTag();
         IBucketable.copyToStack(this, stack);
 
-        compoundNBT.putFloat("Size", this.getVolineSize());
+        compoundNBT.putFloat("Size", this.getEntitySize());
     }
 
     @Override
     public void copyFromAdditional(CompoundNBT compound) {
         IBucketable.copyFromAdditional(this, compound);
         if (compound.contains("Size", 99)) {
-            this.setVolineSize(compound.getFloat("Size"));
+            this.setEntitySize(compound.getFloat("Size"));
         }
     }
 
@@ -292,7 +294,7 @@ public class VolineEntity extends MonsterEntity implements IBucketable {
 
         @Override
         public void consumeItem() {
-            entityIn.setVolineSize(entityIn.getVolineSize() + 0.2F);
+            entityIn.setEntitySize(entityIn.getEntitySize() + 0.2F);
 
             Item itemReference = itemInstance.getItem().getItem();
 
