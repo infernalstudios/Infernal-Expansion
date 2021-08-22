@@ -20,6 +20,7 @@ import com.google.common.collect.ImmutableList;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class ConfigTree implements IConfigElement {
 
@@ -59,6 +60,22 @@ public class ConfigTree implements IConfigElement {
         }
 
         throw new IllegalArgumentException(name + " is not a valid config category!");
+    }
+
+    public void forEachConfigOption(Consumer<ConfigOption<?>> action) {
+        getChildren().forEach(category -> category.getChildren().forEach(configElement -> {
+
+            if (configElement instanceof ConfigCategory) {
+                ((ConfigCategory) configElement).getChildren().forEach(subConfigElement -> {
+                    if (subConfigElement instanceof ConfigOption) {
+                        action.accept((ConfigOption<?>) subConfigElement);
+                    }
+                });
+
+            } else if (configElement instanceof ConfigOption) {
+                action.accept((ConfigOption<?>) configElement);
+            }
+        }));
     }
 
     @Override

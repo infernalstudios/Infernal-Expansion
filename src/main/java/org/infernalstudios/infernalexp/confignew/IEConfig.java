@@ -100,6 +100,7 @@ public class IEConfig {
                     translationName,
                     (String) annotation.getAnnotationData().get("description"),
                     field.get(null),
+                    field,
                     category
                 );
 
@@ -142,6 +143,16 @@ public class IEConfig {
             });
 
             builder.pop();
+        });
+    }
+
+    public static void updateFields() {
+        config.forEachConfigOption(configOption -> {
+            try {
+                configOption.getField().set(configOption.getValue().getClass().getName(), configOption.getValue());
+            } catch (IllegalAccessException exception) {
+                throw new RuntimeException(exception);
+            }
         });
     }
 

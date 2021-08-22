@@ -16,6 +16,9 @@
 
 package org.infernalstudios.infernalexp.confignew.elements;
 
+import net.minecraftforge.common.ForgeConfigSpec;
+
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,16 +28,18 @@ public class ConfigOption<T> implements IConfigElement {
     private final String translationName;
     private final String description;
 
-    private T value;
+    private ForgeConfigSpec.ConfigValue<T> value;
     private final T defaultValue;
     private final Map<String, Object> restrictions = new HashMap<>();
 
+    private Field field;
     private final IConfigElement parent;
 
-    public ConfigOption(String translationName, String description, T defaultValue, IConfigElement parent) {
+    public ConfigOption(String translationName, String description, T defaultValue, Field field, IConfigElement parent) {
         this.translationName = translationName;
         this.description = description;
         this.defaultValue = defaultValue;
+        this.field = field;
         this.parent = parent;
     }
 
@@ -46,6 +51,18 @@ public class ConfigOption<T> implements IConfigElement {
     @Override
     public String getDescription() {
         return description;
+    }
+
+    public void addConfigValue(ForgeConfigSpec.ConfigValue<T> value) {
+        this.value = value;
+    }
+
+    public void setValue(T value) {
+        this.value.set(value);
+    }
+
+    public T getValue() {
+        return value.get();
     }
 
     public T getDefaultValue() {
@@ -61,6 +78,10 @@ public class ConfigOption<T> implements IConfigElement {
             return restrictions.get(name);
 
         return null;
+    }
+
+    public Field getField() {
+        return field;
     }
 
     @Override

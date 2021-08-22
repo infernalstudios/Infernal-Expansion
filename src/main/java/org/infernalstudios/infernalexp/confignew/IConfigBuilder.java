@@ -27,6 +27,6 @@ public interface IConfigBuilder {
 
     void pop();
 
-    void define(ConfigOption<?> configOption);
+    <T> void define(ConfigOption<T> configOption);
 
 }

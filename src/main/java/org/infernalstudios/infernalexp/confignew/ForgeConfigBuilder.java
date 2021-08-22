@@ -44,19 +44,19 @@ public class ForgeConfigBuilder implements IConfigBuilder {
     }
 
     @Override
-    public void define(ConfigOption<?> configOption) {
+    public <T> void define(ConfigOption<T> configOption) {
         if (configOption.getDescription() != null)
             builder.comment(" " + configOption.getDescription());
 
         if (configOption.getRestriction("min") != null && configOption.getRestriction("max") != null)
-            builder.comment(" Range: " + configOption.getRestriction("min") + " - " + configOption.getRestriction("max"));
+            builder.comment(" Range: " + configOption.getRestriction("min") + " ~ " + configOption.getRestriction("max"));
 
         else if (configOption.getRestriction("min") != null)
-            builder.comment(" Range: " + configOption.getRestriction("min") + " - \u221E");
+            builder.comment(" Range: " + configOption.getRestriction("min") + " ~ ∞");
 
         else if (configOption.getRestriction("max") != null)
-            builder.comment(" Range: \u221E - " + configOption.getRestriction("max"));
+            builder.comment(" Range: -∞ ~ " + configOption.getRestriction("max"));
 
-        builder.define(configOption.getTranslationName(), configOption.getDefaultValue());
+        configOption.addConfigValue(builder.define(configOption.getTranslationName(), configOption.getDefaultValue()));
     }
 }

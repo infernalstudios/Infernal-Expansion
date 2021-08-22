@@ -16,28 +16,6 @@
 
 package org.infernalstudios.infernalexp.events;
 
-import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.blocks.DullthornsBlock;
-import org.infernalstudios.infernalexp.blocks.HorizontalBushBlock;
-import org.infernalstudios.infernalexp.config.CommonConfig;
-import org.infernalstudios.infernalexp.config.ConfigHelper;
-import org.infernalstudios.infernalexp.config.ConfigHolder;
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig.Miscellaneous;
-import org.infernalstudios.infernalexp.data.SpawnrateManager;
-import org.infernalstudios.infernalexp.data.VolineEatTable;
-import org.infernalstudios.infernalexp.entities.ShroomloinEntity;
-import org.infernalstudios.infernalexp.entities.ThrowableBrickEntity;
-import org.infernalstudios.infernalexp.entities.ThrowableFireChargeEntity;
-import org.infernalstudios.infernalexp.entities.ThrowableMagmaCreamEntity;
-import org.infernalstudios.infernalexp.entities.ThrowableNetherBrickEntity;
-import org.infernalstudios.infernalexp.init.IEBlocks;
-import org.infernalstudios.infernalexp.init.IEEffects;
-import org.infernalstudios.infernalexp.init.IEItems;
-import org.infernalstudios.infernalexp.init.IEParticleTypes;
-import org.infernalstudios.infernalexp.init.IEShroomloinTypes;
-import org.infernalstudios.infernalexp.init.IESoundEvents;
-import org.infernalstudios.infernalexp.init.IETags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -80,6 +58,29 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import org.infernalstudios.infernalexp.InfernalExpansion;
+import org.infernalstudios.infernalexp.blocks.DullthornsBlock;
+import org.infernalstudios.infernalexp.blocks.HorizontalBushBlock;
+import org.infernalstudios.infernalexp.config.CommonConfig;
+import org.infernalstudios.infernalexp.config.ConfigHelper;
+import org.infernalstudios.infernalexp.config.ConfigHolder;
+import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
+import org.infernalstudios.infernalexp.config.InfernalExpansionConfig.Miscellaneous;
+import org.infernalstudios.infernalexp.confignew.IEConfig;
+import org.infernalstudios.infernalexp.data.SpawnrateManager;
+import org.infernalstudios.infernalexp.data.VolineEatTable;
+import org.infernalstudios.infernalexp.entities.ShroomloinEntity;
+import org.infernalstudios.infernalexp.entities.ThrowableBrickEntity;
+import org.infernalstudios.infernalexp.entities.ThrowableFireChargeEntity;
+import org.infernalstudios.infernalexp.entities.ThrowableMagmaCreamEntity;
+import org.infernalstudios.infernalexp.entities.ThrowableNetherBrickEntity;
+import org.infernalstudios.infernalexp.init.IEBlocks;
+import org.infernalstudios.infernalexp.init.IEEffects;
+import org.infernalstudios.infernalexp.init.IEItems;
+import org.infernalstudios.infernalexp.init.IEParticleTypes;
+import org.infernalstudios.infernalexp.init.IEShroomloinTypes;
+import org.infernalstudios.infernalexp.init.IESoundEvents;
+import org.infernalstudios.infernalexp.init.IETags;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,6 +99,7 @@ public class MiscEvents {
         } else if (config.getSpec() == ConfigHolder.COMMON_SPEC) {
             CommonConfig.bake();
         }
+        IEConfig.updateFields();
     }
 
     @SubscribeEvent
