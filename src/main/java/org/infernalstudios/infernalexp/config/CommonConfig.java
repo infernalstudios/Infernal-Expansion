@@ -69,7 +69,6 @@ public class CommonConfig {
     // World Generation
     final ForgeConfigSpec.BooleanValue biomesListIsWhitelist;
     final ForgeConfigSpec.ConfigValue<String> biomesList;
-    final ForgeConfigSpec.BooleanValue replaceNetherBiomeProvider; // Dangerous
 
     //Bonemeal Behaviour
     final ForgeConfigSpec.DoubleValue shroomlightGrowChance;
@@ -327,15 +326,6 @@ public class CommonConfig {
             .translation(InfernalExpansion.MOD_ID + ".config.tooltip.biomesList")
             .define("biomesList", "");
 
-        builder.push("Dangerous Configs");
-
-        replaceNetherBiomeProvider = builder
-            .comment("Replaces existing worlds' vanilla nether biome provider with ours.\nTHIS CAN BREAK YOUR WORLD, DO NOT TURN ON IF YOU DON'T KNOW WHAT YOU'RE DOING")
-            .translation(InfernalExpansion.MOD_ID + ".config.replaceNetherBiomeProvider")
-            .define("replaceNetherBiomeProvider", false);
-
-        builder.pop();
-
         builder.pop();
 
         //Bonemeal Behaviour
@@ -388,7 +378,5 @@ public class CommonConfig {
             .comment("Determines if bricks are throwable or not")
             .translation(InfernalExpansion.MOD_ID + ".config.tooltip.useThrowableBricks")
             .define("useThrowableBricks", true);
-
-        builder.pop();
     }
 }
