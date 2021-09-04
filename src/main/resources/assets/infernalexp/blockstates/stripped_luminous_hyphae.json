@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "infernalexp:block/stripped_luminous_hyphae",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "infernalexp:block/stripped_luminous_hyphae"
+    },
+    "axis=z": {
+      "model": "infernalexp:block/stripped_luminous_hyphae",
+      "x": 90
+    }
+  }
+}

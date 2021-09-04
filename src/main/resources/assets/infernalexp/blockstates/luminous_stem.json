@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "infernalexp:block/luminous_stem",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "infernalexp:block/luminous_stem"
+    },
+    "axis=z": {
+      "model": "infernalexp:block/luminous_stem",
+      "x": 90
+    }
+  }
+}

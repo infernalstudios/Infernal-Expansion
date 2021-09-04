@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "infernalexp:block/stripped_luminous_stem",
+    "side": "infernalexp:block/stripped_luminous_stem"
+  }
+}
