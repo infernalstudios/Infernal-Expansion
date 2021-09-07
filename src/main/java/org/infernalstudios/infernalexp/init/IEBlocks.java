@@ -142,7 +142,7 @@ public class IEBlocks {
     public static final RegistryObject<Block> DULLSTONE_BRICK_STAIRS = registerBlockWithDefaultItem("dullstone_brick_stairs", () -> new StairsBlock(() -> DULLSTONE_BRICKS.get().getDefaultState(), getProperties(DULLSTONE_BRICKS.get())));
     public static final RegistryObject<Block> DULLSTONE_BRICK_WALL = registerBlockWithDefaultItem("dullstone_brick_wall", () -> new WallBlock(getProperties(DULLSTONE_BRICKS.get())));
 
-    public static final RegistryObject<Block> LUMINOUS_WART_BLOCK = registerBlockWithDefaultItem("luminous_wart_block", () -> new Block(getProperties(Blocks.NETHER_WART_BLOCK).setLightLevel(value -> 8)));
+    public static final RegistryObject<Block> LUMINOUS_WART_BLOCK = registerBlockWithDefaultItem("luminous_wart_block", () -> new Block(getProperties(Blocks.NETHER_WART_BLOCK).harvestTool(ToolType.HOE).setLightLevel(value -> 8)));
     public static final RegistryObject<RotatedPillarBlock> LUMINOUS_STEM = registerBlockWithDefaultItem("luminous_stem", () -> new RotatedPillarBlock(getProperties(Blocks.CRIMSON_STEM)));
     public static final RegistryObject<RotatedPillarBlock> LUMINOUS_HYPHAE = registerBlockWithDefaultItem("luminous_hyphae", () -> new RotatedPillarBlock(getProperties(Blocks.CRIMSON_HYPHAE)));
     public static final RegistryObject<RotatedPillarBlock> STRIPPED_LUMINOUS_STEM = registerBlockWithDefaultItem("stripped_luminous_stem", () -> new RotatedPillarBlock(getProperties(Blocks.STRIPPED_CRIMSON_STEM)));
