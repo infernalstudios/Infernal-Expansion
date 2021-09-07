@@ -46,7 +46,9 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -116,14 +118,15 @@ public class WhipItem extends TieredItem implements IVanishable {
         Vector3d reachVec = eyePos.add(lookVec.mul(reach, reach, reach));
 
         AxisAlignedBB playerBox = player.getBoundingBox().expand(lookVec.scale(reach)).grow(1.0D, 1.0D, 1.0D);
-        EntityRayTraceResult traceResult = ProjectileHelper.rayTraceEntities(player, eyePos, reachVec, playerBox, (target) -> !target.isSpectator() && target.isLiving(), reach * reach);
+        EntityRayTraceResult entityTraceResult = ProjectileHelper.rayTraceEntities(player, eyePos, reachVec, playerBox, (target) -> !target.isSpectator() && target.isLiving(), reach * reach);
+        BlockRayTraceResult blockTraceResult = player.getEntityWorld().rayTraceBlocks(new RayTraceContext(eyePos, reachVec, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, player));
 
-        if (traceResult != null) {
-            double distance = eyePos.squareDistanceTo(traceResult.getHitVec());
+        if (entityTraceResult != null) {
+            double distance = eyePos.squareDistanceTo(entityTraceResult.getHitVec());
 
-            if (distance < reach * reach) {
+            if (distance < reach * reach && distance < eyePos.squareDistanceTo(blockTraceResult.getHitVec())) {
                 player.ticksSinceLastSwing = (int) player.getCooldownPeriod();
-                IENetworkHandler.sendToServer(new WhipReachPacket(player.getUniqueID(), traceResult.getEntity().getEntityId(), stack));
+                IENetworkHandler.sendToServer(new WhipReachPacket(player.getUniqueID(), entityTraceResult.getEntity().getEntityId(), stack));
 
                 return true;
             }
@@ -241,7 +244,7 @@ public class WhipItem extends TieredItem implements IVanishable {
 
     public boolean getAttacking(ItemStack itemStack) {
         IWhipUpdate whipUpdate = WhipUpdateCapability.getWhipUpdate(itemStack).orElse(null);
-        return whipUpdate == null ? false : whipUpdate.getAttacking();
+        return whipUpdate != null && whipUpdate.getAttacking();
     }
 
     public void setCharging(ItemStack itemStack, boolean charging) {
@@ -250,6 +253,6 @@ public class WhipItem extends TieredItem implements IVanishable {
 
     public boolean getCharging(ItemStack itemStack) {
         IWhipUpdate whipUpdate = WhipUpdateCapability.getWhipUpdate(itemStack).orElse(null);
-        return whipUpdate == null ? false : whipUpdate.getCharging();
+        return whipUpdate != null && whipUpdate.getCharging();
     }
 }
