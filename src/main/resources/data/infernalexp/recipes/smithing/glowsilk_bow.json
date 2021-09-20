@@ -4,7 +4,7 @@
     "item": "minecraft:bow"
   },
   "addition": {
-    "item": "infernalexp:glowsilk"
+    "item": "infernalexp:glowsilk_cocoon"
   },
   "result": {
     "item": "infernalexp:glowsilk_bow"
