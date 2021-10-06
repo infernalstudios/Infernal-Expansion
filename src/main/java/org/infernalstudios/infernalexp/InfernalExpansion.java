@@ -113,6 +113,14 @@ public class InfernalExpansion {
         MinecraftForge.EVENT_BUS.register(new MiscEvents());
         MinecraftForge.EVENT_BUS.register(new MobEvents());
         MinecraftForge.EVENT_BUS.register(new WorldEvents());
+
+        // Registering Configs
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigHolder.CLIENT_SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigHolder.COMMON_SPEC);
+
+        // Baking Configs
+        ConfigHelper.bakeClient(null);
+        ConfigHelper.bakeCommon(null);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -129,16 +137,6 @@ public class InfernalExpansion {
         // Create mob spawnrate config files, they get created on game load instead of world load
         // just in case someone only launches the games once then goes and looks at the config files.
         event.enqueueWork(SpawnrateManager::createResources);
-
-        event.enqueueWork(() -> {
-            // Registering Configs
-            ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigHolder.CLIENT_SPEC);
-            ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigHolder.COMMON_SPEC);
-
-            // Baking Configs
-            ConfigHelper.bakeClient(null);
-            ConfigHelper.bakeCommon(null);
-        });
 
         // Add custom blocks to nether cave carver
         event.enqueueWork(() -> {
