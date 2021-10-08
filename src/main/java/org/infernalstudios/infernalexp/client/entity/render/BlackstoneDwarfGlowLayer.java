@@ -20,25 +20,25 @@ import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.entities.BasaltGiantEntity;
 
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.IEntityRenderer;
-import net.minecraft.client.renderer.entity.layers.AbstractEyesLayer;
-import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.EyesLayer;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.resources.ResourceLocation;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-class BlackstoneDwarfGlowLayer<T extends BasaltGiantEntity, M extends EntityModel<T>> extends AbstractEyesLayer<T, M> {
-    private static final RenderType RENDER_TYPE = RenderType.getEyes(new ResourceLocation(InfernalExpansion.MOD_ID,
+class BlackstoneDwarfGlowLayer<T extends BasaltGiantEntity, M extends EntityModel<T>> extends EyesLayer<T, M> {
+    private static final RenderType RENDER_TYPE = RenderType.eyes(new ResourceLocation(InfernalExpansion.MOD_ID,
         "textures/entity/blackstone_dwarf_glow.png"));
 
-    public BlackstoneDwarfGlowLayer(IEntityRenderer<T, M> rendererIn) {
+    public BlackstoneDwarfGlowLayer(RenderLayerParent<T, M> rendererIn) {
         super(rendererIn);
     }
 
     @Override
-    public RenderType getRenderType() {
+    public RenderType renderType() {
         return RENDER_TYPE;
     }
 }

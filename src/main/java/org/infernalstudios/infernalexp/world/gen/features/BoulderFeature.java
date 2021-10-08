@@ -16,70 +16,68 @@
 
 package org.infernalstudios.infernalexp.world.gen.features;
 
-import java.util.Random;
-
 import com.mojang.serialization.Codec;
-
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.util.ShapeUtil;
 
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.feature.BlockStateFeatureConfig;
-import net.minecraft.world.gen.feature.Feature;
+import java.util.Random;
 
-public class BoulderFeature extends Feature<BlockStateFeatureConfig> {
+public class BoulderFeature extends Feature<BlockStateConfiguration> {
 
-    public BoulderFeature(Codec<BlockStateFeatureConfig> codec) {
+    public BoulderFeature(Codec<BlockStateConfiguration> codec) {
         super(codec);
     }
 
     @Override
-    public boolean generate(ISeedReader world, ChunkGenerator generator, Random random, BlockPos pos, BlockStateFeatureConfig config) {
-        int radius = new int[]{1, 1, 2, 2, 2, 2, 3}[random.nextInt(7)];
+    public boolean place(FeaturePlaceContext<BlockStateConfiguration> context) {
+        int radius = new int[]{1, 1, 2, 2, 2, 2, 3}[context.random().nextInt(7)];
 
-        if (!world.isAirBlock(pos) || world.getBlockState(pos.down()).getBlock() != IEBlocks.GLOWDUST_SAND.get() || world.isAirBlock(pos.down(radius)) || random.nextInt(3) == 2) {
+        if (!context.level().isEmptyBlock(context.origin()) || context.level().getBlockState(context.origin().below()).getBlock() != IEBlocks.GLOWDUST_SAND.get() || context.level().isEmptyBlock(context.origin().below(radius)) || context.random().nextInt(3) == 2) {
             return false;
         } else {
-            placeSphere(world, random, pos.down(Math.floorDiv(radius, 3)), radius, config);
+            placeSphere(context.level(), context.random(), context.origin().below(Math.floorDiv(radius, 3)), radius, context.config());
             return true;
         }
     }
 
-    private void placeSphere(ISeedReader world, Random random, BlockPos pos, int radius, BlockStateFeatureConfig config) {
+    private void placeSphere(WorldGenLevel world, Random random, BlockPos pos, int radius, BlockStateConfiguration config) {
 
         // Checks to see if block is within radius to the center of the sphere, if so, fill in blocks
 
         for (BlockPos point : ShapeUtil.generateSolidSphere(radius)) {
-            world.setBlockState(pos.add(point), config.state, 2);
+            world.setBlock(pos.offset(point), config.state, 2);
 
             // Add some randomness so that the boulders aren't perfect
             randomNoise(world, random, pos, config);
         }
     }
 
-    private void randomNoise(ISeedReader world, Random random, BlockPos pos, BlockStateFeatureConfig config) {
+    private void randomNoise(WorldGenLevel world, Random random, BlockPos pos, BlockStateConfiguration config) {
         switch (random.nextInt(8)) {
             case 0:
-                if (!world.getBlockState(pos.west().down()).isAir()) {
-                    world.setBlockState(pos.west(), config.state, 2);
+                if (!world.getBlockState(pos.west().below()).isAir()) {
+                    world.setBlock(pos.west(), config.state, 2);
                 }
             case 1:
-                if (!world.getBlockState(pos.north().down()).isAir()) {
-                    world.setBlockState(pos.north(), config.state, 2);
+                if (!world.getBlockState(pos.north().below()).isAir()) {
+                    world.setBlock(pos.north(), config.state, 2);
                 }
             case 2:
-                if (!world.getBlockState(pos.east().down()).isAir()) {
-                    world.setBlockState(pos.east(), config.state, 2);
+                if (!world.getBlockState(pos.east().below()).isAir()) {
+                    world.setBlock(pos.east(), config.state, 2);
                 }
             case 3:
-                if (!world.getBlockState(pos.south().down()).isAir()) {
-                    world.setBlockState(pos.south(), config.state, 2);
+                if (!world.getBlockState(pos.south().below()).isAir()) {
+                    world.setBlock(pos.south(), config.state, 2);
                 }
             case 4:
-                if (!world.getBlockState(pos.up().down()).isAir()) {
-                    world.setBlockState(pos.up(), config.state, 2);
+                if (!world.getBlockState(pos.above().below()).isAir()) {
+                    world.setBlock(pos.above(), config.state, 2);
                 }
         }
     }

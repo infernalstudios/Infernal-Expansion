@@ -16,8 +16,8 @@
 
 package org.infernalstudios.infernalexp.init;
 
-import net.minecraft.block.ComposterBlock;
-import net.minecraft.util.IItemProvider;
+import net.minecraft.world.level.block.ComposterBlock;
+import net.minecraft.world.level.ItemLike;
 
 public class IECompostables {
 
@@ -29,7 +29,7 @@ public class IECompostables {
         registerCompostable(1.0F, IEBlocks.WARPED_FUNGUS_CAP.get().asItem());
     }
 
-    private static void registerCompostable(float chance, IItemProvider item) {
-        ComposterBlock.CHANCES.put(item.asItem(), chance);
+    private static void registerCompostable(float chance, ItemLike item) {
+        ComposterBlock.COMPOSTABLES.put(item.asItem(), chance);
     }
 }

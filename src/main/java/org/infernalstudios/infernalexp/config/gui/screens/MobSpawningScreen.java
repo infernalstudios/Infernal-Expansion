@@ -21,8 +21,8 @@ import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 import org.infernalstudios.infernalexp.config.gui.widgets.TextFieldOption;
 import org.infernalstudios.infernalexp.config.gui.widgets.TitleOption;
 
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -31,17 +31,17 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class MobSpawningScreen extends IESettingsScreen {
 
     public MobSpawningScreen(Screen parentScreen) {
-        super(parentScreen, new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.title.mob_spawning"));
+        super(parentScreen, new TranslatableComponent(InfernalExpansion.MOD_ID + ".config.title.mob_spawning"));
     }
 
     @Override
     public void addSettings() {
-        optionsRowList.addOption(new TitleOption(InfernalExpansion.MOD_ID + ".config.subtitle.spawnable_biomes"));
+        optionsRowList.addBig(new TitleOption(InfernalExpansion.MOD_ID + ".config.subtitle.spawnable_biomes"));
 
         for (InfernalExpansionConfig.MobSpawning mobSpawn : InfernalExpansionConfig.MobSpawning.values()) {
-            optionsRowList.addOption(new TextFieldOption("entity." + InfernalExpansion.MOD_ID + "." + mobSpawn.getTranslationName(),
-                new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + mobSpawn.getTranslationName()),
-                settings -> mobSpawn.getSpawnableBiomes(), (settings, value) -> mobSpawn.setSpawnableBiomes(value)));
+            optionsRowList.addBig(new TextFieldOption("entity." + InfernalExpansion.MOD_ID + "." + mobSpawn.getTranslationName(),
+                settings -> mobSpawn.getSpawnableBiomes(), (settings, value) -> mobSpawn.setSpawnableBiomes(value),
+                minecraft -> minecraft.font.split(new TranslatableComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + mobSpawn.getTranslationName()), 200)));
         }
 
 //		List<AbstractOption> options = new ArrayList<>();

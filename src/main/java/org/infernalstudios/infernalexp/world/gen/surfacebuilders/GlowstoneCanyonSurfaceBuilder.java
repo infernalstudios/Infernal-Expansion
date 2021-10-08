@@ -18,29 +18,29 @@ package org.infernalstudios.infernalexp.world.gen.surfacebuilders;
 
 import com.mojang.serialization.Codec;
 import org.infernalstudios.infernalexp.init.IEBlocks;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.chunk.IChunk;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilder;
+import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilderBaseConfiguration;
 
 import java.util.Random;
 
-public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> {
-    public GlowstoneCanyonSurfaceBuilder(Codec<SurfaceBuilderConfig> p_i232136_1_) {
+public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderBaseConfiguration> {
+    public GlowstoneCanyonSurfaceBuilder(Codec<SurfaceBuilderBaseConfiguration> p_i232136_1_) {
         super(p_i232136_1_);
     }
 
 
     @Override
-    public void buildSurface(Random random, IChunk chunk, Biome biome, int x, int z, int terrainHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, SurfaceBuilderConfig config) {
-        this.buildSurface(random, chunk, biome, x, z, terrainHeight, noise, defaultBlock, defaultFluid, config.getTop(), config.getUnder(), config.getUnderWaterMaterial(), seaLevel);
+    public void apply(Random random, ChunkAccess chunk, Biome biome, int x, int z, int terrainHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, int unknown, long seed, SurfaceBuilderBaseConfiguration config) {
+        this.buildSurface(random, chunk, biome, x, z, terrainHeight, noise, defaultBlock, defaultFluid, config.getTopMaterial(), config.getUnderMaterial(), config.getUnderwaterMaterial(), seaLevel);
     }
 
-    protected void buildSurface(Random random, IChunk chunk, Biome biome, int x, int z, int terrainHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, BlockState topBlock, BlockState middleBlock, BlockState underwaterBlock, int seaLevel) {
-        BlockPos.Mutable mutable = new BlockPos.Mutable();
+    protected void buildSurface(Random random, ChunkAccess chunk, Biome biome, int x, int z, int terrainHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, BlockState topBlock, BlockState middleBlock, BlockState underwaterBlock, int seaLevel) {
+        BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
         int depth = -1; // Will be used to know how deep we are in solid blocks so we know when to stop placing middleBlock
         int middleBlockExtraDepth = (int) (noise / 3.0D + 3.0D + random.nextDouble() * 0.25D);
 
@@ -48,7 +48,7 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
         for (int y = terrainHeight; y >= 0; --y) {
 
             // Get the block in the world (Nether will always give Netherrack, Lava, or Air)
-            mutable.setPos(x, y, z);
+            mutable.set(x, y, z);
             BlockState currentBlockInWorld = chunk.getBlockState(mutable);
 
             // Reset the depth counter as we are not in land anymore
@@ -63,20 +63,20 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
 
                     if (y >= seaLevel) {
                         // The typical surface of the biome.
-                        BlockState blockBelow = chunk.getBlockState(mutable.down());
+                        BlockState blockBelow = chunk.getBlockState(mutable.below());
 
                         // If the block is floating, make it Glimmer Gravel, otherwise let it be the regular surface
                         if (blockBelow.isAir()) {
-                            chunk.setBlockState(mutable, IEBlocks.TRAPPED_GLOWDUST_SAND.get().getDefaultState(), false);
+                            chunk.setBlockState(mutable, IEBlocks.TRAPPED_GLOWDUST_SAND.get().defaultBlockState(), false);
                         } else {
                             chunk.setBlockState(mutable, topBlock, false);
                         }
                     } else {
                         // Makes the blocks at sealevel be dullstone to make cool border with lava.
                         if (random.nextInt(70) == 1) {
-                            chunk.setBlockState(mutable, IEBlocks.DIMSTONE.get().getDefaultState(), false);
+                            chunk.setBlockState(mutable, IEBlocks.DIMSTONE.get().defaultBlockState(), false);
                         } else {
-                            chunk.setBlockState(mutable, IEBlocks.DULLSTONE.get().getDefaultState(), false);
+                            chunk.setBlockState(mutable, IEBlocks.DULLSTONE.get().defaultBlockState(), false);
                         }
                     }
 
@@ -92,9 +92,9 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
                 } else {
                     // replaces all underground solid blocks with dullstone/dimstone mix
                     if (random.nextInt(50) == 1) {
-                        chunk.setBlockState(mutable, IEBlocks.DIMSTONE.get().getDefaultState(), false);
+                        chunk.setBlockState(mutable, IEBlocks.DIMSTONE.get().defaultBlockState(), false);
                     } else {
-                        chunk.setBlockState(mutable, IEBlocks.DULLSTONE.get().getDefaultState(), false);
+                        chunk.setBlockState(mutable, IEBlocks.DULLSTONE.get().defaultBlockState(), false);
                     }
                 }
 

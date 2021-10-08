@@ -16,40 +16,35 @@
 
 package org.infernalstudios.infernalexp.world.gen.features;
 
-import java.util.Random;
-
 import com.mojang.serialization.Codec;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import org.infernalstudios.infernalexp.blocks.DullthornsBlock;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
-
-public class DullthornsFeature extends Feature<NoFeatureConfig> {
-    public DullthornsFeature(Codec<NoFeatureConfig> codec) {
+public class DullthornsFeature extends Feature<NoneFeatureConfiguration> {
+    public DullthornsFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
     }
 
     @Override
-    public boolean generate(ISeedReader worldIn, ChunkGenerator generator, Random random, BlockPos pos, NoFeatureConfig config) {
-        int height = random.nextInt(9) + 1;
+    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+        int height = context.random().nextInt(9) + 1;
         int top = 0;
 
-        if (!worldIn.isAirBlock(pos) || worldIn.getBlockState(pos.down()).getBlock() != IEBlocks.GLOWDUST_SAND.get()) {
+        if (!context.level().isEmptyBlock(context.origin()) || context.level().getBlockState(context.origin().below()).getBlock() != IEBlocks.GLOWDUST_SAND.get()) {
             return false;
         } else {
             // Generate dullthorns up "height" blocks unless there is something in the way
             for (int i = 0; i < height; i++) {
-                if (worldIn.isAirBlock(pos.up(i))) {
-                    worldIn.setBlockState(pos.up(i), IEBlocks.DULLTHORNS.get().getDefaultState(), 10);
+                if (context.level().isEmptyBlock(context.origin().above(i))) {
+                    context.level().setBlock(context.origin().above(i), IEBlocks.DULLTHORNS.get().defaultBlockState(), 10);
                     top = i;
                 }
             }
 
-            worldIn.setBlockState(pos.up(top), IEBlocks.DULLTHORNS.get().getDefaultState().with(DullthornsBlock.TIP, true), 10);
+            context.level().setBlock(context.origin().above(top), IEBlocks.DULLTHORNS.get().defaultBlockState().setValue(DullthornsBlock.TIP, true), 10);
 
             return true;
         }

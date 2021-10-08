@@ -17,13 +17,15 @@
 package org.infernalstudios.infernalexp.blocks;
 
 import org.infernalstudios.infernalexp.init.IEBlocks;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SnowBlock;
-import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.SnowLayerBlock;
+import net.minecraft.world.item.context.BlockPlaceContext;
 
 import javax.annotation.Nullable;
 
-public class GlowdustBlock extends SnowBlock {
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
+public class GlowdustBlock extends SnowLayerBlock {
 
     public GlowdustBlock(Properties properties) {
         super(properties);
@@ -31,14 +33,14 @@ public class GlowdustBlock extends SnowBlock {
 
     @Override
     @Nullable
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
-        BlockState blockstate = context.getWorld().getBlockState(context.getPos());
-        if (blockstate.matchesBlock(this)) {
-            int i = blockstate.get(LAYERS);
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        BlockState blockstate = context.getLevel().getBlockState(context.getClickedPos());
+        if (blockstate.is(this)) {
+            int i = blockstate.getValue(LAYERS);
             if (i < 7) {
-                return blockstate.with(LAYERS, Integer.valueOf(Math.min(8, i + 1)));
+                return blockstate.setValue(LAYERS, Integer.valueOf(Math.min(8, i + 1)));
             } else {
-                return IEBlocks.GLOWDUST_SAND.get().getDefaultState();
+                return IEBlocks.GLOWDUST_SAND.get().defaultBlockState();
             }
         } else {
             return super.getStateForPlacement(context);

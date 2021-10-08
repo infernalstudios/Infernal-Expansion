@@ -16,19 +16,20 @@
 
 package org.infernalstudios.infernalexp.blocks;
 
-import org.infernalstudios.infernalexp.tileentities.GlowCampfireTileEntity;
-
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.CampfireBlock;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.CampfireBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import org.infernalstudios.infernalexp.blockentities.GlowCampfireBlockEntity;
 
 public class GlowCampfireBlock extends CampfireBlock {
-    public GlowCampfireBlock(boolean smokey, int fireDamage, AbstractBlock.Properties properties) {
+    public GlowCampfireBlock(boolean smokey, int fireDamage, BlockBehaviour.Properties properties) {
         super(smokey, fireDamage, properties);
     }
 
-    public TileEntity createNewTileEntity(IBlockReader worldIn) {
-        return new GlowCampfireTileEntity();
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new GlowCampfireBlockEntity(pos, state);
     }
 }

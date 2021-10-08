@@ -16,14 +16,14 @@
 
 package org.infernalstudios.infernalexp.client.particle;
 
-import net.minecraft.client.particle.IAnimatedSprite;
-import net.minecraft.client.particle.IParticleFactory;
-import net.minecraft.client.particle.IParticleRenderType;
+import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.client.particle.ParticleProvider;
+import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.SpriteTexturedParticle;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particles.BasicParticleType;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.Mth;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -32,78 +32,78 @@ import javax.annotation.Nullable;
 import java.util.Random;
 
 @OnlyIn(Dist.CLIENT)
-public class InfectionParticle extends SpriteTexturedParticle {
+public class InfectionParticle extends TextureSheetParticle {
     private static final Random random = new Random();
-    private final IAnimatedSprite spriteWithAge;
+    private final SpriteSet spriteWithAge;
 
-    protected InfectionParticle(ClientWorld world, double x, double y, double z, double motionX, double motionY, double motionZ, IAnimatedSprite spriteWithAge) {
+    protected InfectionParticle(ClientLevel world, double x, double y, double z, double motionX, double motionY, double motionZ, SpriteSet spriteWithAge) {
         super(world, x, y, z, 0.5 - Math.random(), motionY, 0.5 - Math.random());
 
         this.spriteWithAge = spriteWithAge;
-        this.motionY *= -0.1;
+        this.yd *= -0.1;
 
         if (motionX == 0 && motionY == 0) {
-            this.motionX *= 0.1;
-            this.motionZ *= 0.1;
+            this.xd *= 0.1;
+            this.zd *= 0.1;
         }
 
-        this.particleScale *= 0.75;
-        this.maxAge = (int) (16 / (Math.random() * 0.8 + 0.2));
-        this.canCollide = false;
-        this.selectSpriteWithAge(spriteWithAge);
+        this.quadSize *= 0.75;
+        this.lifetime = (int) (16 / (Math.random() * 0.8 + 0.2));
+        this.hasPhysics = false;
+        this.setSpriteFromAge(spriteWithAge);
 
-        this.particleRed = 0.5f;
-        this.particleGreen = (float) Math.random() * 0.1f;
-        this.particleBlue = (float) Math.random() * 0.1f;
+        this.rCol = 0.5f;
+        this.gCol = (float) Math.random() * 0.1f;
+        this.bCol = (float) Math.random() * 0.1f;
     }
 
     @Override
-    public IParticleRenderType getRenderType() {
-        return IParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+    public ParticleRenderType getRenderType() {
+        return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
 
     @Override
     public void tick() {
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
+        this.xo = this.x;
+        this.yo = this.y;
+        this.zo = this.z;
 
-        if (this.age++ >= this.maxAge) {
-            this.setExpired();
+        if (this.age++ >= this.lifetime) {
+            this.remove();
         } else {
-            this.selectSpriteWithAge(this.spriteWithAge);
-            this.motionY -= 0.001;
-            this.move(this.motionX, this.motionY, this.motionZ);
+            this.setSpriteFromAge(this.spriteWithAge);
+            this.yd -= 0.001;
+            this.move(this.xd, this.yd, this.zd);
 
-            if (this.posY == this.prevPosY) {
-                this.motionX *= 1.1;
-                this.motionZ *= 1.1;
+            if (this.y == this.yo) {
+                this.xd *= 1.1;
+                this.zd *= 1.1;
             }
 
-            this.motionX *= 0.96;
-            this.motionY *= 0.96;
-            this.motionZ *= 0.96;
+            this.xd *= 0.96;
+            this.yd *= 0.96;
+            this.zd *= 0.96;
 
             if (this.onGround) {
-                this.motionX *= 0.7;
-                this.motionZ *= 0.7;
+                this.xd *= 0.7;
+                this.zd *= 0.7;
             }
 
-            this.particleRed = 0.7f + (0.2f * MathHelper.sin(this.age / 10f));
+            this.rCol = 0.7f + (0.2f * Mth.sin(this.age / 10f));
         }
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static class Factory implements IParticleFactory<BasicParticleType> {
-        private final IAnimatedSprite spriteSet;
+    public static class Factory implements ParticleProvider<SimpleParticleType> {
+        private final SpriteSet spriteSet;
 
-        public Factory(IAnimatedSprite spriteSet) {
+        public Factory(SpriteSet spriteSet) {
             this.spriteSet = spriteSet;
         }
 
         @Nullable
         @Override
-        public Particle makeParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+        public Particle createParticle(SimpleParticleType typeIn, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             InfectionParticle infectionParticle = new InfectionParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, this.spriteSet);
 //            infectionParticle.setColor(0.8f, 0, 0);
 

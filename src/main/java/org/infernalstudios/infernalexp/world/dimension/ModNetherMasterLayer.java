@@ -16,12 +16,12 @@
 
 package org.infernalstudios.infernalexp.world.dimension;
 
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.INoiseRandom;
-import net.minecraft.world.gen.layer.traits.IAreaTransformer0;
+import net.minecraft.core.Registry;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.newbiome.context.Context;
+import net.minecraft.world.level.newbiome.layer.traits.AreaTransformer0;
 
-public class ModNetherMasterLayer implements IAreaTransformer0 {
+public class ModNetherMasterLayer implements AreaTransformer0 {
 
     private final Registry<Biome> dynamicRegistry;
 
@@ -30,7 +30,7 @@ public class ModNetherMasterLayer implements IAreaTransformer0 {
     }
 
     @Override
-    public int apply(INoiseRandom context, int x, int y) {
+    public int applyPixel(Context context, int x, int y) {
         return ModNetherBiomeCollector.getRandomNetherBiomes(context, this.dynamicRegistry);
     }
 }

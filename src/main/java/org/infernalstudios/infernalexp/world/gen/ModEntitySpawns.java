@@ -38,16 +38,16 @@ public class ModEntitySpawns {
 
     @SubscribeEvent
     public static void addEntityAttributes(EntityAttributeCreationEvent event) {
-        event.put(IEEntityTypes.VOLINE.get(), VolineEntity.setCustomAttributes().create());
-        event.put(IEEntityTypes.SHROOMLOIN.get(), ShroomloinEntity.setCustomAttributes().create());
-        event.put(IEEntityTypes.WARPBEETLE.get(), WarpbeetleEntity.setCustomAttributes().create());
+        event.put(IEEntityTypes.VOLINE.get(), VolineEntity.setCustomAttributes().build());
+        event.put(IEEntityTypes.SHROOMLOIN.get(), ShroomloinEntity.setCustomAttributes().build());
+        event.put(IEEntityTypes.WARPBEETLE.get(), WarpbeetleEntity.setCustomAttributes().build());
         //event.put(IEEntityTypes.CEROBEETLE.get(), CerobeetleEntity.setCustomAttributes().create());
-        event.put(IEEntityTypes.EMBODY.get(), EmbodyEntity.setCustomAttributes().create());
-        event.put(IEEntityTypes.BASALT_GIANT.get(), BasaltGiantEntity.setCustomAttributes().create());
-        event.put(IEEntityTypes.BLACKSTONE_DWARF.get(), BlackstoneDwarfEntity.setCustomAttributes().create());
-        event.put(IEEntityTypes.GLOWSQUITO.get(), GlowsquitoEntity.setCustomAttributes().create());
+        event.put(IEEntityTypes.EMBODY.get(), EmbodyEntity.setCustomAttributes().build());
+        event.put(IEEntityTypes.BASALT_GIANT.get(), BasaltGiantEntity.setCustomAttributes().build());
+        event.put(IEEntityTypes.BLACKSTONE_DWARF.get(), BlackstoneDwarfEntity.setCustomAttributes().build());
+        event.put(IEEntityTypes.GLOWSQUITO.get(), GlowsquitoEntity.setCustomAttributes().build());
         //event.put(IEEntityTypes.PYRNO.get(), PyrnoEntity.setCustomAttributes().create());
-        event.put(IEEntityTypes.BLINDSIGHT.get(), BlindsightEntity.setCustomAttributes().create());
-        event.put(IEEntityTypes.GLOWSILK_MOTH.get(), GlowsilkMothEntity.setCustomAttributes().create());
+        event.put(IEEntityTypes.BLINDSIGHT.get(), BlindsightEntity.setCustomAttributes().build());
+        event.put(IEEntityTypes.GLOWSILK_MOTH.get(), GlowsilkMothEntity.setCustomAttributes().build());
     }
 }

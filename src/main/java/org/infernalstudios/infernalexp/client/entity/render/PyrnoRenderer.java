@@ -16,25 +16,24 @@
 
 package org.infernalstudios.infernalexp.client.entity.render;
 
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.resources.ResourceLocation;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.client.entity.model.PyrnoModel;
 import org.infernalstudios.infernalexp.entities.PyrnoEntity;
-
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.util.ResourceLocation;
 
 public class PyrnoRenderer extends MobRenderer<PyrnoEntity, PyrnoModel<PyrnoEntity>> {
 
     protected static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID,
         "textures/entity/pyrno.png");
 
-    public PyrnoRenderer(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn, new PyrnoModel<>(), 0.7f);
+    public PyrnoRenderer(EntityRendererProvider.Context context) {
+        super(context, new PyrnoModel<>(context.bakeLayer(PyrnoModel.LAYER_LOCATION)), 0.7f);
     }
 
     @Override
-    public ResourceLocation getEntityTexture(PyrnoEntity entity) {
+    public ResourceLocation getTextureLocation(PyrnoEntity entity) {
         return TEXTURE;
     }
 }

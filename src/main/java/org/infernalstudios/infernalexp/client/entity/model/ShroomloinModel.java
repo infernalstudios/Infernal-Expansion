@@ -19,76 +19,73 @@ package org.infernalstudios.infernalexp.client.entity.model;
 // Paste this class into your mod and generate all required imports
 
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.entities.ShroomloinEntity;
 
-import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.util.math.MathHelper;
-
 public class ShroomloinModel<T extends ShroomloinEntity> extends EntityModel<T> {
-    private final ModelRenderer all;
-    private final ModelRenderer body;
-    private final ModelRenderer hat;
-    private final ModelRenderer rightleg;
-    private final ModelRenderer leftleg;
 
-    public ShroomloinModel() {
-        textureWidth = 64;
-        textureHeight = 64;
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(InfernalExpansion.MOD_ID, "shroomloin"), "main");
 
-        textureWidth = 64;
-        textureHeight = 64;
+    private final ModelPart all;
+    private final ModelPart body;
+    private final ModelPart hat;
+    private final ModelPart leftLeg;
+    private final ModelPart rightLeg;
 
-        all = new ModelRenderer(this);
-        all.setRotationPoint(0.0F, 24.0F, 0.0F);
+    public ShroomloinModel(ModelPart root) {
+        this.all = root.getChild("all");
+        this.body = all.getChild("body");
+        this.hat = body.getChild("hat");
+        this.leftLeg = all.getChild("left_leg");
+        this.rightLeg = all.getChild("right_leg");
+    }
 
+    public static LayerDefinition createBodyLayer() {
+        MeshDefinition meshDefinition = new MeshDefinition();
+        PartDefinition partDefinition = meshDefinition.getRoot();
 
-        body = new ModelRenderer(this);
-        body.setRotationPoint(0.0F, -4.0F, 0.0F);
-        all.addChild(body);
-        body.setTextureOffset(1, 23).addBox(-5.0F, -6.0F, -5.0F, 10.0F, 6.0F, 9.0F, 0.0F, false);
+        PartDefinition all = partDefinition.addOrReplaceChild("all", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-        hat = new ModelRenderer(this);
-        hat.setRotationPoint(0.0F, -4.0F, -0.5F);
-        body.addChild(hat);
-        hat.setTextureOffset(0, 0).addBox(-8.0F, -6.0F, -8.0F, 16.0F, 6.0F, 16.0F, 0.0F, false);
+        PartDefinition body = all.addOrReplaceChild("body", CubeListBuilder.create().texOffs(1, 23).addBox(-5.0F, -6.0F, -5.0F, 10.0F, 6.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -4.0F, 0.0F));
 
-        rightleg = new ModelRenderer(this);
-        rightleg.setRotationPoint(-2.5F, -4.0F, -0.5F);
-        all.addChild(rightleg);
-        rightleg.setTextureOffset(0, 8).addBox(-1.5F, -1.0F, -1.5F, 3.0F, 5.0F, 3.0F, 0.0F, true);
+        PartDefinition hat = body.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, -6.0F, -8.0F, 16.0F, 6.0F, 16.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -4.0F, -0.5F));
 
-        leftleg = new ModelRenderer(this);
-        leftleg.setRotationPoint(2.5F, -4.0F, -0.5F);
-        all.addChild(leftleg);
-        leftleg.setTextureOffset(0, 0).addBox(-1.5F, -1.0F, -1.5F, 3.0F, 5.0F, 3.0F, 0.0F, false);
+        PartDefinition leftLeg = all.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 0).addBox(-1.5F, -1.0F, -1.5F, 3.0F, 5.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(2.5F, -4.0F, -0.5F));
+
+        PartDefinition rightLeg = all.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 8).mirror().addBox(-1.5F, -1.0F, -1.5F, 3.0F, 5.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-2.5F, -4.0F, -0.5F));
+
+        return LayerDefinition.create(meshDefinition, 64, 64);
     }
 
     @Override
-    public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.leftleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-        this.rightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
-        this.hat.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.5F * limbSwingAmount;
-        this.body.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.25F * limbSwingAmount;
+    public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        body.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.25F * limbSwingAmount;
+        hat.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.5F * limbSwingAmount;
+        leftLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        rightLeg.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
     }
 
     @Override
-    public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(PoseStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         all.render(matrixStack, buffer, packedLight, packedOverlay);
-		/*
-		body.render(matrixStack, buffer, packedLight, packedOverlay);
-		hat.render(matrixStack, buffer, packedLight, packedOverlay);
-		leftleg.render(matrixStack, buffer, packedLight, packedOverlay);
-		rightleg.render(matrixStack, buffer, packedLight, packedOverlay);
-		*/
     }
 
-    public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
-        modelRenderer.rotateAngleX = x;
-        modelRenderer.rotateAngleY = y;
-        modelRenderer.rotateAngleZ = z;
+    public void setRotationAngle(ModelPart modelRenderer, float x, float y, float z) {
+        modelRenderer.xRot = x;
+        modelRenderer.yRot = y;
+        modelRenderer.zRot = z;
     }
 }

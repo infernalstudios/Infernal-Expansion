@@ -16,27 +16,26 @@
 
 package org.infernalstudios.infernalexp.items;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import org.infernalstudios.infernalexp.entities.IBucketable;
-
-import net.minecraft.block.FlowingFluidBlock;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.BucketItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
@@ -52,19 +51,19 @@ public class EntityBucketItem extends BucketItem {
     }
 
     @Override
-    public void onLiquidPlaced(World worldIn, ItemStack stack, BlockPos pos) {
-        if (worldIn instanceof ServerWorld) {
-            this.placeEntity((ServerWorld) worldIn, stack, pos);
+    public void checkExtraContent(@Nullable Player player, Level world, ItemStack stack, BlockPos pos) {
+        if (world instanceof ServerLevel) {
+            this.placeEntity((ServerLevel) world, stack, pos);
         }
     }
 
     @Override
-    protected void playEmptySound(@Nullable PlayerEntity player, IWorld worldIn, BlockPos pos) {
-        worldIn.playSound(player, pos, this.emptyingSoundSupplier.get(), SoundCategory.NEUTRAL, 1.0F, 1.0F);
+    protected void playEmptySound(@Nullable Player player, LevelAccessor worldIn, BlockPos pos) {
+        worldIn.playSound(player, pos, this.emptyingSoundSupplier.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
     }
 
-    private void placeEntity(ServerWorld worldIn, ItemStack stack, BlockPos pos) {
-        Entity entity = this.entityTypeSupplier.get().spawn(worldIn, stack, null, pos, SpawnReason.BUCKET, true, true);
+    private void placeEntity(ServerLevel worldIn, ItemStack stack, BlockPos pos) {
+        Entity entity = this.entityTypeSupplier.get().spawn(worldIn, stack, null, pos, MobSpawnType.BUCKET, true, true);
         if (entity instanceof IBucketable) {
             IBucketable bucketable = (IBucketable) entity;
             bucketable.copyFromAdditional(stack.getOrCreateTag());
@@ -73,18 +72,18 @@ public class EntityBucketItem extends BucketItem {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        ActionResult<ItemStack> actionResult = super.onItemRightClick(worldIn, playerIn, handIn);
-        ItemStack heldItem = playerIn.getHeldItem(handIn);
-        BlockRayTraceResult rayTraceResult = rayTrace(worldIn, playerIn, RayTraceContext.FluidMode.SOURCE_ONLY);
-        if (rayTraceResult.getType() != RayTraceResult.Type.BLOCK) {
-            return ActionResult.resultPass(heldItem);
-        } else if (!(worldIn instanceof ServerWorld)) {
-            return ActionResult.resultSuccess(heldItem);
+    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
+        InteractionResultHolder<ItemStack> actionResult = super.use(worldIn, playerIn, handIn);
+        ItemStack heldItem = playerIn.getItemInHand(handIn);
+        BlockHitResult rayTraceResult = getPlayerPOVHitResult(worldIn, playerIn, ClipContext.Fluid.SOURCE_ONLY);
+        if (rayTraceResult.getType() != HitResult.Type.BLOCK) {
+            return InteractionResultHolder.pass(heldItem);
+        } else if (!(worldIn instanceof ServerLevel)) {
+            return InteractionResultHolder.success(heldItem);
         } else {
-            BlockPos pos = rayTraceResult.getPos();
-            if (!(worldIn.getBlockState(pos).getBlock() instanceof FlowingFluidBlock)) {
-                return ActionResult.resultPass(heldItem);
+            BlockPos pos = rayTraceResult.getBlockPos();
+            if (!(worldIn.getBlockState(pos).getBlock() instanceof LiquidBlock)) {
+                return InteractionResultHolder.pass(heldItem);
             } else {
                 return actionResult;
             }

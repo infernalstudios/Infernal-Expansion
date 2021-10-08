@@ -16,7 +16,28 @@
 
 package org.infernalstudios.infernalexp.events;
 
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.CampfireRenderer;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.world.entity.EntityType;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import org.infernalstudios.infernalexp.InfernalExpansion;
+import org.infernalstudios.infernalexp.client.entity.model.BasaltGiantModel;
+import org.infernalstudios.infernalexp.client.entity.model.BlackstoneDwarfModel;
+import org.infernalstudios.infernalexp.client.entity.model.BlindsightModel;
+import org.infernalstudios.infernalexp.client.entity.model.EmbodyModel;
+import org.infernalstudios.infernalexp.client.entity.model.GlowsilkMothModel;
+import org.infernalstudios.infernalexp.client.entity.model.GlowsquitoModel;
+import org.infernalstudios.infernalexp.client.entity.model.ShroomloinModel;
+import org.infernalstudios.infernalexp.client.entity.model.VolineModel;
+import org.infernalstudios.infernalexp.client.entity.model.WarpbeetleModel;
 import org.infernalstudios.infernalexp.client.entity.render.BasaltGiantRenderer;
 import org.infernalstudios.infernalexp.client.entity.render.BlackstoneDwarfRenderer;
 import org.infernalstudios.infernalexp.client.entity.render.BlindsightRenderer;
@@ -27,78 +48,80 @@ import org.infernalstudios.infernalexp.client.entity.render.InfernalPaintingRend
 import org.infernalstudios.infernalexp.client.entity.render.ShroomloinRenderer;
 import org.infernalstudios.infernalexp.client.entity.render.VolineRenderer;
 import org.infernalstudios.infernalexp.client.entity.render.WarpbeetleRenderer;
+import org.infernalstudios.infernalexp.init.IEBlockEntityTypes;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
-import org.infernalstudios.infernalexp.init.IETileEntityTypes;
 import org.infernalstudios.infernalexp.items.IESpawnEggItem;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.entity.SpriteRenderer;
-import net.minecraft.client.renderer.tileentity.CampfireTileEntityRenderer;
-import net.minecraft.entity.EntityType;
-
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 @Mod.EventBusSubscriber(modid = InfernalExpansion.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientEvents {
+
     @SubscribeEvent
-    public static void onClientSetup(FMLClientSetupEvent event) {
-        RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.VOLINE.get(), VolineRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.SHROOMLOIN.get(), ShroomloinRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.WARPBEETLE.get(), WarpbeetleRenderer::new);
-        //RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.CEROBEETLE.get(), CerobeetleRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.EMBODY.get(), EmbodyRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.BASALT_GIANT.get(), BasaltGiantRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.BLACKSTONE_DWARF.get(), BlackstoneDwarfRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.GLOWSQUITO.get(), GlowsquitoRenderer::new);
-        //RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.PYRNO.get(), PyrnoRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.BLINDSIGHT.get(), BlindsightRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.GLOWSILK_MOTH.get(), GlowsilkMothRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.ASCUS_BOMB.get(), manager -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
-        RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.THROWABLE_MAGMA_CREAM.get(), manager -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
-        RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.THROWABLE_FIRE_CHARGE.get(), manager -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
-		RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.THROWABLE_BRICK.get(), manager -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
-        RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.THROWABLE_NETHER_BRICK.get(), manager -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
-        RenderingRegistry.registerEntityRenderingHandler(IEEntityTypes.INFERNAL_PAINTING.get(), InfernalPaintingRenderer::new);
+    public void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(IEEntityTypes.VOLINE.get(), VolineRenderer::new);
+        event.registerEntityRenderer(IEEntityTypes.SHROOMLOIN.get(), ShroomloinRenderer::new);
+        event.registerEntityRenderer(IEEntityTypes.WARPBEETLE.get(), WarpbeetleRenderer::new);
+        event.registerEntityRenderer(IEEntityTypes.EMBODY.get(), EmbodyRenderer::new);
+        event.registerEntityRenderer(IEEntityTypes.BASALT_GIANT.get(), BasaltGiantRenderer::new);
+        event.registerEntityRenderer(IEEntityTypes.BLACKSTONE_DWARF.get(), BlackstoneDwarfRenderer::new);
+        event.registerEntityRenderer(IEEntityTypes.GLOWSQUITO.get(), GlowsquitoRenderer::new);
+        event.registerEntityRenderer(IEEntityTypes.BLINDSIGHT.get(), BlindsightRenderer::new);
+        event.registerEntityRenderer(IEEntityTypes.GLOWSILK_MOTH.get(), GlowsilkMothRenderer::new);
+        event.registerEntityRenderer(IEEntityTypes.ASCUS_BOMB.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(IEEntityTypes.THROWABLE_MAGMA_CREAM.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(IEEntityTypes.THROWABLE_FIRE_CHARGE.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(IEEntityTypes.THROWABLE_BRICK.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(IEEntityTypes.THROWABLE_NETHER_BRICK.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(IEEntityTypes.INFERNAL_PAINTING.get(), InfernalPaintingRenderer::new);
+//        event.registerEntityRenderer(IEEntityTypes.CEROBEETLE.get(), CerobeetleRenderer::new);
+//        event.registerEntityRenderer(IEEntityTypes.PYRNO.get(), PyrnoRenderer::new);
 
-        ClientRegistry.bindTileEntityRenderer(IETileEntityTypes.GLOW_CAMPFIRE.get(), CampfireTileEntityRenderer::new);
-
-        RenderTypeLookup.setRenderLayer(IEBlocks.LUMINOUS_FUNGUS.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(IEBlocks.DULLTHORNS.get(), RenderType.getCutout());
-
-        RenderTypeLookup.setRenderLayer(IEBlocks.POTTED_LUMINOUS_FUNGUS.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(IEBlocks.POTTED_DULLTHORNS.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(IEBlocks.POTTED_SHROOMLIGHT_FUNGUS.get(), RenderType.getCutout());
-
-        RenderTypeLookup.setRenderLayer(IEBlocks.GLOW_TORCH.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(IEBlocks.GLOW_TORCH_WALL.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(IEBlocks.GLOW_CAMPFIRE.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(IEBlocks.GLOW_LANTERN.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(IEBlocks.GLOW_FIRE.get(), RenderType.getCutout());
-
-        RenderTypeLookup.setRenderLayer(IEBlocks.SHROOMLIGHT_FUNGUS.get(), RenderType.getCutout());
-
-        RenderTypeLookup.setRenderLayer(IEBlocks.BURIED_BONE.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(IEBlocks.PLANTED_QUARTZ.get(), RenderType.getCutout());
-
-        RenderTypeLookup.setRenderLayer(IEBlocks.GLOW_GLASS.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(IEBlocks.GLOW_GLASS_PANE.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(IEBlocks.QUARTZ_GLASS.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(IEBlocks.QUARTZ_GLASS_PANE.get(), RenderType.getCutout());
+        event.registerBlockEntityRenderer(IEBlockEntityTypes.GLOW_CAMPFIRE.get(), CampfireRenderer::new);
     }
 
+    @SubscribeEvent
+    public void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(VolineModel.LAYER_LOCATION, VolineModel::createBodyLayer);
+        event.registerLayerDefinition(ShroomloinModel.LAYER_LOCATION, ShroomloinModel::createBodyLayer);
+        event.registerLayerDefinition(WarpbeetleModel.LAYER_LOCATION, WarpbeetleModel::createBodyLayer);
+        event.registerLayerDefinition(EmbodyModel.LAYER_LOCATION, EmbodyModel::createBodyLayer);
+        event.registerLayerDefinition(BasaltGiantModel.LAYER_LOCATION, BasaltGiantModel::createBodyLayer);
+        event.registerLayerDefinition(BlackstoneDwarfModel.LAYER_LOCATION, BlackstoneDwarfModel::createBodyLayer);
+        event.registerLayerDefinition(GlowsquitoModel.LAYER_LOCATION, GlowsquitoModel::createBodyLayer);
+        event.registerLayerDefinition(BlindsightModel.LAYER_LOCATION, BlindsightModel::createBodyLayer);
+        event.registerLayerDefinition(GlowsilkMothModel.LAYER_LOCATION, GlowsilkMothModel::createBodyLayer);
+//        event.registerLayerDefinition(CerobeetleModel.LAYER_LOCATION, CerobeetleModel::createBodyLayer);
+//        event.registerLayerDefinition(PyrnoModel.LAYER_LOCATION, PyrnoModel::createBodyLayer);
+    }
+
+    @SubscribeEvent
+    public void onClientSetup(FMLClientSetupEvent event) {
+        ItemBlockRenderTypes.setRenderLayer(IEBlocks.LUMINOUS_FUNGUS.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(IEBlocks.DULLTHORNS.get(), RenderType.cutout());
+
+        ItemBlockRenderTypes.setRenderLayer(IEBlocks.POTTED_LUMINOUS_FUNGUS.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(IEBlocks.POTTED_DULLTHORNS.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(IEBlocks.POTTED_SHROOMLIGHT_FUNGUS.get(), RenderType.cutout());
+
+        ItemBlockRenderTypes.setRenderLayer(IEBlocks.GLOW_TORCH.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(IEBlocks.GLOW_TORCH_WALL.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(IEBlocks.GLOW_CAMPFIRE.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(IEBlocks.GLOW_LANTERN.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(IEBlocks.GLOW_FIRE.get(), RenderType.cutout());
+
+        ItemBlockRenderTypes.setRenderLayer(IEBlocks.SHROOMLIGHT_FUNGUS.get(), RenderType.cutout());
+
+        ItemBlockRenderTypes.setRenderLayer(IEBlocks.BURIED_BONE.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(IEBlocks.PLANTED_QUARTZ.get(), RenderType.cutout());
+
+        ItemBlockRenderTypes.setRenderLayer(IEBlocks.GLOW_GLASS.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(IEBlocks.GLOW_GLASS_PANE.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(IEBlocks.QUARTZ_GLASS.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(IEBlocks.QUARTZ_GLASS_PANE.get(), RenderType.cutout());
+    }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void onPostRegisterEntities(final RegistryEvent.Register<EntityType<?>> event) {
+    public void onPostRegisterEntities(final RegistryEvent.Register<EntityType<?>> event) {
         IESpawnEggItem.initUnaddedEggs();
     }
 }

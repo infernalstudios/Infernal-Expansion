@@ -27,23 +27,23 @@ import org.infernalstudios.infernalexp.entities.VolineEntity;
 import org.infernalstudios.infernalexp.entities.WarpbeetleEntity;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
 
-import net.minecraft.entity.EntitySpawnPlacementRegistry;
-import net.minecraft.world.gen.Heightmap;
+import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.level.levelgen.Heightmap;
 
 public class ModEntityPlacement {
 
     public static void spawnPlacement() {
-        EntitySpawnPlacementRegistry.register(IEEntityTypes.VOLINE.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, VolineEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(IEEntityTypes.SHROOMLOIN.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ShroomloinEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(IEEntityTypes.WARPBEETLE.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, WarpbeetleEntity::canSpawnOn);
+        SpawnPlacements.register(IEEntityTypes.VOLINE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, VolineEntity::checkMobSpawnRules);
+        SpawnPlacements.register(IEEntityTypes.SHROOMLOIN.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ShroomloinEntity::checkMobSpawnRules);
+        SpawnPlacements.register(IEEntityTypes.WARPBEETLE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WarpbeetleEntity::checkMobSpawnRules);
         //EntitySpawnPlacementRegistry.register(IEEntityTypes.CEROBEETLE.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, CerobeetleEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(IEEntityTypes.EMBODY.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, EmbodyEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(IEEntityTypes.BASALT_GIANT.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BasaltGiantEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(IEEntityTypes.BLACKSTONE_DWARF.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BlackstoneDwarfEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(IEEntityTypes.GLOWSQUITO.get(), EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, GlowsquitoEntity::canSpawnOn);
+        SpawnPlacements.register(IEEntityTypes.EMBODY.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, EmbodyEntity::checkMobSpawnRules);
+        SpawnPlacements.register(IEEntityTypes.BASALT_GIANT.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BasaltGiantEntity::checkMobSpawnRules);
+        SpawnPlacements.register(IEEntityTypes.BLACKSTONE_DWARF.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BlackstoneDwarfEntity::checkMobSpawnRules);
+        SpawnPlacements.register(IEEntityTypes.GLOWSQUITO.get(), SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GlowsquitoEntity::checkMobSpawnRules);
         //EntitySpawnPlacementRegistry.register(IEEntityTypes.PYRNO.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PyrnoEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(IEEntityTypes.BLINDSIGHT.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BlindsightEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(IEEntityTypes.GLOWSILK_MOTH.get(), EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, GlowsilkMothEntity::canSpawnOn);
+        SpawnPlacements.register(IEEntityTypes.BLINDSIGHT.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BlindsightEntity::checkMobSpawnRules);
+        SpawnPlacements.register(IEEntityTypes.GLOWSILK_MOTH.get(), SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GlowsilkMothEntity::checkMobSpawnRules);
     }
 
 }

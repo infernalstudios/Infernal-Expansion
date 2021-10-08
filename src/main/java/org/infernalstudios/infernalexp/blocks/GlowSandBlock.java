@@ -16,11 +16,11 @@
 
 package org.infernalstudios.infernalexp.blocks;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SandBlock;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorldReader;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.SandBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class GlowSandBlock extends SandBlock {
 
@@ -32,7 +32,7 @@ public class GlowSandBlock extends SandBlock {
      * Override this method to return true if the block should behave like an infinite fire source
      */
     @Override
-    public boolean isFireSource(BlockState state, IWorldReader world, BlockPos pos, Direction side) {
+    public boolean isFireSource(BlockState state, LevelReader world, BlockPos pos, Direction side) {
         return true;
     }
 }

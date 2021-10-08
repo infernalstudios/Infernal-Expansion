@@ -18,66 +18,69 @@ package org.infernalstudios.infernalexp.blocks;
 
 import org.infernalstudios.infernalexp.init.IEBlocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.AttachFace;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.AttachFace;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelReader;
+
+import net.minecraft.world.level.block.state.BlockBehaviour.OffsetType;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class ShroomlightFungusBlock extends HorizontalBushBlock {
-    protected static final VoxelShape FLOOR_SHAPE = makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 10.0D, 11.0D);
-    protected static final VoxelShape CEILING_SHAPE = makeCuboidShape(5.0D, 6.0D, 5.0D, 11.0D, 16.0D, 11.0D);
+    protected static final VoxelShape FLOOR_SHAPE = box(5.0D, 0.0D, 5.0D, 11.0D, 10.0D, 11.0D);
+    protected static final VoxelShape CEILING_SHAPE = box(5.0D, 6.0D, 5.0D, 11.0D, 16.0D, 11.0D);
 
     public ShroomlightFungusBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.getDefaultState().with(FACE, AttachFace.FLOOR).with(HORIZONTAL_FACING, Direction.NORTH));
+        this.registerDefaultState(this.defaultBlockState().setValue(FACE, AttachFace.FLOOR).setValue(FACING, Direction.NORTH));
     }
 
     @Override
-    protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
+    protected boolean isValidGround(BlockState state, BlockGetter worldIn, BlockPos pos) {
         return
-            state.matchesBlock(Blocks.GRASS_BLOCK) ||
-                state.matchesBlock(Blocks.DIRT) || state.matchesBlock(Blocks.COARSE_DIRT) || state.matchesBlock(Blocks.FARMLAND) ||
-                state.matchesBlock(Blocks.PODZOL) || state.matchesBlock(Blocks.MYCELIUM) ||
+            state.is(Blocks.GRASS_BLOCK) ||
+                state.is(Blocks.DIRT) || state.is(Blocks.COARSE_DIRT) || state.is(Blocks.FARMLAND) ||
+                state.is(Blocks.PODZOL) || state.is(Blocks.MYCELIUM) ||
 
-                state.matchesBlock(Blocks.NETHER_WART_BLOCK) || state.matchesBlock(Blocks.WARPED_WART_BLOCK) ||
-                state.matchesBlock(Blocks.CRIMSON_NYLIUM) || state.matchesBlock(Blocks.WARPED_NYLIUM) ||
+                state.is(Blocks.NETHER_WART_BLOCK) || state.is(Blocks.WARPED_WART_BLOCK) ||
+                state.is(Blocks.CRIMSON_NYLIUM) || state.is(Blocks.WARPED_NYLIUM) ||
 
-                state.matchesBlock(IEBlocks.CRIMSON_FUNGUS_CAP.get()) || state.matchesBlock(IEBlocks.WARPED_FUNGUS_CAP.get()) ||
-                state.matchesBlock(IEBlocks.LUMINOUS_FUNGUS_CAP.get()) ||
+                state.is(IEBlocks.CRIMSON_FUNGUS_CAP.get()) || state.is(IEBlocks.WARPED_FUNGUS_CAP.get()) ||
+                state.is(IEBlocks.LUMINOUS_FUNGUS_CAP.get()) ||
 
-                state.matchesBlock(Blocks.SOUL_SAND) || state.matchesBlock(Blocks.SOUL_SOIL) ||
+                state.is(Blocks.SOUL_SAND) || state.is(Blocks.SOUL_SOIL) ||
 
-                state.matchesBlock(Blocks.SHROOMLIGHT);
+                state.is(Blocks.SHROOMLIGHT);
     }
 
-    public boolean canAttach(IWorldReader reader, BlockPos pos, Direction direction) {
-        BlockPos blockpos = pos.offset(direction);
+    public boolean canAttachToSurface(LevelReader reader, BlockPos pos, Direction direction) {
+        BlockPos blockpos = pos.relative(direction);
         return isValidGround(reader.getBlockState(blockpos), reader, blockpos);
     }
 
     @Override
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        return !state.get(FACE).equals(AttachFace.WALL) && canAttach(worldIn, pos, getFacing(state).getOpposite());
+    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
+        return !state.getValue(FACE).equals(AttachFace.WALL) && canAttachToSurface(worldIn, pos, getConnectedDirection(state).getOpposite());
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        Vector3d vector3d = state.getOffset(worldIn, pos);
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+        Vec3 vector3d = state.getOffset(worldIn, pos);
 
-        switch (state.get(FACE)) {
+        switch (state.getValue(FACE)) {
             case FLOOR:
-                return FLOOR_SHAPE.withOffset(vector3d.x, vector3d.y, vector3d.z);
+                return FLOOR_SHAPE.move(vector3d.x, vector3d.y, vector3d.z);
             case CEILING:
             default:
-                return CEILING_SHAPE.withOffset(vector3d.x, vector3d.y, vector3d.z);
+                return CEILING_SHAPE.move(vector3d.x, vector3d.y, vector3d.z);
         }
     }
 
@@ -87,7 +90,7 @@ public class ShroomlightFungusBlock extends HorizontalBushBlock {
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builderIn) {
-        builderIn.add(HORIZONTAL_FACING, FACE);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builderIn) {
+        builderIn.add(FACING, FACE);
     }
 }

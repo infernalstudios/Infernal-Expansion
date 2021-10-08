@@ -16,31 +16,29 @@
 
 package org.infernalstudios.infernalexp.entities;
 
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.level.Level;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.projectile.ProjectileItemEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.network.IPacket;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
+public class ThrowableMagmaCreamEntity extends ThrowableItemProjectile {
 
-import net.minecraftforge.fml.network.NetworkHooks;
-
-public class ThrowableMagmaCreamEntity extends ProjectileItemEntity {
-
-    public ThrowableMagmaCreamEntity(EntityType<? extends ThrowableMagmaCreamEntity> type, World worldIn) {
+    public ThrowableMagmaCreamEntity(EntityType<? extends ThrowableMagmaCreamEntity> type, Level worldIn) {
         super(type, worldIn);
     }
 
-    public ThrowableMagmaCreamEntity(World world, LivingEntity livingEntity) {
+    public ThrowableMagmaCreamEntity(Level world, LivingEntity livingEntity) {
         super(IEEntityTypes.THROWABLE_MAGMA_CREAM.get(), livingEntity, world);
     }
 
@@ -50,7 +48,7 @@ public class ThrowableMagmaCreamEntity extends ProjectileItemEntity {
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public Packet<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
@@ -58,11 +56,11 @@ public class ThrowableMagmaCreamEntity extends ProjectileItemEntity {
      * Called when the magma cream hits an entity
      */
     @Override
-    protected void onEntityHit(EntityRayTraceResult entityRayTraceResult) {
-        super.onEntityHit(entityRayTraceResult);
+    protected void onHitEntity(EntityHitResult entityRayTraceResult) {
+        super.onHitEntity(entityRayTraceResult);
         Entity entity = entityRayTraceResult.getEntity();
         if (entity instanceof LivingEntity) {
-            ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 60));
+            ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 60));
         }
     }
 
@@ -70,13 +68,14 @@ public class ThrowableMagmaCreamEntity extends ProjectileItemEntity {
      * Called when this ThrowableMagmaCreamEntity hits a block or entity.
      */
     @Override
-    protected void onImpact(RayTraceResult result) {
-        super.onImpact(result);
+    protected void onHit(HitResult result) {
+        super.onHit(result);
 
-        if (result.getType() == RayTraceResult.Type.BLOCK) {
-            ItemEntity item = new ItemEntity(world, this.getPosX(), this.getPosY(), this.getPosZ(), Items.MAGMA_CREAM.getDefaultInstance());
-            world.addEntity(item);
+        if (result.getType() == HitResult.Type.BLOCK) {
+            ItemEntity item = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), Items.MAGMA_CREAM.getDefaultInstance());
+            level.addFreshEntity(item);
         }
-        this.remove();
+
+        this.remove(RemovalReason.DISCARDED);
     }
 }

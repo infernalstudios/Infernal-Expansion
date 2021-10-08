@@ -22,19 +22,19 @@ import org.spongepowered.asm.mixin.Shadow;
 
 import org.infernalstudios.infernalexp.client.DynamicLightingHandler;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
 
-@Mixin(value = IBlockReader.class, priority = 200)
+@Mixin(value = BlockGetter.class, priority = 200)
 public interface MixinIBlockReader {
 
-    @Overwrite
-    default int getLightValue(BlockPos pos) {
+    @Overwrite(remap = false)
+    default int getLightEmission(BlockPos pos) {
         if (DynamicLightingHandler.LIGHT_SOURCES.containsKey(pos) && DynamicLightingHandler.LIGHT_SOURCES.get(pos).shouldKeep) {
             return 10;
         }
-        return this.getBlockState(pos).getLightValue((IBlockReader) this, pos);
+        return this.getBlockState(pos).getLightEmission((BlockGetter) this, pos);
     }
 
     @Shadow

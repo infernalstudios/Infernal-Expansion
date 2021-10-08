@@ -16,43 +16,36 @@
 
 package org.infernalstudios.infernalexp.config.gui.screens;
 
-import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.settings.BooleanOption;
-import net.minecraft.client.settings.SliderPercentageOption;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-
+import net.minecraft.client.CycleOption;
+import net.minecraft.client.ProgressOption;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.infernalstudios.infernalexp.InfernalExpansion;
+import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 
 @OnlyIn(Dist.CLIENT)
 public class MiscellaneousScreen extends IESettingsScreen {
 
     public MiscellaneousScreen(Screen parentScreen) {
-        super(parentScreen, new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.title.miscellaneous"));
+        super(parentScreen, new TranslatableComponent(InfernalExpansion.MOD_ID + ".config.title.miscellaneous"));
     }
 
     @Override
     public void addSettings() {
         for (InfernalExpansionConfig.Miscellaneous miscellaneous : InfernalExpansionConfig.Miscellaneous.values()) {
             if (miscellaneous.isSlider()) {
-                optionsRowList.addOption(new SliderPercentageOption(InfernalExpansion.MOD_ID + ".config.option." + miscellaneous.getTranslationName(), miscellaneous.getMinValue(), miscellaneous.getMaxValue(), miscellaneous.getStepSize(),
+                optionsRowList.addBig(new ProgressOption(InfernalExpansion.MOD_ID + ".config.option." + miscellaneous.getTranslationName(), miscellaneous.getMinValue(), miscellaneous.getMaxValue(), miscellaneous.getStepSize(),
                     settings -> miscellaneous.getDouble(), (settings, value) -> miscellaneous.set(value),
-                    (settings, option) -> {
-                        option.setOptionValues(Minecraft.getInstance().fontRenderer.trimStringToWidth(
-                            new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + miscellaneous.getTranslationName()), 200));
-
-                        return new TranslationTextComponent("options.generic_value", option.getBaseMessageTranslation(),
-                            new StringTextComponent(Double.toString((double) Math.round(option.get(settings) * 100) / 100)));
-                    }));
+                    (settings, option) -> new TranslatableComponent("options.generic_value", option.getCaption(),
+                        new TextComponent(Double.toString((double) Math.round(option.get(settings) * 100) / 100))),
+                    minecraft -> minecraft.font.split(new TranslatableComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + miscellaneous.getTranslationName()), 200)));
             } else {
-                optionsRowList.addOption(new BooleanOption(InfernalExpansion.MOD_ID + ".config.option." + miscellaneous.getTranslationName(),
-                    new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + miscellaneous.getTranslationName()),
-                    settings -> miscellaneous.getBool(), (settings, value) -> miscellaneous.set(value)));
+                optionsRowList.addBig(CycleOption.createOnOff(InfernalExpansion.MOD_ID + ".config.option." + miscellaneous.getTranslationName(),
+                    new TranslatableComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + miscellaneous.getTranslationName()),
+                    settings -> miscellaneous.getBool(), (settings, option, value) -> miscellaneous.set(value)));
             }
         }
     }

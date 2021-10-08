@@ -16,8 +16,8 @@
 
 package org.infernalstudios.infernalexp.mixin.client;
 
-import net.minecraft.client.renderer.model.ModelBakery;
-import net.minecraft.client.renderer.model.RenderMaterial;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.Material;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.ModList;
@@ -34,24 +34,24 @@ public class MixinModelBakery {
 
     @Shadow
     @Final
-    protected static Set<RenderMaterial> LOCATIONS_BUILTIN_TEXTURES;
+    protected static Set<Material> UNREFERENCED_TEXTURES;
 
     static {
-        LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_SOUL_FIRE_0);
-        LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_SOUL_FIRE_1);
-        LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_GLOW_FIRE_0);
-        LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_GLOW_FIRE_1);
+        UNREFERENCED_TEXTURES.add(FireTypeAccess.LOCATION_SOUL_FIRE_0);
+        UNREFERENCED_TEXTURES.add(FireTypeAccess.LOCATION_SOUL_FIRE_1);
+        UNREFERENCED_TEXTURES.add(FireTypeAccess.LOCATION_GLOW_FIRE_0);
+        UNREFERENCED_TEXTURES.add(FireTypeAccess.LOCATION_GLOW_FIRE_1);
 
         if (ModList.get().isLoaded("endergetic")) {
-            LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_ENDER_FIRE_0);
-            LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_ENDER_FIRE_1);
+            UNREFERENCED_TEXTURES.add(FireTypeAccess.LOCATION_ENDER_FIRE_0);
+            UNREFERENCED_TEXTURES.add(FireTypeAccess.LOCATION_ENDER_FIRE_1);
         }
 
         if (ModList.get().isLoaded("byg")) {
-            LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_BORIC_FIRE_0);
-            LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_BORIC_FIRE_1);
-            LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_CRYPTIC_FIRE_0);
-            LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_CRYPTIC_FIRE_1);
+            UNREFERENCED_TEXTURES.add(FireTypeAccess.LOCATION_BORIC_FIRE_0);
+            UNREFERENCED_TEXTURES.add(FireTypeAccess.LOCATION_BORIC_FIRE_1);
+            UNREFERENCED_TEXTURES.add(FireTypeAccess.LOCATION_CRYPTIC_FIRE_0);
+            UNREFERENCED_TEXTURES.add(FireTypeAccess.LOCATION_CRYPTIC_FIRE_1);
         }
     }
 

@@ -16,39 +16,37 @@
 
 package org.infernalstudios.infernalexp.client.entity.render;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.resources.ResourceLocation;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.client.entity.model.BasaltGiantModel;
 import org.infernalstudios.infernalexp.entities.BasaltGiantEntity;
-
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.util.ResourceLocation;
 
 public class BasaltGiantRenderer extends MobRenderer<BasaltGiantEntity, BasaltGiantModel<BasaltGiantEntity>> {
     public static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID,
         "textures/entity/basalt_giant.png");
 
-    public BasaltGiantRenderer(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn, new BasaltGiantModel<>(), 0.7F);
+    public BasaltGiantRenderer(EntityRendererProvider.Context context) {
+        super(context, new BasaltGiantModel<>(context.bakeLayer(BasaltGiantModel.LAYER_LOCATION)), 0.7F);
         this.addLayer(new BasaltGiantGlowLayer<>(this));
     }
 
     @Override
-    public void render(BasaltGiantEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-        shadowSize = 0.25F * entityIn.getEntitySize();
+    public void render(BasaltGiantEntity entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
+        shadowRadius = 0.25F * entityIn.getEntitySize();
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 
     @Override
-    protected void preRenderCallback(BasaltGiantEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+    protected void scale(BasaltGiantEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
         matrixStackIn.scale(entitylivingbaseIn.getEntitySize(), entitylivingbaseIn.getEntitySize(), entitylivingbaseIn.getEntitySize());
     }
 
     @Override
-    public ResourceLocation getEntityTexture(BasaltGiantEntity entity) {
+    public ResourceLocation getTextureLocation(BasaltGiantEntity entity) {
         return TEXTURE;
     }
 }

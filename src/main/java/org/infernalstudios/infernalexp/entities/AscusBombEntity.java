@@ -16,44 +16,43 @@
 
 package org.infernalstudios.infernalexp.entities;
 
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 import org.infernalstudios.infernalexp.init.IEEffects;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
 import org.infernalstudios.infernalexp.init.IEItems;
 import org.infernalstudios.infernalexp.init.IEParticleTypes;
 
-import net.minecraft.entity.AreaEffectCloudEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.IRendersAsItem;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.ProjectileItemEntity;
-import net.minecraft.item.Item;
-import net.minecraft.network.IPacket;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
-
+import net.minecraft.world.entity.AreaEffectCloud;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.projectile.ItemSupplier;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.item.Item;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.network.NetworkHooks;
 
 import java.util.List;
 
 @OnlyIn(
     value = Dist.CLIENT,
-    _interface = IRendersAsItem.class
+    _interface = ItemSupplier.class
 )
-public class AscusBombEntity extends ProjectileItemEntity implements IRendersAsItem {
+public class AscusBombEntity extends ThrowableItemProjectile implements ItemSupplier {
 
-    public AscusBombEntity(EntityType<? extends AscusBombEntity> typeIn, World worldIn) {
+    public AscusBombEntity(EntityType<? extends AscusBombEntity> typeIn, Level worldIn) {
         super(typeIn, worldIn);
     }
 
-    public AscusBombEntity(World world, LivingEntity livingEntity) {
+    public AscusBombEntity(Level world, LivingEntity livingEntity) {
         super(IEEntityTypes.ASCUS_BOMB.get(), livingEntity, world);
     }
 
@@ -63,18 +62,19 @@ public class AscusBombEntity extends ProjectileItemEntity implements IRendersAsI
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public Packet<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     @Override
-    protected void onImpact(RayTraceResult result) {
-        super.onImpact(result);
+    protected void onHit(HitResult result) {
+        super.onHit(result);
 
-        if (!this.world.isRemote) {
-            this.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 1.0F, 0.5F);
+        if (!this.level.isClientSide) {
+            this.playSound(SoundEvents.GENERIC_EXPLODE, 1.0F, 0.5F);
             this.spawnExplosionCloud();
-            this.remove();
+            this.remove(RemovalReason.DISCARDED);
+
             this.initialEffect(result);
             this.spawnLingeringCloud();
         }
@@ -82,41 +82,41 @@ public class AscusBombEntity extends ProjectileItemEntity implements IRendersAsI
     }
 
     private void spawnExplosionCloud() {
-        AreaEffectCloudEntity areaeffectcloudentity = new AreaEffectCloudEntity(this.world, this.getPosX(), this.getPosY() + 0.6, this.getPosZ());
+        AreaEffectCloud areaeffectcloudentity = new AreaEffectCloud(this.level, this.getX(), this.getY() + 0.6, this.getZ());
 
         areaeffectcloudentity.setRadius(0.1F);
         areaeffectcloudentity.setWaitTime(0);
         areaeffectcloudentity.setDuration(10);
         areaeffectcloudentity.setRadiusPerTick(0);
-        areaeffectcloudentity.setParticleData(ParticleTypes.EXPLOSION);
+        areaeffectcloudentity.setParticle(ParticleTypes.EXPLOSION);
 
-        this.world.addEntity(areaeffectcloudentity);
+        this.level.addFreshEntity(areaeffectcloudentity);
     }
 
     private void spawnLingeringCloud() {
-        AreaEffectCloudEntity areaeffectcloudentity = new AreaEffectCloudEntity(this.world, this.getPosX(), this.getPosY(), this.getPosZ());
+        AreaEffectCloud areaeffectcloudentity = new AreaEffectCloud(this.level, this.getX(), this.getY(), this.getZ());
 
         areaeffectcloudentity.setRadius(3.0F);
         areaeffectcloudentity.setRadiusOnUse(-0.5F);
         areaeffectcloudentity.setWaitTime(10);
         areaeffectcloudentity.setDuration(areaeffectcloudentity.getDuration() / 8);
         areaeffectcloudentity.setRadiusPerTick(-areaeffectcloudentity.getRadius() / (float) areaeffectcloudentity.getDuration());
-        areaeffectcloudentity.addEffect(new EffectInstance(IEEffects.INFECTION.get(), 300));
-        areaeffectcloudentity.setParticleData(IEParticleTypes.INFECTION.get());
+        areaeffectcloudentity.addEffect(new MobEffectInstance(IEEffects.INFECTION.get(), 300));
+        areaeffectcloudentity.setParticle(IEParticleTypes.INFECTION.get());
 
-        this.world.addEntity(areaeffectcloudentity);
+        this.level.addFreshEntity(areaeffectcloudentity);
     }
 
-    private void initialEffect(RayTraceResult result) {
-        if (!this.world.isRemote()) {
-            Entity entity = result.getType() == RayTraceResult.Type.ENTITY ? ((EntityRayTraceResult) result).getEntity() : null;
+    private void initialEffect(HitResult result) {
+        if (!this.level.isClientSide()) {
+            Entity entity = result.getType() == HitResult.Type.ENTITY ? ((EntityHitResult) result).getEntity() : null;
 
-            AxisAlignedBB axisAlignedBB = this.getBoundingBox().grow(4, 2, 4);
-            List<LivingEntity> livingEntities = this.world.getEntitiesWithinAABB(LivingEntity.class, axisAlignedBB);
+            AABB axisAlignedBB = this.getBoundingBox().inflate(4, 2, 4);
+            List<LivingEntity> livingEntities = this.level.getEntitiesOfClass(LivingEntity.class, axisAlignedBB);
 
             if (!livingEntities.isEmpty()) {
                 for (LivingEntity livingEntity : livingEntities) {
-                    double distanceSq = this.getDistanceSq(livingEntity);
+                    double distanceSq = this.distanceToSqr(livingEntity);
 
                     if (distanceSq < 16) {
                         double durationMultiplier = 1 - Math.sqrt(distanceSq) / 4;
@@ -127,7 +127,7 @@ public class AscusBombEntity extends ProjectileItemEntity implements IRendersAsI
 
                         int duration = (int) (durationMultiplier * 300 + 0.5);
 
-                        livingEntity.addPotionEffect(new EffectInstance(IEEffects.INFECTION.get(), duration));
+                        livingEntity.addEffect(new MobEffectInstance(IEEffects.INFECTION.get(), duration));
                     }
                 }
             }

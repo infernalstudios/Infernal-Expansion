@@ -23,13 +23,13 @@ import com.google.gson.JsonObject;
 
 import org.infernalstudios.infernalexp.InfernalExpansion;
 
-import net.minecraft.client.resources.JsonReloadListener;
-import net.minecraft.item.Item;
-import net.minecraft.profiler.IProfiler;
-import net.minecraft.resources.IResource;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
+import net.minecraft.world.item.Item;
+import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.resources.ResourceLocation;
 
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -43,7 +43,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-public class VolineEatTable extends JsonReloadListener {
+public class VolineEatTable extends SimpleJsonResourceReloadListener {
 
     private static final Gson GSON_INSTANCE = (new GsonBuilder()).create();
     private static final Map<Item, Map<Item, Integer>> VOLINE_EAT_TABLE = new HashMap<>();
@@ -53,13 +53,13 @@ public class VolineEatTable extends JsonReloadListener {
     }
 
     @Override
-    protected void apply(Map<ResourceLocation, JsonElement> objectIn, IResourceManager resourceManagerIn, IProfiler profilerIn) {
+    protected void apply(Map<ResourceLocation, JsonElement> objectIn, ResourceManager resourceManagerIn, ProfilerFiller profilerIn) {
         ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, "loot_tables/gameplay/voline_eat_table.json");
 
         try {
-            for (IResource iResource : resourceManagerIn.getAllResources(resourceLocation)) {
+            for (Resource iResource : resourceManagerIn.getResources(resourceLocation)) {
                 try (Reader reader = new BufferedReader(new InputStreamReader(iResource.getInputStream(), StandardCharsets.UTF_8))) {
-                    JsonObject jsonObject = JSONUtils.fromJson(GSON_INSTANCE, reader, JsonObject.class);
+                    JsonObject jsonObject = GsonHelper.fromJson(GSON_INSTANCE, reader, JsonObject.class);
 
                     if (jsonObject != null) {
                         for (JsonElement entry : jsonObject.getAsJsonArray("entries")) {
@@ -76,7 +76,7 @@ public class VolineEatTable extends JsonReloadListener {
                     }
 
                 } catch (RuntimeException | IOException exception) {
-                    InfernalExpansion.LOGGER.error("Couldn't read voline eat table list {} in data pack {}", resourceLocation, iResource.getPackName(), exception);
+                    InfernalExpansion.LOGGER.error("Couldn't read voline eat table list {} in data pack {}", resourceLocation, iResource.getSourceName(), exception);
 
                 } finally {
                     IOUtils.closeQuietly(iResource);

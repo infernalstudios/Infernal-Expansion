@@ -16,121 +16,104 @@
 
 package org.infernalstudios.infernalexp.client.entity.model;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.entities.WarpbeetleEntity;
 
-import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.util.math.MathHelper;
-
 public class WarpbeetleModel<T extends WarpbeetleEntity> extends EntityModel<T> {
-    private final ModelRenderer warpbeetle;
-    private final ModelRenderer body;
-    private final ModelRenderer head;
-    private final ModelRenderer left_shield;
-    private final ModelRenderer left_wing;
-    private final ModelRenderer right_wing;
-    private final ModelRenderer right_shield;
-    private final ModelRenderer left_leg_1;
-    private final ModelRenderer left_leg_2;
-    private final ModelRenderer left_leg_3;
-    private final ModelRenderer right_leg_1;
-    private final ModelRenderer right_leg_2;
-    private final ModelRenderer right_leg_3;
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(InfernalExpansion.MOD_ID, "warpbeetle"), "main");
 
-    public WarpbeetleModel() {
-        textureWidth = 128;
-        textureHeight = 128;
+    private final ModelPart warpbeetle;
+    private final ModelPart body;
+    private final ModelPart head;
+    private final ModelPart leftWing;
+    private final ModelPart leftShield;
+    private final ModelPart rightWing;
+    private final ModelPart rightShield;
+    private final ModelPart leftLeg1;
+    private final ModelPart leftLeg2;
+    private final ModelPart leftLeg3;
+    private final ModelPart rightLeg1;
+    private final ModelPart rightLeg2;
+    private final ModelPart rightLeg3;
 
-        warpbeetle = new ModelRenderer(this);
-        warpbeetle.setRotationPoint(0.0F, 23.75F, 0.0F);
+    public WarpbeetleModel(ModelPart root) {
+        this.warpbeetle = root.getChild("warpbeetle");
+        this.body = warpbeetle.getChild("body");
+        this.head = body.getChild("head");
+        this.leftWing = body.getChild("left_wing");
+        this.leftShield = body.getChild("left_shield");
+        this.rightWing = body.getChild("right_wing");
+        this.rightShield = body.getChild("right_shield");
+        this.leftLeg1 = body.getChild("left_leg_1");
+        this.leftLeg2 = body.getChild("left_leg_2");
+        this.leftLeg3 = body.getChild("left_leg_3");
+        this.rightLeg1 = body.getChild("right_leg_1");
+        this.rightLeg2 = body.getChild("right_leg_2");
+        this.rightLeg3 = body.getChild("right_leg_3");
+    }
 
+    public static LayerDefinition createBodyLayer() {
+        MeshDefinition meshDefinition = new MeshDefinition();
+        PartDefinition partDefinition = meshDefinition.getRoot();
 
-        body = new ModelRenderer(this);
-        body.setRotationPoint(0.0F, -1.0F, 0.0F);
-        warpbeetle.addChild(body);
-        body.setTextureOffset(0, 0).addBox(-5.0F, -5.75F, -9.0F, 10.0F, 6.0F, 17.0F, 0.0F, false);
+        PartDefinition warpbeetle = partDefinition.addOrReplaceChild("warpbeetle", CubeListBuilder.create(), PartPose.offset(0.0F, 23.75F, 0.0F));
 
-        head = new ModelRenderer(this);
-        head.setRotationPoint(0.0F, -2.0F, -9.0F);
-        body.addChild(head);
-        head.setTextureOffset(43, 8).addBox(-3.0F, -1.75F, -4.0F, 6.0F, 4.0F, 4.0F, 0.0F, false);
-        head.setTextureOffset(0, 15).addBox(0.0F, -8.75F, -10.0F, 0.0F, 10.0F, 8.0F, 0.0F, false);
+        PartDefinition body = warpbeetle.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, -5.75F, -9.0F, 10.0F, 6.0F, 17.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.0F, 0.0F));
 
-        left_shield = new ModelRenderer(this);
-        left_shield.setRotationPoint(5.0F, -6.0F, -6.0F);
-        body.addChild(left_shield);
-        left_shield.setTextureOffset(28, 29).addBox(-5.0F, -1.75F, 0.0F, 6.0F, 6.0F, 16.0F, 0.0F, false);
+        PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(43, 8).addBox(-3.0F, -1.75F, -4.0F, 6.0F, 4.0F, 4.0F, new CubeDeformation(0.0F))
+            .texOffs(0, 15).addBox(0.0F, -8.75F, -10.0F, 0.0F, 10.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -2.0F, -9.0F));
 
-        left_wing = new ModelRenderer(this);
-        left_wing.setRotationPoint(1.0F, -6.0F, -5.0F);
-        body.addChild(left_wing);
-        left_wing.setTextureOffset(41, 30).addBox(-3.0F, 0.24F, 0.0F, 6.0F, 0.0F, 15.0F, 0.0F, false);
+        PartDefinition leftShield = body.addOrReplaceChild("left_shield", CubeListBuilder.create().texOffs(28, 29).addBox(-5.0F, -1.75F, 0.0F, 6.0F, 6.0F, 16.0F, new CubeDeformation(0.0F)), PartPose.offset(5.0F, -6.0F, -6.0F));
 
-        right_wing = new ModelRenderer(this);
-        right_wing.setRotationPoint(-1.0F, -6.0F, -5.0F);
-        body.addChild(right_wing);
-        right_wing.setTextureOffset(41, 30).addBox(-3.0F, 0.24F, 0.0F, 6.0F, 0.0F, 15.0F, 0.0F, true);
+        PartDefinition leftWing = body.addOrReplaceChild("left_wing", CubeListBuilder.create().texOffs(41, 30).addBox(-3.0F, 0.24F, 0.0F, 6.0F, 0.0F, 15.0F, new CubeDeformation(0.0F)), PartPose.offset(1.0F, -6.0F, -5.0F));
 
-        right_shield = new ModelRenderer(this);
-        right_shield.setRotationPoint(-5.0F, -6.0F, -6.0F);
-        body.addChild(right_shield);
-        right_shield.setTextureOffset(0, 23).addBox(-1.0F, -1.75F, 0.0F, 6.0F, 6.0F, 16.0F, 0.0F, false);
+        PartDefinition rightWing = body.addOrReplaceChild("right_wing", CubeListBuilder.create().texOffs(41, 30).mirror().addBox(-3.0F, 0.24F, 0.0F, 6.0F, 0.0F, 15.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-1.0F, -6.0F, -5.0F));
 
-        left_leg_1 = new ModelRenderer(this);
-        left_leg_1.setRotationPoint(5.0F, -1.0F, -6.0F);
-        body.addChild(left_leg_1);
-        setRotationAngle(left_leg_1, 0.0F, 0.0F, 0.3927F);
-        left_leg_1.setTextureOffset(31, 6).addBox(0.0F, 0.25F, -5.0F, 5.0F, 0.0F, 6.0F, 0.0F, false);
+        PartDefinition rightShield = body.addOrReplaceChild("right_shield", CubeListBuilder.create().texOffs(0, 23).addBox(-1.0F, -1.75F, 0.0F, 6.0F, 6.0F, 16.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, -6.0F, -6.0F));
 
-        left_leg_2 = new ModelRenderer(this);
-        left_leg_2.setRotationPoint(5.0F, -1.0F, -2.0F);
-        body.addChild(left_leg_2);
-        setRotationAngle(left_leg_2, 0.0F, 0.0F, 0.3927F);
-        left_leg_2.setTextureOffset(31, 0).addBox(0.0F, 0.25F, -1.0F, 5.0F, 0.0F, 6.0F, 0.0F, false);
+        PartDefinition leftLeg1 = body.addOrReplaceChild("left_leg_1", CubeListBuilder.create().texOffs(31, 6).addBox(0.0F, 0.25F, -5.0F, 5.0F, 0.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(5.0F, -1.0F, -6.0F, 0.0F, 0.0F, 0.3927F));
 
-        left_leg_3 = new ModelRenderer(this);
-        left_leg_3.setRotationPoint(5.0F, -1.0F, 4.0F);
-        body.addChild(left_leg_3);
-        setRotationAngle(left_leg_3, 0.0F, 0.0F, 0.3927F);
-        left_leg_3.setTextureOffset(22, 29).addBox(0.0F, 0.25F, -1.0F, 5.0F, 0.0F, 6.0F, 0.0F, false);
+        PartDefinition leftLeg2 = body.addOrReplaceChild("left_leg_2", CubeListBuilder.create().texOffs(31, 0).addBox(0.0F, 0.25F, -1.0F, 5.0F, 0.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(5.0F, -1.0F, -2.0F, 0.0F, 0.0F, 0.3927F));
 
-        right_leg_1 = new ModelRenderer(this);
-        right_leg_1.setRotationPoint(-5.0F, -1.0F, -6.0F);
-        body.addChild(right_leg_1);
-        setRotationAngle(right_leg_1, 0.0F, 0.0F, -0.3927F);
-        right_leg_1.setTextureOffset(22, 23).addBox(-5.0F, 0.25F, -5.0F, 5.0F, 0.0F, 6.0F, 0.0F, false);
+        PartDefinition leftLeg3 = body.addOrReplaceChild("left_leg_3", CubeListBuilder.create().texOffs(22, 29).addBox(0.0F, 0.25F, -1.0F, 5.0F, 0.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(5.0F, -1.0F, 4.0F, 0.0F, 0.0F, 0.3927F));
 
-        right_leg_2 = new ModelRenderer(this);
-        right_leg_2.setRotationPoint(-5.0F, -1.0F, -2.0F);
-        body.addChild(right_leg_2);
-        setRotationAngle(right_leg_2, 0.0F, 0.0F, -0.3927F);
-        right_leg_2.setTextureOffset(0, 6).addBox(-5.0F, 0.25F, -1.0F, 5.0F, 0.0F, 6.0F, 0.0F, false);
+        PartDefinition rightLeg1 = body.addOrReplaceChild("right_leg_1", CubeListBuilder.create().texOffs(22, 23).addBox(-5.0F, 0.25F, -5.0F, 5.0F, 0.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-5.0F, -1.0F, -6.0F, 0.0F, 0.0F, -0.3927F));
 
-        right_leg_3 = new ModelRenderer(this);
-        right_leg_3.setRotationPoint(-5.0F, -1.0F, 4.0F);
-        body.addChild(right_leg_3);
-        setRotationAngle(right_leg_3, 0.0F, 0.0F, -0.3927F);
-        right_leg_3.setTextureOffset(0, 0).addBox(-5.0F, 0.25F, -1.0F, 5.0F, 0.0F, 6.0F, 0.0F, false);
+        PartDefinition rightLeg2 = body.addOrReplaceChild("right_leg_2", CubeListBuilder.create().texOffs(0, 6).addBox(-5.0F, 0.25F, -1.0F, 5.0F, 0.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-5.0F, -1.0F, -2.0F, 0.0F, 0.0F, -0.3927F));
+
+        PartDefinition rightLeg3 = body.addOrReplaceChild("right_leg_3", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, 0.25F, -1.0F, 5.0F, 0.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-5.0F, -1.0F, 4.0F, 0.0F, 0.0F, -0.3927F));
+
+        return LayerDefinition.create(meshDefinition, 128, 128);
     }
 
     @Override
-    public void setRotationAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.left_leg_1.rotateAngleZ = -(MathHelper.abs(MathHelper.cos(limbSwing * 1.1F)) * 2.2F * limbSwingAmount) + 0.3927F;
-        this.left_leg_2.rotateAngleZ = -(MathHelper.abs(MathHelper.cos(Math.max(limbSwing - 4.0F, 0) * 1.1F)) * 2.2F * limbSwingAmount) + 0.3927F;
-        this.left_leg_3.rotateAngleZ = -(MathHelper.abs(MathHelper.cos(limbSwing * 1.1F)) * 2.2F * limbSwingAmount) + 0.3927F;
-        this.right_leg_1.rotateAngleZ = (MathHelper.abs(MathHelper.cos(Math.max(limbSwing - 4.0F, 0) * 1.1F)) * 2.2F * limbSwingAmount) - 0.3927F;
-        this.right_leg_2.rotateAngleZ = (MathHelper.abs(MathHelper.cos(limbSwing * 1.1F)) * 2.2F * limbSwingAmount) - 0.3927F;
-        this.right_leg_3.rotateAngleZ = (MathHelper.abs(MathHelper.cos(Math.max(limbSwing - 4.0F, 0) * 1.1F)) * 2.2F * limbSwingAmount) - 0.3927F;
+    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        leftLeg1.zRot = -(Mth.abs(Mth.cos(limbSwing * 1.1F)) * 2.2F * limbSwingAmount) + 0.3927F;
+        leftLeg2.zRot = -(Mth.abs(Mth.cos(Math.max(limbSwing - 4.0F, 0) * 1.1F)) * 2.2F * limbSwingAmount) + 0.3927F;
+        leftLeg3.zRot = -(Mth.abs(Mth.cos(limbSwing * 1.1F)) * 2.2F * limbSwingAmount) + 0.3927F;
+        rightLeg1.zRot = (Mth.abs(Mth.cos(Math.max(limbSwing - 4.0F, 0) * 1.1F)) * 2.2F * limbSwingAmount) - 0.3927F;
+        rightLeg2.zRot = (Mth.abs(Mth.cos(limbSwing * 1.1F)) * 2.2F * limbSwingAmount) - 0.3927F;
+        rightLeg3.zRot = (Mth.abs(Mth.cos(Math.max(limbSwing - 4.0F, 0) * 1.1F)) * 2.2F * limbSwingAmount) - 0.3927F;
 
-        this.left_leg_1.rotateAngleY = -MathHelper.sin(limbSwing * 1.1F) * 0.8F * limbSwingAmount;
-        this.left_leg_2.rotateAngleY = -MathHelper.sin(Math.max(limbSwing - 4.0F, 0) * 1.1F) * 0.9F * limbSwingAmount;
-        this.left_leg_3.rotateAngleY = -MathHelper.sin(limbSwing * 1.1F) * 1.4F * limbSwingAmount;
-        this.right_leg_1.rotateAngleY = MathHelper.sin(Math.max(limbSwing - 4.0F, 0) * 1.1F) * 0.8F * limbSwingAmount;
-        this.right_leg_2.rotateAngleY = MathHelper.sin(limbSwing * 1.1F) * 0.9F * limbSwingAmount;
-        this.right_leg_3.rotateAngleY = MathHelper.sin(Math.max(limbSwing - 4.0F, 0) * 1.1F) * 1.4F * limbSwingAmount;
+        leftLeg1.yRot = -Mth.sin(limbSwing * 1.1F) * 0.8F * limbSwingAmount;
+        leftLeg2.yRot = -Mth.sin(Math.max(limbSwing - 4.0F, 0) * 1.1F) * 0.9F * limbSwingAmount;
+        leftLeg3.yRot = -Mth.sin(limbSwing * 1.1F) * 1.4F * limbSwingAmount;
+        rightLeg1.yRot = Mth.sin(Math.max(limbSwing - 4.0F, 0) * 1.1F) * 0.8F * limbSwingAmount;
+        rightLeg2.yRot = Mth.sin(limbSwing * 1.1F) * 0.9F * limbSwingAmount;
+        rightLeg3.yRot = Mth.sin(Math.max(limbSwing - 4.0F, 0) * 1.1F) * 1.4F * limbSwingAmount;
 
         if (!entity.isOnGround()) {
             entity.shellRotationMultiplier += 0.1F;
@@ -139,10 +122,10 @@ public class WarpbeetleModel<T extends WarpbeetleEntity> extends EntityModel<T> 
                 entity.shellRotationMultiplier = 1.0F;
             }
 
-            float wingRotation = MathHelper.cos(ageInTicks * 2.1F) * (float) Math.PI * 0.15F + 1.0F;
+            float wingRotation = Mth.cos(ageInTicks * 2.1F) * (float) Math.PI * 0.15F + 1.0F;
 
-            setRotationAngle(left_wing, wingRotation, 0.5F, 0.3F);
-            setRotationAngle(right_wing, wingRotation, -0.5F, -0.3F);
+            setRotationAngle(leftWing, wingRotation, 0.5F, 0.3F);
+            setRotationAngle(rightWing, wingRotation, -0.5F, -0.3F);
         } else {
             entity.shellRotationMultiplier -= 0.1F;
 
@@ -150,23 +133,34 @@ public class WarpbeetleModel<T extends WarpbeetleEntity> extends EntityModel<T> 
                 entity.shellRotationMultiplier = 0.0F;
             }
 
-            setRotationAngle(left_wing, 0.0F, 0.0F, 0.0F);
-            setRotationAngle(right_wing, 0.0F, 0.0F, 0.0F);
+            setRotationAngle(leftWing, 0.0F, 0.0F, 0.0F);
+            setRotationAngle(rightWing, 0.0F, 0.0F, 0.0F);
         }
 
-        setRotationAngle(left_shield, 1.2F * entity.shellRotationMultiplier, -0.4F * entity.shellRotationMultiplier, 0.9F * entity.shellRotationMultiplier);
-        setRotationAngle(right_shield, 1.2F * entity.shellRotationMultiplier, 0.4F * entity.shellRotationMultiplier, -0.9F * entity.shellRotationMultiplier);
+        setRotationAngle(leftShield, 1.2F * entity.shellRotationMultiplier, -0.4F * entity.shellRotationMultiplier, 0.9F * entity.shellRotationMultiplier);
+        setRotationAngle(rightShield, 1.2F * entity.shellRotationMultiplier, 0.4F * entity.shellRotationMultiplier, -0.9F * entity.shellRotationMultiplier);
     }
 
 
     @Override
-    public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        warpbeetle.render(matrixStack, buffer, packedLight, packedOverlay);
+    public void renderToBuffer(PoseStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        body.render(matrixStack, buffer, packedLight, packedOverlay);
+        head.render(matrixStack, buffer, packedLight, packedOverlay);
+        leftShield.render(matrixStack, buffer, packedLight, packedOverlay);
+        leftWing.render(matrixStack, buffer, packedLight, packedOverlay);
+        rightShield.render(matrixStack, buffer, packedLight, packedOverlay);
+        rightWing.render(matrixStack, buffer, packedLight, packedOverlay);
+        leftLeg1.render(matrixStack, buffer, packedLight, packedOverlay);
+        leftLeg2.render(matrixStack, buffer, packedLight, packedOverlay);
+        leftLeg3.render(matrixStack, buffer, packedLight, packedOverlay);
+        rightLeg1.render(matrixStack, buffer, packedLight, packedOverlay);
+        rightLeg2.render(matrixStack, buffer, packedLight, packedOverlay);
+        rightLeg3.render(matrixStack, buffer, packedLight, packedOverlay);
     }
 
-    public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
-        modelRenderer.rotateAngleX = x;
-        modelRenderer.rotateAngleY = y;
-        modelRenderer.rotateAngleZ = z;
+    public void setRotationAngle(ModelPart modelRenderer, float x, float y, float z) {
+        modelRenderer.xRot = x;
+        modelRenderer.yRot = y;
+        modelRenderer.zRot = z;
     }
 }

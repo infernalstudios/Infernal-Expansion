@@ -26,29 +26,29 @@ import org.infernalstudios.infernalexp.init.IESurfaceBuilders;
 import org.infernalstudios.infernalexp.world.biome.BiomeHelper;
 import org.infernalstudios.infernalexp.world.biome.ModBiome;
 
-import net.minecraft.client.audio.BackgroundMusicTracks;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeAmbience;
-import net.minecraft.world.biome.BiomeGenerationSettings;
-import net.minecraft.world.biome.DefaultBiomeFeatures;
-import net.minecraft.world.biome.MobSpawnInfo;
-import net.minecraft.world.biome.MoodSoundAmbience;
-import net.minecraft.world.biome.ParticleEffectAmbience;
-import net.minecraft.world.biome.SoundAdditionsAmbience;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.carver.ConfiguredCarvers;
-import net.minecraft.world.gen.feature.Features;
-import net.minecraft.world.gen.feature.structure.StructureFeatures;
-import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
+import net.minecraft.sounds.Musics;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.data.worldgen.BiomeDefaultFeatures;
+import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.biome.AmbientMoodSettings;
+import net.minecraft.world.level.biome.AmbientParticleSettings;
+import net.minecraft.world.level.biome.AmbientAdditionsSettings;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.data.worldgen.Carvers;
+import net.minecraft.data.worldgen.Features;
+import net.minecraft.data.worldgen.StructureFeatures;
+import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
 
 public class GlowstoneCanyonBiome extends ModBiome {
 
     @Override
-    protected Biome.Category configureCategory() {
-        return Biome.Category.NETHER;
+    protected Biome.BiomeCategory configureCategory() {
+        return Biome.BiomeCategory.NETHER;
     }
 
     @Override
@@ -62,23 +62,23 @@ public class GlowstoneCanyonBiome extends ModBiome {
     }
 
     @Override
-    protected void configureAmbience(BiomeAmbience.Builder ambience) {
+    protected void configureAmbience(BiomeSpecialEffects.Builder ambience) {
         ambience
-            .setWaterColor(13408563)
-            .setWaterFogColor(10053120)
-            .setFogColor(-2916568)
-            .withSkyColor(BiomeHelper.calcSkyColor(2.0f))
-            .setParticle(new ParticleEffectAmbience(ParticleTypes.WHITE_ASH, 0.118093334F))
-            .setAmbientSound(IESoundEvents.AMBIENT_GLOWSTONE_CANYON_LOOP.get())
-            .setMoodSound(new MoodSoundAmbience(IESoundEvents.AMBIENT_GLOWSTONE_CANYON_MOOD.get(), 2500, 4, 2.0D))
-            .setAdditionsSound(new SoundAdditionsAmbience(IESoundEvents.AMBIENT_GLOWSTONE_CANYON_ADDITIONS.get(), 0.0111D))
-            .setMusic(BackgroundMusicTracks.getDefaultBackgroundMusicSelector(IESoundEvents.MUSIC_NETHER_GLOWSTONE_CANYON.get()))
-            .setParticle(new ParticleEffectAmbience(IEParticleTypes.GLOWSTONE_SPARKLE.get(), 0.005F));
+            .waterColor(13408563)
+            .waterFogColor(10053120)
+            .fogColor(-2916568)
+            .skyColor(BiomeHelper.calcSkyColor(2.0f))
+            .ambientParticle(new AmbientParticleSettings(ParticleTypes.WHITE_ASH, 0.118093334F))
+            .ambientLoopSound(IESoundEvents.AMBIENT_GLOWSTONE_CANYON_LOOP.get())
+            .ambientMoodSound(new AmbientMoodSettings(IESoundEvents.AMBIENT_GLOWSTONE_CANYON_MOOD.get(), 2500, 4, 2.0D))
+            .ambientAdditionsSound(new AmbientAdditionsSettings(IESoundEvents.AMBIENT_GLOWSTONE_CANYON_ADDITIONS.get(), 0.0111D))
+            .backgroundMusic(Musics.createGameMusic(IESoundEvents.MUSIC_NETHER_GLOWSTONE_CANYON.get()))
+            .ambientParticle(new AmbientParticleSettings(IEParticleTypes.GLOWSTONE_SPARKLE.get(), 0.005F));
     }
 
     @Override
-    protected Biome.Climate configureClimate() {
-        return new Biome.Climate(Biome.RainType.RAIN, 2.0f, Biome.TemperatureModifier.NONE, 0.0f);
+    protected Biome.ClimateSettings configureClimate() {
+        return new Biome.ClimateSettings(Biome.Precipitation.RAIN, 2.0f, Biome.TemperatureModifier.NONE, 0.0f);
     }
 
     @Override
@@ -88,44 +88,44 @@ public class GlowstoneCanyonBiome extends ModBiome {
 
     @Override
     protected void configureGeneration(BiomeGenerationSettings.Builder generation) {
-        generation.withStructure(StructureFeatures.RUINED_PORTAL_NETHER);
-        generation.withStructure(StructureFeatures.FORTRESS);
-        generation.withStructure(IEConfiguredStructures.GLOWSTONE_CANYON_RUIN);
-        generation.withStructure(IEConfiguredStructures.BASTION_OUTPOST);
-        generation.withCarver(GenerationStage.Carving.AIR, ConfiguredCarvers.NETHER_CAVE);
+        generation.addStructureStart(StructureFeatures.RUINED_PORTAL_NETHER);
+        generation.addStructureStart(StructureFeatures.NETHER_BRIDGE);
+        generation.addStructureStart(IEConfiguredStructures.GLOWSTONE_CANYON_RUIN);
+        generation.addStructureStart(IEConfiguredStructures.BASTION_OUTPOST);
+        generation.addCarver(GenerationStep.Carving.AIR, Carvers.NETHER_CAVE);
         //generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.DELTA);
-        generation.withCarver(GenerationStage.Carving.AIR, IECarvers.CONFIGURED_GLOWSTONE_RAVINE);
-        generation.withFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, IEConfiguredFeatures.CANYON_BLACKSTONE_BLOBS);
+        generation.addCarver(GenerationStep.Carving.AIR, IECarvers.CONFIGURED_GLOWSTONE_RAVINE);
+        generation.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, IEConfiguredFeatures.CANYON_BLACKSTONE_BLOBS);
 //        generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, IEConfiguredFeatures.BLACKSTONE_BOULDER);
-        generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, IEConfiguredFeatures.GLOWSPIKE);
-        generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, IEConfiguredFeatures.GLOWSPIKELARGE);
-        generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, IEConfiguredFeatures.HANGING_GIANT_BROWN_MUSHROOM);
-        generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, IEConfiguredFeatures.DULLSTONE_DEATH_PIT);
-        generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.LUMINOUS_FUNGUS);
-        generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.DULLTHORNS);
+        generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, IEConfiguredFeatures.GLOWSPIKE);
+        generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, IEConfiguredFeatures.GLOWSPIKELARGE);
+        generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, IEConfiguredFeatures.HANGING_GIANT_BROWN_MUSHROOM);
+        generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, IEConfiguredFeatures.DULLSTONE_DEATH_PIT);
+        generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.LUMINOUS_FUNGUS);
+        generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.DULLTHORNS);
 //        generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.DULLTHORNS_TREE);
-        generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA);
-        generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA_DOUBLE);
-        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, IEConfiguredFeatures.GSC_SPRING_OPEN);
-        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, IEConfiguredFeatures.GSC_SPRING_CLOSED);
-        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.PATCH_FIRE);
-        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.PATCH_SOUL_FIRE);
-        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.GLOWSTONE);
-        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.GLOWSTONE_EXTRA);
-        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.ORE_MAGMA);
-        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Features.SPRING_CLOSED_DOUBLE);
-        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_GLOWSILK_COCOON);
-        generation.withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, IEConfiguredFeatures.PATCH_GLOW_FIRE);
-        generation.withFeature(GenerationStage.Decoration.TOP_LAYER_MODIFICATION, IEConfiguredFeatures.GLOWDUST_LAYER);
+        generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA);
+        generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA_DOUBLE);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, IEConfiguredFeatures.GSC_SPRING_OPEN);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, IEConfiguredFeatures.GSC_SPRING_CLOSED);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, Features.PATCH_FIRE);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, Features.PATCH_SOUL_FIRE);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, Features.GLOWSTONE);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, Features.GLOWSTONE_EXTRA);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, Features.ORE_MAGMA);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, Features.SPRING_CLOSED_DOUBLE);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_GLOWSILK_COCOON);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, IEConfiguredFeatures.PATCH_GLOW_FIRE);
+        generation.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, IEConfiguredFeatures.GLOWDUST_LAYER);
 
-        DefaultBiomeFeatures.withCommonNetherBlocks(generation);
+        BiomeDefaultFeatures.addNetherDefaultOres(generation);
     }
 
     @Override
-    protected void configureSpawns(MobSpawnInfo.Builder spawns) {
+    protected void configureSpawns(MobSpawnSettings.Builder spawns) {
 //        spawns.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(IEEntityTypes.GLOWSQUITO.get(), 80, 1, 3));
 //        spawns.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(IEEntityTypes.BLINDSIGHT.get(), 10, 1, 1));
-        spawns.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.STRIDER, 60, 1, 2));
+        spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.STRIDER, 60, 1, 2));
 
         //It doesn't work properly. Glowsquitos don't spawn at all and Blindsights spawn en-masse regardless of if
         // they're set to 1 or 100. Putting spawning for new biomes back in IEEvents for now.

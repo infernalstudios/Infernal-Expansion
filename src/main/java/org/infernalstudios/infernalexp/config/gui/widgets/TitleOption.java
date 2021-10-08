@@ -16,23 +16,23 @@
 
 package org.infernalstudios.infernalexp.config.gui.widgets;
 
-import net.minecraft.client.AbstractOption;
-import net.minecraft.client.GameSettings;
-import net.minecraft.client.gui.widget.Widget;
+import net.minecraft.client.Option;
+import net.minecraft.client.Options;
+import net.minecraft.client.gui.components.AbstractWidget;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class TitleOption extends AbstractOption {
+public class TitleOption extends Option {
 
     public TitleOption(String translationKeyIn) {
         super(translationKeyIn);
     }
 
     @Override
-    public Widget createWidget(GameSettings options, int xIn, int yIn, int widthIn) {
-        return new TitleWidget(xIn, yIn, widthIn, 20, getBaseMessageTranslation());
+    public AbstractWidget createButton(Options options, int xIn, int yIn, int widthIn) {
+        return new Title(xIn, yIn, widthIn, 20, getCaption());
     }
 
 }

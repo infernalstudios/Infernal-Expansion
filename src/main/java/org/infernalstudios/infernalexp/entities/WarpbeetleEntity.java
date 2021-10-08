@@ -20,60 +20,60 @@ import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 import org.infernalstudios.infernalexp.entities.ai.TeleportPanicGoal;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.CreatureAttribute;
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.PanicGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.TemptGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
-import net.minecraft.entity.monster.SpiderEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.monster.Spider;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
 
-public class WarpbeetleEntity extends CreatureEntity {
+public class WarpbeetleEntity extends PathfinderMob {
     private int attackTimer;
     private int conversionTicks;
-    private static final DataParameter<Boolean> CONVERTING = EntityDataManager.createKey(ShroomloinEntity.class, DataSerializers.BOOLEAN);
-    public static final DataParameter<Boolean> CHORUS = EntityDataManager.createKey(WarpbeetleEntity.class, DataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> CONVERTING = SynchedEntityData.defineId(ShroomloinEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Boolean> CHORUS = SynchedEntityData.defineId(WarpbeetleEntity.class, EntityDataSerializers.BOOLEAN);
 
     public float shellRotationMultiplier = 0.0F;
 
-    public WarpbeetleEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
+    public WarpbeetleEntity(EntityType<? extends PathfinderMob> type, Level worldIn) {
         super(type, worldIn);
     }
 
-    public static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.CRIMSON_FUNGUS, IEBlocks.CRIMSON_FUNGUS_CAP.get().asItem());
+    public static final Ingredient TEMPTATION_ITEMS = Ingredient.of(Items.CRIMSON_FUNGUS, IEBlocks.CRIMSON_FUNGUS_CAP.get().asItem());
 
     // ATTRIBUTES
-    public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
-        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 8.0D).createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4D)
-            .createMutableAttribute(Attributes.ATTACK_DAMAGE, 2.0F).createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 2.0F);
+    public static AttributeSupplier.Builder setCustomAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.MOVEMENT_SPEED, 0.4D)
+            .add(Attributes.ATTACK_DAMAGE, 2.0F).add(Attributes.ATTACK_KNOCKBACK, 2.0F);
     }
 
     // BEHAVIOUR
@@ -83,28 +83,28 @@ public class WarpbeetleEntity extends CreatureEntity {
         this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 0.6D, true));
         this.goalSelector.addGoal(1, new TeleportPanicGoal(this, 1.4D));
         this.goalSelector.addGoal(2, new PanicGoal(this, 2.0D));
-        this.goalSelector.addGoal(3, new SwimGoal(this));
+        this.goalSelector.addGoal(3, new FloatGoal(this));
         this.goalSelector.addGoal(4, new TemptGoal(this, 0.6D, TEMPTATION_ITEMS, false));
-        this.goalSelector.addGoal(5, new LookAtGoal(this, PlayerEntity.class, 8.0f));
-        this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
-        this.goalSelector.addGoal(7, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0f));
+        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 0.5d));
+        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         if (InfernalExpansionConfig.MobInteractions.SPIDER_ATTACK_WARPBEETLE.getBoolean()) {
-            this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, SpiderEntity.class, true, false));
+            this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, Spider.class, true, false));
         }
     }
 
-    protected void registerData() {
-        super.registerData();
-        this.dataManager.register(CONVERTING, false);
-        this.dataManager.register(CHORUS, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(CONVERTING, false);
+        this.entityData.define(CHORUS, false);
     }
 
     public boolean isConverting() {
-        return this.dataManager.get(CONVERTING);
+        return this.entityData.get(CONVERTING);
     }
 
     public void setConverting(boolean converting) {
-        this.dataManager.set(CONVERTING, converting);
+        this.entityData.set(CONVERTING, converting);
     }
 
     public boolean isShaking() {
@@ -112,31 +112,31 @@ public class WarpbeetleEntity extends CreatureEntity {
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
         compound.putBoolean("chorus", this.isChorus());
         compound.putInt("WarpbeetleConversionTime", this.isConverting() ? this.conversionTicks : -1);
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
-        super.readAdditional(compound);
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
         this.setChorus(compound.getBoolean("chorus"));
     }
 
     public boolean isChorus() {
-        return this.dataManager.get(CHORUS);
+        return this.entityData.get(CHORUS);
     }
 
     public void setChorus(boolean chorus) {
-        this.dataManager.set(CHORUS, chorus);
+        this.entityData.set(CHORUS, chorus);
     }
 
     @Override
-    protected ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
-        ItemStack stack = playerIn.getHeldItem(hand);
+    protected InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
+        ItemStack stack = playerIn.getItemInHand(hand);
         if (this.isConverting()) {
-            return ActionResultType.FAIL;
+            return InteractionResult.FAIL;
         }
         if (!this.isChorus() && stack.getItem() == Items.CHORUS_FRUIT) {
             this.conversionTicks = 40;
@@ -144,22 +144,22 @@ public class WarpbeetleEntity extends CreatureEntity {
             if (!playerIn.isCreative()) {
                 stack.shrink(1);
             }
-            return ActionResultType.SUCCESS;
+            return InteractionResult.SUCCESS;
         } else if (this.isChorus() && stack.getItem() == Items.WARPED_FUNGUS) {
             this.conversionTicks = 40;
             this.setConverting(true);
             if (!playerIn.isCreative()) {
                 stack.shrink(1);
             }
-            return ActionResultType.SUCCESS;
+            return InteractionResult.SUCCESS;
         } else {
-            return super.getEntityInteractionResult(playerIn, hand);
+            return super.mobInteract(playerIn, hand);
         }
     }
 
     @Override
-    public void livingTick() {
-        super.livingTick();
+    public void aiStep() {
+        super.aiStep();
 
         if (this.attackTimer > 0) {
             --this.attackTimer;
@@ -178,23 +178,23 @@ public class WarpbeetleEntity extends CreatureEntity {
         }
 
         // This slows the falling speed
-        Vector3d vector3d = this.getMotion();
+        Vec3 vector3d = this.getDeltaMovement();
         if (!this.onGround && vector3d.y < 0.0D) {
-            this.setMotion(vector3d.mul(1.0D, 0.6D, 1.0D));
+            this.setDeltaMovement(vector3d.multiply(1.0D, 0.6D, 1.0D));
         }
     }
 
-    public boolean attackEntityAsMob(Entity entityIn) {
+    public boolean doHurtTarget(Entity entityIn) {
         this.attackTimer = 10;
-        this.world.setEntityState(this, (byte) 4);
+        this.level.broadcastEntityEvent(this, (byte) 4);
         float f = this.getAttackDamage();
-        float f1 = (int) f > 0 ? f / 2.0F + (float) this.rand.nextInt((int) f) : f;
+        float f1 = (int) f > 0 ? f / 2.0F + (float) this.random.nextInt((int) f) : f;
         float f2 = (float) this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
-        boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), f1);
+        boolean flag = entityIn.hurt(DamageSource.mobAttack(this), f1);
         if (flag) {
-            ((LivingEntity) entityIn).applyKnockback(f2 * 0.5F, MathHelper.sin(this.rotationYaw * ((float) Math.PI / 180F)), -MathHelper.cos(this.rotationYaw * ((float) Math.PI / 180F)));
-            entityIn.setMotion(entityIn.getMotion().mul(1.0D, 2.5D, 1.0D));
-            this.applyEnchantments(this, entityIn);
+            ((LivingEntity) entityIn).knockback(f2 * 0.5F, Mth.sin(this.getYRot() * ((float) Math.PI / 180F)), -Mth.cos(this.getYRot() * ((float) Math.PI / 180F)));
+            entityIn.setDeltaMovement(entityIn.getDeltaMovement().multiply(1.0D, 2.5D, 1.0D));
+            this.doEnchantDamageEffects(this, entityIn);
         }
 
         this.playSound(IESoundEvents.WARPBEETLE_HURT.get(), 1.0F, 1.0F);
@@ -207,8 +207,8 @@ public class WarpbeetleEntity extends CreatureEntity {
 
     // EXP POINTS
     @Override
-    protected int getExperiencePoints(PlayerEntity player) {
-        return 1 + this.world.rand.nextInt(4);
+    protected int getExperienceReward(Player player) {
+        return 1 + this.level.random.nextInt(4);
     }
 
     // SOUNDS
@@ -228,17 +228,17 @@ public class WarpbeetleEntity extends CreatureEntity {
     }
 
     @Override
-    public CreatureAttribute getCreatureAttribute() {
-        return CreatureAttribute.ARTHROPOD;
+    public MobType getMobType() {
+        return MobType.ARTHROPOD;
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState blockIn) {
-        this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
+        this.playSound(SoundEvents.PIG_STEP, 0.15F, 1.0F);
     }
 
     @Override
-    public boolean onLivingFall(float distance, float damageMultiplier) {
+    public boolean causeFallDamage(float distance, float damageMultiplier, DamageSource damageSource) {
         return false;
     }
 }

@@ -17,7 +17,7 @@
 package org.infernalstudios.infernalexp.mixin.common;
 
 import org.infernalstudios.infernalexp.world.dimension.ModNetherBiomeCollector;
-import net.minecraft.crash.CrashReport;
+import net.minecraft.CrashReport;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -31,18 +31,18 @@ import java.util.Arrays;
 public class MixinCrashReport {
 
     @Shadow
-    private StackTraceElement[] stacktrace;
+    private StackTraceElement[] uncategorizedStackTrace;
 
     @Shadow
     @Final
-    private Throwable cause;
+    private Throwable exception;
 
-    @Inject(method = "getSectionsInStringBuilder", at = @At(value = "INVOKE", target = "Ljava/lang/StringBuilder;append(Ljava/lang/String;)Ljava/lang/StringBuilder;", ordinal = 0))
+    @Inject(method = "getDetails(Ljava/lang/StringBuilder;)V", at = @At(value = "INVOKE", target = "Ljava/lang/StringBuilder;append(Ljava/lang/String;)Ljava/lang/StringBuilder;", ordinal = 0), remap = false)
     private void IE_checkForBiomeConfigCrash(StringBuilder builder, CallbackInfo ci) {
         try {
             if (
-                this.cause.getMessage().equals("/ by zero") &&
-                    Arrays.stream(this.stacktrace).anyMatch(element -> element.getClassName().equals(ModNetherBiomeCollector.class.getName()) &&
+                this.exception.getMessage().equals("/ by zero") &&
+                    Arrays.stream(this.uncategorizedStackTrace).anyMatch(element -> element.getClassName().equals(ModNetherBiomeCollector.class.getName()) &&
                         element.getMethodName().equals("getRandomNetherBiomes"))
             ) {
                 builder.append("Comment added by Infernal Expansion:\n");

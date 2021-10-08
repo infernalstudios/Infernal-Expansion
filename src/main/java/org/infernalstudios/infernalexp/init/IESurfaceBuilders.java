@@ -19,11 +19,11 @@ package org.infernalstudios.infernalexp.init;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.world.gen.surfacebuilders.DeltaShoresSurfaceBuilder;
 import org.infernalstudios.infernalexp.world.gen.surfacebuilders.GlowstoneCanyonSurfaceBuilder;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.Registry;
+import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilder;
+import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilderBaseConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,20 +33,20 @@ public class IESurfaceBuilders {
     public static List<SurfaceBuilder<?>> surfaceBuilders = new ArrayList<>();
 
     // Surface Builders
-    public static final SurfaceBuilder<SurfaceBuilderConfig> GLOWSTONE_CANYON_SURFACE_BUILDER = newSurfaceBuilder("glowstone_canyon", new GlowstoneCanyonSurfaceBuilder(SurfaceBuilderConfig.CODEC));
-    public static final SurfaceBuilder<SurfaceBuilderConfig> DELTA_SHORES_SURFACE_BUILDER = newSurfaceBuilder("delta_shores", new DeltaShoresSurfaceBuilder(SurfaceBuilderConfig.CODEC));
+    public static final SurfaceBuilder<SurfaceBuilderBaseConfiguration> GLOWSTONE_CANYON_SURFACE_BUILDER = newSurfaceBuilder("glowstone_canyon", new GlowstoneCanyonSurfaceBuilder(SurfaceBuilderBaseConfiguration.CODEC));
+    public static final SurfaceBuilder<SurfaceBuilderBaseConfiguration> DELTA_SHORES_SURFACE_BUILDER = newSurfaceBuilder("delta_shores", new DeltaShoresSurfaceBuilder(SurfaceBuilderBaseConfiguration.CODEC));
 
     // Surface Builder Configs
     public static class ModSurfaceBuilderConfig {
-        public static final SurfaceBuilderConfig GLOWSTONE_CANYON_CONFIG = new SurfaceBuilderConfig(
-            IEBlocks.GLOWDUST_SAND.get().getDefaultState(),
-            IEBlocks.GLOWDUST_STONE.get().getDefaultState(),
-            Blocks.GLOWSTONE.getDefaultState());
+        public static final SurfaceBuilderBaseConfiguration GLOWSTONE_CANYON_CONFIG = new SurfaceBuilderBaseConfiguration(
+            IEBlocks.GLOWDUST_SAND.get().defaultBlockState(),
+            IEBlocks.GLOWDUST_STONE.get().defaultBlockState(),
+            Blocks.GLOWSTONE.defaultBlockState());
 
-        public static final SurfaceBuilderConfig DELTA_SHORES_CONFIG = new SurfaceBuilderConfig(
-            IEBlocks.SILT.get().getDefaultState(),
-            IEBlocks.SILT.get().getDefaultState(),
-            Blocks.BASALT.getDefaultState()
+        public static final SurfaceBuilderBaseConfiguration DELTA_SHORES_CONFIG = new SurfaceBuilderBaseConfiguration(
+            IEBlocks.SILT.get().defaultBlockState(),
+            IEBlocks.SILT.get().defaultBlockState(),
+            Blocks.BASALT.defaultBlockState()
         );
     }
 
@@ -56,7 +56,7 @@ public class IESurfaceBuilders {
 //        InfernalExpansion.LOGGER.info("Infernal Expansion: Surface Builders Registered");
 //    }
 
-    public static SurfaceBuilder<SurfaceBuilderConfig> newSurfaceBuilder(String id, SurfaceBuilder<SurfaceBuilderConfig> surfaceBuilder) {
+    public static SurfaceBuilder<SurfaceBuilderBaseConfiguration> newSurfaceBuilder(String id, SurfaceBuilder<SurfaceBuilderBaseConfiguration> surfaceBuilder) {
         ResourceLocation registryName = new ResourceLocation(InfernalExpansion.MOD_ID, id);
 
         if (Registry.SURFACE_BUILDER.keySet().contains(registryName))

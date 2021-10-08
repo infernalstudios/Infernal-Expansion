@@ -16,63 +16,62 @@
 
 package org.infernalstudios.infernalexp.entities;
 
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.Fireball;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.AbstractFireballEntity;
-import net.minecraft.network.IPacket;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.Explosion;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
+public class ThrowableFireChargeEntity extends Fireball {
 
-public class ThrowableFireChargeEntity extends AbstractFireballEntity {
-
-    public ThrowableFireChargeEntity(EntityType<? extends ThrowableFireChargeEntity> type, World worldIn) {
+    public ThrowableFireChargeEntity(EntityType<? extends ThrowableFireChargeEntity> type, Level worldIn) {
         super(type, worldIn);
     }
 
-    public ThrowableFireChargeEntity(World worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
-        super(IEEntityTypes.THROWABLE_FIRE_CHARGE.get(), shooter.getPosX(), shooter.getPosYEye(), shooter.getPosZ(), accelX, accelY, accelZ, worldIn);
-        this.setShooter(shooter);
+    public ThrowableFireChargeEntity(Level worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
+        super(IEEntityTypes.THROWABLE_FIRE_CHARGE.get(), shooter.getX(), shooter.getEyeY(), shooter.getZ(), accelX, accelY, accelZ, worldIn);
+        this.setOwner(shooter);
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public Packet<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     @Override
-    protected void onImpact(RayTraceResult result) {
-        RayTraceResult.Type raytraceresult$type = result.getType();
-        if (raytraceresult$type == RayTraceResult.Type.ENTITY) {
-            this.onEntityHit((EntityRayTraceResult) result);
-        } else if (raytraceresult$type == RayTraceResult.Type.BLOCK) {
-            this.func_230299_a_((BlockRayTraceResult) result);
+    protected void onHit(HitResult result) {
+        HitResult.Type raytraceresult$type = result.getType();
+        if (raytraceresult$type == HitResult.Type.ENTITY) {
+            this.onHitEntity((EntityHitResult) result);
+        } else if (raytraceresult$type == HitResult.Type.BLOCK) {
+            this.onHitBlock((BlockHitResult) result);
         }
 
-        if (!this.world.isRemote) {
-            boolean flag = InfernalExpansionConfig.Miscellaneous.FIRE_CHARGE_EXPLOSION.getBool() && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this.getShooter());
-            this.world.createExplosion(null, this.getPosX(), this.getPosY(), this.getPosZ(), 1.0F, flag, flag ? Explosion.Mode.DESTROY : Explosion.Mode.NONE);
-            this.remove();
+        if (!this.level.isClientSide) {
+            boolean flag = InfernalExpansionConfig.Miscellaneous.FIRE_CHARGE_EXPLOSION.getBool() && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner());
+            this.level.explode(null, this.getX(), this.getY(), this.getZ(), 1.0F, flag, flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE);
+            this.remove(RemovalReason.DISCARDED);
         }
     }
 
     @Override
-    protected void onEntityHit(EntityRayTraceResult result) {
-        super.onEntityHit(result);
-        if (!this.world.isRemote) {
+    protected void onHitEntity(EntityHitResult result) {
+        super.onHitEntity(result);
+        if (!this.level.isClientSide) {
             Entity entity = result.getEntity();
-            Entity entity1 = this.getShooter();
-            entity.attackEntityFrom(DamageSource.causeOnFireDamage(this, entity1), 6.0F);
+            Entity entity1 = this.getOwner();
+            entity.hurt(DamageSource.fireball(this, entity1), 6.0F);
             if (entity1 instanceof LivingEntity) {
-                this.applyEnchantments((LivingEntity) entity1, entity);
+                this.doEnchantDamageEffects((LivingEntity) entity1, entity);
             }
 
         }

@@ -18,41 +18,41 @@ package org.infernalstudios.infernalexp.init;
 
 import org.infernalstudios.infernalexp.InfernalExpansion;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.Item;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ITag;
+import net.minecraft.tags.Tag;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
 public class IETags {
 
     public static class Blocks {
 
-        public static final ITag.INamedTag<Block> BASE_STONE_CANYON = tag("base_stone_canyon");
-        public static final ITag.INamedTag<Block> BASE_STONE_SHORES = tag("base_stone_shores");
-        public static final ITag.INamedTag<Block> DULLTHORNS_GROUND = tag("dullthorns_ground");
-        public static final ITag.INamedTag<Block> GLOW_FIRE_BASE_BLOCKS = tag("glow_fire_base_blocks");
-        public static final ITag.INamedTag<Block> MAGMA_CUBE_AVOID_BLOCKS = tag("magma_cube_avoid_blocks");
-        public static final ITag.INamedTag<Block> BURIED_BONE_BASE_BLOCKS = tag("buried_bone_base_blocks");
-        public static final ITag.INamedTag<Block> PLANTED_QUARTZ_BASE_BLOCKS = tag("planted_quartz_base_blocks");
-        public static final ITag.INamedTag<Block> ANGER_CRIMSON_SHROOMLOIN_BLOCKS = tag("anger_crimson_shroomloin_blocks");
-        public static final ITag.INamedTag<Block> ANGER_WARPED_SHROOMLOIN_BLOCKS = tag("anger_warped_shroomloin_blocks");
-        public static final ITag.INamedTag<Block> ANGER_LUMINOUS_SHROOMLOIN_BLOCKS = tag("anger_luminous_shroomloin_blocks");
-        public static final ITag.INamedTag<Block> ANGER_RED_SHROOMLOIN_BLOCKS = tag("anger_red_shroomloin_blocks");
-        public static final ITag.INamedTag<Block> ANGER_BROWN_SHROOMLOIN_BLOCKS = tag("anger_brown_shroomloin_blocks");
-        public static final ITag.INamedTag<Block> EMBODY_FALL_BLOCKS = tag("embody_fall_blocks");
+        public static final Tag.Named<Block> BASE_STONE_CANYON = tag("base_stone_canyon");
+        public static final Tag.Named<Block> BASE_STONE_SHORES = tag("base_stone_shores");
+        public static final Tag.Named<Block> DULLTHORNS_GROUND = tag("dullthorns_ground");
+        public static final Tag.Named<Block> GLOW_FIRE_BASE_BLOCKS = tag("glow_fire_base_blocks");
+        public static final Tag.Named<Block> MAGMA_CUBE_AVOID_BLOCKS = tag("magma_cube_avoid_blocks");
+        public static final Tag.Named<Block> BURIED_BONE_BASE_BLOCKS = tag("buried_bone_base_blocks");
+        public static final Tag.Named<Block> PLANTED_QUARTZ_BASE_BLOCKS = tag("planted_quartz_base_blocks");
+        public static final Tag.Named<Block> ANGER_CRIMSON_SHROOMLOIN_BLOCKS = tag("anger_crimson_shroomloin_blocks");
+        public static final Tag.Named<Block> ANGER_WARPED_SHROOMLOIN_BLOCKS = tag("anger_warped_shroomloin_blocks");
+        public static final Tag.Named<Block> ANGER_LUMINOUS_SHROOMLOIN_BLOCKS = tag("anger_luminous_shroomloin_blocks");
+        public static final Tag.Named<Block> ANGER_RED_SHROOMLOIN_BLOCKS = tag("anger_red_shroomloin_blocks");
+        public static final Tag.Named<Block> ANGER_BROWN_SHROOMLOIN_BLOCKS = tag("anger_brown_shroomloin_blocks");
+        public static final Tag.Named<Block> EMBODY_FALL_BLOCKS = tag("embody_fall_blocks");
 
-        private static ITag.INamedTag<Block> tag(String name) {
+        private static Tag.Named<Block> tag(String name) {
             return BlockTags.createOptional(new ResourceLocation(InfernalExpansion.MOD_ID, name));
         }
     }
 
     public static class Items {
 
-        public static final ITag.INamedTag<Item> GLOWSILK_REPAIR_BLACKLIST = tag("glowsilk_repair_blacklist");
+        public static final Tag.Named<Item> GLOWSILK_REPAIR_BLACKLIST = tag("glowsilk_repair_blacklist");
 
-        private static ITag.INamedTag<Item> tag(String name) {
+        private static Tag.Named<Item> tag(String name) {
             return ItemTags.createOptional(new ResourceLocation(InfernalExpansion.MOD_ID, name));
         }
     }

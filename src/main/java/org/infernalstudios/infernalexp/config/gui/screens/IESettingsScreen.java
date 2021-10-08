@@ -16,18 +16,18 @@
 
 package org.infernalstudios.infernalexp.config.gui.screens;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import org.infernalstudios.infernalexp.config.ConfigHelper;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.SettingsScreen;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.client.gui.widget.list.OptionsRowList;
-import net.minecraft.util.IReorderingProcessor;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.OptionsSubScreen;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.OptionsList;
+import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -38,9 +38,9 @@ import java.util.List;
 public abstract class IESettingsScreen extends Screen {
 
     private final Screen parentScreen;
-    protected OptionsRowList optionsRowList;
+    protected OptionsList optionsRowList;
 
-    protected IESettingsScreen(Screen parentScreen, ITextComponent titleIn) {
+    protected IESettingsScreen(Screen parentScreen, Component titleIn) {
         super(titleIn);
         this.parentScreen = parentScreen;
     }
@@ -49,22 +49,21 @@ public abstract class IESettingsScreen extends Screen {
 
     @Override
     protected void init() {
-        optionsRowList = new OptionsRowList(minecraft, width, height, 24, height - 32, 25);
+        optionsRowList = new OptionsList(minecraft, width, height, 24, height - 32, 25);
 
         addSettings();
 
-        children.add(optionsRowList);
-
-        addButton(new Button((width - 200) / 2, height - 26, 200, 20, new TranslationTextComponent("gui.done"), button -> closeScreen()));
+        addWidget(optionsRowList);
+        addWidget(new Button((width - 200) / 2, height - 26, 200, 20, new TranslatableComponent("gui.done"), button -> onClose()));
     }
 
     @Override
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+    public void render(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         renderBackground(matrixStack);
 
         optionsRowList.render(matrixStack, mouseX, mouseY, partialTicks);
 
-        List<IReorderingProcessor> list = SettingsScreen.func_243293_a(optionsRowList, mouseX, mouseY);
+        List<FormattedCharSequence> list = OptionsSubScreen.tooltipAt(optionsRowList, mouseX, mouseY);
         if (list != null) {
             this.renderTooltip(matrixStack, list, mouseX, mouseY);
         }
@@ -76,9 +75,9 @@ public abstract class IESettingsScreen extends Screen {
     }
 
     @Override
-    public void closeScreen() {
+    public void onClose() {
         ConfigHelper.saveToClient();
         ConfigHelper.saveToCommon();
-        Minecraft.getInstance().displayGuiScreen(parentScreen);
+        Minecraft.getInstance().setScreen(parentScreen);
     }
 }

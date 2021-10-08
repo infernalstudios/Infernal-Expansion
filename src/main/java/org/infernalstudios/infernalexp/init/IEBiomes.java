@@ -16,13 +16,13 @@
 
 package org.infernalstudios.infernalexp.init;
 
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.infernalstudios.infernalexp.InfernalExpansion;
@@ -36,7 +36,7 @@ public class IEBiomes {
     //public static final RegistryObject<Biome> DELTA_SHORES = registerNetherBiome("delta_shores", () -> new DeltaShoresSubBiome().build());
 
     private static RegistryObject<Biome> registerNetherBiome(String name, ModBiome biome) {
-        BiomeDictionary.addTypes(RegistryKey.getOrCreateKey(Registry.BIOME_KEY, new ResourceLocation(InfernalExpansion.MOD_ID, name)), biome.getBiomeTypes());
+        BiomeDictionary.addTypes(ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(InfernalExpansion.MOD_ID, name)), biome.getBiomeTypes());
 
         return BIOMES.register(name, biome::build);
     }

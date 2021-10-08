@@ -16,58 +16,59 @@
 
 package org.infernalstudios.infernalexp.entities;
 
+import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraftforge.common.ToolActions;
+import net.minecraftforge.fmllegacy.common.registry.IEntityAdditionalSpawnData;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntitySize;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.IAngerable;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.Pose;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.HurtByTargetGoal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
-import net.minecraft.entity.monster.MagmaCubeEntity;
-import net.minecraft.entity.monster.SkeletonEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.AbstractArrowEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.RangedInteger;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.TickRangeConverter;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.NeutralMob;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.monster.MagmaCube;
+import net.minecraft.world.entity.monster.Skeleton;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.TimeUtil;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IServerWorld;
-import net.minecraft.world.World;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class BasaltGiantEntity extends CreatureEntity implements IAngerable, IEntityAdditionalSpawnData, IResizable {
+public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEntityAdditionalSpawnData, IResizable {
 
     //    private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.BASALT, Items.POLISHED_BASALT);
-    private static final RangedInteger RANGED_INT = TickRangeConverter.convertRange(20, 39);
+    private static final UniformInt RANGED_INT = TimeUtil.rangeOfSeconds(20, 39);
     private int attackTimer;
     private int angerTime;
     private UUID angerTarget;
@@ -77,11 +78,11 @@ public class BasaltGiantEntity extends CreatureEntity implements IAngerable, IEn
     private static final float MIN_ENTITY_HEIGHT = 4.0F;
     private static final float MAX_ENTITY_HEIGHT = 6.0F;
 
-    private static final DataParameter<Float> GIANT_SIZE = EntityDataManager.createKey(BasaltGiantEntity.class, DataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> GIANT_SIZE = SynchedEntityData.defineId(BasaltGiantEntity.class, EntityDataSerializers.FLOAT);
 
-    public BasaltGiantEntity(EntityType<? extends BasaltGiantEntity> type, World worldIn) {
+    public BasaltGiantEntity(EntityType<? extends BasaltGiantEntity> type, Level worldIn) {
         super(type, worldIn);
-        this.stepHeight = 2.0f;
+        this.maxUpStep = 2.0f;
     }
 
 //    public BasaltGiantEntity(EntityType<? extends BasaltGiantEntity> type, World worldIn, float size) {
@@ -92,90 +93,90 @@ public class BasaltGiantEntity extends CreatureEntity implements IAngerable, IEn
 
     @Nullable
     @Override
-    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
 
         // Get a random size scale value resulting in a height between the MIN and MAX
         // values specified above
-        float size = rand.nextFloat();
+        float size = random.nextFloat();
         size /= BASE_ENTITY_HEIGHT / (MAX_ENTITY_HEIGHT - MIN_ENTITY_HEIGHT);
         size += MIN_ENTITY_HEIGHT / BASE_ENTITY_HEIGHT;
         this.setEntitySize(size);
 
-        return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
     // ATTRIBUTES
-    public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
-        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 56.0D).createMutableAttribute(Attributes.ATTACK_DAMAGE, 12.0D).createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 2.0D).createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE, 30.0D).createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.45D);
+    public static AttributeSupplier.Builder setCustomAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 56.0D).add(Attributes.ATTACK_DAMAGE, 12.0D).add(Attributes.ATTACK_KNOCKBACK, 2.0D).add(Attributes.KNOCKBACK_RESISTANCE, 30.0D).add(Attributes.MOVEMENT_SPEED, 0.45D);
     }
 
     @Override
-    public void livingTick() {
-        super.livingTick();
+    public void aiStep() {
+        super.aiStep();
         if (this.attackTimer > 0) {
             --this.attackTimer;
         }
     }
 
     @Override
-    protected void registerData() {
-        super.registerData();
-        dataManager.register(GIANT_SIZE, 1.0F);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        entityData.define(GIANT_SIZE, 1.0F);
     }
 
     @Override
     public float getEntitySize() {
-        return this.dataManager.get(GIANT_SIZE);
+        return this.entityData.get(GIANT_SIZE);
     }
 
     @Override
     public void setEntitySize(float size) {
-        getDataManager().set(GIANT_SIZE, size);
-        recenterBoundingBox();
-        recalculateSize();
+        getEntityData().set(GIANT_SIZE, size);
+        reapplyPosition();
+        refreshDimensions();
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
         compound.putFloat("Size", getEntitySize());
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
+    public void readAdditionalSaveData(CompoundTag compound) {
         setEntitySize(compound.getFloat("Size"));
-        super.readAdditional(compound);
+        super.readAdditionalSaveData(compound);
     }
 
     @Override
-    public void recalculateSize() {
-        super.recalculateSize();
-        setPosition(getPosX(), getPosY(), getPosZ());
+    public void refreshDimensions() {
+        super.refreshDimensions();
+        setPos(getX(), getY(), getZ());
     }
 
     @Override
-    public EntitySize getSize(Pose poseIn) {
-        return super.getSize(poseIn).scale(getEntitySize());
+    public EntityDimensions getDimensions(Pose poseIn) {
+        return super.getDimensions(poseIn).scale(getEntitySize());
     }
 
     @Override
-    public void notifyDataManagerChange(DataParameter<?> key) {
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
         if (GIANT_SIZE.equals(key)) {
-            recalculateSize();
+            refreshDimensions();
         }
 
-        super.notifyDataManagerChange(key);
+        super.onSyncedDataUpdated(key);
     }
 
     // ---
     // Retaliating
     @OnlyIn(Dist.CLIENT)
-    public void handleStatusUpdate(byte id) {
+    public void handleEntityEvent(byte id) {
         if (id == 4) {
             this.attackTimer = 10;
             this.playSound(IESoundEvents.BASALT_GIANT_DEATH.get(), 1.0F, 1.0F);
         } else {
-            super.handleStatusUpdate(id);
+            super.handleEntityEvent(id);
         }
 
     }
@@ -185,19 +186,19 @@ public class BasaltGiantEntity extends CreatureEntity implements IAngerable, IEn
         return this.attackTimer;
     }
 
-    public boolean attackEntityAsMob(Entity entityIn) {
+    public boolean doHurtTarget(Entity entityIn) {
         this.attackTimer = 10;
-        this.world.setEntityState(this, (byte) 4);
+        this.level.broadcastEntityEvent(this, (byte) 4);
         float f = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
-        float f1 = (int) f > 0 ? f / 2.0F + (float) this.rand.nextInt((int) f) : f;
+        float f1 = (int) f > 0 ? f / 2.0F + (float) this.random.nextInt((int) f) : f;
         float f2 = (float) this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
 
-        if (entityIn instanceof PlayerEntity && ((PlayerEntity) entityIn).getActiveItemStack().isShield((PlayerEntity) entityIn)) {
+        if (entityIn instanceof Player && ((Player) entityIn).getUseItem().canPerformAction(ToolActions.SHIELD_BLOCK)) {
             attackFling(entityIn, f2 * 3, 2.0);
-            entityIn.velocityChanged = true;
+            entityIn.hurtMarked = true;
         }
 
-        boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), f1);
+        boolean flag = entityIn.hurt(DamageSource.mobAttack(this), f1);
 
         if (flag) {
             attackFling(entityIn, f2, 0.6);
@@ -208,17 +209,17 @@ public class BasaltGiantEntity extends CreatureEntity implements IAngerable, IEn
     }
 
     private void attackFling(Entity entityIn, float f2, double height) {
-        ((LivingEntity) entityIn).applyKnockback(f2, MathHelper.sin(this.rotationYaw * ((float) Math.PI / 180F)), -MathHelper.cos(this.rotationYaw * ((float) Math.PI / 180F)));
-        entityIn.setMotion(entityIn.getMotion().add(0.0D, height, 0.0D));
-        this.applyEnchantments(this, entityIn);
+        ((LivingEntity) entityIn).knockback(f2, Mth.sin(this.getYRot() * ((float) Math.PI / 180F)), -Mth.cos(this.getYRot() * ((float) Math.PI / 180F)));
+        entityIn.setDeltaMovement(entityIn.getDeltaMovement().add(0.0D, height, 0.0D));
+        this.doEnchantDamageEffects(this, entityIn);
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource source, float amount) {
-        if (source.getImmediateSource() instanceof AbstractArrowEntity) {
+    public boolean hurt(DamageSource source, float amount) {
+        if (source.getDirectEntity() instanceof AbstractArrow) {
             return false;
         }
-        return super.attackEntityFrom(source, amount);
+        return super.hurt(source, amount);
     }
 
     // ---
@@ -228,34 +229,34 @@ public class BasaltGiantEntity extends CreatureEntity implements IAngerable, IEn
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 0.6D, true));
-        this.goalSelector.addGoal(1, new SwimGoal(this));
-        this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
-        this.goalSelector.addGoal(3, new LookAtGoal(this, PlayerEntity.class, 8.0f));
-        this.goalSelector.addGoal(4, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(1, new FloatGoal(this));
+        this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 0.5d));
+        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0f));
+        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
 //        this.goalSelector.addGoal(5, new TemptGoal(this, 0.6D, TEMPTATION_ITEMS, false));
 
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         if (InfernalExpansionConfig.MobInteractions.SKELETON_ATTACK_GIANT.getBoolean()) {
-            this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, SkeletonEntity.class, true, false));
+            this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Skeleton.class, true, false));
         }
         if (InfernalExpansionConfig.MobInteractions.GIANT_ATTACK_MAGMA_CUBE.getBoolean()) {
-            this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, MagmaCubeEntity.class, true, false));
+            this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, MagmaCube.class, true, false));
         }
     }
 
     @Override
-    public void writeSpawnData(PacketBuffer buffer) {
+    public void writeSpawnData(FriendlyByteBuf buffer) {
         buffer.writeFloat(getEntitySize());
     }
 
     @Override
-    public void readSpawnData(PacketBuffer buffer) {
-        this.dataManager.set(GIANT_SIZE, buffer.readFloat());
+    public void readSpawnData(FriendlyByteBuf buffer) {
+        this.entityData.set(GIANT_SIZE, buffer.readFloat());
     }
 
     // EXP POINTS
     @Override
-    protected int getExperiencePoints(PlayerEntity player) {
+    protected int getExperienceReward(Player player) {
         return 73;
     }
 
@@ -277,36 +278,36 @@ public class BasaltGiantEntity extends CreatureEntity implements IAngerable, IEn
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState blockIn) {
-        this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
+        this.playSound(SoundEvents.PIG_STEP, 0.15F, 1.0F);
     }
 
-    public boolean isImmuneToFire() {
+    public boolean fireImmune() {
         return true;
     }
 
     @Override
-    public int getAngerTime() {
+    public int getRemainingPersistentAngerTime() {
         return this.angerTime;
     }
 
     @Override
-    public void setAngerTime(int time) {
+    public void setRemainingPersistentAngerTime(int time) {
         this.angerTime = time;
     }
 
     @Nullable
     @Override
-    public UUID getAngerTarget() {
+    public UUID getPersistentAngerTarget() {
         return this.angerTarget;
     }
 
     @Override
-    public void setAngerTarget(@Nullable UUID target) {
+    public void setPersistentAngerTarget(@Nullable UUID target) {
         this.angerTarget = target;
     }
 
     @Override
-    public void func_230258_H__() {
-        this.setAngerTime(RANGED_INT.getRandomWithinRange(this.rand));
+    public void startPersistentAngerTimer() {
+        this.setRemainingPersistentAngerTime(RANGED_INT.sample(this.random));
     }
 }

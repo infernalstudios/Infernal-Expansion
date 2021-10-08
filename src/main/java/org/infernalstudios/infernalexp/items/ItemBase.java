@@ -18,11 +18,11 @@ package org.infernalstudios.infernalexp.items;
 
 import org.infernalstudios.infernalexp.InfernalExpansion;
 
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 
 public class ItemBase extends Item {
 
     public ItemBase() {
-        super(new Item.Properties().group(InfernalExpansion.TAB));
+        super(new Item.Properties().tab(InfernalExpansion.TAB));
     }
 }

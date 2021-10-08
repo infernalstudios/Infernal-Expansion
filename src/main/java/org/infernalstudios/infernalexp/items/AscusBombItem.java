@@ -19,36 +19,36 @@ package org.infernalstudios.infernalexp.items;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.entities.AscusBombEntity;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.level.Level;
 
 public class AscusBombItem extends Item {
     public AscusBombItem() {
-        super(new Item.Properties().maxStackSize(16).group(InfernalExpansion.TAB));
+        super(new Item.Properties().stacksTo(16).tab(InfernalExpansion.TAB));
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        ItemStack itemStack = playerIn.getHeldItem(handIn);
+    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
+        ItemStack itemStack = playerIn.getItemInHand(handIn);
 
-        if (!worldIn.isRemote) {
+        if (!worldIn.isClientSide) {
             AscusBombEntity ascusBombEntity = new AscusBombEntity(worldIn, playerIn);
             ascusBombEntity.setItem(itemStack);
-            ascusBombEntity.setDirectionAndMovement(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, -20, 0.5f, 1);
-            worldIn.addEntity(ascusBombEntity);
+            ascusBombEntity.shootFromRotation(playerIn, playerIn.getXRot(), playerIn.getYRot(), -20, 0.5f, 1);
+            worldIn.addFreshEntity(ascusBombEntity);
         }
 
-        playerIn.addStat(Stats.ITEM_USED.get(this));
+        playerIn.awardStat(Stats.ITEM_USED.get(this));
 
-        if (!playerIn.abilities.isCreativeMode) {
+        if (!playerIn.getAbilities().instabuild) {
             itemStack.shrink(1);
         }
 
-        return ActionResult.func_233538_a_(itemStack, worldIn.isRemote());
+        return InteractionResultHolder.sidedSuccess(itemStack, worldIn.isClientSide());
     }
 }

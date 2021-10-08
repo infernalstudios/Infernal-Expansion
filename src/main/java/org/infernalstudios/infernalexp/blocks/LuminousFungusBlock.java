@@ -16,95 +16,90 @@
 
 package org.infernalstudios.infernalexp.blocks;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.AttachFace;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.levelgen.feature.HugeFungusConfiguration;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import org.infernalstudios.infernalexp.blockentities.GlowCampfireBlockEntity;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IEConfiguredFeatures;
 import org.infernalstudios.infernalexp.init.IEEffects;
-import org.infernalstudios.infernalexp.tileentities.LuminousFungusTileEntity;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.IGrowable;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.AttachFace;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.HugeFungusConfig;
-import net.minecraft.world.server.ServerWorld;
-
-import javax.annotation.Nullable;
 import java.util.Random;
 
-public class LuminousFungusBlock extends HorizontalBushBlock implements IGrowable {
+public class LuminousFungusBlock extends HorizontalBushBlock implements BonemealableBlock, EntityBlock, BlockEntityTicker {
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
-    protected static final VoxelShape FLOOR_SHAPE = makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 10.0D, 11.0D);
-    protected static final VoxelShape CEILING_SHAPE = makeCuboidShape(5.0D, 6.0D, 5.0D, 11.0D, 16.0D, 11.0D);
+    protected static final VoxelShape FLOOR_SHAPE = box(5.0D, 0.0D, 5.0D, 11.0D, 10.0D, 11.0D);
+    protected static final VoxelShape CEILING_SHAPE = box(5.0D, 6.0D, 5.0D, 11.0D, 16.0D, 11.0D);
 
     public LuminousFungusBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.getDefaultState().with(FACE, AttachFace.FLOOR).with(HORIZONTAL_FACING, Direction.NORTH).with(LIT, Boolean.valueOf(false)));
+        this.registerDefaultState(this.defaultBlockState().setValue(FACE, AttachFace.FLOOR).setValue(FACING, Direction.NORTH).setValue(LIT, Boolean.valueOf(false)));
     }
 
     @Override
-    public boolean hasTileEntity(BlockState state) {
-        return true;
-    }
-
-    @Override
-    protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
+    protected boolean isValidGround(BlockState state, BlockGetter worldIn, BlockPos pos) {
         return
-            state.matchesBlock(IEBlocks.GLOWDUST_SAND.get()) || state.matchesBlock(Blocks.SAND) || state.matchesBlock(Blocks.RED_SAND)
-                || state.matchesBlock(Blocks.GRASS) || state.matchesBlock(Blocks.GRASS_BLOCK) ||
-                state.matchesBlock(Blocks.DIRT) || state.matchesBlock(Blocks.COARSE_DIRT) || state.matchesBlock(Blocks.FARMLAND) ||
-                state.matchesBlock(Blocks.PODZOL) || state.matchesBlock(Blocks.MYCELIUM) ||
-                state.matchesBlock(Blocks.CRIMSON_NYLIUM) || state.matchesBlock(Blocks.WARPED_NYLIUM) ||
-                state.matchesBlock(Blocks.SOUL_SOIL) || state.matchesBlock(Blocks.GLOWSTONE) || state.matchesBlock(IEBlocks.DIMSTONE.get()) ||
-                state.matchesBlock(IEBlocks.DULLSTONE.get()) || state.matchesBlock(IEBlocks.DULLTHORNS.get())
+            state.is(IEBlocks.GLOWDUST_SAND.get()) || state.is(Blocks.SAND) || state.is(Blocks.RED_SAND)
+                || state.is(Blocks.GRASS) || state.is(Blocks.GRASS_BLOCK) ||
+                state.is(Blocks.DIRT) || state.is(Blocks.COARSE_DIRT) || state.is(Blocks.FARMLAND) ||
+                state.is(Blocks.PODZOL) || state.is(Blocks.MYCELIUM) ||
+                state.is(Blocks.CRIMSON_NYLIUM) || state.is(Blocks.WARPED_NYLIUM) ||
+                state.is(Blocks.SOUL_SOIL) || state.is(Blocks.GLOWSTONE) || state.is(IEBlocks.DIMSTONE.get()) ||
+                state.is(IEBlocks.DULLSTONE.get()) || state.is(IEBlocks.DULLTHORNS.get())
             ;
     }
 
-    public boolean canAttach(IWorldReader reader, BlockPos pos, Direction direction) {
-        BlockPos blockpos = pos.offset(direction);
+    public boolean canAttachToSurface(LevelReader reader, BlockPos pos, Direction direction) {
+        BlockPos blockpos = pos.relative(direction);
         return isValidGround(reader.getBlockState(blockpos), reader, blockpos);
     }
 
     @Override
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        return !state.get(FACE).equals(AttachFace.WALL) && canAttach(worldIn, pos, getFacing(state).getOpposite());
+    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
+        return !state.getValue(FACE).equals(AttachFace.WALL) && canAttachToSurface(worldIn, pos, getConnectedDirection(state).getOpposite());
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        Vector3d vector3d = state.getOffset(worldIn, pos);
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+        Vec3 vector3d = state.getOffset(worldIn, pos);
 
-        switch (state.get(FACE)) {
+        switch (state.getValue(FACE)) {
             case FLOOR:
-                return FLOOR_SHAPE.withOffset(vector3d.x, vector3d.y, vector3d.z);
+                return FLOOR_SHAPE.move(vector3d.x, vector3d.y, vector3d.z);
             case CEILING:
             default:
-                return CEILING_SHAPE.withOffset(vector3d.x, vector3d.y, vector3d.z);
+                return CEILING_SHAPE.move(vector3d.x, vector3d.y, vector3d.z);
         }
     }
 
     @Override
-    public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
-        if (!worldIn.isRemote()) {
+    public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
+        if (!worldIn.isClientSide()) {
             if (entityIn instanceof LivingEntity && entityIn.isAlive() && InfernalExpansionConfig.Miscellaneous.LUMINOUS_FUNGUS_GIVES_EFFECT.getBool()) {
                 LivingEntity livingEntity = (LivingEntity) entityIn;
-                livingEntity.addPotionEffect(new EffectInstance(IEEffects.LUMINOUS.get(), 120, 0, true, true));
+                livingEntity.addEffect(new MobEffectInstance(IEEffects.LUMINOUS.get(), 120, 0, true, true));
             }
         }
     }
@@ -116,33 +111,37 @@ public class LuminousFungusBlock extends HorizontalBushBlock implements IGrowabl
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builderIn) {
-        builderIn.add(HORIZONTAL_FACING, FACE, LIT);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builderIn) {
+        builderIn.add(FACING, FACE, LIT);
     }
 
     /**
      * Whether this IGrowable can grow
      */
     @Override
-    public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
-        Block block = ((HugeFungusConfig) (IEConfiguredFeatures.DULLTHORN_TREE_PLANTED).config).validBaseBlock.getBlock();
-        Block block1 = worldIn.getBlockState(pos.down()).getBlock();
+    public boolean isValidBonemealTarget(BlockGetter worldIn, BlockPos pos, BlockState state, boolean isClient) {
+        Block block = ((HugeFungusConfiguration) (IEConfiguredFeatures.DULLTHORN_TREE_PLANTED).config).validBaseState.getBlock();
+        Block block1 = worldIn.getBlockState(pos.below()).getBlock();
         return block1 == block;
     }
 
     @Override
-    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level worldIn, Random rand, BlockPos pos, BlockState state) {
         return (double) rand.nextFloat() < 0.4D;
     }
 
     @Override
-    public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
-        IEConfiguredFeatures.DULLTHORN_TREE_PLANTED.generate(worldIn, worldIn.getChunkProvider().getChunkGenerator(), rand, pos);
+    public void performBonemeal(ServerLevel worldIn, Random rand, BlockPos pos, BlockState state) {
+        IEConfiguredFeatures.DULLTHORN_TREE_PLANTED.place(worldIn, worldIn.getChunkSource().getGenerator(), rand, pos);
     }
 
-    @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new LuminousFungusTileEntity();
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new GlowCampfireBlockEntity(pos, state);
+    }
+
+    @Override
+    public void tick(Level p_155253_, BlockPos p_155254_, BlockState p_155255_, BlockEntity p_155256_) {
+
     }
 }

@@ -19,9 +19,9 @@ package org.infernalstudios.infernalexp.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
 
 public class ShapeUtil {
 
@@ -37,7 +37,7 @@ public class ShapeUtil {
 
         // Uses trigonometry to calculate x, y positions for each point
         for (float theta = 0; theta < 2 * Math.PI; theta += thetaIncrement) {
-            posList.add(new BlockPos(MathHelper.cos(theta) * radius, 0, MathHelper.sin(theta) * radius));
+            posList.add(new BlockPos(Mth.cos(theta) * radius, 0, Mth.sin(theta) * radius));
         }
 
         return posList;
@@ -96,11 +96,11 @@ public class ShapeUtil {
     public static List<BlockPos> generateLine(BlockPos startPos, BlockPos endPos) {
         List<BlockPos> posList = new ArrayList<>();
 
-        Vector3d vec1 = new Vector3d(startPos.getX(), startPos.getY(), startPos.getZ());
-        Vector3d vec2 = new Vector3d(endPos.getX(), endPos.getY(), endPos.getZ());
+        Vec3 vec1 = new Vec3(startPos.getX(), startPos.getY(), startPos.getZ());
+        Vec3 vec2 = new Vec3(endPos.getX(), endPos.getY(), endPos.getZ());
 
-        Vector3d diffVec = vec2.subtract(vec1);
-        Vector3d incVec = new Vector3d((int) diffVec.x / diffVec.length(), (int) diffVec.y / diffVec.length(), (int) diffVec.z / diffVec.length());
+        Vec3 diffVec = vec2.subtract(vec1);
+        Vec3 incVec = new Vec3((int) diffVec.x / diffVec.length(), (int) diffVec.y / diffVec.length(), (int) diffVec.z / diffVec.length());
 
         for (int i = 0; i <= (int) diffVec.length(); i++) {
             posList.add(new BlockPos(vec1.x, vec1.y, vec1.z));

@@ -16,54 +16,52 @@
 
 package org.infernalstudios.infernalexp.entities;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.decoration.Motive;
+import net.minecraft.world.entity.decoration.Painting;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fmllegacy.network.NetworkDirection;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
 import org.infernalstudios.infernalexp.init.IEItems;
 import org.infernalstudios.infernalexp.network.IENetworkHandler;
 import org.infernalstudios.infernalexp.network.SpawnInfernalPaintingPacket;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.item.PaintingEntity;
-import net.minecraft.entity.item.PaintingType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.IPacket;
-import net.minecraft.util.Direction;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.GameRules;
-import net.minecraft.world.World;
-
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.network.NetworkDirection;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class InfernalPaintingEntity extends PaintingEntity {
+public class InfernalPaintingEntity extends Painting {
 
-    public InfernalPaintingEntity(EntityType<? extends InfernalPaintingEntity> type, World worldIn) {
+    public InfernalPaintingEntity(EntityType<? extends InfernalPaintingEntity> type, Level worldIn) {
         super(type, worldIn);
     }
 
-    public InfernalPaintingEntity(World worldIn, BlockPos pos, Direction facing) {
+    public InfernalPaintingEntity(Level worldIn, BlockPos pos, Direction facing) {
         this(IEEntityTypes.INFERNAL_PAINTING.get(), worldIn);
-        this.hangingPosition = pos;
-        updateFacingWithBoundingBox(facing);
+        this.pos = pos;
+        setDirection(facing);
 
-        List<PaintingType> paintings = new ArrayList<>();
+        List<Motive> paintings = new ArrayList<>();
         int maxSurfaceArea = 0;
 
-        for (PaintingType paintingType : ForgeRegistries.PAINTING_TYPES) {
-            art = paintingType;
-            updateFacingWithBoundingBox(facing);
+        for (Motive paintingType : ForgeRegistries.PAINTING_TYPES) {
+            motive = paintingType;
+            setDirection(facing);
 
-            if (onValidSurface() && paintingType.getRegistryName().getNamespace().equals("infernalexp")) {
+            if (survives() && paintingType.getRegistryName().getNamespace().equals("infernalexp")) {
                 paintings.add(paintingType);
 
                 int surfaceArea = paintingType.getWidth() * paintingType.getHeight();
@@ -75,51 +73,51 @@ public class InfernalPaintingEntity extends PaintingEntity {
         }
 
         if (!paintings.isEmpty()) {
-            Iterator<PaintingType> iterator = paintings.iterator();
+            Iterator<Motive> iterator = paintings.iterator();
 
             while (iterator.hasNext()) {
-                PaintingType paintingType = iterator.next();
+                Motive paintingType = iterator.next();
 
                 if (paintingType.getWidth() * paintingType.getHeight() < maxSurfaceArea) {
                     iterator.remove();
                 }
             }
 
-            art = paintings.get(this.rand.nextInt(paintings.size()));
+            motive = paintings.get(this.random.nextInt(paintings.size()));
         }
 
-        updateFacingWithBoundingBox(facing);
+        setDirection(facing);
     }
 
     @OnlyIn(Dist.CLIENT)
-    public InfernalPaintingEntity(World world, BlockPos pos, Direction facing, PaintingType art) {
+    public InfernalPaintingEntity(Level world, BlockPos pos, Direction facing, Motive art) {
         this(world, pos, facing);
-        this.art = art;
-        this.updateFacingWithBoundingBox(facing);
+        this.motive = art;
+        this.setDirection(facing);
     }
 
     @Override
-    public void onBroken(@Nullable Entity brokenEntity) {
-        if (world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
-            playSound(SoundEvents.ENTITY_PAINTING_BREAK, 1.0F, 1.0F);
+    public void dropItem(@Nullable Entity brokenEntity) {
+        if (level.getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
+            playSound(SoundEvents.PAINTING_BREAK, 1.0F, 1.0F);
 
-            if (brokenEntity instanceof PlayerEntity) {
-                if (((PlayerEntity) brokenEntity).abilities.isCreativeMode) {
+            if (brokenEntity instanceof Player) {
+                if (((Player) brokenEntity).getAbilities().instabuild) {
                     return;
                 }
             }
 
-            entityDropItem(IEItems.INFERNAL_PAINTING.get());
+            spawnAtLocation(IEItems.INFERNAL_PAINTING.get());
         }
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public Packet<?> getAddEntityPacket() {
         return IENetworkHandler.INSTANCE.toVanillaPacket(new SpawnInfernalPaintingPacket(this), NetworkDirection.PLAY_TO_CLIENT);
     }
 
     @Override
-    public ItemStack getPickedResult(RayTraceResult target) {
+    public ItemStack getPickedResult(HitResult target) {
         return IEItems.INFERNAL_PAINTING.get().getDefaultInstance();
     }
 }

@@ -21,10 +21,10 @@ import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 import org.infernalstudios.infernalexp.init.IEEffects;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.AbstractArrowEntity;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.core.BlockPos;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -38,9 +38,9 @@ public class DynamicLightingHandler {
     public static final Map<BlockPos, LightData> LIGHT_SOURCES = new ConcurrentHashMap<>();
 
     public static void tick(LivingEntity entity) {
-        if (entity != null && MinecraftInstance.player != null && MinecraftInstance.player.ticksExisted % (int) InfernalExpansionConfig.ClientConfig.LUMINOUS_REFRESH_DELAY.getDouble() == 0) {
+        if (entity != null && MinecraftInstance.player != null && MinecraftInstance.player.tickCount % (int) InfernalExpansionConfig.ClientConfig.LUMINOUS_REFRESH_DELAY.getDouble() == 0) {
             if (shouldGlow(entity)) {
-                LIGHT_SOURCES.put(entity.getPosition(), new LightData(getTimeAmplifier(entity)));
+                LIGHT_SOURCES.put(entity.blockPosition(), new LightData(getTimeAmplifier(entity)));
             }
             if (entity == MinecraftInstance.player) {
                 LIGHT_SOURCES.forEach((pos, data) -> {
@@ -48,7 +48,7 @@ public class DynamicLightingHandler {
                         data.shouldKeep = false;
                     }
                     if (data.time == 20 * data.amplifier || !data.shouldKeep) {
-                        MinecraftInstance.world.getChunkProvider().getLightManager().checkBlock(pos);
+                        MinecraftInstance.level.getChunkSource().getLightEngine().checkBlock(pos);
                     }
                     data.time -= (int) InfernalExpansionConfig.ClientConfig.LUMINOUS_REFRESH_DELAY.getDouble();
                 });
@@ -57,28 +57,28 @@ public class DynamicLightingHandler {
         }
     }
 
-    public static void tick(AbstractArrowEntity entity) {
-        if (entity != null && MinecraftInstance.player != null && MinecraftInstance.player.ticksExisted % (int) InfernalExpansionConfig.ClientConfig.LUMINOUS_REFRESH_DELAY.getDouble() == 0) {
+    public static void tick(AbstractArrow entity) {
+        if (entity != null && MinecraftInstance.player != null && MinecraftInstance.player.tickCount % (int) InfernalExpansionConfig.ClientConfig.LUMINOUS_REFRESH_DELAY.getDouble() == 0) {
             if (shouldGlow(entity)) {
-                LIGHT_SOURCES.put(entity.getPosition(), new LightData(0.5));
+                LIGHT_SOURCES.put(entity.blockPosition(), new LightData(0.5));
             }
         }
     }
 
     public static int getTimeAmplifier(LivingEntity entity) {
-        EffectInstance luminousEffect = entity.getActivePotionEffect(IEEffects.LUMINOUS.get());
+        MobEffectInstance luminousEffect = entity.getEffect(IEEffects.LUMINOUS.get());
         if (luminousEffect != null) {
             return luminousEffect.getAmplifier() == 0 ? 1 : 2;
         }
         return 1;
     }
 
-    public static boolean shouldGlow(AbstractArrowEntity entity) {
+    public static boolean shouldGlow(AbstractArrow entity) {
         return ((AbstractArrowEntityAccess) entity).getGlow();
     }
 
     public static boolean shouldGlow(LivingEntity entity) {
-        return entity.isPotionActive(IEEffects.LUMINOUS.get());
+        return entity.hasEffect(IEEffects.LUMINOUS.get());
     }
 
     public static class LightData {

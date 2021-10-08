@@ -19,12 +19,12 @@ package org.infernalstudios.infernalexp.client.sound;
 import org.infernalstudios.infernalexp.entities.GlowsquitoEntity;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
 
-import net.minecraft.util.SoundCategory;
+import net.minecraft.sounds.SoundSource;
 
 public class GlowsquitoFlightSound extends LoopingSound<GlowsquitoEntity> {
 
     public GlowsquitoFlightSound(GlowsquitoEntity entity) {
-        super(entity, IESoundEvents.GLOWSQUITO_LOOP.get(), SoundCategory.NEUTRAL);
+        super(entity, IESoundEvents.GLOWSQUITO_LOOP.get(), SoundSource.NEUTRAL);
     }
 
 }

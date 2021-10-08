@@ -16,11 +16,11 @@
 
 package org.infernalstudios.infernalexp.entities.ai;
 
-import net.minecraft.entity.EntityPredicate;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.potion.Effect;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.effect.MobEffect;
 
 import javax.annotation.Nullable;
 import java.util.function.Predicate;
@@ -31,40 +31,40 @@ import java.util.function.Predicate;
  * should be targeted.
  */
 public class TargetWithEffectGoal extends NearestAttackableTargetGoal {
-    private final Effect effect;
+    private final MobEffect effect;
     private final Class invalidTarget;
 
-    public TargetWithEffectGoal(MobEntity goalOwnerIn, Class targetClassIn, boolean checkSight, Effect effect, @Nullable Class invalidTargetClassIn) {
+    public TargetWithEffectGoal(Mob goalOwnerIn, Class targetClassIn, boolean checkSight, MobEffect effect, @Nullable Class invalidTargetClassIn) {
         super(goalOwnerIn, targetClassIn, checkSight);
         this.effect = effect;
         this.invalidTarget = invalidTargetClassIn;
     }
 
-    public TargetWithEffectGoal(MobEntity goalOwnerIn, Class targetClassIn, boolean checkSight, boolean nearbyOnlyIn, Effect effect, @Nullable Class invalidTargetClassIn) {
+    public TargetWithEffectGoal(Mob goalOwnerIn, Class targetClassIn, boolean checkSight, boolean nearbyOnlyIn, MobEffect effect, @Nullable Class invalidTargetClassIn) {
         super(goalOwnerIn, targetClassIn, checkSight, nearbyOnlyIn);
         this.effect = effect;
         this.invalidTarget = invalidTargetClassIn;
     }
 
-    public TargetWithEffectGoal(MobEntity goalOwnerIn, Class targetClassIn, int targetChanceIn, boolean checkSight, boolean nearbyOnlyIn, Predicate targetPredicate, Effect effect, @Nullable Class invalidTargetClassIn) {
+    public TargetWithEffectGoal(Mob goalOwnerIn, Class targetClassIn, int targetChanceIn, boolean checkSight, boolean nearbyOnlyIn, Predicate targetPredicate, MobEffect effect, @Nullable Class invalidTargetClassIn) {
         super(goalOwnerIn, targetClassIn, targetChanceIn, checkSight, nearbyOnlyIn, targetPredicate);
         this.effect = effect;
         this.invalidTarget = invalidTargetClassIn;
     }
 
     @Override
-    protected boolean isSuitableTarget(@Nullable LivingEntity potentialTarget, EntityPredicate targetPredicate) {
+    protected boolean canAttack(@Nullable LivingEntity potentialTarget, TargetingConditions targetPredicate) {
         if (this.invalidTarget != null && potentialTarget != null && potentialTarget.getClass() == this.invalidTarget) {
             return false;
         }
-        return super.isSuitableTarget(potentialTarget, targetPredicate) && potentialTarget.isPotionActive(this.effect);
+        return super.canAttack(potentialTarget, targetPredicate) && potentialTarget.hasEffect(this.effect);
     }
 
     @Override
-    protected void findNearestTarget() {
-        super.findNearestTarget();
-        if (!isSuitableTarget(this.nearestTarget, this.targetEntitySelector)) {
-            this.nearestTarget = null;
+    protected void findTarget() {
+        super.findTarget();
+        if (!canAttack(this.target, this.targetConditions)) {
+            this.target = null;
         }
     }
 }

@@ -16,26 +16,25 @@
 
 package org.infernalstudios.infernalexp.client.entity.render;
 
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.resources.ResourceLocation;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.client.entity.model.GlowsilkMothModel;
 import org.infernalstudios.infernalexp.entities.GlowsilkMothEntity;
-
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.util.ResourceLocation;
 
 public class GlowsilkMothRenderer extends MobRenderer<GlowsilkMothEntity, GlowsilkMothModel<GlowsilkMothEntity>> {
     protected static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID,
         "textures/entity/glowsilk_moth.png");
 
-    public GlowsilkMothRenderer(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn, new GlowsilkMothModel<>(), 0.7f);
-        this.addLayer(new GlowsilkMothGlowLayer(this));
+    public GlowsilkMothRenderer(EntityRendererProvider.Context context) {
+        super(context, new GlowsilkMothModel<>(context.bakeLayer(GlowsilkMothModel.LAYER_LOCATION)), 0.7f);
+        this.addLayer(new GlowsilkMothGlowLayer<>(this));
         ;
     }
 
     @Override
-    public ResourceLocation getEntityTexture(GlowsilkMothEntity entity) {
+    public ResourceLocation getTextureLocation(GlowsilkMothEntity entity) {
         return TEXTURE;
     }
 

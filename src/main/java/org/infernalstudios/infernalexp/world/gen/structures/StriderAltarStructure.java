@@ -17,50 +17,49 @@
 package org.infernalstudios.infernalexp.world.gen.structures;
 
 import com.mojang.serialization.Codec;
-
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.LevelHeightAccessor;
+import net.minecraft.world.level.NoiseColumn;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeSource;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.WorldgenRandom;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.structures.JigsawPlacement;
+import net.minecraft.world.level.levelgen.structure.PoolElementStructurePiece;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureManager;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SharedSeedRandom;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.MutableBoundingBox;
-import net.minecraft.util.registry.DynamicRegistries;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.provider.BiomeProvider;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
-import net.minecraft.world.gen.feature.jigsaw.JigsawManager;
-import net.minecraft.world.gen.feature.structure.AbstractVillagePiece;
-import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.feature.structure.VillageConfig;
-import net.minecraft.world.gen.feature.template.TemplateManager;
-import net.minecraft.world.gen.settings.StructureSeparationSettings;
-
-public class StriderAltarStructure extends IEStructure<NoFeatureConfig> {
-    public StriderAltarStructure(Codec<NoFeatureConfig> codec) {
+public class StriderAltarStructure extends IEStructure<NoneFeatureConfiguration> {
+    public StriderAltarStructure(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
     }
 
     @Override
-    public IStartFactory<NoFeatureConfig> getStartFactory() {
+    public StructureStartFactory<NoneFeatureConfiguration> getStartFactory() {
         return StriderAltarStructure.Start::new;
     }
 
     @Override
-    public GenerationStage.Decoration getDecorationStage() {
-        return GenerationStage.Decoration.SURFACE_STRUCTURES;
+    public GenerationStep.Decoration step() {
+        return GenerationStep.Decoration.SURFACE_STRUCTURES;
     }
 
     @Override
-    public StructureSeparationSettings getSeparationSettings() {
-        return new StructureSeparationSettings(10, 5, 80837592);
+    public StructureFeatureConfiguration getSeparationSettings() {
+        return new StructureFeatureConfiguration(10, 5, 80837592);
     }
 
     @Override
@@ -69,20 +68,20 @@ public class StriderAltarStructure extends IEStructure<NoFeatureConfig> {
     }
 
     @Override
-    protected boolean func_230363_a_(ChunkGenerator chunkGenerator, BiomeProvider biomeProvider, long seed, SharedSeedRandom chunkRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, NoFeatureConfig config) {
+    protected boolean isFeatureChunk(ChunkGenerator chunkGenerator, BiomeSource biomeProvider, long seed, WorldgenRandom chunkRandom, ChunkPos chunkPos, Biome biome, ChunkPos chunkPos2, NoneFeatureConfiguration config, LevelHeightAccessor levelHeightAccessor) {
 
         // Makes cheap check first, if it passes this check, it does a more in-depth check
-        if (super.func_230363_a_(chunkGenerator, biomeProvider, seed, chunkRandom, chunkX, chunkZ, biome, chunkPos, config)) {
+        if (super.isFeatureChunk(chunkGenerator, biomeProvider, seed, chunkRandom, chunkPos, biome, chunkPos2, config, levelHeightAccessor)) {
 
-            BlockPos.Mutable mutable = new BlockPos.Mutable(chunkX << 4, chunkGenerator.getSeaLevel(), chunkZ << 4);
-            IBlockReader blockView = chunkGenerator.func_230348_a_(mutable.getX(), mutable.getZ());
+            BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos(chunkPos.x << 4, chunkGenerator.getSeaLevel(), chunkPos.z << 4);
+            NoiseColumn noiseColumn = chunkGenerator.getBaseColumn(mutable.getX(), mutable.getZ(), levelHeightAccessor);
 
             // Makes sure there are at least 20 blocks of air above the lava ocean to spawn the altar
             int minValidSpace = 20;
-            int maxHeight = Math.min(chunkGenerator.getMaxBuildHeight(), chunkGenerator.getSeaLevel() + minValidSpace);
+            int maxHeight = Math.min(chunkGenerator.getGenDepth(), chunkGenerator.getSeaLevel() + minValidSpace);
 
             while (mutable.getY() < maxHeight) {
-                BlockState state = blockView.getBlockState(mutable);
+                BlockState state = noiseColumn.getBlockState(mutable);
                 if (!state.isAir()) {
                     return false;
                 }
@@ -95,28 +94,28 @@ public class StriderAltarStructure extends IEStructure<NoFeatureConfig> {
         return true;
     }
 
-    public static class Start extends IEStart<NoFeatureConfig> {
-        public Start(Structure<NoFeatureConfig> structure, int chunkX, int chunkZ, MutableBoundingBox mutableBoundingBox, int reference, long seed) {
-            super(structure, chunkX, chunkZ, mutableBoundingBox, reference, seed);
+    public static class Start extends IEStart<NoneFeatureConfiguration> {
+        public Start(StructureFeature<NoneFeatureConfiguration> structure, ChunkPos chunkPos, int reference, long seed) {
+            super(structure, chunkPos, reference, seed);
         }
 
-        public int getLavaY(ChunkGenerator chunkGenerator, int x, int z) {
+        public int getLavaY(ChunkGenerator chunkGenerator, int x, int z, LevelHeightAccessor levelHeightAccessor) {
             int y = chunkGenerator.getSeaLevel();
-            IBlockReader blockColumn = chunkGenerator.func_230348_a_(x, z);
+            NoiseColumn noiseColumn = chunkGenerator.getBaseColumn(x, z, levelHeightAccessor);
 
             BlockPos pos = new BlockPos(x, y, z);
 
             int topDown = 1;
 
-            if (blockColumn.getBlockState(pos).isSolid()) {
+            if (noiseColumn.getBlockState(pos).canOcclude()) {
                 return 0;
             }
 
             while (topDown <= y) {
-                BlockState checkLava = blockColumn.getBlockState(pos.down(topDown));
-                BlockState checkBlock = blockColumn.getBlockState(pos.down(topDown + 1));
+                BlockState checkLava = noiseColumn.getBlockState(pos.below(topDown));
+                BlockState checkBlock = noiseColumn.getBlockState(pos.below(topDown + 1));
 
-                if (checkLava.matchesBlock(Blocks.LAVA) && checkBlock.isSolidSide(blockColumn, pos.down(y), Direction.UP)) {
+                if (checkLava.is(Blocks.LAVA) && checkBlock.isFaceSturdy((BlockGetter) levelHeightAccessor, pos.below(y), Direction.UP)) {
                     return y - topDown;
                 }
 
@@ -128,27 +127,28 @@ public class StriderAltarStructure extends IEStructure<NoFeatureConfig> {
 
 
         @Override
-        public void func_230364_a_(DynamicRegistries dynamicRegistryManager, ChunkGenerator chunkGenerator, TemplateManager templateManager, int chunkX, int chunkZ, Biome biome, NoFeatureConfig config) {
-            int x = chunkX << 4;
-            int z = chunkZ << 4;
+        public void generatePieces(RegistryAccess dynamicRegistryManager, ChunkGenerator chunkGenerator, StructureManager templateManager, ChunkPos chunkPos, Biome biome, NoneFeatureConfiguration config, LevelHeightAccessor levelHeightAccessor) {
+            int x = chunkPos.x << 4;
+            int z = chunkPos.z << 4;
 
-            BlockPos pos = new BlockPos(x, getLavaY(chunkGenerator, x, z), z);
+            BlockPos pos = new BlockPos(x, getLavaY(chunkGenerator, x, z, levelHeightAccessor), z);
 
             if (pos.getY() != 0) {
-                JigsawManager.func_242837_a(
+                JigsawPlacement.addPieces(
                     dynamicRegistryManager,
-                    new VillageConfig(() -> dynamicRegistryManager.getRegistry(Registry.JIGSAW_POOL_KEY).getOrDefault(new ResourceLocation(InfernalExpansion.MOD_ID, "strider_altar/start_pool")), 1),
-                    AbstractVillagePiece::new,
+                    new JigsawConfiguration(() -> dynamicRegistryManager.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY).get(new ResourceLocation(InfernalExpansion.MOD_ID, "strider_altar/start_pool")), 1),
+                    PoolElementStructurePiece::new,
                     chunkGenerator,
                     templateManager,
                     pos,
-                    this.components,
-                    this.rand,
+                    this,
+                    this.random,
                     false,
-                    false
+                    false,
+                    levelHeightAccessor
                 );
 
-                this.recalculateStructureSize();
+                this.createBoundingBox();
             }
         }
     }

@@ -19,103 +19,103 @@ package org.infernalstudios.infernalexp.mixin.common;
 import org.infernalstudios.infernalexp.init.IEItems;
 import org.infernalstudios.infernalexp.entities.IBucketable;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.monster.MagmaCubeEntity;
-import net.minecraft.entity.monster.SlimeEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.monster.MagmaCube;
+import net.minecraft.world.entity.monster.Slime;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IServerWorld;
-import net.minecraft.world.World;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 
 import javax.annotation.Nullable;
 
-@Mixin(MagmaCubeEntity.class)
-public abstract class MixinMagmaCubeEntity extends SlimeEntity implements IBucketable {
-    private static final DataParameter<Boolean> FROM_BUCKET = EntityDataManager.createKey(MagmaCubeEntity.class, DataSerializers.BOOLEAN);
+@Mixin(MagmaCube.class)
+public abstract class MixinMagmaCubeEntity extends Slime implements IBucketable {
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(MagmaCube.class, EntityDataSerializers.BOOLEAN);
 
-    public MixinMagmaCubeEntity(EntityType<? extends SlimeEntity> type, World worldIn) {
+    public MixinMagmaCubeEntity(EntityType<? extends Slime> type, Level worldIn) {
         super(type, worldIn);
     }
 
     @Override
-    protected void registerData() {
-        super.registerData();
-        this.dataManager.register(FROM_BUCKET, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(FROM_BUCKET, false);
     }
 
     @Override
     public boolean isFromBucket() {
-        return this.dataManager.get(FROM_BUCKET);
+        return this.entityData.get(FROM_BUCKET);
     }
 
     @Override
     public void setFromBucket(boolean isFromBucket) {
-        this.dataManager.set(FROM_BUCKET, isFromBucket);
+        this.entityData.set(FROM_BUCKET, isFromBucket);
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
         compound.putBoolean("FromBucket", this.isFromBucket());
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
-        super.readAdditional(compound);
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
         this.setFromBucket(compound.getBoolean("FromBucket"));
     }
 
     @Override
-    protected ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
-        if (this.isSmallSlime()) {
-            return IBucketable.tryBucketEntity(playerIn, hand, this).orElse(super.getEntityInteractionResult(playerIn, hand));
+    protected InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
+        if (this.isTiny()) {
+            return IBucketable.tryBucketEntity(playerIn, hand, this).orElse(super.mobInteract(playerIn, hand));
         } else {
-            return super.getEntityInteractionResult(playerIn, hand);
+            return super.mobInteract(playerIn, hand);
         }
     }
 
     @Nullable
     @Override
-    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
-        if (reason == SpawnReason.BUCKET) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+        if (reason == MobSpawnType.BUCKET) {
             return spawnDataIn;
         } else {
-            this.setSlimeSize(0, false);
-            return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+            this.setSize(0, false);
+            return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         }
     }
 
     @Override
     public void copyToStack(ItemStack stack) {
-        CompoundNBT compound = stack.getOrCreateTag();
+        CompoundTag compound = stack.getOrCreateTag();
         IBucketable.copyToStack(this, stack);
 
-        compound.putInt("Size", this.getSlimeSize());
+        compound.putInt("Size", this.getSize());
     }
 
     @Override
-    public void copyFromAdditional(CompoundNBT compound) {
+    public void copyFromAdditional(CompoundTag compound) {
         IBucketable.copyFromAdditional(this, compound);
         if (compound.contains("Size", 99)) {
-            this.setSlimeSize(compound.getInt("Size"), false);
+            this.setSize(compound.getInt("Size"), false);
         }
     }
 
     @Override
     public SoundEvent getBucketedSound() {
-        return SoundEvents.ITEM_BUCKET_FILL_LAVA;
+        return SoundEvents.BUCKET_FILL_LAVA;
     }
 
     @Override

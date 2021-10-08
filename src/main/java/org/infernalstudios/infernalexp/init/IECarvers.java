@@ -16,31 +16,38 @@
 
 package org.infernalstudios.infernalexp.init;
 
+import net.minecraft.core.Registry;
+import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.valueproviders.ConstantFloat;
+import net.minecraft.util.valueproviders.TrapezoidFloat;
+import net.minecraft.util.valueproviders.UniformFloat;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.carver.CanyonCarverConfiguration;
+import net.minecraft.world.level.levelgen.carver.CarverConfiguration;
+import net.minecraft.world.level.levelgen.carver.CarverDebugSettings;
+import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
+import net.minecraft.world.level.levelgen.carver.WorldCarver;
+import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.world.gen.carvers.GlowstoneRavineCarver;
-
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.WorldGenRegistries;
-import net.minecraft.world.gen.carver.ConfiguredCarver;
-import net.minecraft.world.gen.carver.ICarverConfig;
-import net.minecraft.world.gen.carver.WorldCarver;
-import net.minecraft.world.gen.feature.ProbabilityConfig;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class IECarvers {
 
-    public static List<WorldCarver<ProbabilityConfig>> carvers = new ArrayList<>();
+    public static List<WorldCarver<? extends CarverConfiguration>> carvers = new ArrayList<>();
 
     // Carvers
-    public static final WorldCarver<ProbabilityConfig> GLOWSTONE_RAVINE = registerWorldCarver("glowstone_ravine", new GlowstoneRavineCarver(ProbabilityConfig.CODEC));
+    public static final WorldCarver<CanyonCarverConfiguration> GLOWSTONE_RAVINE = registerWorldCarver("glowstone_ravine", new GlowstoneRavineCarver(CanyonCarverConfiguration.CODEC));
 
     // Configured Carvers
-    public static final ConfiguredCarver<ProbabilityConfig> CONFIGURED_GLOWSTONE_RAVINE = registerConfiguredCarver("glowstone_ravine", GLOWSTONE_RAVINE.func_242761_a(new ProbabilityConfig(0.1f)));
+    public static final ConfiguredWorldCarver<CanyonCarverConfiguration> CONFIGURED_GLOWSTONE_RAVINE = registerConfiguredCarver("glowstone_ravine", GLOWSTONE_RAVINE.configured(
+        new CanyonCarverConfiguration(0.1f, UniformHeight.of(VerticalAnchor.absolute(0), VerticalAnchor.belowTop(1)), ConstantFloat.of(0.5F), VerticalAnchor.aboveBottom(10), false, CarverDebugSettings.of(false, Blocks.WARPED_BUTTON.defaultBlockState()), UniformFloat.of(-0.125F, 0.125F), new CanyonCarverConfiguration.CanyonShapeConfiguration(UniformFloat.of(0.75F, 1.0F), TrapezoidFloat.of(0.0F, 6.0F, 2.0F), 3, UniformFloat.of(0.75F, 1.0F), 1.0F, 0.0F))));
 
-    private static WorldCarver<ProbabilityConfig> registerWorldCarver(String registryName, WorldCarver<ProbabilityConfig> carver) {
+    private static <C extends CarverConfiguration> WorldCarver<C> registerWorldCarver(String registryName, WorldCarver<C> carver) {
         ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, registryName);
 
         if (Registry.CARVER.keySet().contains(resourceLocation))
@@ -52,13 +59,13 @@ public class IECarvers {
         return carver;
     }
 
-    private static <WC extends ICarverConfig> ConfiguredCarver<WC> registerConfiguredCarver(String registryName, ConfiguredCarver<WC> configuredCarver) {
+    private static <C extends CarverConfiguration> ConfiguredWorldCarver<C> registerConfiguredCarver(String registryName, ConfiguredWorldCarver<C> configuredCarver) {
         ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, registryName);
 
-        if (WorldGenRegistries.CONFIGURED_FEATURE.keySet().contains(resourceLocation))
+        if (BuiltinRegistries.CONFIGURED_FEATURE.keySet().contains(resourceLocation))
             throw new IllegalStateException("Configured Carver ID: \"" + resourceLocation.toString() + "\" is already in the registry!");
 
-        return WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_CARVER, resourceLocation, configuredCarver);
+        return BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_CARVER, resourceLocation, configuredCarver);
     }
 
 }

@@ -16,12 +16,12 @@
 
 package org.infernalstudios.infernalexp.util;
 
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.border.WorldBorder;
-import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.level.border.WorldBorder;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.server.level.ServerLevel;
 
 public class NetherTeleportCommandUtil {
 
@@ -35,33 +35,33 @@ public class NetherTeleportCommandUtil {
      * @param pos   Position to spread the search from
      * @return Safe position to teleport to.
      */
-    public static BlockPos getSafePosition(ServerWorld world, BlockPos pos) {
-        Direction direction = Direction.getFacingFromAxis(Direction.AxisDirection.POSITIVE, Direction.Axis.X);
+    public static BlockPos getSafePosition(ServerLevel world, BlockPos pos) {
+        Direction direction = Direction.get(Direction.AxisDirection.POSITIVE, Direction.Axis.X);
         double shortestDistToOpen = -1.0D; // The shortest distance^2 found to an "open" area where a portal will fit
         double shortestDistToFit = -1.0D;  // The shortest distance^2 found to ANY area where a portal will fit
         BlockPos safePos = null;
         BlockPos tempPos = null;
         WorldBorder worldborder = world.getWorldBorder();
-        int dimHeight = world.func_234938_ad_(); // Logical height of the world
-        BlockPos.Mutable mutablePos = pos.toMutable();
+        int dimHeight = world.getHeight(); // Logical height of the world
+        BlockPos.MutableBlockPos mutablePos = pos.mutable();
 
         // For each BlockPos in a 16x16 area to the Southeast?
-        for (BlockPos.Mutable currentPos : BlockPos.func_243514_a(pos, 16, Direction.EAST, Direction.SOUTH)) {
+        for (BlockPos.MutableBlockPos currentPos : BlockPos.spiralAround(pos, 16, Direction.EAST, Direction.SOUTH)) {
 
-            int minDimHeight = Math.min(dimHeight - 1, world.getHeight(Heightmap.Type.MOTION_BLOCKING, currentPos.getX(), currentPos.getZ()));
+            int minDimHeight = Math.min(dimHeight - 1, world.getHeight(Heightmap.Types.MOTION_BLOCKING, currentPos.getX(), currentPos.getZ()));
 
-            if (worldborder.contains(currentPos) && worldborder.contains(currentPos.move(direction, 1))) {
+            if (worldborder.isWithinBounds(currentPos) && worldborder.isWithinBounds(currentPos.move(direction, 1))) {
                 currentPos.move(direction.getOpposite(), 1);
 
                 for (int height = minDimHeight; height >= 0; height--) {
 
                     currentPos.setY(height);
-                    if (world.isAirBlock(currentPos)) {
+                    if (world.isEmptyBlock(currentPos)) {
 
                         int currentHeight = height;
 
                         // Find the height where there isn't air
-                        while (height > 0 && world.isAirBlock(currentPos.move(Direction.DOWN))) {
+                        while (height > 0 && world.isEmptyBlock(currentPos.move(Direction.DOWN))) {
                             height--;
                         }
 
@@ -77,20 +77,20 @@ public class NetherTeleportCommandUtil {
                                 if (NetherTeleportCommandUtil.checkRegionForPlacement(world, currentPos, mutablePos, direction, 0)) {
 
                                     // Calculate distance^2 to current position
-                                    double currentDist = pos.distanceSq(currentPos);
+                                    double currentDist = pos.distSqr(currentPos);
 
                                     // If positions next to current position are valid for placement and currentPos is closer than the next-closest open position, then...
                                     //   this area is likely an "open" area and now the closest to the original position we were looking at
                                     if (NetherTeleportCommandUtil.checkRegionForPlacement(world, currentPos, mutablePos, direction, -1) && NetherTeleportCommandUtil.checkRegionForPlacement(world, currentPos, mutablePos, direction, 1) && (shortestDistToOpen == -1.0D || shortestDistToOpen > currentDist)) {
                                         shortestDistToOpen = currentDist;
-                                        safePos = currentPos.toImmutable();
+                                        safePos = currentPos.immutable();
                                     }
 
                                     // If no "open" area has been found, then...
                                     //   this is the closest place to the original position where it can fit
                                     if (shortestDistToOpen == -1.0D && (shortestDistToFit == -1.0D || shortestDistToFit > currentDist)) {
                                         shortestDistToFit = currentDist;
-                                        tempPos = currentPos.toImmutable();
+                                        tempPos = currentPos.immutable();
                                     }
                                 }
                             }
@@ -108,9 +108,9 @@ public class NetherTeleportCommandUtil {
 
         // If the portal will fit nowhere, return the original position (clamped to between y 70 and dimension height - 10) as the best candidate, unless it's not in the world border
         if (shortestDistToOpen == -1.0D) {
-            safePos = (new BlockPos(pos.getX(), MathHelper.clamp(pos.getY(), 70, dimHeight - 10), pos.getZ())).toImmutable();
+            safePos = (new BlockPos(pos.getX(), Mth.clamp(pos.getY(), 70, dimHeight - 10), pos.getZ())).immutable();
             // If the original position is not in the world border, return that there is NO safe position for a portal
-            if (!worldborder.contains(safePos)) {
+            if (!worldborder.isWithinBounds(safePos)) {
                 return null;
             }
         }
@@ -128,12 +128,12 @@ public class NetherTeleportCommandUtil {
      * @param offsetScale
      * @return
      */
-    private static boolean checkRegionForPlacement(ServerWorld world, BlockPos originalPos, BlockPos.Mutable offsetPos, Direction directionIn, int offsetScale) {
-        Direction direction = directionIn.rotateY();
+    private static boolean checkRegionForPlacement(ServerLevel world, BlockPos originalPos, BlockPos.MutableBlockPos offsetPos, Direction directionIn, int offsetScale) {
+        Direction direction = directionIn.getClockWise();
 
         for (int x = -1; x < 1; ++x) {
             for (int y = -1; y < 2; ++y) {
-                offsetPos.setAndOffset(originalPos, directionIn.getXOffset() * x + direction.getXOffset() * offsetScale, y, directionIn.getZOffset() * x + direction.getZOffset() * offsetScale);
+                offsetPos.setWithOffset(originalPos, directionIn.getStepX() * x + direction.getStepX() * offsetScale, y, directionIn.getStepZ() * x + direction.getStepZ() * offsetScale);
 
                 // If no solid ground beneath offsetPos, return false
                 if (y < 0 && !world.getBlockState(offsetPos).getMaterial().isSolid()) {
@@ -141,7 +141,7 @@ public class NetherTeleportCommandUtil {
                 }
 
                 // If no air within region, return false
-                if (y >= 0 && !world.isAirBlock(offsetPos)) {
+                if (y >= 0 && !world.isEmptyBlock(offsetPos)) {
                     return false;
                 }
             }

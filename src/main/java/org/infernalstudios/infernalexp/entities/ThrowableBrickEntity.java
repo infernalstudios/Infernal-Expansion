@@ -1,25 +1,25 @@
 package org.infernalstudios.infernalexp.entities;
 
-import mcp.MethodsReturnNonnullByDefault;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.GlassBlock;
-import net.minecraft.block.PaneBlock;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.projectile.ProjectileItemEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.network.IPacket;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.GlassBlock;
+import net.minecraft.world.level.block.IronBarsBlock;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
@@ -27,17 +27,17 @@ import org.infernalstudios.infernalexp.init.IESoundEvents;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @MethodsReturnNonnullByDefault
-public class ThrowableBrickEntity extends ProjectileItemEntity {
+public class ThrowableBrickEntity extends ThrowableItemProjectile {
 
-    public ThrowableBrickEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn) {
+    public ThrowableBrickEntity(EntityType<? extends ThrowableItemProjectile> type, Level worldIn) {
         super(type, worldIn);
     }
 
-    public ThrowableBrickEntity(World world, LivingEntity livingEntity) {
+    public ThrowableBrickEntity(Level world, LivingEntity livingEntity) {
         super(IEEntityTypes.THROWABLE_BRICK.get(), livingEntity, world);
     }
 
-    public ThrowableBrickEntity(EntityType<? extends ProjectileItemEntity> type, LivingEntity livingEntity, World world) {
+    public ThrowableBrickEntity(EntityType<? extends ThrowableItemProjectile> type, LivingEntity livingEntity, Level world) {
         super(type, livingEntity, world);
     }
 
@@ -55,45 +55,45 @@ public class ThrowableBrickEntity extends ProjectileItemEntity {
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public Packet<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     @Override
     @ParametersAreNonnullByDefault
-    protected void func_230299_a_(BlockRayTraceResult result) {
-        super.func_230299_a_(result);
+    protected void onHitBlock(BlockHitResult result) {
+        super.onHitBlock(result);
 
-        if (!getEntityWorld().isRemote()) {
-            BlockPos pos = result.getPos();
-            Block block = getEntityWorld().getBlockState(pos).getBlock();
+        if (!getCommandSenderWorld().isClientSide()) {
+            BlockPos pos = result.getBlockPos();
+            Block block = getCommandSenderWorld().getBlockState(pos).getBlock();
 
             if ((block == IEBlocks.QUARTZ_GLASS.get() || block == IEBlocks.QUARTZ_GLASS_PANE.get())) {
-                getEntityWorld().playSound(null, pos, IESoundEvents.QUARTZ_GLASS_TYPE.getHitSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+                getCommandSenderWorld().playSound(null, pos, IESoundEvents.QUARTZ_GLASS_TYPE.getHitSound(), SoundSource.BLOCKS, 1.0F, 1.0F);
             }
 
-            if ((block instanceof GlassBlock || block instanceof PaneBlock) && !(block == Blocks.IRON_BARS || block == IEBlocks.QUARTZ_GLASS.get() || block == IEBlocks.QUARTZ_GLASS_PANE.get())) {
-                getEntityWorld().destroyBlock(pos, false);
-                setMotion(getMotion().scale(getSpeedMultiplier()));
+            if ((block instanceof GlassBlock || block instanceof IronBarsBlock) && !(block == Blocks.IRON_BARS || block == IEBlocks.QUARTZ_GLASS.get() || block == IEBlocks.QUARTZ_GLASS_PANE.get())) {
+                getCommandSenderWorld().destroyBlock(pos, false);
+                setDeltaMovement(getDeltaMovement().scale(getSpeedMultiplier()));
 
             } else {
-                ItemEntity itemEntity = new ItemEntity(getEntityWorld(), getPosX(), getPosY(), getPosZ(), getDefaultItem().getDefaultInstance());
+                ItemEntity itemEntity = new ItemEntity(getCommandSenderWorld(), getX(), getY(), getZ(), getDefaultItem().getDefaultInstance());
 
-                getEntityWorld().addEntity(itemEntity);
-                remove();
+                getCommandSenderWorld().addFreshEntity(itemEntity);
+                remove(RemovalReason.DISCARDED);
             }
         }
     }
 
     @Override
     @ParametersAreNonnullByDefault
-    protected void onEntityHit(EntityRayTraceResult result) {
-        super.onEntityHit(result);
+    protected void onHitEntity(EntityHitResult result) {
+        super.onHitEntity(result);
 
-        if (!getEntityWorld().isRemote()) {
+        if (!getCommandSenderWorld().isClientSide()) {
             Entity target = result.getEntity();
-            target.attackEntityFrom(DamageSource.causeThrownDamage(this, getShooter()), getDamage());
-            remove();
+            target.hurt(DamageSource.thrown(this, getOwner()), getDamage());
+            remove(RemovalReason.DISCARDED);
         }
     }
 }

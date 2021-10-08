@@ -16,21 +16,20 @@
 
 package org.infernalstudios.infernalexp.blocks;
 
-import javax.annotation.Nullable;
+import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.ChatType;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.protocol.game.ClientboundChatPacket;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.network.play.server.SChatPacket;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ChatType;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import javax.annotation.Nullable;
 
 public class DullthornsBlockItem extends BlockItemBase {
 
@@ -40,33 +39,33 @@ public class DullthornsBlockItem extends BlockItemBase {
 
     @Override
     @Nullable
-    public BlockItemUseContext getBlockItemUseContext(BlockItemUseContext context) {
-        if (context.getFace() == Direction.UP) {
+    public BlockPlaceContext updatePlacementContext(BlockPlaceContext context) {
+        if (context.getClickedFace() == Direction.UP) {
             return context;
         }
 
-        World world = context.getWorld();
-        Direction placedirection = context.isInside() ? context.getFace() : context.getFace().getOpposite();
-        BlockPos placepos = context.getPos().offset(placedirection);
-        int worldHeight = world.getHeight();
+        Level world = context.getLevel();
+        Direction placedirection = context.isInside() ? context.getClickedFace() : context.getClickedFace().getOpposite();
+        BlockPos placepos = context.getClickedPos().relative(placedirection);
+        int worldHeight = world.getMaxBuildHeight();
         Block dullthorns = this.getBlock();
 
         while (world.getBlockState(placepos).getBlock() == dullthorns) {
-            placepos = placepos.up();
+            placepos = placepos.above();
 
             // Prevent placing outside world
-            if (!world.isRemote && !World.isValid(placepos)) {
-                PlayerEntity player = context.getPlayer();
-                if (player instanceof ServerPlayerEntity && placepos.getY() >= worldHeight) {
-                    SChatPacket schatpacket = new SChatPacket((new TranslationTextComponent("build.tooHigh", worldHeight)).mergeStyle(TextFormatting.RED), ChatType.GAME_INFO, Util.DUMMY_UUID);
-                    ((ServerPlayerEntity) player).connection.sendPacket(schatpacket);
+            if (!world.isClientSide && !world.isInWorldBounds(placepos)) {
+                Player player = context.getPlayer();
+                if (player instanceof ServerPlayer && placepos.getY() >= worldHeight) {
+                    ClientboundChatPacket schatpacket = new ClientboundChatPacket((new TranslatableComponent("build.tooHigh", worldHeight)).withStyle(ChatFormatting.RED), ChatType.GAME_INFO, Util.NIL_UUID);
+                    ((ServerPlayer) player).connection.send(schatpacket);
                 }
                 return null;
             }
         }
 
-        if (world.isAirBlock(placepos)) {
-            return BlockItemUseContext.func_221536_a(context, placepos, placedirection);
+        if (world.isEmptyBlock(placepos)) {
+            return BlockPlaceContext.at(context, placepos, placedirection);
         } else {
             return null;
         }

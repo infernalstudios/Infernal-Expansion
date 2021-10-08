@@ -1,16 +1,15 @@
 package org.infernalstudios.infernalexp.init;
 
-import org.infernalstudios.infernalexp.InfernalExpansion;
-
-import net.minecraft.block.SoundType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraftforge.common.util.ForgeSoundType;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.infernalstudios.infernalexp.InfernalExpansion;
 
 public class IESoundEvents {
 
@@ -105,7 +104,7 @@ public class IESoundEvents {
 	public static final RegistryObject<SoundEvent> DULLSTONE_STEP = add("block.dullstone.step");
 	public static final RegistryObject<SoundEvent> DULLSTONE_PLACE = add("block.dullstone.place");
 	public static final RegistryObject<SoundEvent> DULLSTONE_HIT = add("block.dullstone.hit");
-	public static final RegistryObject<SoundEvent> DULLSTONE_FALL = add("block.dullstone.fall");
+    public static final RegistryObject<SoundEvent> DULLSTONE_FALL = add("block.dullstone.fall");
 
     // SOUL STONE
     public static final RegistryObject<SoundEvent> SOUL_STONE_BREAK = add("block.soul_stone.break");
@@ -113,19 +112,19 @@ public class IESoundEvents {
     //QUARTZ GLASS
     public static final RegistryObject<SoundEvent> QUARTZ_GLASS_HIT = add("block.quartz_glass.hit");
 
-	// SOUND TYPES
-	public static final SoundType DULLSTONE_TYPE = new ForgeSoundType(1.0F, 1.0F, () -> DULLSTONE_BREAK.get(), () -> DULLSTONE_STEP.get(), () -> DULLSTONE_PLACE.get(), () -> DULLSTONE_HIT.get(), () -> DULLSTONE_FALL.get());
-	public static final SoundType DIMSTONE_TYPE = new ForgeSoundType(1.0F, 1.0F, () -> SoundEvents.BLOCK_GLASS_BREAK, () -> DULLSTONE_STEP.get(), () -> SoundEvents.BLOCK_GLASS_PLACE, () -> SoundEvents.BLOCK_GLASS_HIT, () -> SoundEvents.BLOCK_GLASS_FALL);
-    public static final SoundType SOUL_STONE_TYPE = new ForgeSoundType(1.0F, 1.0F, () -> SOUL_STONE_BREAK.get(), () -> SoundEvents.BLOCK_SOUL_SOIL_STEP, () -> SoundEvents.BLOCK_SOUL_SOIL_PLACE, () -> SoundEvents.BLOCK_SOUL_SOIL_HIT, () -> SoundEvents.BLOCK_SOUL_SOIL_FALL);
-    public static final SoundType QUARTZ_GLASS_TYPE = new ForgeSoundType(1.0F, 1.0F, () -> SoundEvents.BLOCK_GLASS_BREAK, () -> SoundEvents.BLOCK_GLASS_STEP, () -> SoundEvents.BLOCK_GLASS_PLACE, () -> QUARTZ_GLASS_HIT.get(), () -> SoundEvents.BLOCK_GLASS_FALL);
+    // SOUND TYPES
+    public static final SoundType DULLSTONE_TYPE = new ForgeSoundType(1.0F, 1.0F, () -> DULLSTONE_BREAK.get(), () -> DULLSTONE_STEP.get(), () -> DULLSTONE_PLACE.get(), () -> DULLSTONE_HIT.get(), () -> DULLSTONE_FALL.get());
+    public static final SoundType DIMSTONE_TYPE = new ForgeSoundType(1.0F, 1.0F, () -> SoundEvents.GLASS_BREAK, () -> DULLSTONE_STEP.get(), () -> SoundEvents.GLASS_PLACE, () -> SoundEvents.GLASS_HIT, () -> SoundEvents.GLASS_FALL);
+    public static final SoundType SOUL_STONE_TYPE = new ForgeSoundType(1.0F, 1.0F, () -> SOUL_STONE_BREAK.get(), () -> SoundEvents.SOUL_SOIL_STEP, () -> SoundEvents.SOUL_SOIL_PLACE, () -> SoundEvents.SOUL_SOIL_HIT, () -> SoundEvents.SOUL_SOIL_FALL);
+    public static final SoundType QUARTZ_GLASS_TYPE = new ForgeSoundType(1.0F, 1.0F, () -> SoundEvents.GLASS_BREAK, () -> SoundEvents.GLASS_STEP, () -> SoundEvents.GLASS_PLACE, () -> QUARTZ_GLASS_HIT.get(), () -> SoundEvents.GLASS_FALL);
 
     public static final RegistryObject<SoundEvent> add(String id) {
-		ResourceLocation realId = new ResourceLocation(InfernalExpansion.MOD_ID, id);
-		return SOUND_EVENTS.register(id, () -> new SoundEvent(realId));
-	}
+        ResourceLocation realId = new ResourceLocation(InfernalExpansion.MOD_ID, id);
+        return SOUND_EVENTS.register(id, () -> new SoundEvent(realId));
+    }
 
-	public static void register(IEventBus eventBus) {
-		SOUND_EVENTS.register(eventBus);
-		InfernalExpansion.LOGGER.info("Infernal Expansion: Sound Events Registered!");
-	}
+    public static void register(IEventBus eventBus) {
+        SOUND_EVENTS.register(eventBus);
+        InfernalExpansion.LOGGER.info("Infernal Expansion: Sound Events Registered!");
+    }
 }

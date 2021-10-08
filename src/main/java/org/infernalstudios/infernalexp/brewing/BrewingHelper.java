@@ -16,14 +16,14 @@
 
 package org.infernalstudios.infernalexp.brewing;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionBrewing;
-import net.minecraft.potion.Potions;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionBrewing;
+import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import org.infernalstudios.infernalexp.mixin.common.IngredientAccessor;
 
@@ -56,7 +56,7 @@ public class BrewingHelper {
 
             CREATE_NEW_MIX_PREDICATE = MethodHandles.lookup().unreflectConstructor(constructor).asType(constructorType.changeReturnType(Object.class));
 
-            Field typeConversions = ObfuscationReflectionHelper.findField(PotionBrewing.class, "field_185213_a"); // POTION_TYPE_CONVERSIONS
+            Field typeConversions = ObfuscationReflectionHelper.findField(PotionBrewing.class, "POTION_MIXES"); // POTION_TYPE_CONVERSIONS
             GET_POTION_TYPE_CONVERSIONS_LIST = MethodHandles.lookup().unreflectGetter(typeConversions).asType(MethodType.methodType(List.class));
 
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException exception) {
@@ -90,7 +90,7 @@ public class BrewingHelper {
     }
 
     private static Ingredient createIngredient(Item ingredient) {
-        return IngredientAccessor.createIngredient(Stream.of(new Ingredient.SingleItemList(new ItemStack(ingredient))));
+        return IngredientAccessor.createIngredient(Stream.of(new Ingredient.ItemValue(new ItemStack(ingredient))));
     }
 
 }

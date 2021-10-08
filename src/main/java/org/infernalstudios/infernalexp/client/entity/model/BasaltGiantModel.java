@@ -16,131 +16,108 @@
 
 package org.infernalstudios.infernalexp.client.entity.model;
 
-import com.google.common.collect.ImmutableList;
-
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.entities.BasaltGiantEntity;
 
-import net.minecraft.client.renderer.entity.model.SegmentedModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.util.math.MathHelper;
-
 @SuppressWarnings("FieldCanBeLocal")
-public class BasaltGiantModel<T extends BasaltGiantEntity> extends SegmentedModel<T> {
+public class BasaltGiantModel<T extends BasaltGiantEntity> extends EntityModel<T> {
 
-    private final ModelRenderer Body;
-    private final ModelRenderer Torso;
-    private final ModelRenderer Torso2;
-    private final ModelRenderer Head;
-    private final ModelRenderer Jaw;
-    private final ModelRenderer LeftArm;
-    private final ModelRenderer LeftArmJoint;
-    private final ModelRenderer RightArm;
-    private final ModelRenderer RightArmJoint;
-    private final ModelRenderer RightLeg;
-    private final ModelRenderer RightLegJoint;
-    private final ModelRenderer LeftLeg;
-    private final ModelRenderer LeftLegJoint;
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(InfernalExpansion.MOD_ID, "basalt_giant"), "main");
 
-    public BasaltGiantModel() {
-        textureWidth = 128;
-        textureHeight = 128;
+    private final ModelPart body;
+    private final ModelPart torso;
+    private final ModelPart torso2;
+    private final ModelPart head;
+    private final ModelPart jaw;
+    private final ModelPart leftArm;
+    private final ModelPart rightArm;
+    private final ModelPart leftLeg;
+    private final ModelPart rightLeg;
 
-        Body = new ModelRenderer(this);
-        Body.setRotationPoint(0.0F, 24.0F, 0.0F);
+    public BasaltGiantModel(ModelPart root) {
+        this.body = root.getChild("body");
+        this.torso = body.getChild("torso");
+        this.torso2 = torso.getChild("torso_2");
+        this.head = torso2.getChild("head");
+        this.jaw = head.getChild("jaw");
+        this.leftArm = torso2.getChild("left_arm");
+        this.rightArm = torso2.getChild("right_arm");
+        this.leftLeg = body.getChild("left_leg");
+        this.rightLeg = body.getChild("right_leg");
+    }
 
+    public static LayerDefinition createBodyLayer() {
+        MeshDefinition meshDefinition = new MeshDefinition();
+        PartDefinition partDefinition = meshDefinition.getRoot();
 
-        Torso = new ModelRenderer(this);
-        Torso.setRotationPoint(0.0F, -36.0F, 4.0F);
-        Body.addChild(Torso);
-        Torso.setTextureOffset(4, 51).addBox(-9.0F, -15.0F, -4.0F, 18.0F, 15.0F, 8.0F, 0.0F, false);
+        PartDefinition body = partDefinition.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-        Torso2 = new ModelRenderer(this);
-        Torso2.setRotationPoint(0.0F, -15.0F, -1.0F);
-        Torso.addChild(Torso2);
-        Torso2.setTextureOffset(25, 85).addBox(-1.0F, -26.0F, 0.0F, 4.0F, 11.0F, 4.0F, 0.0F, false);
-        Torso2.setTextureOffset(57, 43).addBox(-7.0F, -24.0F, -5.0F, 3.0F, 9.0F, 3.0F, 0.0F, false);
-        Torso2.setTextureOffset(57, 0).addBox(5.0F, -24.0F, 2.0F, 3.0F, 7.0F, 3.0F, 0.0F, false);
-        Torso2.setTextureOffset(57, 23).addBox(6.0F, -26.0F, -5.0F, 3.0F, 11.0F, 3.0F, 0.0F, false);
-        Torso2.setTextureOffset(24, 101).addBox(-9.0F, -28.0F, 1.0F, 5.0F, 11.0F, 5.0F, 0.0F, false);
-        Torso2.setTextureOffset(0, 50).addBox(-1.0F, -21.0F, -4.0F, 2.0F, 4.0F, 2.0F, 0.0F, false);
-        Torso2.setTextureOffset(57, 43).addBox(-10.0F, -17.0F, -7.0F, 20.0F, 17.0F, 14.0F, 0.0F, false);
+        PartDefinition torso = body.addOrReplaceChild("torso", CubeListBuilder.create().texOffs(4, 51).addBox(-9.0F, -15.0F, -4.0F, 18.0F, 15.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -36.0F, 4.0F));
 
-        Head = new ModelRenderer(this);
-        Head.setRotationPoint(0.5F, -4.0F, -7.0F);
-        Torso2.addChild(Head);
-        Head.setTextureOffset(57, 0).addBox(-7.0F, -8.0F, -12.0F, 13.0F, 10.0F, 12.0F, 0.0F, false);
+        PartDefinition torso2 = torso.addOrReplaceChild("torso_2", CubeListBuilder.create().texOffs(25, 85).addBox(-1.0F, -26.0F, 0.0F, 4.0F, 11.0F, 4.0F, new CubeDeformation(0.0F))
+            .texOffs(57, 43).addBox(-7.0F, -24.0F, -5.0F, 3.0F, 9.0F, 3.0F, new CubeDeformation(0.0F))
+            .texOffs(57, 0).addBox(5.0F, -24.0F, 2.0F, 3.0F, 7.0F, 3.0F, new CubeDeformation(0.0F))
+            .texOffs(57, 23).addBox(6.0F, -26.0F, -5.0F, 3.0F, 11.0F, 3.0F, new CubeDeformation(0.0F))
+            .texOffs(24, 101).addBox(-9.0F, -28.0F, 1.0F, 5.0F, 11.0F, 5.0F, new CubeDeformation(0.0F))
+            .texOffs(0, 50).addBox(-1.0F, -21.0F, -4.0F, 2.0F, 4.0F, 2.0F, new CubeDeformation(0.0F))
+            .texOffs(57, 43).addBox(-10.0F, -17.0F, -7.0F, 20.0F, 17.0F, 14.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -15.0F, -1.0F));
 
-        Jaw = new ModelRenderer(this);
-        Jaw.setRotationPoint(0.0F, 2.0F, 0.0F);
-        Head.addChild(Jaw);
-        Jaw.setTextureOffset(57, 23).addBox(-9.0F, 0.0F, -14.0F, 17.0F, 5.0F, 14.0F, 0.0F, false);
+        PartDefinition head = torso2.addOrReplaceChild("head", CubeListBuilder.create().texOffs(57, 0).addBox(-7.0F, -8.0F, -12.0F, 13.0F, 10.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(0.5F, -4.0F, -7.0F));
 
-        LeftArm = new ModelRenderer(this);
-        LeftArm.setRotationPoint(12.0F, -11.0F, -1.0F);
-        Torso2.addChild(LeftArm);
-        setRotationAngle(LeftArm, 0.0F, 0.0F, -0.0436F);
-        LeftArm.setTextureOffset(105, 29).addBox(-1.0F, -8.0F, -2.0F, 2.0F, 4.0F, 2.0F, 0.0F, false);
-        LeftArm.setTextureOffset(105, 29).addBox(1.0F, -6.0F, 0.0F, 2.0F, 4.0F, 2.0F, 0.0F, false);
-        LeftArm.setTextureOffset(104, 105).addBox(-2.0F, -4.0F, -3.0F, 6.0F, 17.0F, 6.0F, 0.0F, true);
+        PartDefinition jaw = head.addOrReplaceChild("jaw", CubeListBuilder.create().texOffs(57, 23).addBox(-9.0F, 0.0F, -14.0F, 17.0F, 5.0F, 14.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 2.0F, 0.0F));
 
-        LeftArmJoint = new ModelRenderer(this);
-        LeftArmJoint.setRotationPoint(1.0F, 12.0F, 0.0F);
-        LeftArm.addChild(LeftArmJoint);
-        LeftArmJoint.setTextureOffset(49, 75).addBox(-4.0F, 0.0F, -4.0F, 8.0F, 17.0F, 8.0F, 0.0F, true);
-        LeftArmJoint.setTextureOffset(88, 80).addBox(-5.0F, 17.0F, -5.0F, 10.0F, 10.0F, 10.0F, 0.0F, false);
+        PartDefinition leftArm = torso2.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(105, 29).addBox(-1.0F, -8.0F, -2.0F, 2.0F, 4.0F, 2.0F, new CubeDeformation(0.0F))
+            .texOffs(105, 29).addBox(1.0F, -6.0F, 0.0F, 2.0F, 4.0F, 2.0F, new CubeDeformation(0.0F))
+            .texOffs(104, 105).mirror().addBox(-2.0F, -4.0F, -3.0F, 6.0F, 17.0F, 6.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(12.0F, -11.0F, -1.0F, 0.0F, 0.0F, -0.0436F));
 
-        RightArm = new ModelRenderer(this);
-        RightArm.setRotationPoint(-13.0F, -11.0F, -0.9F);
-        Torso2.addChild(RightArm);
-        setRotationAngle(RightArm, 0.0F, 0.0F, 0.0436F);
-        RightArm.setTextureOffset(105, 23).addBox(0.0F, -8.0F, -0.1F, 2.0F, 4.0F, 2.0F, 0.0F, false);
-        RightArm.setTextureOffset(105, 23).addBox(-2.0F, -6.0F, -2.1F, 2.0F, 4.0F, 2.0F, 0.0F, false);
-        RightArm.setTextureOffset(104, 105).addBox(-3.0F, -4.0F, -3.1F, 6.0F, 17.0F, 6.0F, 0.0F, false);
+        PartDefinition leftArmJoint = leftArm.addOrReplaceChild("left_arm_joint", CubeListBuilder.create().texOffs(49, 75).mirror().addBox(-4.0F, 0.0F, -4.0F, 8.0F, 17.0F, 8.0F, new CubeDeformation(0.0F)).mirror(false)
+            .texOffs(88, 80).addBox(-5.0F, 17.0F, -5.0F, 10.0F, 10.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(1.0F, 12.0F, 0.0F));
 
-        RightArmJoint = new ModelRenderer(this);
-        RightArmJoint.setRotationPoint(0.0F, 12.0F, 0.0F);
-        RightArm.addChild(RightArmJoint);
-        RightArmJoint.setTextureOffset(49, 75).addBox(-4.0F, 0.0F, -4.1F, 8.0F, 17.0F, 8.0F, 0.0F, false);
-        RightArmJoint.setTextureOffset(88, 80).addBox(-5.0F, 17.0F, -5.1F, 10.0F, 10.0F, 10.0F, 0.0F, true);
+        PartDefinition RightArm = torso2.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(105, 23).addBox(0.0F, -8.0F, -0.1F, 2.0F, 4.0F, 2.0F, new CubeDeformation(0.0F))
+            .texOffs(105, 23).addBox(-2.0F, -6.0F, -2.1F, 2.0F, 4.0F, 2.0F, new CubeDeformation(0.0F))
+            .texOffs(104, 105).addBox(-3.0F, -4.0F, -3.1F, 6.0F, 17.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-13.0F, -11.0F, -0.9F, 0.0F, 0.0F, 0.0436F));
 
-        RightLeg = new ModelRenderer(this);
-        RightLeg.setRotationPoint(-5.0F, -36.0F, 4.0F);
-        Body.addChild(RightLeg);
-        RightLeg.setTextureOffset(79, 104).addBox(-3.0F, 0.0F, -3.0F, 6.0F, 18.0F, 6.0F, 0.0F, true);
+        PartDefinition RightArmJoint = RightArm.addOrReplaceChild("right_arm_joint", CubeListBuilder.create().texOffs(49, 75).addBox(-4.0F, 0.0F, -4.1F, 8.0F, 17.0F, 8.0F, new CubeDeformation(0.0F))
+            .texOffs(88, 80).mirror().addBox(-5.0F, 17.0F, -5.1F, 10.0F, 10.0F, 10.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 12.0F, 0.0F));
 
-        RightLegJoint = new ModelRenderer(this);
-        RightLegJoint.setRotationPoint(10.0F, 17.0F, 0.0F);
-        RightLeg.addChild(RightLegJoint);
-        RightLegJoint.setTextureOffset(46, 101).addBox(-14.0F, 0.0F, -4.0F, 8.0F, 19.0F, 8.0F, 0.0F, true);
+        PartDefinition LeftLeg = body.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(79, 104).addBox(-3.0F, 0.0F, -3.0F, 6.0F, 18.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(5.0F, -36.0F, 4.0F));
 
-        LeftLeg = new ModelRenderer(this);
-        LeftLeg.setRotationPoint(5.0F, -36.0F, 4.0F);
-        Body.addChild(LeftLeg);
-        LeftLeg.setTextureOffset(79, 104).addBox(-3.0F, 0.0F, -3.0F, 6.0F, 18.0F, 6.0F, 0.0F, false);
+        PartDefinition LeftLegJoint = LeftLeg.addOrReplaceChild("left_leg_joint", CubeListBuilder.create().texOffs(46, 101).addBox(-4.0F, 0.0F, -4.0F, 8.0F, 19.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 17.0F, 0.0F));
 
-        LeftLegJoint = new ModelRenderer(this);
-        LeftLegJoint.setRotationPoint(0.0F, 17.0F, 0.0F);
-        LeftLeg.addChild(LeftLegJoint);
-        LeftLegJoint.setTextureOffset(46, 101).addBox(-4.0F, 0.0F, -4.0F, 8.0F, 19.0F, 8.0F, 0.0F, false);
+        PartDefinition RightLeg = body.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(79, 104).mirror().addBox(-3.0F, 0.0F, -3.0F, 6.0F, 18.0F, 6.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-5.0F, -36.0F, 4.0F));
+
+        PartDefinition RightLegJoint = RightLeg.addOrReplaceChild("right_leg_joint", CubeListBuilder.create().texOffs(46, 101).mirror().addBox(-14.0F, 0.0F, -4.0F, 8.0F, 19.0F, 8.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(10.0F, 17.0F, 0.0F));
+
+        return LayerDefinition.create(meshDefinition, 128, 128);
     }
 
     @Override
-    public void setRotationAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 
         int i = entity.getAttackTimer();
         if (i <= 0) {
-            this.RightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.4F + (float) Math.PI) * 1.0F * limbSwingAmount;
-            this.Jaw.rotateAngleX = 0.0F;
+            rightLeg.xRot = Mth.cos(limbSwing * 0.4F + (float) Math.PI) * 1.0F * limbSwingAmount;
+            jaw.xRot = 0.0F;
         }
 
-        this.LeftArm.rotateAngleX = MathHelper.cos(limbSwing * 0.4F + (float) Math.PI) * 0.8F * limbSwingAmount;
-        this.RightArm.rotateAngleX = MathHelper.cos(limbSwing * 0.4F) * 0.8F * limbSwingAmount;
-        this.LeftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.4F) * 1.0F * limbSwingAmount;
-        this.Torso2.rotateAngleX = MathHelper.cos(limbSwing * 0.3332F) * 0.25F * limbSwingAmount;
-        this.Head.rotateAngleX = MathHelper.cos(limbSwing * 0.1551F) * 0.15F * limbSwingAmount;
+        leftArm.xRot = Mth.cos(limbSwing * 0.4F + (float) Math.PI) * 0.8F * limbSwingAmount;
+        rightArm.xRot = Mth.cos(limbSwing * 0.4F) * 0.8F * limbSwingAmount;
+        leftLeg.xRot = Mth.cos(limbSwing * 0.4F) * 1.0F * limbSwingAmount;
+        torso2.xRot = Mth.cos(limbSwing * 0.3332F) * 0.25F * limbSwingAmount;
+        head.xRot = Mth.cos(limbSwing * 0.1551F) * 0.15F * limbSwingAmount;
 
         /*
         TOP SECRET FOR RELEASE 3
@@ -158,25 +135,21 @@ public class BasaltGiantModel<T extends BasaltGiantEntity> extends SegmentedMode
     }
 
     @Override
-    public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        Body.render(matrixStack, buffer, packedLight, packedOverlay);
+    public void renderToBuffer(PoseStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        body.render(matrixStack, buffer, packedLight, packedOverlay);
     }
 
-    public Iterable<ModelRenderer> getParts() {
-        return ImmutableList.of(this.Body, this.Head, this.Jaw, this.Torso, this.Torso2, this.LeftArm, this.LeftArmJoint, this.RightArm, this.RightArmJoint, this.LeftLeg, this.LeftLegJoint, this.RightLeg, this.RightLegJoint);
-    }
-
-    public void setLivingAnimations(T entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
+    public void prepareMobModel(T entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
         int i = entityIn.getAttackTimer();
         if (i > 0) {
-            this.RightLeg.rotateAngleX = -0.9F + 0.9F * MathHelper.func_233021_e_((float) i - partialTick, 10.0F);
-            this.Jaw.rotateAngleX = 0.375F - 0.375F * MathHelper.func_233021_e_((float) i - partialTick, 10.0F);
+            rightLeg.xRot = -0.9F + 0.9F * Mth.triangleWave((float) i - partialTick, 10.0F);
+            jaw.xRot = 0.375F - 0.375F * Mth.triangleWave((float) i - partialTick, 10.0F);
         }
     }
 
-    public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
-        modelRenderer.rotateAngleX = x;
-        modelRenderer.rotateAngleY = y;
-        modelRenderer.rotateAngleZ = z;
+    public void setRotationAngle(ModelPart modelRenderer, float x, float y, float z) {
+        modelRenderer.xRot = x;
+        modelRenderer.yRot = y;
+        modelRenderer.zRot = z;
     }
 }

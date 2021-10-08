@@ -3,7 +3,7 @@
   "minVersion": "0.8",
   "package": "org.infernalstudios.infernalexp.mixin",
   "refmap": "infernal-expansion.refmap.json",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_16",
   "injectors": {
     "defaultRequire": 1
   },
@@ -25,10 +25,10 @@
     "common.WorldCarverAccessor"
   ],
   "client": [
-    "client.MixinClientPlayNetHandler",
+    "client.MixinClientPacketListener",
     "client.MixinEntityRendererManager",
     "client.MixinIBlockReader",
-    "client.MixinItemModelsProperties",
+    "client.MixinItemProperties",
     "client.MixinModelBakery",
     "client.MixinOverlayRenderer",
     "client.MixinPaintingSpriteUploader",

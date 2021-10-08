@@ -17,47 +17,47 @@
 package org.infernalstudios.infernalexp.world.gen.structures;
 
 import com.mojang.serialization.Codec;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.LevelHeightAccessor;
+import net.minecraft.world.level.NoiseColumn;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeSource;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.WorldgenRandom;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.structures.JigsawPlacement;
+import net.minecraft.world.level.levelgen.structure.PoolElementStructurePiece;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureManager;
 import org.infernalstudios.infernalexp.InfernalExpansion;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SharedSeedRandom;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.MutableBoundingBox;
-import net.minecraft.util.registry.DynamicRegistries;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.provider.BiomeProvider;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
-import net.minecraft.world.gen.feature.jigsaw.JigsawManager;
-import net.minecraft.world.gen.feature.structure.AbstractVillagePiece;
-import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.feature.structure.VillageConfig;
-import net.minecraft.world.gen.feature.template.TemplateManager;
-import net.minecraft.world.gen.settings.StructureSeparationSettings;
 
-public class SoulSandValleyRuinStructure extends IEStructure<NoFeatureConfig> {
-    public SoulSandValleyRuinStructure(Codec<NoFeatureConfig> codec) {
+public class SoulSandValleyRuinStructure extends IEStructure<NoneFeatureConfiguration> {
+    public SoulSandValleyRuinStructure(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
     }
 
     @Override
-    public IStartFactory<NoFeatureConfig> getStartFactory() {
+    public StructureStartFactory<NoneFeatureConfiguration> getStartFactory() {
         return SoulSandValleyRuinStructure.Start::new;
     }
 
     @Override
-    public GenerationStage.Decoration getDecorationStage() {
-        return GenerationStage.Decoration.SURFACE_STRUCTURES;
+    public GenerationStep.Decoration step() {
+        return GenerationStep.Decoration.SURFACE_STRUCTURES;
     }
 
     @Override
-    public StructureSeparationSettings getSeparationSettings() {
-        return new StructureSeparationSettings(4, 2, 29456392);
+    public StructureFeatureConfiguration getSeparationSettings() {
+        return new StructureFeatureConfiguration(4, 2, 29456392);
     }
 
     @Override
@@ -66,32 +66,32 @@ public class SoulSandValleyRuinStructure extends IEStructure<NoFeatureConfig> {
     }
 
     @Override
-    protected boolean func_230363_a_(ChunkGenerator chunkGenerator, BiomeProvider biomeProvider, long seed, SharedSeedRandom chunkRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, NoFeatureConfig config) {
-        SharedSeedRandom random = new SharedSeedRandom(seed + (chunkX * (chunkZ * 17)));
+    protected boolean isFeatureChunk(ChunkGenerator chunkGenerator, BiomeSource biomeProvider, long seed, WorldgenRandom chunkRandom, ChunkPos chunkPos, Biome biome, ChunkPos chunkPos2, NoneFeatureConfiguration config, LevelHeightAccessor levelHeightAccessor) {
+        WorldgenRandom random = new WorldgenRandom(seed + (chunkPos.x * (chunkPos.z * 17L)));
 
         // Makes cheap check first, if it passes this check, it does a more in-depth check
-        if (super.func_230363_a_(chunkGenerator, biomeProvider, seed, chunkRandom, chunkX, chunkZ, biome, chunkPos, config)) {
+        if (super.isFeatureChunk(chunkGenerator, biomeProvider, seed, chunkRandom, chunkPos, biome, chunkPos2, config, levelHeightAccessor)) {
 
-            int posX = chunkX << 4;
-            int posZ = chunkZ << 4;
-            int posY = getYPos(chunkGenerator, posX, posZ, random);
+            int posX = chunkPos.x << 4;
+            int posZ = chunkPos.z << 4;
+            int posY = getYPos(chunkGenerator, posX, posZ, random, levelHeightAccessor);
 
             // Checks 9 points within a small area of the spawn location
             for (int curX = posX - 5; curX <= posX + 5; curX += 5) {
                 for (int curZ = posZ - 5; curZ <= posZ + 5; curZ += 5) {
 
                     // Starts 5 blocks below to check for solid land in each column
-                    BlockPos.Mutable mutable = new BlockPos.Mutable(curX, posY - 5, curZ);
-                    IBlockReader blockView = chunkGenerator.func_230348_a_(mutable.getX(), mutable.getZ());
+                    BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos(curX, posY - 5, curZ);
+                    NoiseColumn noiseColumn = chunkGenerator.getBaseColumn(mutable.getX(), mutable.getZ(), levelHeightAccessor);
 
                     // Flag represents a block with air above it
                     boolean flag = false;
 
                     while (mutable.getY() <= posY + 5) {
-                        BlockState state = blockView.getBlockState(mutable);
-                        if (state.isSolid()) {
+                        BlockState state = noiseColumn.getBlockState(mutable);
+                        if (state.canOcclude()) {
                             mutable.move(Direction.UP);
-                            state = blockView.getBlockState(mutable);
+                            state = noiseColumn.getBlockState(mutable);
 
                             if (state.isAir()) {
                                 flag = true;
@@ -110,10 +110,10 @@ public class SoulSandValleyRuinStructure extends IEStructure<NoFeatureConfig> {
 
                     // Checks if there are 55 blocks of air above the 5 checked for solid to spawn the structure
                     int minValidSpace = 5;
-                    int maxHeight = Math.min(chunkGenerator.getMaxBuildHeight(), posY + minValidSpace);
+                    int maxHeight = Math.min(chunkGenerator.getGenDepth(), posY + minValidSpace);
 
                     while (mutable.getY() < maxHeight) {
-                        BlockState state = blockView.getBlockState(mutable);
+                        BlockState state = noiseColumn.getBlockState(mutable);
                         if (!state.isAir()) {
                             return false;
                         }
@@ -128,37 +128,38 @@ public class SoulSandValleyRuinStructure extends IEStructure<NoFeatureConfig> {
         return true;
     }
 
-    public static class Start extends IEStart<NoFeatureConfig> {
+    public static class Start extends IEStart<NoneFeatureConfiguration> {
         private final long seed;
 
-        public Start(Structure<NoFeatureConfig> structure, int chunkX, int chunkZ, MutableBoundingBox mutableBoundingBox, int reference, long seed) {
-            super(structure, chunkX, chunkZ, mutableBoundingBox, reference, seed);
+        public Start(StructureFeature<NoneFeatureConfiguration> structure, ChunkPos chunkPos, int reference, long seed) {
+            super(structure, chunkPos, reference, seed);
             this.seed = seed;
         }
 
         @Override
-        public void func_230364_a_(DynamicRegistries dynamicRegistryManager, ChunkGenerator chunkGenerator, TemplateManager templateManager, int chunkX, int chunkZ, Biome biome, NoFeatureConfig config) {
-            SharedSeedRandom random = new SharedSeedRandom(seed + (chunkX * (chunkZ * 17)));
-            int x = chunkX << 4;
-            int z = chunkZ << 4;
+        public void generatePieces(RegistryAccess dynamicRegistryManager, ChunkGenerator chunkGenerator, StructureManager templateManager, ChunkPos chunkPos, Biome biome, NoneFeatureConfiguration config, LevelHeightAccessor levelHeightAccessor) {
+            WorldgenRandom random = new WorldgenRandom(seed + (chunkPos.x * (chunkPos.z * 17L)));
+            int x = chunkPos.x << 4;
+            int z = chunkPos.z << 4;
 
-            BlockPos pos = new BlockPos(x, getYPos(chunkGenerator, x, z, random), z);
+            BlockPos pos = new BlockPos(x, getYPos(chunkGenerator, x, z, random, levelHeightAccessor), z);
 
             if (pos.getY() != 0) {
-                JigsawManager.func_242837_a(
+                JigsawPlacement.addPieces(
                     dynamicRegistryManager,
-                    new VillageConfig(() -> dynamicRegistryManager.getRegistry(Registry.JIGSAW_POOL_KEY).getOrDefault(new ResourceLocation(InfernalExpansion.MOD_ID, "soul_sand_valley_ruin/start_pool")), 1),
-                    AbstractVillagePiece::new,
+                    new JigsawConfiguration(() -> dynamicRegistryManager.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY).get(new ResourceLocation(InfernalExpansion.MOD_ID, "soul_sand_valley_ruin/start_pool")), 1),
+                    PoolElementStructurePiece::new,
                     chunkGenerator,
                     templateManager,
                     pos,
-                    this.components,
-                    this.rand,
+                    this,
+                    this.random,
                     false,
-                    false
+                    false,
+                    levelHeightAccessor
                 );
 
-                this.recalculateStructureSize();
+                this.createBoundingBox();
             }
         }
     }

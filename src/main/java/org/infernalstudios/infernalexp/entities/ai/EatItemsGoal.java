@@ -16,22 +16,22 @@
 
 package org.infernalstudios.infernalexp.entities.ai;
 
-import net.minecraft.command.arguments.EntityAnchorArgument;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.item.Item;
-import net.minecraft.particles.ItemParticleData;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.pathfinding.Path;
-import net.minecraft.pathfinding.PathNavigator;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.commands.arguments.EntityAnchorArgument;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.level.pathfinder.Path;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.server.level.ServerLevel;
 
 import java.util.List;
 import java.util.Set;
 
-public class EatItemsGoal<T extends MobEntity> extends Goal {
+public class EatItemsGoal<T extends Mob> extends Goal {
     protected Path path;
     protected ItemEntity itemInstance;
     protected double eatTime;
@@ -42,24 +42,24 @@ public class EatItemsGoal<T extends MobEntity> extends Goal {
     protected final T entityIn;
     protected final Set<Item> eatItems;
     protected final double range;
-    protected final PathNavigator navigation;
+    protected final PathNavigation navigation;
 
     public EatItemsGoal(T entityIn, Set<Item> itemsToEat, double range, double speedIn) {
         this.entityIn = entityIn;
         this.eatItems = itemsToEat;
         this.range = range;
         this.speed = speedIn;
-        this.navigation = entityIn.getNavigator();
+        this.navigation = entityIn.getNavigation();
     }
 
     @Override
-    public boolean shouldExecute() {
+    public boolean canUse() {
         if (this.itemInstance == null) {
-            List<ItemEntity> list = this.entityIn.world.getEntitiesWithinAABB(ItemEntity.class, this.entityIn.getBoundingBox().grow(this.range, 3.0D, this.range));
+            List<ItemEntity> list = this.entityIn.level.getEntitiesOfClass(ItemEntity.class, this.entityIn.getBoundingBox().inflate(this.range, 3.0D, this.range));
 
             for (ItemEntity item : list) {
                 if (eatItems.contains(item.getItem().getItem())) {
-                    this.path = this.navigation.getPathToPos(item.getPosition(), 0);
+                    this.path = this.navigation.createPath(item.blockPosition(), 0);
                     this.itemInstance = item;
                     return path != null;
                 }
@@ -70,39 +70,39 @@ public class EatItemsGoal<T extends MobEntity> extends Goal {
     }
 
     @Override
-    public void resetTask() {
+    public void stop() {
         this.itemInstance = null;
         this.path = null;
         eating = false;
-        entityIn.world.setEntityState(entityIn, (byte) 8);
+        entityIn.level.broadcastEntityEvent(entityIn, (byte) 8);
     }
 
     @Override
-    public void startExecuting() {
-        this.navigation.setPath(this.path, this.speed);
+    public void start() {
+        this.navigation.moveTo(this.path, this.speed);
     }
 
     @Override
-    public boolean shouldContinueExecuting() {
-        return (!this.navigation.noPath() || this.eatTime > 0) && this.itemInstance.isAlive();
+    public boolean canContinueToUse() {
+        return (!this.navigation.isDone() || this.eatTime > 0) && this.itemInstance.isAlive();
     }
 
     public void consumeItem() {
         eating = false;
-        entityIn.world.setEntityState(entityIn, (byte) 8);
+        entityIn.level.broadcastEntityEvent(entityIn, (byte) 8);
         itemInstance.getItem().shrink(1);
     }
 
     @Override
     public void tick() {
         if (eatDelay <= 0) {
-            if (this.entityIn.getDistanceSq(itemInstance) < 2.0D) {
-                this.navigation.setSpeed(0.0D);
+            if (this.entityIn.distanceToSqr(itemInstance) < 2.0D) {
+                this.navigation.setSpeedModifier(0.0D);
 
                 if (!eating) {
                     eating = true;
-                    entityIn.world.setEntityState(entityIn, (byte) 9);
-                    entityIn.lookAt(EntityAnchorArgument.Type.EYES, itemInstance.getPositionVec());
+                    entityIn.level.broadcastEntityEvent(entityIn, (byte) 9);
+                    entityIn.lookAt(EntityAnchorArgument.Anchor.EYES, itemInstance.position());
                     this.eatTime = 30;
 
                 } else {
@@ -111,14 +111,14 @@ public class EatItemsGoal<T extends MobEntity> extends Goal {
                         eatDelay = 20;
 
                     } else if (eatTime % 3 == 0) {
-                        entityIn.lookAt(EntityAnchorArgument.Type.EYES, itemInstance.getPositionVec());
-                        entityIn.playSound(SoundEvents.ENTITY_GENERIC_EAT, 0.9F, 1.0F);
-                        ((ServerWorld) entityIn.world).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, itemInstance.getItem()), entityIn.getPosXRandom(0.5F) + entityIn.getLookVec().x / 2.0D, entityIn.getPosYRandom(), entityIn.getPosZRandom(0.5F) + entityIn.getLookVec().z / 2.0D, 4, 0, 0, 0, 0);
+                        entityIn.lookAt(EntityAnchorArgument.Anchor.EYES, itemInstance.position());
+                        entityIn.playSound(SoundEvents.GENERIC_EAT, 0.9F, 1.0F);
+                        ((ServerLevel) entityIn.level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, itemInstance.getItem()), entityIn.getRandomX(0.5F) + entityIn.getLookAngle().x / 2.0D, entityIn.getRandomY(), entityIn.getRandomZ(0.5F) + entityIn.getLookAngle().z / 2.0D, 4, 0, 0, 0, 0);
                     }
                 }
 
             } else {
-                this.navigation.setSpeed(speed);
+                this.navigation.setSpeedModifier(speed);
             }
 
         } else {

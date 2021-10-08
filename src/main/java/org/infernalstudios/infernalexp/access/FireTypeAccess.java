@@ -16,45 +16,42 @@
 
 package org.infernalstudios.infernalexp.access;
 
+import com.google.common.base.Supplier;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.resources.ResourceLocation;
+import org.infernalstudios.infernalexp.InfernalExpansion;
+import org.infernalstudios.infernalexp.client.ClientFireType;
+
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import javax.annotation.Nullable;
-
-import com.google.common.base.Supplier;
-
-import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.client.ClientFireType;
-
-import net.minecraft.client.renderer.model.ModelBakery;
-import net.minecraft.client.renderer.model.RenderMaterial;
-import net.minecraft.client.renderer.texture.AtlasTexture;
-import net.minecraft.util.ResourceLocation;
 
 public interface FireTypeAccess {
     KnownFireTypes getFireType();
 
     void setFireType(KnownFireTypes type);
 
-    RenderMaterial LOCATION_SOUL_FIRE_0 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("block/soul_fire_0"));
-    RenderMaterial LOCATION_SOUL_FIRE_1 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("block/soul_fire_1"));
+    Material LOCATION_SOUL_FIRE_0 = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation("block/soul_fire_0"));
+    Material LOCATION_SOUL_FIRE_1 = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation("block/soul_fire_1"));
 
-    RenderMaterial LOCATION_GLOW_FIRE_0 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation(InfernalExpansion.MOD_ID, "block/glow_fire_0"));
-    RenderMaterial LOCATION_GLOW_FIRE_1 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation(InfernalExpansion.MOD_ID, "block/glow_fire_1"));
+    Material LOCATION_GLOW_FIRE_0 = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation(InfernalExpansion.MOD_ID, "block/glow_fire_0"));
+    Material LOCATION_GLOW_FIRE_1 = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation(InfernalExpansion.MOD_ID, "block/glow_fire_1"));
 
-    RenderMaterial LOCATION_ENDER_FIRE_0 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("endergetic", "block/ender_fire_0"));
-    RenderMaterial LOCATION_ENDER_FIRE_1 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("endergetic", "block/ender_fire_1"));
+    Material LOCATION_ENDER_FIRE_0 = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation("endergetic", "block/ender_fire_0"));
+    Material LOCATION_ENDER_FIRE_1 = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation("endergetic", "block/ender_fire_1"));
 
-    RenderMaterial LOCATION_BORIC_FIRE_0 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("byg", "block/boric_fire_0"));
-    RenderMaterial LOCATION_BORIC_FIRE_1 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("byg", "block/boric_fire_1"));
+    Material LOCATION_BORIC_FIRE_0 = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation("byg", "block/boric_fire_0"));
+    Material LOCATION_BORIC_FIRE_1 = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation("byg", "block/boric_fire_1"));
 
-    RenderMaterial LOCATION_CRYPTIC_FIRE_0 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("byg", "block/cryptic_fire_0"));
-    RenderMaterial LOCATION_CRYPTIC_FIRE_1 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("byg", "block/cryptic_fire_1"));
+    Material LOCATION_CRYPTIC_FIRE_0 = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation("byg", "block/cryptic_fire_0"));
+    Material LOCATION_CRYPTIC_FIRE_1 = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation("byg", "block/cryptic_fire_1"));
 
     public static enum KnownFireTypes {
-        FIRE("fire", () -> new ClientFireType(ModelBakery.LOCATION_FIRE_0, ModelBakery.LOCATION_FIRE_1)),
+        FIRE("fire", () -> new ClientFireType(ModelBakery.FIRE_0, ModelBakery.FIRE_1)),
         SOUL_FIRE("soul_fire", () -> new ClientFireType(LOCATION_SOUL_FIRE_0, LOCATION_SOUL_FIRE_1)),
         GLOW_FIRE("glow_fire", () -> new ClientFireType(LOCATION_GLOW_FIRE_0, LOCATION_GLOW_FIRE_1)),
         ENDER_FIRE("ender_fire", () -> new ClientFireType(LOCATION_ENDER_FIRE_0, LOCATION_ENDER_FIRE_1)),

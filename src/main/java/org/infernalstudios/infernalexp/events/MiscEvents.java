@@ -16,6 +16,8 @@
 
 package org.infernalstudios.infernalexp.events;
 
+import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.blocks.DullthornsBlock;
 import org.infernalstudios.infernalexp.blocks.HorizontalBushBlock;
@@ -37,32 +39,32 @@ import org.infernalstudios.infernalexp.init.IEParticleTypes;
 import org.infernalstudios.infernalexp.init.IEShroomloinTypes;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
 import org.infernalstudios.infernalexp.init.IETags;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.AreaEffectCloudEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.monster.SkeletonEntity;
-import net.minecraft.entity.monster.ZombieEntity;
-import net.minecraft.entity.monster.ZombifiedPiglinEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.UseAction;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.state.properties.AttachFace;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.entity.AreaEffectCloud;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Skeleton;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.ZombifiedPiglin;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Direction;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.AnvilUpdateEvent;
@@ -79,6 +81,7 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import org.infernalstudios.infernalexp.items.IFuel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,9 +90,9 @@ import java.util.Map;
 @Mod.EventBusSubscriber(modid = InfernalExpansion.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MiscEvents {
 
-    //    Called When Config is Changed
+    // Called When Config is Changed
     @SubscribeEvent
-    public static void onModConfigEvent(final ModConfig.ModConfigEvent event) {
+    public static void onModConfigEvent(final ModConfigEvent event) {
         final ModConfig config = event.getConfig();
         //Recalculates what the configs should be when changed
         if (config.getSpec() == ConfigHolder.CLIENT_SPEC) {
@@ -105,23 +108,23 @@ public class MiscEvents {
         ItemStack right = event.getRight();
         int cost = event.getCost();
 
-        if (left.isDamageable() && right.getItem() == IEItems.GLOWSILK.get() && !left.getItem().isIn(IETags.Items.GLOWSILK_REPAIR_BLACKLIST)) {
-            if (left.getDamage() == 0) {
+        if (left.isDamageableItem() && right.getItem() == IEItems.GLOWSILK.get() && !IETags.Items.GLOWSILK_REPAIR_BLACKLIST.contains(left.getItem())) {
+            if (left.getDamageValue() == 0) {
                 return;
             }
 
             ItemStack output = left.copy();
-            output.setDamage(left.getDamage() - 200);
+            output.setDamageValue(left.getDamageValue() - 200);
             cost += 4;
 
             if (event.getName().equals("")) {
-                if (left.hasDisplayName()) {
+                if (left.hasCustomHoverName()) {
                     cost += 1;
-                    output.clearCustomName();
+                    output.resetHoverName();
                 }
-            } else if (!left.getDisplayName().getString().equals(event.getName())) {
+            } else if (!left.getHoverName().getString().equals(event.getName())) {
                 cost += 1;
-                output.setDisplayName(new StringTextComponent(event.getName()));
+                output.setHoverName(new TextComponent(event.getName()));
             }
 
             event.setMaterialCost(1);
@@ -134,35 +137,35 @@ public class MiscEvents {
     @SubscribeEvent
     public void onBlockBreak(BlockEvent.BreakEvent event) {
         BlockState state = event.getState();
-        List<?> list = event.getPlayer().world.getEntitiesWithinAABB(ShroomloinEntity.class,
-            event.getPlayer().getBoundingBox().grow(32.0D));
+        List<?> list = event.getPlayer().level.getEntitiesOfClass(ShroomloinEntity.class,
+            event.getPlayer().getBoundingBox().inflate(32.0D));
         for (int j = 0; j < list.size(); j++) {
             Entity entity = (Entity) list.get(j);
             if (entity instanceof ShroomloinEntity) {
                 ShroomloinEntity shroomloinEntity = (ShroomloinEntity) entity;
 
                 if (shroomloinEntity.getShroomloinType() == IEShroomloinTypes.CRIMSON) {
-                    if (state.getBlock().isIn(IETags.Blocks.ANGER_CRIMSON_SHROOMLOIN_BLOCKS)) {
+                    if (IETags.Blocks.ANGER_CRIMSON_SHROOMLOIN_BLOCKS.contains(state.getBlock())) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
                 if (shroomloinEntity.getShroomloinType() == IEShroomloinTypes.WARPED) {
-                    if (state.getBlock().isIn(IETags.Blocks.ANGER_WARPED_SHROOMLOIN_BLOCKS)) {
+                    if (IETags.Blocks.ANGER_WARPED_SHROOMLOIN_BLOCKS.contains(state.getBlock())) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
                 if (shroomloinEntity.getShroomloinType() == IEShroomloinTypes.LUMINOUS) {
-                    if (state.getBlock().isIn(IETags.Blocks.ANGER_LUMINOUS_SHROOMLOIN_BLOCKS)) {
+                    if (IETags.Blocks.ANGER_LUMINOUS_SHROOMLOIN_BLOCKS.contains(state.getBlock())) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
                 if (shroomloinEntity.getShroomloinType() == IEShroomloinTypes.RED) {
-                    if (state.getBlock().isIn(IETags.Blocks.ANGER_RED_SHROOMLOIN_BLOCKS)) {
+                    if (IETags.Blocks.ANGER_RED_SHROOMLOIN_BLOCKS.contains(state.getBlock())) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
                 if (shroomloinEntity.getShroomloinType() == IEShroomloinTypes.BROWN) {
-                    if (state.getBlock().isIn(IETags.Blocks.ANGER_BROWN_SHROOMLOIN_BLOCKS)) {
+                    if (IETags.Blocks.ANGER_BROWN_SHROOMLOIN_BLOCKS.contains(state.getBlock())) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
@@ -174,68 +177,68 @@ public class MiscEvents {
     @SubscribeEvent
     public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         ItemStack heldItemStack = event.getItemStack();
-        World world = event.getWorld();
+        Level world = event.getWorld();
         BlockPos pos = event.getPos();
         Direction face = event.getFace();
-        PlayerEntity player = event.getPlayer();
+        Player player = event.getPlayer();
         if (heldItemStack.getItem() == Items.BONE) {
-            pos = pos.offset(face);
+            pos = pos.relative(face);
             BlockState blockstate = IEBlocks.BURIED_BONE.get().getPlaceableState(world, pos, face);
             if (blockstate != null) {
-                player.swingArm(event.getHand());
-                if (!world.isAirBlock(pos) && !world.isRemote() && world.getBlockState(pos).getFluidState().isEmpty()) {
+                player.swing(event.getHand());
+                if (!world.isEmptyBlock(pos) && !world.isClientSide() && world.getBlockState(pos).getFluidState().isEmpty()) {
                     world.destroyBlock(pos, true);
                 }
-                world.setBlockState(pos, blockstate, 3);
-                world.playSound(player, pos, blockstate.getSoundType().getPlaceSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+                world.setBlock(pos, blockstate, 3);
+                world.playSound(player, pos, blockstate.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 1.0F, 1.0F);
                 if (!player.isCreative()) {
                     heldItemStack.shrink(1);
                 }
-                ForgeEventFactory.onBlockPlace(player, BlockSnapshot.create(world.getDimensionKey(), world, pos), face);
+                ForgeEventFactory.onBlockPlace(player, BlockSnapshot.create(world.dimension(), world, pos), face);
             }
         } else if (heldItemStack.getItem() == Items.QUARTZ) {
-            pos = pos.offset(face);
+            pos = pos.relative(face);
             BlockState blockstate = IEBlocks.PLANTED_QUARTZ.get().getPlaceableState(world, pos, face);
             if (blockstate != null) {
-                player.swingArm(event.getHand());
-                if (!world.isAirBlock(pos) && !world.isRemote() && world.getBlockState(pos).getFluidState().isEmpty()) {
+                player.swing(event.getHand());
+                if (!world.isEmptyBlock(pos) && !world.isClientSide() && world.getBlockState(pos).getFluidState().isEmpty()) {
                     world.destroyBlock(pos, true);
                 }
-                world.setBlockState(pos, blockstate, 3);
-                world.playSound(player, pos, blockstate.getSoundType().getPlaceSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+                world.setBlock(pos, blockstate, 3);
+                world.playSound(player, pos, blockstate.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 1.0F, 1.0F);
                 if (!player.isCreative()) {
                     heldItemStack.shrink(1);
                 }
-                ForgeEventFactory.onBlockPlace(player, BlockSnapshot.create(world.getDimensionKey(), world, pos), face);
+                ForgeEventFactory.onBlockPlace(player, BlockSnapshot.create(world.dimension(), world, pos), face);
             }
         } else if (heldItemStack.getItem() == Items.GLOWSTONE_DUST) {
             if (heldItemStack.getCount() >= 2) {
                 if (world.getBlockState(pos).getBlock() == IEBlocks.DIMSTONE.get()) {
-                    player.swingArm(event.getHand());
+                    player.swing(event.getHand());
                     for (int i = 0; i < 20; i++) {
                         world.addParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get(), pos.getX(), pos.getY(), pos.getZ(), 0.0, 0.0, 0.0);
                     }
-                    world.playSound(null, event.getPos(), IESoundEvents.GLOWSTONE_RECHARGE.get(), SoundCategory.BLOCKS, 1.0F, (float) (0.75F + event.getWorld().getRandom().nextDouble() / 2));
-                    world.setBlockState(pos, Blocks.GLOWSTONE.getDefaultState());
+                    world.playSound(null, event.getPos(), IESoundEvents.GLOWSTONE_RECHARGE.get(), SoundSource.BLOCKS, 1.0F, (float) (0.75F + event.getWorld().getRandom().nextDouble() / 2));
+                    world.setBlockAndUpdate(pos, Blocks.GLOWSTONE.defaultBlockState());
                     if (!player.isCreative()) {
                         heldItemStack.shrink(2);
                     }
                 } else if (world.getBlockState(pos).getBlock() == IEBlocks.DULLSTONE.get()) {
-                    player.swingArm(event.getHand());
+                    player.swing(event.getHand());
                     for (int i = 0; i < 20; i++) {
                         world.addParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get(), pos.getX(), pos.getY(), pos.getZ(), 0.0, 0.0, 0.0);
                     }
-                    world.playSound(null, event.getPos(), IESoundEvents.GLOWSTONE_RECHARGE.get(), SoundCategory.BLOCKS, 1.0F, (float) (0.5F + event.getWorld().getRandom().nextDouble() / 3));
-                    world.setBlockState(pos, IEBlocks.DIMSTONE.get().getDefaultState());
+                    world.playSound(null, event.getPos(), IESoundEvents.GLOWSTONE_RECHARGE.get(), SoundSource.BLOCKS, 1.0F, (float) (0.5F + event.getWorld().getRandom().nextDouble() / 3));
+                    world.setBlockAndUpdate(pos, IEBlocks.DIMSTONE.get().defaultBlockState());
                     if (!player.isCreative()) {
                         heldItemStack.shrink(2);
                     }
                 }
             }
             if (world.getBlockState(pos).getBlock() == IEBlocks.DULLTHORNS.get()) {
-                player.swingArm(event.getHand());
+                player.swing(event.getHand());
                 ((DullthornsBlock) world.getBlockState(pos).getBlock()).bonemealGrow(world.getBlockState(pos), world, pos);
-                world.playEvent(2005, pos, 0);
+                world.levelEvent(2005, pos, 0);
                 if (!player.isCreative()) {
                     heldItemStack.shrink(1);
                 }
@@ -245,73 +248,73 @@ public class MiscEvents {
 
     @SubscribeEvent
     public void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
-        World world = event.getWorld();
-        PlayerEntity player = event.getPlayer();
-        ItemStack heldItemStack = player.getHeldItem(event.getHand());
+        Level world = event.getWorld();
+        Player player = event.getPlayer();
+        ItemStack heldItemStack = player.getItemInHand(event.getHand());
 
         if (heldItemStack.getItem() == Items.MAGMA_CREAM) {
-            player.swingArm(event.getHand());
+            player.swing(event.getHand());
 
-            if (!world.isRemote) {
+            if (!world.isClientSide) {
                 ThrowableMagmaCreamEntity throwableMagmaCreamEntity = new ThrowableMagmaCreamEntity(world, player);
                 throwableMagmaCreamEntity.setItem(heldItemStack);
-                throwableMagmaCreamEntity.setDirectionAndMovement(player, player.rotationPitch, player.rotationYaw, -20, 0.5f, 1);
-                world.addEntity(throwableMagmaCreamEntity);
-                world.playSound(null, event.getPos(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                throwableMagmaCreamEntity.shootFromRotation(player, player.getXRot(), player.getYRot(), -20, 0.5f, 1);
+                world.addFreshEntity(throwableMagmaCreamEntity);
+                world.playSound(null, event.getPos(), SoundEvents.SNOWBALL_THROW, SoundSource.BLOCKS, 1.0F, 1.0F);
             }
 
-            player.addStat(Stats.ITEM_USED.get(heldItemStack.getItem()));
+            player.awardStat(Stats.ITEM_USED.get(heldItemStack.getItem()));
 
-            if (!player.abilities.isCreativeMode) {
+            if (!player.getAbilities().instabuild) {
                 heldItemStack.shrink(1);
             }
         } else if (heldItemStack.getItem() == Items.FIRE_CHARGE) {
-            player.swingArm(event.getHand());
+            player.swing(event.getHand());
 
-            if (!world.isRemote) {
-                ThrowableFireChargeEntity throwableFireChargeEntity = new ThrowableFireChargeEntity(world, player, player.getLookVec().getX(), player.getLookVec().getY(), player.getLookVec().getZ());
-                world.addEntity(throwableFireChargeEntity);
-                world.playSound(null, event.getPos(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            if (!world.isClientSide) {
+                ThrowableFireChargeEntity throwableFireChargeEntity = new ThrowableFireChargeEntity(world, player, player.getLookAngle().x(), player.getLookAngle().y(), player.getLookAngle().z());
+                world.addFreshEntity(throwableFireChargeEntity);
+                world.playSound(null, event.getPos(), SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
             }
 
-            player.addStat(Stats.ITEM_USED.get(heldItemStack.getItem()));
+            player.awardStat(Stats.ITEM_USED.get(heldItemStack.getItem()));
 
-            if (!player.abilities.isCreativeMode) {
+            if (!player.getAbilities().instabuild) {
                 heldItemStack.shrink(1);
             }
         }
         if (InfernalExpansionConfig.Miscellaneous.USE_THROWABLE_BRICKS.getBool()) {
             if (heldItemStack.getItem() == Items.BRICK) {
-            player.swingArm(event.getHand());
+                player.swing(event.getHand());
 
-            if (!world.isRemote) {
-                ThrowableBrickEntity throwableBrickEntity = new ThrowableBrickEntity(world, player);
-                throwableBrickEntity.setItem(heldItemStack);
-                throwableBrickEntity.setDirectionAndMovement(player, player.rotationPitch, player.rotationYaw, -20, 0.5F, 1);
-                world.addEntity(throwableBrickEntity);
-                world.playSound(null, event.getPos(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.BLOCKS, 1.0F, 1.0F);
-            }
+                if (!world.isClientSide) {
+                    ThrowableBrickEntity throwableBrickEntity = new ThrowableBrickEntity(world, player);
+                    throwableBrickEntity.setItem(heldItemStack);
+                    throwableBrickEntity.shootFromRotation(player, player.getXRot(), player.getYRot(), -20, 0.5F, 1);
+                    world.addFreshEntity(throwableBrickEntity);
+                    world.playSound(null, event.getPos(), SoundEvents.SNOWBALL_THROW, SoundSource.BLOCKS, 1.0F, 1.0F);
+                }
 
-            player.addStat(Stats.ITEM_USED.get(heldItemStack.getItem()));
+                player.awardStat(Stats.ITEM_USED.get(heldItemStack.getItem()));
 
-            if (!player.abilities.isCreativeMode) {
-                heldItemStack.shrink(1);
-            }
+                if (!player.getAbilities().instabuild) {
+                    heldItemStack.shrink(1);
+                }
         }
             if (heldItemStack.getItem() == Items.NETHER_BRICK) {
-            player.swingArm(event.getHand());
+                player.swing(event.getHand());
 
-            if (!world.isRemote) {
-                ThrowableNetherBrickEntity throwableNetherBrickEntity = new ThrowableNetherBrickEntity(world, player);
-                throwableNetherBrickEntity.setItem(heldItemStack);
-                throwableNetherBrickEntity.setDirectionAndMovement(player, player.rotationPitch, player.rotationYaw, -20, 0.3F, 1);
-                world.addEntity(throwableNetherBrickEntity);
-                world.playSound(null, event.getPos(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.BLOCKS, 1.0F, 1.0F);
-            }
+                if (!world.isClientSide) {
+                    ThrowableNetherBrickEntity throwableNetherBrickEntity = new ThrowableNetherBrickEntity(world, player);
+                    throwableNetherBrickEntity.setItem(heldItemStack);
+                    throwableNetherBrickEntity.shootFromRotation(player, player.getXRot(), player.getYRot(), -20, 0.3F, 1);
+                    world.addFreshEntity(throwableNetherBrickEntity);
+                    world.playSound(null, event.getPos(), SoundEvents.SNOWBALL_THROW, SoundSource.BLOCKS, 1.0F, 1.0F);
+                }
 
-            player.addStat(Stats.ITEM_USED.get(heldItemStack.getItem()));
+                player.awardStat(Stats.ITEM_USED.get(heldItemStack.getItem()));
 
-            if (!player.abilities.isCreativeMode) {
+                if (!player.getAbilities().instabuild) {
                     heldItemStack.shrink(1);
                 }
             }
@@ -321,14 +324,14 @@ public class MiscEvents {
     @SubscribeEvent
     public void onApplyBonemeal(BonemealEvent event) {
         Block block = event.getBlock().getBlock();
-        World world = event.getWorld();
+        Level world = event.getWorld();
         BlockPos pos = event.getPos();
         if (block == Blocks.SHROOMLIGHT && Miscellaneous.SHROOMLIGHT_GROWABLE.getBool()) {
-            pos = pos.down();
-            if (world.isAirBlock(pos)) {
+            pos = pos.below();
+            if (world.isEmptyBlock(pos)) {
                 event.setResult(Event.Result.ALLOW);
-                if (world.getRandom().nextDouble() < Miscellaneous.SHROOMLIGHT_GROW_CHANCE.getDouble() && !world.isRemote()) {
-                    world.setBlockState(pos, IEBlocks.SHROOMLIGHT_FUNGUS.get().getDefaultState().with(HorizontalBushBlock.FACE, AttachFace.CEILING), 3);
+                if (world.getRandom().nextDouble() < Miscellaneous.SHROOMLIGHT_GROW_CHANCE.getDouble() && !world.isClientSide()) {
+                    world.setBlock(pos, IEBlocks.SHROOMLIGHT_FUNGUS.get().defaultBlockState().setValue(HorizontalBushBlock.FACE, AttachFace.CEILING), 3);
                 }
             }
         } else if (block == IEBlocks.DULLTHORNS.get()) {
@@ -340,12 +343,12 @@ public class MiscEvents {
 
     @SubscribeEvent
     public void onPotionColorCalculate(PotionColorCalculationEvent event) {
-        List<EffectInstance> effects = new ArrayList<>(event.getEffects());
+        List<MobEffectInstance> effects = new ArrayList<>(event.getEffects());
         int customEffects = 0;
 
         // Hide base infection effect particles
-        for (EffectInstance effectInstance : effects) {
-            if (effectInstance.getPotion() == IEEffects.INFECTION.get() || effectInstance.getPotion() == IEEffects.LUMINOUS.get()) {
+        for (MobEffectInstance effectInstance : effects) {
+            if (effectInstance.getEffect() == IEEffects.INFECTION.get() || effectInstance.getEffect() == IEEffects.LUMINOUS.get()) {
                 customEffects++;
             }
         }
@@ -360,22 +363,22 @@ public class MiscEvents {
         LivingEntity entity = event.getEntityLiving();
 
         // Make sure we are checking potion effects on the server, not client
-        if (entity.isServerWorld() && entity.getEntityWorld() instanceof ServerWorld) {
-            if (entity.isPotionActive(IEEffects.INFECTION.get())) {
-                if ((entity.getActivePotionEffect(IEEffects.INFECTION.get()).getDuration() & 10) == 0 && entity.getActivePotionEffect(IEEffects.INFECTION.get()).doesShowParticles()) {
+        if (entity.isEffectiveAi() && entity.getCommandSenderWorld() instanceof ServerLevel) {
+            if (entity.hasEffect(IEEffects.INFECTION.get())) {
+                if ((entity.getEffect(IEEffects.INFECTION.get()).getDuration() & 10) == 0 && entity.getEffect(IEEffects.INFECTION.get()).isVisible()) {
                     // Use ServerWorld#spawnParticle instead of World#addParticle because this code is running on the server side
-                    ((ServerWorld) entity.getEntityWorld()).spawnParticle(IEParticleTypes.INFECTION.get(), entity.getPosXRandom(entity.getBoundingBox().getXSize()), entity.getPosYRandom(), entity.getPosZRandom(entity.getBoundingBox().getZSize()), 0, 0, 0, 0, 1);
+                    ((ServerLevel) entity.getCommandSenderWorld()).sendParticles(IEParticleTypes.INFECTION.get(), entity.getRandomX(entity.getBoundingBox().getXsize()), entity.getRandomY(), entity.getRandomZ(entity.getBoundingBox().getZsize()), 0, 0, 0, 0, 1);
                 }
             }
 
-            if (entity.isPotionActive(IEEffects.LUMINOUS.get())) {
-                if ((entity.getActivePotionEffect(IEEffects.LUMINOUS.get()).getDuration() & 50) == 0 && entity.getActivePotionEffect(IEEffects.LUMINOUS.get()).doesShowParticles()) {
+            if (entity.hasEffect(IEEffects.LUMINOUS.get())) {
+                if ((entity.getEffect(IEEffects.LUMINOUS.get()).getDuration() & 50) == 0 && entity.getEffect(IEEffects.LUMINOUS.get()).isVisible()) {
                     // Use ServerWorld#spawnParticle instead of World#addParticle because this code is running on the server side
-                    ((ServerWorld) entity.getEntityWorld()).spawnParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get(), entity.getPosXRandom(entity.getBoundingBox().getXSize()), entity.getPosYRandom(), entity.getPosZRandom(entity.getBoundingBox().getZSize()), 0, 0, 0, 0, 0.2);
+                    ((ServerLevel) entity.getCommandSenderWorld()).sendParticles(IEParticleTypes.GLOWSTONE_SPARKLE.get(), entity.getRandomX(entity.getBoundingBox().getXsize()), entity.getRandomY(), entity.getRandomZ(entity.getBoundingBox().getZsize()), 0, 0, 0, 0, 0.2);
                 }
 
-                if ((entity instanceof ZombieEntity && !(entity instanceof ZombifiedPiglinEntity)) || entity instanceof SkeletonEntity) {
-                    entity.setFire(1);
+                if ((entity instanceof Zombie && !(entity instanceof ZombifiedPiglin)) || entity instanceof Skeleton) {
+                    entity.setSecondsOnFire(1);
                 }
             }
         }
@@ -386,19 +389,19 @@ public class MiscEvents {
         ItemStack item = event.getItem();
         LivingEntity entity = (LivingEntity) event.getEntity();
 
-        if (item.getItem() == IEItems.CURED_JERKY.get() && item.getUseAction() == UseAction.EAT) {
-            entity.addPotionEffect(new EffectInstance(Effects.SPEED, 20 * Miscellaneous.JERKY_EFFECT_DURATION.getInt(), Miscellaneous.JERKY_EFFECT_AMPLIFIER.getInt()));
+        if (item.getItem() == IEItems.CURED_JERKY.get() && item.getUseAnimation() == UseAnim.EAT) {
+            entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20 * Miscellaneous.JERKY_EFFECT_DURATION.getInt(), Miscellaneous.JERKY_EFFECT_AMPLIFIER.getInt()));
         }
     }
 
     @SubscribeEvent
     public void onEntityJoin(EntityJoinWorldEvent event) {
-        if (event.getEntity() instanceof AreaEffectCloudEntity) {
-            for (EffectInstance effect : ((AreaEffectCloudEntity) event.getEntity()).potion.getEffects()) {
-                if (effect.getPotion() == IEEffects.INFECTION.get()) {
-                    ((AreaEffectCloudEntity) event.getEntity()).setParticleData(IEParticleTypes.INFECTION.get());
-                } else if (effect.getPotion() == IEEffects.LUMINOUS.get()) {
-                    ((AreaEffectCloudEntity) event.getEntity()).setParticleData(IEParticleTypes.GLOWSTONE_SPARKLE.get());
+        if (event.getEntity() instanceof AreaEffectCloud) {
+            for (MobEffectInstance effect : ((AreaEffectCloud) event.getEntity()).potion.getEffects()) {
+                if (effect.getEffect() == IEEffects.INFECTION.get()) {
+                    ((AreaEffectCloud) event.getEntity()).setParticle(IEParticleTypes.INFECTION.get());
+                } else if (effect.getEffect() == IEEffects.LUMINOUS.get()) {
+                    ((AreaEffectCloud) event.getEntity()).setParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get());
                 }
             }
         }
@@ -409,11 +412,11 @@ public class MiscEvents {
         LivingEntity entity = event.getEntityLiving();
 
         // If entity has infection, on hit, make a splash of particles
-        if (entity.isServerWorld() && entity.getEntityWorld() instanceof ServerWorld) {
-            if (entity.isPotionActive(IEEffects.INFECTION.get())) {
+        if (entity.isEffectiveAi() && entity.getCommandSenderWorld() instanceof ServerLevel) {
+            if (entity.hasEffect(IEEffects.INFECTION.get())) {
                 if (event.getSource() != DamageSource.MAGIC) {
                     for (int i = 0; i < 32; i++) {
-                        ((ServerWorld) entity.getEntityWorld()).spawnParticle(IEParticleTypes.INFECTION.get(), entity.getPosXRandom(1), entity.getPosYRandom(), entity.getPosZRandom(1), 1, 0, 0, 0, 1);
+                        ((ServerLevel) entity.getCommandSenderWorld()).sendParticles(IEParticleTypes.INFECTION.get(), entity.getRandomX(1), entity.getRandomY(), entity.getRandomZ(1), 1, 0, 0, 0, 1);
                     }
                 }
             }
@@ -446,5 +449,12 @@ public class MiscEvents {
         }
 
         return spawnrateManager.getSpawnrates();
+    }
+
+    @SubscribeEvent
+    public void onCheckFuelBurnTime(FurnaceFuelBurnTimeEvent event) {
+        if (event.getItemStack().getItem() instanceof IFuel fuel) {
+            event.setBurnTime(fuel.getBurnTime());
+        }
     }
 }

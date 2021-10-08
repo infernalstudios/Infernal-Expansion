@@ -29,12 +29,12 @@ import org.infernalstudios.infernalexp.world.gen.features.ShroomlightTearFeature
 import org.infernalstudios.infernalexp.world.gen.features.HangingGiantBrownMushroomFeature;
 import org.infernalstudios.infernalexp.world.gen.features.config.GlowSpikeFeatureConfig;
 import org.infernalstudios.infernalexp.world.gen.features.config.PlantedQuartzFeatureConfig;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.gen.feature.BlockStateFeatureConfig;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.Registry;
+import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,18 +43,18 @@ public class IEFeatures {
 
     public static List<Feature<?>> features = new ArrayList<>();
 
-    public static final Feature<NoFeatureConfig> GLOWDUST_LAYER = registerFeature("glowdust_layer", new GlowLayerFeature(NoFeatureConfig.CODEC));
+    public static final Feature<NoneFeatureConfiguration> GLOWDUST_LAYER = registerFeature("glowdust_layer", new GlowLayerFeature(NoneFeatureConfiguration.CODEC));
     public static final Feature<GlowSpikeFeatureConfig> GLOWSPIKE = registerFeature("glowspike", new GlowSpikeFeature(GlowSpikeFeatureConfig.CODEC));
-    public static final Feature<NoFeatureConfig> GLOWSTONE_RAVINE = registerFeature("glowstone_ravine", new GlowstoneRavineFeature(NoFeatureConfig.CODEC));
-    public static final Feature<NoFeatureConfig> HANGING_GIANT_BROWN_MUSHROOM = registerFeature("hanging_giant_brown_mushroom", new HangingGiantBrownMushroomFeature(NoFeatureConfig.CODEC));
-    public static final Feature<NoFeatureConfig> LUMINOUS_FUNGUS = registerFeature("luminous_fungus", new LuminousFungusFeature(NoFeatureConfig.CODEC));
-    public static final Feature<NoFeatureConfig> DULLTHORNS = registerFeature("dullthorns", new DullthornsFeature(NoFeatureConfig.CODEC));
-    public static final Feature<BlockStateFeatureConfig> BOULDER = registerFeature("blackstone_boulder", new BoulderFeature(BlockStateFeatureConfig.CODEC));
-    public static final Feature<NoFeatureConfig> DULLSTONE_DEATH_PIT = registerFeature("glowdust_sink_hole", new SinkHoleFeature(NoFeatureConfig.CODEC));
-    public static final Feature<NoFeatureConfig> SHROOMLIGHT_TEAR = registerFeature("shroomlight_tear", new ShroomlightTearFeature(NoFeatureConfig.CODEC));
+    public static final Feature<NoneFeatureConfiguration> GLOWSTONE_RAVINE = registerFeature("glowstone_ravine", new GlowstoneRavineFeature(NoneFeatureConfiguration.CODEC));
+    public static final Feature<NoneFeatureConfiguration> HANGING_GIANT_BROWN_MUSHROOM = registerFeature("hanging_giant_brown_mushroom", new HangingGiantBrownMushroomFeature(NoneFeatureConfiguration.CODEC));
+    public static final Feature<NoneFeatureConfiguration> LUMINOUS_FUNGUS = registerFeature("luminous_fungus", new LuminousFungusFeature(NoneFeatureConfiguration.CODEC));
+    public static final Feature<NoneFeatureConfiguration> DULLTHORNS = registerFeature("dullthorns", new DullthornsFeature(NoneFeatureConfiguration.CODEC));
+    public static final Feature<BlockStateConfiguration> BOULDER = registerFeature("blackstone_boulder", new BoulderFeature(BlockStateConfiguration.CODEC));
+    public static final Feature<NoneFeatureConfiguration> DULLSTONE_DEATH_PIT = registerFeature("glowdust_sink_hole", new SinkHoleFeature(NoneFeatureConfiguration.CODEC));
+    public static final Feature<NoneFeatureConfiguration> SHROOMLIGHT_TEAR = registerFeature("shroomlight_tear", new ShroomlightTearFeature(NoneFeatureConfiguration.CODEC));
     public static final Feature<PlantedQuartzFeatureConfig> PATCH_PLANTED_QUARTZ = registerFeature("planted_quartz_patch", new PlantedQuartzFeature(PlantedQuartzFeatureConfig.CODEC));
 
-    public static <C extends IFeatureConfig, F extends Feature<C>> F registerFeature(String registryName, F feature) {
+    public static <C extends FeatureConfiguration, F extends Feature<C>> F registerFeature(String registryName, F feature) {
         ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, registryName);
 
         if (Registry.FEATURE.keySet().contains(resourceLocation))

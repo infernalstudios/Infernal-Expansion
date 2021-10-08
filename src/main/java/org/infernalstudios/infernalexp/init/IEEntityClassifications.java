@@ -17,13 +17,13 @@
 package org.infernalstudios.infernalexp.init;
 
 import org.infernalstudios.infernalexp.InfernalExpansion;
-import net.minecraft.entity.EntityClassification;
+import net.minecraft.world.entity.MobCategory;
 
 public class IEEntityClassifications {
-    public static EntityClassification IECREATURE;
+    public static MobCategory IECREATURE;
 
     public static void register() {
-        IECREATURE = EntityClassification.create("IE_CREATURE", "IECREATURE", 70, true, false, 128);
+        IECREATURE = MobCategory.create("IE_CREATURE", "IECREATURE", 70, true, false, 128);
         InfernalExpansion.LOGGER.info("Infernal Expansion: Entity Classifications Registered!");
     }
 }

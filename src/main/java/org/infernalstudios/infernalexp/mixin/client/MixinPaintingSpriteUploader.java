@@ -16,35 +16,29 @@
 
 package org.infernalstudios.infernalexp.mixin.client;
 
+import net.minecraft.client.resources.PaintingTextureManager;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.Registry;
 import org.infernalstudios.infernalexp.client.entity.render.InfernalPaintingRenderer;
-
-import net.minecraft.client.renderer.texture.PaintingSpriteUploader;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
-
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.stream.Stream;
 
-@Mixin(PaintingSpriteUploader.class)
+@Mixin(PaintingTextureManager.class)
 public class MixinPaintingSpriteUploader {
 
     @Shadow
     @Final
-    private static ResourceLocation LOCATION_BACK_SPRITE;
+    private static ResourceLocation BACK_SPRITE_LOCATION;
 
-    /**
-     * Overwrite to add custom back texture to painting texture atlas
-     *
-     * @author caelwarner
-     * @reason To add infernal_back.png to painting texture atlas
-     */
-    @Overwrite
-    protected Stream<ResourceLocation> getResourceLocations() {
-        return Stream.concat(Registry.MOTIVE.keySet().stream(), Stream.of(LOCATION_BACK_SPRITE, InfernalPaintingRenderer.BACK_TEXTURE_ATLAS_LOCATION));
+    @Inject(method = "getResourcesToLoad", at = @At("RETURN"), cancellable = true, remap = false)
+    private void getResourcesToLoad(CallbackInfoReturnable<Stream<ResourceLocation>> cir) {
+        cir.setReturnValue(Stream.concat(Registry.MOTIVE.keySet().stream(), Stream.of(BACK_SPRITE_LOCATION, InfernalPaintingRenderer.BACK_TEXTURE_ATLAS_LOCATION)));
     }
 
 }

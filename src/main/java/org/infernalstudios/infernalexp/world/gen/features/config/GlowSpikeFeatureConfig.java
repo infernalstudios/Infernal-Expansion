@@ -19,9 +19,9 @@ package org.infernalstudios.infernalexp.world.gen.features.config;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
-public class GlowSpikeFeatureConfig implements IFeatureConfig {
+public class GlowSpikeFeatureConfig implements FeatureConfiguration {
     public static final Codec<GlowSpikeFeatureConfig> CODEC = RecordCodecBuilder.create((builder) -> {
         return builder.group(
                 Codec.INT.fieldOf("min_diameter").forGetter((config) -> config.minDiameter),

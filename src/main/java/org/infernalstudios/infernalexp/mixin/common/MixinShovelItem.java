@@ -19,17 +19,17 @@ package org.infernalstudios.infernalexp.mixin.common;
 import org.infernalstudios.infernalexp.blocks.GlowCampfireBlock;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.NyliumBlock;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.item.ShovelItem;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.NyliumBlock;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.ShovelItem;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -39,33 +39,33 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ShovelItem.class)
 public class MixinShovelItem {
 
-    @Inject(at = @At("HEAD"), method = "onItemUse", cancellable = true)
-    private void IE_onItemUse(ItemUseContext context, CallbackInfoReturnable<ActionResultType> cir) {
-        World world = context.getWorld();
-        BlockPos pos = context.getPos();
+    @Inject(at = @At("HEAD"), method = "useOn", cancellable = true, remap = false)
+    private void IE_onItemUse(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
+        Level world = context.getLevel();
+        BlockPos pos = context.getClickedPos();
         BlockState state = world.getBlockState(pos);
-        PlayerEntity playerentity = context.getPlayer();
-        if (state.getBlock() instanceof GlowCampfireBlock && state.get(GlowCampfireBlock.LIT)) {
-            if (!world.isRemote()) {
-                world.playEvent(null, 1009, pos, 0);
+        Player playerEntity = context.getPlayer();
+        if (state.getBlock() instanceof GlowCampfireBlock && state.getValue(GlowCampfireBlock.LIT)) {
+            if (!world.isClientSide()) {
+                world.levelEvent(null, 1009, pos, 0);
             }
-            GlowCampfireBlock.extinguish(world, pos, state);
-            world.setBlockState(pos, state.with(GlowCampfireBlock.LIT, false));
-            cir.setReturnValue(ActionResultType.SUCCESS);
-        } else if (state.getBlock() instanceof NyliumBlock || state.getBlock().matchesBlock(Blocks.SOUL_SOIL)) {
-            if (state.getBlock().matchesBlock(Blocks.CRIMSON_NYLIUM)) {
-                state = IEBlocks.CRIMSON_NYLIUM_PATH.get().getDefaultState();
-            } else if (state.getBlock().matchesBlock(Blocks.WARPED_NYLIUM)) {
-                state = IEBlocks.WARPED_NYLIUM_PATH.get().getDefaultState();
+            GlowCampfireBlock.dowse(playerEntity, world, pos, state);
+            world.setBlockAndUpdate(pos, state.setValue(GlowCampfireBlock.LIT, false));
+            cir.setReturnValue(InteractionResult.SUCCESS);
+        } else if (state.getBlock() instanceof NyliumBlock || state.getBlock() == Blocks.SOUL_SOIL) {
+            if (state.getBlock() == Blocks.CRIMSON_NYLIUM) {
+                state = IEBlocks.CRIMSON_NYLIUM_PATH.get().defaultBlockState();
+            } else if (state.getBlock() == Blocks.WARPED_NYLIUM) {
+                state = IEBlocks.WARPED_NYLIUM_PATH.get().defaultBlockState();
             } else {
-                state = IEBlocks.SOUL_SOIL_PATH.get().getDefaultState();
+                state = IEBlocks.SOUL_SOIL_PATH.get().defaultBlockState();
             }
-            world.playSound(playerentity, pos, SoundEvents.ITEM_SHOVEL_FLATTEN, SoundCategory.BLOCKS, 1.0F, 1.0F);
-            if (playerentity != null) {
-                context.getItem().damageItem(1, playerentity, (player) -> player.sendBreakAnimation(context.getHand()));
+            world.playSound(playerEntity, pos, SoundEvents.SHOVEL_FLATTEN, SoundSource.BLOCKS, 1.0F, 1.0F);
+            if (playerEntity != null) {
+                context.getItemInHand().hurtAndBreak(1, playerEntity, (player) -> player.broadcastBreakEvent(context.getHand()));
             }
-            world.setBlockState(pos, state);
-            cir.setReturnValue(ActionResultType.SUCCESS);
+            world.setBlockAndUpdate(pos, state);
+            cir.setReturnValue(InteractionResult.SUCCESS);
         }
     }
 

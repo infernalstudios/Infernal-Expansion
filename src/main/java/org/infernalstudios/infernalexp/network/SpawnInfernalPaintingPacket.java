@@ -16,18 +16,16 @@
 
 package org.infernalstudios.infernalexp.network;
 
-import org.infernalstudios.infernalexp.entities.InfernalPaintingEntity;
-
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-
-import net.minecraftforge.fml.LogicalSidedProvider;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.fmllegacy.LogicalSidedProvider;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.infernalstudios.infernalexp.entities.InfernalPaintingEntity;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -42,11 +40,11 @@ public class SpawnInfernalPaintingPacket {
     private final String title;
 
     public SpawnInfernalPaintingPacket(InfernalPaintingEntity painting) {
-        this.entityID = painting.getEntityId();
-        this.uniqueID = painting.getUniqueID();
-        this.pos = painting.getHangingPosition();
-        this.facing = painting.getHorizontalFacing();
-        this.title = ForgeRegistries.PAINTING_TYPES.getKey(painting.art).toString();
+        this.entityID = painting.getId();
+        this.uniqueID = painting.getUUID();
+        this.pos = painting.getPos();
+        this.facing = painting.getDirection();
+        this.title = ForgeRegistries.PAINTING_TYPES.getKey(painting.motive).toString();
     }
 
     public SpawnInfernalPaintingPacket(int entityID, UUID uniqueID, BlockPos pos, Direction facing, String title) {
@@ -57,33 +55,33 @@ public class SpawnInfernalPaintingPacket {
         this.title = title;
     }
 
-    public static void encode(SpawnInfernalPaintingPacket message, PacketBuffer packetBuffer) {
+    public static void encode(SpawnInfernalPaintingPacket message, FriendlyByteBuf packetBuffer) {
         packetBuffer.writeVarInt(message.entityID);
-        packetBuffer.writeUniqueId(message.uniqueID);
+        packetBuffer.writeUUID(message.uniqueID);
         packetBuffer.writeBlockPos(message.pos);
-        packetBuffer.writeByte(message.facing.getHorizontalIndex());
-        packetBuffer.writeString(message.title);
+        packetBuffer.writeByte(message.facing.get2DDataValue());
+        packetBuffer.writeUtf(message.title);
     }
 
-    public static SpawnInfernalPaintingPacket decode(PacketBuffer packetBuffer) {
+    public static SpawnInfernalPaintingPacket decode(FriendlyByteBuf packetBuffer) {
         return new SpawnInfernalPaintingPacket(
             packetBuffer.readVarInt(),
-            packetBuffer.readUniqueId(),
+            packetBuffer.readUUID(),
             packetBuffer.readBlockPos(),
-            Direction.byHorizontalIndex(packetBuffer.readByte()),
-            packetBuffer.readString()
+            Direction.from2DDataValue(packetBuffer.readByte()),
+            packetBuffer.readUtf()
         );
     }
 
     public static void handle(SpawnInfernalPaintingPacket message, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            Optional<World> world = LogicalSidedProvider.CLIENTWORLD.get(ctx.get().getDirection().getReceptionSide());
+            Optional<Level> world = LogicalSidedProvider.CLIENTWORLD.get(ctx.get().getDirection().getReceptionSide());
 
             InfernalPaintingEntity paintingEntity = new InfernalPaintingEntity(world.orElse(null), message.pos, message.facing, ForgeRegistries.PAINTING_TYPES.getValue(new ResourceLocation(message.title)));
-            paintingEntity.setEntityId(message.entityID);
-            paintingEntity.setUniqueId(message.uniqueID);
+            paintingEntity.setId(message.entityID);
+            paintingEntity.setUUID(message.uniqueID);
 
-            world.filter(ClientWorld.class::isInstance).ifPresent(w -> ((ClientWorld) w).addEntity(message.entityID, paintingEntity));
+            world.filter(ClientLevel.class::isInstance).ifPresent(w -> ((ClientLevel) w).putNonPlayerEntity(message.entityID, paintingEntity));
         });
 
         ctx.get().setPacketHandled(true);

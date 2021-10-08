@@ -16,18 +16,18 @@
 
 package org.infernalstudios.infernalexp;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.FlowerPotBlock;
-import net.minecraft.dispenser.DefaultDispenseItemBehavior;
-import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.carver.WorldCarver;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockSource;
+import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.levelgen.carver.WorldCarver;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;
@@ -39,8 +39,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fmlserverevents.FMLServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.infernalstudios.infernalexp.client.InfernalExpansionClient;
@@ -51,6 +51,7 @@ import org.infernalstudios.infernalexp.events.MiscEvents;
 import org.infernalstudios.infernalexp.events.MobEvents;
 import org.infernalstudios.infernalexp.events.WorldEvents;
 import org.infernalstudios.infernalexp.init.IEBiomes;
+import org.infernalstudios.infernalexp.init.IEBlockEntityTypes;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IEBrewingRecipes;
 import org.infernalstudios.infernalexp.init.IECapabilities;
@@ -68,7 +69,6 @@ import org.infernalstudios.infernalexp.init.IEProcessors;
 import org.infernalstudios.infernalexp.init.IEShroomloinTypes;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
 import org.infernalstudios.infernalexp.init.IEStructures;
-import org.infernalstudios.infernalexp.init.IETileEntityTypes;
 import org.infernalstudios.infernalexp.items.IESpawnEggItem;
 import org.infernalstudios.infernalexp.mixin.common.WorldCarverAccessor;
 import org.infernalstudios.infernalexp.network.IENetworkHandler;
@@ -102,7 +102,7 @@ public class InfernalExpansion {
         IEPotions.register(modEventBus);
         IEEntityTypes.register(modEventBus);
         IEPaintings.register(modEventBus);
-        IETileEntityTypes.register(modEventBus);
+        IEBlockEntityTypes.register(modEventBus);
         IEBiomes.register(modEventBus);
         IELootModifiers.register(modEventBus);
 
@@ -113,6 +113,7 @@ public class InfernalExpansion {
         MinecraftForge.EVENT_BUS.register(new MiscEvents());
         MinecraftForge.EVENT_BUS.register(new MobEvents());
         MinecraftForge.EVENT_BUS.register(new WorldEvents());
+        MinecraftForge.EVENT_BUS.register(new IECapabilities());
 
         // Registering Configs
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigHolder.CLIENT_SPEC);
@@ -131,7 +132,6 @@ public class InfernalExpansion {
         event.enqueueWork(IEProcessors::registerProcessors);
         event.enqueueWork(IEStructures::setupStructures);
         event.enqueueWork(IENetworkHandler::register);
-        event.enqueueWork(IECapabilities::registerCapabilities);
         event.enqueueWork(IEBrewingRecipes::register);
 
         // Create mob spawnrate config files, they get created on game load instead of world load
@@ -142,8 +142,8 @@ public class InfernalExpansion {
         event.enqueueWork(() -> {
             Set<Block> newCarvableBlocks = Stream.of(IEBlocks.DULLSTONE.get(), IEBlocks.DIMSTONE.get(), Blocks.GLOWSTONE, IEBlocks.GLOWDUST_SAND.get(), IEBlocks.GLOWDUST.get()).collect(Collectors.toCollection(HashSet::new));
 
-            newCarvableBlocks.addAll(((WorldCarverAccessor) WorldCarver.NETHER_CAVE).getCarvableBlocks());
-            ((WorldCarverAccessor) WorldCarver.NETHER_CAVE).setCarvableBlocks(newCarvableBlocks);
+            newCarvableBlocks.addAll(((WorldCarverAccessor) WorldCarver.NETHER_CAVE).getReplaceableBlocks());
+            ((WorldCarverAccessor) WorldCarver.NETHER_CAVE).setReplaceableBlocks(newCarvableBlocks);
         });
 
         // Register for Quark Compatibility in recipe
@@ -159,18 +159,18 @@ public class InfernalExpansion {
         flowerPot.addPlant(IEBlocks.SHROOMLIGHT_FUNGUS.getId(), IEBlocks.POTTED_SHROOMLIGHT_FUNGUS);
 
         // Custom Dispenser Behavior
-        DispenserBlock.registerDispenseBehavior(Items.GLOWSTONE_DUST, new DefaultDispenseItemBehavior() {
+        DispenserBlock.registerBehavior(Items.GLOWSTONE_DUST, new DefaultDispenseItemBehavior() {
             @Override
-            protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-                World world = source.getWorld();
-                BlockPos blockpos = source.getBlockPos().offset(source.getBlockState().get(DispenserBlock.FACING));
+            protected ItemStack execute(BlockSource source, ItemStack stack) {
+                Level world = source.getLevel();
+                BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
                 ItemStack itemstack = stack.split(1);
                 if (world.getBlockState(blockpos).getBlock() == IEBlocks.DIMSTONE.get()) {
-                    world.setBlockState(blockpos, Blocks.GLOWSTONE.getDefaultState());
+                    world.setBlockAndUpdate(blockpos, Blocks.GLOWSTONE.defaultBlockState());
                 } else if (world.getBlockState(blockpos).getBlock() == IEBlocks.DULLSTONE.get()) {
-                    world.setBlockState(blockpos, IEBlocks.DIMSTONE.get().getDefaultState());
+                    world.setBlockAndUpdate(blockpos, IEBlocks.DIMSTONE.get().defaultBlockState());
                 } else {
-                    doDispense(world, itemstack, 6, source.getBlockState().get(DispenserBlock.FACING), DispenserBlock.getDispensePosition(source));
+                    spawnItem(world, itemstack, 6, source.getBlockState().getValue(DispenserBlock.FACING), DispenserBlock.getDispensePosition(source));
                 }
 
                 return stack;
@@ -187,13 +187,13 @@ public class InfernalExpansion {
 
     @SubscribeEvent
     public void onServerStarting(FMLServerStartingEvent event) {
-        IECommands.registerCommands(event.getServer().getCommandManager().getDispatcher());
+        IECommands.registerCommands(event.getServer().getCommands().getDispatcher());
     }
 
-    public static final ItemGroup TAB = new ItemGroup("InfernalTab") {
+    public static final CreativeModeTab TAB = new CreativeModeTab("InfernalTab") {
 
         @Override
-        public ItemStack createIcon() {
+        public ItemStack makeIcon() {
             return new ItemStack(IEItems.TAB_ITEM.get());
         }
 

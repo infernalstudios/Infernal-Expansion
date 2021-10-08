@@ -16,100 +16,88 @@
 
 package org.infernalstudios.infernalexp.client.entity.model;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.entities.BlindsightEntity;
 
-import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.util.math.MathHelper;
-
 public class BlindsightModel<T extends BlindsightEntity> extends EntityModel<T> {
-    private final ModelRenderer all;
-    private final ModelRenderer Body;
-    private final ModelRenderer Head;
-    private final ModelRenderer MouthRoof;
-    private final ModelRenderer LowerJaw;
-    private final ModelRenderer FrontLeftLeg;
-    private final ModelRenderer FrontRightLeg;
-    private final ModelRenderer BackLeftLeg;
-    private final ModelRenderer BackRightLeg;
 
-    public BlindsightModel() {
-        textureWidth = 64;
-        textureHeight = 64;
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(InfernalExpansion.MOD_ID, "blindsight"), "main");
 
-        all = new ModelRenderer(this);
-        all.setRotationPoint(0.0F, 24.0F, -3.0F);
+    private final ModelPart all;
+    private final ModelPart body;
+    private final ModelPart head;
+    private final ModelPart backLeftLeg;
+    private final ModelPart backRightLeg;
 
+    public BlindsightModel(ModelPart root) {
+        this.all = root.getChild("all");
+        this.body = all.getChild("body");
+        this.head = body.getChild("head");
+        this.backLeftLeg = all.getChild("back_left_leg");
+        this.backRightLeg = all.getChild("back_right_leg");
+    }
 
-        Body = new ModelRenderer(this);
-        Body.setRotationPoint(0.0F, -4.0F, 7.0F);
-        all.addChild(Body);
+    public static LayerDefinition createBodyLayer() {
+        MeshDefinition meshDefinition = new MeshDefinition();
+        PartDefinition partDefinition = meshDefinition.getRoot();
 
+        PartDefinition all = partDefinition.addOrReplaceChild("all", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, -3.0F));
 
-        Head = new ModelRenderer(this);
-        Head.setRotationPoint(0.0F, 0.0F, 0.0F);
-        Body.addChild(Head);
-        setRotationAngle(Head, -0.3927F, 0.0F, 0.0F);
-        Head.setTextureOffset(0, 0).addBox(-8.0F, -8.0F, -12.0F, 16.0F, 8.0F, 12.0F, 0.0F, false);
+        PartDefinition body = all.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0.0F, -4.0F, 7.0F));
 
-        MouthRoof = new ModelRenderer(this);
-        MouthRoof.setRotationPoint(0.0F, 6.0F, -8.0F);
-        Head.addChild(MouthRoof);
-        setRotationAngle(MouthRoof, -1.5708F, 0.0F, 0.0F);
-        MouthRoof.setTextureOffset(32, 41).addBox(-8.0F, -8.0F, -7.0F, 16.0F, 12.0F, 0.0F, 0.0F, false);
+        PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, -8.0F, -12.0F, 16.0F, 8.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, -0.3927F, 0.0F, 0.0F));
 
-        LowerJaw = new ModelRenderer(this);
-        LowerJaw.setRotationPoint(0.0F, 0.0F, 0.0F);
-        Body.addChild(LowerJaw);
-        LowerJaw.setTextureOffset(0, 20).addBox(-8.0F, -1.0F, -12.0F, 16.0F, 3.0F, 12.0F, 0.0F, false);
-        LowerJaw.setTextureOffset(4, 41).addBox(-8.0F, 0.0F, -12.0F, 16.0F, 0.0F, 12.0F, 0.0F, false);
+        PartDefinition mouthRoof = head.addOrReplaceChild("mouth_roof", CubeListBuilder.create().texOffs(32, 41).addBox(-8.0F, -8.0F, -7.0F, 16.0F, 12.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 6.0F, -8.0F, -1.5708F, 0.0F, 0.0F));
 
-        FrontLeftLeg = new ModelRenderer(this);
-        FrontLeftLeg.setRotationPoint(6.0F, -2.0F, -3.0F);
-        all.addChild(FrontLeftLeg);
-        FrontLeftLeg.setTextureOffset(0, 35).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 2.0F, 2.0F, 0.001F, false);
+        PartDefinition lowerJaw = body.addOrReplaceChild("lower_jaw", CubeListBuilder.create().texOffs(0, 20).addBox(-8.0F, -1.0F, -12.0F, 16.0F, 3.0F, 12.0F, new CubeDeformation(0.0F))
+            .texOffs(4, 41).addBox(-8.0F, 0.0F, -12.0F, 16.0F, 0.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        FrontRightLeg = new ModelRenderer(this);
-        FrontRightLeg.setRotationPoint(-6.0F, -2.0F, -3.0F);
-        all.addChild(FrontRightLeg);
-        FrontRightLeg.setTextureOffset(8, 35).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 2.0F, 2.0F, 0.001F, false);
+        PartDefinition frontLeftLeg = all.addOrReplaceChild("front_left_leg", CubeListBuilder.create().texOffs(0, 35).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.001F)), PartPose.offset(6.0F, -2.0F, -3.0F));
 
-        BackLeftLeg = new ModelRenderer(this);
-        BackLeftLeg.setRotationPoint(7.0F, -2.0F, 5.0F);
-        all.addChild(BackLeftLeg);
-        BackLeftLeg.setTextureOffset(44, 56).addBox(-1.0F, 0.0F, -5.0F, 4.0F, 2.0F, 6.0F, 0.001F, true);
+        PartDefinition frontRightLeg = all.addOrReplaceChild("front_right_leg", CubeListBuilder.create().texOffs(8, 35).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.001F)), PartPose.offset(-6.0F, -2.0F, -3.0F));
 
-        BackRightLeg = new ModelRenderer(this);
-        BackRightLeg.setRotationPoint(-7.0F, -2.0F, 5.0F);
-        all.addChild(BackRightLeg);
-        BackRightLeg.setTextureOffset(44, 56).addBox(-3.0F, 0.0F, -5.0F, 4.0F, 2.0F, 6.0F, 0.001F, false);
+        PartDefinition backLeftLeg = all.addOrReplaceChild("back_left_leg", CubeListBuilder.create().texOffs(44, 56).mirror().addBox(-1.0F, 0.0F, -5.0F, 4.0F, 2.0F, 6.0F, new CubeDeformation(0.001F)).mirror(false), PartPose.offset(7.0F, -2.0F, 5.0F));
+
+        PartDefinition backRightLeg = all.addOrReplaceChild("back_right_leg", CubeListBuilder.create().texOffs(44, 56).addBox(-3.0F, 0.0F, -5.0F, 4.0F, 2.0F, 6.0F, new CubeDeformation(0.001F)), PartPose.offset(-7.0F, -2.0F, 5.0F));
+
+        return LayerDefinition.create(meshDefinition, 64, 64);
     }
 
     @Override
-    public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        float partialTick = ageInTicks - (float) entityIn.ticksExisted;
+    public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        float partialTick = ageInTicks - (float) entityIn.tickCount;
 
-        float jumpRotation = MathHelper.sin(entityIn.getJumpCompletion(partialTick) * (float) Math.PI);
-        this.BackLeftLeg.rotateAngleX = jumpRotation * 50.0F * ((float) Math.PI / 180F);
-        this.BackRightLeg.rotateAngleX = jumpRotation * 50.0F * ((float) Math.PI / 180F);
+        float jumpRotation = Mth.sin(entityIn.getJumpCompletion(partialTick) * (float) Math.PI);
+        backLeftLeg.xRot = jumpRotation * 50.0F * ((float) Math.PI / 180F);
+        backRightLeg.xRot = jumpRotation * 50.0F * ((float) Math.PI / 180F);
     }
 
     @Override
-    public void setLivingAnimations(T entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
-        this.Head.rotateAngleX = -MathHelper.abs(MathHelper.cos(0.4662F * limbSwing) * 1.2F * limbSwingAmount);
+    public void prepareMobModel(T entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
+        head.xRot = -Mth.abs(Mth.cos(0.4662F * limbSwing) * 1.2F * limbSwingAmount);
     }
 
     @Override
-    public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(PoseStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         all.render(matrixStack, buffer, packedLight, packedOverlay);
     }
 
-    public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
-        modelRenderer.rotateAngleX = x;
-        modelRenderer.rotateAngleY = y;
-        modelRenderer.rotateAngleZ = z;
+    public void setRotationAngle(ModelPart modelRenderer, float x, float y, float z) {
+        modelRenderer.xRot = x;
+        modelRenderer.yRot = y;
+        modelRenderer.zRot = z;
     }
 }

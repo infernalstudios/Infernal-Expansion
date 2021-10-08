@@ -16,49 +16,49 @@
 
 package org.infernalstudios.infernalexp.blocks;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.AttachFace;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IETags;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.AttachFace;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
 
 import javax.annotation.CheckForNull;
 
 public class PlantedQuartzBlock extends HorizontalBushBlock {
-    protected static final VoxelShape FLOOR_SHAPE = makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 12.0D, 14.0D);
-    protected static final VoxelShape CEILING_SHAPE = makeCuboidShape(2.0D, 4.0D, 2.0D, 14.0D, 16.0D, 14.0D);
-    protected static final VoxelShape WALL_SHAPE_NORTH = makeCuboidShape(2.0D, 2.0D, 4.0D, 14.0D, 14.0D, 16.0D);
-    protected static final VoxelShape WALL_SHAPE_SOUTH = makeCuboidShape(2.0D, 2.0D, 0.0D, 14.0D, 14.0D, 12.0D);
-    protected static final VoxelShape WALL_SHAPE_EAST = makeCuboidShape(0.0D, 2.0D, 2.0D, 12.0D, 14.0D, 14.0D);
-    protected static final VoxelShape WALL_SHAPE_WEST = makeCuboidShape(4.0D, 2.0D, 2.0D, 16.0D, 14.0D, 14.0D);
+    protected static final VoxelShape FLOOR_SHAPE = box(2.0D, 0.0D, 2.0D, 14.0D, 12.0D, 14.0D);
+    protected static final VoxelShape CEILING_SHAPE = box(2.0D, 4.0D, 2.0D, 14.0D, 16.0D, 14.0D);
+    protected static final VoxelShape WALL_SHAPE_NORTH = box(2.0D, 2.0D, 4.0D, 14.0D, 14.0D, 16.0D);
+    protected static final VoxelShape WALL_SHAPE_SOUTH = box(2.0D, 2.0D, 0.0D, 14.0D, 14.0D, 12.0D);
+    protected static final VoxelShape WALL_SHAPE_EAST = box(0.0D, 2.0D, 2.0D, 12.0D, 14.0D, 14.0D);
+    protected static final VoxelShape WALL_SHAPE_WEST = box(4.0D, 2.0D, 2.0D, 16.0D, 14.0D, 14.0D);
 
     public PlantedQuartzBlock(Properties builder) {
         super(builder);
-        this.setDefaultState(this.getDefaultState().with(FACE, AttachFace.FLOOR).with(HORIZONTAL_FACING, Direction.NORTH));
+        this.registerDefaultState(this.defaultBlockState().setValue(FACE, AttachFace.FLOOR).setValue(FACING, Direction.NORTH));
     }
 
     @Override
-    protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
-        return state.getBlock().isIn(IETags.Blocks.PLANTED_QUARTZ_BASE_BLOCKS);
+    protected boolean isValidGround(BlockState state, BlockGetter worldIn, BlockPos pos) {
+        return IETags.Blocks.PLANTED_QUARTZ_BASE_BLOCKS.contains(state.getBlock());
     }
 
     @CheckForNull
-    public BlockState getPlaceableState(World world, BlockPos pos, Direction placeSide) {
+    public BlockState getPlaceableState(Level world, BlockPos pos, Direction placeSide) {
         if (world.getBlockState(pos).getMaterial().isReplaceable() && world.getBlockState(pos).getBlock() != IEBlocks.PLANTED_QUARTZ.get()) {
             Direction attachdirection;
-            if (this.isValidGround(world.getBlockState(pos.offset(placeSide.getOpposite())), world, pos)) {
+            if (this.isValidGround(world.getBlockState(pos.relative(placeSide.getOpposite())), world, pos)) {
                 attachdirection = placeSide.getOpposite();
-            } else if (this.isValidGround(world.getBlockState(pos.offset(placeSide)), world, pos)) {
+            } else if (this.isValidGround(world.getBlockState(pos.relative(placeSide)), world, pos)) {
                 attachdirection = placeSide;
             } else {
                 return null;
@@ -72,29 +72,29 @@ public class PlantedQuartzBlock extends HorizontalBushBlock {
                 attachface = AttachFace.WALL;
             }
             if (attachface == AttachFace.WALL) {
-                return this.getDefaultState().with(FACE, attachface).with(HORIZONTAL_FACING, attachdirection.getOpposite());
+                return this.defaultBlockState().setValue(FACE, attachface).setValue(FACING, attachdirection.getOpposite());
             } else {
-                return this.getDefaultState().with(FACE, attachface);
+                return this.defaultBlockState().setValue(FACE, attachface);
             }
         }
         return null;
     }
 
     @Override
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        return canAttach(worldIn, pos, getFacing(state).getOpposite());
+    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
+        return canAttachToSurface(worldIn, pos, getConnectedDirection(state).getOpposite());
     }
 
-    public boolean canAttach(IWorldReader reader, BlockPos pos, Direction direction) {
-        BlockPos blockpos = pos.offset(direction);
+    public boolean canAttachToSurface(LevelReader reader, BlockPos pos, Direction direction) {
+        BlockPos blockpos = pos.relative(direction);
         return isValidGround(reader.getBlockState(blockpos), reader, blockpos);
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        switch (state.get(FACE)) {
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+        switch (state.getValue(FACE)) {
             case WALL:
-                switch (state.get(HORIZONTAL_FACING)) {
+                switch (state.getValue(FACING)) {
                     case NORTH:
                         return WALL_SHAPE_NORTH;
                     case SOUTH:
@@ -114,8 +114,8 @@ public class PlantedQuartzBlock extends HorizontalBushBlock {
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builderIn) {
-        builderIn.add(HORIZONTAL_FACING, FACE);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builderIn) {
+        builderIn.add(FACING, FACE);
     }
 
     @Override

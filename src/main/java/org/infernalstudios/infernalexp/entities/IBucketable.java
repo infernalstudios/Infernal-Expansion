@@ -17,17 +17,18 @@
 package org.infernalstudios.infernalexp.entities;
 
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.level.Level;
 
 import java.util.Optional;
 
@@ -38,32 +39,32 @@ public interface IBucketable {
 
     void copyToStack(ItemStack stack);
 
-    void copyFromAdditional(CompoundNBT compound);
+    void copyFromAdditional(CompoundTag compound);
 
     ItemStack getBucketItem();
 
     SoundEvent getBucketedSound();
 
-    static void copyToStack(MobEntity entity, ItemStack stack) {
-        CompoundNBT compound = stack.getOrCreateTag();
+    static void copyToStack(Mob entity, ItemStack stack) {
+        CompoundTag compound = stack.getOrCreateTag();
         if (entity.hasCustomName()) {
-            stack.setDisplayName(entity.getCustomName());
+            stack.setHoverName(entity.getCustomName());
         }
 
-        if (entity.isAIDisabled()) {
-            compound.putBoolean("NoAI", entity.isAIDisabled());
+        if (entity.isNoAi()) {
+            compound.putBoolean("NoAI", entity.isNoAi());
         }
 
         if (entity.isSilent()) {
             compound.putBoolean("Silent", entity.isSilent());
         }
 
-        if (entity.hasNoGravity()) {
-            compound.putBoolean("NoGravity", entity.hasNoGravity());
+        if (entity.isNoGravity()) {
+            compound.putBoolean("NoGravity", entity.isNoGravity());
         }
 
-        if (entity.isGlowing()) {
-            compound.putBoolean("Glowing", entity.isGlowing());
+        if (entity.isCurrentlyGlowing()) {
+            compound.putBoolean("Glowing", entity.isCurrentlyGlowing());
         }
 
         if (entity.isInvulnerable()) {
@@ -73,9 +74,9 @@ public interface IBucketable {
         compound.putFloat("Health", entity.getHealth());
     }
 
-    static void copyFromAdditional(MobEntity entity, CompoundNBT compound) {
+    static void copyFromAdditional(Mob entity, CompoundTag compound) {
         if (compound.contains("NoAI")) {
-            entity.setNoAI(compound.getBoolean("NoAI"));
+            entity.setNoAi(compound.getBoolean("NoAI"));
         }
 
         if (compound.contains("Silent")) {
@@ -87,7 +88,7 @@ public interface IBucketable {
         }
 
         if (compound.contains("Glowing")) {
-            entity.setGlowing(compound.getBoolean("Glowing"));
+            entity.setGlowingTag(compound.getBoolean("Glowing"));
         }
 
         if (compound.contains("Invulnerable")) {
@@ -99,26 +100,27 @@ public interface IBucketable {
         }
     }
 
-    static <T extends LivingEntity & IBucketable> Optional<ActionResultType> tryBucketEntity(PlayerEntity player, Hand hand, T entity) {
-        ItemStack heldItem = player.getHeldItem(hand);
+    static <T extends LivingEntity & IBucketable> Optional<InteractionResult> tryBucketEntity(Player player, InteractionHand hand, T entity) {
+        ItemStack heldItem = player.getItemInHand(hand);
         if (heldItem.getItem() == Items.LAVA_BUCKET && entity.isAlive()) {
             entity.playSound(entity.getBucketedSound(), 1.0F, 1.0F);
             heldItem.shrink(1);
             ItemStack bucketItem = entity.getBucketItem();
             entity.copyToStack(bucketItem);
-            World world = entity.world;
-            if (!world.isRemote) {
-                CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayerEntity) player, bucketItem);
+            Level world = entity.level;
+            if (!world.isClientSide) {
+                CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, bucketItem);
             }
 
             if (heldItem.isEmpty()) {
-                player.setHeldItem(hand, bucketItem);
-            } else if (!player.inventory.addItemStackToInventory(bucketItem)) {
-                player.dropItem(bucketItem, false);
+                player.setItemInHand(hand, bucketItem);
+            } else if (!player.getInventory().add(bucketItem)) {
+                player.drop(bucketItem, false);
             }
 
-            entity.remove();
-            return Optional.of(ActionResultType.func_233537_a_(world.isRemote));
+            entity.remove(Entity.RemovalReason.DISCARDED);
+
+            return Optional.of(InteractionResult.sidedSuccess(world.isClientSide));
         } else {
             return Optional.empty();
         }

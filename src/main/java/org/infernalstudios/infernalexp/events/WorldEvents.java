@@ -17,8 +17,30 @@
 package org.infernalstudios.infernalexp.events;
 
 import com.mojang.serialization.Codec;
-
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.FlatLevelSource;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.StructureSettings;
+import net.minecraft.world.level.levelgen.carver.WorldCarver;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
+import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.common.world.ForgeWorldType;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.world.BiomeLoadingEvent;
+import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.init.IECarvers;
 import org.infernalstudios.infernalexp.init.IEConfiguredFeatures;
@@ -26,31 +48,6 @@ import org.infernalstudios.infernalexp.init.IEConfiguredStructures;
 import org.infernalstudios.infernalexp.init.IEFeatures;
 import org.infernalstudios.infernalexp.init.IEStructures;
 import org.infernalstudios.infernalexp.init.IESurfaceBuilders;
-
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biomes;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.FlatChunkGenerator;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.carver.WorldCarver;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.settings.DimensionStructuresSettings;
-import net.minecraft.world.gen.settings.StructureSeparationSettings;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
-import net.minecraft.world.server.ServerWorld;
-
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
-import net.minecraftforge.event.world.WorldEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.infernalstudios.infernalexp.world.type.CompatWorldType;
 
 import java.lang.reflect.Method;
@@ -67,7 +64,7 @@ public class WorldEvents {
     }
 
     @SubscribeEvent
-    public static void registerStructures(RegistryEvent.Register<Structure<?>> event) {
+    public static void registerStructures(RegistryEvent.Register<StructureFeature<?>> event) {
         IEStructures.structures.forEach(structure -> event.getRegistry().register(structure));
     }
 
@@ -88,26 +85,26 @@ public class WorldEvents {
 
     @SubscribeEvent
     public void addDimensionalSpacing(final WorldEvent.Load event) {
-        if (event.getWorld() instanceof ServerWorld) {
-            ServerWorld world = (ServerWorld) event.getWorld();
+        if (event.getWorld() instanceof ServerLevel) {
+            ServerLevel world = (ServerLevel) event.getWorld();
 
             try {
-                Method GETCODEC_METHOD = ObfuscationReflectionHelper.findMethod(ChunkGenerator.class, "func_230347_a_");
+                Method GETCODEC_METHOD = ObfuscationReflectionHelper.findMethod(ChunkGenerator.class, "codec");
 
-                ResourceLocation cgRL = Registry.CHUNK_GENERATOR_CODEC.getKey((Codec<? extends ChunkGenerator>) GETCODEC_METHOD.invoke(world.getChunkProvider().generator));
+                ResourceLocation cgRL = Registry.CHUNK_GENERATOR.getKey((Codec<? extends ChunkGenerator>) GETCODEC_METHOD.invoke(world.getChunkSource().generator));
 
                 if (cgRL != null && cgRL.getNamespace().equals("terraforged")) return;
             } catch (Exception e) {
-                InfernalExpansion.LOGGER.error("Was unable to check if " + world.getDimensionKey().getLocation() + " is using Terraforged's ChunkGenerator");
+                InfernalExpansion.LOGGER.error("Was unable to check if " + world.dimension().location() + " is using Terraforged's ChunkGenerator");
             }
 
-            if (world.getChunkProvider().getChunkGenerator() instanceof FlatChunkGenerator && world.getDimensionKey().equals(World.OVERWORLD))
+            if (world.getChunkSource().getGenerator() instanceof FlatLevelSource && world.dimension().equals(Level.OVERWORLD))
                 return;
 
-            Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(world.getChunkProvider().generator.func_235957_b_().func_236195_a_());
+            Map<StructureFeature<?>, StructureFeatureConfiguration> tempMap = new HashMap<>(world.getChunkSource().generator.getSettings().structureConfig());
 
-            IEStructures.structures.forEach(structure -> tempMap.putIfAbsent(structure, DimensionStructuresSettings.field_236191_b_.get(structure)));
-            world.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
+            IEStructures.structures.forEach(structure -> tempMap.putIfAbsent(structure, StructureSettings.DEFAULTS.get(structure)));
+            world.getChunkSource().generator.getSettings().structureConfig = tempMap;
         }
     }
 
@@ -118,27 +115,27 @@ public class WorldEvents {
         }
 
         ResourceLocation name = event.getName();
-        RegistryKey<Biome> biome = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, name);
+        ResourceKey<Biome> biome = ResourceKey.create(Registry.BIOME_REGISTRY, name);
 
         if (biome == Biomes.CRIMSON_FOREST) {
-            event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_GLOWSILK_COCOON);
-            event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.PATCH_CRIMSON_CAP);
-            event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.SHROOMLIGHT_TEAR);
+            event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_GLOWSILK_COCOON);
+            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.PATCH_CRIMSON_CAP);
+            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.SHROOMLIGHT_TEAR);
         } else if (biome == Biomes.BASALT_DELTAS) {
-            event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_GLOWSILK_COCOON);
-            event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_BASALT_IRON_BASALT_DELTA);
-            event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.BASALTIC_MAGMA);
-            event.getGeneration().withStructure(IEConfiguredStructures.STRIDER_ALTAR);
+            event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_GLOWSILK_COCOON);
+            event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_BASALT_IRON_BASALT_DELTA);
+            event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.BASALTIC_MAGMA);
+            event.getGeneration().addStructureStart(IEConfiguredStructures.STRIDER_ALTAR);
         } else if (biome == Biomes.WARPED_FOREST) {
-            event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.PATCH_WARPED_CAP);
-            event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.SHROOMLIGHT_TEAR);
+            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.PATCH_WARPED_CAP);
+            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.SHROOMLIGHT_TEAR);
         } else if (biome == Biomes.SOUL_SAND_VALLEY) {
-            event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_BASALT_IRON_BASALT_DELTA);
-            event.getGeneration().withStructure(IEConfiguredStructures.SOUL_SAND_VALLEY_RUIN);
-            event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.PATCH_BURIED_BONE);
-            event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_SOUL_STONE);
+            event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_BASALT_IRON_BASALT_DELTA);
+            event.getGeneration().addStructureStart(IEConfiguredStructures.SOUL_SAND_VALLEY_RUIN);
+            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.PATCH_BURIED_BONE);
+            event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_SOUL_STONE);
         } else if (biome == Biomes.NETHER_WASTES) {
-            event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.PATCH_PLANTED_QUARTZ);
+            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.PATCH_PLANTED_QUARTZ);
         }
     }
 }

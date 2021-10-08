@@ -16,26 +16,25 @@
 
 package org.infernalstudios.infernalexp.client.entity.render;
 
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.resources.ResourceLocation;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.client.entity.model.EmbodyModel;
 import org.infernalstudios.infernalexp.entities.EmbodyEntity;
-
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.util.ResourceLocation;
 
 public class EmbodyRenderer extends MobRenderer<EmbodyEntity, EmbodyModel<EmbodyEntity>> {
 
     protected static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID,
         "textures/entity/embody.png");
 
-    public EmbodyRenderer(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn, new EmbodyModel<>(), 0.7f);
-        this.addLayer(new EmbodyGlowLayer(this));
+    public EmbodyRenderer(EntityRendererProvider.Context context) {
+        super(context, new EmbodyModel<>(context.bakeLayer(EmbodyModel.LAYER_LOCATION)), 0.7F);
+        this.addLayer(new EmbodyGlowLayer<>(this));
     }
 
     @Override
-    public ResourceLocation getEntityTexture(EmbodyEntity entity) {
+    public ResourceLocation getTextureLocation(EmbodyEntity entity) {
         return TEXTURE;
     }
 }

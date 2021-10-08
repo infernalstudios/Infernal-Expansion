@@ -17,35 +17,30 @@
 package org.infernalstudios.infernalexp.world.gen.features;
 
 import com.mojang.serialization.Codec;
-
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.AttachFace;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import org.infernalstudios.infernalexp.blocks.ShroomlightFungusBlock;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.state.properties.AttachFace;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
+public class ShroomlightTearFeature extends Feature<NoneFeatureConfiguration> {
 
-import java.util.Random;
-
-public class ShroomlightTearFeature extends Feature<NoFeatureConfig> {
-
-    public ShroomlightTearFeature(Codec<NoFeatureConfig> codec) {
+    public ShroomlightTearFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
     }
 
     @Override
-    public boolean generate(ISeedReader world, ChunkGenerator generator, Random random, BlockPos pos, NoFeatureConfig config) {
+    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         int i = 0;
         int amount = 10;
         AttachFace face;
         boolean warpedForest;
 
-        if (world.getBiome(pos).getRegistryName().getPath().equals("warped_forest")) {
+        if (context.level().getBiome(context.origin()).getRegistryName().getPath().equals("warped_forest")) {
             face = AttachFace.FLOOR;
             warpedForest = true;
 
@@ -57,12 +52,12 @@ public class ShroomlightTearFeature extends Feature<NoFeatureConfig> {
         // Try to place Shroomlight Tear 128 times
         for (int j = 0; j < 64; j++) {
             // Randomize the location of the next luminous fungus to be placed
-            BlockState state = IEBlocks.SHROOMLIGHT_FUNGUS.get().getDefaultState().with(ShroomlightFungusBlock.FACE, face);
-            BlockPos blockpos = pos.add(random.nextInt(10) - random.nextInt(20), random.nextInt(4) - random.nextInt(8), random.nextInt(10) - random.nextInt(20));
+            BlockState state = IEBlocks.SHROOMLIGHT_FUNGUS.get().defaultBlockState().setValue(ShroomlightFungusBlock.FACE, face);
+            BlockPos blockpos = context.origin().offset(context.random().nextInt(10) - context.random().nextInt(20), context.random().nextInt(4) - context.random().nextInt(8), context.random().nextInt(10) - context.random().nextInt(20));
 
             // If the randomly chosen location is valid, then place the fungus
-            if (world.isAirBlock(blockpos) && state.isValidPosition(world, blockpos) && (world.getBlockState(warpedForest ? blockpos.down() : blockpos.up()) == Blocks.SHROOMLIGHT.getDefaultState())) {
-                world.setBlockState(blockpos, state, 2);
+            if (context.level().isEmptyBlock(blockpos) && state.canSurvive(context.level(), blockpos) && (context.level().getBlockState(warpedForest ? blockpos.below() : blockpos.above()) == Blocks.SHROOMLIGHT.defaultBlockState())) {
+                context.level().setBlock(blockpos, state, 2);
                 i++;
             }
 

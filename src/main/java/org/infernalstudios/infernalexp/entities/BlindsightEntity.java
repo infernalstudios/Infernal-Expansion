@@ -19,30 +19,30 @@ package org.infernalstudios.infernalexp.entities;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 import org.infernalstudios.infernalexp.init.IEEffects;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityPredicate;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.controller.MovementController;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.HurtByTargetGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.MoveControl;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -51,25 +51,25 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.Random;
 
-public class BlindsightEntity extends MonsterEntity {
+public class BlindsightEntity extends Monster {
 
     private int jumpDuration;
     private int jumpTicks;
     private Random rand = new Random();
 
-    public BlindsightEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+    public BlindsightEntity(EntityType<? extends Monster> type, Level worldIn) {
         super(type, worldIn);
-        this.moveController = new BlindsightEntity.MoveHelperController(this);
+        this.moveControl = new BlindsightEntity.MoveHelperController(this);
     }
 
     //ATTRIBUTES
-    public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
-        return MobEntity.func_233666_p_()
-            .createMutableAttribute(Attributes.MAX_HEALTH, 24.0D)
-            .createMutableAttribute(Attributes.ATTACK_DAMAGE, 2.0D)
-            .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.5D)
-            .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.9D)
-            .createMutableAttribute(Attributes.FOLLOW_RANGE, 18.0D);
+    public static AttributeSupplier.Builder setCustomAttributes() {
+        return Mob.createMobAttributes()
+            .add(Attributes.MAX_HEALTH, 24.0D)
+            .add(Attributes.ATTACK_DAMAGE, 2.0D)
+            .add(Attributes.ATTACK_KNOCKBACK, 1.5D)
+            .add(Attributes.MOVEMENT_SPEED, 0.9D)
+            .add(Attributes.FOLLOW_RANGE, 18.0D);
     }
 
     //BEHAVIOUR
@@ -86,14 +86,14 @@ public class BlindsightEntity extends MonsterEntity {
             this.targetSelector.addGoal(1, new BlindsightEntity.TargetGlowsquitoGoal(this, true, false));
         }
         if (InfernalExpansionConfig.MobInteractions.BLINDSIGHT_ATTACK_PLAYER.getBoolean()) {
-            this.targetSelector.addGoal(2, new BlindsightEntity.TargetGoal<>(this, PlayerEntity.class, true, false));
+            this.targetSelector.addGoal(2, new BlindsightEntity.TargetGoal<>(this, Player.class, true, false));
         }
     }
 
     //EXP POINTS
     @Override
-    protected int getExperiencePoints(PlayerEntity player) {
-        return 1 + this.world.rand.nextInt(4);
+    protected int getExperienceReward(Player player) {
+        return 1 + this.level.random.nextInt(4);
     }
 
     //SOUNDS
@@ -114,7 +114,7 @@ public class BlindsightEntity extends MonsterEntity {
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState blockIn) {
-        this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
+        this.playSound(SoundEvents.PIG_STEP, 0.15F, 1.0F);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -123,7 +123,7 @@ public class BlindsightEntity extends MonsterEntity {
     }
 
     @Override
-    public void livingTick() {
+    public void aiStep() {
         if (jumpTicks != jumpDuration) {
             jumpTicks++;
         } else if (jumpDuration != 0) {
@@ -131,40 +131,40 @@ public class BlindsightEntity extends MonsterEntity {
             jumpDuration = 0;
         }
 
-        super.livingTick();
+        super.aiStep();
     }
 
     @Override
-    protected void jump() {
+    protected void jumpFromGround() {
         jumpDuration = 10;
         jumpTicks = 0;
 
         //Randomizes jump height to vary how high the Blindsight jumps
-        float f = this.getJumpUpwardsMotion() + (rand.nextFloat() * 0.7F);
+        float f = this.getJumpPower() + (rand.nextFloat() * 0.7F);
 
         //Copied from super.jump(), gives the Blindsight upwards motion
-        Vector3d vector3d = this.getMotion();
-        this.setMotion(vector3d.x, f, vector3d.z);
+        Vec3 vector3d = this.getDeltaMovement();
+        this.setDeltaMovement(vector3d.x, f, vector3d.z);
         if (this.isSprinting()) {
-            float f1 = this.rotationYaw * ((float) Math.PI / 180F);
-            this.setMotion(this.getMotion().add((-MathHelper.sin(f1) * 0.2F), 0.0D, (MathHelper.cos(f1) * 0.2F)));
+            float f1 = this.getYRot() * ((float) Math.PI / 180F);
+            this.setDeltaMovement(this.getDeltaMovement().add((-Mth.sin(f1) * 0.2F), 0.0D, (Mth.cos(f1) * 0.2F)));
         }
 
-        this.isAirBorne = true;
+        this.hasImpulse = true;
         net.minecraftforge.common.ForgeHooks.onLivingJump(this);
 
-        if (!world.isRemote) {
-            world.setEntityState(this, (byte) 1);
+        if (!level.isClientSide) {
+            level.broadcastEntityEvent(this, (byte) 1);
         }
     }
 
     @Override
-    public void handleStatusUpdate(byte id) {
+    public void handleEntityEvent(byte id) {
         if (id == 1) {
             jumpDuration = 10;
             jumpTicks = 0;
         } else {
-            super.handleStatusUpdate(id);
+            super.handleEntityEvent(id);
         }
     }
 
@@ -179,64 +179,64 @@ public class BlindsightEntity extends MonsterEntity {
     }
 
     protected SoundEvent getJumpSound() {
-        return SoundEvents.ENTITY_SLIME_JUMP;
+        return SoundEvents.SLIME_JUMP;
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource source, float amount) {
+    public boolean hurt(DamageSource source, float amount) {
         if (source == DamageSource.FALL) {
             return false;
         }
-        return super.attackEntityFrom(source, amount);
+        return super.hurt(source, amount);
     }
 
-    public void applyEntityCollision(Entity entityIn) {
-        super.applyEntityCollision(entityIn);
-        if (entityIn instanceof GlowsquitoEntity || entityIn instanceof PlayerEntity) {
+    public void push(Entity entityIn) {
+        super.push(entityIn);
+        if (entityIn instanceof GlowsquitoEntity || entityIn instanceof Player) {
             this.dealDamage((LivingEntity) entityIn);
         }
     }
 
     protected void dealDamage(LivingEntity entityIn) {
         if (this.isAlive()) {
-            if (this.canEntityBeSeen(entityIn) && entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE))) {
-                entityIn.addPotionEffect(new EffectInstance(IEEffects.LUMINOUS.get(), 600, 0, true, true));
-                this.playSound(SoundEvents.ENTITY_SLIME_ATTACK, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
-                this.applyEnchantments(this, entityIn);
+            if (this.hasLineOfSight(entityIn) && entityIn.hurt(DamageSource.mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE))) {
+                entityIn.addEffect(new MobEffectInstance(IEEffects.LUMINOUS.get(), 600, 0, true, true));
+                this.playSound(SoundEvents.SLIME_ATTACK, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+                this.doEnchantDamageEffects(this, entityIn);
             }
         }
 
     }
 
     static class LeapGoal extends Goal {
-        private final MobEntity leaper;
+        private final Mob leaper;
         private LivingEntity leapTarget;
         private final double maxJumpHeight;
 
-        public LeapGoal(MobEntity leapingEntity, double maxJumpHeightIn) {
+        public LeapGoal(Mob leapingEntity, double maxJumpHeightIn) {
             this.leaper = leapingEntity;
-            this.leapTarget = leaper.getAttackTarget();
+            this.leapTarget = leaper.getTarget();
             this.maxJumpHeight = maxJumpHeightIn;
         }
 
         @Override
-        public boolean shouldExecute() {
-            if (this.leaper.isBeingRidden()) {
+        public boolean canUse() {
+            if (this.leaper.isVehicle()) {
                 return false;
             } else {
-                this.leapTarget = this.leaper.getAttackTarget();
+                this.leapTarget = this.leaper.getTarget();
                 if (this.leapTarget == null || !(this.leapTarget instanceof GlowsquitoEntity)) {
                     return false;
                 } else {
-                    double d0 = this.leapTarget.getPosY() - this.leaper.getPosY();
-                    double d1 = this.leapTarget.getPosX() - this.leaper.getPosX();
-                    double d2 = this.leapTarget.getPosZ() - this.leaper.getPosZ();
-                    double d3 = MathHelper.sqrt(d1 * d1 + d2 * d2);
+                    double d0 = this.leapTarget.getY() - this.leaper.getY();
+                    double d1 = this.leapTarget.getX() - this.leaper.getX();
+                    double d2 = this.leapTarget.getZ() - this.leaper.getZ();
+                    double d3 = Mth.sqrt((float) (d1 * d1 + d2 * d2));
                     if (!(d0 < 1.0D) && !(d0 > this.maxJumpHeight) && !(d3 > 3.0D)) {
                         if (!this.leaper.isOnGround()) {
                             return false;
                         } else {
-                            return this.leaper.getRNG().nextInt(5) == 0;
+                            return this.leaper.getRandom().nextInt(5) == 0;
                         }
                     } else {
                         return false;
@@ -246,41 +246,41 @@ public class BlindsightEntity extends MonsterEntity {
         }
 
         @Override
-        public void startExecuting() {
-            Vector3d vector3d = this.leaper.getMotion();
-            Vector3d vector3d1 = new Vector3d(this.leapTarget.getPosX() - this.leaper.getPosX(), this.leapTarget.getPosY() - this.leaper.getPosY(), this.leapTarget.getPosZ() - this.leaper.getPosZ());
-            if (vector3d1.lengthSquared() > 1.0E-7D) {
+        public void start() {
+            Vec3 vector3d = this.leaper.getDeltaMovement();
+            Vec3 vector3d1 = new Vec3(this.leapTarget.getX() - this.leaper.getX(), this.leapTarget.getY() - this.leaper.getY(), this.leapTarget.getZ() - this.leaper.getZ());
+            if (vector3d1.lengthSqr() > 1.0E-7D) {
                 vector3d1 = vector3d1.normalize().scale(0.9D).add(vector3d.scale(0.2D));
             }
 
-            this.leaper.setMotion(vector3d1.x, vector3d1.y, vector3d1.z);
+            this.leaper.setDeltaMovement(vector3d1.x, vector3d1.y, vector3d1.z);
         }
     }
 
     static class TargetGlowsquitoGoal extends NearestAttackableTargetGoal<GlowsquitoEntity> {
 
-        public TargetGlowsquitoGoal(MobEntity goalOwnerIn, boolean checkSight, boolean nearbyOnlyIn) {
+        public TargetGlowsquitoGoal(Mob goalOwnerIn, boolean checkSight, boolean nearbyOnlyIn) {
             super(goalOwnerIn, GlowsquitoEntity.class, checkSight, nearbyOnlyIn);
         }
 
         @Override
-        protected AxisAlignedBB getTargetableArea(double targetDistance) {
-            return this.goalOwner.getBoundingBox().grow(targetDistance, 4.5D, targetDistance);
+        protected AABB getTargetSearchArea(double targetDistance) {
+            return this.mob.getBoundingBox().inflate(targetDistance, 4.5D, targetDistance);
         }
     }
 
     static class TargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
 
-        public TargetGoal(MobEntity goalOwnerIn, Class<T> targetClassIn, boolean checkSight, boolean nearbyOnlyIn) {
+        public TargetGoal(Mob goalOwnerIn, Class<T> targetClassIn, boolean checkSight, boolean nearbyOnlyIn) {
             super(goalOwnerIn, targetClassIn, checkSight, nearbyOnlyIn);
         }
 
         @Override
-        protected boolean isSuitableTarget(@Nullable LivingEntity potentialTarget, EntityPredicate targetPredicate) {
-            return super.isSuitableTarget(potentialTarget, targetPredicate) &&
-                (this.goalOwner.getDistanceSq(this.nearestTarget) <= 10.0F ||
-                    (this.goalOwner.getDistanceSq(this.nearestTarget) > 10.0F &&
-                        this.nearestTarget.isPotionActive(IEEffects.LUMINOUS.get())));
+        protected boolean canAttack(@Nullable LivingEntity potentialTarget, TargetingConditions targetPredicate) {
+            return super.canAttack(potentialTarget, targetPredicate) &&
+                (this.mob.distanceToSqr(this.target) <= 10.0F ||
+                    (this.mob.distanceToSqr(this.target) > 10.0F &&
+                        this.target.hasEffect(IEEffects.LUMINOUS.get())));
         }
     }
 
@@ -289,26 +289,26 @@ public class BlindsightEntity extends MonsterEntity {
 
         public HopGoal(BlindsightEntity blindsightIn) {
             this.blindsight = blindsightIn;
-            this.setMutexFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
         }
 
         /**
          * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
          * method as well.
          */
-        public boolean shouldExecute() {
-            return !this.blindsight.isPassenger() && this.blindsight.getAttackTarget() != null;
+        public boolean canUse() {
+            return !this.blindsight.isPassenger() && this.blindsight.getTarget() != null;
         }
 
         /**
          * Keep ticking a continuous task that has already been started
          */
         public void tick() {
-            ((BlindsightEntity.MoveHelperController) this.blindsight.getMoveHelper()).setSpeed(1.0D);
+            ((BlindsightEntity.MoveHelperController) this.blindsight.getMoveControl()).setSpeed(1.0D);
         }
     }
 
-    public static class MoveHelperController extends MovementController {
+    public static class MoveHelperController extends MoveControl {
         private float yRot;
         private int jumpDelay;
         private final BlindsightEntity blindsight;
@@ -316,7 +316,7 @@ public class BlindsightEntity extends MonsterEntity {
         public MoveHelperController(BlindsightEntity blindsightIn) {
             super(blindsightIn);
             this.blindsight = blindsightIn;
-            this.yRot = 180.0F * blindsightIn.rotationYaw / (float) Math.PI;
+            this.yRot = 180.0F * blindsightIn.getYRot() / (float) Math.PI;
         }
 
         public void setDirection(float yRotIn) {
@@ -324,32 +324,32 @@ public class BlindsightEntity extends MonsterEntity {
         }
 
         public void setSpeed(double speedIn) {
-            this.speed = speedIn;
-            this.action = MovementController.Action.MOVE_TO;
+            this.speedModifier = speedIn;
+            this.operation = MoveControl.Operation.MOVE_TO;
         }
 
         public void tick() {
-            this.mob.rotationYaw = this.limitAngle(this.mob.rotationYaw, this.yRot, 90.0F);
-            this.mob.rotationYawHead = this.mob.rotationYaw;
-            this.mob.renderYawOffset = this.mob.rotationYaw;
-            if (this.action != MovementController.Action.MOVE_TO) {
-                this.mob.setMoveForward(0.0F);
+            this.mob.setYRot(this.rotlerp(this.mob.getYRot(), this.yRot, 90.0F));
+            this.mob.yHeadRot = this.mob.getYRot();
+            this.mob.yBodyRot = this.mob.getYRot();
+            if (this.operation != MoveControl.Operation.MOVE_TO) {
+                this.mob.setZza(0.0F);
             } else {
-                this.action = MovementController.Action.WAIT;
+                this.operation = MoveControl.Operation.WAIT;
                 if (this.mob.isOnGround()) {
-                    this.mob.setAIMoveSpeed((float) (this.speed * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));
+                    this.mob.setSpeed((float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));
                     if (this.jumpDelay-- <= 0) {
                         this.jumpDelay = this.blindsight.getJumpDelay() / 3;
 
-                        this.blindsight.getJumpController().setJumping();
+                        this.blindsight.getJumpControl().jump();
                         this.blindsight.playSound(this.blindsight.getJumpSound(), this.blindsight.getSoundVolume(), 1.5F);
                     } else {
-                        this.blindsight.moveStrafing = 0.0F;
-                        this.blindsight.moveForward = 0.0F;
-                        this.mob.setAIMoveSpeed(0.0F);
+                        this.blindsight.xxa = 0.0F;
+                        this.blindsight.zza = 0.0F;
+                        this.mob.setSpeed(0.0F);
                     }
                 } else {
-                    this.mob.setAIMoveSpeed((float) (this.speed * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));
+                    this.mob.setSpeed((float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));
                 }
 
             }
@@ -362,37 +362,37 @@ public class BlindsightEntity extends MonsterEntity {
 
         public AttackGoal(BlindsightEntity blindsightIn) {
             this.blindsight = blindsightIn;
-            this.setMutexFlags(EnumSet.of(Goal.Flag.LOOK));
+            this.setFlags(EnumSet.of(Goal.Flag.LOOK));
         }
 
         /**
          * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
          * method as well.
          */
-        public boolean shouldExecute() {
-            LivingEntity livingentity = this.blindsight.getAttackTarget();
+        public boolean canUse() {
+            LivingEntity livingentity = this.blindsight.getTarget();
             if (livingentity == null) {
                 return false;
             } else if (!livingentity.isAlive()) {
                 return false;
             } else {
-                return this.blindsight.getMoveHelper() instanceof BlindsightEntity.MoveHelperController;
+                return this.blindsight.getMoveControl() instanceof BlindsightEntity.MoveHelperController;
             }
         }
 
         /**
          * Execute a one shot task or start executing a continuous task
          */
-        public void startExecuting() {
+        public void start() {
             this.growTieredTimer = 300;
-            super.startExecuting();
+            super.start();
         }
 
         /**
          * Returns whether an in-progress EntityAIBase should continue executing
          */
-        public boolean shouldContinueExecuting() {
-            LivingEntity livingentity = this.blindsight.getAttackTarget();
+        public boolean canContinueToUse() {
+            LivingEntity livingentity = this.blindsight.getTarget();
             if (livingentity == null) {
                 return false;
             } else if (!livingentity.isAlive()) {
@@ -406,8 +406,8 @@ public class BlindsightEntity extends MonsterEntity {
          * Keep ticking a continuous task that has already been started
          */
         public void tick() {
-            this.blindsight.faceEntity(this.blindsight.getAttackTarget(), 10.0F, 10.0F);
-            ((BlindsightEntity.MoveHelperController) this.blindsight.getMoveHelper()).setDirection(this.blindsight.rotationYaw);
+            this.blindsight.lookAt(this.blindsight.getTarget(), 10.0F, 10.0F);
+            ((BlindsightEntity.MoveHelperController) this.blindsight.getMoveControl()).setDirection(this.blindsight.getYRot());
         }
     }
 
@@ -418,15 +418,15 @@ public class BlindsightEntity extends MonsterEntity {
 
         public FaceRandomGoal(BlindsightEntity blindsightIn) {
             this.blindsight = blindsightIn;
-            this.setMutexFlags(EnumSet.of(Goal.Flag.LOOK));
+            this.setFlags(EnumSet.of(Goal.Flag.LOOK));
         }
 
         /**
          * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
          * method as well.
          */
-        public boolean shouldExecute() {
-            return this.blindsight.getAttackTarget() == null && (this.blindsight.onGround || this.blindsight.isInWater() || this.blindsight.isInLava() || this.blindsight.isPotionActive(Effects.LEVITATION)) && this.blindsight.getMoveHelper() instanceof BlindsightEntity.MoveHelperController;
+        public boolean canUse() {
+            return this.blindsight.getTarget() == null && (this.blindsight.onGround || this.blindsight.isInWater() || this.blindsight.isInLava() || this.blindsight.hasEffect(MobEffects.LEVITATION)) && this.blindsight.getMoveControl() instanceof BlindsightEntity.MoveHelperController;
         }
 
         /**
@@ -434,11 +434,11 @@ public class BlindsightEntity extends MonsterEntity {
          */
         public void tick() {
             if (--this.nextRandomizeTime <= 0) {
-                this.nextRandomizeTime = 40 + this.blindsight.getRNG().nextInt(60);
-                this.chosenDegrees = (float) this.blindsight.getRNG().nextInt(360);
+                this.nextRandomizeTime = 40 + this.blindsight.getRandom().nextInt(60);
+                this.chosenDegrees = (float) this.blindsight.getRandom().nextInt(360);
             }
 
-            ((BlindsightEntity.MoveHelperController) this.blindsight.getMoveHelper()).setDirection(this.chosenDegrees);
+            ((BlindsightEntity.MoveHelperController) this.blindsight.getMoveControl()).setDirection(this.chosenDegrees);
         }
     }
 
@@ -447,27 +447,27 @@ public class BlindsightEntity extends MonsterEntity {
 
         public FloatGoal(BlindsightEntity blindsightIn) {
             this.blindsight = blindsightIn;
-            this.setMutexFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
-            blindsightIn.getNavigator().setCanSwim(true);
+            this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
+            blindsightIn.getNavigation().setCanFloat(true);
         }
 
         /**
          * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
          * method as well.
          */
-        public boolean shouldExecute() {
-            return (this.blindsight.isInWater() || this.blindsight.isInLava()) && this.blindsight.getMoveHelper() instanceof BlindsightEntity.MoveHelperController;
+        public boolean canUse() {
+            return (this.blindsight.isInWater() || this.blindsight.isInLava()) && this.blindsight.getMoveControl() instanceof BlindsightEntity.MoveHelperController;
         }
 
         /**
          * Keep ticking a continuous task that has already been started
          */
         public void tick() {
-            if (this.blindsight.getRNG().nextFloat() < 0.8F) {
-                this.blindsight.getJumpController().setJumping();
+            if (this.blindsight.getRandom().nextFloat() < 0.8F) {
+                this.blindsight.getJumpControl().jump();
             }
 
-            ((BlindsightEntity.MoveHelperController) this.blindsight.getMoveHelper()).setSpeed(1.2D);
+            ((BlindsightEntity.MoveHelperController) this.blindsight.getMoveControl()).setSpeed(1.2D);
         }
     }
 }

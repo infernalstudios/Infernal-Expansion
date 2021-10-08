@@ -16,25 +16,24 @@
 
 package org.infernalstudios.infernalexp.client.entity.render;
 
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.resources.ResourceLocation;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.client.entity.model.BlackstoneDwarfModel;
 import org.infernalstudios.infernalexp.entities.BlackstoneDwarfEntity;
-
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.util.ResourceLocation;
 
 public class BlackstoneDwarfRenderer extends MobRenderer<BlackstoneDwarfEntity, BlackstoneDwarfModel<BlackstoneDwarfEntity>> {
     public static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID,
         "textures/entity/blackstone_dwarf.png");
 
-    public BlackstoneDwarfRenderer(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn, new BlackstoneDwarfModel<>(), 0.7f);
+    public BlackstoneDwarfRenderer(EntityRendererProvider.Context context) {
+        super(context, new BlackstoneDwarfModel<>(context.bakeLayer(BlackstoneDwarfModel.LAYER_LOCATION)), 0.7f);
         this.addLayer(new BlackstoneDwarfGlowLayer(this));
     }
 
     @Override
-    public ResourceLocation getEntityTexture(BlackstoneDwarfEntity entity) {
+    public ResourceLocation getTextureLocation(BlackstoneDwarfEntity entity) {
         return TEXTURE;
     }
 }

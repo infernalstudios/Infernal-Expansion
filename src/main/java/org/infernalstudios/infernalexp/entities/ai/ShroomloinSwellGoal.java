@@ -16,12 +16,11 @@
 
 package org.infernalstudios.infernalexp.entities.ai;
 
-import java.util.EnumSet;
-
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.Goal;
 import org.infernalstudios.infernalexp.entities.ShroomloinEntity;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.Goal;
+import java.util.EnumSet;
 
 public class ShroomloinSwellGoal extends Goal {
     private final ShroomloinEntity swellingShroomloin;
@@ -29,30 +28,30 @@ public class ShroomloinSwellGoal extends Goal {
 
     public ShroomloinSwellGoal(ShroomloinEntity entityshroomloinIn) {
         this.swellingShroomloin = entityshroomloinIn;
-        this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE));
+        this.setFlags(EnumSet.of(Goal.Flag.MOVE));
     }
 
     /**
      * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
      * method as well.
      */
-    public boolean shouldExecute() {
-        LivingEntity livingentity = this.swellingShroomloin.getAttackTarget();
-        return this.swellingShroomloin.getShroomloinState() > 0 || livingentity != null && this.swellingShroomloin.getDistanceSq(livingentity) < 9.0D;
+    public boolean canUse() {
+        LivingEntity livingentity = this.swellingShroomloin.getTarget();
+        return this.swellingShroomloin.getShroomloinState() > 0 || livingentity != null && this.swellingShroomloin.distanceToSqr(livingentity) < 9.0D;
     }
 
     /**
      * Execute a one shot task or start executing a continuous task
      */
-    public void startExecuting() {
-        this.swellingShroomloin.getNavigator().clearPath();
-        this.shroomloinAttackTarget = this.swellingShroomloin.getAttackTarget();
+    public void start() {
+        this.swellingShroomloin.getNavigation().stop();
+        this.shroomloinAttackTarget = this.swellingShroomloin.getTarget();
     }
 
     /**
      * Reset the task's internal state. Called when this task is interrupted by another one
      */
-    public void resetTask() {
+    public void stop() {
         this.shroomloinAttackTarget = null;
     }
 
@@ -62,9 +61,9 @@ public class ShroomloinSwellGoal extends Goal {
     public void tick() {
         if (this.shroomloinAttackTarget == null) {
             this.swellingShroomloin.setShroomloinState(-1);
-        } else if (this.swellingShroomloin.getDistanceSq(this.shroomloinAttackTarget) > 49.0D) {
+        } else if (this.swellingShroomloin.distanceToSqr(this.shroomloinAttackTarget) > 49.0D) {
             this.swellingShroomloin.setShroomloinState(-1);
-        } else if (!this.swellingShroomloin.getEntitySenses().canSee(this.shroomloinAttackTarget)) {
+        } else if (!this.swellingShroomloin.getSensing().hasLineOfSight(this.shroomloinAttackTarget)) {
             this.swellingShroomloin.setShroomloinState(-1);
         } else {
             this.swellingShroomloin.setShroomloinState(1);

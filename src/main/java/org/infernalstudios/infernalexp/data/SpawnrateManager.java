@@ -24,9 +24,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.ResourceLocationException;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.ResourceLocationException;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -158,7 +158,7 @@ public class SpawnrateManager {
             Map<String, SpawnInfo> entitySpawns = new HashMap<>();
 
             try (Reader reader = new BufferedReader(new InputStreamReader(new FileInputStream(spawnrateDirectory + "/" + entity + "_spawns.json"), StandardCharsets.UTF_8))) {
-                JsonObject jsonObject = JSONUtils.fromJson(GSON_INSTANCE, reader, JsonObject.class);
+                JsonObject jsonObject = GsonHelper.fromJson(GSON_INSTANCE, reader, JsonObject.class);
 
                 if (jsonObject != null) {
                     for (JsonElement entry : jsonObject.getAsJsonArray("biomes")) {

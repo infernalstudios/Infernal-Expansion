@@ -18,35 +18,35 @@ package org.infernalstudios.infernalexp.effects;
 
 import org.infernalstudios.infernalexp.init.IEEffects;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.EffectType;
-import net.minecraft.util.DamageSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.damagesource.DamageSource;
 
-public class InfectionEffect extends Effect {
+public class InfectionEffect extends MobEffect {
 
     private int initialDuration;
 
-    public InfectionEffect(EffectType typeIn, int liquidColorIn) {
+    public InfectionEffect(MobEffectCategory typeIn, int liquidColorIn) {
         super(typeIn, liquidColorIn);
     }
 
     @Override
-    public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
+    public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
         if (entityLivingBaseIn.getHealth() > 1.0F) {
-            entityLivingBaseIn.attackEntityFrom(DamageSource.MAGIC, 1.0F);
+            entityLivingBaseIn.hurt(DamageSource.MAGIC, 1.0F);
         }
 
-        for (LivingEntity entity : entityLivingBaseIn.getEntityWorld().getEntitiesWithinAABB(LivingEntity.class, entityLivingBaseIn.getBoundingBox().grow(3))) {
-            if (!entity.isPotionActive(IEEffects.INFECTION.get()) && entity.isServerWorld()) {
-                entity.addPotionEffect(new EffectInstance(IEEffects.INFECTION.get(), entityLivingBaseIn.getActivePotionEffect(IEEffects.INFECTION.get()).getDuration() / 2));
+        for (LivingEntity entity : entityLivingBaseIn.getCommandSenderWorld().getEntitiesOfClass(LivingEntity.class, entityLivingBaseIn.getBoundingBox().inflate(3))) {
+            if (!entity.hasEffect(IEEffects.INFECTION.get()) && entity.isEffectiveAi()) {
+                entity.addEffect(new MobEffectInstance(IEEffects.INFECTION.get(), entityLivingBaseIn.getEffect(IEEffects.INFECTION.get()).getDuration() / 2));
             }
         }
     }
 
     @Override
-    public boolean isReady(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int duration, int amplifier) {
         if (this == IEEffects.INFECTION.get()) {
             // This number (50 right now) determines how often the performEffect will be called. The lower the number the more often performEffect will be called
             int j = 50 >> amplifier;

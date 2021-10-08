@@ -16,13 +16,12 @@
 
 package org.infernalstudios.infernalexp.network;
 
+import net.minecraftforge.fmllegacy.network.NetworkRegistry;
+import net.minecraftforge.fmllegacy.network.PacketDistributor;
+import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
 import org.infernalstudios.infernalexp.InfernalExpansion;
-
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.network.NetworkRegistry;
-import net.minecraftforge.fml.network.PacketDistributor;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.resources.ResourceLocation;
 
 public class IENetworkHandler {
 
@@ -41,7 +40,7 @@ public class IENetworkHandler {
         INSTANCE.messageBuilder(SpawnInfernalPaintingPacket.class, index++).encoder(SpawnInfernalPaintingPacket::encode).decoder(SpawnInfernalPaintingPacket::decode).consumer(SpawnInfernalPaintingPacket::handle).add();
     }
 
-    public static <MSG> void sendToPlayer(MSG message, ServerPlayerEntity player) {
+    public static <MSG> void sendToPlayer(MSG message, ServerPlayer player) {
         INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);
     }
 

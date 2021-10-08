@@ -26,5 +26,4 @@ public class MixinConnector implements IMixinConnector {
         Mixins.addConfiguration("infernal-expansion.mixins.json");
     }
 
-
 }

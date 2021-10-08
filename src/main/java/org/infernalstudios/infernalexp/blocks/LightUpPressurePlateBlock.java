@@ -16,12 +16,15 @@
 
 package org.infernalstudios.infernalexp.blocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.PressurePlateBlock;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.PressurePlateBlock;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import net.minecraft.world.level.block.PressurePlateBlock.Sensitivity;
 
 public class LightUpPressurePlateBlock extends PressurePlateBlock {
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
@@ -29,15 +32,15 @@ public class LightUpPressurePlateBlock extends PressurePlateBlock {
 
     public LightUpPressurePlateBlock(Sensitivity sensitivityIn, Properties propertiesIn) {
         super(sensitivityIn, propertiesIn);
-        this.setDefaultState(this.getDefaultState().with(POWERED, false).with(LIT, false));
+        this.registerDefaultState(this.defaultBlockState().setValue(POWERED, false).setValue(LIT, false));
     }
 
     @Override
-    protected BlockState setRedstoneStrength(BlockState state, int strength) {
-        return state.with(POWERED, strength > 0).with(LIT, strength > 0);
+    protected BlockState setSignalForState(BlockState state, int strength) {
+        return state.setValue(POWERED, strength > 0).setValue(LIT, strength > 0);
     }
 
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(POWERED).add(LIT);
     }
 

@@ -17,16 +17,14 @@
 package org.infernalstudios.infernalexp.world.gen.features;
 
 import com.mojang.serialization.Codec;
-
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.util.ShapeUtil;
 import org.infernalstudios.infernalexp.world.gen.features.config.GlowSpikeFeatureConfig;
-
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.feature.Feature;
 
 import java.util.List;
 import java.util.Random;
@@ -38,35 +36,34 @@ public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
     }
 
     @Override
-    public boolean generate(ISeedReader world, ChunkGenerator generator, Random random, BlockPos pos, GlowSpikeFeatureConfig config) {
-
-        if ((world.isAirBlock(pos) || world.getBlockState(pos.down()).getBlock() == IEBlocks.GLOWDUST_SAND.get()) || (world.getBlockState(pos).getBlock() == Blocks.LAVA && world.getBlockState(pos.down()).getBlock() != Blocks.LAVA)) {
+    public boolean place(FeaturePlaceContext<GlowSpikeFeatureConfig> context) {
+        if ((context.level().isEmptyBlock(context.origin()) || context.level().getBlockState(context.origin().below()).getBlock() == IEBlocks.GLOWDUST_SAND.get()) || (context.level().getBlockState(context.origin()).getBlock() == Blocks.LAVA && context.level().getBlockState(context.origin().below()).getBlock() != Blocks.LAVA)) {
             // Generate a random height, diameter and offset
-            int height = config.minHeight + random.nextInt(config.maxHeight - config.minHeight);
-            int diameter = config.minDiameter + random.nextInt(config.maxDiameter - config.minDiameter);
-            int xOffset = -config.maxXOffset + random.nextInt(config.maxXOffset * 2);
-            int zOffset = -config.maxZOffset + random.nextInt(config.maxZOffset * 2);
+            int height = context.config().minHeight + context.random().nextInt(context.config().maxHeight - context.config().minHeight);
+            int diameter = context.config().minDiameter + context.random().nextInt(context.config().maxDiameter - context.config().minDiameter);
+            int xOffset = -context.config().maxXOffset + context.random().nextInt(context.config().maxXOffset * 2);
+            int zOffset = -context.config().maxZOffset + context.random().nextInt(context.config().maxZOffset * 2);
 
             List<BlockPos> points = ShapeUtil.generateSolidCircle((float) diameter / 2);
 
             // Check to see if the glowspike will generate on the ground instead of
             // floating, if not, move one down and try again
             for (BlockPos point : points) {
-                BlockPos pointPos = new BlockPos(pos.getX() + point.getX(), pos.getY(), pos.getZ() + point.getZ());
+                BlockPos pointPos = new BlockPos(context.origin().getX() + point.getX(), context.origin().getY(), context.origin().getZ() + point.getZ());
 
-                if (world.getBlockState(pointPos.down()).isAir()) {
-                    if (random.nextBoolean() && random.nextBoolean()) {
-                        return generate(world, generator, random, pos.down(), config);
+                if (context.level().getBlockState(pointPos.below()).isAir()) {
+                    if (context.random().nextBoolean() && context.random().nextBoolean()) {
+                        return place(context);
                     }
                     return false;
-                } else if (world.getBlockState(pointPos.down()).getBlock() == Blocks.LAVA) {
-                    return generate(world, generator, random, pos.down(), config);
+                } else if (context.level().getBlockState(pointPos.below()).getBlock() == Blocks.LAVA) {
+                    return place(context);
                 }
             }
 
             // Place lines from each point in base to the peak point
             for (BlockPos point : points) {
-                placeGlowSpikeLine(world, pos.add(point.getX(), 0, point.getZ()), pos.add(xOffset, height, zOffset), random, config);
+                placeGlowSpikeLine(context.level(), context.origin().offset(point.getX(), 0, point.getZ()), context.origin().offset(xOffset, height, zOffset), context.random(), context.config());
             }
 
             return true;
@@ -75,14 +72,14 @@ public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
         }
     }
 
-    private void placeGlowSpikeLine(ISeedReader world, BlockPos startPos, BlockPos endPos, Random random, GlowSpikeFeatureConfig config) {
+    private void placeGlowSpikeLine(WorldGenLevel world, BlockPos startPos, BlockPos endPos, Random random, GlowSpikeFeatureConfig config) {
         List<BlockPos> line = ShapeUtil.generateLine(startPos, endPos);
 
         for (int i = 0; i < line.size(); i++) {
             BlockPos pos = line.get(i);
 
             // Skip parts of the spike generating above bedrock
-            if (pos.getY() >= 128 || world.getBlockState(pos).equals(Blocks.BEDROCK.getDefaultState())) {
+            if (pos.getY() >= 128 || world.getBlockState(pos).equals(Blocks.BEDROCK.defaultBlockState())) {
                 continue;
             }
 
@@ -95,16 +92,16 @@ public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
             // darkAtTop is true
             if (percentage <= 0.33) {
                 if (config.darkAtTop)
-                    world.setBlockState(pos, Blocks.GLOWSTONE.getDefaultState(), 2);
+                    world.setBlock(pos, Blocks.GLOWSTONE.defaultBlockState(), 2);
                 else
-                    world.setBlockState(new BlockPos(pos), IEBlocks.DULLSTONE.get().getDefaultState(), 2);
+                    world.setBlock(new BlockPos(pos), IEBlocks.DULLSTONE.get().defaultBlockState(), 2);
             } else if (percentage > 0.33 && percentage <= 0.66) {
-                world.setBlockState(new BlockPos(pos), IEBlocks.DIMSTONE.get().getDefaultState(), 2);
+                world.setBlock(new BlockPos(pos), IEBlocks.DIMSTONE.get().defaultBlockState(), 2);
             } else {
                 if (config.darkAtTop)
-                    world.setBlockState(new BlockPos(pos), IEBlocks.DULLSTONE.get().getDefaultState(), 2);
+                    world.setBlock(new BlockPos(pos), IEBlocks.DULLSTONE.get().defaultBlockState(), 2);
                 else
-                    world.setBlockState(new BlockPos(pos), Blocks.GLOWSTONE.getDefaultState(), 2);
+                    world.setBlock(new BlockPos(pos), Blocks.GLOWSTONE.defaultBlockState(), 2);
             }
         }
     }

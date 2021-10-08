@@ -16,33 +16,28 @@
 
 package org.infernalstudios.infernalexp.world.gen.features;
 
-import java.util.Random;
-
 import com.mojang.serialization.Codec;
-
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.AttachFace;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import org.infernalstudios.infernalexp.blocks.LuminousFungusBlock;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.state.properties.AttachFace;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
-
-public class LuminousFungusFeature extends Feature<NoFeatureConfig> {
-    public LuminousFungusFeature(Codec<NoFeatureConfig> codec) {
+public class LuminousFungusFeature extends Feature<NoneFeatureConfiguration> {
+    public LuminousFungusFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
     }
 
     @Override
-    public boolean generate(ISeedReader world, ChunkGenerator generator, Random random, BlockPos pos, NoFeatureConfig config) {
+    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         int i = 0;
         int amount;
         AttachFace face;
 
-        int pickFacing = random.nextInt(3);
+        int pickFacing = context.random().nextInt(3);
 
         // Pick whether the fungus will spawn on the ceiling or on the floor and set the amount to spawn appropriately
         if (pickFacing == 0) {
@@ -56,12 +51,12 @@ public class LuminousFungusFeature extends Feature<NoFeatureConfig> {
         // Try to place luminous fungus 128 times
         for (int j = 0; j < 128; j++) {
             // Randomize the location of the next luminous fungus to be placed
-            BlockState state = IEBlocks.LUMINOUS_FUNGUS.get().getDefaultState().with(LuminousFungusBlock.FACE, face);
-            BlockPos blockpos = pos.add(random.nextInt(10) - random.nextInt(20), random.nextInt(4) - random.nextInt(8), random.nextInt(10) - random.nextInt(20));
+            BlockState state = IEBlocks.LUMINOUS_FUNGUS.get().defaultBlockState().setValue(LuminousFungusBlock.FACE, face);
+            BlockPos blockpos = context.origin().offset(context.random().nextInt(10) - context.random().nextInt(20), context.random().nextInt(4) - context.random().nextInt(8), context.random().nextInt(10) - context.random().nextInt(20));
 
             // If the randomly chosen location is valid, then place the fungus
-            if (world.isAirBlock(blockpos) && state.isValidPosition(world, blockpos) && (world.getBlockState(blockpos.up()) == IEBlocks.DULLSTONE.get().getDefaultState() || world.getBlockState(blockpos.down()) == IEBlocks.GLOWDUST_SAND.get().getDefaultState())) {
-                world.setBlockState(blockpos, state, 2);
+            if (context.level().isEmptyBlock(blockpos) && state.canSurvive(context.level(), blockpos) && (context.level().getBlockState(blockpos.above()) == IEBlocks.DULLSTONE.get().defaultBlockState() || context.level().getBlockState(blockpos.below()) == IEBlocks.GLOWDUST_SAND.get().defaultBlockState())) {
+                context.level().setBlock(blockpos, state, 2);
                 i++;
             }
 

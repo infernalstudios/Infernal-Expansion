@@ -18,10 +18,10 @@ package org.infernalstudios.infernalexp.mixin.common;
 
 import org.infernalstudios.infernalexp.init.IEBlocks;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BubbleColumnBlock;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorldReader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.BubbleColumnBlock;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.LevelReader;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -31,11 +31,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BubbleColumnBlock.class)
 public class MixinBubbleColumnBlock {
 
-    @Inject(at = @At("HEAD"), method = "isValidPosition", cancellable = true)
-    public void IE_isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-        BlockState blockstate_IE = worldIn.getBlockState(pos.down());
+    @Inject(at = @At("HEAD"), method = "canSurvive", cancellable = true, remap = false)
+    public void IE_isValidPosition(BlockState state, LevelReader worldIn, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
+        BlockState blockstate_IE = worldIn.getBlockState(pos.below());
 
-        if (blockstate_IE.matchesBlock(IEBlocks.BASALTIC_MAGMA.get())) {
+        if (blockstate_IE.is(IEBlocks.BASALTIC_MAGMA.get())) {
             cir.setReturnValue(true);
         }
     }

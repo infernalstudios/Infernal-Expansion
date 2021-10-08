@@ -14,104 +14,100 @@
  * limitations under the License.
  */
 
-package org.infernalstudios.infernalexp.client.entity.model;// Made with Blockbench 3.5.4
-// Exported for Minecraft version 1.15
-// Paste this class into your mod and generate all required imports
+package org.infernalstudios.infernalexp.client.entity.model;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.entities.VolineEntity;
-
-import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.util.math.MathHelper;
 
 public class VolineModel<T extends VolineEntity> extends EntityModel<T> {
 
-    private final ModelRenderer body;
-    private final ModelRenderer mouth_inside2;
-    private final ModelRenderer mouth;
-    private final ModelRenderer mouth_inside;
-    private final ModelRenderer leg_1;
-    private final ModelRenderer leg_2;
-    private final ModelRenderer leg_3;
-    private final ModelRenderer leg_4;
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(InfernalExpansion.MOD_ID, "voline"), "main");
 
-    public VolineModel() {
-        textureWidth = 32;
-        textureHeight = 32;
+    private final ModelPart body;
+    private final ModelPart mouth;
+    private final ModelPart leg1;
+    private final ModelPart leg2;
+    private final ModelPart leg3;
+    private final ModelPart leg4;
 
-        body = new ModelRenderer(this);
-        body.setRotationPoint(0.0F, 20.0F, 4.0F);
-        body.setTextureOffset(0, 0).addBox(-4.0F, -8.0F, -8.0F, 8.0F, 8.0F, 8.0F, 0.0F, false);
+    public VolineModel(ModelPart root) {
+        this.body = root.getChild("body");
+        this.mouth = root.getChild("mouth");
+        this.leg1 = root.getChild("leg_1");
+        this.leg2 = root.getChild("leg_2");
+        this.leg3 = root.getChild("leg_3");
+        this.leg4 = root.getChild("leg_4");
+    }
 
-        mouth_inside2 = new ModelRenderer(this);
-        mouth_inside2.setRotationPoint(0.0F, -2.0F, -4.0F);
-        body.addChild(mouth_inside2);
-        setRotationAngle(mouth_inside2, -1.5708F, 0.0F, 0.0F);
-        mouth_inside2.setTextureOffset(0, 27).addBox(-4.0F, -4.0F, 1.0F, 4.0F, 4.0F, 0.0F, 0.0F, false);
-        mouth_inside2.setTextureOffset(8, 27).addBox(0.0F, -4.0F, 1.0F, 4.0F, 4.0F, 0.0F, 0.0F, false);
-        mouth_inside2.setTextureOffset(16, 27).addBox(0.0F, 0.0F, 1.0F, 4.0F, 4.0F, 0.0F, 0.0F, false);
-        mouth_inside2.setTextureOffset(24, 27).addBox(-4.0F, 0.0F, 1.0F, 4.0F, 4.0F, 0.0F, 0.0F, false);
+    public static LayerDefinition createBodyLayer() {
+        MeshDefinition meshDefinition = new MeshDefinition();
+        PartDefinition partDefinition = meshDefinition.getRoot();
 
-        mouth = new ModelRenderer(this);
-        mouth.setRotationPoint(0.0F, 24.0F, 0.0F);
-        mouth.setTextureOffset(0, 16).addBox(-4.0F, -5.0F, -4.0F, 8.0F, 3.0F, 8.0F, 0.0F, false);
+        PartDefinition body = partDefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -8.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 20.0F, 4.0F));
 
-        mouth_inside = new ModelRenderer(this);
-        mouth_inside.setRotationPoint(0.0F, -4.0F, 0.0F);
-        mouth.addChild(mouth_inside);
-        setRotationAngle(mouth_inside, -1.5708F, 0.0F, 0.0F);
-        mouth_inside.setTextureOffset(0, 27).addBox(-4.0F, -4.0F, 1.0F, 4.0F, 4.0F, 0.0F, 0.0F, false);
-        mouth_inside.setTextureOffset(8, 27).addBox(0.0F, -4.0F, 1.0F, 4.0F, 4.0F, 0.0F, 0.0F, false);
-        mouth_inside.setTextureOffset(16, 27).addBox(0.0F, 0.0F, 1.0F, 4.0F, 4.0F, 0.0F, 0.0F, false);
-        mouth_inside.setTextureOffset(24, 27).addBox(-4.0F, 0.0F, 1.0F, 4.0F, 4.0F, 0.0F, 0.0F, false);
+        PartDefinition mouth = partDefinition.addOrReplaceChild("mouth", CubeListBuilder.create().texOffs(0, 16).addBox(-4.0F, -5.0F, -4.0F, 8.0F, 3.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-        leg_1 = new ModelRenderer(this);
-        leg_1.setRotationPoint(-2.0F, 22.0F, -2.0F);
-        leg_1.setTextureOffset(0, 0).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 2.0F, 2.0F, 0.0F, false);
+        PartDefinition mouthInside = mouth.addOrReplaceChild("mouth_inside", CubeListBuilder.create().texOffs(0, 27).addBox(-4.0F, -4.0F, 1.0F, 4.0F, 4.0F, 0.0F, new CubeDeformation(0.0F))
+            .texOffs(8, 27).addBox(0.0F, -4.0F, 1.0F, 4.0F, 4.0F, 0.0F, new CubeDeformation(0.0F))
+            .texOffs(16, 27).addBox(0.0F, 0.0F, 1.0F, 4.0F, 4.0F, 0.0F, new CubeDeformation(0.0F))
+            .texOffs(24, 27).addBox(-4.0F, 0.0F, 1.0F, 4.0F, 4.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -4.0F, 0.0F, -1.5708F, 0.0F, 0.0F));
 
-        leg_2 = new ModelRenderer(this);
-        leg_2.setRotationPoint(2.0F, 22.0F, -2.0F);
-        leg_2.setTextureOffset(0, 0).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 2.0F, 2.0F, 0.0F, false);
+        PartDefinition mouthInside2 = body.addOrReplaceChild("mouth_inside_2", CubeListBuilder.create().texOffs(0, 27).addBox(-4.0F, -4.0F, 1.0F, 4.0F, 4.0F, 0.0F, new CubeDeformation(0.0F))
+            .texOffs(8, 27).addBox(0.0F, -4.0F, 1.0F, 4.0F, 4.0F, 0.0F, new CubeDeformation(0.0F))
+            .texOffs(16, 27).addBox(0.0F, 0.0F, 1.0F, 4.0F, 4.0F, 0.0F, new CubeDeformation(0.0F))
+            .texOffs(24, 27).addBox(-4.0F, 0.0F, 1.0F, 4.0F, 4.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -2.0F, -4.0F, -1.5708F, 0.0F, 0.0F));
 
-        leg_3 = new ModelRenderer(this);
-        leg_3.setRotationPoint(-2.0F, 22.0F, 2.0F);
-        leg_3.setTextureOffset(0, 0).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 2.0F, 2.0F, 0.0F, false);
+        PartDefinition leg1 = partDefinition.addOrReplaceChild("leg_1", CubeListBuilder.create().texOffs(0, 0).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, 22.0F, -2.0F));
 
-        leg_4 = new ModelRenderer(this);
-        leg_4.setRotationPoint(2.0F, 22.0F, 2.0F);
-        leg_4.setTextureOffset(0, 0).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 2.0F, 2.0F, 0.0F, false);
+        PartDefinition leg2 = partDefinition.addOrReplaceChild("leg_2", CubeListBuilder.create().texOffs(0, 0).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(2.0F, 22.0F, -2.0F));
+
+        PartDefinition leg3 = partDefinition.addOrReplaceChild("leg_3", CubeListBuilder.create().texOffs(0, 0).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, 22.0F, 2.0F));
+
+        PartDefinition leg4 = partDefinition.addOrReplaceChild("leg_4", CubeListBuilder.create().texOffs(0, 0).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(2.0F, 22.0F, 2.0F));
+
+        return LayerDefinition.create(meshDefinition, 32, 32);
     }
 
     @Override
-    public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.leg_1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-        this.leg_2.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
-        this.leg_3.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
-        this.leg_4.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-        this.body.rotateAngleX = -MathHelper.abs(MathHelper.cos(limbSwing * 0.4662F) * 1.4F * limbSwingAmount);
+    public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        leg1.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        leg2.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+        leg3.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+        leg4.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        body.xRot = -Mth.abs(Mth.cos(limbSwing * 0.4662F) * 1.4F * limbSwingAmount);
 
         if (entityIn.isEating()) {
-            this.body.rotateAngleX = (MathHelper.cos(ageInTicks) * (float) Math.PI * 0.1F);
+            body.xRot = (Mth.cos(ageInTicks) * (float) Math.PI * 0.1F);
         }
 
     }
 
     @Override
-    public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(PoseStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         body.render(matrixStack, buffer, packedLight, packedOverlay);
         mouth.render(matrixStack, buffer, packedLight, packedOverlay);
-        leg_1.render(matrixStack, buffer, packedLight, packedOverlay);
-        leg_2.render(matrixStack, buffer, packedLight, packedOverlay);
-        leg_3.render(matrixStack, buffer, packedLight, packedOverlay);
-        leg_4.render(matrixStack, buffer, packedLight, packedOverlay);
+        leg1.render(matrixStack, buffer, packedLight, packedOverlay);
+        leg2.render(matrixStack, buffer, packedLight, packedOverlay);
+        leg3.render(matrixStack, buffer, packedLight, packedOverlay);
+        leg4.render(matrixStack, buffer, packedLight, packedOverlay);
     }
 
-    public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
-        modelRenderer.rotateAngleX = x;
-        modelRenderer.rotateAngleY = y;
-        modelRenderer.rotateAngleZ = z;
+    public void setRotationAngle(ModelPart modelRenderer, float x, float y, float z) {
+        modelRenderer.xRot = x;
+        modelRenderer.yRot = y;
+        modelRenderer.zRot = z;
     }
 }

@@ -16,12 +16,14 @@
 
 package org.infernalstudios.infernalexp.blocks;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.RotatedPillarBlock;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
 
 import java.util.Random;
+
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class BasaltIronOreBlock extends RotatedPillarBlock {
 
@@ -30,11 +32,11 @@ public class BasaltIronOreBlock extends RotatedPillarBlock {
     }
 
     protected int getExperience(Random rand) {
-        return MathHelper.nextInt(rand, 0, 1);
+        return Mth.nextInt(rand, 0, 1);
     }
 
     @Override
-    public int getExpDrop(BlockState state, net.minecraft.world.IWorldReader reader, BlockPos pos, int fortune, int silktouch) {
+    public int getExpDrop(BlockState state, net.minecraft.world.level.LevelReader reader, BlockPos pos, int fortune, int silktouch) {
         return silktouch == 0 ? this.getExperience(RANDOM) : 0;
     }
 }

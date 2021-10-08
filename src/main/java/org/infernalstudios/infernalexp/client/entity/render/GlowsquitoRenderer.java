@@ -16,13 +16,12 @@
 
 package org.infernalstudios.infernalexp.client.entity.render;
 
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.resources.ResourceLocation;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.client.entity.model.GlowsquitoModel;
 import org.infernalstudios.infernalexp.entities.GlowsquitoEntity;
-
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.util.ResourceLocation;
 
 public class GlowsquitoRenderer extends MobRenderer<GlowsquitoEntity, GlowsquitoModel<GlowsquitoEntity>> {
     protected static final ResourceLocation UNBRED_TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID,
@@ -31,13 +30,13 @@ public class GlowsquitoRenderer extends MobRenderer<GlowsquitoEntity, Glowsquito
     protected static final ResourceLocation BRED_TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID,
         "textures/entity/glowsquitoid_shroomlight.png");
 
-    public GlowsquitoRenderer(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn, new GlowsquitoModel<>(), 0.7f);
-        this.addLayer(new GlowsquitoGlowLayer(this));
+    public GlowsquitoRenderer(EntityRendererProvider.Context context) {
+        super(context, new GlowsquitoModel<>(context.bakeLayer(GlowsquitoModel.LAYER_LOCATION)), 0.7f);
+        this.addLayer(new GlowsquitoGlowLayer<>(this));
     }
 
     @Override
-    public ResourceLocation getEntityTexture(GlowsquitoEntity entity) {
+    public ResourceLocation getTextureLocation(GlowsquitoEntity entity) {
         if (entity.getBred()) {
             return BRED_TEXTURE;
         } else {

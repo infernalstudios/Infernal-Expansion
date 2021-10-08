@@ -21,11 +21,11 @@ import org.infernalstudios.infernalexp.init.IEEffects;
 import org.infernalstudios.infernalexp.init.IEParticleTypes;
 import org.infernalstudios.infernalexp.init.IEPotions;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.ArrowEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Potion;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.Arrow;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.item.alchemy.Potion;
 
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -36,66 +36,66 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Set;
 
-@Mixin(ArrowEntity.class)
+@Mixin(Arrow.class)
 public abstract class MixinArrowEntity {
     @Final
     @Shadow
-    private Set<EffectInstance> customPotionEffects;
+    private Set<MobEffectInstance> effects;
 
     @Shadow
-    protected abstract void refreshColor();
+    protected abstract void updateColor();
 
     @Shadow
     private Potion potion;
 
-    @Inject(at = @At("RETURN"), method = "setPotionEffect")
+    @Inject(at = @At("RETURN"), method = "setEffectsFromItem", remap = false)
     private void setPotionEffectInfernalExpansion(ItemStack stack, CallbackInfo ci) {
         if (this.potion == IEPotions.INFECTION.get() || this.potion == IEPotions.LONG_INFECTION.get() || this.potion == IEPotions.STRONG_INFECTION.get()) {
             ((AbstractArrowEntityAccess) this).setInfection(true);
         } else if (this.potion == IEPotions.LUMINOUS.get() || this.potion == IEPotions.LONG_LUMINOUS.get() || this.potion == IEPotions.STRONG_LUMINOUS.get()) {
             ((AbstractArrowEntityAccess) this).setLuminous(true);
         }
-        this.refreshColor();
+        this.updateColor();
     }
 
-    @Inject(at = @At("RETURN"), method = "addEffect")
-    private void addEffectInfernalExpansion(EffectInstance effect, CallbackInfo ci) {
-        for (EffectInstance effectInstance : this.customPotionEffects) {
-            if (effectInstance.getPotion() == IEEffects.INFECTION.get()) {
+    @Inject(at = @At("RETURN"), method = "addEffect", remap = false)
+    private void addEffectInfernalExpansion(MobEffectInstance effect, CallbackInfo ci) {
+        for (MobEffectInstance effectInstance : this.effects) {
+            if (effectInstance.getEffect() == IEEffects.INFECTION.get()) {
                 ((AbstractArrowEntityAccess) this).setInfection(true);
-            } else if (effectInstance.getPotion() == IEEffects.LUMINOUS.get()) {
+            } else if (effectInstance.getEffect() == IEEffects.LUMINOUS.get()) {
                 ((AbstractArrowEntityAccess) this).setLuminous(true);
             }
         }
-        this.refreshColor();
+        this.updateColor();
     }
 
-    @Inject(at = @At("HEAD"), method = "spawnPotionParticles")
+    @Inject(at = @At("HEAD"), method = "makeParticle", remap = false)
     private void spawnCustomParticlesInfernalExpansion(int particleCount, CallbackInfo ci) {
         if (((AbstractArrowEntityAccess) this).getLuminous() || ((AbstractArrowEntityAccess) this).getGlow()) {
             for (int j = 0; j < particleCount; ++j) {
-                ((ArrowEntity) (Object) this).world.addParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get(),
-                    ((ArrowEntity) (Object) this).getPosXRandom(0.5D), ((ArrowEntity) (Object) this).getPosYRandom(),
-                    ((ArrowEntity) (Object) this).getPosZRandom(0.5D), 0.0D, 0.0D, 0.0D);
+                ((Arrow) (Object) this).level.addParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get(),
+                    ((Arrow) (Object) this).getRandomX(0.5D), ((Arrow) (Object) this).getRandomY(),
+                    ((Arrow) (Object) this).getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
             }
         }
         if (((AbstractArrowEntityAccess) this).getInfection()) {
             for (int j = 0; j < particleCount; ++j) {
-                ((ArrowEntity) (Object) this).world.addParticle(IEParticleTypes.INFECTION.get(),
-                    ((ArrowEntity) (Object) this).getPosXRandom(0.5D), ((ArrowEntity) (Object) this).getPosYRandom(),
-                    ((ArrowEntity) (Object) this).getPosZRandom(0.5D), 0.0D, 0.0D, 0.0D);
+                ((Arrow) (Object) this).level.addParticle(IEParticleTypes.INFECTION.get(),
+                    ((Arrow) (Object) this).getRandomX(0.5D), ((Arrow) (Object) this).getRandomY(),
+                    ((Arrow) (Object) this).getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
             }
         }
     }
 
-    @Inject(at = @At("RETURN"), method = "arrowHit")
+    @Inject(at = @At("RETURN"), method = "doPostHurtEffects", remap = false)
     private void onArrowHitInfernalExpansion(LivingEntity living, CallbackInfo ci) {
         if (((AbstractArrowEntityAccess) this).getGlow()) {
-            living.addPotionEffect(new EffectInstance(IEEffects.LUMINOUS.get(), 3600));
+            living.addEffect(new MobEffectInstance(IEEffects.LUMINOUS.get(), 3600));
         }
 
         if (((AbstractArrowEntityAccess) this).getInfectedSource()) {
-            living.addPotionEffect(new EffectInstance(IEEffects.INFECTION.get(), 600));
+            living.addEffect(new MobEffectInstance(IEEffects.INFECTION.get(), 600));
         }
     }
 }

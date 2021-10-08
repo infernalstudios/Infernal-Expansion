@@ -23,47 +23,47 @@ import org.infernalstudios.infernalexp.events.MiscEvents;
 import org.infernalstudios.infernalexp.init.IEItems;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntitySize;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.Pose;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.entity.ai.goal.HurtByTargetGoal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.PanicGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
-import net.minecraft.entity.monster.MagmaCubeEntity;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.piglin.AbstractPiglinEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.monster.MagmaCube;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IServerWorld;
-import net.minecraft.world.World;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -71,30 +71,30 @@ import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.function.Predicate;
 
-public class VolineEntity extends MonsterEntity implements IBucketable, IResizable {
+public class VolineEntity extends Monster implements IBucketable, IResizable {
     private static final Predicate<LivingEntity> TARGETABLE_MAGMA_CUBES = (livingEntity) -> {
-        MagmaCubeEntity magmaCubeEntity = (MagmaCubeEntity) livingEntity;
-        return magmaCubeEntity.isSmallSlime() && !magmaCubeEntity.hasCustomName();
+        MagmaCube magmaCubeEntity = (MagmaCube) livingEntity;
+        return magmaCubeEntity.isTiny() && !magmaCubeEntity.hasCustomName();
     };
 
-    private static final DataParameter<Float> VOLINE_SIZE = EntityDataManager.createKey(VolineEntity.class, DataSerializers.FLOAT);
-    private static final DataParameter<Boolean> FROM_BUCKET = EntityDataManager.createKey(VolineEntity.class, DataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Float> VOLINE_SIZE = SynchedEntityData.defineId(VolineEntity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(VolineEntity.class, EntityDataSerializers.BOOLEAN);
     private boolean isEating;
 
-    public VolineEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+    public VolineEntity(EntityType<? extends Monster> type, Level worldIn) {
         super(type, worldIn);
     }
 
     // ATTRIBUTES
-    public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
-        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 16.0D).createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.0D).createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.0D).createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5D);
+    public static AttributeSupplier.Builder setCustomAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 16.0D).add(Attributes.ATTACK_DAMAGE, 1.0D).add(Attributes.ATTACK_KNOCKBACK, 1.0D).add(Attributes.MOVEMENT_SPEED, 0.5D);
     }
 
     @Nullable
     @Override
-    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
-        setEntitySize(1 + (world.getRandom().nextFloat() * 0.4F));
-        return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+        setEntitySize(1 + (level.getRandom().nextFloat() * 0.4F));
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
     // BEHAVIOUR
@@ -105,106 +105,106 @@ public class VolineEntity extends MonsterEntity implements IBucketable, IResizab
         // false));
         this.goalSelector.addGoal(0, new VolineEatItemsGoal(this, MiscEvents.getVolineEatTable(), 32.0D, getAttributeValue(Attributes.MOVEMENT_SPEED) * 2.0D));
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.2D, true));
-        this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED)));
-        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0F));
-        this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
-        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, AbstractPiglinEntity.class, 16.0F, getAttributeValue(Attributes.MOVEMENT_SPEED) * 2.0D, getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.5D));
+        this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED)));
+        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, AbstractPiglin.class, 16.0F, getAttributeValue(Attributes.MOVEMENT_SPEED) * 2.0D, getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.5D));
         this.goalSelector.addGoal(5, new PanicGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED) * 2.0D));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         if (InfernalExpansionConfig.MobInteractions.VOLINE_ATTACK_FIRE_RESISTANCE.getBoolean()) {
-            this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, LivingEntity.class, true, false, Effects.FIRE_RESISTANCE, null));
+            this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, LivingEntity.class, true, false, MobEffects.FIRE_RESISTANCE, null));
         }
         if (InfernalExpansionConfig.MobInteractions.VOLINE_ATTACK_PLAYER.getBoolean()) {
-            this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+            this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
         }
         if (InfernalExpansionConfig.MobInteractions.VOLINE_ATTACK_MAGMA_CUBE.getBoolean()) {
-            this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, MagmaCubeEntity.class, 10, true, true, TARGETABLE_MAGMA_CUBES));
+            this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, MagmaCube.class, 10, true, true, TARGETABLE_MAGMA_CUBES));
         }
     }
 
     @Override
-    public void livingTick() {
+    public void aiStep() {
         if (getAttributeValue(Attributes.MOVEMENT_SPEED) <= 0) {
 
-            world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, getPosXRandom(0.5D), getPosY() + 1.6D, getPosZRandom(0.5D), 0, 0.07D, 0);
+            level.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, getRandomX(0.5D), getY() + 1.6D, getRandomZ(0.5D), 0, 0.07D, 0);
         }
 
-        super.livingTick();
+        super.aiStep();
     }
 
     @Override
-    protected void registerData() {
-        super.registerData();
-        dataManager.register(VOLINE_SIZE, 1.0F);
-        dataManager.register(FROM_BUCKET, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        entityData.define(VOLINE_SIZE, 1.0F);
+        entityData.define(FROM_BUCKET, false);
     }
 
     @Override
     public float getEntitySize() {
-        return dataManager.get(VOLINE_SIZE);
+        return entityData.get(VOLINE_SIZE);
     }
 
     @Override
     public void setEntitySize(float size) {
         size = Math.min(size, 2.0F);
 
-        dataManager.set(VOLINE_SIZE, size);
-        recenterBoundingBox();
-        recalculateSize();
+        entityData.set(VOLINE_SIZE, size);
+        reapplyPosition();
+        refreshDimensions();
         getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.5F - ((size - 1.0F) / 2.0F));
     }
 
     @Override
     public boolean isFromBucket() {
-        return this.dataManager.get(FROM_BUCKET);
+        return this.entityData.get(FROM_BUCKET);
     }
 
     @Override
     public void setFromBucket(boolean fromBucket) {
-        this.dataManager.set(FROM_BUCKET, fromBucket);
+        this.entityData.set(FROM_BUCKET, fromBucket);
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
         compound.putFloat("Size", getEntitySize());
         compound.putBoolean("FromBucket", this.isFromBucket());
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
+    public void readAdditionalSaveData(CompoundTag compound) {
         float size = Math.max(compound.getFloat("Size"), 1.0F);
 
         setEntitySize(size);
 
         this.setFromBucket(compound.getBoolean("FromBucket"));
-        super.readAdditional(compound);
+        super.readAdditionalSaveData(compound);
     }
 
     @Override
-    public void recalculateSize() {
-        super.recalculateSize();
-        setPosition(getPosX(), getPosY(), getPosZ());
+    public void refreshDimensions() {
+        super.refreshDimensions();
+        setPos(getX(), getY(), getZ());
     }
 
     @Override
-    public EntitySize getSize(Pose poseIn) {
-        return super.getSize(poseIn).scale(0.85F * getEntitySize());
+    public EntityDimensions getDimensions(Pose poseIn) {
+        return super.getDimensions(poseIn).scale(0.85F * getEntitySize());
     }
 
     @Override
-    public void notifyDataManagerChange(DataParameter<?> key) {
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
         if (VOLINE_SIZE.equals(key)) {
-            recalculateSize();
+            refreshDimensions();
         }
 
-        super.notifyDataManagerChange(key);
+        super.onSyncedDataUpdated(key);
     }
 
     // EXP POINTS
     @Override
-    protected int getExperiencePoints(PlayerEntity player) {
-        return 1 + this.world.rand.nextInt(4);
+    protected int getExperienceReward(Player player) {
+        return 1 + this.level.random.nextInt(4);
     }
 
     // SOUNDS
@@ -225,10 +225,10 @@ public class VolineEntity extends MonsterEntity implements IBucketable, IResizab
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState blockIn) {
-        this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
+        this.playSound(SoundEvents.PIG_STEP, 0.15F, 1.0F);
     }
 
-    public boolean isImmuneToFire() {
+    public boolean fireImmune() {
         return true;
     }
 
@@ -239,32 +239,32 @@ public class VolineEntity extends MonsterEntity implements IBucketable, IResizab
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void handleStatusUpdate(byte id) {
+    public void handleEntityEvent(byte id) {
         if (id == 8) {
             isEating = false;
         } else if (id == 9) {
             isEating = true;
         } else {
-            super.handleStatusUpdate(id);
+            super.handleEntityEvent(id);
         }
     }
 
     //BUCKETABLE
     @Override
-    protected ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
-        return IBucketable.tryBucketEntity(playerIn, hand, this).orElse(super.getEntityInteractionResult(playerIn, hand));
+    protected InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
+        return IBucketable.tryBucketEntity(playerIn, hand, this).orElse(super.mobInteract(playerIn, hand));
     }
 
     @Override
     public void copyToStack(ItemStack stack) {
-        CompoundNBT compoundNBT = stack.getOrCreateTag();
+        CompoundTag compoundNBT = stack.getOrCreateTag();
         IBucketable.copyToStack(this, stack);
 
         compoundNBT.putFloat("Size", this.getEntitySize());
     }
 
     @Override
-    public void copyFromAdditional(CompoundNBT compound) {
+    public void copyFromAdditional(CompoundTag compound) {
         IBucketable.copyFromAdditional(this, compound);
         if (compound.contains("Size", 99)) {
             this.setEntitySize(compound.getFloat("Size"));
@@ -273,7 +273,7 @@ public class VolineEntity extends MonsterEntity implements IBucketable, IResizab
 
     @Override
     public SoundEvent getBucketedSound() {
-        return SoundEvents.ITEM_BUCKET_FILL_LAVA;
+        return SoundEvents.BUCKET_FILL_LAVA;
     }
 
     @Override
@@ -302,15 +302,15 @@ public class VolineEntity extends MonsterEntity implements IBucketable, IResizab
             super.consumeItem();
 
             if (itemReference == Items.GOLDEN_APPLE) {
-                entityIn.addPotionEffect(new EffectInstance(Effects.REGENERATION, 100, 1));
-                entityIn.addPotionEffect(new EffectInstance(Effects.ABSORPTION, 2400, 0));
+                entityIn.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, 1));
+                entityIn.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 2400, 0));
             }
 
             Map<Item, Integer> eatItem = eatItemsMap.get(itemReference);
 
             if (eatItem != null) {
                 for (Map.Entry<Item, Integer> item : eatItem.entrySet()) {
-                    entityIn.entityDropItem(new ItemStack(item.getKey(), item.getValue()), 1);
+                    entityIn.spawnAtLocation(new ItemStack(item.getKey(), item.getValue()), 1);
                 }
             }
         }

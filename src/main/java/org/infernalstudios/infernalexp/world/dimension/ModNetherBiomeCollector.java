@@ -17,10 +17,10 @@
 package org.infernalstudios.infernalexp.world.dimension;
 
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.INoiseRandom;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.core.Registry;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.newbiome.context.Context;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,17 +29,17 @@ import java.util.List;
 import java.util.Map;
 
 public class ModNetherBiomeCollector {
-    public static List<RegistryKey<Biome>> netherBiomeList = new ArrayList<>();
+    public static List<ResourceKey<Biome>> netherBiomeList = new ArrayList<>();
     public static List<String> biomeList = Arrays.asList(((String) InfernalExpansionConfig.WorldGeneration.BIOMES_LIST.get()).replace(" ", "").split(","));
     public static boolean isWhitelist = (Boolean) InfernalExpansionConfig.WorldGeneration.BIOMES_LIST_IS_WHITELIST.get();
 
-    public static List<RegistryKey<Biome>> netherBiomeCollection(Registry<Biome> biomeRegistry) {
+    public static List<ResourceKey<Biome>> netherBiomeCollection(Registry<Biome> biomeRegistry) {
 
-        for (Map.Entry<RegistryKey<Biome>, Biome> entry : biomeRegistry.getEntries()) {
-            if (entry.getValue().getCategory() == Biome.Category.NETHER && !entry.getKey().getLocation().getNamespace().equals("ultra_amplified_dimension")) {
+        for (Map.Entry<ResourceKey<Biome>, Biome> entry : biomeRegistry.entrySet()) {
+            if (entry.getValue().getBiomeCategory() == Biome.BiomeCategory.NETHER && !entry.getKey().location().getNamespace().equals("ultra_amplified_dimension")) {
                 if (!netherBiomeList.contains(entry.getKey())) {
-                    if ((isWhitelist && biomeList.contains(entry.getKey().getLocation().toString()))
-                        || (!isWhitelist && !biomeList.contains(entry.getKey().getLocation().toString()))
+                    if ((isWhitelist && biomeList.contains(entry.getKey().location().toString()))
+                        || (!isWhitelist && !biomeList.contains(entry.getKey().location().toString()))
                         || biomeList.isEmpty()) {
 
                         netherBiomeList.add(entry.getKey());
@@ -49,11 +49,11 @@ public class ModNetherBiomeCollector {
             }
         }
 
-        netherBiomeList.sort(Comparator.comparing(key -> key.getLocation().toString()));
+        netherBiomeList.sort(Comparator.comparing(key -> key.location().toString()));
         return netherBiomeList;
     }
 
-    public static int getRandomNetherBiomes(INoiseRandom random, Registry<Biome> registry) {
-        return registry.getId(registry.getValueForKey(netherBiomeList.get(random.random(netherBiomeList.size()))));
+    public static int getRandomNetherBiomes(Context random, Registry<Biome> registry) {
+        return registry.getId(registry.get(netherBiomeList.get(random.nextRandom(netherBiomeList.size()))));
     }
 }

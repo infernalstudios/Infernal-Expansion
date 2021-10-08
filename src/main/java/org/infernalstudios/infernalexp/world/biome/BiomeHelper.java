@@ -18,27 +18,27 @@ package org.infernalstudios.infernalexp.world.biome;
 
 import org.infernalstudios.infernalexp.InfernalExpansion;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.WorldGenRegistries;
-import net.minecraft.world.gen.placement.IPlacementConfig;
-import net.minecraft.world.gen.placement.Placement;
-import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.core.Registry;
+import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.world.level.levelgen.feature.configurations.DecoratorConfiguration;
+import net.minecraft.world.level.levelgen.placement.FeatureDecorator;
+import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
 
 public class BiomeHelper {
     public static int calcSkyColor(float f) {
         float g = f / 3.0F;
-        g = MathHelper.clamp(g, -1.0F, 1.0F);
-        return MathHelper.hsvToRGB(0.62222224F - g * 0.05F, 0.5F + g * 0.1F, 1.0F);
+        g = Mth.clamp(g, -1.0F, 1.0F);
+        return Mth.hsvToRgb(0.62222224F - g * 0.05F, 0.5F + g * 0.1F, 1.0F);
     }
 
     public static ConfiguredSurfaceBuilder<?> newConfiguredSurfaceBuilder(String id, ConfiguredSurfaceBuilder<?> configuredSurfaceBuilder) {
-        Registry.register(WorldGenRegistries.CONFIGURED_SURFACE_BUILDER, new ResourceLocation(InfernalExpansion.MOD_ID, id), configuredSurfaceBuilder);
+        Registry.register(BuiltinRegistries.CONFIGURED_SURFACE_BUILDER, new ResourceLocation(InfernalExpansion.MOD_ID, id), configuredSurfaceBuilder);
         return configuredSurfaceBuilder;
     }
 
-    public static <T extends IPlacementConfig, G extends Placement<T>> G newDecorator(String id, G decorator) {
+    public static <T extends DecoratorConfiguration, G extends FeatureDecorator<T>> G newDecorator(String id, G decorator) {
         return decorator;
     }
 }

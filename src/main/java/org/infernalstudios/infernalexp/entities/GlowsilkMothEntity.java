@@ -16,42 +16,43 @@
 
 package org.infernalstudios.infernalexp.entities;
 
-import net.minecraft.entity.CreatureAttribute;
+import net.minecraft.world.entity.MobType;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 
 import org.infernalstudios.infernalexp.init.IESoundEvents;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntitySize;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.Pose;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.passive.AmbientEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ambient.AmbientCreature;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
 
-public class GlowsilkMothEntity extends AmbientEntity {
+public class GlowsilkMothEntity extends AmbientCreature {
     private BlockPos spawnPosition;
 
-    public GlowsilkMothEntity(EntityType<? extends GlowsilkMothEntity> type, World worldIn) {
+    public GlowsilkMothEntity(EntityType<? extends GlowsilkMothEntity> type, Level worldIn) {
         super(type, worldIn);
     }
 
     //ATTRIBUTES
-    public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
-        return MobEntity.func_233666_p_()
-            .createMutableAttribute(Attributes.MAX_HEALTH, 6.0D);
+    public static AttributeSupplier.Builder setCustomAttributes() {
+        return Mob.createMobAttributes()
+            .add(Attributes.MAX_HEALTH, 6.0D);
     }
 
     /**
      * Returns the volume for the sounds this mob makes.
      */
+    @Override
     protected float getSoundVolume() {
         return 0.1F;
     }
@@ -59,53 +60,59 @@ public class GlowsilkMothEntity extends AmbientEntity {
     /**
      * Gets the pitch of living sounds in living entities.
      */
-    protected float getSoundPitch() {
-        return super.getSoundPitch() * 0.95F;
+    @Override
+    public float getVoicePitch() {
+        return super.getVoicePitch() * 0.95F;
     }
 
     /**
      * Returns true if this entity should push and be pushed by other entities when colliding.
      */
-    public boolean canBePushed() {
+    @Override
+    public boolean isPushable() {
         return false;
     }
 
-    protected void collideWithEntity(Entity entityIn) {
+    @Override
+    protected void doPush(Entity entityIn) {
     }
 
-    protected void collideWithNearbyEntities() {
+    @Override
+    protected void pushEntities() {
     }
 
     /**
      * Called to update the entity's position/logic.
      */
+    @Override
     public void tick() {
         super.tick();
-        this.setMotion(this.getMotion().mul(1.0D, 1.0D, 1.0D));
+        this.setDeltaMovement(this.getDeltaMovement().multiply(1.0D, 1.0D, 1.0D));
     }
 
-    protected void updateAITasks() {
-        super.updateAITasks();
-        if (this.spawnPosition != null && (!this.world.isAirBlock(this.spawnPosition) || this.spawnPosition.getY() < 1)) {
+    @Override
+    protected void customServerAiStep() {
+        super.customServerAiStep();
+        if (this.spawnPosition != null && (!this.level.isEmptyBlock(this.spawnPosition) || this.spawnPosition.getY() < 1)) {
             this.spawnPosition = null;
         }
 
-        if (this.spawnPosition == null || this.rand.nextInt(30) == 0 || this.spawnPosition.withinDistance(this.getPositionVec(), 2.0D)) {
-            this.spawnPosition = new BlockPos(this.getPosX() + (double) this.rand.nextInt(7) - (double) this.rand.nextInt(7), this.getPosY() + (double) this.rand.nextInt(6) - (double) this.rand.nextInt(2), this.getPosZ() + (double) this.rand.nextInt(7) - (double) this.rand.nextInt(7));
+        if (this.spawnPosition == null || this.random.nextInt(30) == 0 || this.spawnPosition.closerThan(this.position(), 2.0D)) {
+            this.spawnPosition = new BlockPos(this.getX() + (double) this.random.nextInt(7) - (double) this.random.nextInt(7), this.getY() + (double) this.random.nextInt(6) - (double) this.random.nextInt(2), this.getZ() + (double) this.random.nextInt(7) - (double) this.random.nextInt(7));
         }
 
         double speed = InfernalExpansionConfig.MobInteractions.GLOWSILK_SPEED.getDouble() * 0.1;
 
-        double d2 = (double) this.spawnPosition.getX() + 0.5D - this.getPosX();
-        double d0 = (double) this.spawnPosition.getY() + 0.1D - this.getPosY();
-        double d1 = (double) this.spawnPosition.getZ() + 0.5D - this.getPosZ();
-        Vector3d vector3d = this.getMotion();
-        Vector3d vector3d1 = vector3d.add((Math.signum(d2) * 0.5D - vector3d.x) * speed, (Math.signum(d0) * 0.7F - vector3d.y) * speed, (Math.signum(d1) * 0.5D - vector3d.z) * speed);
-        this.setMotion(vector3d1);
-        float f = (float) (MathHelper.atan2(vector3d1.z, vector3d1.x) * (double) (180F / (float) Math.PI)) - 90.0F;
-        float f1 = MathHelper.wrapDegrees(f - this.rotationYaw);
-        this.moveForward = 0.5F;
-        this.rotationYaw += f1;
+        double d2 = (double) this.spawnPosition.getX() + 0.5D - this.getX();
+        double d0 = (double) this.spawnPosition.getY() + 0.1D - this.getY();
+        double d1 = (double) this.spawnPosition.getZ() + 0.5D - this.getZ();
+        Vec3 vector3d = this.getDeltaMovement();
+        Vec3 vector3d1 = vector3d.add((Math.signum(d2) * 0.5D - vector3d.x) * speed, (Math.signum(d0) * 0.7F - vector3d.y) * speed, (Math.signum(d1) * 0.5D - vector3d.z) * speed);
+        this.setDeltaMovement(vector3d1);
+        float f = (float) (Mth.atan2(vector3d1.z, vector3d1.x) * (double) (180F / (float) Math.PI)) - 90.0F;
+        float f1 = Mth.wrapDegrees(f - getYRot());
+        this.zza = 0.5F;
+        setYRot(getYRot() + f1);
     }
 
     // SOUNDS
@@ -125,36 +132,40 @@ public class GlowsilkMothEntity extends AmbientEntity {
     }
 
     @Override
-    public CreatureAttribute getCreatureAttribute() {
-        return CreatureAttribute.ARTHROPOD;
+    public MobType getMobType() {
+        return MobType.ARTHROPOD;
     }
 
-    protected boolean canTriggerWalking() {
+    protected boolean isMovementNoisy() {
         return false;
     }
 
-    public boolean onLivingFall(float distance, float damageMultiplier) {
+    public boolean causeFallDamage(float distance, float damageMultiplier) {
         return false;
     }
 
-    protected void updateFallState(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
+    @Override
+    protected void checkFallDamage(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
     }
 
     /**
      * Return whether this entity should NOT trigger a pressure plate or a tripwire.
      */
-    public boolean doesEntityNotTriggerPressurePlate() {
+    @Override
+    public boolean isIgnoringBlockTriggers() {
         return true;
     }
 
     /**
      * Called when the entity is attacked.
      */
-    public boolean attackEntityFrom(DamageSource source, float amount) {
-        return this.isInvulnerableTo(source) ? false : super.attackEntityFrom(source, amount);
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        return this.isInvulnerableTo(source) ? false : super.hurt(source, amount);
     }
 
-    protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
+    @Override
+    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
         return sizeIn.height * 0.5F;
     }
 }

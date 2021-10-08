@@ -14,19 +14,10 @@
  * limitations under the License.
  */
 
-package org.infernalstudios.infernalexp.tileentities;
+package org.infernalstudios.infernalexp.items;
 
-import org.infernalstudios.infernalexp.init.IETileEntityTypes;
+public interface IFuel {
 
-import net.minecraft.tileentity.CampfireTileEntity;
-import net.minecraft.tileentity.TileEntityType;
+    int getBurnTime();
 
-public class GlowCampfireTileEntity extends CampfireTileEntity {
-    public GlowCampfireTileEntity() {
-        super();
-    }
-
-    public TileEntityType<?> getType() {
-        return IETileEntityTypes.GLOW_CAMPFIRE.get();
-    }
 }

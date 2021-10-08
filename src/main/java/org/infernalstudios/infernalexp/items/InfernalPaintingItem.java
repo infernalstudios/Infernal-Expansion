@@ -18,12 +18,14 @@ package org.infernalstudios.infernalexp.items;
 
 import org.infernalstudios.infernalexp.entities.InfernalPaintingEntity;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.HangingEntityItem;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.HangingEntityItem;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.core.BlockPos;
+
+import net.minecraft.world.item.Item.Properties;
 
 public class InfernalPaintingItem extends HangingEntityItem {
 
@@ -32,29 +34,29 @@ public class InfernalPaintingItem extends HangingEntityItem {
     }
 
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
-        BlockPos blockPos = context.getPos().offset(context.getFace());
+    public InteractionResult useOn(UseOnContext context) {
+        BlockPos blockPos = context.getClickedPos().relative(context.getClickedFace());
 
-        if (context.getPlayer() == null || !this.canPlace(context.getPlayer(), context.getFace(), context.getItem(), blockPos)) {
-            return ActionResultType.FAIL;
+        if (context.getPlayer() == null || !this.mayPlace(context.getPlayer(), context.getClickedFace(), context.getItemInHand(), blockPos)) {
+            return InteractionResult.FAIL;
         } else {
-            InfernalPaintingEntity paintingEntity = new InfernalPaintingEntity(context.getWorld(), blockPos, context.getFace());
+            InfernalPaintingEntity paintingEntity = new InfernalPaintingEntity(context.getLevel(), blockPos, context.getClickedFace());
 
-            CompoundNBT compoundNBT = context.getItem().getTag();
+            CompoundTag compoundNBT = context.getItemInHand().getTag();
             if (compoundNBT != null) {
-                EntityType.applyItemNBT(context.getWorld(), context.getPlayer(), paintingEntity, compoundNBT);
+                EntityType.updateCustomEntityTag(context.getLevel(), context.getPlayer(), paintingEntity, compoundNBT);
             }
 
-            if (paintingEntity.onValidSurface()) {
-                if (!context.getWorld().isRemote()) {
-                    paintingEntity.playPlaceSound();
-                    context.getWorld().addEntity(paintingEntity);
+            if (paintingEntity.survives()) {
+                if (!context.getLevel().isClientSide()) {
+                    paintingEntity.playPlacementSound();
+                    context.getLevel().addFreshEntity(paintingEntity);
                 }
 
-                context.getItem().shrink(1);
-                return ActionResultType.func_233537_a_(context.getWorld().isRemote());
+                context.getItemInHand().shrink(1);
+                return InteractionResult.sidedSuccess(context.getLevel().isClientSide());
             } else {
-                return ActionResultType.CONSUME;
+                return InteractionResult.CONSUME;
             }
         }
     }

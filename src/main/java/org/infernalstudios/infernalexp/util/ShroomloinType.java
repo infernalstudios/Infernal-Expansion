@@ -1,10 +1,8 @@
 package org.infernalstudios.infernalexp.util;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.network.datasync.IDataSerializer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.CheckForNull;
@@ -91,7 +89,7 @@ public class ShroomloinType {
         if (id == null) {
             return null;
         } else {
-            return getById(ResourceLocation.tryCreate(id));
+            return getById(ResourceLocation.tryParse(id));
         }
     }
 

@@ -17,23 +17,20 @@
 package org.infernalstudios.infernalexp.world.gen.features;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.util.ShapeUtil;
 
-import java.util.Random;
-
-public class HangingGiantBrownMushroomFeature extends Feature<NoFeatureConfig> {
-    public HangingGiantBrownMushroomFeature(Codec<NoFeatureConfig> codec) {
+public class HangingGiantBrownMushroomFeature extends Feature<NoneFeatureConfiguration> {
+    public HangingGiantBrownMushroomFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
     }
 
@@ -43,30 +40,30 @@ public class HangingGiantBrownMushroomFeature extends Feature<NoFeatureConfig> {
     private static final ResourceLocation enhancedMushroomsBrownStem = new ResourceLocation("enhanced_mushrooms", "brown_mushroom_stem");
 
     @Override
-    public boolean generate(ISeedReader world, ChunkGenerator chunk, Random random, BlockPos pos, NoFeatureConfig config) {
-        if (!world.isAirBlock(pos) || world.getBlockState(pos.up()) != IEBlocks.DULLSTONE.get().getDefaultState()) {
+    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+        if (!context.level().isEmptyBlock(context.origin()) || context.level().getBlockState(context.origin().above()) != IEBlocks.DULLSTONE.get().defaultBlockState()) {
             return false;
         } else {
             // Generate size between minSize and maxSize
-            int size = minSize + random.nextInt(maxSize - minSize);
+            int size = minSize + context.random().nextInt(maxSize - minSize);
             BlockState enhancedMushroomsBrownStemBlockState = null;
 
             if (ModList.get().isLoaded("enhanced_mushrooms")) {
-                enhancedMushroomsBrownStemBlockState = ForgeRegistries.BLOCKS.getValue(enhancedMushroomsBrownStem).getDefaultState();
+                enhancedMushroomsBrownStemBlockState = ForgeRegistries.BLOCKS.getValue(enhancedMushroomsBrownStem).defaultBlockState();
             }
 
             // Generate stem
             for (int y = 0; y <= size; y++) {
                 if (enhancedMushroomsBrownStemBlockState != null) {
-                    world.setBlockState(pos.down(y), enhancedMushroomsBrownStemBlockState, 2);
+                    context.level().setBlock(context.origin().below(y), enhancedMushroomsBrownStemBlockState, 2);
                 } else {
-                    world.setBlockState(pos.down(y), Blocks.MUSHROOM_STEM.getDefaultState(), 2);
+                    context.level().setBlock(context.origin().below(y), Blocks.MUSHROOM_STEM.defaultBlockState(), 2);
                 }
             }
 
             // Generate mushroom cap
             for (BlockPos point : ShapeUtil.generateSolidCircle((float) (size / 2) + 1)) {
-                world.setBlockState(pos.add(point.getX(), point.getY() - size, point.getZ()), Blocks.BROWN_MUSHROOM_BLOCK.getDefaultState(), 2);
+                context.level().setBlock(context.origin().offset(point.getX(), point.getY() - size, point.getZ()), Blocks.BROWN_MUSHROOM_BLOCK.defaultBlockState(), 2);
             }
 
             return true;
