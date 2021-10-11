@@ -57,7 +57,7 @@ import org.infernalstudios.infernalexp.items.IESpawnEggItem;
 public class ClientEvents {
 
     @SubscribeEvent
-    public void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+    public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(IEEntityTypes.VOLINE.get(), VolineRenderer::new);
         event.registerEntityRenderer(IEEntityTypes.SHROOMLOIN.get(), ShroomloinRenderer::new);
         event.registerEntityRenderer(IEEntityTypes.WARPBEETLE.get(), WarpbeetleRenderer::new);
@@ -80,7 +80,7 @@ public class ClientEvents {
     }
 
     @SubscribeEvent
-    public void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+    public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(VolineModel.LAYER_LOCATION, VolineModel::createBodyLayer);
         event.registerLayerDefinition(ShroomloinModel.LAYER_LOCATION, ShroomloinModel::createBodyLayer);
         event.registerLayerDefinition(WarpbeetleModel.LAYER_LOCATION, WarpbeetleModel::createBodyLayer);
@@ -95,7 +95,7 @@ public class ClientEvents {
     }
 
     @SubscribeEvent
-    public void onClientSetup(FMLClientSetupEvent event) {
+    public static void onClientSetup(FMLClientSetupEvent event) {
         ItemBlockRenderTypes.setRenderLayer(IEBlocks.LUMINOUS_FUNGUS.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(IEBlocks.DULLTHORNS.get(), RenderType.cutout());
 
@@ -121,7 +121,7 @@ public class ClientEvents {
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public void onPostRegisterEntities(final RegistryEvent.Register<EntityType<?>> event) {
+    public static void onPostRegisterEntities(final RegistryEvent.Register<EntityType<?>> event) {
         IESpawnEggItem.initUnaddedEggs();
     }
 }
