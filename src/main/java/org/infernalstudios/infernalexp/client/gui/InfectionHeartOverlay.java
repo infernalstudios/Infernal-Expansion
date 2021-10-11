@@ -26,7 +26,7 @@ public class InfectionHeartOverlay {
 
     @SubscribeEvent(priority = EventPriority.LOW)
     public void onPreRender(RenderGameOverlayEvent.Pre event) {
-        if (event.getType() != RenderGameOverlayEvent.ElementType.LAYER || event.isCanceled()) {
+        if (event.getType() != RenderGameOverlayEvent.ElementType.ALL || event.isCanceled()) {
             return;
         }
 
@@ -35,7 +35,7 @@ public class InfectionHeartOverlay {
 
     @SubscribeEvent(priority = EventPriority.LOW)
     public void onPostRender(RenderGameOverlayEvent.Post event) {
-        if (event.getType() != RenderGameOverlayEvent.ElementType.LAYER || event.isCanceled()) {
+        if (event.getType() != RenderGameOverlayEvent.ElementType.ALL || event.isCanceled()) {
             return;
         }
 
@@ -45,7 +45,7 @@ public class InfectionHeartOverlay {
         int left = mc.getWindow().getGuiScaledWidth() / 2 - 91;
         int top = mc.getWindow().getGuiScaledHeight() - heartOffset;
 
-        if (player.getEffect(IEEffects.INFECTION.get()) != null) {
+        if (player.getEffect(IEEffects.INFECTION.get()) != null && ((ForgeIngameGui) mc.gui).shouldDrawSurvivalElements() && !mc.options.hideGui) {
             drawInfectionOverlay(mc, event.getMatrixStack(), left, top);
         }
     }
