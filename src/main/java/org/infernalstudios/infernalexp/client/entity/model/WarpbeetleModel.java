@@ -35,7 +35,7 @@ import org.infernalstudios.infernalexp.entities.WarpbeetleEntity;
 public class WarpbeetleModel<T extends WarpbeetleEntity> extends EntityModel<T> {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(InfernalExpansion.MOD_ID, "warpbeetle"), "main");
 
-    private final ModelPart warpbeetle;
+    private final ModelPart all;
     private final ModelPart body;
     private final ModelPart head;
     private final ModelPart leftWing;
@@ -50,8 +50,8 @@ public class WarpbeetleModel<T extends WarpbeetleEntity> extends EntityModel<T> 
     private final ModelPart rightLeg3;
 
     public WarpbeetleModel(ModelPart root) {
-        this.warpbeetle = root.getChild("warpbeetle");
-        this.body = warpbeetle.getChild("body");
+        this.all = root.getChild("all");
+        this.body = all.getChild("body");
         this.head = body.getChild("head");
         this.leftWing = body.getChild("left_wing");
         this.leftShield = body.getChild("left_shield");
@@ -69,9 +69,9 @@ public class WarpbeetleModel<T extends WarpbeetleEntity> extends EntityModel<T> 
         MeshDefinition meshDefinition = new MeshDefinition();
         PartDefinition partDefinition = meshDefinition.getRoot();
 
-        PartDefinition warpbeetle = partDefinition.addOrReplaceChild("warpbeetle", CubeListBuilder.create(), PartPose.offset(0.0F, 23.75F, 0.0F));
+        PartDefinition all = partDefinition.addOrReplaceChild("all", CubeListBuilder.create(), PartPose.offset(0.0F, 23.75F, 0.0F));
 
-        PartDefinition body = warpbeetle.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, -5.75F, -9.0F, 10.0F, 6.0F, 17.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.0F, 0.0F));
+        PartDefinition body = all.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, -5.75F, -9.0F, 10.0F, 6.0F, 17.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.0F, 0.0F));
 
         PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(43, 8).addBox(-3.0F, -1.75F, -4.0F, 6.0F, 4.0F, 4.0F, new CubeDeformation(0.0F))
             .texOffs(0, 15).addBox(0.0F, -8.75F, -10.0F, 0.0F, 10.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -2.0F, -9.0F));
@@ -144,18 +144,7 @@ public class WarpbeetleModel<T extends WarpbeetleEntity> extends EntityModel<T> 
 
     @Override
     public void renderToBuffer(PoseStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        body.render(matrixStack, buffer, packedLight, packedOverlay);
-        head.render(matrixStack, buffer, packedLight, packedOverlay);
-        leftShield.render(matrixStack, buffer, packedLight, packedOverlay);
-        leftWing.render(matrixStack, buffer, packedLight, packedOverlay);
-        rightShield.render(matrixStack, buffer, packedLight, packedOverlay);
-        rightWing.render(matrixStack, buffer, packedLight, packedOverlay);
-        leftLeg1.render(matrixStack, buffer, packedLight, packedOverlay);
-        leftLeg2.render(matrixStack, buffer, packedLight, packedOverlay);
-        leftLeg3.render(matrixStack, buffer, packedLight, packedOverlay);
-        rightLeg1.render(matrixStack, buffer, packedLight, packedOverlay);
-        rightLeg2.render(matrixStack, buffer, packedLight, packedOverlay);
-        rightLeg3.render(matrixStack, buffer, packedLight, packedOverlay);
+        all.render(matrixStack, buffer, packedLight, packedOverlay);
     }
 
     public void setRotationAngle(ModelPart modelRenderer, float x, float y, float z) {
