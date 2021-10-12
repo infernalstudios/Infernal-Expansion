@@ -172,12 +172,13 @@ public class MiscEvents {
 
 
     @SubscribeEvent
-    public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+    public void onRightClickBlock(RightClickBlockAfterActionEvent event) {
         ItemStack heldItemStack = event.getItemStack();
         World world = event.getWorld();
         BlockPos pos = event.getPos();
         Direction face = event.getFace();
         PlayerEntity player = event.getPlayer();
+
         if (heldItemStack.getItem() == Items.BONE) {
             pos = pos.offset(face);
             BlockState blockstate = IEBlocks.BURIED_BONE.get().getPlaceableState(world, pos, face);
