@@ -172,7 +172,7 @@ public class MiscEvents {
 
 
     @SubscribeEvent
-    public void onRightClickBlock(RightClickBlockAfterActionEvent event) {
+    public void onRightClickBlock(PostRightClickBlockEvent event) {
         ItemStack heldItemStack = event.getItemStack();
         World world = event.getWorld();
         BlockPos pos = event.getPos();

@@ -24,7 +24,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import org.infernalstudios.infernalexp.events.RightClickBlockAfterActionEvent;
+import org.infernalstudios.infernalexp.events.PostRightClickBlockEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -33,8 +33,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(PlayerInteractionManager.class)
 public class MixinPlayerInteractionManager {
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/server/management/PlayerInteractionManager;isCreative()Z"), method = "func_219441_a")
-    private void IE_fireRightClickBlockAfterActionEventServer(ServerPlayerEntity player, World world, ItemStack stack, Hand hand, BlockRayTraceResult hitVec, CallbackInfoReturnable<ActionResultType> cir) {
-        MinecraftForge.EVENT_BUS.post(new RightClickBlockAfterActionEvent(player, hand, hitVec.getPos(), hitVec));
+    private void IE_firePostRightClickBlockEventServer(ServerPlayerEntity player, World world, ItemStack stack, Hand hand, BlockRayTraceResult hitVec, CallbackInfoReturnable<ActionResultType> cir) {
+        MinecraftForge.EVENT_BUS.post(new PostRightClickBlockEvent(player, hand, hitVec.getPos(), hitVec));
     }
 
 }

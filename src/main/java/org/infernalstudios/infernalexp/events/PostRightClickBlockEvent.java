@@ -26,7 +26,7 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
-public class RightClickBlockAfterActionEvent extends PlayerEvent {
+public class PostRightClickBlockEvent extends PlayerEvent {
 
     private final Hand hand;
     private final BlockPos pos;
@@ -36,10 +36,10 @@ public class RightClickBlockAfterActionEvent extends PlayerEvent {
      * This event is only fired if there was no right click action for the targeted block.
      * This event won't fire if {@link net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock} has set the useItem {@link net.minecraftforge.eventbus.api.Event.Result} to DENY
      */
-    public RightClickBlockAfterActionEvent(PlayerEntity player, Hand hand, BlockPos pos, BlockRayTraceResult hitVec) {
-        super(Preconditions.checkNotNull(player, "Null player in RightClickBlockAfterActionEvent!"));
-        this.hand = Preconditions.checkNotNull(hand, "Null hand in RightClickBlockAfterActionEvent!");
-        this.pos = Preconditions.checkNotNull(pos, "Null position in RightClickBlockAfterActionEvent!");
+    public PostRightClickBlockEvent(PlayerEntity player, Hand hand, BlockPos pos, BlockRayTraceResult hitVec) {
+        super(Preconditions.checkNotNull(player, "Null player in PostRightClickBlockEvent!"));
+        this.hand = Preconditions.checkNotNull(hand, "Null hand in PostRightClickBlockEvent!");
+        this.pos = Preconditions.checkNotNull(pos, "Null position in PostRightClickBlockEvent!");
         this.hitVec = hitVec;
     }
 
