@@ -1,0 +1,48 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-20.04
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: Build
+        run: ./gradlew build
+        env:
+          JAVA_HOME: ${{ env.JAVA_HOME_8_X64 }}
+        
+      - name: Publish to Modrinth
+        run: ./gradlew publishModrinth
+        env:
+          MODRINTH: ${{ secrets.MODRINTH_TOKEN }}
+          JAVA_HOME: ${{ env.JAVA_HOME_8_X64 }}
+        
+      - name: Publish to Curseforge
+        run: ./gradlew curseforge
+        env:
+          CURSEFORGE: ${{ secrets.CURSEFORGE_TOKEN }}
+          JAVA_HOME: ${{ env.JAVA_HOME_8_X64 }}
+        
+      - name: Publish to Infernal Studios Maven
+        run: ./gradlew publish
+        env:
+          MAVEN_USER: "github"
+          MAVEN_TOKEN: ${{ secrets.INFERNALSTUDIOS_MAVEN }}
+          JAVA_HOME: ${{ env.JAVA_HOME_8_X64 }}
+
+      - name: Create GitHub Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "./build/libs/*"
+          token: ${{ secrets.GITHUB_TOKEN }}
+
