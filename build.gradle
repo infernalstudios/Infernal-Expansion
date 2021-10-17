@@ -2,53 +2,46 @@ buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
         maven { url = 'https://repo.spongepowered.org/maven/' }
+        maven { url = 'https://plugins.gradle.org/m2/' }
 
         jcenter()
         mavenCentral()
     }
 
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+        classpath group: 'net.minecraftforge.gradle',           name: 'ForgeGradle', version: '5.1+',          changing: true
+        classpath group: 'org.spongepowered',                   name: 'mixingradle', version: '0.7-SNAPSHOT'
+        classpath group: 'gradle.plugin.com.modrinth.minotaur', name: 'Minotaur',    version: '1.2.1'
+        classpath group: 'gradle.plugin.com.matthewprenger',    name: 'CurseGradle', version: '1.4.0'
     }
 }
 
 apply plugin: 'net.minecraftforge.gradle'
-// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'com.matthewprenger.cursegradle'
 
-version = '2.3.1'
-group = 'org.infernalstudios.infernalexp' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'infernal-expansion'
+// This initializes the config. Please try to modify the variables in the config file, if needed, add more if you see a reason to.
+ext.config = parseConfig(file('build.properties'))
+
+version = config.VERSION
+group = "${config.GROUP}.${config.ARTIFACT}"
+archivesBaseName = "${config.ARCHIVES_BASE_NAME}-${config.MINECRAFT_VERSION}"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(16)
 
 minecraft {
-    // The mappings can be changed at any time, and must be in the following format.
-    // snapshot_YYYYMMDD   Snapshot are built nightly.
-    // stable_#            Stables are built at the discretion of the MCP team.
-    // Use non-default mappings at your own risk. they may not always work.
-    // Simply re-run your setup task after changing the mappings to update your workspace.
-    mappings channel: 'official', version: '1.17.1'
-    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+    mappings channel: config.MAPPINGS_CHANNEL, version: config.MAPPINGS_VERSION
 
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
-    // Default run configurations.
-    // These can be tweaked, removed, or duplicated as needed.
     runs {
         client {
             workingDirectory project.file('run')
-//            arg "-mixin.config=infernal-expansion.mixins.json"
-
-            // Recommended logging data for a userdev environment
+//          arg '-mixin.config=infernal-expansion.mixins.json'
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
-
             mods {
                 infernalexp {
                     source sourceSets.main
@@ -58,14 +51,9 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
-//            arg "-mixin.config=infernal-expansion.mixins.json"
-
-            // Recommended logging data for a userdev environment
+//          arg '-mixin.config=infernal-expansion.mixins.json'
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
-
             mods {
                 infernalexp {
                     source sourceSets.main
@@ -75,15 +63,9 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
-
-            // Recommended logging data for a userdev environment
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
-
             args '--mod', 'infernalexp', '--all', '--output', file('src/generated/resources/')
-
             mods {
                 infernalexp {
                     source sourceSets.main
@@ -101,74 +83,104 @@ repositories {
 }
 
 dependencies {
-    // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
-    // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
-    // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.17.1-37.0.82'
-
+    minecraft "net.minecraftforge:forge:${config.MINECRAFT_VERSION}-${config.FORGE_VERSION}"
     annotationProcessor "org.spongepowered:mixin:0.8.4:processor"
-
-    // You may put jars on which you depend on in ./libs or you may define them like so..
-    // compile "some.group:artifact:version:classifier"
-    // compile "some.group:artifact:version"
-
-    // Real examples
-    // compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
-    // compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
-
-    // The 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
-    // provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-
-    // These dependencies get remapped to your current MCP mappings
-    // deobf 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-
-    // For more info...
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
-
 }
 
-mixin {
-    add sourceSets.main, "infernal-expansion.refmap.json"
-    config "infernal-expansion.mixins.json"
-
-    debug.verbose = true
-    debug.export = true
-    dumpTargetOnFailure = true
-}
-
-// Example for how to get properties into the manifest for reading by the runtime..
 jar {
     manifest {
         attributes([
-                "Specification-Title": "examplemod",
-                "Specification-Vendor": "examplemodsareus",
-                "Specification-Version": "1", // We are version 1 of ourselves
-                "Implementation-Title": project.name,
-                "Implementation-Version": "${version}",
-                "Implementation-Vendor" :"examplemodsareus",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                "MixinConfigs": "infernal-expansion.mixins.json",
-                "MixinConnector": "org.infernalstudios.infernalexp.mixin.MixinConnector"
+                'Specification-Title'   : config.TITLE,
+                'Specification-Vendor'  : config.AUTHOR,
+                'Specification-Version' : '1',
+                'Implementation-Title'  : config.TITLE,
+                'Implementation-Version': config.VERSION,
+                'Implementation-Vendor' : config.AUTHOR,
+                'MixinConfigs'          : 'infernal-expansion.mixins.json',
+                'MixinConnector'        : 'org.infernalstudios.infernalexp.mixin.MixinConnector'
         ])
     }
 }
 
-// Example configuration to allow publishing using the maven-publish task
-// This is the preferred method to reobfuscate your jar file
 jar.finalizedBy('reobfJar')
-// However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
-//publish.dependsOn('reobfJar')
 
 publishing {
     publications {
         mavenJava(MavenPublication) {
+            groupId = config.GROUP
+            artifactId = config.ARTIFACT
             artifact jar
+
+            pom {
+                name = 'Infernal Expansion'
+                url = 'https://infernalstudios.org/infernalexp'
+                licenses {
+                    license {
+                        name = 'Apache License 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/infernalexp/Infernal-Expansion.git'
+                    url = 'https://github.com/infernalexp/Infernal-Expansion'
+                }
+            }
         }
     }
     repositories {
         maven {
-            url "file:///${project.projectDir}/mcmodsrepo"
+            url 'https://maven.infernalstudios.org/releases'
+
+            
+            credentials {
+                username = System.getenv('MAVEN_USER')
+                password = System.getenv('MAVEN_TOKEN')
+            }
+            
+            authentication {
+                basic(BasicAuthentication)
+            }
         }
+    }
+}
+
+// Modrinth publishing
+import com.modrinth.minotaur.TaskModrinthUpload
+
+task publishModrinth (type: TaskModrinthUpload) {
+    onlyIf {
+        System.getenv('MODRINTH')
+    }
+
+    token = System.getenv('MODRINTH')
+    projectId = 'ZrpxHZN4'
+    versionNumber = project.version
+    uploadFile = jar
+    addGameVersion(config.MINECRAFT_VERSION)
+    addLoader('forge')
+}
+
+// Curseforge publishing
+curseforge {
+  apiKey = System.getenv('CURSEFORGE') ?: 'If you\'re seeing this, you haven\'t set your "CURSEFORGE" environment variable'
+  
+  project {
+    id = '395078'
+    changelog = 'No changelog specified.'
+    releaseType = 'release'
+    addGameVersion config.MINECRAFT_VERSION
+    mainArtifact (jar) { 
+      displayName = "Infernal Expansion Release ${project.version}"
+    }
+  }
+}
+
+
+// Config parse function
+def parseConfig(File config) {
+    config.withReader {
+        def prop = new Properties()
+        prop.load(it)
+        return (new ConfigSlurper().parse(prop))
     }
 }
