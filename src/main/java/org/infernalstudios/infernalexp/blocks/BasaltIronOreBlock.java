@@ -23,8 +23,6 @@ import net.minecraft.util.Mth;
 
 import java.util.Random;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 public class BasaltIronOreBlock extends RotatedPillarBlock {
 
     public BasaltIronOreBlock(Properties properties) {

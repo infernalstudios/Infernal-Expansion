@@ -1,7 +1,6 @@
 package org.infernalstudios.infernalexp.init;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -119,13 +118,6 @@ public class IEEntityTypes {
         () -> EntityType.Builder.<ThrowableNetherBrickEntity>of(ThrowableNetherBrickEntity::new, MobCategory.MISC)
             .sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10)
             .build(new ResourceLocation(InfernalExpansion.MOD_ID, "throwable_nether_brick").toString()));
-
-
-    private static <T extends Entity> RegistryObject<EntityType<T>> register(String key, EntityType.EntityFactory<T> factoryIn, MobCategory classificationIn, float size1, float size2) {
-        return ENTITY_TYPES.register(key, () -> EntityType.Builder.of(factoryIn, classificationIn)
-            .sized(size1, size2)
-            .build(new ResourceLocation(InfernalExpansion.MOD_ID, key).toString()));
-    }
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

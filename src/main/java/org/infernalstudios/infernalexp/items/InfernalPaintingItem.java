@@ -25,8 +25,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.core.BlockPos;
 
-import net.minecraft.world.item.Item.Properties;
-
 public class InfernalPaintingItem extends HangingEntityItem {
 
     public InfernalPaintingItem(Properties properties) {

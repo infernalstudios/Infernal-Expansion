@@ -46,7 +46,7 @@ import java.util.List;
     value = Dist.CLIENT,
     _interface = ItemSupplier.class
 )
-public class AscusBombEntity extends ThrowableItemProjectile implements ItemSupplier {
+public class AscusBombEntity extends ThrowableItemProjectile {
 
     public AscusBombEntity(EntityType<? extends AscusBombEntity> typeIn, Level worldIn) {
         super(typeIn, worldIn);

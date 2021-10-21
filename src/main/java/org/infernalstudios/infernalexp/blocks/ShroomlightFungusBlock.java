@@ -31,9 +31,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelReader;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.OffsetType;
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 public class ShroomlightFungusBlock extends HorizontalBushBlock {
     protected static final VoxelShape FLOOR_SHAPE = box(5.0D, 0.0D, 5.0D, 11.0D, 10.0D, 11.0D);
     protected static final VoxelShape CEILING_SHAPE = box(5.0D, 6.0D, 5.0D, 11.0D, 16.0D, 11.0D);

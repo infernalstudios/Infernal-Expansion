@@ -58,14 +58,10 @@ public class ShroomloinModel<T extends ShroomloinEntity> extends EntityModel<T> 
         PartDefinition partDefinition = meshDefinition.getRoot();
 
         PartDefinition all = partDefinition.addOrReplaceChild("all", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
-
         PartDefinition body = all.addOrReplaceChild("body", CubeListBuilder.create().texOffs(1, 23).addBox(-5.0F, -6.0F, -5.0F, 10.0F, 6.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -4.0F, 0.0F));
-
-        PartDefinition hat = body.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, -6.0F, -8.0F, 16.0F, 6.0F, 16.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -4.0F, -0.5F));
-
-        PartDefinition leftLeg = all.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 0).addBox(-1.5F, -1.0F, -1.5F, 3.0F, 5.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(2.5F, -4.0F, -0.5F));
-
-        PartDefinition rightLeg = all.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 8).mirror().addBox(-1.5F, -1.0F, -1.5F, 3.0F, 5.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-2.5F, -4.0F, -0.5F));
+        body.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, -6.0F, -8.0F, 16.0F, 6.0F, 16.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -4.0F, -0.5F));
+        all.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 0).addBox(-1.5F, -1.0F, -1.5F, 3.0F, 5.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(2.5F, -4.0F, -0.5F));
+        all.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 8).mirror().addBox(-1.5F, -1.0F, -1.5F, 3.0F, 5.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-2.5F, -4.0F, -0.5F));
 
         return LayerDefinition.create(meshDefinition, 64, 64);
     }

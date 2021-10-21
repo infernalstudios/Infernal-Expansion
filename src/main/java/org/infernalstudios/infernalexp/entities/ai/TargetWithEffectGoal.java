@@ -30,23 +30,23 @@ import java.util.function.Predicate;
  * TargetNearestAttackable goal, but adds the input of an integer representing the ID number of the potion effect that
  * should be targeted.
  */
-public class TargetWithEffectGoal extends NearestAttackableTargetGoal {
+public class TargetWithEffectGoal extends NearestAttackableTargetGoal<LivingEntity> {
     private final MobEffect effect;
-    private final Class invalidTarget;
+    private final Class<? extends LivingEntity> invalidTarget;
 
-    public TargetWithEffectGoal(Mob goalOwnerIn, Class targetClassIn, boolean checkSight, MobEffect effect, @Nullable Class invalidTargetClassIn) {
+    public TargetWithEffectGoal(Mob goalOwnerIn, Class<LivingEntity> targetClassIn, boolean checkSight, MobEffect effect, @Nullable Class<? extends LivingEntity> invalidTargetClassIn) {
         super(goalOwnerIn, targetClassIn, checkSight);
         this.effect = effect;
         this.invalidTarget = invalidTargetClassIn;
     }
 
-    public TargetWithEffectGoal(Mob goalOwnerIn, Class targetClassIn, boolean checkSight, boolean nearbyOnlyIn, MobEffect effect, @Nullable Class invalidTargetClassIn) {
+    public TargetWithEffectGoal(Mob goalOwnerIn, Class<LivingEntity> targetClassIn, boolean checkSight, boolean nearbyOnlyIn, MobEffect effect, @Nullable Class<? extends LivingEntity> invalidTargetClassIn) {
         super(goalOwnerIn, targetClassIn, checkSight, nearbyOnlyIn);
         this.effect = effect;
         this.invalidTarget = invalidTargetClassIn;
     }
 
-    public TargetWithEffectGoal(Mob goalOwnerIn, Class targetClassIn, int targetChanceIn, boolean checkSight, boolean nearbyOnlyIn, Predicate targetPredicate, MobEffect effect, @Nullable Class invalidTargetClassIn) {
+    public TargetWithEffectGoal(Mob goalOwnerIn, Class<LivingEntity> targetClassIn, int targetChanceIn, boolean checkSight, boolean nearbyOnlyIn, Predicate<LivingEntity> targetPredicate, MobEffect effect, @Nullable Class<? extends LivingEntity> invalidTargetClassIn) {
         super(goalOwnerIn, targetClassIn, targetChanceIn, checkSight, nearbyOnlyIn, targetPredicate);
         this.effect = effect;
         this.invalidTarget = invalidTargetClassIn;

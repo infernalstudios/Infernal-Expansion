@@ -28,8 +28,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Random;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 public class GlowTorchBlock extends TorchBlock {
 
     public GlowTorchBlock(Properties properties) {

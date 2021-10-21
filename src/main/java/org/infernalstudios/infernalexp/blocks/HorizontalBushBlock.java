@@ -62,6 +62,7 @@ public class HorizontalBushBlock extends FaceAttachedHorizontalDirectionalBlock 
         return state.getFluidState().isEmpty();
     }
 
+    @SuppressWarnings("deprecation")
     public boolean isPathfindable(BlockState state, BlockGetter worldIn, BlockPos pos, PathComputationType type) {
         return type == PathComputationType.AIR && !this.hasCollision || super.isPathfindable(state, worldIn, pos, type);
     }

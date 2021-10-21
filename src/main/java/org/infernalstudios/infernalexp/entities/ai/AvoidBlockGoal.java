@@ -34,7 +34,7 @@ public class AvoidBlockGoal extends Goal {
     protected final Slime entity;
     protected Optional<BlockPos> avoidBlockPos;
     protected final int avoidDistance;
-    protected final Tag avoidBlocks;
+    protected final Tag<Block> avoidBlocks;
 
     public AvoidBlockGoal(Slime entityIn, Tag.Named<Block> blocksToAvoidIn, int avoidDistanceIn) {
         this(entityIn, blocksToAvoidIn, (p_200828_0_) -> {

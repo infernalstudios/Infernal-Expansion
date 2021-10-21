@@ -56,6 +56,7 @@ public class IESurfaceBuilders {
 //        InfernalExpansion.LOGGER.info("Infernal Expansion: Surface Builders Registered");
 //    }
 
+    @SuppressWarnings("deprecation")
     public static SurfaceBuilder<SurfaceBuilderBaseConfiguration> newSurfaceBuilder(String id, SurfaceBuilder<SurfaceBuilderBaseConfiguration> surfaceBuilder) {
         ResourceLocation registryName = new ResourceLocation(InfernalExpansion.MOD_ID, id);
 

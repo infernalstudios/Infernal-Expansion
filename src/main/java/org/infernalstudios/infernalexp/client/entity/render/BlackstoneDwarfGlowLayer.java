@@ -17,7 +17,7 @@
 package org.infernalstudios.infernalexp.client.entity.render;
 
 import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.entities.BasaltGiantEntity;
+import org.infernalstudios.infernalexp.entities.BlackstoneDwarfEntity;
 
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
@@ -29,7 +29,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-class BlackstoneDwarfGlowLayer<T extends BasaltGiantEntity, M extends EntityModel<T>> extends EyesLayer<T, M> {
+class BlackstoneDwarfGlowLayer<T extends BlackstoneDwarfEntity, M extends EntityModel<T>> extends EyesLayer<T, M> {
     private static final RenderType RENDER_TYPE = RenderType.eyes(new ResourceLocation(InfernalExpansion.MOD_ID,
         "textures/entity/blackstone_dwarf_glow.png"));
 

@@ -83,6 +83,7 @@ public class WorldEvents {
         event.getRegistry().register(new CompatWorldType().setRegistryName(new ResourceLocation(InfernalExpansion.MOD_ID, "compat_world_type")));
     }
 
+    @SuppressWarnings({"unchecked", "resource"})
     @SubscribeEvent
     public void addDimensionalSpacing(final WorldEvent.Load event) {
         if (event.getWorld() instanceof ServerLevel world) {

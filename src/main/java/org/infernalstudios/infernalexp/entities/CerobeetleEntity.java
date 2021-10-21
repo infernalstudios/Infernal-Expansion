@@ -20,8 +20,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.util.TimeUtil;
-import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -47,8 +45,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
 
-import java.util.UUID;
-
 public class CerobeetleEntity extends PathfinderMob {
 
     public float shellRotationMultiplier = 0.0F;
@@ -57,10 +53,7 @@ public class CerobeetleEntity extends PathfinderMob {
         super(type, worldIn);
     }
 
-    private static final UniformInt RANGED_INT = TimeUtil.rangeOfSeconds(20, 39);
     private int attackTimer;
-    private int angerTime;
-    private UUID angerTarget;
 
     // ATTRIBUTES
     public static AttributeSupplier.Builder setCustomAttributes() {

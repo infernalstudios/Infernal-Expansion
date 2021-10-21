@@ -26,8 +26,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Rotation;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 public class BasalticMagmaBlock extends MagmaBlock {
     public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.AXIS;
 

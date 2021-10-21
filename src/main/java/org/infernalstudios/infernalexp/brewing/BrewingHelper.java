@@ -48,7 +48,7 @@ public class BrewingHelper {
 
     static {
         try {
-            Class<?> mixPredicateClass = Class.forName("net.minecraft.potion.PotionBrewing$MixPredicate");
+            Class<?> mixPredicateClass = Class.forName("net.minecraft.world.item.alchemy.PotionBrewing$Mix");
 
             MethodType constructorType = MethodType.methodType(Void.TYPE, ForgeRegistryEntry.class, Ingredient.class, ForgeRegistryEntry.class);
             Constructor<?> constructor = mixPredicateClass.getConstructor(constructorType.parameterArray());
@@ -64,7 +64,6 @@ public class BrewingHelper {
         }
     }
 
-    @SuppressWarnings("unchecked")
     private static void addBrewingRecipe(Potion input, Supplier<Ingredient> reagent, Potion output) {
         try {
             Object mixPredicate = CREATE_NEW_MIX_PREDICATE.invokeExact((ForgeRegistryEntry<?>) input, reagent.get(), (ForgeRegistryEntry<?>) output);

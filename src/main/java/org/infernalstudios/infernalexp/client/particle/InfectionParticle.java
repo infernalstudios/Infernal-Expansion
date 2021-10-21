@@ -29,11 +29,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
 @OnlyIn(Dist.CLIENT)
 public class InfectionParticle extends TextureSheetParticle {
-    private static final Random random = new Random();
     private final SpriteSet spriteWithAge;
 
     protected InfectionParticle(ClientLevel world, double x, double y, double z, double motionX, double motionY, double motionZ, SpriteSet spriteWithAge) {

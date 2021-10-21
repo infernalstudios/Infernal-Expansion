@@ -35,6 +35,7 @@ public class TextField extends EditBox implements TooltipAccessor {
     private final TextFieldOption option;
     private final List<FormattedCharSequence> tooltip;
 
+    @SuppressWarnings("resource")
     public TextField(Options settings, int x, int y, int width, Component title, TextFieldOption option, List<FormattedCharSequence> tooltip) {
         super(Minecraft.getInstance().font, x + 2 + 100, y, width - 4 - 100, 20, title);
         this.option = option;
@@ -45,6 +46,7 @@ public class TextField extends EditBox implements TooltipAccessor {
         setValue(option.get(settings));
     }
 
+    @SuppressWarnings("resource")
     @Override
     public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         super.renderButton(matrixStack, mouseX, mouseY, partialTicks);

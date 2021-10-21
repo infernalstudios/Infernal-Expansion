@@ -17,7 +17,7 @@
 package org.infernalstudios.infernalexp.client.entity.render;
 
 import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.entities.GlowsquitoEntity;
+import org.infernalstudios.infernalexp.entities.BlindsightEntity;
 
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
@@ -29,7 +29,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class BlindsightGlowLayer<T extends GlowsquitoEntity, M extends EntityModel<T>> extends EyesLayer<T, M> {
+public class BlindsightGlowLayer<T extends BlindsightEntity, M extends EntityModel<T>> extends EyesLayer<T, M> {
     private static final RenderType RENDER_TYPE = RenderType.eyes(new ResourceLocation(InfernalExpansion.MOD_ID,
         "textures/entity/blindsight_glow.png"));
 

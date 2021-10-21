@@ -45,7 +45,7 @@ public class EntityBucketItem extends BucketItem {
     private final Supplier<SoundEvent> emptyingSoundSupplier;
 
     public EntityBucketItem(Supplier<EntityType<?>> entityType, Fluid fluid, Supplier<SoundEvent> emptyingSound, Properties builder) {
-        super(fluid, builder);
+        super(() -> fluid, builder);
         this.entityTypeSupplier = entityType;
         this.emptyingSoundSupplier = emptyingSound;
     }

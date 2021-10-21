@@ -23,8 +23,6 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 public class GlowdustBlock extends SnowLayerBlock {
 
     public GlowdustBlock(Properties properties) {

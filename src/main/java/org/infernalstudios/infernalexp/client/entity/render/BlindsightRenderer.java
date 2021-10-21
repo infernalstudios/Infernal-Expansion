@@ -30,7 +30,7 @@ public class BlindsightRenderer extends MobRenderer<BlindsightEntity, Blindsight
 
     public BlindsightRenderer(EntityRendererProvider.Context context) {
         super(context, new BlindsightModel<>(context.bakeLayer(BlindsightModel.LAYER_LOCATION)), 0.7f);
-        this.addLayer(new BlindsightGlowLayer(this));
+        this.addLayer(new BlindsightGlowLayer<>(this));
     }
 
     @Override

@@ -55,23 +55,15 @@ public class PyrnoModel<T extends PyrnoEntity> extends EntityModel<T> {
         PartDefinition partdefinition = meshdefinition.getRoot();
 
         PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, -14.0F, -14.0F, 16.0F, 14.0F, 26.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 14.0F, 1.0F));
-
         PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-2.0F, -13.0F, -19.0F, 4.0F, 16.0F, 6.0F, new CubeDeformation(0.0F))
             .texOffs(0, 40).addBox(-8.0F, -3.0F, -15.0F, 16.0F, 8.0F, 15.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -12.0F, -14.0F, 0.6109F, 0.0F, 0.0F));
-
-        PartDefinition leftEar = head.addOrReplaceChild("left_ear", CubeListBuilder.create().texOffs(41, 41).addBox(-4.0F, -0.5351F, -0.1563F, 5.0F, 0.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(7.5F, -2.4649F, 0.1563F, 0.0F, 0.0F, 1.5708F));
-
-        PartDefinition rightEar = head.addOrReplaceChild("right_ear", CubeListBuilder.create().texOffs(8, 0).addBox(-1.0F, -0.5351F, -0.1563F, 5.0F, 0.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-7.35F, -2.4649F, 0.1563F, 0.0F, 0.0F, -1.5708F));
-
-        PartDefinition leg1 = body.addOrReplaceChild("leg_1", CubeListBuilder.create().texOffs(0, 63).addBox(-3.0F, 0.0F, -3.0F, 6.0F, 10.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(5.0F, 0.0F, -11.0F));
-
-        PartDefinition leg2 = body.addOrReplaceChild("leg_2", CubeListBuilder.create().texOffs(62, 40).addBox(-3.0F, 0.0F, -3.0F, 6.0F, 10.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, 0.0F, -11.0F));
-
-        PartDefinition leg3 = body.addOrReplaceChild("leg_3", CubeListBuilder.create().texOffs(58, 0).addBox(-3.0F, 0.0F, -3.0F, 6.0F, 10.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, 0.0F, 9.0F));
-
-        PartDefinition leg4 = body.addOrReplaceChild("leg_4", CubeListBuilder.create().texOffs(56, 57).addBox(-3.0F, 0.0F, -3.0F, 6.0F, 10.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(5.0F, 0.0F, 9.0F));
-
-        PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 40).addBox(-2.0F, 0.0F, 0.0F, 4.0F, 12.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -12.0F, 12.0F, 0.2618F, 0.0F, 0.0F));
+        head.addOrReplaceChild("left_ear", CubeListBuilder.create().texOffs(41, 41).addBox(-4.0F, -0.5351F, -0.1563F, 5.0F, 0.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(7.5F, -2.4649F, 0.1563F, 0.0F, 0.0F, 1.5708F));
+        head.addOrReplaceChild("right_ear", CubeListBuilder.create().texOffs(8, 0).addBox(-1.0F, -0.5351F, -0.1563F, 5.0F, 0.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-7.35F, -2.4649F, 0.1563F, 0.0F, 0.0F, -1.5708F));
+        body.addOrReplaceChild("leg_1", CubeListBuilder.create().texOffs(0, 63).addBox(-3.0F, 0.0F, -3.0F, 6.0F, 10.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(5.0F, 0.0F, -11.0F));
+        body.addOrReplaceChild("leg_2", CubeListBuilder.create().texOffs(62, 40).addBox(-3.0F, 0.0F, -3.0F, 6.0F, 10.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, 0.0F, -11.0F));
+        body.addOrReplaceChild("leg_3", CubeListBuilder.create().texOffs(58, 0).addBox(-3.0F, 0.0F, -3.0F, 6.0F, 10.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, 0.0F, 9.0F));
+        body.addOrReplaceChild("leg_4", CubeListBuilder.create().texOffs(56, 57).addBox(-3.0F, 0.0F, -3.0F, 6.0F, 10.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(5.0F, 0.0F, 9.0F));
+        body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 40).addBox(-2.0F, 0.0F, 0.0F, 4.0F, 12.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -12.0F, 12.0F, 0.2618F, 0.0F, 0.0F));
 
         return LayerDefinition.create(meshdefinition, 128, 128);
     }

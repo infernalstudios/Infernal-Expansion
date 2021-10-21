@@ -53,25 +53,17 @@ public class GlowsilkMothModel<T extends GlowsilkMothEntity> extends EntityModel
         PartDefinition partdefinition = meshdefinition.getRoot();
 
         PartDefinition all = partdefinition.addOrReplaceChild("all", CubeListBuilder.create(), PartPose.offsetAndRotation(-1.0F, 14.0F, 0.0F, 0.3927F, 0.0F, 0.0F));
-
         PartDefinition body = all.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(1.0F, 0.0F, 0.0F));
-
-        PartDefinition legs_1 = body.addOrReplaceChild("legs_1", CubeListBuilder.create().texOffs(48, 60).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -3.0F, -2.0F, 0.7854F, 0.0F, 0.0F));
-
-        PartDefinition legs_2 = body.addOrReplaceChild("legs_2", CubeListBuilder.create().texOffs(48, 60).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, -2.0F, 0.7854F, 0.0F, 0.0F));
-
-        PartDefinition legs_3 = body.addOrReplaceChild("legs_3", CubeListBuilder.create().texOffs(48, 60).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 3.0F, -2.0F, 0.7854F, 0.0F, 0.0F));
-
-        PartDefinition bone = body.addOrReplaceChild("bone", CubeListBuilder.create().texOffs(48, 44).addBox(-2.0F, -17.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F))
+        body.addOrReplaceChild("legs_1", CubeListBuilder.create().texOffs(48, 60).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -3.0F, -2.0F, 0.7854F, 0.0F, 0.0F));
+        body.addOrReplaceChild("legs_2", CubeListBuilder.create().texOffs(48, 60).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, -2.0F, 0.7854F, 0.0F, 0.0F));
+        body.addOrReplaceChild("legs_3", CubeListBuilder.create().texOffs(48, 60).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 3.0F, -2.0F, 0.7854F, 0.0F, 0.0F));
+        body.addOrReplaceChild("bone", CubeListBuilder.create().texOffs(48, 44).addBox(-2.0F, -17.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F))
             .texOffs(56, 60).addBox(-1.0F, -5.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 10.0F, 0.0F, 0.0F, 3.1416F, 0.0F));
-
-        PartDefinition antenna = all.addOrReplaceChild("antenna", CubeListBuilder.create().texOffs(51, 40).mirror().addBox(-3.0F, -4.0F, 0.0F, 6.0F, 4.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false)
+        all.addOrReplaceChild("antenna", CubeListBuilder.create().texOffs(51, 40).mirror().addBox(-3.0F, -4.0F, 0.0F, 6.0F, 4.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false)
             .texOffs(51, 36).mirror().addBox(-3.0F, -4.0F, 0.05F, 6.0F, 4.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(1.0F, -7.0F, -1.0F));
-
-        PartDefinition leftWing = all.addOrReplaceChild("left_wing", CubeListBuilder.create().texOffs(0, 41).mirror().addBox(0.0F, -14.0F, 0.0F, 13.0F, 23.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false)
+        all.addOrReplaceChild("left_wing", CubeListBuilder.create().texOffs(0, 41).mirror().addBox(0.0F, -14.0F, 0.0F, 13.0F, 23.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false)
             .texOffs(0, 17).mirror().addBox(0.0F, -14.0F, 0.05F, 13.0F, 23.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(3.0F, 1.0F, 0.0F));
-
-        PartDefinition rightWing = all.addOrReplaceChild("right_wing", CubeListBuilder.create().texOffs(0, 41).addBox(-13.0F, -14.0F, 0.0F, 13.0F, 23.0F, 0.0F, new CubeDeformation(0.0F))
+        all.addOrReplaceChild("right_wing", CubeListBuilder.create().texOffs(0, 41).addBox(-13.0F, -14.0F, 0.0F, 13.0F, 23.0F, 0.0F, new CubeDeformation(0.0F))
             .texOffs(0, 17).addBox(-13.0F, -14.0F, 0.05F, 13.0F, 23.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.0F, 1.0F, 0.0F));
 
         return LayerDefinition.create(meshdefinition, 64, 64);

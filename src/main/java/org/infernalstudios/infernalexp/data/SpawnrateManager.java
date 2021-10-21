@@ -253,6 +253,7 @@ public class SpawnrateManager {
         }
     }
 
+    @SuppressWarnings("unused")
     private static class SpawnBiomeEntry {
 
         private final String biome;

@@ -37,6 +37,7 @@ import net.minecraft.util.Mth;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.entities.EmbodyEntity;
 
+@SuppressWarnings("unused")
 public class EmbodyModel<E extends EmbodyEntity> extends EntityModel<EmbodyEntity> {
 
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(InfernalExpansion.MOD_ID, "embody"), "main");
@@ -58,12 +59,9 @@ public class EmbodyModel<E extends EmbodyEntity> extends EntityModel<EmbodyEntit
         PartDefinition partDefinition = meshDefinition.getRoot();
 
         PartDefinition body = partDefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 16).addBox(-4.0F, -12.0F, 0.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 24.0F, 6.0F, 0.7854F, 0.0F, 0.0F));
-
-        PartDefinition leftArm = body.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(0, 32).addBox(0.0F, -1.0F, -2.0F, 3.0F, 14.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(4.0F, -11.0F, 2.0F, -1.7453F, 0.0F, 0.0F));
-
-        PartDefinition rightArm = body.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(24, 24).addBox(-3.0F, -1.0F, -2.0F, 3.0F, 14.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-4.0F, -11.0F, 2.0F, -1.7453F, 0.0F, 0.0F));
-
-        PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -12.0F, 2.0F, -0.7854F, 0.0F, 0.0F));
+        body.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(0, 32).addBox(0.0F, -1.0F, -2.0F, 3.0F, 14.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(4.0F, -11.0F, 2.0F, -1.7453F, 0.0F, 0.0F));
+        body.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(24, 24).addBox(-3.0F, -1.0F, -2.0F, 3.0F, 14.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-4.0F, -11.0F, 2.0F, -1.7453F, 0.0F, 0.0F));
+        body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -12.0F, 2.0F, -0.7854F, 0.0F, 0.0F));
 
         return LayerDefinition.create(meshDefinition, 64, 64);
     }

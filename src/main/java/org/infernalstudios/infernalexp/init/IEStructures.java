@@ -48,6 +48,7 @@ public class IEStructures {
     public static final IEStructure<NoneFeatureConfiguration> SOUL_SAND_VALLEY_RUIN = registerStructure("soul_sand_valley_ruin", new SoulSandValleyRuinStructure(NoneFeatureConfiguration.CODEC));
     public static final IEStructure<NoneFeatureConfiguration> STRIDER_ALTAR = registerStructure("strider_altar", new StriderAltarStructure(NoneFeatureConfiguration.CODEC));
 
+    @SuppressWarnings("deprecation")
     public static <C extends FeatureConfiguration, F extends IEStructure<C>> F registerStructure(String registryName, F structure) {
         ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, registryName);
 

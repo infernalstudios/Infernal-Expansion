@@ -26,8 +26,6 @@ import net.minecraft.world.damagesource.DamageSource;
 
 public class InfectionEffect extends MobEffect {
 
-    private int initialDuration;
-
     public InfectionEffect(MobEffectCategory typeIn, int liquidColorIn) {
         super(typeIn, liquidColorIn);
     }

@@ -29,7 +29,7 @@ public class BlackstoneDwarfRenderer extends MobRenderer<BlackstoneDwarfEntity, 
 
     public BlackstoneDwarfRenderer(EntityRendererProvider.Context context) {
         super(context, new BlackstoneDwarfModel<>(context.bakeLayer(BlackstoneDwarfModel.LAYER_LOCATION)), 0.7f);
-        this.addLayer(new BlackstoneDwarfGlowLayer(this));
+        this.addLayer(new BlackstoneDwarfGlowLayer<>(this));
     }
 
     @Override

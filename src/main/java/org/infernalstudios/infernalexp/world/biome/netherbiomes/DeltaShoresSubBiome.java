@@ -80,7 +80,7 @@ public class DeltaShoresSubBiome extends ModBiome {
     @Override
     protected ConfiguredSurfaceBuilder<?> configureSurfaceBuilder() {
         return BiomeHelper.newConfiguredSurfaceBuilder
-            ("delta_shores", new ConfiguredSurfaceBuilder(IESurfaceBuilders.DELTA_SHORES_SURFACE_BUILDER,
+            ("delta_shores", new ConfiguredSurfaceBuilder<>(IESurfaceBuilders.DELTA_SHORES_SURFACE_BUILDER,
                 IESurfaceBuilders.ModSurfaceBuilderConfig.DELTA_SHORES_CONFIG));
     }
 

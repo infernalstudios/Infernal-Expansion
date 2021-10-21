@@ -17,7 +17,6 @@
 package org.infernalstudios.infernalexp.init;
 
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.tree.LiteralCommandNode;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.util.NetherTeleportCommandUtil;
 import net.minecraft.commands.CommandSourceStack;
@@ -41,7 +40,7 @@ public class IECommands {
         String commandString = "setdimensionspawn";
 
         // First the command is defined if no player is supplied, setting the user's spawn, then if there are players supplied as targets
-        LiteralCommandNode<CommandSourceStack> source = dispatcher.register(Commands.literal(commandString).requires(commandSource -> commandSource.hasPermission(2)).executes(command -> {
+        dispatcher.register(Commands.literal(commandString).requires(commandSource -> commandSource.hasPermission(2)).executes(command -> {
             ServerPlayer player = command.getSource().getPlayerOrException();
             BlockPos pos = player.blockPosition();
             Level world = player.getCommandSenderWorld();
@@ -77,7 +76,7 @@ public class IECommands {
     private static void dimensionTeleportCommand(CommandDispatcher<CommandSourceStack> dispatcher) {
         String commandString = "ntp";
 
-        LiteralCommandNode<CommandSourceStack> source = dispatcher.register(Commands.literal(commandString).requires(commandSource -> commandSource.hasPermission(3)).executes(command -> {
+        dispatcher.register(Commands.literal(commandString).requires(commandSource -> commandSource.hasPermission(3)).executes(command -> {
             ServerPlayer player = command.getSource().getPlayerOrException();
             MinecraftServer server = command.getSource().getServer();
             ServerLevel targetWorld = player.getCommandSenderWorld().dimension() == Level.NETHER ? server.getLevel(Level.OVERWORLD) : server.getLevel(Level.NETHER);

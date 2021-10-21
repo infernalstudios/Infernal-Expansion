@@ -83,7 +83,7 @@ public class GlowstoneCanyonBiome extends ModBiome {
 
     @Override
     protected ConfiguredSurfaceBuilder<?> configureSurfaceBuilder() {
-        return BiomeHelper.newConfiguredSurfaceBuilder("glowstone_canyon", new ConfiguredSurfaceBuilder(IESurfaceBuilders.GLOWSTONE_CANYON_SURFACE_BUILDER, IESurfaceBuilders.ModSurfaceBuilderConfig.GLOWSTONE_CANYON_CONFIG));
+        return BiomeHelper.newConfiguredSurfaceBuilder("glowstone_canyon", new ConfiguredSurfaceBuilder<>(IESurfaceBuilders.GLOWSTONE_CANYON_SURFACE_BUILDER, IESurfaceBuilders.ModSurfaceBuilderConfig.GLOWSTONE_CANYON_CONFIG));
     }
 
     @Override

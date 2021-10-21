@@ -55,23 +55,15 @@ public class BlindsightModel<T extends BlindsightEntity> extends EntityModel<T> 
         PartDefinition partDefinition = meshDefinition.getRoot();
 
         PartDefinition all = partDefinition.addOrReplaceChild("all", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, -3.0F));
-
         PartDefinition body = all.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0.0F, -4.0F, 7.0F));
-
         PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, -8.0F, -12.0F, 16.0F, 8.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, -0.3927F, 0.0F, 0.0F));
-
-        PartDefinition mouthRoof = head.addOrReplaceChild("mouth_roof", CubeListBuilder.create().texOffs(32, 41).addBox(-8.0F, -8.0F, -7.0F, 16.0F, 12.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 6.0F, -8.0F, -1.5708F, 0.0F, 0.0F));
-
-        PartDefinition lowerJaw = body.addOrReplaceChild("lower_jaw", CubeListBuilder.create().texOffs(0, 20).addBox(-8.0F, -1.0F, -12.0F, 16.0F, 3.0F, 12.0F, new CubeDeformation(0.0F))
+        head.addOrReplaceChild("mouth_roof", CubeListBuilder.create().texOffs(32, 41).addBox(-8.0F, -8.0F, -7.0F, 16.0F, 12.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 6.0F, -8.0F, -1.5708F, 0.0F, 0.0F));
+        body.addOrReplaceChild("lower_jaw", CubeListBuilder.create().texOffs(0, 20).addBox(-8.0F, -1.0F, -12.0F, 16.0F, 3.0F, 12.0F, new CubeDeformation(0.0F))
             .texOffs(4, 41).addBox(-8.0F, 0.0F, -12.0F, 16.0F, 0.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-
-        PartDefinition frontLeftLeg = all.addOrReplaceChild("front_left_leg", CubeListBuilder.create().texOffs(0, 35).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.001F)), PartPose.offset(6.0F, -2.0F, -3.0F));
-
-        PartDefinition frontRightLeg = all.addOrReplaceChild("front_right_leg", CubeListBuilder.create().texOffs(8, 35).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.001F)), PartPose.offset(-6.0F, -2.0F, -3.0F));
-
-        PartDefinition backLeftLeg = all.addOrReplaceChild("back_left_leg", CubeListBuilder.create().texOffs(44, 56).mirror().addBox(-1.0F, 0.0F, -5.0F, 4.0F, 2.0F, 6.0F, new CubeDeformation(0.001F)).mirror(false), PartPose.offset(7.0F, -2.0F, 5.0F));
-
-        PartDefinition backRightLeg = all.addOrReplaceChild("back_right_leg", CubeListBuilder.create().texOffs(44, 56).addBox(-3.0F, 0.0F, -5.0F, 4.0F, 2.0F, 6.0F, new CubeDeformation(0.001F)), PartPose.offset(-7.0F, -2.0F, 5.0F));
+        all.addOrReplaceChild("front_left_leg", CubeListBuilder.create().texOffs(0, 35).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.001F)), PartPose.offset(6.0F, -2.0F, -3.0F));
+        all.addOrReplaceChild("front_right_leg", CubeListBuilder.create().texOffs(8, 35).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.001F)), PartPose.offset(-6.0F, -2.0F, -3.0F));
+        all.addOrReplaceChild("back_left_leg", CubeListBuilder.create().texOffs(44, 56).mirror().addBox(-1.0F, 0.0F, -5.0F, 4.0F, 2.0F, 6.0F, new CubeDeformation(0.001F)).mirror(false), PartPose.offset(7.0F, -2.0F, 5.0F));
+        all.addOrReplaceChild("back_right_leg", CubeListBuilder.create().texOffs(44, 56).addBox(-3.0F, 0.0F, -5.0F, 4.0F, 2.0F, 6.0F, new CubeDeformation(0.001F)), PartPose.offset(-7.0F, -2.0F, 5.0F));
 
         return LayerDefinition.create(meshDefinition, 64, 64);
     }

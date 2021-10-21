@@ -40,6 +40,7 @@ public class IEParticleTypes {
     public static final RegistryObject<SimpleParticleType> GLOWSTONE_SPARKLE = PARTICLES.register("glowstone_sparkle", () -> new SimpleParticleType(false));
     public static final RegistryObject<SimpleParticleType> INFECTION = PARTICLES.register("infection", () -> new SimpleParticleType(false));
 
+    @SuppressWarnings("resource")
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
     public static void registerParticleFactories(ParticleFactoryRegisterEvent event) {

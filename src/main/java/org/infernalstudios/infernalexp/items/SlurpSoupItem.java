@@ -20,8 +20,6 @@ import net.minecraft.world.item.BowlFoodItem;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 
-import net.minecraft.world.item.Item.Properties;
-
 public class SlurpSoupItem extends BowlFoodItem {
     public SlurpSoupItem(Properties builder) {
         super(builder);

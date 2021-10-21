@@ -32,6 +32,7 @@ public class Title extends AbstractWidget {
         super(x, y, width, height, title);
     }
 
+    @SuppressWarnings("resource")
     @Override
     public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         drawCenteredString(matrixStack, Minecraft.getInstance().font, getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, 0xFFFFFF);

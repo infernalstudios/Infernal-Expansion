@@ -24,6 +24,7 @@ public class InfectionHeartOverlay {
     protected int heartOffset;
     private static final ResourceLocation INFECTION_HEART_TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID, "textures/gui/infection_gui.png");
 
+    @SuppressWarnings("resource")
     @SubscribeEvent(priority = EventPriority.LOW)
     public void onPreRender(RenderGameOverlayEvent.Pre event) {
         if (event.getType() != RenderGameOverlayEvent.ElementType.ALL || event.isCanceled()) {
