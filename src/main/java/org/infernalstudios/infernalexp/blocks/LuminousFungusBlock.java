@@ -40,7 +40,7 @@ import net.minecraft.world.level.levelgen.feature.HugeFungusConfiguration;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.infernalstudios.infernalexp.blockentities.GlowCampfireBlockEntity;
+import org.infernalstudios.infernalexp.blockentities.LuminousFungusBlockEntity;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IEConfiguredFeatures;
@@ -48,7 +48,7 @@ import org.infernalstudios.infernalexp.init.IEEffects;
 
 import java.util.Random;
 
-public class LuminousFungusBlock extends HorizontalBushBlock implements BonemealableBlock, EntityBlock, BlockEntityTicker {
+public class LuminousFungusBlock extends HorizontalBushBlock implements BonemealableBlock, EntityBlock, BlockEntityTicker<LuminousFungusBlockEntity> {
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     protected static final VoxelShape FLOOR_SHAPE = box(5.0D, 0.0D, 5.0D, 11.0D, 10.0D, 11.0D);
     protected static final VoxelShape CEILING_SHAPE = box(5.0D, 6.0D, 5.0D, 11.0D, 16.0D, 11.0D);
@@ -136,11 +136,11 @@ public class LuminousFungusBlock extends HorizontalBushBlock implements Bonemeal
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new GlowCampfireBlockEntity(pos, state);
+        return new LuminousFungusBlockEntity(pos, state);
     }
 
     @Override
-    public void tick(Level p_155253_, BlockPos p_155254_, BlockState p_155255_, BlockEntity p_155256_) {
+    public void tick(Level p_155253_, BlockPos p_155254_, BlockState p_155255_, LuminousFungusBlockEntity p_155256_) {
 
     }
 }
