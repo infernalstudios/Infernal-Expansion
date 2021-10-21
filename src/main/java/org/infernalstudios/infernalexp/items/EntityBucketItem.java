@@ -52,8 +52,8 @@ public class EntityBucketItem extends BucketItem {
 
     @Override
     public void checkExtraContent(@Nullable Player player, Level world, ItemStack stack, BlockPos pos) {
-        if (world instanceof ServerLevel) {
-            this.placeEntity((ServerLevel) world, stack, pos);
+        if (world instanceof ServerLevel serverWorld) {
+            this.placeEntity(serverWorld, stack, pos);
         }
     }
 
@@ -64,10 +64,9 @@ public class EntityBucketItem extends BucketItem {
 
     private void placeEntity(ServerLevel worldIn, ItemStack stack, BlockPos pos) {
         Entity entity = this.entityTypeSupplier.get().spawn(worldIn, stack, null, pos, MobSpawnType.BUCKET, true, true);
-        if (entity instanceof IBucketable) {
-            IBucketable bucketable = (IBucketable) entity;
-            bucketable.copyFromAdditional(stack.getOrCreateTag());
-            bucketable.setFromBucket(true);
+        if (entity instanceof IBucketable bucketableEntity) {
+            bucketableEntity.copyFromAdditional(stack.getOrCreateTag());
+            bucketableEntity.setFromBucket(true);
         }
     }
 

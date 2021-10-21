@@ -70,8 +70,8 @@ public class ThrowableFireChargeEntity extends Fireball {
             Entity entity = result.getEntity();
             Entity entity1 = this.getOwner();
             entity.hurt(DamageSource.fireball(this, entity1), 6.0F);
-            if (entity1 instanceof LivingEntity) {
-                this.doEnchantDamageEffects((LivingEntity) entity1, entity);
+            if (entity1 instanceof LivingEntity livingEntity) {
+                this.doEnchantDamageEffects(livingEntity, entity);
             }
 
         }

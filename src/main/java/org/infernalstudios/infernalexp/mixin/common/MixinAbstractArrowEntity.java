@@ -83,8 +83,7 @@ public class MixinAbstractArrowEntity implements AbstractArrowEntityAccess {
 
     @Inject(at = @At("RETURN"), method = "setOwner", remap = false)
     private void setShooterInfernalExpansion(Entity entityIn, CallbackInfo ci) {
-        if (entityIn instanceof LivingEntity) {
-            LivingEntity livingEntity = (LivingEntity) entityIn;
+        if (entityIn instanceof LivingEntity livingEntity) {
             if (livingEntity.hasEffect(IEEffects.INFECTION.get())) {
                 this.setInfectedSource(true);
                 this.setInfection(true);

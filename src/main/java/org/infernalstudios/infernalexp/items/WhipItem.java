@@ -167,7 +167,7 @@ public class WhipItem extends TieredItem implements Vanishable {
             setTicksSinceAttack(stack, getTicksSinceAttack(stack) + 1);
         }
 
-        if (getTicksSinceAttack(stack) >= 30 || (!isSelected && entityIn instanceof Player && ((Player) entityIn).getOffhandItem() != stack)) {
+        if (getTicksSinceAttack(stack) >= 30 || (!isSelected && entityIn instanceof Player player && player.getOffhandItem() != stack)) {
             setTicksSinceAttack(stack, 0);
             setAttacking(stack, false);
             setCharging(stack, false);

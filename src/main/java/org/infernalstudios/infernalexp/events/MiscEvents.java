@@ -141,9 +141,7 @@ public class MiscEvents {
             event.getPlayer().getBoundingBox().inflate(32.0D));
         for (int j = 0; j < list.size(); j++) {
             Entity entity = (Entity) list.get(j);
-            if (entity instanceof ShroomloinEntity) {
-                ShroomloinEntity shroomloinEntity = (ShroomloinEntity) entity;
-
+            if (entity instanceof ShroomloinEntity shroomloinEntity) {
                 if (shroomloinEntity.getShroomloinType() == IEShroomloinTypes.CRIMSON) {
                     if (IETags.Blocks.ANGER_CRIMSON_SHROOMLOIN_BLOCKS.contains(state.getBlock())) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
@@ -363,18 +361,18 @@ public class MiscEvents {
         LivingEntity entity = event.getEntityLiving();
 
         // Make sure we are checking potion effects on the server, not client
-        if (entity.isEffectiveAi() && entity.getCommandSenderWorld() instanceof ServerLevel) {
+        if (entity.isEffectiveAi() && entity.getCommandSenderWorld() instanceof ServerLevel world) {
             if (entity.hasEffect(IEEffects.INFECTION.get())) {
                 if ((entity.getEffect(IEEffects.INFECTION.get()).getDuration() & 10) == 0 && entity.getEffect(IEEffects.INFECTION.get()).isVisible()) {
                     // Use ServerWorld#spawnParticle instead of World#addParticle because this code is running on the server side
-                    ((ServerLevel) entity.getCommandSenderWorld()).sendParticles(IEParticleTypes.INFECTION.get(), entity.getRandomX(entity.getBoundingBox().getXsize()), entity.getRandomY(), entity.getRandomZ(entity.getBoundingBox().getZsize()), 0, 0, 0, 0, 1);
+                    world.sendParticles(IEParticleTypes.INFECTION.get(), entity.getRandomX(entity.getBoundingBox().getXsize()), entity.getRandomY(), entity.getRandomZ(entity.getBoundingBox().getZsize()), 0, 0, 0, 0, 1);
                 }
             }
 
             if (entity.hasEffect(IEEffects.LUMINOUS.get())) {
                 if ((entity.getEffect(IEEffects.LUMINOUS.get()).getDuration() & 50) == 0 && entity.getEffect(IEEffects.LUMINOUS.get()).isVisible()) {
                     // Use ServerWorld#spawnParticle instead of World#addParticle because this code is running on the server side
-                    ((ServerLevel) entity.getCommandSenderWorld()).sendParticles(IEParticleTypes.GLOWSTONE_SPARKLE.get(), entity.getRandomX(entity.getBoundingBox().getXsize()), entity.getRandomY(), entity.getRandomZ(entity.getBoundingBox().getZsize()), 0, 0, 0, 0, 0.2);
+                    world.sendParticles(IEParticleTypes.GLOWSTONE_SPARKLE.get(), entity.getRandomX(entity.getBoundingBox().getXsize()), entity.getRandomY(), entity.getRandomZ(entity.getBoundingBox().getZsize()), 0, 0, 0, 0, 0.2);
                 }
 
                 if ((entity instanceof Zombie && !(entity instanceof ZombifiedPiglin)) || entity instanceof Skeleton) {
@@ -396,12 +394,12 @@ public class MiscEvents {
 
     @SubscribeEvent
     public void onEntityJoin(EntityJoinWorldEvent event) {
-        if (event.getEntity() instanceof AreaEffectCloud) {
-            for (MobEffectInstance effect : ((AreaEffectCloud) event.getEntity()).potion.getEffects()) {
+        if (event.getEntity() instanceof AreaEffectCloud entity) {
+            for (MobEffectInstance effect : entity.potion.getEffects()) {
                 if (effect.getEffect() == IEEffects.INFECTION.get()) {
-                    ((AreaEffectCloud) event.getEntity()).setParticle(IEParticleTypes.INFECTION.get());
+                    entity.setParticle(IEParticleTypes.INFECTION.get());
                 } else if (effect.getEffect() == IEEffects.LUMINOUS.get()) {
-                    ((AreaEffectCloud) event.getEntity()).setParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get());
+                    entity.setParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get());
                 }
             }
         }
@@ -412,11 +410,11 @@ public class MiscEvents {
         LivingEntity entity = event.getEntityLiving();
 
         // If entity has infection, on hit, make a splash of particles
-        if (entity.isEffectiveAi() && entity.getCommandSenderWorld() instanceof ServerLevel) {
+        if (entity.isEffectiveAi() && entity.getCommandSenderWorld() instanceof ServerLevel world) {
             if (entity.hasEffect(IEEffects.INFECTION.get())) {
                 if (event.getSource() != DamageSource.MAGIC) {
                     for (int i = 0; i < 32; i++) {
-                        ((ServerLevel) entity.getCommandSenderWorld()).sendParticles(IEParticleTypes.INFECTION.get(), entity.getRandomX(1), entity.getRandomY(), entity.getRandomZ(1), 1, 0, 0, 0, 1);
+                        world.sendParticles(IEParticleTypes.INFECTION.get(), entity.getRandomX(1), entity.getRandomY(), entity.getRandomZ(1), 1, 0, 0, 0, 1);
                     }
                 }
             }

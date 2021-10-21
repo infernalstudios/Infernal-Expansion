@@ -39,8 +39,7 @@ public class GlowsilkBowItem extends BowItem {
 
     @Override
     public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
-        if (entityLiving instanceof Player) {
-            Player playerEntity = (Player) entityLiving;
+        if (entityLiving instanceof Player playerEntity) {
             ItemStack itemStack = playerEntity.getProjectile(stack);
             boolean hasInfinity = playerEntity.getAbilities().instabuild || EnchantmentHelper.getItemEnchantmentLevel(Enchantments.INFINITY_ARROWS, stack) > 0;
 
@@ -57,7 +56,7 @@ public class GlowsilkBowItem extends BowItem {
                 float velocity = getPowerForTime(ticksUsed);
 
                 if (!((double) velocity < 0.1D)) {
-                    boolean isArrowInfinite = playerEntity.getAbilities().instabuild || (itemStack.getItem() instanceof ArrowItem && ((ArrowItem) itemStack.getItem()).isInfinite(itemStack, stack, playerEntity));
+                    boolean isArrowInfinite = playerEntity.getAbilities().instabuild || (itemStack.getItem() instanceof ArrowItem arrowItem && arrowItem.isInfinite(itemStack, stack, playerEntity));
 
                     if (!worldIn.isClientSide) {
                         ArrowItem arrowItem = (ArrowItem) (itemStack.getItem() instanceof ArrowItem ? itemStack.getItem() : Items.ARROW);

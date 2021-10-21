@@ -143,8 +143,7 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
     @Override
     public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
         if (!worldIn.isClientSide()) {
-            if (entityIn instanceof LivingEntity && entityIn.isAlive() && !(entityIn instanceof BlindsightEntity)) {
-                LivingEntity livingEntity = (LivingEntity) entityIn;
+            if (entityIn instanceof LivingEntity livingEntity && entityIn.isAlive() && !(entityIn instanceof BlindsightEntity)) {
                 livingEntity.addEffect(new MobEffectInstance(IEEffects.LUMINOUS.get(), 200, 0, true, true));
             }
             entityIn.hurt(DamageSource.CACTUS, 1.0F);

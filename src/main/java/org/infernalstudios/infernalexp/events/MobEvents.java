@@ -61,130 +61,106 @@ public class MobEvents {
         //
 
         //Piglins fear Warpbeetles and Embodies
-        if (event.getEntity() instanceof Piglin) {
+        if (event.getEntity() instanceof Piglin entity) {
             if (InfernalExpansionConfig.MobInteractions.PIGLIN_FEAR_WARPBEETLE.getBoolean()) {
-                ((Piglin) event.getEntity()).goalSelector.addGoal(4,
-                    new AvoidEntityGoal<>((Piglin) event.getEntity(),
-                        WarpbeetleEntity.class, 16.0F, 1.2D, 1.2D));
+                entity.goalSelector.addGoal(4,
+                        new AvoidEntityGoal<>(entity, WarpbeetleEntity.class, 16.0F, 1.2D, 1.2D));
             }
             if (InfernalExpansionConfig.MobInteractions.PIGLIN_FEAR_EMBODY.getBoolean()) {
-                ((Piglin) event.getEntity()).goalSelector.addGoal(4,
-                    new AvoidEntityGoal<>((Piglin) event.getEntity(),
-                        EmbodyEntity.class, 16.0F, 1.2D, 1.2D));
+                entity.goalSelector.addGoal(4, new AvoidEntityGoal<>(entity, EmbodyEntity.class, 16.0F, 1.2D, 1.2D));
             }
             if (InfernalExpansionConfig.MobInteractions.PIGLIN_FEAR_DWARF.getBoolean()) {
-                ((Piglin) event.getEntity()).goalSelector.addGoal(4,
-                    new AvoidEntityGoal<>((Piglin) event.getEntity(),
-                        BlackstoneDwarfEntity.class, 16.0F, 1.2D, 1.2D));
+                entity.goalSelector.addGoal(4,
+                        new AvoidEntityGoal<>(entity, BlackstoneDwarfEntity.class, 16.0F, 1.2D, 1.2D));
             }
         }
 
-        if (event.getEntity() instanceof Hoglin) {
+        if (event.getEntity() instanceof Hoglin entity) {
             if (InfernalExpansionConfig.MobInteractions.HOGLIN_FEAR_WARPBEETLE.getBoolean()) {
-                ((Hoglin) event.getEntity()).goalSelector.addGoal(4,
-                    new AvoidEntityGoal<>((Hoglin) event.getEntity(),
-                        WarpbeetleEntity.class, 16.0F, 1.2D, 1.2D));
+                entity.goalSelector.addGoal(4,
+                        new AvoidEntityGoal<>(entity, WarpbeetleEntity.class, 16.0F, 1.2D, 1.2D));
             }
             if (InfernalExpansionConfig.MobInteractions.HOGLIN_FEAR_EMBODY.getBoolean()) {
-                ((Hoglin) event.getEntity()).goalSelector.addGoal(4,
-                    new AvoidEntityGoal<>((Hoglin) event.getEntity(),
-                        EmbodyEntity.class, 16.0F, 1.2D, 1.2D));
+                entity.goalSelector.addGoal(4, new AvoidEntityGoal<>(entity, EmbodyEntity.class, 16.0F, 1.2D, 1.2D));
             }
         }
 
         //
-        //ATTACK!!
+        // ATTACK!!
         //
 
-        //Spiders attack Warp beetles
-        if (event.getEntity() instanceof Spider && InfernalExpansionConfig.MobInteractions.SPIDER_ATTACK_WARPBEETLE.getBoolean()) {
-            ((Spider) event.getEntity()).targetSelector.addGoal(4,
-                new NearestAttackableTargetGoal<>((Spider) event.getEntity(),
-                    WarpbeetleEntity.class, true, false));
+        // Spiders attack Warp beetles
+        if (event.getEntity() instanceof Spider entity
+                && InfernalExpansionConfig.MobInteractions.SPIDER_ATTACK_WARPBEETLE.getBoolean()) {
+            entity.targetSelector.addGoal(4,
+                    new NearestAttackableTargetGoal<>(entity, WarpbeetleEntity.class, true, false));
         }
 
-
-        //Skeletons attacks Piglins, Brutes, Embodies & Basalt Giants
-        if (event.getEntity() instanceof Skeleton) {
+        // Skeletons attacks Piglins, Brutes, Embodies & Basalt Giants
+        if (event.getEntity() instanceof Skeleton entity) {
             if (InfernalExpansionConfig.MobInteractions.SKELETON_ATTACK_PIGLIN.getBoolean()) {
-                ((Skeleton) event.getEntity()).targetSelector.addGoal(2,
-                    new NearestAttackableTargetGoal<>((Skeleton) event.getEntity(),
-                        Piglin.class, true, false));
+                entity.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(entity, Piglin.class, true, false));
             }
             if (InfernalExpansionConfig.MobInteractions.SKELETON_ATTACK_BRUTE.getBoolean()) {
-                ((Skeleton) event.getEntity()).targetSelector.addGoal(2,
-                    new NearestAttackableTargetGoal<>((Skeleton) event.getEntity(),
-                        PiglinBrute.class, true, false));
+                entity.targetSelector.addGoal(2,
+                        new NearestAttackableTargetGoal<>(entity, PiglinBrute.class, true, false));
             }
             if (InfernalExpansionConfig.MobInteractions.SKELETON_ATTACK_EMBODY.getBoolean()) {
-                ((Skeleton) event.getEntity()).targetSelector.addGoal(3,
-                    new NearestAttackableTargetGoal<>((Skeleton) event.getEntity(),
-                        EmbodyEntity.class, true, false));
+                entity.targetSelector.addGoal(3,
+                        new NearestAttackableTargetGoal<>(entity, EmbodyEntity.class, true, false));
             }
             if (InfernalExpansionConfig.MobInteractions.SKELETON_ATTACK_GIANT.getBoolean()) {
-                ((Skeleton) event.getEntity()).targetSelector.addGoal(2,
-                    new NearestAttackableTargetGoal<>((Skeleton) event.getEntity(),
-                        BasaltGiantEntity.class, true, false));
+                entity.targetSelector.addGoal(2,
+                        new NearestAttackableTargetGoal<>(entity, BasaltGiantEntity.class, true, false));
             }
         }
 
-        //Piglins attack Skeletons & Voline
-        if (event.getEntity() instanceof Piglin) {
+        // Piglins attack Skeletons & Voline
+        if (event.getEntity() instanceof Piglin entity) {
             if (InfernalExpansionConfig.MobInteractions.PIGLIN_ATTACK_SKELETON.getBoolean()) {
-                ((Piglin) event.getEntity()).targetSelector.addGoal(2,
-                    new NearestAttackableTargetGoal<>((Piglin) event.getEntity(),
-                        Skeleton.class, true, false));
+                entity.targetSelector.addGoal(2,
+                        new NearestAttackableTargetGoal<>(entity, Skeleton.class, true, false));
             }
             if (InfernalExpansionConfig.MobInteractions.PIGLIN_ATTACK_VOLINE.getBoolean()) {
-                ((Piglin) event.getEntity()).targetSelector.addGoal(2,
-                    new NearestAttackableTargetGoal<>((Piglin) event.getEntity(),
-                        VolineEntity.class, true, false));
+                entity.targetSelector.addGoal(2,
+                        new NearestAttackableTargetGoal<>(entity, VolineEntity.class, true, false));
             }
         }
 
-        if (event.getEntity() instanceof PiglinBrute) {
+        if (event.getEntity() instanceof PiglinBrute entity) {
             if (InfernalExpansionConfig.MobInteractions.BRUTE_ATTACK_SKELETON.getBoolean()) {
-                ((PiglinBrute) event.getEntity()).targetSelector.addGoal(2,
-                    new NearestAttackableTargetGoal<>((PiglinBrute) event.getEntity(),
-                        Skeleton.class, true, false));
+                entity.targetSelector.addGoal(2,
+                        new NearestAttackableTargetGoal<>(entity, Skeleton.class, true, false));
             }
             if (InfernalExpansionConfig.MobInteractions.BRUTE_ATTACK_VOLINE.getBoolean()) {
-                ((PiglinBrute) event.getEntity()).targetSelector.addGoal(2,
-                    new NearestAttackableTargetGoal<>((PiglinBrute) event.getEntity(),
-                        VolineEntity.class, true, false));
+                entity.targetSelector.addGoal(2,
+                        new NearestAttackableTargetGoal<>(entity, VolineEntity.class, true, false));
             }
         }
 
-
-        //Ghasts attack Voline, Embodies, Skeletons
-        if (event.getEntity() instanceof Ghast) {
+        // Ghasts attack Voline, Embodies, Skeletons
+        if (event.getEntity() instanceof Ghast entity) {
             if (InfernalExpansionConfig.MobInteractions.GHAST_ATTACK_GLOWSQUITO.getBoolean()) {
-                ((Ghast) event.getEntity()).targetSelector.addGoal(4,
-                    new NearestAttackableTargetGoal<>((Ghast) event.getEntity(),
-                        GlowsquitoEntity.class, true, false));
+                entity.targetSelector.addGoal(4,
+                        new NearestAttackableTargetGoal<>(entity, GlowsquitoEntity.class, true, false));
             }
 
             if (InfernalExpansionConfig.MobInteractions.GHAST_ATTACK_EMBODY.getBoolean()) {
-                ((Ghast) event.getEntity()).targetSelector.addGoal(3,
-                    new NearestAttackableTargetGoal<>((Ghast) event.getEntity(),
-                        EmbodyEntity.class, true, false));
+                entity.targetSelector.addGoal(3,
+                        new NearestAttackableTargetGoal<>(entity, EmbodyEntity.class, true, false));
             }
             if (InfernalExpansionConfig.MobInteractions.GHAST_ATTACK_VOLINE.getBoolean()) {
-                ((Ghast) event.getEntity()).targetSelector.addGoal(2,
-                    new NearestAttackableTargetGoal<>((Ghast) event.getEntity(),
-                        VolineEntity.class, true, false));
+                entity.targetSelector.addGoal(2,
+                        new NearestAttackableTargetGoal<>(entity, VolineEntity.class, true, false));
             }
             if (InfernalExpansionConfig.MobInteractions.GHAST_ATTACK_SKELETON.getBoolean()) {
-                ((Ghast) event.getEntity()).targetSelector.addGoal(3,
-                    new NearestAttackableTargetGoal<>((Ghast) event.getEntity(),
-                        Skeleton.class, true, false));
+                entity.targetSelector.addGoal(3,
+                        new NearestAttackableTargetGoal<>(entity, Skeleton.class, true, false));
             }
         }
 
-        if (event.getEntity() instanceof MagmaCube) {
-            ((MagmaCube) event.getEntity()).goalSelector.addGoal(0,
-                new AvoidBlockGoal((MagmaCube) event.getEntity(), IETags.Blocks.MAGMA_CUBE_AVOID_BLOCKS,
-                    8));
+        if (event.getEntity() instanceof MagmaCube entity) {
+            entity.goalSelector.addGoal(0, new AvoidBlockGoal(entity, IETags.Blocks.MAGMA_CUBE_AVOID_BLOCKS, 8));
         }
     }
 

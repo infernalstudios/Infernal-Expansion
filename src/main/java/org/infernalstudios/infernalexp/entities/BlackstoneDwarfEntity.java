@@ -103,7 +103,7 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements NeutralMob {
         float f1 = (int) f > 0 ? f / 2.0F + (float) this.random.nextInt((int) f) : f;
         float f2 = (float) this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
 
-        if (entityIn instanceof Player && ((Player) entityIn).getUseItem().canPerformAction(ToolActions.SHIELD_BLOCK)) {
+        if (entityIn instanceof Player player && player.getUseItem().canPerformAction(ToolActions.SHIELD_BLOCK)) {
             attackFling(entityIn, f2 * 3, 2.0);
             entityIn.hurtMarked = true;
             disableShield = true;

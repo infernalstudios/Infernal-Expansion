@@ -116,8 +116,8 @@ public class InfernalExpansion {
         MinecraftForge.EVENT_BUS.register(new IECapabilities());
 
         // Registering Configs
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigHolder.CLIENT_SPEC);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigHolder.COMMON_SPEC);
+        modLoadingContext.registerConfig(ModConfig.Type.CLIENT, ConfigHolder.CLIENT_SPEC);
+        modLoadingContext.registerConfig(ModConfig.Type.COMMON, ConfigHolder.COMMON_SPEC);
 
         // Baking Configs
         ConfigHelper.bakeClient(null);

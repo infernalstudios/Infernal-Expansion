@@ -37,8 +37,7 @@ public class DullthornsBlockBlock extends Block {
     @Override
     public void stepOn(Level worldIn, BlockPos pos, BlockState state, Entity entityIn) {
         if (!worldIn.isClientSide()) {
-            if (entityIn instanceof LivingEntity && entityIn.isAlive() && !(entityIn instanceof BlindsightEntity)) {
-                LivingEntity livingEntity = (LivingEntity) entityIn;
+            if (entityIn instanceof LivingEntity livingEntity && entityIn.isAlive() && !(entityIn instanceof BlindsightEntity)) {
                 livingEntity.addEffect(new MobEffectInstance(IEEffects.LUMINOUS.get(), 300, 0));
             }
             entityIn.hurt(DamageSource.CACTUS, 1.0F);

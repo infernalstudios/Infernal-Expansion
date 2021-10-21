@@ -101,8 +101,8 @@ public class InfernalPaintingEntity extends Painting {
         if (level.getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
             playSound(SoundEvents.PAINTING_BREAK, 1.0F, 1.0F);
 
-            if (brokenEntity instanceof Player) {
-                if (((Player) brokenEntity).getAbilities().instabuild) {
+            if (brokenEntity instanceof Player player) {
+                if (player.getAbilities().instabuild) {
                     return;
                 }
             }

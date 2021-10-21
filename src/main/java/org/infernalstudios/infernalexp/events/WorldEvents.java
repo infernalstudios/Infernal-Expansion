@@ -85,9 +85,7 @@ public class WorldEvents {
 
     @SubscribeEvent
     public void addDimensionalSpacing(final WorldEvent.Load event) {
-        if (event.getWorld() instanceof ServerLevel) {
-            ServerLevel world = (ServerLevel) event.getWorld();
-
+        if (event.getWorld() instanceof ServerLevel world) {
             try {
                 Method GETCODEC_METHOD = ObfuscationReflectionHelper.findMethod(ChunkGenerator.class, "codec");
 

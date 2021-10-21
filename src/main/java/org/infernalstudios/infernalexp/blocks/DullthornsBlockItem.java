@@ -56,9 +56,9 @@ public class DullthornsBlockItem extends BlockItemBase {
             // Prevent placing outside world
             if (!world.isClientSide && !world.isInWorldBounds(placepos)) {
                 Player player = context.getPlayer();
-                if (player instanceof ServerPlayer && placepos.getY() >= worldHeight) {
+                if (player instanceof ServerPlayer serverPlayer && placepos.getY() >= worldHeight) {
                     ClientboundChatPacket schatpacket = new ClientboundChatPacket((new TranslatableComponent("build.tooHigh", worldHeight)).withStyle(ChatFormatting.RED), ChatType.GAME_INFO, Util.NIL_UUID);
-                    ((ServerPlayer) player).connection.send(schatpacket);
+                    serverPlayer.connection.send(schatpacket);
                 }
                 return null;
             }

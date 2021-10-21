@@ -117,8 +117,7 @@ public class ShroomloinType {
     }
 
     public boolean equals(Object obj) {
-        if (obj instanceof ShroomloinType) {
-            final ShroomloinType type = (ShroomloinType) obj;
+        if (obj instanceof final ShroomloinType type) {
             return type.getId().equals(this.getId()) &&
                 type.getConversionItem().equals(this.getConversionItem()) &&
                 type.getTextureLocation().equals(this.getTextureLocation()) &&

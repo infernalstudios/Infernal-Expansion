@@ -151,8 +151,8 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
     @Override
     protected void doPush(Entity entityIn) {
         super.doPush(entityIn);
-        if (!this.isBaby() && entityIn instanceof LivingEntity && !(entityIn instanceof GlowsquitoEntity)) {
-            ((LivingEntity) entityIn).addEffect(new MobEffectInstance(IEEffects.LUMINOUS.get(), 200));
+        if (!this.isBaby() && entityIn instanceof LivingEntity livingEntity && !(entityIn instanceof GlowsquitoEntity)) {
+            livingEntity.addEffect(new MobEffectInstance(IEEffects.LUMINOUS.get(), 200));
         }
     }
 
@@ -396,9 +396,9 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
         if (!super.doHurtTarget(entityIn)) {
             return false;
         } else {
-            if (entityIn instanceof LivingEntity) {
-                ((LivingEntity) entityIn).addEffect(new MobEffectInstance(IEEffects.LUMINOUS.get(), 600, 0, true, true)); // 30s
-                ((LivingEntity) entityIn).addEffect(new MobEffectInstance(MobEffects.POISON, 100)); // 5s
+            if (entityIn instanceof LivingEntity livingEntity) {
+                livingEntity.addEffect(new MobEffectInstance(IEEffects.LUMINOUS.get(), 600, 0, true, true)); // 30s
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 100)); // 5s
             }
 
             return true;
