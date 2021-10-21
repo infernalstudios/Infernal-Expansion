@@ -75,6 +75,15 @@ minecraft {
     }
 }
 
+mixin {
+    add sourceSets.main, "infernal-expansion.refmap.json"
+    config "infernal-expansion.mixins.json"
+
+    debug.verbose = true
+    debug.export = true
+    dumpTargetOnFailure = true
+}
+
 repositories {
     maven { url = 'https://repo.spongepowered.org/maven/' }
 
