@@ -18,6 +18,15 @@
       ]
     },
     {
+      "accepted_item": "minecraft:raw_gold",
+      "returned_items": [
+        {
+          "item": "infernalexp:molten_gold_cluster",
+          "amount": 1
+        }
+      ]
+    },
+    {
       "accepted_item": "minecraft:gold_block",
       "returned_items": [
         {
@@ -27,7 +36,25 @@
       ]
     },
     {
+      "accepted_item": "minecraft:raw_gold_block",
+      "returned_items": [
+        {
+          "item": "infernalexp:molten_gold_cluster",
+          "amount": 9
+        }
+      ]
+    },
+    {
       "accepted_item": "minecraft:gold_ore",
+      "returned_items": [
+        {
+          "item": "infernalexp:molten_gold_cluster",
+          "amount": 3
+        }
+      ]
+    },
+    {
+      "accepted_item": "minecraft:deepslate_gold_ore",
       "returned_items": [
         {
           "item": "infernalexp:molten_gold_cluster",
