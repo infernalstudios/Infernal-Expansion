@@ -17,20 +17,19 @@
 package org.infernalstudios.infernalexp.config.gui.screens;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-
-import org.infernalstudios.infernalexp.config.ConfigHelper;
-
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.OptionsSubScreen;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.OptionsList;
-import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.client.gui.components.Widget;
+import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.gui.screens.OptionsSubScreen;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
-
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.infernalstudios.infernalexp.config.ConfigHelper;
 
 import java.util.List;
 
@@ -62,6 +61,13 @@ public abstract class IESettingsScreen extends Screen {
         renderBackground(matrixStack);
 
         optionsRowList.render(matrixStack, mouseX, mouseY, partialTicks);
+
+        // Render widgets not in OptionsList
+        for (GuiEventListener child : children()) {
+            if (child instanceof Widget widget) {
+                widget.render(matrixStack, mouseX, mouseY, partialTicks);
+            }
+        }
 
         List<FormattedCharSequence> list = OptionsSubScreen.tooltipAt(optionsRowList, mouseX, mouseY);
         if (list != null) {

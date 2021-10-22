@@ -19,6 +19,8 @@ package org.infernalstudios.infernalexp.config.gui.screens;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Widget;
+import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.api.distmarker.Dist;
@@ -49,6 +51,13 @@ public class ConfigScreen extends Screen {
     @Override
     public void render(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         renderBackground(matrixStack);
+
+        // Render widgets
+        for (GuiEventListener child : children()) {
+            if (child instanceof Widget widget) {
+                widget.render(matrixStack, mouseX, mouseY, partialTicks);
+            }
+        }
 
         // The parameter names for this function are wrong. The three integers at the end should be x, y, color
         drawCenteredString(matrixStack, font, title, width / 2, 8, 0xFFFFFF);
