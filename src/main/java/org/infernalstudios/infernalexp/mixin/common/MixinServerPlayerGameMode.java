@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-package org.infernalstudios.infernalexp.mixin.client;
+package org.infernalstudios.infernalexp.mixin.common;
 
-import net.minecraft.client.entity.player.ClientPlayerEntity;
-import net.minecraft.client.multiplayer.PlayerController;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerPlayerGameMode;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.MinecraftForge;
 import org.infernalstudios.infernalexp.events.PostRightClickBlockEvent;
 import org.spongepowered.asm.mixin.Mixin;
@@ -29,12 +30,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(PlayerController.class)
-public class MixinPlayerController {
-
-    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/GameType;isCreative()Z"), method = "func_217292_a")
-    private void IE_firePostRightClickBlockEventClient(ClientPlayerEntity player, ClientWorld world, Hand hand, BlockRayTraceResult hitVec, CallbackInfoReturnable<ActionResultType> cir) {
-        MinecraftForge.EVENT_BUS.post(new PostRightClickBlockEvent(player, hand, hitVec.getPos(), hitVec));
+@Mixin(ServerPlayerGameMode.class)
+public class MixinServerPlayerGameMode {
+    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayerGameMode;isCreative()Z"), method = "useItemOn")
+    private void IE_firePostRightClickBlockEventServer(ServerPlayer player, Level world, ItemStack stack, InteractionHand hand, BlockHitResult hitVec, CallbackInfoReturnable<InteractionResult> cir) {
+        MinecraftForge.EVENT_BUS.post(new PostRightClickBlockEvent(player, hand, hitVec.getBlockPos(), hitVec));
     }
 
 }

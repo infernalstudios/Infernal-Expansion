@@ -173,11 +173,11 @@ public class MiscEvents {
 
 
     @SubscribeEvent
-    public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+    public void onRightClickBlock(PostRightClickBlockEvent event) {
         ItemStack heldItemStack = event.getItemStack();
         Level world = event.getWorld();
         BlockPos pos = event.getPos();
-        Direction face = event.getFace();
+        Direction face = event.getDirection();
         Player player = event.getPlayer();
         if (heldItemStack.getItem() == Items.BONE) {
             pos = pos.relative(face);

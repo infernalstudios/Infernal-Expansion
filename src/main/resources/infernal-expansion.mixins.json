@@ -19,7 +19,7 @@
     "common.MixinEntity",
     "common.MixinMagmaCubeEntity",
     "common.MixinPaintingEntity",
-    "common.MixinPlayerInteractionManager",
+    "common.MixinServerPlayerGameMode",
     "common.MixinShearsItem",
     "common.MixinShovelItem",
     "common.MixinStriderEntity",
@@ -33,7 +33,7 @@
     "client.MixinModelBakery",
     "client.MixinOverlayRenderer",
     "client.MixinPaintingSpriteUploader",
-    "client.MixinPlayerController",
+    "client.MixinMultiPlayerGameMode",
     "client.MixinPlayerRenderer"
   ]
 }
