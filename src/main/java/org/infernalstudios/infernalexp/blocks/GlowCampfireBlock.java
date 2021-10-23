@@ -17,11 +17,16 @@
 package org.infernalstudios.infernalexp.blocks;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.CampfireBlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import org.infernalstudios.infernalexp.blockentities.GlowCampfireBlockEntity;
+import org.infernalstudios.infernalexp.init.IEBlockEntityTypes;
 
 public class GlowCampfireBlock extends CampfireBlock {
     public GlowCampfireBlock(boolean smokey, int fireDamage, BlockBehaviour.Properties properties) {
@@ -31,5 +36,14 @@ public class GlowCampfireBlock extends CampfireBlock {
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new GlowCampfireBlockEntity(pos, state);
+    }
+
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
+        if (world.isClientSide) {
+            return state.getValue(LIT) ? createTickerHelper(type, IEBlockEntityTypes.GLOW_CAMPFIRE.get(), CampfireBlockEntity::particleTick) : null;
+        } else {
+            return state.getValue(LIT) ? createTickerHelper(type, IEBlockEntityTypes.GLOW_CAMPFIRE.get(), CampfireBlockEntity::cookTick) : createTickerHelper(type, IEBlockEntityTypes.GLOW_CAMPFIRE.get(), CampfireBlockEntity::cooldownTick);
+        }
     }
 }

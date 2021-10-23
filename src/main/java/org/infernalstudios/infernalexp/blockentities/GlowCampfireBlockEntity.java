@@ -28,6 +28,7 @@ public class GlowCampfireBlockEntity extends CampfireBlockEntity {
         super(pos, state);
     }
 
+    @Override
     public BlockEntityType<?> getType() {
         return IEBlockEntityTypes.GLOW_CAMPFIRE.get();
     }
