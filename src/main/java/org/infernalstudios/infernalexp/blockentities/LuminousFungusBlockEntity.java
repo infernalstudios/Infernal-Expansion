@@ -36,42 +36,40 @@ public class LuminousFungusBlockEntity extends BlockEntity {
     public int lightTime = 0;
 
     public LuminousFungusBlockEntity(BlockPos pos, BlockState state) {
-        super(IEBlockEntityTypes.LUMINOUS_FUNGUS_TILE_ENTITY.get(), pos, state);
+        super(IEBlockEntityTypes.LUMINOUS_FUNGUS.get(), pos, state);
     }
 
     public static void tick(Level world, BlockPos pos, BlockState state, LuminousFungusBlockEntity blockEntity) {
-        if (!world.isClientSide()) {
-            List<Entity> nearbyEntities = world.getEntitiesOfClass(Entity.class,
-                new AABB(pos).inflate(InfernalExpansionConfig.Miscellaneous.LUMINOUS_FUNGUS_ACTIVATE_DISTANCE.getDouble()));
-            Vec3 blockPos = new Vec3(pos.getX(), pos.getY(), pos.getZ());
-            nearbyEntities.removeIf((entity) -> {
-                Vec3 entityPos = new Vec3(entity.getX(), entity.getEyeY(), entity.getZ());
-                return world.clip(new ClipContext(blockPos, entityPos, ClipContext.Block.VISUAL, ClipContext.Fluid.NONE, entity)).getType() != HitResult.Type.MISS;
-            });
-            boolean shouldLight = false;
-            for (Entity entity : nearbyEntities) {
-                if (entity.xOld != entity.getX() || entity.yOld != entity.getY() || entity.zOld != entity.getZ()) {
-                    double velX = Math.abs(entity.getX() - entity.xOld);
-                    double velY = Math.abs(entity.getY() - entity.yOld);
-                    double velZ = Math.abs(entity.getZ() - entity.zOld);
-                    if (velX >= (double) 0.003F || velY >= (double) 0.003F || velZ >= (double) 0.003F) {
-                        shouldLight = true;
-                        break;
-                    }
-                } else if (
-                    entity.walkDist - entity.walkDistO > 0 ||
-                        entity.getDeltaMovement().length() > 0.1D
-                ) {
+        List<Entity> nearbyEntities = world.getEntitiesOfClass(Entity.class,
+            new AABB(pos).inflate(InfernalExpansionConfig.Miscellaneous.LUMINOUS_FUNGUS_ACTIVATE_DISTANCE.getDouble()));
+        Vec3 blockPos = new Vec3(pos.getX(), pos.getY(), pos.getZ());
+        nearbyEntities.removeIf((entity) -> {
+            Vec3 entityPos = new Vec3(entity.getX(), entity.getEyeY(), entity.getZ());
+            return world.clip(new ClipContext(blockPos, entityPos, ClipContext.Block.VISUAL, ClipContext.Fluid.NONE, entity)).getType() != HitResult.Type.MISS;
+        });
+        boolean shouldLight = false;
+        for (Entity entity : nearbyEntities) {
+            if (entity.xOld != entity.getX() || entity.yOld != entity.getY() || entity.zOld != entity.getZ()) {
+                double velX = Math.abs(entity.getX() - entity.xOld);
+                double velY = Math.abs(entity.getY() - entity.yOld);
+                double velZ = Math.abs(entity.getZ() - entity.zOld);
+                if (velX >= (double) 0.003F || velY >= (double) 0.003F || velZ >= (double) 0.003F) {
                     shouldLight = true;
                     break;
                 }
+            } else if (
+                entity.walkDist - entity.walkDistO > 0 ||
+                    entity.getDeltaMovement().length() > 0.1D
+            ) {
+                shouldLight = true;
+                break;
             }
-            if (blockEntity.lightTime == 0) {
-                world.setBlockAndUpdate(blockEntity.worldPosition, state.setValue(LuminousFungusBlock.LIT, shouldLight));
-            } else {
-                blockEntity.lightTime--;
-            }
-            if (shouldLight) blockEntity.lightTime = 60;
         }
+        if (blockEntity.lightTime == 0) {
+            world.setBlockAndUpdate(blockEntity.worldPosition, state.setValue(LuminousFungusBlock.LIT, shouldLight));
+        } else {
+            blockEntity.lightTime--;
+        }
+        if (shouldLight) blockEntity.lightTime = 60;
     }
 }

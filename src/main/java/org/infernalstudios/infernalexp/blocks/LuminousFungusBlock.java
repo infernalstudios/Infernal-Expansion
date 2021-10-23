@@ -31,6 +31,7 @@ import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.AttachFace;
@@ -42,10 +43,12 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.infernalstudios.infernalexp.blockentities.LuminousFungusBlockEntity;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
+import org.infernalstudios.infernalexp.init.IEBlockEntityTypes;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IEConfiguredFeatures;
 import org.infernalstudios.infernalexp.init.IEEffects;
 
+import javax.annotation.Nullable;
 import java.util.Random;
 
 public class LuminousFungusBlock extends HorizontalBushBlock implements BonemealableBlock, EntityBlock, BlockEntityTicker<LuminousFungusBlockEntity> {
@@ -137,6 +140,19 @@ public class LuminousFungusBlock extends HorizontalBushBlock implements Bonemeal
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new LuminousFungusBlockEntity(pos, state);
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
+        if (!world.isClientSide())
+            return createTickerHelper(type, IEBlockEntityTypes.LUMINOUS_FUNGUS.get(), LuminousFungusBlockEntity::tick);
+
+        return null;
+    }
+
+    private static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(BlockEntityType<A> type, BlockEntityType<E> correctType, BlockEntityTicker<? super E> ticker) {
+        return type == correctType ? (BlockEntityTicker<A>) ticker : null;
     }
 
     @Override
