@@ -49,17 +49,17 @@ public abstract class MixinEntity implements FireTypeAccess {
         this.entityData.define(FIRE_TYPE, KnownFireTypes.FIRE.getName());
     }
 
-    @Inject(method = "saveWithoutId", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundTag;putShort(Ljava/lang/String;S)V", ordinal = 0, shift = Shift.AFTER), remap = false)
+    @Inject(method = "saveWithoutId", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundTag;putShort(Ljava/lang/String;S)V", ordinal = 0, shift = Shift.AFTER))
     private void IE_writeCustomFires(CompoundTag tag, CallbackInfoReturnable<CompoundTag> ci) {
         tag.putString("fireType", this.getFireType().getName());
     }
 
-    @Inject(method = "load", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundTag;getShort(Ljava/lang/String;)S", ordinal = 0, shift = Shift.AFTER), remap = false)
+    @Inject(method = "load", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundTag;getShort(Ljava/lang/String;)S", ordinal = 0, shift = Shift.AFTER))
     private void IE_readCustomFires(CompoundTag tag, CallbackInfo ci) {
         this.setFireType(KnownFireTypes.byName(tag.getString("fireType")));
     }
 
-    @Inject(method = "lavaHurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setSecondsOnFire(I)V", shift = Shift.BEFORE), remap = false)
+    @Inject(method = "lavaHurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setSecondsOnFire(I)V", shift = Shift.BEFORE))
     private void IE_setCustomFireFromLava(CallbackInfo ci) {
         this.setFireType(KnownFireTypes.FIRE);
     }

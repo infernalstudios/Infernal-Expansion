@@ -59,7 +59,7 @@ public abstract class MixinStriderEntity extends Animal implements ItemSteerable
         super(type, worldIn);
     }
 
-    @Inject(method = "defineSynchedData", at = @At("HEAD"), remap = false)
+    @Inject(method = "defineSynchedData", at = @At("HEAD"))
     private void IE_registerData(CallbackInfo info) {
         this.entityData.define(FROM_BUCKET, false);
     }
@@ -74,17 +74,17 @@ public abstract class MixinStriderEntity extends Animal implements ItemSteerable
         this.entityData.set(FROM_BUCKET, isFromBucket);
     }
 
-    @Inject(method = "addAdditionalSaveData", at = @At("HEAD"), remap = false)
+    @Inject(method = "addAdditionalSaveData", at = @At("HEAD"))
     private void IE_writeAdditional(CompoundTag compound, CallbackInfo ci) {
         compound.putBoolean("FromBucket", this.isFromBucket());
     }
 
-    @Inject(method = "readAdditionalSaveData", at = @At("HEAD"), remap = false)
+    @Inject(method = "readAdditionalSaveData", at = @At("HEAD"))
     private void IE_readAdditional(CompoundTag compound, CallbackInfo ci) {
         this.setFromBucket(compound.getBoolean("FromBucket"));
     }
 
-    @Inject(method = "mobInteract", at = @At("RETURN"), cancellable = true, remap = false)
+    @Inject(method = "mobInteract", at = @At("RETURN"), cancellable = true)
     public void IE_getEntityInteractionResult(Player playerIn, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         InteractionResult resultType = cir.getReturnValue();
         if (this.isBaby()) {
@@ -94,7 +94,7 @@ public abstract class MixinStriderEntity extends Animal implements ItemSteerable
         }
     }
 
-    @Inject(method = "finalizeSpawn", at = @At("HEAD"), cancellable = true, remap = false)
+    @Inject(method = "finalizeSpawn", at = @At("HEAD"), cancellable = true)
     private void IE_onInitialSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag, CallbackInfoReturnable<SpawnGroupData> cir) {
         if (reason == MobSpawnType.BUCKET) {
             spawnDataIn = new AgeableMobGroupData(true);

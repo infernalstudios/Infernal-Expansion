@@ -28,7 +28,7 @@ import net.minecraft.world.item.ShearsItem;
 
 @Mixin(ShearsItem.class)
 public class MixinShearsItem {
-    @Inject(method = "getDestroySpeed", at = @At("HEAD"), cancellable = true, remap = false)
+    @Inject(method = "getDestroySpeed", at = @At("HEAD"), cancellable = true)
     private void IE_getDestroySpeed(ItemStack stack, BlockState state, CallbackInfoReturnable<Float> ci) {
         if (state.is(IEBlocks.DULLTHORNS.get())) ci.setReturnValue(15.0F);
     }

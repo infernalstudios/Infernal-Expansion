@@ -37,7 +37,7 @@ public class MixinCrashReport {
     @Final
     private Throwable exception;
 
-    @Inject(method = "getDetails(Ljava/lang/StringBuilder;)V", at = @At(value = "INVOKE", target = "Ljava/lang/StringBuilder;append(Ljava/lang/String;)Ljava/lang/StringBuilder;", ordinal = 0), remap = false)
+    @Inject(method = "getDetails(Ljava/lang/StringBuilder;)V", at = @At(value = "INVOKE", target = "Ljava/lang/StringBuilder;append(Ljava/lang/String;)Ljava/lang/StringBuilder;", ordinal = 0))
     private void IE_checkForBiomeConfigCrash(StringBuilder builder, CallbackInfo ci) {
         try {
             if (

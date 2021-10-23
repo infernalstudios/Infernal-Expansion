@@ -193,3 +193,11 @@ def parseConfig(File config) {
         return (new ConfigSlurper().parse(prop))
     }
 }
+
+if (System.getProperty("idea.sync.active") == "true") {
+    afterEvaluate {
+        tasks.withType(JavaCompile).all {
+            it.options.annotationProcessorPath = files()
+        }
+    }
+}

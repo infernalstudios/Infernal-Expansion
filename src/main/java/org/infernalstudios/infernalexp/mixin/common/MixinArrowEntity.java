@@ -48,7 +48,7 @@ public abstract class MixinArrowEntity {
     @Shadow
     private Potion potion;
 
-    @Inject(at = @At("RETURN"), method = "setEffectsFromItem", remap = false)
+    @Inject(at = @At("RETURN"), method = "setEffectsFromItem")
     private void setPotionEffectInfernalExpansion(ItemStack stack, CallbackInfo ci) {
         if (this.potion == IEPotions.INFECTION.get() || this.potion == IEPotions.LONG_INFECTION.get() || this.potion == IEPotions.STRONG_INFECTION.get()) {
             ((AbstractArrowEntityAccess) this).setInfection(true);
@@ -58,7 +58,7 @@ public abstract class MixinArrowEntity {
         this.updateColor();
     }
 
-    @Inject(at = @At("RETURN"), method = "addEffect", remap = false)
+    @Inject(at = @At("RETURN"), method = "addEffect")
     private void addEffectInfernalExpansion(MobEffectInstance effect, CallbackInfo ci) {
         for (MobEffectInstance effectInstance : this.effects) {
             if (effectInstance.getEffect() == IEEffects.INFECTION.get()) {
@@ -70,7 +70,7 @@ public abstract class MixinArrowEntity {
         this.updateColor();
     }
 
-    @Inject(at = @At("HEAD"), method = "makeParticle", remap = false)
+    @Inject(at = @At("HEAD"), method = "makeParticle")
     private void spawnCustomParticlesInfernalExpansion(int particleCount, CallbackInfo ci) {
         if (((AbstractArrowEntityAccess) this).getLuminous() || ((AbstractArrowEntityAccess) this).getGlow()) {
             for (int j = 0; j < particleCount; ++j) {
@@ -88,7 +88,7 @@ public abstract class MixinArrowEntity {
         }
     }
 
-    @Inject(at = @At("RETURN"), method = "doPostHurtEffects", remap = false)
+    @Inject(at = @At("RETURN"), method = "doPostHurtEffects")
     private void onArrowHitInfernalExpansion(LivingEntity living, CallbackInfo ci) {
         if (((AbstractArrowEntityAccess) this).getGlow()) {
             living.addEffect(new MobEffectInstance(IEEffects.LUMINOUS.get(), 3600));

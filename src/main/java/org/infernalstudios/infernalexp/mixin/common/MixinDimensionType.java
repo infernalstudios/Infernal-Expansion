@@ -32,7 +32,7 @@ import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
 @Mixin(DimensionType.class)
 public class MixinDimensionType {
 
-    @Inject(at = @At("HEAD"), method = "defaultNetherGenerator", cancellable = true, remap = false)
+    @Inject(at = @At("HEAD"), method = "defaultNetherGenerator", cancellable = true)
     private static void IE_netherDimensionInfernalExpansion(Registry<Biome> registry, Registry<NoiseGeneratorSettings> dimSettings, long seed, CallbackInfoReturnable<ChunkGenerator> cir) {
         cir.setReturnValue(new NoiseBasedChunkGenerator(new ModNetherBiomeProvider(seed, registry, 6), seed, () -> dimSettings.getOrThrow(NoiseGeneratorSettings.NETHER)));
     }

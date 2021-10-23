@@ -42,7 +42,7 @@ public class MixinClientPacketListener {
     @Shadow
     private Minecraft minecraft;
 
-    @Inject(method = "handleAddMob", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;putNonPlayerEntity(ILnet/minecraft/world/entity/Entity;)V", shift = Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD, remap = false)
+    @Inject(method = "handleAddMob", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;putNonPlayerEntity(ILnet/minecraft/world/entity/Entity;)V", shift = Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD)
     private void IE_playGlowsquitoSound(ClientboundAddMobPacket packetIn, CallbackInfo ci, LivingEntity livingentity) {
         if (livingentity instanceof GlowsquitoEntity glowsquito) {
             this.minecraft.getSoundManager().queueTickingSound(new GlowsquitoFlightSound(glowsquito));

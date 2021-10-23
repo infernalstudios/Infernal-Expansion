@@ -31,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(PlayerRenderer.class)
 public class MixinPlayerRenderer {
 
-    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;getUseAnimation()Lnet/minecraft/world/item/UseAnim;"), method = "getArmPose", cancellable = true, remap = false)
+    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;getUseAnimation()Lnet/minecraft/world/item/UseAnim;"), method = "getArmPose", cancellable = true)
     private static void renderWhipInfernalExpansion(AbstractClientPlayer playerEntity, InteractionHand hand, CallbackInfoReturnable<HumanoidModel.ArmPose> cir) {
         if (playerEntity.getItemInHand(hand).sameItem(IEItems.BLINDSIGHT_TONGUE_WHIP.get().getDefaultInstance())) {
             cir.setReturnValue(HumanoidModel.ArmPose.THROW_SPEAR);

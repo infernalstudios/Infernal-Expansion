@@ -31,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BubbleColumnBlock.class)
 public class MixinBubbleColumnBlock {
 
-    @Inject(at = @At("HEAD"), method = "canSurvive", cancellable = true, remap = false)
+    @Inject(at = @At("HEAD"), method = "canSurvive", cancellable = true)
     public void IE_isValidPosition(BlockState state, LevelReader worldIn, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
         BlockState blockstate_IE = worldIn.getBlockState(pos.below());
 

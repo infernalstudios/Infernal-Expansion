@@ -29,7 +29,7 @@ import net.minecraft.world.level.BlockGetter;
 @Mixin(value = BlockGetter.class, priority = 200)
 public interface MixinIBlockReader {
 
-    @Overwrite(remap = false)
+    @Overwrite
     default int getLightEmission(BlockPos pos) {
         if (DynamicLightingHandler.LIGHT_SOURCES.containsKey(pos) && DynamicLightingHandler.LIGHT_SOURCES.get(pos).shouldKeep) {
             return 10;

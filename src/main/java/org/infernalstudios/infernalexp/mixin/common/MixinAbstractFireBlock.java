@@ -43,14 +43,14 @@ public abstract class MixinAbstractFireBlock extends Block {
         super(properties);
     }
 
-    @Inject(method = "getState", at = @At("HEAD"), cancellable = true, remap = false)
+    @Inject(method = "getState", at = @At("HEAD"), cancellable = true)
     private static void IE_getFireForPlacement(BlockGetter reader, BlockPos pos, CallbackInfoReturnable<BlockState> info) {
         if (GlowFireBlock.isGlowFireBase(reader.getBlockState(pos.below()).getBlock())) {
             info.setReturnValue(IEBlocks.GLOW_FIRE.get().defaultBlockState());
         }
     }
 
-    @Inject(method = "entityInside", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setRemainingFireTicks(I)V"), remap = false)
+    @Inject(method = "entityInside", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setRemainingFireTicks(I)V"))
     private void IE_setCustomFires(BlockState state, Level worldIn, BlockPos pos, Entity entityIn, CallbackInfo info) {
         FireTypeAccess access = ((FireTypeAccess) entityIn);
         if (state.is(Blocks.SOUL_FIRE)) {

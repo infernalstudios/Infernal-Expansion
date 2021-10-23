@@ -52,12 +52,12 @@ public class MixinAbstractArrowEntity implements AbstractArrowEntityAccess {
     private static final EntityDataAccessor<Boolean> INFECTED_SOURCE = SynchedEntityData.defineId(AbstractArrow.class, EntityDataSerializers.BOOLEAN);
 
     @OnlyIn(Dist.CLIENT)
-    @Inject(at = @At("RETURN"), method = "tick", remap = false)
+    @Inject(at = @At("RETURN"), method = "tick")
     private void arrowTickInfernalExpansion(CallbackInfo ci) {
         DynamicLightingHandler.tick(((AbstractArrow) (Object) this));
     }
 
-    @Inject(at = @At("RETURN"), method = "defineSynchedData", remap = false)
+    @Inject(at = @At("RETURN"), method = "defineSynchedData")
     private void registerDataInfernalExpansion(CallbackInfo ci) {
         ((AbstractArrow) (Object) this).getEntityData().define(LUMINOUS, false);
         ((AbstractArrow) (Object) this).getEntityData().define(INFECTION, false);
@@ -65,7 +65,7 @@ public class MixinAbstractArrowEntity implements AbstractArrowEntityAccess {
         ((AbstractArrow) (Object) this).getEntityData().define(INFECTED_SOURCE, false);
     }
 
-    @Inject(at = @At("RETURN"), method = "addAdditionalSaveData", remap = false)
+    @Inject(at = @At("RETURN"), method = "addAdditionalSaveData")
     private void writeAdditionalInfernalExpansion(CompoundTag compound, CallbackInfo ci) {
         compound.putBoolean("Luminous", ((AbstractArrow) (Object) this).getEntityData().get(LUMINOUS));
         compound.putBoolean("Infection", ((AbstractArrow) (Object) this).getEntityData().get(INFECTION));
@@ -73,7 +73,7 @@ public class MixinAbstractArrowEntity implements AbstractArrowEntityAccess {
         compound.putBoolean("InfectedSource", ((AbstractArrow) (Object) this).getEntityData().get(INFECTED_SOURCE));
     }
 
-    @Inject(at = @At("RETURN"), method = "readAdditionalSaveData", remap = false)
+    @Inject(at = @At("RETURN"), method = "readAdditionalSaveData")
     private void readAdditionalInfernalExpansion(CompoundTag compound, CallbackInfo ci) {
         setLuminous(compound.getBoolean("Luminous"));
         setInfection(compound.getBoolean("Infection"));
@@ -81,7 +81,7 @@ public class MixinAbstractArrowEntity implements AbstractArrowEntityAccess {
         setInfectedSource(compound.getBoolean("InfectedSource"));
     }
 
-    @Inject(at = @At("RETURN"), method = "setOwner", remap = false)
+    @Inject(at = @At("RETURN"), method = "setOwner")
     private void setShooterInfernalExpansion(Entity entityIn, CallbackInfo ci) {
         if (entityIn instanceof LivingEntity livingEntity) {
             if (livingEntity.hasEffect(IEEffects.INFECTION.get())) {

@@ -30,7 +30,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 @Mixin(ScreenEffectRenderer.class)
 public class MixinOverlayRenderer {
 
-    @ModifyVariable(method = "renderFire", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/client/resources/model/Material;sprite()Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;", ordinal = 0), name = "textureatlassprite", remap = false)
+    @ModifyVariable(method = "renderFire", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/client/resources/model/Material;sprite()Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;", ordinal = 0), name = "textureatlassprite")
     private static TextureAtlasSprite IE_renderCustomFiresOverlay(TextureAtlasSprite original, Minecraft minecraftIn, PoseStack matrixStackIn) {
         return ((FireTypeAccess) minecraftIn.player).getFireType().getSupplier().get().getAssociatedSprite1().sprite();
     }

@@ -37,7 +37,7 @@ public class MixinPaintingSpriteUploader {
     private static ResourceLocation BACK_SPRITE_LOCATION;
 
     @SuppressWarnings("deprecation")
-    @Inject(method = "getResourcesToLoad", at = @At("RETURN"), cancellable = true, remap = false)
+    @Inject(method = "getResourcesToLoad", at = @At("RETURN"), cancellable = true)
     private void getResourcesToLoad(CallbackInfoReturnable<Stream<ResourceLocation>> cir) {
         cir.setReturnValue(Stream.concat(Registry.MOTIVE.keySet().stream(), Stream.of(BACK_SPRITE_LOCATION, InfernalPaintingRenderer.BACK_TEXTURE_ATLAS_LOCATION)));
     }

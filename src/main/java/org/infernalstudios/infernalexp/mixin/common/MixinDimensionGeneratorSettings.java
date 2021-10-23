@@ -36,7 +36,7 @@ public class MixinDimensionGeneratorSettings {
      * https://github.com/Hephaestus-Dev/seedy-behavior/blob/master/src/main/java/dev/hephaestus/seedy/mixin/world/gen/GeneratorOptionsMixin.java
      */
 
-    @Inject(method = "<init>(JZZLnet/minecraft/core/MappedRegistry;Ljava/util/Optional;)V", at = @At(value = "RETURN"), remap = false)
+    @Inject(method = "<init>(JZZLnet/minecraft/core/MappedRegistry;Ljava/util/Optional;)V", at = @At(value = "RETURN"))
     private void IE_giveUsRandomSeeds(long seed, boolean generateFeatures, boolean bonusChest, MappedRegistry<LevelStem> registry, Optional<String> s, CallbackInfo ci) {
         WorldSeedHolder.setSeed(seed);
     }

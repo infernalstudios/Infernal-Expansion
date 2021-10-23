@@ -39,7 +39,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ShovelItem.class)
 public class MixinShovelItem {
 
-    @Inject(at = @At("HEAD"), method = "useOn", cancellable = true, remap = false)
+    @Inject(at = @At("HEAD"), method = "useOn", cancellable = true)
     private void IE_onItemUse(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
         Level world = context.getLevel();
         BlockPos pos = context.getClickedPos();
