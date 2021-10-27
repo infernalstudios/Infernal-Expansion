@@ -5,6 +5,7 @@ on:
     branches: [ '1.17' ]
     paths:
       - 'build.gradle'
+      - 'build.properties'
   pull_request:
     branches: [ '1.17' ]
     paths:

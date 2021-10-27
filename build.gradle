@@ -93,7 +93,7 @@ repositories {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${config.MINECRAFT_VERSION}-${config.FORGE_VERSION}"
-    annotationProcessor "org.spongepowered:mixin:0.8.4:processor"
+    annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
 }
 
 jar {
@@ -113,12 +113,21 @@ jar {
 
 jar.finalizedBy('reobfJar')
 
+task sourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    from sourceSets.main.allJava
+}
+
+tasks.build.dependsOn sourcesJar
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
             groupId = config.GROUP
             artifactId = config.ARTIFACT
             artifact jar
+            artifact sourcesJar
+            version "${config.VERSION}-${config.MINECRAFT_VERSION}"
 
             pom {
                 name = 'Infernal Expansion'
@@ -139,7 +148,6 @@ publishing {
     repositories {
         maven {
             url 'https://maven.infernalstudios.org/releases'
-
             
             credentials {
                 username = System.getenv('MAVEN_USER')
@@ -165,6 +173,7 @@ task publishModrinth (type: TaskModrinthUpload) {
     projectId = 'ZrpxHZN4'
     versionNumber = project.version
     uploadFile = jar
+    addFile(sourcesJar)
     addGameVersion(config.MINECRAFT_VERSION)
     addLoader('forge')
 }
@@ -181,6 +190,7 @@ curseforge {
     mainArtifact (jar) { 
       displayName = "Infernal Expansion Release ${project.version}"
     }
+    addArtifact sourcesJar
   }
 }
 
