@@ -14,20 +14,22 @@
  * limitations under the License.
  */
 
-package org.infernalstudios.infernalexp.confignew.annotation;
+package org.infernalstudios.infernalexp.confignew.builders;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.infernalstudios.infernalexp.confignew.IEConfig;
+import org.infernalstudios.infernalexp.confignew.elements.ConfigOption;
 
 /**
- * Specifies the minimum bound for a configurable field. THe minimum bound is inclusive
+ * This interface exists to allow easier migration between different config file systems
  */
-@Target(ElementType.FIELD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Min {
+public interface IConfigBuilder {
 
-    double value();
+    void init(IEConfig config);
+
+    void push(String name);
+
+    void pop();
+
+    <T> void define(ConfigOption<T> configOption);
 
 }

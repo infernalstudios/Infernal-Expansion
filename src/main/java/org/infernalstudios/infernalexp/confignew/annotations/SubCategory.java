@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.infernalstudios.infernalexp.confignew.annotation;
+package org.infernalstudios.infernalexp.confignew.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -22,16 +22,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Specifies that this field is now configurable by the config system
+ * Creates a new sub category that all configurable fields of the class will be a part of
  */
-@Target(ElementType.FIELD)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Configurable {
+public @interface SubCategory {
 
-    String translationName() default "";
-
-    String description() default "";
-
-    String category() default "";
+    /**
+     * The translation name for the sub category
+     */
+    String value();
 
 }

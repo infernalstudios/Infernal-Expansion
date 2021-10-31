@@ -16,9 +16,9 @@
 
 package org.infernalstudios.infernalexp.confignew;
 
-import org.infernalstudios.infernalexp.confignew.annotation.Configurable;
-import org.infernalstudios.infernalexp.confignew.annotation.Min;
-import org.infernalstudios.infernalexp.confignew.annotation.SubCategory;
+import org.infernalstudios.infernalexp.confignew.annotations.Configurable;
+import org.infernalstudios.infernalexp.confignew.annotations.Min;
+import org.infernalstudios.infernalexp.confignew.annotations.SubCategory;
 
 @SubCategory("example")
 public class ConfigExample {

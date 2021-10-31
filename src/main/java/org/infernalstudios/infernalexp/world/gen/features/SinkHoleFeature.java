@@ -17,11 +17,6 @@
 package org.infernalstudios.infernalexp.world.gen.features;
 
 import com.mojang.serialization.Codec;
-
-import org.infernalstudios.infernalexp.confignew.annotation.Configurable;
-import org.infernalstudios.infernalexp.init.IEBlocks;
-import org.infernalstudios.infernalexp.util.ShapeUtil;
-
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -29,14 +24,20 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+import org.infernalstudios.infernalexp.confignew.annotations.Configurable;
+import org.infernalstudios.infernalexp.confignew.annotations.Max;
+import org.infernalstudios.infernalexp.init.IEBlocks;
+import org.infernalstudios.infernalexp.util.ShapeUtil;
 
 import java.util.Random;
 
 public class SinkHoleFeature extends Feature<NoFeatureConfig> {
-    @Configurable(translationName = "sinkHoleMinRadius")
+
+    @Configurable(translationName = "sinkHoleMinRadius", description = "Hello world!")
     private static int minRadius = 2;
 
     @Configurable(translationName = "sinkHoleMaxRadius")
+    @Max(10)
     private static int maxRadius = 4;
 
     @Configurable

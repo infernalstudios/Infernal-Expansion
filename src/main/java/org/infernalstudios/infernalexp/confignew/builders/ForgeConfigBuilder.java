@@ -14,23 +14,27 @@
  * limitations under the License.
  */
 
-package org.infernalstudios.infernalexp.confignew;
+package org.infernalstudios.infernalexp.confignew.builders;
 
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.config.ModConfig;
+import org.infernalstudios.infernalexp.confignew.IEConfig;
 import org.infernalstudios.infernalexp.confignew.elements.ConfigOption;
-
-import java.util.function.Function;
 
 public class ForgeConfigBuilder implements IConfigBuilder {
 
+    private final String fileName;
     private final ForgeConfigSpec.Builder builder;
 
-    public ForgeConfigBuilder(ForgeConfigSpec.Builder builder) {
-        this.builder = builder;
+    public ForgeConfigBuilder(String fileName) {
+        this.fileName = fileName;
+        this.builder = new ForgeConfigSpec.Builder();
     }
 
-    public <T> ForgeConfigSpec configure(Function<IConfigBuilder, T> function) {
-        return builder.configure(forgeBuilder -> function.apply(this)).getRight();
+    @Override
+    public void init(IEConfig config) {
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, builder.configure(configBuilder -> config.buildConfigFile(this)).getRight(), fileName);
     }
 
     @Override

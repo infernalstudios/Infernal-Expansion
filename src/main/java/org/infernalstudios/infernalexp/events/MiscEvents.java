@@ -66,7 +66,6 @@ import org.infernalstudios.infernalexp.config.ConfigHelper;
 import org.infernalstudios.infernalexp.config.ConfigHolder;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig.Miscellaneous;
-import org.infernalstudios.infernalexp.confignew.IEConfig;
 import org.infernalstudios.infernalexp.data.SpawnrateManager;
 import org.infernalstudios.infernalexp.data.VolineEatTable;
 import org.infernalstudios.infernalexp.entities.ShroomloinEntity;
@@ -99,7 +98,8 @@ public class MiscEvents {
         } else if (config.getSpec() == ConfigHolder.COMMON_SPEC) {
             CommonConfig.bake();
         }
-        IEConfig.updateFields();
+
+        InfernalExpansion.CONFIG.updateFields();
     }
 
     @SubscribeEvent

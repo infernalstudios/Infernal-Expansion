@@ -47,6 +47,8 @@ import org.infernalstudios.infernalexp.client.InfernalExpansionClient;
 import org.infernalstudios.infernalexp.config.ConfigHelper;
 import org.infernalstudios.infernalexp.config.ConfigHolder;
 import org.infernalstudios.infernalexp.confignew.IEConfig;
+import org.infernalstudios.infernalexp.confignew.annotations.processors.ForgeAnnotationProcessor;
+import org.infernalstudios.infernalexp.confignew.builders.ForgeConfigBuilder;
 import org.infernalstudios.infernalexp.data.SpawnrateManager;
 import org.infernalstudios.infernalexp.events.MiscEvents;
 import org.infernalstudios.infernalexp.events.MobEvents;
@@ -86,6 +88,7 @@ import java.util.stream.Stream;
 public class InfernalExpansion {
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "infernalexp";
+    public static IEConfig CONFIG;
 
     public InfernalExpansion() {
         final ModLoadingContext modLoadingContext = ModLoadingContext.get();
@@ -93,6 +96,9 @@ public class InfernalExpansion {
 
         modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(this::commonSetup);
+
+        // Create config system
+        CONFIG = new IEConfig(new ForgeAnnotationProcessor(), new ForgeConfigBuilder("infernalexp/infernalexp-config.toml"));
 
         // Registering deferred registers to the mod bus
         IEParticleTypes.PARTICLES.register(modEventBus);
@@ -122,9 +128,6 @@ public class InfernalExpansion {
         // Baking Configs
         ConfigHelper.bakeClient(null);
         ConfigHelper.bakeCommon(null);
-
-
-        IEConfig.registerConfig();
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

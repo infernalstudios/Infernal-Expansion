@@ -32,7 +32,7 @@ public class ConfigOption<T> implements IConfigElement {
     private final T defaultValue;
     private final Map<String, Object> restrictions = new HashMap<>();
 
-    private Field field;
+    private final Field field;
     private final IConfigElement parent;
 
     public ConfigOption(String translationName, String description, T defaultValue, Field field, IConfigElement parent) {

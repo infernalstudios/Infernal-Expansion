@@ -31,7 +31,7 @@ public class ConfigCategory implements IConfigElement {
     protected final List<IConfigElement> children = new ArrayList<>();
 
     public ConfigCategory(String translationName, String keyword, IConfigElement parent) {
-        this(translationName, new String[]{keyword}, parent);
+        this(translationName, keyword == null ? null : new String[]{keyword}, parent);
     }
 
     public ConfigCategory(String translationName, String[] keywords, IConfigElement parent) {
