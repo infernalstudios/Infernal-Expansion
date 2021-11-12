@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "infernalexp:luminous_stem",
+    "infernalexp:luminous_hyphae",
+    "infernalexp:stripped_luminous_stem",
+    "infernalexp:stripped_luminous_hyphae"
+  ]
+}

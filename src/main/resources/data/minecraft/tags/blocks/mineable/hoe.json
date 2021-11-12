@@ -2,6 +2,9 @@
   "replace": false,
   "values": [
     "infernalexp:luminous_wart_block",
+    "infernalexp:crimson_fungus_cap",
+    "infernalexp:warped_fungus_cap",
+    "infernalexp:luminous_fungus_cap",
     "infernalexp:glowsilk_cocoon"
   ]
 }

@@ -3,6 +3,18 @@
   "values": [
     "infernalexp:glowdust",
     "infernalexp:glowdust_sand",
-    "infernalexp:soul_soil_path"
+    "infernalexp:trapped_glowdust_sand",
+    "infernalexp:soul_soil_path",
+    "infernalexp:rubble",
+    "infernalexp:silt",
+    "infernalexp:basalt_cobbled",
+    "infernalexp:basalt_cobbled_slab",
+    "infernalexp:basalt_cobbled_vertical_slab",
+    "infernalexp:soul_sand_slab",
+    "infernalexp:soul_sand_vertical_slab",
+    "infernalexp:soul_sand_stairs",
+    "infernalexp:soul_soil_slab",
+    "infernalexp:soul_soil_vertical_slab",
+    "infernalexp:soul_soil_stairs"
   ]
 }
