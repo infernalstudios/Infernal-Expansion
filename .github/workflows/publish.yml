@@ -16,34 +16,46 @@ jobs:
 
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
-        
-      - uses: actions/setup-java@v2
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle
+
+      - name: Setup JDK 16
+        uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
           java-version: '16'
 
       - name: Build
         run: ./gradlew build
-        
+
       - name: Publish to Modrinth
         run: ./gradlew publishModrinth
         env:
           MODRINTH: ${{ secrets.MODRINTH_TOKEN }}
-        
+
       - name: Publish to Curseforge
         run: ./gradlew curseforge
         env:
           CURSEFORGE: ${{ secrets.CURSEFORGE_TOKEN }}
-        
+
       - name: Publish to Infernal Studios Maven
         run: ./gradlew publish
         env:
-          MAVEN_USER: "github"
-          MAVEN_TOKEN: ${{ secrets.INFERNALSTUDIOS_MAVEN }}
+          MAVEN_USER: ${{ secrets.MAVEN_USER }}
+          MAVEN_TOKEN: ${{ secrets.MAVEN_TOKEN }}
+
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
 
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
         with:
           artifacts: "./build/libs/*"
           token: ${{ secrets.GITHUB_TOKEN }}
-
+          name: Release ${{ steps.get_version.outputs.VERSION }}
