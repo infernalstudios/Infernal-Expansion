@@ -21,3 +21,16 @@
 [Infernal Expansion](https://www.curseforge.com/minecraft/mc-mods/infernal-expansion) is a Nether expansion mod!
 
 If you're contributing, please read [the contribution guide](./CONTRIBUTE.md).
+
+### Maven Information
+Infernal Expansion is published on [maven.infernalstudios.org](https://maven.infernalstudios.org/)!
+If you want to use Infernal Expansion as a dependency for your mod, you can use the following in your `build.gradle`:
+```gradle
+repositories {
+    maven { url = 'https://maven.infernalstudios.org/releases' }
+}
+
+dependencies {
+    implementation fg.deobf('org.infernalstudios:infernalexp:INFERNALEXPANSION_VERSION-MINECRAFT_VERSION')
+}
+```
