@@ -1,7 +1,6 @@
 name: Bug Report
 description: Create a bug report to help us improve Infernal Expansion.
-title: ""
-labels: [ "bug", "triage" ]
+labels: [ "bug" ]
 body:
     -   type: textarea
         attributes:
@@ -22,7 +21,7 @@ body:
             required: true
     -   type: textarea
         attributes:
-            label: Describe the Bug
+            label: Expected Result
             description: A clear and concise description of what you expected to happen
         validations:
             required: true
