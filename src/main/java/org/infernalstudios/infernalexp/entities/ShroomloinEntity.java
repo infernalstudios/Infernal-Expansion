@@ -108,7 +108,11 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
     @Override
     public void readAdditional(CompoundNBT compound) {
         super.readAdditional(compound);
-        this.setShroomloinType(ShroomloinType.getById(compound.getString("ShroomloinType")));
+		ShroomloinType type = ShroomloinType.getById(compound.getString("ShroomloinType"));
+		if (type == null) {
+			type = IEShroomloinTypes.CRIMSON;
+		}
+        this.setShroomloinType(type);
     }
 
     @Nullable
