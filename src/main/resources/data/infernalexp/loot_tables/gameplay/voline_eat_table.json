@@ -196,6 +196,15 @@
           "amount": 2
         }
       ]
+    },
+    {
+      "accepted_item": "infernalexp:basaltic_magma",
+      "returned_items": [
+        {
+          "item": "minecraft:iron_ingot",
+          "amount": 1
+        }
+      ]
     }
   ]
 }
