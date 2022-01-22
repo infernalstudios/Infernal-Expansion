@@ -47,6 +47,32 @@
       "infernalexp:entity/basalt_giant/basalt_giant_death"
     ]
   },
+  "entity.blindsight.ambient":  {
+    "subtitle": "Blindsight clicks tongue",
+    "sounds":[
+      "infernalexp:entity/blindsight/blindsight_ambient_1",
+      "infernalexp:entity/blindsight/blindsight_ambient_2",
+      "infernalexp:entity/blindsight/blindsight_ambient_3"
+    ]
+  },
+  "entity.blindsight.hurt": {
+    "subtitle": "Blindsight shrieks",
+    "sounds": [
+      "infernalexp:entity/blindsight/blindsight_hurt"
+    ]
+  },
+  "entity.blindsight.death":  {
+    "subtitle": "Blindsight dies",
+    "sounds": [
+      "infernalexp:entity/blindsight/blindsight_death"
+    ]
+  },
+  "entity.blindsight.leap":  {
+    "subtitle": "Blindsight leaps",
+    "sounds": [
+      "infernalexp:entity/blindsight/blindsight_leap"
+    ]
+  },
   "entity.warpbeetle.ambient": {
     "subtitle": "Warpbeetle squeaks",
     "sounds": [

@@ -18,6 +18,7 @@ package org.infernalstudios.infernalexp.entities;
 
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 import org.infernalstudios.infernalexp.init.IEEffects;
+import org.infernalstudios.infernalexp.init.IESoundEvents;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -99,17 +100,17 @@ public class BlindsightEntity extends MonsterEntity {
     //SOUNDS
     @Override
     protected SoundEvent getAmbientSound() {
-        return null;
+        return IESoundEvents.BLINDSIGHT_AMBIENT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return null;
+        return IESoundEvents.BLINDSIGHT_DEATH.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return null;
+        return IESoundEvents.BLINDSIGHT_HURT.get();
     }
 
     @Override

@@ -16,14 +16,20 @@
 
 package org.infernalstudios.infernalexp.blocks;
 
+import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 import org.infernalstudios.infernalexp.init.IETags;
+import org.infernalstudios.infernalexp.init.IEEffects;
 
 import net.minecraft.block.AbstractFireBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 
@@ -43,6 +49,16 @@ public class GlowFireBlock extends AbstractFireBlock {
 
     public static boolean isGlowFireBase(Block block) {
         return block.isIn(IETags.Blocks.GLOW_FIRE_BASE_BLOCKS);
+    }
+
+    @Override
+    public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
+        if (!worldIn.isRemote()) {
+            if (entityIn instanceof LivingEntity && entityIn.isAlive() && InfernalExpansionConfig.Miscellaneous.LUMINOUS_FUNGUS_GIVES_EFFECT.getBool()) {
+                LivingEntity livingEntity = (LivingEntity) entityIn;
+                livingEntity.addPotionEffect(new EffectInstance(IEEffects.LUMINOUS.get(), 600, 0, true, true));
+            }
+        }
     }
 
     protected boolean canBurn(BlockState stateIn) {
