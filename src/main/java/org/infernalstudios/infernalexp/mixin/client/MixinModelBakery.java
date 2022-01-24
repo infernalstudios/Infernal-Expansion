@@ -53,6 +53,11 @@ public class MixinModelBakery {
             LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_CRYPTIC_FIRE_0);
             LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_CRYPTIC_FIRE_1);
         }
+
+        if (ModList.get().isLoaded("dungeons_mobs")) {
+            LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_WRAITH_FIRE_0);
+            LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_WRAITH_FIRE_1);
+        }
     }
 
 }
