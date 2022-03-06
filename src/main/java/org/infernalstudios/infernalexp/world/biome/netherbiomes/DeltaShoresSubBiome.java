@@ -74,7 +74,7 @@ public class DeltaShoresSubBiome extends ModBiome {
 
     @Override
     protected Biome.Climate configureClimate() {
-        return new Biome.Climate(Biome.RainType.RAIN, 2.0f, Biome.TemperatureModifier.NONE, 0.0f);
+        return new Biome.Climate(Biome.RainType.NONE, 2.0f, Biome.TemperatureModifier.NONE, 0.0f);
     }
 
     @Override

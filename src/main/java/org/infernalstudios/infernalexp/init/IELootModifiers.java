@@ -54,6 +54,11 @@ public class IELootModifiers {
         @Nonnull
         @Override
         protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
+
+            if ((context.getRandom().nextDouble() < 0.6)) {
+                return generatedLoot;
+            }
+
             if (!InfernalExpansionConfig.MobInteractions.USE_HOGCHOPS.getBoolean()) {
                 return generatedLoot;
             }
