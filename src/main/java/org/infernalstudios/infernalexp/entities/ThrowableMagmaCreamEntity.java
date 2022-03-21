@@ -16,7 +16,7 @@
 
 package org.infernalstudios.infernalexp.entities;
 
-import net.minecraftforge.fmllegacy.network.NetworkHooks;
+import net.minecraftforge.network.NetworkHooks;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;

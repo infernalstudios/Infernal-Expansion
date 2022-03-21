@@ -27,13 +27,13 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.FlatLevelSource;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.StructureSettings;
+// import net.minecraft.world.level.levelgen.StructureSettings;
 import net.minecraft.world.level.levelgen.carver.WorldCarver;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
-import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilder;
-import net.minecraftforge.common.world.ForgeWorldType;
+// import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
+// import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilder;
+// import net.minecraftforge.common.world.ForgeWorldType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
@@ -69,7 +69,7 @@ public class WorldEvents {
     }
 
     @SubscribeEvent
-    public static void registerSurfaceBuilders(RegistryEvent.Register<SurfaceBuilder<?>> event) {
+    public static void registerSurfaceBuilders(RegistryEvent.Register<SurfaceRules<?>> event) {
         IESurfaceBuilders.surfaceBuilders.forEach(surfaceBuilder -> event.getRegistry().register(surfaceBuilder));
     }
 

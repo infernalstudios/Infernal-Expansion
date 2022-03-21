@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.monster.Slime;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
@@ -34,15 +34,15 @@ public class AvoidBlockGoal extends Goal {
     protected final Slime entity;
     protected Optional<BlockPos> avoidBlockPos;
     protected final int avoidDistance;
-    protected final Tag<Block> avoidBlocks;
+    protected final TagKey<Block> avoidBlocks;
 
-    public AvoidBlockGoal(Slime entityIn, Tag.Named<Block> blocksToAvoidIn, int avoidDistanceIn) {
+    public AvoidBlockGoal(Slime entityIn, TagKey<Block> blocksToAvoidIn, int avoidDistanceIn) {
         this(entityIn, blocksToAvoidIn, (p_200828_0_) -> {
             return true;
         }, avoidDistanceIn, EntitySelector.NO_CREATIVE_OR_SPECTATOR::test);
     }
 
-    private AvoidBlockGoal(Slime entityIn, Tag.Named<Block> blocksToAvoidIn, Predicate<LivingEntity> targetPredicate, int distance, Predicate<LivingEntity> p_i48859_9_) {
+    private AvoidBlockGoal(Slime entityIn, TagKey<Block> blocksToAvoidIn, Predicate<LivingEntity> targetPredicate, int distance, Predicate<LivingEntity> p_i48859_9_) {
         this.entity = entityIn;
         this.avoidBlocks = blocksToAvoidIn;
         this.avoidDistance = distance;

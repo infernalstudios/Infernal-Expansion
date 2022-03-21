@@ -72,7 +72,7 @@ public class BuriedBoneBlock extends HorizontalBushBlock {
 
     @Override
     protected boolean isValidGround(BlockState state, BlockGetter worldIn, BlockPos pos) {
-        return IETags.Blocks.BURIED_BONE_BASE_BLOCKS.contains(state.getBlock());
+        return state.is(IETags.Blocks.BURIED_BONE_BASE_BLOCKS);
     }
 
     public boolean canAttachToSurface(LevelReader reader, BlockPos pos, Direction direction) {

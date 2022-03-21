@@ -45,7 +45,7 @@ public class MixinItemProperties {
             clientWorld = (ClientLevel) entity.getCommandSenderWorld();
         }
 
-        Optional<ResourceKey<Biome>> biomeKey = clientWorld.getBiomeName(entity.blockPosition());
+        Optional<ResourceKey<Biome>> biomeKey = clientWorld.getBiome(entity.blockPosition()).unwrapKey();
         ResourceKey<Biome> gscKey = ResourceKey.create(Registry.BIOME_REGISTRY, IEBiomes.GLOWSTONE_CANYON.getId());
 
         if (biomeKey.isPresent() && biomeKey.get().equals(gscKey)) {

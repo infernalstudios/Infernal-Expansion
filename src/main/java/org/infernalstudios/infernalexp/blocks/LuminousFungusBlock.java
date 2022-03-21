@@ -122,7 +122,7 @@ public class LuminousFungusBlock extends HorizontalBushBlock implements Bonemeal
      */
     @Override
     public boolean isValidBonemealTarget(BlockGetter worldIn, BlockPos pos, BlockState state, boolean isClient) {
-        Block block = ((HugeFungusConfiguration) (IEConfiguredFeatures.DULLTHORN_TREE_PLANTED).config).validBaseState.getBlock();
+        Block block = ((HugeFungusConfiguration) (IEConfiguredFeatures.DULLTHORN_TREE_PLANTED).config()).validBaseState.getBlock();
         Block block1 = worldIn.getBlockState(pos.below()).getBlock();
         return block1 == block;
     }

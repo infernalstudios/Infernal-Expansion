@@ -108,7 +108,7 @@ public class MiscEvents {
         ItemStack right = event.getRight();
         int cost = event.getCost();
 
-        if (left.isDamageableItem() && right.getItem() == IEItems.GLOWSILK.get() && !IETags.Items.GLOWSILK_REPAIR_BLACKLIST.contains(left.getItem())) {
+        if (left.isDamageableItem() && right.getItem() == IEItems.GLOWSILK.get() && !left.is(IETags.Items.GLOWSILK_REPAIR_BLACKLIST)) {
             if (left.getDamageValue() == 0) {
                 return;
             }
@@ -143,27 +143,27 @@ public class MiscEvents {
             Entity entity = (Entity) list.get(j);
             if (entity instanceof ShroomloinEntity shroomloinEntity) {
                 if (shroomloinEntity.getShroomloinType() == IEShroomloinTypes.CRIMSON) {
-                    if (IETags.Blocks.ANGER_CRIMSON_SHROOMLOIN_BLOCKS.contains(state.getBlock())) {
+                    if (state.is(IETags.Blocks.ANGER_CRIMSON_SHROOMLOIN_BLOCKS)) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
                 if (shroomloinEntity.getShroomloinType() == IEShroomloinTypes.WARPED) {
-                    if (IETags.Blocks.ANGER_WARPED_SHROOMLOIN_BLOCKS.contains(state.getBlock())) {
+                    if (state.is(IETags.Blocks.ANGER_WARPED_SHROOMLOIN_BLOCKS)) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
                 if (shroomloinEntity.getShroomloinType() == IEShroomloinTypes.LUMINOUS) {
-                    if (IETags.Blocks.ANGER_LUMINOUS_SHROOMLOIN_BLOCKS.contains(state.getBlock())) {
+                    if (state.is(IETags.Blocks.ANGER_LUMINOUS_SHROOMLOIN_BLOCKS)) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
                 if (shroomloinEntity.getShroomloinType() == IEShroomloinTypes.RED) {
-                    if (IETags.Blocks.ANGER_RED_SHROOMLOIN_BLOCKS.contains(state.getBlock())) {
+                    if (state.is(IETags.Blocks.ANGER_RED_SHROOMLOIN_BLOCKS)) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }
                 if (shroomloinEntity.getShroomloinType() == IEShroomloinTypes.BROWN) {
-                    if (IETags.Blocks.ANGER_BROWN_SHROOMLOIN_BLOCKS.contains(state.getBlock())) {
+                    if (state.is(IETags.Blocks.ANGER_BROWN_SHROOMLOIN_BLOCKS)) {
                         shroomloinEntity.becomeAngryAt(event.getPlayer());
                     }
                 }

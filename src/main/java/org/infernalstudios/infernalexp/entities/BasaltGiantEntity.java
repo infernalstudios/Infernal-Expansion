@@ -18,7 +18,7 @@ package org.infernalstudios.infernalexp.entities;
 
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraftforge.common.ToolActions;
-import net.minecraftforge.fmllegacy.common.registry.IEntityAdditionalSpawnData;
+import net.minecraftforge.entity.IEntityAdditionalSpawnData;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
 import net.minecraft.world.level.block.state.BlockState;

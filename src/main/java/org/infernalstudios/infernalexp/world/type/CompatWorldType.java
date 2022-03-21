@@ -29,10 +29,10 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
 import net.minecraft.world.level.levelgen.WorldGenSettings;
-import net.minecraftforge.common.world.ForgeWorldType;
+import net.minecraftforge.common.world.ForgeWorldPreset;
 import org.infernalstudios.infernalexp.world.dimension.ModNetherBiomeProvider;
 
-public class CompatWorldType extends ForgeWorldType {
+public class CompatWorldType extends ForgeWorldPreset {
     public CompatWorldType() {
         super(null);
     }

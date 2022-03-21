@@ -45,7 +45,7 @@ public abstract class MixinAbstractFireBlock extends Block {
 
     @Inject(method = "getState", at = @At("HEAD"), cancellable = true)
     private static void IE_getFireForPlacement(BlockGetter reader, BlockPos pos, CallbackInfoReturnable<BlockState> info) {
-        if (GlowFireBlock.isGlowFireBase(reader.getBlockState(pos.below()).getBlock())) {
+        if (GlowFireBlock.isGlowFireBase(reader.getBlockState(pos.below()))) {
             info.setReturnValue(IEBlocks.GLOW_FIRE.get().defaultBlockState());
         }
     }

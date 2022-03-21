@@ -32,6 +32,7 @@ import net.minecraft.world.entity.ambient.AmbientCreature;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Vec3i;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.Level;
@@ -97,7 +98,7 @@ public class GlowsilkMothEntity extends AmbientCreature {
             this.spawnPosition = null;
         }
 
-        if (this.spawnPosition == null || this.random.nextInt(30) == 0 || this.spawnPosition.closerThan(this.position(), 2.0D)) {
+        if (this.spawnPosition == null || this.random.nextInt(30) == 0 || this.spawnPosition.closerThan(new Vec3i(this.position().x(), this.position().y(), this.position().z()), 2.0D)) {
             this.spawnPosition = new BlockPos(this.getX() + (double) this.random.nextInt(7) - (double) this.random.nextInt(7), this.getY() + (double) this.random.nextInt(6) - (double) this.random.nextInt(2), this.getZ() + (double) this.random.nextInt(7) - (double) this.random.nextInt(7));
         }
 

@@ -21,7 +21,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BaseFireBlock;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.infernalstudios.infernalexp.init.IETags;
@@ -37,11 +36,11 @@ public class GlowFireBlock extends BaseFireBlock {
     }
 
     public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
-        return isGlowFireBase(worldIn.getBlockState(pos.below()).getBlock());
+        return isGlowFireBase(worldIn.getBlockState(pos.below()));
     }
 
-    public static boolean isGlowFireBase(Block block) {
-        return IETags.Blocks.GLOW_FIRE_BASE_BLOCKS.contains(block);
+    public static boolean isGlowFireBase(BlockState block) {
+        return block.is(IETags.Blocks.GLOW_FIRE_BASE_BLOCKS);
     }
 
     protected boolean canBurn(BlockState stateIn) {

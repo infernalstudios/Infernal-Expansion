@@ -93,7 +93,7 @@ public class EmbodyEntity extends Monster {
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        if (source.getMsgId().equals("fall") && IETags.Blocks.EMBODY_FALL_BLOCKS.contains(getBlockStateOn().getBlock())) {
+        if (source.getMsgId().equals("fall") && getBlockStateOn().is(IETags.Blocks.EMBODY_FALL_BLOCKS)) {
             return false;
         }
         return super.hurt(source, amount);

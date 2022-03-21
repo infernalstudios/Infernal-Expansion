@@ -17,7 +17,7 @@
 package org.infernalstudios.infernalexp.init;
 
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.blocks.BasaltIronOreBlock;
 import org.infernalstudios.infernalexp.blocks.BasalticMagmaBlock;

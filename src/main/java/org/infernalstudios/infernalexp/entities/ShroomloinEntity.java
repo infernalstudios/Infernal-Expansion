@@ -119,7 +119,7 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        ResourceLocation biome = worldIn.getBiome(this.blockPosition()).getRegistryName();
+        ResourceLocation biome = worldIn.getBiome(this.blockPosition()).value().getRegistryName();
         if (reason == MobSpawnType.NATURAL) {
             if (ModList.get().isLoaded("byg")) {
                 if (biome.equals(new ResourceLocation("byg", "glowstone_gardens"))) {

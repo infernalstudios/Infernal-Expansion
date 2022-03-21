@@ -66,7 +66,7 @@ public class TrappedGlowSandBlock extends GlowSandBlock {
             if (this.ticksToFall == 0) {
                 world.playSound(null, pos, SoundEvents.SAND_PLACE, SoundSource.BLOCKS, 1.5F, world.random.nextFloat() * 0.1F + 0.9F);
 
-                FallingBlockEntity fallingblockentity = new FallingBlockEntity(world, (double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, world.getBlockState(pos));
+                FallingBlockEntity fallingblockentity = FallingBlockEntity.fall(world, pos, world.getBlockState(pos));
                 this.falling(fallingblockentity);
                 world.addFreshEntity(fallingblockentity);
 

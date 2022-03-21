@@ -49,7 +49,7 @@ public class PlantedQuartzBlock extends HorizontalBushBlock {
 
     @Override
     protected boolean isValidGround(BlockState state, BlockGetter worldIn, BlockPos pos) {
-        return IETags.Blocks.PLANTED_QUARTZ_BASE_BLOCKS.contains(state.getBlock());
+        return state.is(IETags.Blocks.PLANTED_QUARTZ_BASE_BLOCKS);
     }
 
     @CheckForNull

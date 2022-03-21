@@ -16,7 +16,7 @@
 
 package org.infernalstudios.infernalexp.init;
 
-import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.effects.EffectBase;
 import org.infernalstudios.infernalexp.effects.InfectionEffect;
