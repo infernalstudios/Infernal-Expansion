@@ -15,7 +15,6 @@
     "common.MixinBubbleColumnBlock",
     "common.MixinCrashReport",
     "common.MixinDimensionGeneratorSettings",
-    "common.MixinDimensionType",
     "common.MixinEntity",
     "common.MixinMagmaCubeEntity",
     "common.MixinPaintingEntity",
@@ -23,17 +22,18 @@
     "common.MixinShearsItem",
     "common.MixinShovelItem",
     "common.MixinStriderEntity",
+    "common.MixinMultiNoiseBiomeSourcePreset",
     "common.WorldCarverAccessor"
   ],
   "client": [
     "client.MixinClientPacketListener",
     "client.MixinEntityRendererManager",
-    "client.MixinIBlockReader",
+    "client.MixinBlockGetter",
     "client.MixinItemProperties",
     "client.MixinModelBakery",
+    "client.MixinMultiPlayerGameMode",
     "client.MixinOverlayRenderer",
     "client.MixinPaintingSpriteUploader",
-    "client.MixinMultiPlayerGameMode",
     "client.MixinPlayerRenderer"
   ]
 }

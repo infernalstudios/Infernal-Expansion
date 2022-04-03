@@ -73,7 +73,6 @@ import org.infernalstudios.infernalexp.items.IESpawnEggItem;
 import org.infernalstudios.infernalexp.mixin.common.WorldCarverAccessor;
 import org.infernalstudios.infernalexp.network.IENetworkHandler;
 import org.infernalstudios.infernalexp.util.CompatibilityQuark;
-import org.infernalstudios.infernalexp.world.dimension.ModNetherBiomeProvider;
 import org.infernalstudios.infernalexp.world.gen.ModEntityPlacement;
 
 import java.util.HashSet;
@@ -104,6 +103,7 @@ public class InfernalExpansion {
         IEPaintings.register(modEventBus);
         IEBlockEntityTypes.register(modEventBus);
         IEBiomes.register(modEventBus);
+        IEStructures.register(modEventBus);
         IELootModifiers.register(modEventBus);
 
         IEShroomloinTypes.registerAll();
@@ -125,12 +125,8 @@ public class InfernalExpansion {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        // Search for all biomes to add to nether and register nether biome provider
-        event.enqueueWork(ModNetherBiomeProvider::registerBiomeProvider);
-
         // Setup and register structures, processors, packets, capabilities and brewing recipes
         event.enqueueWork(IEProcessors::registerProcessors);
-        event.enqueueWork(IEStructures::setupStructures);
         event.enqueueWork(IENetworkHandler::register);
         event.enqueueWork(IEBrewingRecipes::register);
 

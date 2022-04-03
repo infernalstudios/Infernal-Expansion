@@ -16,19 +16,21 @@
 
 package org.infernalstudios.infernalexp.mixin.client;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.state.BlockState;
+import org.infernalstudios.infernalexp.client.DynamicLightingHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
-import org.infernalstudios.infernalexp.client.DynamicLightingHandler;
+@Mixin(BlockGetter.class)
+public interface MixinBlockGetter {
 
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.BlockGetter;
-
-@Mixin(value = BlockGetter.class, priority = 200)
-public interface MixinIBlockReader {
-
+    /**
+     * @author SwanX1
+     * @reason You can't inject into an interface, this is the only way.
+     */
     @Overwrite
     default int getLightEmission(BlockPos pos) {
         if (DynamicLightingHandler.LIGHT_SOURCES.containsKey(pos) && DynamicLightingHandler.LIGHT_SOURCES.get(pos).shouldKeep) {

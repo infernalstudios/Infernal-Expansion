@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "infernalexp:bastion_outpost",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 720435943,
+    "spacing": 24,
+    "separation": 10,
+    "type": "minecraft:random_spread"
+  }
+}

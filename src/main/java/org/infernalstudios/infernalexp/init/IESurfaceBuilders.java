@@ -16,20 +16,9 @@
 
 package org.infernalstudios.infernalexp.init;
 
-import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.world.gen.surfacebuilders.DeltaShoresSurfaceBuilder;
-import org.infernalstudios.infernalexp.world.gen.surfacebuilders.GlowstoneCanyonSurfaceBuilder;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.core.Registry;
-import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilder;
-import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilderBaseConfiguration;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class IESurfaceBuilders {
 
+    /*
     public static List<SurfaceBuilder<?>> surfaceBuilders = new ArrayList<>();
 
     // Surface Builders
@@ -68,5 +57,6 @@ public class IESurfaceBuilders {
 
         return surfaceBuilder;
     }
+     */
 }
 

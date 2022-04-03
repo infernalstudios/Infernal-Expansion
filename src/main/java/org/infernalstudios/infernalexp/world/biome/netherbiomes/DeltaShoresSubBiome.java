@@ -16,32 +16,30 @@
 
 package org.infernalstudios.infernalexp.world.biome.netherbiomes;
 
-import net.minecraftforge.common.BiomeDictionary;
-import org.infernalstudios.infernalexp.init.IEConfiguredFeatures;
-import org.infernalstudios.infernalexp.init.IESurfaceBuilders;
-import org.infernalstudios.infernalexp.world.biome.BiomeHelper;
-import org.infernalstudios.infernalexp.world.biome.ModBiome;
-
-import net.minecraft.sounds.Musics;
-import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.BiomeSpecialEffects;
-import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
-import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.data.worldgen.Carvers;
+import net.minecraft.data.worldgen.placement.NetherPlacements;
+import net.minecraft.data.worldgen.placement.OrePlacements;
+import net.minecraft.sounds.Musics;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.biome.AmbientAdditionsSettings;
 import net.minecraft.world.level.biome.AmbientMoodSettings;
 import net.minecraft.world.level.biome.AmbientParticleSettings;
-import net.minecraft.world.level.biome.AmbientAdditionsSettings;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
+import net.minecraft.world.level.biome.Climate;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.data.worldgen.Carvers;
-import net.minecraft.data.worldgen.Features;
-import net.minecraft.data.worldgen.StructureFeatures;
-import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
+import net.minecraftforge.common.BiomeDictionary;
+import org.infernalstudios.infernalexp.init.IEPlacedFeatures;
+import org.infernalstudios.infernalexp.world.biome.BiomeHelper;
+import org.infernalstudios.infernalexp.world.biome.IEBiome;
 
-public class DeltaShoresSubBiome extends ModBiome {
+public class DeltaShoresSubBiome extends IEBiome {
 
     @Override
     protected Biome.BiomeCategory configureCategory() {
@@ -49,14 +47,35 @@ public class DeltaShoresSubBiome extends ModBiome {
     }
 
     @Override
-    protected float configureDepth() {
-        return 0.1f;
+    protected Climate.Parameter configureTemperature() {
+        return null;
     }
 
     @Override
-    protected float configureScale() {
-        return 0.1f;
+    protected Climate.Parameter configureHumidity() {
+        return null;
     }
+
+    @Override
+    protected Climate.Parameter configureContinentalness() {
+        return null;
+    }
+
+    @Override
+    protected Climate.Parameter configureErosion() {
+        return null;
+    }
+
+    @Override
+    protected Climate.Parameter configureDepth() {
+        return null;
+    }
+
+    @Override
+    protected Climate.Parameter configureWeirdness() {
+        return null;
+    }
+
 
     @Override
     protected void configureAmbience(BiomeSpecialEffects.Builder ambience) {
@@ -78,32 +97,25 @@ public class DeltaShoresSubBiome extends ModBiome {
     }
 
     @Override
-    protected ConfiguredSurfaceBuilder<?> configureSurfaceBuilder() {
-        return BiomeHelper.newConfiguredSurfaceBuilder
-            ("delta_shores", new ConfiguredSurfaceBuilder<>(IESurfaceBuilders.DELTA_SHORES_SURFACE_BUILDER,
-                IESurfaceBuilders.ModSurfaceBuilderConfig.DELTA_SHORES_CONFIG));
-    }
-
-    @Override
     protected void configureGeneration(BiomeGenerationSettings.Builder generation) {
-        generation.addStructureStart(StructureFeatures.RUINED_PORTAL_NETHER);
-        generation.addStructureStart(StructureFeatures.NETHER_BRIDGE);
+//        generation.addStructureStart(StructureFeatures.RUINED_PORTAL_NETHER);
+//        generation.addStructureStart(StructureFeatures.NETHER_BRIDGE);
         generation.addCarver(GenerationStep.Carving.AIR, Carvers.NETHER_CAVE);
         //generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.DELTA);
                 /*FeatureSpread.of(3, 4), FeatureSpread.of(0, 2),
                 (((Placement.COUNT_MULTILAYER.configure(new FeatureSpreadConfig(40))));*/
-        generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, Features.BASALT_BLOBS);
-        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, Features.BLACKSTONE_BLOBS);
-        generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, Features.SMALL_BASALT_COLUMNS);
-        generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA);
-        generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA_DOUBLE);
-        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, Features.PATCH_FIRE);
-        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, Features.PATCH_SOUL_FIRE);
-        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, Features.GLOWSTONE);
-        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, Features.GLOWSTONE_EXTRA);
-        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, Features.ORE_MAGMA);
-        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, Features.SPRING_CLOSED_DOUBLE);
-        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_BASALT_IRON_DELTA_SHORES);
+        generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, NetherPlacements.BASALT_BLOBS);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.BLACKSTONE_BLOBS);
+        generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, NetherPlacements.SMALL_BASALT_COLUMNS);
+//        generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.SPRING_LAVA);
+//        generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.SPRING_LAVA_DOUBLE);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.PATCH_FIRE);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.PATCH_SOUL_FIRE);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.GLOWSTONE);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.GLOWSTONE_EXTRA);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, OrePlacements.ORE_MAGMA);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.SPRING_CLOSED_DOUBLE);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, IEPlacedFeatures.ORE_BASALT_IRON_DELTA_SHORES);
 
  /*
  DELTA = register("delta", Feature.DELTA_FEATURE.withConfiguration(new BasaltDeltasFeature(Features.States.LAVA_BLOCK, Features.States.MAGMA_BLOCK,

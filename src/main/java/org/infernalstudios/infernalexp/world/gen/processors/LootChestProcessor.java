@@ -38,13 +38,12 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * To use this processor, add a structure block in place of the chest, make sure the structure block is in data mode
+ * Then for "Custom Data Tag Name" add, without the brackets and quotes, "chest-(direction facing. east, west, south, north)-(resource location of loot table)"
+ * Make sure to add the dashes in between, as that is what separates the data
+ */
 public class LootChestProcessor extends StructureProcessor {
-
-	/*
-	To use this processor, add a structure block in place of the chest, make sure the structure block is in data mode
-	Then for "Custom Data Tag Name" put in without the brackets chest-(direction facing. east, west, south, north)-(resource location of loot table)
-	Make sure to add the dashes in between, as that is what separates the data
-	 */
 
     public static final LootChestProcessor INSTANCE = new LootChestProcessor();
     public static final Codec<LootChestProcessor> CODEC = Codec.unit(() -> INSTANCE);

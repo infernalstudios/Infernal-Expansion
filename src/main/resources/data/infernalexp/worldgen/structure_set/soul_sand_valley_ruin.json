@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "infernalexp:soul_sand_valley_ruin",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 29456392,
+    "spacing": 12,
+    "separation": 6,
+    "type": "minecraft:random_spread"
+  }
+}

@@ -40,7 +40,7 @@ public class ShroomlightTearFeature extends Feature<NoneFeatureConfiguration> {
         AttachFace face;
         boolean warpedForest;
 
-        if (context.level().getBiome(context.origin()).getRegistryName().getPath().equals("warped_forest")) {
+        if (context.level().getBiome(context.origin()).value().getRegistryName().getPath().equals("warped_forest")) {
             face = AttachFace.FLOOR;
             warpedForest = true;
 

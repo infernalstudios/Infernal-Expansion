@@ -49,8 +49,8 @@
     "#forge:sandstone",
     "#forge:ores",
     "#forge:stone",
-    "#forge:dirt",
     "#forge:netherrack",
+    "#minecraft:dirt",
     "#minecraft:sand",
     "#minecraft:nylium",
     "#minecraft:base_stone_nether"

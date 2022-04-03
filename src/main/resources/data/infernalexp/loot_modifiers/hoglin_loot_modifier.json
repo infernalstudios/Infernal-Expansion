@@ -1,4 +1,5 @@
 {
+  "type": "infernalexp:hoglin_loot_modifier",
   "conditions": [
     {
       "condition": "minecraft:entity_properties",

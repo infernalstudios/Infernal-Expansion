@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "infernalexp:glowstone_canyon_ruin",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 20394857,
+    "spacing": 12,
+    "separation": 6,
+    "type": "minecraft:random_spread"
+  }
+}

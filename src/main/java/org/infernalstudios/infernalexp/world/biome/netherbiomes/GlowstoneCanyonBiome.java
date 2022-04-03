@@ -16,35 +16,32 @@
 
 package org.infernalstudios.infernalexp.world.biome.netherbiomes;
 
-import net.minecraftforge.common.BiomeDictionary;
-import org.infernalstudios.infernalexp.init.IECarvers;
-import org.infernalstudios.infernalexp.init.IEConfiguredFeatures;
-import org.infernalstudios.infernalexp.init.IEConfiguredStructures;
-import org.infernalstudios.infernalexp.init.IEParticleTypes;
-import org.infernalstudios.infernalexp.init.IESoundEvents;
-import org.infernalstudios.infernalexp.init.IESurfaceBuilders;
-import org.infernalstudios.infernalexp.world.biome.BiomeHelper;
-import org.infernalstudios.infernalexp.world.biome.ModBiome;
-
-import net.minecraft.sounds.Musics;
-import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.BiomeSpecialEffects;
-import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
-import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.data.worldgen.Carvers;
+import net.minecraft.data.worldgen.placement.NetherPlacements;
+import net.minecraft.data.worldgen.placement.OrePlacements;
+import net.minecraft.sounds.Musics;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.biome.AmbientAdditionsSettings;
 import net.minecraft.world.level.biome.AmbientMoodSettings;
 import net.minecraft.world.level.biome.AmbientParticleSettings;
-import net.minecraft.world.level.biome.AmbientAdditionsSettings;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
+import net.minecraft.world.level.biome.Climate;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.data.worldgen.Carvers;
-import net.minecraft.data.worldgen.Features;
-import net.minecraft.data.worldgen.StructureFeatures;
-import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
+import net.minecraftforge.common.BiomeDictionary;
+import org.infernalstudios.infernalexp.init.IECarvers;
+import org.infernalstudios.infernalexp.init.IEParticleTypes;
+import org.infernalstudios.infernalexp.init.IEPlacedFeatures;
+import org.infernalstudios.infernalexp.init.IESoundEvents;
+import org.infernalstudios.infernalexp.world.biome.BiomeHelper;
+import org.infernalstudios.infernalexp.world.biome.IEBiome;
 
-public class GlowstoneCanyonBiome extends ModBiome {
+public class GlowstoneCanyonBiome extends IEBiome {
 
     @Override
     protected Biome.BiomeCategory configureCategory() {
@@ -52,13 +49,33 @@ public class GlowstoneCanyonBiome extends ModBiome {
     }
 
     @Override
-    protected float configureDepth() {
-        return 0.1f;
+    protected Climate.Parameter configureTemperature() {
+        return Climate.Parameter.point(0.7F);
     }
 
     @Override
-    protected float configureScale() {
-        return 0.2f;
+    protected Climate.Parameter configureHumidity() {
+        return Climate.Parameter.point(-0.2F);
+    }
+
+    @Override
+    protected Climate.Parameter configureContinentalness() {
+        return Climate.Parameter.point(0);
+    }
+
+    @Override
+    protected Climate.Parameter configureErosion() {
+        return Climate.Parameter.point(0);
+    }
+
+    @Override
+    protected Climate.Parameter configureDepth() {
+        return Climate.Parameter.point(0);
+    }
+
+    @Override
+    protected Climate.Parameter configureWeirdness() {
+        return Climate.Parameter.point(0);
     }
 
     @Override
@@ -82,41 +99,36 @@ public class GlowstoneCanyonBiome extends ModBiome {
     }
 
     @Override
-    protected ConfiguredSurfaceBuilder<?> configureSurfaceBuilder() {
-        return BiomeHelper.newConfiguredSurfaceBuilder("glowstone_canyon", new ConfiguredSurfaceBuilder<>(IESurfaceBuilders.GLOWSTONE_CANYON_SURFACE_BUILDER, IESurfaceBuilders.ModSurfaceBuilderConfig.GLOWSTONE_CANYON_CONFIG));
-    }
-
-    @Override
     protected void configureGeneration(BiomeGenerationSettings.Builder generation) {
-        generation.addStructureStart(StructureFeatures.RUINED_PORTAL_NETHER);
-        generation.addStructureStart(StructureFeatures.NETHER_BRIDGE);
-        generation.addStructureStart(IEConfiguredStructures.GLOWSTONE_CANYON_RUIN);
-        generation.addStructureStart(IEConfiguredStructures.BASTION_OUTPOST);
+//        generation.addStructureStart(StructureFeatures.RUINED_PORTAL_NETHER);
+//        generation.addStructureStart(StructureFeatures.NETHER_BRIDGE);
+//        generation.addStructureStart(IEConfiguredStructures.GLOWSTONE_CANYON_RUIN);
+//        generation.addStructureStart(IEConfiguredStructures.BASTION_OUTPOST);
         generation.addCarver(GenerationStep.Carving.AIR, Carvers.NETHER_CAVE);
-        //generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.DELTA);
+//        generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.DELTA);
         generation.addCarver(GenerationStep.Carving.AIR, IECarvers.CONFIGURED_GLOWSTONE_RAVINE);
-        generation.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, IEConfiguredFeatures.CANYON_BLACKSTONE_BLOBS);
+        generation.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, IEPlacedFeatures.GSC_BLACKSTONE_BLOBS);
 //        generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, IEConfiguredFeatures.BLACKSTONE_BOULDER);
-        generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, IEConfiguredFeatures.GLOWSPIKE);
-        generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, IEConfiguredFeatures.GLOWSPIKELARGE);
-        generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, IEConfiguredFeatures.HANGING_GIANT_BROWN_MUSHROOM);
-        generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, IEConfiguredFeatures.DULLSTONE_DEATH_PIT);
-        generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.LUMINOUS_FUNGUS);
-        generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.DULLTHORNS);
+        generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, IEPlacedFeatures.GLOWSPIKE);
+        generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, IEPlacedFeatures.GLOWSPIKE_LARGE);
+        generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, IEPlacedFeatures.HANGING_GIANT_BROWN_MUSHROOM);
+        generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, IEPlacedFeatures.DULLSTONE_DEATH_PIT);
+        generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, IEPlacedFeatures.LUMINOUS_FUNGUS);
+        generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, IEPlacedFeatures.DULLTHORNS);
 //        generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.DULLTHORNS_TREE);
-        generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA);
-        generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA_DOUBLE);
-        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, IEConfiguredFeatures.GSC_SPRING_OPEN);
-        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, IEConfiguredFeatures.GSC_SPRING_CLOSED);
-        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, Features.PATCH_FIRE);
-        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, Features.PATCH_SOUL_FIRE);
-        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, Features.GLOWSTONE);
-        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, Features.GLOWSTONE_EXTRA);
-        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, Features.ORE_MAGMA);
-        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, Features.SPRING_CLOSED_DOUBLE);
-        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, IEConfiguredFeatures.ORE_GLOWSILK_COCOON);
-        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, IEConfiguredFeatures.PATCH_GLOW_FIRE);
-        generation.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, IEConfiguredFeatures.GLOWDUST_LAYER);
+//        generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.SPRING_LAVA);
+//        generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA_DOUBLE);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, IEPlacedFeatures.GSC_SPRING_OPEN);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, IEPlacedFeatures.GSC_SPRING_CLOSED);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.PATCH_FIRE);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.PATCH_SOUL_FIRE);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.GLOWSTONE);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.GLOWSTONE_EXTRA);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, OrePlacements.ORE_MAGMA);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.SPRING_CLOSED_DOUBLE);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, IEPlacedFeatures.ORE_GLOWSILK_COCOON);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, IEPlacedFeatures.PATCH_GLOW_FIRE);
+        generation.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, IEPlacedFeatures.GLOWDUST_LAYER);
 
         BiomeDefaultFeatures.addNetherDefaultOres(generation);
     }

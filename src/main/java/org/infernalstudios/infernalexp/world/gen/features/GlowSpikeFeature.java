@@ -53,11 +53,11 @@ public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
 
                 if (context.level().getBlockState(pointPos.below()).isAir()) {
                     if (context.random().nextBoolean() && context.random().nextBoolean()) {
-                        return place(new FeaturePlaceContext<>(context.level(), context.chunkGenerator(), context.random(), context.origin().below(), context.config()));
+                        return place(new FeaturePlaceContext<>(context.topFeature(), context.level(), context.chunkGenerator(), context.random(), context.origin().below(), context.config()));
                     }
                     return false;
                 } else if (context.level().getBlockState(pointPos.below()).getBlock() == Blocks.LAVA) {
-                    return place(new FeaturePlaceContext<>(context.level(), context.chunkGenerator(), context.random(), context.origin().below(), context.config()));
+                    return place(new FeaturePlaceContext<>(context.topFeature(), context.level(), context.chunkGenerator(), context.random(), context.origin().below(), context.config()));
                 }
             }
 

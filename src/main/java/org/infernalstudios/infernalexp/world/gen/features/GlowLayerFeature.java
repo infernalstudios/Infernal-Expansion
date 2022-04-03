@@ -19,6 +19,7 @@ package org.infernalstudios.infernalexp.world.gen.features;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
@@ -80,7 +81,7 @@ public class GlowLayerFeature extends Feature<NoneFeatureConfiguration> {
     private boolean isMultipleBiomesInChunk(WorldGenLevel world, BlockPos pos, BlockPos.MutableBlockPos mutableBlockPos) {
         // check some edges of the chunk for invalid biomes to know when to
         // do better placement that follows biome borders better.
-        Biome centerBiome = world.getBiome(mutableBlockPos.set(pos).move(8, 0, 8));
+        Holder<Biome> centerBiome = world.getBiome(mutableBlockPos.set(pos).move(8, 0, 8));
         for (int x = 0; x <= 16; x += 8) {
             for (int z = 0; z <= 16; z += 8) {
                 if (x != 8 && z != 8) {
@@ -91,6 +92,7 @@ public class GlowLayerFeature extends Feature<NoneFeatureConfiguration> {
                     if (x == 16) mutableBlockPos.move(-1, 0, 0);
                     if (z == 16) mutableBlockPos.move(0, 0, -1);
 
+                    // I have no idea if we can compare two holders like this
                     if (centerBiome != world.getBiome(mutableBlockPos)) {
                         return true;
                     }

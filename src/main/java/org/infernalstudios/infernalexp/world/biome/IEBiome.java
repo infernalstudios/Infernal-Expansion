@@ -17,13 +17,21 @@
 package org.infernalstudios.infernalexp.world.biome;
 
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
+import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
 import net.minecraftforge.common.BiomeDictionary;
 
-public abstract class ModBiome {
+/**
+ * In 1.18, the world generator uses six different parameters to decide where to place biomes.
+ * These parameters are temperature, humidity, continentalness, erosion, depth and weirdness.
+ * {@link net.minecraft.world.level.biome.Climate.Parameter#point(float)} can be used to set a parameter to a single value or,
+ * {@link net.minecraft.world.level.biome.Climate.Parameter#span(float, float)} can be used to set a parameter to a range of values.
+ */
+public abstract class IEBiome {
+
+    private static final float PARAMETER_MODIFIER = 0F;
 
     /**
      * Method to configure category
@@ -33,18 +41,45 @@ public abstract class ModBiome {
     protected abstract Biome.BiomeCategory configureCategory();
 
     /**
-     * Method to configure depth value
-     *
-     * @return Depth value for biome to use
+     * See {@link org.infernalstudios.infernalexp.world.biome.IEBiome} for documentation
      */
-    protected abstract float configureDepth();
+    protected abstract Climate.Parameter configureTemperature();
 
     /**
-     * Method to configure scale value
-     *
-     * @return Scale value for biome to use
+     * See {@link org.infernalstudios.infernalexp.world.biome.IEBiome} for documentation
      */
-    protected abstract float configureScale();
+    protected abstract Climate.Parameter configureHumidity();
+
+    /**
+     * See {@link org.infernalstudios.infernalexp.world.biome.IEBiome} for documentation
+     */
+    protected abstract Climate.Parameter configureContinentalness();
+
+    /**
+     * See {@link org.infernalstudios.infernalexp.world.biome.IEBiome} for documentation
+     */
+    protected abstract Climate.Parameter configureErosion();
+
+    /**
+     * See {@link org.infernalstudios.infernalexp.world.biome.IEBiome} for documentation
+     */
+    protected abstract Climate.Parameter configureDepth();
+
+    /**
+     * See {@link org.infernalstudios.infernalexp.world.biome.IEBiome} for documentation
+     */
+    protected abstract Climate.Parameter configureWeirdness();
+
+    /**
+     * Method to configure offset value. Offset seems to work differently from the other six parameters. I'd say just leave it set to 0.0F
+     *
+     * @return Offset value for biome to use
+     */
+    protected float configureOffset() {
+        return 0.0F;
+    }
+
+    ;
 
     /**
      * Method to configure ambience settings
@@ -55,11 +90,6 @@ public abstract class ModBiome {
      * Method to configure climate settings
      */
     protected abstract Biome.ClimateSettings configureClimate();
-
-    /**
-     * Method to configure surface builder
-     */
-    protected abstract ConfiguredSurfaceBuilder<?> configureSurfaceBuilder();
 
     /**
      * Method  to configure generation settings
@@ -73,18 +103,29 @@ public abstract class ModBiome {
 
     public abstract BiomeDictionary.Type[] getBiomeTypes();
 
+    public final Climate.ParameterPoint getBiomeParameters() {
+        // We add the PARAMETER_MODIFIER to remove any chance that another mod adds a biome with the same parameter values.
+        // If two biomes have the exact same parameter values only one of them will ever generate.
+
+        return Climate.parameters(
+            this.configureTemperature(),
+            this.configureHumidity(),
+            this.configureContinentalness(),
+            this.configureErosion(),
+            this.configureDepth(),
+            this.configureWeirdness(),
+            this.configureOffset());
+    }
+
     /**
      * Builds the biome
      *
      * @return Returns the finished, built biome
      */
     public final Biome build() {
-
         Biome.BiomeBuilder builder = new Biome.BiomeBuilder();
 
         builder.biomeCategory(this.configureCategory());
-        builder.depth(this.configureDepth());
-        builder.scale(this.configureScale());
 
         // Configure biome ambience
         BiomeSpecialEffects.Builder ambience = new BiomeSpecialEffects.Builder();
@@ -101,7 +142,6 @@ public abstract class ModBiome {
         // Configure biome generation settings
         BiomeGenerationSettings.Builder generation = new BiomeGenerationSettings.Builder();
         this.configureGeneration(generation);
-        generation.surfaceBuilder(this.configureSurfaceBuilder());
         builder.generationSettings(generation.build());
 
         // Configure biome mob spawn settings

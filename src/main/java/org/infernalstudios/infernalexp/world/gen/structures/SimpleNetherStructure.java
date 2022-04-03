@@ -17,7 +17,6 @@
 package org.infernalstudios.infernalexp.world.gen.structures;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.NoiseColumn;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
@@ -30,13 +29,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-public class StriderAltarStructure extends StructureFeature<JigsawConfiguration> {
+public class SimpleNetherStructure extends StructureFeature<JigsawConfiguration> {
 
-    // Minimum space allowed above lava ocean for structure to spawn
-    private static final int MIN_VALID_SPACE = 20;
-
-    public StriderAltarStructure() {
-        super(JigsawConfiguration.CODEC, StriderAltarStructure::createPiecesGenerator, PostPlacementProcessor.NONE);
+    public SimpleNetherStructure() {
+        super(JigsawConfiguration.CODEC, SimpleNetherStructure::createPiecesGenerator, PostPlacementProcessor.NONE);
     }
 
     @NotNull
@@ -47,22 +43,12 @@ public class StriderAltarStructure extends StructureFeature<JigsawConfiguration>
 
     @NotNull
     private static Optional<PieceGenerator<JigsawConfiguration>> createPiecesGenerator(PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
-        BlockPos pos = context.chunkPos().getMiddleBlockPosition(0);
-        NoiseColumn column = context.chunkGenerator().getBaseColumn(pos.getX(), pos.getZ(), context.heightAccessor());
-
-        int maxHeight = Math.min(context.chunkGenerator().getGenDepth(), context.chunkGenerator().getSeaLevel() + MIN_VALID_SPACE);
-
-        for (int y = context.chunkGenerator().getSeaLevel(); y < maxHeight; y++) {
-            if (!column.getBlock(y).isAir())
-                return Optional.empty();
-        }
-
-        Optional<Integer> yLevel = StructureUtil.getNetherLavaFloorY(context, pos);
+        Optional<Integer> yLevel = StructureUtil.getSuitableNetherYLevel(context, context.chunkPos().getMiddleBlockPosition(0));
 
         if (yLevel.isEmpty())
             return Optional.empty();
 
-        pos = pos.above(yLevel.get());
+        BlockPos pos = context.chunkPos().getMiddleBlockPosition(yLevel.get());
 
         return JigsawPlacement.addPieces(context, PoolElementStructurePiece::new, pos, false, false);
     }
