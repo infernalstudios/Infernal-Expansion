@@ -29,10 +29,9 @@ import org.infernalstudios.infernalexp.blocks.PlantedQuartzBlock;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.world.gen.features.config.PlantedQuartzFeatureConfig;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class PlantedQuartzFeature extends Feature<PlantedQuartzFeatureConfig> {
+
+    private static final int MAX_AMOUNT = 15;
 
     public PlantedQuartzFeature(Codec<PlantedQuartzFeatureConfig> codec) {
         super(codec);
@@ -40,50 +39,37 @@ public class PlantedQuartzFeature extends Feature<PlantedQuartzFeatureConfig> {
 
     @Override
     public boolean place(FeaturePlaceContext<PlantedQuartzFeatureConfig> context) {
-        int i = 0;
-        int amount = 15;
+        int amount = 0;
 
         // Attempt to place quartz 256 times
         for (int j = 0; j < 256; j++) {
-            // Randomize the location of the next quartz to be placed
-            BlockPos blockpos = context.origin().offset(context.random().nextInt(10) - context.random().nextInt(20), context.random().nextInt(4) - context.random().nextInt(8), context.random().nextInt(10) - context.random().nextInt(20));
-            List<BlockState> allowedBlockstates = new ArrayList<BlockState>(6);
+            // Randomize the direction the quartz is facing
+            int random = context.random().nextInt(6);
 
-            BlockState iterState;
-            iterState = IEBlocks.PLANTED_QUARTZ.get().defaultBlockState().setValue(PlantedQuartzBlock.FACE, AttachFace.FLOOR);
-            if (iterState.canSurvive(context.level(), blockpos)) allowedBlockstates.add(iterState);
-            iterState = IEBlocks.PLANTED_QUARTZ.get().defaultBlockState().setValue(PlantedQuartzBlock.FACE, AttachFace.CEILING);
-            if (iterState.canSurvive(context.level(), blockpos)) allowedBlockstates.add(iterState);
-            for (int k = 0; k < 4; k++) {
-                Direction iterDirection;
-                if (i == 0) {
-                    iterDirection = Direction.NORTH;
-                } else if (i == 1) {
-                    iterDirection = Direction.SOUTH;
-                } else if (i == 2) {
-                    iterDirection = Direction.EAST;
-                } else {
-                    iterDirection = Direction.WEST;
-                }
-                iterState = IEBlocks.PLANTED_QUARTZ.get().defaultBlockState().setValue(PlantedQuartzBlock.FACE, AttachFace.CEILING).setValue(PlantedQuartzBlock.FACING, iterDirection);
-                if (iterState.canSurvive(context.level(), blockpos)) allowedBlockstates.add(iterState);
+            // Randomize the location of the next quartz to be placed
+            BlockPos pos = context.origin().offset(context.random().nextInt(17) - 8, context.random().nextInt(9) - 4, context.random().nextInt(17) - 8);
+            BlockState state = IEBlocks.PLANTED_QUARTZ.get().defaultBlockState().setValue(PlantedQuartzBlock.FACE, AttachFace.values()[(Math.min(random, 2) + 2) % 3]); // This gives AttachFace.WALL a greater chance of being picked
+
+            if (random >= 2) {
+                state.setValue(PlantedQuartzBlock.FACING, Direction.values()[random]);
             }
-            if (allowedBlockstates.size() < 1) {
+
+            // If the state can't survive, try generating again
+            if (!state.canSurvive(context.level(), pos))
                 continue;
-            }
-            BlockState state = allowedBlockstates.get(context.random().nextInt(allowedBlockstates.size()));
+
             // If it's a valid location, attempt a generation
-            if (context.level().isEmptyBlock(blockpos) && state.canSurvive(context.level(), blockpos)) {
+            if (context.level().isEmptyBlock(pos) && state.canSurvive(context.level(), pos)) {
                 // If there is quartz nearby or the chance to generate passes, generate it
                 float chance = context.random().nextFloat();
-                if (findOre(context.level(), blockpos) || chance > context.config().chanceToFail) {
-                    context.level().setBlock(blockpos, state, 2);
-                    i++;
+                if (findOre(context.level(), pos) || chance > context.config().chanceToFail) {
+                    context.level().setBlock(pos, state, 2);
+                    amount++;
                 }
             }
 
             // If we have placed the max amount of quartz, then return
-            if (i >= amount) {
+            if (amount >= MAX_AMOUNT) {
                 return true;
             }
         }
@@ -93,6 +79,7 @@ public class PlantedQuartzFeature extends Feature<PlantedQuartzFeatureConfig> {
 
     public boolean findOre(WorldGenLevel world, BlockPos pos) {
         final int radius = 3;
+
         for (int x = pos.getX() - radius; x < pos.getX() + radius; x++) {
             for (int y = pos.getY() - radius; y < pos.getY() + radius; y++) {
                 for (int z = pos.getZ() - radius; z < pos.getZ() + radius; z++) {
@@ -102,6 +89,7 @@ public class PlantedQuartzFeature extends Feature<PlantedQuartzFeatureConfig> {
                 }
             }
         }
+
         return false;
     }
 }
