@@ -18,6 +18,7 @@ package org.infernalstudios.infernalexp.world.gen.features;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
@@ -29,41 +30,31 @@ import org.infernalstudios.infernalexp.init.IEBlocks;
 
 public class ShroomlightTearFeature extends Feature<NoneFeatureConfiguration> {
 
+    private static final int MAX_AMOUNT = 10;
+
     public ShroomlightTearFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
     }
 
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-        int i = 0;
-        int amount = 10;
-        AttachFace face;
-        boolean warpedForest;
+        boolean isWarpedForest = context.level().getBiome(context.origin()).value().getRegistryName().equals(new ResourceLocation("warped_forest"));
+        int amount = 0;
 
-        if (context.level().getBiome(context.origin()).value().getRegistryName().getPath().equals("warped_forest")) {
-            face = AttachFace.FLOOR;
-            warpedForest = true;
-
-        } else {
-            face = AttachFace.CEILING;
-            warpedForest = false;
-        }
-
-        // Try to place Shroomlight Tear 128 times
-        for (int j = 0; j < 64; j++) {
+        // Try to place Shroomlight Tear 64 times
+        for (int i = 0; i < 64; i++) {
             // Randomize the location of the next luminous fungus to be placed
-            BlockState state = IEBlocks.SHROOMLIGHT_FUNGUS.get().defaultBlockState().setValue(ShroomlightFungusBlock.FACE, face);
-            BlockPos blockpos = context.origin().offset(context.random().nextInt(10) - context.random().nextInt(20), context.random().nextInt(4) - context.random().nextInt(8), context.random().nextInt(10) - context.random().nextInt(20));
+            BlockState state = IEBlocks.SHROOMLIGHT_FUNGUS.get().defaultBlockState().setValue(ShroomlightFungusBlock.FACE, isWarpedForest ? AttachFace.FLOOR : AttachFace.CEILING);
+            BlockPos blockpos = context.origin().offset(context.random().nextInt(17) - 8, context.random().nextInt(9) - 4, context.random().nextInt(17) - 8);
 
             // If the randomly chosen location is valid, then place the fungus
-            if (context.level().isEmptyBlock(blockpos) && state.canSurvive(context.level(), blockpos) && (context.level().getBlockState(warpedForest ? blockpos.below() : blockpos.above()) == Blocks.SHROOMLIGHT.defaultBlockState())) {
+            if (context.level().isEmptyBlock(blockpos) && state.canSurvive(context.level(), blockpos) && (context.level().getBlockState(isWarpedForest ? blockpos.below() : blockpos.above()) == Blocks.SHROOMLIGHT.defaultBlockState())) {
                 context.level().setBlock(blockpos, state, 2);
-                i++;
+                amount++;
             }
 
-
             // If we have placed the max amount of Shroomlight Tear, then return
-            if (i >= amount) {
+            if (amount >= MAX_AMOUNT) {
                 return true;
             }
         }
