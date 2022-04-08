@@ -16,7 +16,6 @@
 
 package org.infernalstudios.infernalexp.world.biome.netherbiomes;
 
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.Carvers;
 import net.minecraft.data.worldgen.placement.NetherPlacements;
@@ -85,7 +84,7 @@ public class GlowstoneCanyonBiome extends IEBiome {
             .waterFogColor(10053120)
             .fogColor(-2916568)
             .skyColor(BiomeHelper.calcSkyColor(2.0f))
-            .ambientParticle(new AmbientParticleSettings(ParticleTypes.WHITE_ASH, 0.118093334F))
+//            .ambientParticle(new AmbientParticleSettings(ParticleTypes.WHITE_ASH, 0.118093334F))
             .ambientLoopSound(IESoundEvents.AMBIENT_GLOWSTONE_CANYON_LOOP.get())
             .ambientMoodSound(new AmbientMoodSettings(IESoundEvents.AMBIENT_GLOWSTONE_CANYON_MOOD.get(), 2500, 4, 2.0D))
             .ambientAdditionsSound(new AmbientAdditionsSettings(IESoundEvents.AMBIENT_GLOWSTONE_CANYON_ADDITIONS.get(), 0.0111D))
@@ -105,27 +104,19 @@ public class GlowstoneCanyonBiome extends IEBiome {
 //        generation.addStructureStart(IEConfiguredStructures.GLOWSTONE_CANYON_RUIN);
 //        generation.addStructureStart(IEConfiguredStructures.BASTION_OUTPOST);
         generation.addCarver(GenerationStep.Carving.AIR, Carvers.NETHER_CAVE);
-//        generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.DELTA);
         generation.addCarver(GenerationStep.Carving.AIR, IECarvers.CONFIGURED_GLOWSTONE_RAVINE);
         generation.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, IEPlacedFeatures.GSC_BLACKSTONE_BLOBS);
-//        generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, IEConfiguredFeatures.BLACKSTONE_BOULDER);
         generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, IEPlacedFeatures.GLOWSPIKE);
         generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, IEPlacedFeatures.GLOWSPIKE_LARGE);
         generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, IEPlacedFeatures.HANGING_GIANT_BROWN_MUSHROOM);
         generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, IEPlacedFeatures.DULLSTONE_DEATH_PIT);
         generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, IEPlacedFeatures.LUMINOUS_FUNGUS);
         generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, IEPlacedFeatures.DULLTHORNS);
-//        generation.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, IEConfiguredFeatures.DULLTHORNS_TREE);
-//        generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.SPRING_LAVA);
-//        generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Features.SPRING_LAVA_DOUBLE);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, IEPlacedFeatures.GSC_SPRING_OPEN);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, IEPlacedFeatures.GSC_SPRING_CLOSED);
-        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.PATCH_FIRE);
-        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.PATCH_SOUL_FIRE);
-        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.GLOWSTONE);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.GLOWSTONE_EXTRA);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.GLOWSTONE);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, OrePlacements.ORE_MAGMA);
-        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.SPRING_CLOSED_DOUBLE);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, IEPlacedFeatures.ORE_GLOWSILK_COCOON);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, IEPlacedFeatures.PATCH_GLOW_FIRE);
         generation.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, IEPlacedFeatures.GLOWDUST_LAYER);

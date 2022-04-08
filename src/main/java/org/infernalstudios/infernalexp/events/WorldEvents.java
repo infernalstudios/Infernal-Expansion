@@ -37,7 +37,7 @@ import org.infernalstudios.infernalexp.init.IEPlacedFeatures;
 @Mod.EventBusSubscriber(modid = InfernalExpansion.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class WorldEvents {
 
-    // Register features, surface builders, carvers
+    // Register biomes, features and carvers
     @SubscribeEvent
     public static void registerFeatures(RegistryEvent.Register<Feature<?>> event) {
         IEFeatures.features.forEach(feature -> event.getRegistry().register(feature));
@@ -47,32 +47,6 @@ public class WorldEvents {
     public static void registerWorldCarvers(RegistryEvent.Register<WorldCarver<?>> event) {
         IECarvers.carvers.forEach(carver -> event.getRegistry().register(carver));
     }
-
-    /*
-    @SuppressWarnings({"unchecked", "resource"})
-    @SubscribeEvent
-    public void addDimensionalSpacing(final WorldEvent.Load event) {
-        if (event.getWorld() instanceof ServerLevel world) {
-            try {
-                Method GETCODEC_METHOD = ObfuscationReflectionHelper.findMethod(ChunkGenerator.class, "codec");
-
-                ResourceLocation cgRL = Registry.CHUNK_GENERATOR.getKey((Codec<? extends ChunkGenerator>) GETCODEC_METHOD.invoke(world.getChunkSource().getGenerator()));
-
-                if (cgRL != null && cgRL.getNamespace().equals("terraforged")) return;
-            } catch (Exception e) {
-                InfernalExpansion.LOGGER.error("Was unable to check if " + world.dimension().location() + " is using Terraforged's ChunkGenerator");
-            }
-
-            if (world.getChunkSource().getGenerator() instanceof FlatLevelSource && world.dimension().equals(Level.OVERWORLD))
-                return;
-
-            Map<StructureFeature<?>, StructureFeatureConfiguration> tempMap = new HashMap<>(world.getChunkSource().getGenerator().getSettings().structureConfig());
-
-            IEStructures.structures.forEach(structure -> tempMap.putIfAbsent(structure, StructureSettings.DEFAULTS.get(structure)));
-            world.getChunkSource().generator.getSettings().structureConfig = tempMap;
-        }
-    }
-     */
 
     @SubscribeEvent(priority = EventPriority.HIGH)
     public void onBiomeLoad(BiomeLoadingEvent event) {

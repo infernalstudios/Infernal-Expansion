@@ -17,7 +17,6 @@
 package org.infernalstudios.infernalexp.mixin.client;
 
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
@@ -46,9 +45,8 @@ public class MixinItemProperties {
         }
 
         Optional<ResourceKey<Biome>> biomeKey = clientWorld.getBiome(entity.blockPosition()).unwrapKey();
-        ResourceKey<Biome> gscKey = ResourceKey.create(Registry.BIOME_REGISTRY, IEBiomes.GLOWSTONE_CANYON.getId());
 
-        if (biomeKey.isPresent() && biomeKey.get().equals(gscKey)) {
+        if (biomeKey.isPresent() && biomeKey.get().equals(IEBiomes.GLOWSTONE_CANYON)) {
             return Mth.nextDouble(new Random(), 0.95, 1.05) % 1;
         }
         return in;

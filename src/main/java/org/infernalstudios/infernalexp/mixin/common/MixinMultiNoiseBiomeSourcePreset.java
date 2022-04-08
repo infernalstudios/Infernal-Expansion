@@ -18,17 +18,21 @@ package org.infernalstudios.infernalexp.mixin.common;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.infernalstudios.infernalexp.init.IEBiomes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,20 +44,26 @@ public class MixinMultiNoiseBiomeSourcePreset {
     @Final
     ResourceLocation name;
 
+    @Unique
+    private Registry<Biome> biomeRegistry;
+
+    @Inject(method = "biomeSource(Lnet/minecraft/world/level/biome/MultiNoiseBiomeSource$PresetInstance;Z)Lnet/minecraft/world/level/biome/MultiNoiseBiomeSource;", at = @At("HEAD"))
+    private void IE_getBiomeRegistry(MultiNoiseBiomeSource.PresetInstance presetInstance, boolean bool, CallbackInfoReturnable<MultiNoiseBiomeSource> cir) {
+        biomeRegistry = presetInstance.biomes();
+    }
+
     @ModifyVariable(method = "biomeSource(Lnet/minecraft/world/level/biome/MultiNoiseBiomeSource$PresetInstance;Z)Lnet/minecraft/world/level/biome/MultiNoiseBiomeSource;", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/biome/MultiNoiseBiomeSource$PresetInstance;biomes()Lnet/minecraft/core/Registry;", shift = At.Shift.BY, by = 4), name = "parameterlist", index = 3)
-    private Climate.ParameterList<Holder<Biome>> addNetherBiomes(Climate.ParameterList<Holder<Biome>> parameterList) {
-        List<Pair<Climate.ParameterPoint, Holder<Biome>>> biomeSource = new ArrayList<>(parameterList.values());
-
-        if (name.equals(new ResourceLocation("nether"))) {
-            for (Pair<ResourceLocation, Climate.ParameterPoint> biome : IEBiomes.getBiomeSource()) {
-                ForgeRegistries.BIOMES.getHolder(biome.getFirst()).ifPresent(biomeHolder -> biomeSource.add(Pair.of(biome.getSecond(), biomeHolder)));
-            }
-
-            return new Climate.ParameterList<>(biomeSource);
-
-        } else {
+    private Climate.ParameterList<Holder<Biome>> IE_addNetherBiomes(Climate.ParameterList<Holder<Biome>> parameterList) {
+        if (biomeRegistry == null || !name.equals(new ResourceLocation("nether")))
             return parameterList;
+
+        List<Pair<Climate.ParameterPoint, Holder<Biome>>> biomeParameters = new ArrayList<>(parameterList.values());
+
+        for (Pair<ResourceKey<Biome>, Climate.ParameterPoint> biome : IEBiomes.getBiomeParameters()) {
+            biomeParameters.add(Pair.of(biome.getSecond(), biomeRegistry.getOrCreateHolder(biome.getFirst())));
         }
+
+        return new Climate.ParameterList<>(biomeParameters);
     }
 
 }

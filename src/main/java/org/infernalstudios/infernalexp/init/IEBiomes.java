@@ -26,7 +26,6 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.world.biome.IEBiome;
 import org.infernalstudios.infernalexp.world.biome.netherbiomes.GlowstoneCanyonBiome;
@@ -35,28 +34,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IEBiomes {
-    private static final List<Pair<ResourceLocation, Climate.ParameterPoint>> biomeSource = new ArrayList<>();
-    public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, InfernalExpansion.MOD_ID);
+    private static final List<Pair<ResourceKey<Biome>, Climate.ParameterPoint>> biomeParameters = new ArrayList<>();
 
-    public static RegistryObject<Biome> GLOWSTONE_CANYON = registerNetherBiome("glowstone_canyon", new GlowstoneCanyonBiome());
-    //public static final RegistryObject<Biome> DELTA_SHORES = registerNetherBiome("delta_shores", () -> new DeltaShoresSubBiome().build());
+    private static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, InfernalExpansion.MOD_ID);
 
-    private static RegistryObject<Biome> registerNetherBiome(String name, IEBiome biome) {
-        BiomeDictionary.addTypes(ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(InfernalExpansion.MOD_ID, name)), biome.getBiomeTypes());
+    public static ResourceKey<Biome> GLOWSTONE_CANYON = registerBiome("glowstone_canyon", new GlowstoneCanyonBiome());
 
-        biomeSource.add(Pair.of(new ResourceLocation(InfernalExpansion.MOD_ID, name), biome.getBiomeParameters()));
+    private static ResourceKey<Biome> registerBiome(String name, IEBiome biome) {
+        ResourceKey<Biome> resourceKey = ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(InfernalExpansion.MOD_ID, name));
 
-        return BIOMES.register(name, biome::build);
+        BiomeDictionary.addTypes(resourceKey, biome.getBiomeTypes());
+        biomeParameters.add(Pair.of(resourceKey, biome.getBiomeParameters()));
+        BIOMES.register(name, biome::build);
+
+        return resourceKey;
     }
 
     public static void register(IEventBus eventBus) {
         BIOMES.register(eventBus);
-
         InfernalExpansion.LOGGER.info("Infernal Expansion: Biomes Registered!");
     }
 
-    public static List<Pair<ResourceLocation, Climate.ParameterPoint>> getBiomeSource() {
-        return biomeSource;
+    public static List<Pair<ResourceKey<Biome>, Climate.ParameterPoint>> getBiomeParameters() {
+        return biomeParameters;
     }
 }
 
