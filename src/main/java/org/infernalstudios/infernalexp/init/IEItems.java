@@ -143,12 +143,8 @@ public class IEItems {
         return ITEMS.register(name, itemSupplier);
     }
 
-
     public static <T extends Item> RegistryObject<T> registerItemConditioned(String name, Supplier<? extends T> itemSupplier, Supplier<? extends T> itemSupplierCompat, String modID) {
-            RegistryObject<T> item = ITEMS.register(name,ModList.get().isLoaded(modID)? itemSupplier:itemSupplierCompat);
-
-            return item;
+        RegistryObject<T> item = ITEMS.register(name, ModList.get().isLoaded(modID) ? itemSupplier : itemSupplierCompat);
+        return item;
     }
-
-
 }
