@@ -72,7 +72,7 @@ public class LootChestProcessor extends StructureProcessor {
 
     @Override
     protected StructureProcessorType<?> getType() {
-        return IEProcessors.LOOT_CHEST_PROCESSOR;
+        return IEProcessors.LOOT_CHEST;
     }
 
 }

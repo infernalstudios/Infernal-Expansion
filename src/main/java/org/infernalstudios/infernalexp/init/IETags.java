@@ -16,14 +16,15 @@
 
 package org.infernalstudios.infernalexp.init;
 
-import org.infernalstudios.infernalexp.InfernalExpansion;
-
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.item.Item;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.TagKey;
-import net.minecraft.tags.ItemTags;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
+import org.infernalstudios.infernalexp.InfernalExpansion;
 
 public class IETags {
 
@@ -55,5 +56,15 @@ public class IETags {
         private static TagKey<Item> tag(String name) {
             return ItemTags.create(new ResourceLocation(InfernalExpansion.MOD_ID, name));
         }
+    }
+
+    public static class Biomes {
+
+        public static final TagKey<Biome> HAS_GLOWSTONE_CANYON_RUIN = tag("has_structure/glowstone_canyon_ruin");
+
+        private static TagKey<Biome> tag(String name) {
+            return TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(InfernalExpansion.MOD_ID, name));
+        }
+
     }
 }

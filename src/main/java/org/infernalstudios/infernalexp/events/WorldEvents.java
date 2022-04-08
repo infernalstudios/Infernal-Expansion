@@ -24,6 +24,7 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.carver.WorldCarver;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -33,14 +34,20 @@ import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.init.IECarvers;
 import org.infernalstudios.infernalexp.init.IEFeatures;
 import org.infernalstudios.infernalexp.init.IEPlacedFeatures;
+import org.infernalstudios.infernalexp.init.IEStructures;
 
 @Mod.EventBusSubscriber(modid = InfernalExpansion.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class WorldEvents {
 
-    // Register biomes, features and carvers
+    // Register features, structures and carvers
     @SubscribeEvent
     public static void registerFeatures(RegistryEvent.Register<Feature<?>> event) {
         IEFeatures.features.forEach(feature -> event.getRegistry().register(feature));
+    }
+
+    @SubscribeEvent
+    public static void registerStructures(RegistryEvent.Register<StructureFeature<?>> event) {
+        IEStructures.structures.forEach(structure -> event.getRegistry().register(structure));
     }
 
     @SubscribeEvent

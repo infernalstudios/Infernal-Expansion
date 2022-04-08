@@ -57,6 +57,7 @@ import org.infernalstudios.infernalexp.init.IEBrewingRecipes;
 import org.infernalstudios.infernalexp.init.IECapabilities;
 import org.infernalstudios.infernalexp.init.IECommands;
 import org.infernalstudios.infernalexp.init.IECompostables;
+import org.infernalstudios.infernalexp.init.IEConfiguredStructures;
 import org.infernalstudios.infernalexp.init.IEEffects;
 import org.infernalstudios.infernalexp.init.IEEntityClassifications;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
@@ -68,7 +69,7 @@ import org.infernalstudios.infernalexp.init.IEPotions;
 import org.infernalstudios.infernalexp.init.IEProcessors;
 import org.infernalstudios.infernalexp.init.IEShroomloinTypes;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
-import org.infernalstudios.infernalexp.init.IEStructures;
+import org.infernalstudios.infernalexp.init.IEStructureSets;
 import org.infernalstudios.infernalexp.items.IESpawnEggItem;
 import org.infernalstudios.infernalexp.mixin.common.WorldCarverAccessor;
 import org.infernalstudios.infernalexp.network.IENetworkHandler;
@@ -103,7 +104,6 @@ public class InfernalExpansion {
         IEPaintings.register(modEventBus);
         IEBlockEntityTypes.register(modEventBus);
         IEBiomes.register(modEventBus);
-        IEStructures.register(modEventBus);
         IELootModifiers.register(modEventBus);
 
         IEShroomloinTypes.registerAll();
@@ -126,7 +126,9 @@ public class InfernalExpansion {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         // Setup and register structures, processors, packets, capabilities and brewing recipes
-        event.enqueueWork(IEProcessors::registerProcessors);
+        event.enqueueWork(IEProcessors::bootstrap); // If we fully switched over to using just code for structures, this line wouldn't be necessary
+        event.enqueueWork(IEConfiguredStructures::register);
+        event.enqueueWork(IEStructureSets::register);
         event.enqueueWork(IENetworkHandler::register);
         event.enqueueWork(IEBrewingRecipes::register);
 

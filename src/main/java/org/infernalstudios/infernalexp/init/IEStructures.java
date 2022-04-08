@@ -16,25 +16,34 @@
 
 package org.infernalstudios.infernalexp.init;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
+import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.world.gen.structures.SimpleNetherStructure;
 import org.infernalstudios.infernalexp.world.gen.structures.StriderAltarStructure;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class IEStructures {
 
-    private static final DeferredRegister<StructureFeature<?>> STRUCTURES = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, InfernalExpansion.MOD_ID);
+    public static final List<StructureFeature<?>> structures = new ArrayList<>();
 
-    public static final RegistryObject<StructureFeature<?>> SIMPLE_NETHER_STRUCTURE = STRUCTURES.register("simple_nether_structure", SimpleNetherStructure::new);
-    public static final RegistryObject<StructureFeature<?>> STRIDER_ALTAR = STRUCTURES.register("strider_altar", StriderAltarStructure::new);
+    public static final StructureFeature<JigsawConfiguration> SIMPLE_NETHER_STRUCTURE = registerStructure("simple_nether_structure", new SimpleNetherStructure());
+    public static final StructureFeature<?> STRIDER_ALTAR = registerStructure("strider_altar", new StriderAltarStructure());
 
-    public static void register(IEventBus eventBus) {
-        STRUCTURES.register(eventBus);
-        InfernalExpansion.LOGGER.info("Infernal Expansion: Structures Registered!");
+    private static StructureFeature<JigsawConfiguration> registerStructure(String registryName, StructureFeature<JigsawConfiguration> structure) {
+        ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, registryName);
+
+        if (ForgeRegistries.STRUCTURE_FEATURES.getKeys().contains(resourceLocation))
+            throw new IllegalStateException("Feature ID: \"" + resourceLocation + "\" is already in the registry!");
+
+        structure.setRegistryName(resourceLocation);
+        structures.add(structure);
+
+        return structure;
     }
 
 }
