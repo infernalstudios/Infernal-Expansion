@@ -111,7 +111,7 @@ public class MiscEvents {
             }
 
             ItemStack output = left.copy();
-            output.setDamage(left.getDamage() - 2000);
+            output.setDamage(left.getDamage() - 200);
             cost += 5;
 
             if (event.getName().equals("")) {
@@ -388,7 +388,7 @@ public class MiscEvents {
         LivingEntity entity = (LivingEntity) event.getEntity();
 
         if (item.getItem() == IEItems.CURED_JERKY.get() && item.getUseAction() == UseAction.EAT) {
-            entity.addPotionEffect(new EffectInstance(Effects.SPEED, 40 * Miscellaneous.JERKY_EFFECT_DURATION.getInt(), Miscellaneous.JERKY_EFFECT_AMPLIFIER.getInt()));
+            entity.addPotionEffect(new EffectInstance(Effects.SPEED, 20 * Miscellaneous.JERKY_EFFECT_DURATION.getInt(), Miscellaneous.JERKY_EFFECT_AMPLIFIER.getInt()));
         }
     }
 
