@@ -63,6 +63,7 @@ import org.infernalstudios.infernalexp.init.IEEntityClassifications;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
 import org.infernalstudios.infernalexp.init.IEItems;
 import org.infernalstudios.infernalexp.init.IELootModifiers;
+import org.infernalstudios.infernalexp.init.IENoiseData;
 import org.infernalstudios.infernalexp.init.IEPaintings;
 import org.infernalstudios.infernalexp.init.IEParticleTypes;
 import org.infernalstudios.infernalexp.init.IEPotions;
@@ -129,6 +130,7 @@ public class InfernalExpansion {
         event.enqueueWork(IEProcessors::bootstrap); // If we fully switched over to using just code for structures, this line wouldn't be necessary
         event.enqueueWork(IEConfiguredStructures::register);
         event.enqueueWork(IEStructureSets::register);
+        event.enqueueWork(IENoiseData::register);
         event.enqueueWork(IENetworkHandler::register);
         event.enqueueWork(IEBrewingRecipes::register);
 

@@ -3,7 +3,8 @@
   "minVersion": "0.8",
   "package": "org.infernalstudios.infernalexp.mixin",
   "refmap": "infernal-expansion.refmap.json",
-  "compatibilityLevel": "JAVA_16",
+  "plugin": "org.infernalstudios.infernalexp.mixin.plugin.DevEnvironmentMixinPlugin",
+  "compatibilityLevel": "JAVA_17",
   "injectors": {
     "defaultRequire": 1
   },
@@ -24,7 +25,10 @@
     "common.MixinShovelItem",
     "common.MixinStriderEntity",
     "common.MixinSurfaceRuleData",
-    "common.WorldCarverAccessor"
+    "common.WorldCarverAccessor",
+    "dev.MixinDataFixers",
+    "dev.MixinMinecraftServer",
+    "dev.MixinPrimaryLevelData"
   ],
   "client": [
     "client.MixinBlockGetter",
