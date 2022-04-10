@@ -63,7 +63,6 @@ import org.infernalstudios.infernalexp.init.IEEntityClassifications;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
 import org.infernalstudios.infernalexp.init.IEItems;
 import org.infernalstudios.infernalexp.init.IELootModifiers;
-import org.infernalstudios.infernalexp.init.IENoiseData;
 import org.infernalstudios.infernalexp.init.IEPaintings;
 import org.infernalstudios.infernalexp.init.IEParticleTypes;
 import org.infernalstudios.infernalexp.init.IEPotions;
@@ -71,6 +70,7 @@ import org.infernalstudios.infernalexp.init.IEProcessors;
 import org.infernalstudios.infernalexp.init.IEShroomloinTypes;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
 import org.infernalstudios.infernalexp.init.IEStructureSets;
+import org.infernalstudios.infernalexp.init.IESurfaceRules;
 import org.infernalstudios.infernalexp.items.IESpawnEggItem;
 import org.infernalstudios.infernalexp.mixin.common.WorldCarverAccessor;
 import org.infernalstudios.infernalexp.network.IENetworkHandler;
@@ -130,7 +130,7 @@ public class InfernalExpansion {
         event.enqueueWork(IEProcessors::bootstrap); // If we fully switched over to using just code for structures, this line wouldn't be necessary
         event.enqueueWork(IEConfiguredStructures::register);
         event.enqueueWork(IEStructureSets::register);
-        event.enqueueWork(IENoiseData::register);
+        event.enqueueWork(IESurfaceRules::register);
         event.enqueueWork(IENetworkHandler::register);
         event.enqueueWork(IEBrewingRecipes::register);
 
@@ -140,7 +140,7 @@ public class InfernalExpansion {
 
         // Add custom blocks to nether cave carver
         event.enqueueWork(() -> {
-            Set<Block> newCarvableBlocks = Stream.of(IEBlocks.DULLSTONE.get(), IEBlocks.DIMSTONE.get(), Blocks.GLOWSTONE, IEBlocks.GLOWDUST_SAND.get(), IEBlocks.GLOWDUST.get()).collect(Collectors.toCollection(HashSet::new));
+            Set<Block> newCarvableBlocks = Stream.of(IEBlocks.DULLSTONE.get(), IEBlocks.DIMSTONE.get(), Blocks.GLOWSTONE, IEBlocks.GLOWDUST_SAND.get(), IEBlocks.GLOWDUST.get(), IEBlocks.GLOWDUST_STONE.get()).collect(Collectors.toCollection(HashSet::new));
 
             newCarvableBlocks.addAll(((WorldCarverAccessor) WorldCarver.NETHER_CAVE).getReplaceableBlocks());
             ((WorldCarverAccessor) WorldCarver.NETHER_CAVE).setReplaceableBlocks(newCarvableBlocks);

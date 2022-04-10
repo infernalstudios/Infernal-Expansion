@@ -14,19 +14,26 @@
  * limitations under the License.
  */
 
-package org.infernalstudios.infernalexp.world.gen.surfacerules;
+package org.infernalstudios.infernalexp.mixin.common;
 
 import net.minecraft.world.level.levelgen.SurfaceRules;
-import org.infernalstudios.infernalexp.init.IEBiomes;
+import net.minecraft.world.level.levelgen.SurfaceSystem;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Accessor;
 
-public class IESurfaceRules {
+@Mixin(SurfaceRules.Context.class)
+public interface SurfaceRulesContextAccessor {
 
-    private static final SurfaceRules.RuleSource GLOWSTONE_CANYON = SurfaceRules.ifTrue(SurfaceRules.isBiome(IEBiomes.GLOWSTONE_CANYON), SurfaceRules.sequence(
-        // More rules here eventually
-    ));
+    @Accessor
+    int getBlockX();
 
-    public static SurfaceRules.RuleSource addNetherSurfaceRules() {
-        return SurfaceRules.sequence(GLOWSTONE_CANYON);
-    }
+    @Accessor
+    int getBlockY();
+
+    @Accessor
+    int getBlockZ();
+
+    @Accessor
+    SurfaceSystem getSystem();
 
 }
