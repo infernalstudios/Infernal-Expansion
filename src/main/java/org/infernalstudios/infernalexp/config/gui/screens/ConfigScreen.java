@@ -42,8 +42,7 @@ public class ConfigScreen extends Screen {
         addWidget(new Button(width / 2 - 155, height / 6, BUTTON_WIDTH, BUTTON_HEIGHT, new TranslatableComponent(InfernalExpansion.MOD_ID + ".config.button.mobInteractions"), button -> Minecraft.getInstance().setScreen(new MobInteractionsScreen(this))));
         addWidget(new Button(width / 2 + 5, height / 6, BUTTON_WIDTH, BUTTON_HEIGHT, new TranslatableComponent(InfernalExpansion.MOD_ID + ".config.button.mobSpawning"), button -> Minecraft.getInstance().setScreen(new MobSpawningScreen(this))));
         addWidget(new Button(width / 2 - 155, height / 6 + 24, BUTTON_WIDTH, BUTTON_HEIGHT, new TranslatableComponent(InfernalExpansion.MOD_ID + ".config.button.miscellaneous"), button -> Minecraft.getInstance().setScreen(new MiscellaneousScreen(this))));
-        addWidget(new Button(width / 2 + 5, height / 6 + 24, BUTTON_WIDTH, BUTTON_HEIGHT, new TranslatableComponent(InfernalExpansion.MOD_ID + ".config.button.worldGeneration"), button -> Minecraft.getInstance().setScreen(new WorldGenerationScreen(this))));
-        addWidget(new Button(width / 2 - 155, height / 6 + 48, BUTTON_WIDTH, BUTTON_HEIGHT, new TranslatableComponent(InfernalExpansion.MOD_ID + ".config.button.clientConfig"), button -> Minecraft.getInstance().setScreen(new ClientConfigScreen(this))));
+        addWidget(new Button(width / 2 + 5, height / 6 + 24, BUTTON_WIDTH, BUTTON_HEIGHT, new TranslatableComponent(InfernalExpansion.MOD_ID + ".config.button.clientConfig"), button -> Minecraft.getInstance().setScreen(new ClientConfigScreen(this))));
 
         addWidget(new Button((width - 200) / 2, height - 26, 200, BUTTON_HEIGHT, new TranslatableComponent("gui.done"), button -> onClose()));
     }

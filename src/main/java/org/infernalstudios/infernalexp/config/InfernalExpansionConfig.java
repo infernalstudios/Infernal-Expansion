@@ -205,31 +205,6 @@ public final class InfernalExpansionConfig {
         }
     }
 
-    public enum WorldGeneration {
-        BIOMES_LIST_IS_WHITELIST("biomesListIsWhitelist", false),
-        BIOMES_LIST("biomesList", "");
-
-        private final String translationName;
-        private Object value;
-
-        WorldGeneration(String translationName, Object value) {
-            this.translationName = translationName;
-            this.value = value;
-        }
-
-        public String getTranslationName() {
-            return translationName;
-        }
-
-        public void set(Object value) {
-            this.value = value;
-        }
-
-        public Object get() {
-            return value;
-        }
-    }
-
     public enum Miscellaneous {
         SHROOMLIGHT_GROWABLE("isShroomlightGrowable", false, 0, 0, 0),
         SHROOMLIGHT_GROW_CHANCE("shroomlightGrowChance", true, 0, 1, 0.01f),

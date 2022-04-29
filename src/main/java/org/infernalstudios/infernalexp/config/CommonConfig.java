@@ -66,10 +66,6 @@ public class CommonConfig {
     final ForgeConfigSpec.ConfigValue<String> blindsightBiomes;
     final ForgeConfigSpec.ConfigValue<String> blackstoneDwarfBiomes;
 
-    // World Generation
-    final ForgeConfigSpec.BooleanValue biomesListIsWhitelist;
-    final ForgeConfigSpec.ConfigValue<String> biomesList;
-
     //Bonemeal Behaviour
     final ForgeConfigSpec.DoubleValue shroomlightGrowChance;
     final ForgeConfigSpec.BooleanValue isShroomlightGrowable;
@@ -308,23 +304,6 @@ public class CommonConfig {
             .define("blackstoneDwarfBiomes", "infernalexp:glowstone_canyon, byg:magma_wastes");
 
         builder.pop();
-
-        builder.pop();
-
-        // World Generation
-        builder.push("World Generation");
-
-        biomesListIsWhitelist = builder
-            .comment("Should the biome list below act as a whitelist (True/On), or a blacklist (False/Off).")
-            .comment("CHANGING THIS REQUIRES A GAME RESTART")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.biomesListIsWhitelist")
-            .define("biomesListIsWhitelist", false);
-
-        biomesList = builder
-            .comment("List of biomes to either whitelist or blacklist from nether generation. Split biomes with a comma. To include all nether biomes from all loaded mods leave this blank.")
-            .comment("CHANGING THIS REQUIRES A GAME RESTART")
-            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.biomesList")
-            .define("biomesList", "");
 
         builder.pop();
 
