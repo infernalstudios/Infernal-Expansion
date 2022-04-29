@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "infernalexp:glowdust_sand",
+    "infernalexp:dimstone",
+    "infernalexp:dullstone",
+    "infernalexp:dullthorns",
+    "minecraft:sand",
+    "minecraft:red_sand",
+    "minecraft:grass",
+    "minecraft:grass_block",
+    "minecraft:podzol",
+    "minecraft:mycelium",
+    "minecraft:crimson_nylium",
+    "minecraft:warped_nylium",
+    "minecraft:soul_soil",
+    "minecraft:glowstone"
+  ]
+}

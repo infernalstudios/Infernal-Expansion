@@ -25,6 +25,7 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import org.infernalstudios.infernalexp.blocks.LuminousFungusBlock;
 import org.infernalstudios.infernalexp.init.IEBlocks;
+import org.infernalstudios.infernalexp.init.IETags;
 
 public class LuminousFungusFeature extends Feature<NoneFeatureConfiguration> {
     public LuminousFungusFeature(Codec<NoneFeatureConfiguration> codec) {
@@ -33,35 +34,25 @@ public class LuminousFungusFeature extends Feature<NoneFeatureConfiguration> {
 
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-        int i = 0;
-        int amount;
-        AttachFace face;
-
-        int pickFacing = context.random().nextInt(3);
-
         // Pick whether the fungus will spawn on the ceiling or on the floor and set the amount to spawn appropriately
-        if (pickFacing == 0) {
-            face = AttachFace.CEILING;
-            amount = 4;
-        } else {
-            face = AttachFace.FLOOR;
-            amount = 10;
-        }
+        boolean onCeiling = context.random().nextInt(3) == 0;
+        int maxAmount = onCeiling ? 4 : 10;
+        int amount = 0;
 
         // Try to place luminous fungus 128 times
-        for (int j = 0; j < 128; j++) {
+        for (int i = 0; i < 128; i++) {
             // Randomize the location of the next luminous fungus to be placed
-            BlockState state = IEBlocks.LUMINOUS_FUNGUS.get().defaultBlockState().setValue(LuminousFungusBlock.FACE, face);
-            BlockPos blockpos = context.origin().offset(context.random().nextInt(10) - context.random().nextInt(20), context.random().nextInt(4) - context.random().nextInt(8), context.random().nextInt(10) - context.random().nextInt(20));
+            BlockState state = IEBlocks.LUMINOUS_FUNGUS.get().defaultBlockState().setValue(LuminousFungusBlock.FACE, onCeiling ? AttachFace.CEILING : AttachFace.FLOOR);
+            BlockPos pos = context.origin().offset(context.random().nextInt(17) - 8, context.random().nextInt(9) - 4, context.random().nextInt(17) - 8);
 
             // If the randomly chosen location is valid, then place the fungus
-            if (context.level().isEmptyBlock(blockpos) && state.canSurvive(context.level(), blockpos) && (context.level().getBlockState(blockpos.above()) == IEBlocks.DULLSTONE.get().defaultBlockState() || context.level().getBlockState(blockpos.below()) == IEBlocks.GLOWDUST_SAND.get().defaultBlockState())) {
-                context.level().setBlock(blockpos, state, 2);
-                i++;
+            if (context.level().isEmptyBlock(pos) && state.canSurvive(context.level(), pos) && context.level().getBlockState(onCeiling ? pos.above() : pos.below()).is(IETags.Blocks.LUMINOUS_FUNGUS_SPAWNABLE_ON_BLOCKS)) {
+                context.level().setBlock(pos, state, 2);
+                amount++;
             }
 
             // If we have placed the max amount of luminous fungus, then return
-            if (i >= amount) {
+            if (amount >= maxAmount) {
                 return true;
             }
         }

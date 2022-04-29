@@ -26,7 +26,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -44,9 +43,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.infernalstudios.infernalexp.blockentities.LuminousFungusBlockEntity;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 import org.infernalstudios.infernalexp.init.IEBlockEntityTypes;
-import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IEConfiguredFeatures;
 import org.infernalstudios.infernalexp.init.IEEffects;
+import org.infernalstudios.infernalexp.init.IETags;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -63,15 +62,7 @@ public class LuminousFungusBlock extends HorizontalBushBlock implements Bonemeal
 
     @Override
     protected boolean isValidGround(BlockState state, BlockGetter worldIn, BlockPos pos) {
-        return
-            state.is(IEBlocks.GLOWDUST_SAND.get()) || state.is(Blocks.SAND) || state.is(Blocks.RED_SAND)
-                || state.is(Blocks.GRASS) || state.is(Blocks.GRASS_BLOCK) ||
-                state.is(Blocks.DIRT) || state.is(Blocks.COARSE_DIRT) || state.is(Blocks.FARMLAND) ||
-                state.is(Blocks.PODZOL) || state.is(Blocks.MYCELIUM) ||
-                state.is(Blocks.CRIMSON_NYLIUM) || state.is(Blocks.WARPED_NYLIUM) ||
-                state.is(Blocks.SOUL_SOIL) || state.is(Blocks.GLOWSTONE) || state.is(IEBlocks.DIMSTONE.get()) ||
-                state.is(IEBlocks.DULLSTONE.get()) || state.is(IEBlocks.DULLTHORNS.get())
-            ;
+        return state.is(IETags.Blocks.LUMINOUS_FUNGUS_BASE_BLOCKS);
     }
 
     public boolean canAttachToSurface(LevelReader reader, BlockPos pos, Direction direction) {
