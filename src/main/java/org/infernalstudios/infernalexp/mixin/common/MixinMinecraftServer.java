@@ -57,6 +57,7 @@ public abstract class MixinMinecraftServer {
         if (levelStem.generator() instanceof NoiseBasedChunkGenerator) {
             NoiseGeneratorSettings settings = ((NoiseBasedChunkGeneratorAccessor) levelStem.generator()).getSettings().value();
 
+            // This won't add surface rules to Terrablender worlds because Terrablender uses their own "NamespacedSurfaceRuleSource" instead of "SequenceRuleSource"
             if (settings.surfaceRule() instanceof SurfaceRules.SequenceRuleSource sequenceRuleSource) {
                 List<SurfaceRules.RuleSource> rules = new ArrayList<>(sequenceRuleSource.sequence());
                 rules.add(rules.size() - 1, NetherSurfaceRules.addNetherSurfaceRules()); // Add our surface rules to the second last position in the sequence, right before NETHERRACK

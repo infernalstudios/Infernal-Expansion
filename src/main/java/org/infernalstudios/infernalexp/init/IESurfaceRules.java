@@ -19,11 +19,14 @@ package org.infernalstudios.infernalexp.init;
 import net.minecraft.core.Registry;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import org.infernalstudios.infernalexp.world.gen.surfacerules.ChanceConditionSource;
+import org.infernalstudios.infernalexp.world.gen.surfacerules.TerrablenderSurfaceRuleCompat;
 
 public class IESurfaceRules {
 
     public static void register() {
         Registry.register(Registry.CONDITION, "chance", ChanceConditionSource.CODEC);
+
+        TerrablenderSurfaceRuleCompat.addSurfaceRules();
     }
 
     public static SurfaceRules.ConditionSource chance(String name, float percentageChance) {
