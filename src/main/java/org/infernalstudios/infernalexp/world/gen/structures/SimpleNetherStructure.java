@@ -38,7 +38,7 @@ public class SimpleNetherStructure extends StructureFeature<JigsawConfiguration>
     @NotNull
     @Override
     public GenerationStep.Decoration step() {
-        return GenerationStep.Decoration.SURFACE_STRUCTURES;
+        return GenerationStep.Decoration.UNDERGROUND_DECORATION;
     }
 
     @NotNull

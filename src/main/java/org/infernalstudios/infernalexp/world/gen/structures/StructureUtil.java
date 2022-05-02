@@ -39,8 +39,8 @@ public class StructureUtil {
         NoiseColumn column = context.chunkGenerator().getBaseColumn(pos.getX(), pos.getZ(), context.heightAccessor());
         List<Integer> suitableYLevels = new ArrayList<>();
 
-        for (int y = context.heightAccessor().getMinBuildHeight(); y < 128; y++) {
-            if (column.getBlock(y).canOcclude() && column.getBlock(y + 1).isAir() && column.getBlock(y + 5).isAir()) {
+        for (int y = 127; y > context.chunkGenerator().getSeaLevel(); y--) {
+            if (column.getBlock(y - 1).canOcclude() && column.getBlock(y).isAir() && column.getBlock(y + 4).isAir()) {
                 suitableYLevels.add(y);
             }
         }
@@ -64,7 +64,7 @@ public class StructureUtil {
 
         int topDown = 1;
 
-        if (column.getBlock(pos.getY()).canOcclude()) {
+        if (column.getBlock(lavaPos.getY()).canOcclude()) {
             return Optional.empty();
         }
 

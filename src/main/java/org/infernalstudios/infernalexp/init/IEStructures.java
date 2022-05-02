@@ -32,7 +32,7 @@ public class IEStructures {
     public static final List<StructureFeature<?>> structures = new ArrayList<>();
 
     public static final StructureFeature<JigsawConfiguration> SIMPLE_NETHER_STRUCTURE = registerStructure("simple_nether_structure", new SimpleNetherStructure());
-    public static final StructureFeature<?> STRIDER_ALTAR = registerStructure("strider_altar", new StriderAltarStructure());
+    public static final StructureFeature<JigsawConfiguration> STRIDER_ALTAR = registerStructure("strider_altar", new StriderAltarStructure());
 
     private static StructureFeature<JigsawConfiguration> registerStructure(String registryName, StructureFeature<JigsawConfiguration> structure) {
         ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, registryName);

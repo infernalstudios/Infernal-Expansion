@@ -41,8 +41,8 @@ public class PlantedQuartzFeature extends Feature<PlantedQuartzFeatureConfig> {
     public boolean place(FeaturePlaceContext<PlantedQuartzFeatureConfig> context) {
         int amount = 0;
 
-        // Attempt to place quartz 256 times
-        for (int j = 0; j < 256; j++) {
+        // Attempt to place quartz 128 times
+        for (int j = 0; j < 128; j++) {
             // Randomize the direction the quartz is facing
             int random = context.random().nextInt(6);
 

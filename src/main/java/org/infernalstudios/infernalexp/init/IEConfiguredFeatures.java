@@ -52,7 +52,7 @@ public class IEConfiguredFeatures {
 
     public static Holder<ConfiguredFeature<?, ?>> GLOWDUST_LAYER = registerConfiguredFeature("glowdust_layer", IEFeatures.GLOWDUST_LAYER);
     public static Holder<ConfiguredFeature<?, ?>> GLOWSPIKE = registerConfiguredFeature("glowspike", IEFeatures.GLOWSPIKE, new GlowSpikeFeatureConfig(3, 5, 8, 24, 7, 7, 0.3f, true));
-    public static Holder<ConfiguredFeature<?, ?>> GLOWSPIKE_LARGE = registerConfiguredFeature("glowspikelarge", IEFeatures.GLOWSPIKE, new GlowSpikeFeatureConfig(4, 7, 12, 98, 12, 12, 0.2f, false));
+    public static Holder<ConfiguredFeature<?, ?>> GLOWSPIKE_LARGE = registerConfiguredFeature("glowspike_large", IEFeatures.GLOWSPIKE, new GlowSpikeFeatureConfig(4, 7, 12, 98, 12, 12, 0.2f, false));
     public static Holder<ConfiguredFeature<?, ?>> DULLTHORN_TREE_PLANTED = registerConfiguredFeature("dullthorn_tree_planted", Feature.HUGE_FUNGUS, new HugeFungusConfiguration(IEBlocks.GLOWDUST_SAND.get().defaultBlockState(), IEBlocks.DULLTHORNS_BLOCK.get().defaultBlockState(), IEBlocks.LUMINOUS_WART_BLOCK.get().defaultBlockState(), IEBlocks.LUMINOUS_WART_BLOCK.get().defaultBlockState(), true));
     public static Holder<ConfiguredFeature<?, ?>> HANGING_GIANT_BROWN_MUSHROOM = registerConfiguredFeature("hanging_giant_brown_mushroom", IEFeatures.HANGING_GIANT_BROWN_MUSHROOM);
     public static Holder<ConfiguredFeature<?, ?>> DULLSTONE_DEATH_PIT = registerConfiguredFeature("dullstone_death_pit", IEFeatures.DULLSTONE_DEATH_PIT);
@@ -67,21 +67,11 @@ public class IEConfiguredFeatures {
     public static Holder<ConfiguredFeature<?, ?>> PATCH_GLOW_FIRE = registerConfiguredFeature("patch_glow_fire", Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(IEBlocks.GLOW_FIRE.get())), List.of(IEBlocks.GLOWDUST_SAND.get())));
     public static Holder<ConfiguredFeature<?, ?>> BASALTIC_MAGMA = registerConfiguredFeature("basaltic_magma", Feature.ORE, new OreConfiguration(BASALT, IEBlocks.BASALTIC_MAGMA.get().defaultBlockState(), 10));
     public static Holder<ConfiguredFeature<?, ?>> PATCH_WARPED_CAP = registerConfiguredFeature("patch_warped_cap", Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(IEBlocks.WARPED_FUNGUS_CAP.get())), List.of(Blocks.WARPED_NYLIUM)));
-    public static Holder<ConfiguredFeature<?, ?>> PATCH_CRIMSON_CAP = registerConfiguredFeature("patch_crimson_cap", Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(IEBlocks.CRIMSON_FUNGUS_CAP.get())), List.of(Blocks.WARPED_NYLIUM)));
+    public static Holder<ConfiguredFeature<?, ?>> PATCH_CRIMSON_CAP = registerConfiguredFeature("patch_crimson_cap", Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(IEBlocks.CRIMSON_FUNGUS_CAP.get())), List.of(Blocks.CRIMSON_NYLIUM)));
     public static Holder<ConfiguredFeature<?, ?>> SHROOMLIGHT_TEAR = registerConfiguredFeature("shroomlight_tear", IEFeatures.SHROOMLIGHT_TEAR);
     public static Holder<ConfiguredFeature<?, ?>> PATCH_BURIED_BONE = registerConfiguredFeature("patch_buried_bone", Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(IEBlocks.BURIED_BONE.get())), List.of(Blocks.SOUL_SOIL)));
     public static Holder<ConfiguredFeature<?, ?>> ORE_SOUL_STONE = registerConfiguredFeature("ore_soul_stone", Feature.ORE, new OreConfiguration(SOUL_SOIL, IEBlocks.SOUL_STONE.get().defaultBlockState(), 40));
     public static Holder<ConfiguredFeature<?, ?>> PATCH_PLANTED_QUARTZ = registerConfiguredFeature("planted_quartz_patch", IEFeatures.PATCH_PLANTED_QUARTZ, new PlantedQuartzFeatureConfig(0.95F));
-
-    //public static final ConfiguredFeature<?, ?> PATCH_CRIMSON_ROOTS = register("patch_crimson_roots", Feature.RANDOM_PATCH.withConfiguration((new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(Features.States.CRIMSON_ROOTS), new SimpleBlockPlacer())).tries(64).preventProjection().build()).range(128));
-
-
-    //public static final ConfiguredFeature<?, ?> PATCH_PUMPKIN = register("patch_pumpkin", Feature.RANDOM_PATCH.withConfiguration((new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(Features.States.PUMPKIN), SimpleBlockPlacer.PLACER)).tries(64).whitelist(ImmutableSet.of(Features.States.GRASS_BLOCK.getBlock())).preventProjection().build()).withPlacement(Features.Placements.PATCH_PLACEMENT).chance(32));
-
-
-    //    public static final ConfiguredFeature<?, ?> RANDOM_GLOWSTONE_CANYON_PLANT = registerConfiguredFeature("rand_glowstone_canyon", Feature.RANDOM_SELECTOR.withConfiguration(new MultipleRandomFeatureConfig(ImmutableList.of(
-//            LUMINOUS_FUNGUS.withChance(0.5F)),
-//            LUMINOUS_FUNGUS)).withPlacement(Placement.COUNT_MULTILAYER.configure(new FeatureSpreadConfig(15))));
 
     private static Holder<ConfiguredFeature<?, ?>> registerConfiguredFeature(String name, Feature<NoneFeatureConfiguration> feature) {
         return registerConfiguredFeature(name, feature, FeatureConfiguration.NONE);

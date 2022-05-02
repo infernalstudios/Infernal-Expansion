@@ -27,7 +27,7 @@ import org.infernalstudios.infernalexp.InfernalExpansion;
 @SuppressWarnings("unused")
 public class IEStructureSets {
 
-    public static final Holder<StructureSet> GLOWSTONE_CANYON_RUINS = registerSet("glowstone_canyon_ruins", new StructureSet(IEConfiguredStructures.GLOWSTONE_CANYON_RUIN, new RandomSpreadStructurePlacement(4, 2, RandomSpreadType.LINEAR, 20394857)));
+    public static final Holder<StructureSet> GLOWSTONE_CANYON_RUINS = registerSet("glowstone_canyon_ruins", new StructureSet(IEConfiguredStructures.GLOWSTONE_CANYON_RUIN, new RandomSpreadStructurePlacement(8, 4, RandomSpreadType.LINEAR, 20394857)));
 
     private static Holder<StructureSet> registerSet(String name, StructureSet pool) {
         ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, name);
