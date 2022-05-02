@@ -37,7 +37,6 @@ import org.infernalstudios.infernalexp.init.IECarvers;
 import org.infernalstudios.infernalexp.init.IEParticleTypes;
 import org.infernalstudios.infernalexp.init.IEPlacedFeatures;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
-import org.infernalstudios.infernalexp.world.biome.BiomeHelper;
 import org.infernalstudios.infernalexp.world.biome.IEBiome;
 
 public class GlowstoneCanyonBiome extends IEBiome {
@@ -83,7 +82,7 @@ public class GlowstoneCanyonBiome extends IEBiome {
             .waterColor(13408563)
             .waterFogColor(10053120)
             .fogColor(-2916568)
-            .skyColor(BiomeHelper.calcSkyColor(2.0f))
+            .skyColor(IEBiome.calcSkyColor(2.0f))
 //            .ambientParticle(new AmbientParticleSettings(ParticleTypes.WHITE_ASH, 0.118093334F))
             .ambientLoopSound(IESoundEvents.AMBIENT_GLOWSTONE_CANYON_LOOP.get())
             .ambientMoodSound(new AmbientMoodSettings(IESoundEvents.AMBIENT_GLOWSTONE_CANYON_MOOD.get(), 2500, 4, 2.0D))

@@ -36,7 +36,6 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.common.BiomeDictionary;
 import org.infernalstudios.infernalexp.init.IEPlacedFeatures;
-import org.infernalstudios.infernalexp.world.biome.BiomeHelper;
 import org.infernalstudios.infernalexp.world.biome.IEBiome;
 
 public class DeltaShoresSubBiome extends IEBiome {
@@ -83,7 +82,7 @@ public class DeltaShoresSubBiome extends IEBiome {
             .waterColor(4144704)
             .waterFogColor(4341314)
             .fogColor(6840176)
-            .skyColor(BiomeHelper.calcSkyColor(2.0f))
+            .skyColor(IEBiome.calcSkyColor(2.0f))
             .ambientParticle(new AmbientParticleSettings(ParticleTypes.WHITE_ASH, 0.118093334F))
             .ambientLoopSound(SoundEvents.AMBIENT_BASALT_DELTAS_LOOP)
             .ambientMoodSound(new AmbientMoodSettings(SoundEvents.AMBIENT_BASALT_DELTAS_MOOD, 8000, 8, 2.0D))
