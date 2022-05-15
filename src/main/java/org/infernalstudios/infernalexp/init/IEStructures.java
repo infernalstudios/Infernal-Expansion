@@ -21,8 +21,9 @@ import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.world.gen.structures.SimpleNetherStructure;
+import org.infernalstudios.infernalexp.world.gen.structures.SizeCheckingNetherStructure;
 import org.infernalstudios.infernalexp.world.gen.structures.StriderAltarStructure;
+import org.infernalstudios.infernalexp.world.gen.structures.config.SizeCheckingConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +32,10 @@ public class IEStructures {
 
     public static final List<StructureFeature<?>> structures = new ArrayList<>();
 
-    public static final StructureFeature<JigsawConfiguration> SIMPLE_NETHER_STRUCTURE = registerStructure("simple_nether_structure", new SimpleNetherStructure());
+    public static final StructureFeature<SizeCheckingConfiguration> SIMPLE_NETHER_STRUCTURE = registerStructure("simple_nether_structure", new SizeCheckingNetherStructure());
     public static final StructureFeature<JigsawConfiguration> STRIDER_ALTAR = registerStructure("strider_altar", new StriderAltarStructure());
 
-    private static StructureFeature<JigsawConfiguration> registerStructure(String registryName, StructureFeature<JigsawConfiguration> structure) {
+    private static <T extends JigsawConfiguration> StructureFeature<T> registerStructure(String registryName, StructureFeature<T> structure) {
         ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, registryName);
 
         if (ForgeRegistries.STRUCTURE_FEATURES.getKeys().contains(resourceLocation))

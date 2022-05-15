@@ -22,7 +22,10 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.NoiseColumn;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
+import net.minecraft.world.level.levelgen.structure.pieces.PieceGenerator;
 import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier;
+import net.minecraft.world.level.levelgen.structure.pools.JigsawPlacement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,4 +84,21 @@ public class StructureUtil {
 
         return Optional.empty();
     }
+
+    public static boolean checkLandAtHeight(PieceGeneratorSupplier.Context<?> context, BlockPos pos, int heightTolerance) {
+        NoiseColumn column = context.chunkGenerator().getBaseColumn(pos.getX(), pos.getZ(), context.heightAccessor());
+
+        for (int y = pos.getY() - heightTolerance; y <= pos.getZ() + heightTolerance; y++) {
+            if (column.getBlock(y).canOcclude() && column.getBlock(y + 1).isAir())
+                return true;
+        }
+
+        return false;
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T extends JigsawConfiguration> Optional<PieceGenerator<T>> addPieces(PieceGeneratorSupplier.Context<T> context, JigsawPlacement.PieceFactory pieceFactory, BlockPos pos, boolean usePosHeight) {
+        return JigsawPlacement.addPieces((PieceGeneratorSupplier.Context<JigsawConfiguration>) context, pieceFactory, pos, false, usePosHeight).map(pieceGenerator -> (PieceGenerator<T>) pieceGenerator);
+    }
+
 }

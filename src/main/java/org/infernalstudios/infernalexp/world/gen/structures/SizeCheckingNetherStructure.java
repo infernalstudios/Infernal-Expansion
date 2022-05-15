@@ -19,20 +19,19 @@ package org.infernalstudios.infernalexp.world.gen.structures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
 import net.minecraft.world.level.levelgen.structure.PoolElementStructurePiece;
 import net.minecraft.world.level.levelgen.structure.PostPlacementProcessor;
 import net.minecraft.world.level.levelgen.structure.pieces.PieceGenerator;
 import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier;
-import net.minecraft.world.level.levelgen.structure.pools.JigsawPlacement;
+import org.infernalstudios.infernalexp.world.gen.structures.config.SizeCheckingConfiguration;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-public class SimpleNetherStructure extends StructureFeature<JigsawConfiguration> {
+public class SizeCheckingNetherStructure extends StructureFeature<SizeCheckingConfiguration> {
 
-    public SimpleNetherStructure() {
-        super(JigsawConfiguration.CODEC, SimpleNetherStructure::createPiecesGenerator, PostPlacementProcessor.NONE);
+    public SizeCheckingNetherStructure() {
+        super(SizeCheckingConfiguration.CODEC, SizeCheckingNetherStructure::createPiecesGenerator, PostPlacementProcessor.NONE);
     }
 
     @NotNull
@@ -42,14 +41,23 @@ public class SimpleNetherStructure extends StructureFeature<JigsawConfiguration>
     }
 
     @NotNull
-    private static Optional<PieceGenerator<JigsawConfiguration>> createPiecesGenerator(PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
+    private static Optional<PieceGenerator<SizeCheckingConfiguration>> createPiecesGenerator(PieceGeneratorSupplier.Context<SizeCheckingConfiguration> context) {
         Optional<Integer> yLevel = StructureUtil.getSuitableNetherYLevel(context, context.chunkPos().getMiddleBlockPosition(0));
 
         if (yLevel.isEmpty())
             return Optional.empty();
 
-        BlockPos pos = context.chunkPos().getMiddleBlockPosition(yLevel.get());
 
-        return JigsawPlacement.addPieces(context, PoolElementStructurePiece::new, pos, false, false);
+        BlockPos pos = context.chunkPos().getMiddleBlockPosition(yLevel.get());
+        int size = context.config().sizeToCheck();
+
+        for (int x = pos.getX() - size; x <= pos.getX() + size; x += size) {
+            for (int z = pos.getZ() - size; z <= pos.getZ() + size; z += size) {
+                if (!StructureUtil.checkLandAtHeight(context, pos, 5))
+                    return Optional.empty();
+            }
+        }
+
+        return StructureUtil.addPieces(context, PoolElementStructurePiece::new, pos, false);
     }
 }
