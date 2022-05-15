@@ -57,6 +57,36 @@ public class IEStructurePools {
         ), StructureTemplatePool.Projection.RIGID)
     );
 
+    public static final Holder<StructureTemplatePool> SOUL_SAND_VALLEY_RUIN = registerPool(new StructureTemplatePool(
+            new ResourceLocation(InfernalExpansion.MOD_ID, "soul_sand_valley_ruin/start_pool"), new ResourceLocation("empty"), ImmutableList.of(
+            Pair.of(PoolUtil.legacy("soul_sand_valley/soul_brazier_1"), 1),
+            Pair.of(PoolUtil.legacy("soul_sand_valley/soul_brazier_2"), 1),
+            Pair.of(PoolUtil.legacy("soul_sand_valley/soul_brazier_3"), 1),
+            Pair.of(PoolUtil.legacy("soul_sand_valley/soul_pike_1"), 1),
+            Pair.of(PoolUtil.legacy("soul_sand_valley/soul_pike_2"), 1)
+        ), StructureTemplatePool.Projection.RIGID)
+    );
+
+    public static final Holder<StructureTemplatePool> BASTION_OUTPOST = registerPool(new StructureTemplatePool(
+            new ResourceLocation(InfernalExpansion.MOD_ID, "bastion_outpost/start_pool"), new ResourceLocation("empty"), ImmutableList.of(
+            Pair.of(PoolUtil.legacy("glowstone_canyon/desolate_bastion_outpost_1", IEProcessors.LOOT_CHEST_LIST), 1),
+            Pair.of(PoolUtil.legacy("glowstone_canyon/desolate_bastion_outpost_2", IEProcessors.LOOT_CHEST_LIST), 1),
+            Pair.of(PoolUtil.legacy("glowstone_canyon/desolate_bastion_outpost_3", IEProcessors.LOOT_CHEST_LIST), 1),
+            Pair.of(PoolUtil.legacy("glowstone_canyon/desolate_bastion_outpost_4", IEProcessors.LOOT_CHEST_LIST), 1),
+            Pair.of(PoolUtil.legacy("glowstone_canyon/desolate_bastion_outpost_5", IEProcessors.LOOT_CHEST_LIST), 1)
+        ), StructureTemplatePool.Projection.RIGID)
+    );
+
+    public static final Holder<StructureTemplatePool> STRIDER_ALTAR = registerPool(new StructureTemplatePool(
+            new ResourceLocation(InfernalExpansion.MOD_ID, "strider_altar/start_pool"), new ResourceLocation("empty"), ImmutableList.of(
+            Pair.of(PoolUtil.legacy("basalt_deltas/strider_altar_1", IEProcessors.LOOT_CHEST_LIST), 1),
+            Pair.of(PoolUtil.legacy("basalt_deltas/strider_altar_2", IEProcessors.LOOT_CHEST_LIST), 1),
+            Pair.of(PoolUtil.legacy("basalt_deltas/strider_altar_3", IEProcessors.LOOT_CHEST_LIST), 1),
+            Pair.of(PoolUtil.legacy("basalt_deltas/strider_altar_4", IEProcessors.LOOT_CHEST_LIST), 1),
+            Pair.of(PoolUtil.legacy("basalt_deltas/strider_altar_5", IEProcessors.LOOT_CHEST_LIST), 1)
+        ), StructureTemplatePool.Projection.RIGID)
+    );
+
     private static Holder<StructureTemplatePool> registerPool(StructureTemplatePool pool) {
         if (BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.keySet().contains(pool.getName()))
             throw new IllegalStateException("Structure Pool ID: \"" + pool.getName() + "\" is already in the registry!");

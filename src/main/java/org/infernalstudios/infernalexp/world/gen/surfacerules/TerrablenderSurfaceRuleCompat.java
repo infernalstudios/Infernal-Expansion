@@ -42,8 +42,7 @@ public class TerrablenderSurfaceRuleCompat {
                     addSurfaceRulesMethod.invoke(surfaceRuleManagerClass, constant, InfernalExpansion.MOD_ID, NetherSurfaceRules.addNetherSurfaceRules());
             }
 
-        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException |
-                 InvocationTargetException exception) {
+        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException exception) {
             throw new RuntimeException(exception);
         }
     }
