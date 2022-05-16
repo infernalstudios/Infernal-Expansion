@@ -20,7 +20,6 @@ import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.util.ShapeUtil;
@@ -29,14 +28,14 @@ import org.infernalstudios.infernalexp.world.gen.features.config.GlowSpikeFeatur
 import java.util.List;
 import java.util.Random;
 
-public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
+public class GlowSpikeFeature extends IEFeature<GlowSpikeFeatureConfig> {
 
     public GlowSpikeFeature(Codec<GlowSpikeFeatureConfig> codec) {
         super(codec);
     }
 
     @Override
-    public boolean place(FeaturePlaceContext<GlowSpikeFeatureConfig> context) {
+    public boolean placeFeature(FeaturePlaceContext<GlowSpikeFeatureConfig> context) {
         if ((context.level().isEmptyBlock(context.origin()) || context.level().getBlockState(context.origin().below()).getBlock() == IEBlocks.GLOWDUST_SAND.get()) || (context.level().getBlockState(context.origin()).getBlock() == Blocks.LAVA && context.level().getBlockState(context.origin().below()).getBlock() != Blocks.LAVA)) {
             // Generate a random height, diameter and offset
             int height = context.config().minHeight + context.random().nextInt(context.config().maxHeight - context.config().minHeight);
@@ -70,6 +69,11 @@ public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
         } else {
             return false;
         }
+    }
+
+    @Override
+    boolean shouldPlaceOnStructures() {
+        return false;
     }
 
     private void placeGlowSpikeLine(WorldGenLevel world, BlockPos startPos, BlockPos endPos, Random random, GlowSpikeFeatureConfig config) {

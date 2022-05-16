@@ -20,14 +20,14 @@ import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
-import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import org.infernalstudios.infernalexp.blocks.LuminousFungusBlock;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IETags;
 
-public class LuminousFungusFeature extends Feature<NoneFeatureConfiguration> {
+public class LuminousFungusFeature extends IEFeature<NoneFeatureConfiguration> {
+
     public LuminousFungusFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
     }
@@ -59,5 +59,16 @@ public class LuminousFungusFeature extends Feature<NoneFeatureConfiguration> {
 
         return false;
     }
+
+    @Override
+    boolean placeFeature(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+        return true;
+    }
+
+    @Override
+    boolean shouldPlaceOnStructures() {
+        return false;
+    }
+
 }
 

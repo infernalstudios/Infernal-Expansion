@@ -24,6 +24,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 
 public class IETags {
@@ -72,4 +73,15 @@ public class IETags {
         }
 
     }
+
+    public static class Structures {
+
+        public static final TagKey<ConfiguredStructureFeature<?, ?>> NO_INTERSECTING_FEATURES = tag("no_intersecting_features");
+
+        private static TagKey<ConfiguredStructureFeature<?, ?>> tag(String name) {
+            return TagKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, new ResourceLocation(InfernalExpansion.MOD_ID, name));
+        }
+
+    }
+
 }

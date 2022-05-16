@@ -19,7 +19,6 @@ package org.infernalstudios.infernalexp.world.gen.features;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import org.infernalstudios.infernalexp.init.IEBlocks;
@@ -27,14 +26,14 @@ import org.infernalstudios.infernalexp.util.ShapeUtil;
 
 import java.util.Random;
 
-public class BoulderFeature extends Feature<BlockStateConfiguration> {
+public class BoulderFeature extends IEFeature<BlockStateConfiguration> {
 
     public BoulderFeature(Codec<BlockStateConfiguration> codec) {
         super(codec);
     }
 
     @Override
-    public boolean place(FeaturePlaceContext<BlockStateConfiguration> context) {
+    public boolean placeFeature(FeaturePlaceContext<BlockStateConfiguration> context) {
         int radius = new int[]{1, 1, 2, 2, 2, 2, 3}[context.random().nextInt(7)];
 
         if (!context.level().isEmptyBlock(context.origin()) || context.level().getBlockState(context.origin().below()).getBlock() != IEBlocks.GLOWDUST_SAND.get() || context.level().isEmptyBlock(context.origin().below(radius)) || context.random().nextInt(3) == 2) {
@@ -43,6 +42,11 @@ public class BoulderFeature extends Feature<BlockStateConfiguration> {
             placeSphere(context.level(), context.random(), context.origin().below(Math.floorDiv(radius, 3)), radius, context.config());
             return true;
         }
+    }
+
+    @Override
+    boolean shouldPlaceOnStructures() {
+        return false;
     }
 
     private void placeSphere(WorldGenLevel world, Random random, BlockPos pos, int radius, BlockStateConfiguration config) {

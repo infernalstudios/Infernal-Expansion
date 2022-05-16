@@ -23,13 +23,12 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
-import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import org.infernalstudios.infernalexp.blocks.PlantedQuartzBlock;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.world.gen.features.config.PlantedQuartzFeatureConfig;
 
-public class PlantedQuartzFeature extends Feature<PlantedQuartzFeatureConfig> {
+public class PlantedQuartzFeature extends IEFeature<PlantedQuartzFeatureConfig> {
 
     private static final int MAX_AMOUNT = 15;
 
@@ -38,7 +37,7 @@ public class PlantedQuartzFeature extends Feature<PlantedQuartzFeatureConfig> {
     }
 
     @Override
-    public boolean place(FeaturePlaceContext<PlantedQuartzFeatureConfig> context) {
+    public boolean placeFeature(FeaturePlaceContext<PlantedQuartzFeatureConfig> context) {
         int amount = 0;
 
         // Attempt to place quartz 128 times
@@ -75,6 +74,11 @@ public class PlantedQuartzFeature extends Feature<PlantedQuartzFeatureConfig> {
         }
 
         return false;
+    }
+
+    @Override
+    boolean shouldPlaceOnStructures() {
+        return true;
     }
 
     public boolean findOre(WorldGenLevel world, BlockPos pos) {

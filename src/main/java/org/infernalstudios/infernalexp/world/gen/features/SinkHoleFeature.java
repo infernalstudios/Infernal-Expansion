@@ -22,13 +22,13 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.util.ShapeUtil;
 
-public class SinkHoleFeature extends Feature<NoneFeatureConfiguration> {
+public class SinkHoleFeature extends IEFeature<NoneFeatureConfiguration> {
+
     public SinkHoleFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
     }
@@ -37,7 +37,7 @@ public class SinkHoleFeature extends Feature<NoneFeatureConfiguration> {
     private static final int maxRadius = 4;
 
     @Override
-    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+    public boolean placeFeature(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos().set(context.origin());
         if (!context.level().isEmptyBlock(mutableBlockPos) || context.level().getBlockState(mutableBlockPos.move(Direction.DOWN)).getBlock() != IEBlocks.GLOWDUST_SAND.get()) {
             return false;
@@ -85,15 +85,20 @@ public class SinkHoleFeature extends Feature<NoneFeatureConfiguration> {
             // Create fairy ring of luminous fungus around sinkhole
 //            for (BlockPos point : ShapeUtil.generateCircle(radius + 2)) {
 //                for (int y = -5; y < 5; y++) {
-//                    if (IEBlocks.LUMINOUS_FUNGUS.get().getDefaultState().isValidPosition(world, pos.add(point).down(y))) {
-//                        world.setBlockState(pos.add(point).down(y), IEBlocks.LUMINOUS_FUNGUS.get().getDefaultState(), 2);
-//                        break;
-//                    }
-//                }
-//            }
+            //                    if (IEBlocks.LUMINOUS_FUNGUS.get().getDefaultState().isValidPosition(world, pos.add(point).down(y))) {
+            //                        world.setBlockState(pos.add(point).down(y), IEBlocks.LUMINOUS_FUNGUS.get().getDefaultState(), 2);
+            //                        break;
+            //                    }
+            //                }
+            //            }
 
             return true;
         }
+    }
+
+    @Override
+    boolean shouldPlaceOnStructures() {
+        return false;
     }
 
     private void carveSpot(WorldGenLevel world, ChunkGenerator generator, BlockPos.MutableBlockPos mutableBlockPos) {

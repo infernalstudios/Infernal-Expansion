@@ -25,20 +25,19 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import org.infernalstudios.infernalexp.blocks.GlowdustBlock;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 
-public class GlowLayerFeature extends Feature<NoneFeatureConfiguration> {
+public class GlowLayerFeature extends IEFeature<NoneFeatureConfiguration> {
 
     public GlowLayerFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
     }
 
     @Override
-    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+    public boolean placeFeature(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos().set(context.origin());
         BlockPos.MutableBlockPos mutableBlockPosNeighbors = new BlockPos.MutableBlockPos().set(mutableBlockPos);
         boolean doExpandedPlacing = isMultipleBiomesInChunk(context.level(), context.origin(), mutableBlockPos);
@@ -75,6 +74,11 @@ public class GlowLayerFeature extends Feature<NoneFeatureConfiguration> {
             }
         }
 
+        return true;
+    }
+
+    @Override
+    boolean shouldPlaceOnStructures() {
         return true;
     }
 

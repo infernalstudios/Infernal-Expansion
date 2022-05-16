@@ -21,7 +21,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraftforge.fml.ModList;
@@ -29,7 +28,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.util.ShapeUtil;
 
-public class HangingGiantBrownMushroomFeature extends Feature<NoneFeatureConfiguration> {
+public class HangingGiantBrownMushroomFeature extends IEFeature<NoneFeatureConfiguration> {
+
     public HangingGiantBrownMushroomFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
     }
@@ -40,7 +40,7 @@ public class HangingGiantBrownMushroomFeature extends Feature<NoneFeatureConfigu
     private static final ResourceLocation enhancedMushroomsBrownStem = new ResourceLocation("enhanced_mushrooms", "brown_mushroom_stem");
 
     @Override
-    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+    public boolean placeFeature(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         if (!context.level().isEmptyBlock(context.origin()) || context.level().getBlockState(context.origin().above()) != IEBlocks.DULLSTONE.get().defaultBlockState()) {
             return false;
         } else {
@@ -69,4 +69,10 @@ public class HangingGiantBrownMushroomFeature extends Feature<NoneFeatureConfigu
             return true;
         }
     }
+
+    @Override
+    boolean shouldPlaceOnStructures() {
+        return false;
+    }
+
 }

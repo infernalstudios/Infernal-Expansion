@@ -29,6 +29,7 @@
     "common.SurfaceRulesContextAccessor",
     "common.SurfaceSystemAccessor",
     "common.WorldCarverAccessor",
+    "common.WorldGenRegionAccessor",
     "dev.MixinDataFixers",
     "dev.MixinMinecraftServer",
     "dev.MixinPrimaryLevelData"

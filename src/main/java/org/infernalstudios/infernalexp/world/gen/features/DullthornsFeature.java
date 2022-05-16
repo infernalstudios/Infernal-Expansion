@@ -17,19 +17,19 @@
 package org.infernalstudios.infernalexp.world.gen.features;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import org.infernalstudios.infernalexp.blocks.DullthornsBlock;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 
-public class DullthornsFeature extends Feature<NoneFeatureConfiguration> {
+public class DullthornsFeature extends IEFeature<NoneFeatureConfiguration> {
+
     public DullthornsFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
     }
 
     @Override
-    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+    public boolean placeFeature(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         int height = context.random().nextInt(9) + 1;
         int top = 0;
 
@@ -49,5 +49,11 @@ public class DullthornsFeature extends Feature<NoneFeatureConfiguration> {
             return true;
         }
     }
+
+    @Override
+    boolean shouldPlaceOnStructures() {
+        return true;
+    }
+
 }
 

@@ -22,13 +22,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
-import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import org.infernalstudios.infernalexp.blocks.ShroomlightFungusBlock;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 
-public class ShroomlightTearFeature extends Feature<NoneFeatureConfiguration> {
+public class ShroomlightTearFeature extends IEFeature<NoneFeatureConfiguration> {
 
     private static final int MAX_AMOUNT = 10;
 
@@ -37,7 +36,7 @@ public class ShroomlightTearFeature extends Feature<NoneFeatureConfiguration> {
     }
 
     @Override
-    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+    public boolean placeFeature(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         boolean isWarpedForest = context.level().getBiome(context.origin()).value().getRegistryName().equals(new ResourceLocation("warped_forest"));
         int amount = 0;
 
@@ -61,4 +60,10 @@ public class ShroomlightTearFeature extends Feature<NoneFeatureConfiguration> {
 
         return false;
     }
+
+    @Override
+    boolean shouldPlaceOnStructures() {
+        return true;
+    }
+
 }
