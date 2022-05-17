@@ -57,7 +57,6 @@ public class IEItems {
     // Items
     public static final RegistryObject<Item> GLOWCOAL = ITEMS.register("glowcoal", GlowcoalItem::new);
     public static final RegistryObject<Item> DULLROCKS = ITEMS.register("glownuggets", ItemBase::new);
-    public static final RegistryObject<Item> BLINDSIGHT_TONGUE = ITEMS.register("blindsight_tongue", ItemBase::new);
     public static final RegistryObject<Item> MOTH_DUST = ITEMS.register("moth_dust", ItemBase::new);
     public static final RegistryObject<Item> MOLTEN_GOLD_CLUSTER = ITEMS.register("molten_gold_cluster", ItemBase::new);
     public static final RegistryObject<Item> GLOWSILK = ITEMS.register("glowsilk", ItemBase::new);
@@ -65,9 +64,14 @@ public class IEItems {
 
 
     // Foods
-    public static final RegistryObject<BowlFoodItem> BLINDSIGHT_TONGUE_STEW = registerItem("blindsight_tongue_stew",
-        () -> new SlurpSoupItem(new Item.Properties().stacksTo(1).tab(InfernalExpansion.TAB)
-            .food(new FoodProperties.Builder().nutrition(6).saturationMod(0.6F)
+    public static final RegistryObject<Item> BLINDSIGHT_TONGUE = ITEMS.register("blindsight_tongue", () -> new SlurpItem(new Item.Properties().group(InfernalExpansion.TAB)
+            .food(new Food.Builder().hunger(3).saturation(0.5F)
+                .effect(() ->
+                    new EffectInstance(Effects.JUMP_BOOST, 100, 1), 1.0F)
+                .build())));
+
+    public static final RegistryObject<SoupItem> BLINDSIGHT_TONGUE_STEW = registerItem("blindsight_tongue_stew", () -> new SlurpSoupItem(new Item.Properties().maxStackSize(1).group(InfernalExpansion.TAB)
+            .food(new Food.Builder().hunger(6).saturation(0.9F)
                 .effect(() ->
                     new MobEffectInstance(MobEffects.JUMP, 1200, 1), 1.0F)
                 .build())));
@@ -76,11 +80,23 @@ public class IEItems {
         .food(new FoodProperties.Builder().nutrition(5).saturationMod(0.6F)
             .build())));
 
-    public static final RegistryObject<Item> RAW_HOGCHOP = ITEMS.register("raw_hogchop", () -> new Item(new Item.Properties().tab(InfernalExpansion.TAB)
-        .food(new FoodProperties.Builder().nutrition(4).saturationMod(0.3F).meat().build())));
+    public static final RegistryObject<Item> SPIRIT_EYE = ITEMS.register("spirit_eye", () -> new Item(new Item.Properties().group(InfernalExpansion.TAB)
+        .food(new Food.Builder().hunger(4).saturation(0.8F)
+            .effect(() ->
+                new EffectInstance(Effects.GLOWING, 200, 0), 1.0F)
+            .build())));
 
-    public static final RegistryObject<Item> COOKED_HOGCHOP = ITEMS.register("cooked_hogchop", () -> new Item(new Item.Properties().tab(InfernalExpansion.TAB)
-        .food(new FoodProperties.Builder().nutrition(10).saturationMod(0.8F).meat().build())));
+    public static final RegistryObject<Item> RAW_HOGCHOP = ITEMS.register("raw_hogchop", () -> new Item(new Item.Properties().group(InfernalExpansion.TAB)
+        .food(new Food.Builder().hunger(4).saturation(0.3F).meat()
+            .effect(() ->
+                new EffectInstance(IEEffects.INFECTION.get(), 200, 1), 1.0F)
+            .build())));
+
+    public static final RegistryObject<Item> COOKED_HOGCHOP = ITEMS.register("cooked_hogchop", () -> new Item(new Item.Properties().group(InfernalExpansion.TAB)
+        .food(new Food.Builder().hunger(10).saturation(0.8F).meat()
+        .effect(() ->
+            new EffectInstance(Effects.SLOWNESS, 200, 1), 1.0F)
+        .build())));
 
 
     // Spawn Eggs
@@ -114,8 +130,9 @@ public class IEItems {
     public static final RegistryObject<Item> MUSIC_DISC_FLUSH = registerItem("music_disc_flush", () -> new RecordItem(7, () -> IESoundEvents.MUSIC_DISC_FLUSH.get(), new Item.Properties().tab(InfernalExpansion.TAB).rarity(Rarity.RARE).stacksTo(1)));
 
     // Tools
-    public static final RegistryObject<BowItem> GLOWSILK_BOW = registerItem("glowsilk_bow", () -> new GlowsilkBowItem(new Item.Properties().durability(384).tab(InfernalExpansion.TAB)));
-    public static final RegistryObject<WhipItem> BLINDSIGHT_TONGUE_WHIP = registerItem("blindsight_tongue_whip", () -> new WhipItem(IEItemTiers.BLINDSIGHT_TONGUE, 1.0F, -3.4F, new Item.Properties().tab(InfernalExpansion.TAB)));
+    public static final RegistryObject<BowItem> GLOWSILK_BOW = registerItem("glowsilk_bow", () -> new GlowsilkBowItem(new Item.Properties().maxDamage(384).group(InfernalExpansion.TAB)));
+    public static final RegistryObject<WhipItem> BLINDSIGHT_TONGUE_WHIP = registerItem("blindsight_tongue_whip", () -> new WhipItem(IEItemTiers.BLINDSIGHT_TONGUE, 4.0F, -3.4F, new Item.Properties().group(InfernalExpansion.TAB)));
+    public static final RegistryObject<WhipItem> KINETIC_TONGUE_WHIP = registerItem("kinetic_tongue_whip", () -> new WhipItem(IEItemTiers.BLINDSIGHT_TONGUE, 6.0F, -3.4F, ModList.get().isLoaded("miningmaster") ? new Item.Properties().group(InfernalExpansion.TAB) : new Item.Properties()));
 
     public static final RegistryObject<Item> TAB_ITEM = registerItem("tab_icon", () -> new Item(new Item.Properties()));
 
@@ -136,4 +153,8 @@ public class IEItems {
         return ITEMS.register(name, itemSupplier);
     }
 
+    public static <T extends Item> RegistryObject<T> registerItemConditioned(String name, Supplier<? extends T> itemSupplier, Supplier<? extends T> itemSupplierCompat, String modID) {
+        RegistryObject<T> item = ITEMS.register(name, ModList.get().isLoaded(modID) ? itemSupplier : itemSupplierCompat);
+        return item;
+    }
 }

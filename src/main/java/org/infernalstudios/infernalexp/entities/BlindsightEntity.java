@@ -18,6 +18,7 @@ package org.infernalstudios.infernalexp.entities;
 
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 import org.infernalstudios.infernalexp.init.IEEffects;
+import org.infernalstudios.infernalexp.init.IESoundEvents;
 
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.Entity;
@@ -99,17 +100,17 @@ public class BlindsightEntity extends Monster {
     //SOUNDS
     @Override
     protected SoundEvent getAmbientSound() {
-        return null;
+        return IESoundEvents.BLINDSIGHT_AMBIENT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return null;
+        return IESoundEvents.BLINDSIGHT_DEATH.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return null;
+        return IESoundEvents.BLINDSIGHT_HURT.get();
     }
 
     @Override
@@ -199,10 +200,11 @@ public class BlindsightEntity extends Monster {
 
     protected void dealDamage(LivingEntity entityIn) {
         if (this.isAlive()) {
-            if (this.hasLineOfSight(entityIn) && entityIn.hurt(DamageSource.mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE))) {
-                entityIn.addEffect(new MobEffectInstance(IEEffects.LUMINOUS.get(), 600, 0, true, true));
-                this.playSound(SoundEvents.SLIME_ATTACK, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
-                this.doEnchantDamageEffects(this, entityIn);
+            if (this.canEntityBeSeen(entityIn) && entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE))) {
+                entityIn.addPotionEffect(new EffectInstance(IEEffects.LUMINOUS.get(), 100, 0, true, true));
+                entityIn.addPotionEffect(new EffectInstance(Effects.JUMP_BOOST, 100, 1, true, true));
+                this.playSound(SoundEvents.ENTITY_SLIME_ATTACK, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+                this.applyEnchantments(this, entityIn);
             }
         }
 

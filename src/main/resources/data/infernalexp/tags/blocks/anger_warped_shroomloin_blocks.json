@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
+    "minecraft:warped_roots",
     "minecraft:warped_fungus",
-    "minecraft:warped_wart_block",
     "infernalexp:warped_fungus_cap"
   ]
 }

@@ -254,7 +254,7 @@ public class IEBlocks {
     public static final RegistryObject<Block> LUMINOUS_FUNGUS = registerBlockWithDefaultItem("luminous_fungus", () -> new LuminousFungusBlock(getProperties(Material.PLANT).lightLevel(getLightValueLit(15)).noCollission().sound(SoundType.GRASS)));
     public static final RegistryObject<Block> DULLTHORNS = registerBlock("dullthorns", () -> new DullthornsBlock(BlockBehaviour.Properties.of(Material.PLANT).lightLevel(value -> 3).noCollission().randomTicks().strength(0.1F).sound(SoundType.GRASS)));
 
-    public static final RegistryObject<Block> DULLTHORNS_BLOCK = registerBlockWithDefaultItem("dullthorns_block", () -> new DullthornsBlockBlock(BlockBehaviour.Properties.of(Material.CACTUS).strength(1.0F).sound(SoundType.WART_BLOCK)));
+    public static final RegistryObject<Block> DULLTHORNS_BLOCK = registerBlockWithDefaultItem("dullthorns_block", () -> new DullthornsBlockBlock(AbstractBlock.Properties.create(Material.CACTUS).hardnessAndResistance(1.0F).sound(SoundType.WART).harvestTool(ToolType.HOE)));
 
     public static final RegistryObject<FlowerPotBlock> POTTED_LUMINOUS_FUNGUS = registerBlock("potted_luminous_fungus", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, LUMINOUS_FUNGUS, getProperties(Blocks.FLOWER_POT)));
     public static final RegistryObject<FlowerPotBlock> POTTED_DULLTHORNS = registerBlock("potted_dullthorns", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, DULLTHORNS, getProperties(Blocks.FLOWER_POT)));

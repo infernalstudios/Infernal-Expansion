@@ -25,6 +25,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.infernalstudios.infernalexp.init.IETags;
+import org.infernalstudios.infernalexp.init.IEEffects;
 
 public class GlowFireBlock extends BaseFireBlock {
 
@@ -42,6 +43,16 @@ public class GlowFireBlock extends BaseFireBlock {
 
     public static boolean isGlowFireBase(Block block) {
         return IETags.Blocks.GLOW_FIRE_BASE_BLOCKS.contains(block);
+    }
+
+    @Override
+    public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
+        if (!worldIn.isRemote()) {
+            if (entityIn instanceof LivingEntity && entityIn.isAlive() && InfernalExpansionConfig.Miscellaneous.LUMINOUS_FUNGUS_GIVES_EFFECT.getBool()) {
+                LivingEntity livingEntity = (LivingEntity) entityIn;
+                livingEntity.addPotionEffect(new EffectInstance(IEEffects.LUMINOUS.get(), 600, 0, true, true));
+            }
+        }
     }
 
     protected boolean canBurn(BlockState stateIn) {

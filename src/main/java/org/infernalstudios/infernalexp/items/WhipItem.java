@@ -78,8 +78,8 @@ public class WhipItem extends TieredItem implements Vanishable {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-        tooltip.add(new TextComponent("\u00A76" + "Hold right click to charge, then, when fully charged, release to strike!"));
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        tooltip.add(new StringTextComponent("\u00A76" + "Hold right click to charge, then when fully charged, release to strike!"));
     }
 
     @Override
@@ -89,7 +89,7 @@ public class WhipItem extends TieredItem implements Vanishable {
 
             int ticksSinceStart = this.getUseDuration(stack) - timeLeft;
 
-            if (ticksSinceStart < 0 || getTicksSinceAttack(stack) < 15) {
+            if (ticksSinceStart < 0 || getTicksSinceAttack(stack) < 8) {
                 setTicksSinceAttack(stack, 0);
                 return;
             } else {
@@ -162,8 +162,8 @@ public class WhipItem extends TieredItem implements Vanishable {
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-        if ((getCharging(stack) && getTicksSinceAttack(stack) <= 15) || getAttacking(stack)) {
+    public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+        if ((getCharging(stack) && getTicksSinceAttack(stack) <= 8) || getAttacking(stack)) {
             setTicksSinceAttack(stack, getTicksSinceAttack(stack) + 1);
         }
 

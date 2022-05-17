@@ -1,0 +1,25 @@
+name: Addition or Enhancement
+description: Suggest something that would improve Infernal Expansion
+labels: [ "enhancement" ]
+body:
+    -   type: textarea
+        attributes:
+            label: Describe the Addition
+            description: What should we add or change to the mod to make it better?
+        validations:
+            required: true
+    -   type: textarea
+        attributes:
+            label: Screenshots and Videos
+            description: If applicable, add screenshots or videos to help explain your suggestion
+        validations:
+            required: false
+    -   type: textarea
+        attributes:
+            label: Additional Context
+            description: Add any extra context about the addition here
+        validations:
+            required: false
+    -   type: markdown
+        attributes:
+            value: "Thank you for taking the time to suggest this addition and to help improve Infernal Expansion"
