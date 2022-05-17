@@ -92,8 +92,9 @@ public class DeltaShoresSubBiome extends IEBiome {
 
     @Override
     protected Biome.ClimateSettings configureClimate() {
-        return new Biome.ClimateSettings(Biome.Precipitation.RAIN, 2.0f, Biome.TemperatureModifier.NONE, 0.0f);
+        return new Biome.ClimateSettings(Biome.Precipitation.NONE, 2.0f, Biome.TemperatureModifier.NONE, 0.0f);
     }
+
 
     @Override
     protected void configureGeneration(BiomeGenerationSettings.Builder generation) {

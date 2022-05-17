@@ -115,7 +115,7 @@ public class MiscEvents {
 
             ItemStack output = left.copy();
             output.setDamageValue(left.getDamageValue() - 200);
-            cost += 4;
+            cost += 5;
 
             if (event.getName().equals("")) {
                 if (left.hasCustomHoverName()) {

@@ -25,6 +25,11 @@
           ],
           "name": "minecraft:golden_apple"
         }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:killed_by_player"
+        }
       ]
     }
   ]

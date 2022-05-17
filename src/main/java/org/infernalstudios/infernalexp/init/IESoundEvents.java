@@ -60,6 +60,7 @@ public class IESoundEvents {
 	public static final RegistryObject<SoundEvent> BLINDSIGHT_AMBIENT = add("entity.blindsight.ambient");
 	public static final RegistryObject<SoundEvent> BLINDSIGHT_HURT = add("entity.blindsight.hurt");
 	public static final RegistryObject<SoundEvent> BLINDSIGHT_DEATH = add("entity.blindsight.death");
+    public static final RegistryObject<SoundEvent> BLINDSIGHT_LEAP = add("entity.blindsight.leap");
 
 	// BLACKSTONE_DWARF
 	public static final RegistryObject<SoundEvent> BLACKSTONE_DWARF_AMBIENT = add("entity.dwarf.ambient");

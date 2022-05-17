@@ -34,4 +34,3 @@ dependencies {
     implementation fg.deobf('org.infernalstudios:infernalexp:INFERNALEXPANSION_VERSION-MINECRAFT_VERSION')
 }
 ```
-
