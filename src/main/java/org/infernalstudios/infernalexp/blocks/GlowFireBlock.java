@@ -18,14 +18,19 @@ package org.infernalstudios.infernalexp.blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import org.infernalstudios.infernalexp.init.IETags;
+import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 import org.infernalstudios.infernalexp.init.IEEffects;
+import org.infernalstudios.infernalexp.init.IETags;
 
 public class GlowFireBlock extends BaseFireBlock {
 
@@ -46,11 +51,11 @@ public class GlowFireBlock extends BaseFireBlock {
     }
 
     @Override
-    public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
-        if (!worldIn.isRemote()) {
+    public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
+        if (!worldIn.isClientSide()) {
             if (entityIn instanceof LivingEntity && entityIn.isAlive() && InfernalExpansionConfig.Miscellaneous.LUMINOUS_FUNGUS_GIVES_EFFECT.getBool()) {
                 LivingEntity livingEntity = (LivingEntity) entityIn;
-                livingEntity.addPotionEffect(new EffectInstance(IEEffects.LUMINOUS.get(), 600, 0, true, true));
+                livingEntity.addEffect(new MobEffectInstance(IEEffects.LUMINOUS.get(), 600, 0, true, true));
             }
         }
     }

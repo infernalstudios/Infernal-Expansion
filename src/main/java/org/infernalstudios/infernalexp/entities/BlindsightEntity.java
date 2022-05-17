@@ -16,13 +16,14 @@
 
 package org.infernalstudios.infernalexp.entities;
 
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-import org.infernalstudios.infernalexp.init.IEEffects;
-import org.infernalstudios.infernalexp.init.IESoundEvents;
-
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -32,21 +33,18 @@ import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.Mth;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.Level;
-
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
+import org.infernalstudios.infernalexp.init.IEEffects;
+import org.infernalstudios.infernalexp.init.IESoundEvents;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -200,11 +198,11 @@ public class BlindsightEntity extends Monster {
 
     protected void dealDamage(LivingEntity entityIn) {
         if (this.isAlive()) {
-            if (this.canEntityBeSeen(entityIn) && entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE))) {
-                entityIn.addPotionEffect(new EffectInstance(IEEffects.LUMINOUS.get(), 100, 0, true, true));
-                entityIn.addPotionEffect(new EffectInstance(Effects.JUMP_BOOST, 100, 1, true, true));
-                this.playSound(SoundEvents.ENTITY_SLIME_ATTACK, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
-                this.applyEnchantments(this, entityIn);
+            if (this.hasLineOfSight(entityIn) && entityIn.hurt(DamageSource.mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE))) {
+                entityIn.addEffect(new MobEffectInstance(IEEffects.LUMINOUS.get(), 100, 0, true, true));
+                entityIn.addEffect(new MobEffectInstance(MobEffects.JUMP, 100, 1, true, true));
+                this.playSound(SoundEvents.SLIME_ATTACK, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+                this.doEnchantDamageEffects(this, entityIn);
             }
         }
 

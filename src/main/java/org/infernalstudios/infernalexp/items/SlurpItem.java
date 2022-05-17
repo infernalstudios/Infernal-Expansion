@@ -16,11 +16,9 @@
 
 package org.infernalstudios.infernalexp.items;
 
-import net.minecraft.item.Item;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-
-import java.util.Properties;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.item.Item;
 
 public class SlurpItem extends Item {
     public SlurpItem(Properties builder) {
@@ -28,12 +26,12 @@ public class SlurpItem extends Item {
     }
 
     @Override
-    public SoundEvent getDrinkSound() {
-        return SoundEvents.ITEM_HONEY_BOTTLE_DRINK;
+    public SoundEvent getDrinkingSound() {
+        return SoundEvents.HONEY_DRINK;
     }
 
     @Override
-    public SoundEvent getEatSound() {
-        return SoundEvents.ITEM_HONEY_BOTTLE_DRINK;
+    public SoundEvent getEatingSound() {
+        return SoundEvents.HONEY_DRINK;
     }
 }

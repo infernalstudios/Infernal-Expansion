@@ -60,14 +60,14 @@ public class InfernalExpansionClient {
             livingEntity == null || (livingEntity.getMainHandItem() != itemStack && livingEntity.getOffhandItem() != itemStack) ?
                 0 : (int) (((WhipItem) itemStack.getItem()).getTicksSinceAttack(itemStack) / 3.0F)
         );
-        ItemModelsProperties.registerProperty(IEItems.BLINDSIGHT_TONGUE_WHIP.get(), new ResourceLocation("attacking"), (itemStack, clientWorld, livingEntity) -> livingEntity != null && (((WhipItem) itemStack.getItem()).getAttacking(itemStack) || ((WhipItem) itemStack.getItem()).getCharging(itemStack)) && (livingEntity.getHeldItemMainhand() == itemStack || livingEntity.getHeldItemOffhand() == itemStack) ? 1.0F : 0.0F);
+        ItemProperties.register(IEItems.BLINDSIGHT_TONGUE_WHIP.get(), new ResourceLocation("attacking"), (itemStack, clientWorld, livingEntity, entityId) -> livingEntity != null && (((WhipItem) itemStack.getItem()).getAttacking(itemStack) || ((WhipItem) itemStack.getItem()).getCharging(itemStack)) && (livingEntity.getMainHandItem() == itemStack || livingEntity.getOffhandItem() == itemStack) ? 1.0F : 0.0F);
 
 
-        ItemModelsProperties.registerProperty(IEItems.KINETIC_TONGUE_WHIP.get(), new ResourceLocation("attack_frame"), (itemStack, clientWorld, livingEntity) ->
-            livingEntity == null || (livingEntity.getHeldItemMainhand() != itemStack && livingEntity.getHeldItemOffhand() != itemStack) ?
+        ItemProperties.register(IEItems.KINETIC_TONGUE_WHIP.get(), new ResourceLocation("attack_frame"), (itemStack, clientWorld, livingEntity, entityId) ->
+            livingEntity == null || (livingEntity.getMainHandItem() != itemStack && livingEntity.getOffhandItem() != itemStack) ?
                 0 : (int) (((WhipItem) itemStack.getItem()).getTicksSinceAttack(itemStack) / 3.0F)
         );
-        ItemModelsProperties.registerProperty(IEItems.KINETIC_TONGUE_WHIP.get(), new ResourceLocation("attacking"), (itemStack, clientWorld, livingEntity) -> livingEntity != null && (((WhipItem) itemStack.getItem()).getAttacking(itemStack) || ((WhipItem) itemStack.getItem()).getCharging(itemStack)) && (livingEntity.getHeldItemMainhand() == itemStack || livingEntity.getHeldItemOffhand() == itemStack) ? 1.0F : 0.0F);
+        ItemProperties.register(IEItems.KINETIC_TONGUE_WHIP.get(), new ResourceLocation("attacking"), (itemStack, clientWorld, livingEntity, entityId) -> livingEntity != null && (((WhipItem) itemStack.getItem()).getAttacking(itemStack) || ((WhipItem) itemStack.getItem()).getCharging(itemStack)) && (livingEntity.getMainHandItem() == itemStack || livingEntity.getOffhandItem() == itemStack) ? 1.0F : 0.0F);
 
 
         InfernalExpansionClient.loadInfernalResources();
