@@ -1,0 +1,40 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "miningmaster"
+        }
+      ],
+      "recipe": {
+        "type": "miningmaster:forging_recipe",
+        "gems": [
+          {
+            "item": "miningmaster:kinetic_opal"
+          },
+          {
+            "item": "miningmaster:kinetic_opal"
+          },
+          {
+            "item": "miningmaster:kinetic_opal"
+          }
+        ],
+        "catalyst": {
+          "item": "infernalexp:blindsight_tongue_whip"
+        },
+        "result": {
+          "item": "infernalexp:kinetic_tongue_whip"
+        },
+        "enchantments": [
+          {
+            "enchantment": "minecraft:knockback",
+            "lvl": 3
+          }
+        ]
+      }
+    }
+  ]
+}
+

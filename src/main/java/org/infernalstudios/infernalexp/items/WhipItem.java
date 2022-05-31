@@ -83,13 +83,25 @@ public class WhipItem extends TieredItem implements Vanishable {
     }
 
     @Override
+    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+        if (isInGroup(group)) {
+            ItemStack itemStack = new ItemStack(this);
+            if (itemStack.isItemEqual(IEItems.KINETIC_TONGUE_WHIP.get().getDefaultInstance())) {
+                itemStack.addEnchantment(Enchantments.KNOCKBACK, 3);
+            }
+
+            items.add(itemStack);
+        }
+    }
+
+    @Override
     public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
         if (entityLiving instanceof Player player) {
             setCharging(stack, false);
 
             int ticksSinceStart = this.getUseDuration(stack) - timeLeft;
 
-            if (ticksSinceStart < 0 || getTicksSinceAttack(stack) < 8) {
+            if (ticksSinceStart < 0 || getTicksSinceAttack(stack) < 15) {
                 setTicksSinceAttack(stack, 0);
                 return;
             } else {
@@ -162,8 +174,8 @@ public class WhipItem extends TieredItem implements Vanishable {
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-        if ((getCharging(stack) && getTicksSinceAttack(stack) <= 8) || getAttacking(stack)) {
+    public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+        if ((getCharging(stack) && getTicksSinceAttack(stack) <= 15) || getAttacking(stack)) {
             setTicksSinceAttack(stack, getTicksSinceAttack(stack) + 1);
         }
 

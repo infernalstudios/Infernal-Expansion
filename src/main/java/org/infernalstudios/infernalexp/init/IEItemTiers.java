@@ -24,7 +24,10 @@ import java.util.function.Supplier;
 
 public enum IEItemTiers implements Tier {
     BLINDSIGHT_TONGUE(0, 131, 4.0F, 1.0F, 10, () -> {
-        return Ingredient.of(IEItems.BLINDSIGHT_TONGUE::get);
+        return Ingredient.fromItems(IEItems.BLINDSIGHT_TONGUE::get);
+    }),
+    KINETIC_OPAL(0, 131, 4.0F, 1.0F, 10, () -> {
+        return Ingredient.fromItems(() -> CompatibilityUtil.getModItem("miningmaster", "kinetic_opal"));
     });
 
     private final int harvestLevel;

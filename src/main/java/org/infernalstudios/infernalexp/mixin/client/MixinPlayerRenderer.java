@@ -18,10 +18,10 @@ package org.infernalstudios.infernalexp.mixin.client;
 
 import org.infernalstudios.infernalexp.init.IEItems;
 
-import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.client.renderer.entity.player.PlayerRenderer;
-import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.world.InteractionHand;
+import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
+import net.minecraft.client.renderer.entity.PlayerRenderer;
+import net.minecraft.client.renderer.entity.model.BipedModel;
+import net.minecraft.util.Hand;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -31,10 +31,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(PlayerRenderer.class)
 public class MixinPlayerRenderer {
 
-    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;getUseAnimation()Lnet/minecraft/world/item/UseAnim;"), method = "getArmPose", cancellable = true)
-    private static void renderWhipInfernalExpansion(AbstractClientPlayer playerEntity, InteractionHand hand, CallbackInfoReturnable<HumanoidModel.ArmPose> cir) {
-        if (playerEntity.getItemInHand(hand).sameItem(IEItems.BLINDSIGHT_TONGUE_WHIP.get().getDefaultInstance())) {
-            cir.setReturnValue(HumanoidModel.ArmPose.THROW_SPEAR);
+    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;getUseAction()Lnet/minecraft/item/UseAction;"), method = "func_241741_a_(Lnet/minecraft/client/entity/player/AbstractClientPlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/client/renderer/entity/model/BipedModel$ArmPose;", cancellable = true)
+    private static void renderWhipInfernalExpansion(AbstractClientPlayerEntity playerEntity, Hand hand, CallbackInfoReturnable<BipedModel.ArmPose> cir) {
+        if (playerEntity.getHeldItem(hand).isItemEqual(IEItems.BLINDSIGHT_TONGUE_WHIP.get().getDefaultInstance()) || playerEntity.getHeldItem(hand).isItemEqual(IEItems.KINETIC_TONGUE_WHIP.get().getDefaultInstance())) {
+            cir.setReturnValue(BipedModel.ArmPose.THROW_SPEAR);
         }
     }
 }
