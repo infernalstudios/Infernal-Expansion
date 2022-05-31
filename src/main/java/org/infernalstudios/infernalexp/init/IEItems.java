@@ -132,7 +132,7 @@ public class IEItems {
     // Tools
     public static final RegistryObject<BowItem> GLOWSILK_BOW = registerItem("glowsilk_bow", () -> new GlowsilkBowItem(new Item.Properties().maxDamage(384).group(InfernalExpansion.TAB)));
     public static final RegistryObject<WhipItem> BLINDSIGHT_TONGUE_WHIP = registerItem("blindsight_tongue_whip", () -> new WhipItem(IEItemTiers.BLINDSIGHT_TONGUE, 4.0F, -3.4F, new Item.Properties().group(InfernalExpansion.TAB)));
-    public static final RegistryObject<WhipItem> KINETIC_TONGUE_WHIP = registerItem("kinetic_tongue_whip", () -> new WhipItem(IEItemTiers.BLINDSIGHT_TONGUE, 6.0F, -3.4F, ModList.get().isLoaded("miningmaster") ? new Item.Properties().group(InfernalExpansion.TAB) : new Item.Properties()));
+    public static final RegistryObject<WhipItem> KINETIC_TONGUE_WHIP = registerItem("kinetic_tongue_whip", () -> new WhipItem(IEItemTiers.KINETIC_OPAL, 6.0F, -3.4F, ModList.get().isLoaded("miningmaster") ? new Item.Properties().group(InfernalExpansion.TAB) : new Item.Properties()));
 
     public static final RegistryObject<Item> TAB_ITEM = registerItem("tab_icon", () -> new Item(new Item.Properties()));
 
@@ -142,11 +142,7 @@ public class IEItems {
     public static final RegistryObject<AxeItem> FROSTBITTEN_AXE = ITEMS.register("frostbitten_axe", () -> new AxeItem(ModItemTier.FROSTBITTEN_NETHERITE, 4, -3.1F, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<ShovelItem> FROSTBITTEN_SHOVEL = ITEMS.register("frostbitten_shovel", () -> new ShovelItem(ModItemTier.FROSTBITTEN_NETHERITE, -1, -2.4F, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<HoeItem> FROSTBITTEN_HOE = ITEMS.register("frostbitten_hoe", () -> new HoeItem(ModItemTier.FROSTBITTEN_NETHERITE, -2, -1.0F, new Item.Properties().group(InfernalExpansion.TAB)));
-
- */
-
-    // Compat Items
-    public static final RegistryObject<WhipItem> KINETIC_OPAL_WHIP = registerItem("kinetic_opal_whip", () -> new WhipItem(IEItemTiers.KINETIC_OPAL, 1.0F, -3.4F, new Item.Properties().group(ModList.get().isLoaded("miningmaster") ? InfernalExpansion.TAB : null)));
+    */
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

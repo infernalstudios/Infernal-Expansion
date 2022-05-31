@@ -89,7 +89,7 @@ public class WhipItem extends TieredItem implements IVanishable {
     public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
         if (isInGroup(group)) {
             ItemStack itemStack = new ItemStack(this);
-            if (itemStack.isItemEqual(IEItems.KINETIC_OPAL_WHIP.get().getDefaultInstance())) {
+            if (itemStack.isItemEqual(IEItems.KINETIC_TONGUE_WHIP.get().getDefaultInstance())) {
                 itemStack.addEnchantment(Enchantments.KNOCKBACK, 3);
             }
 
