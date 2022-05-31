@@ -23,6 +23,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.enchantment.IVanishable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -34,6 +35,7 @@ import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.TieredItem;
 import net.minecraft.item.UseAction;
@@ -42,6 +44,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -59,6 +62,7 @@ import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import org.infernalstudios.infernalexp.capabilities.IWhipUpdate;
 import org.infernalstudios.infernalexp.capabilities.WhipUpdateCapability;
+import org.infernalstudios.infernalexp.init.IEItems;
 import org.infernalstudios.infernalexp.network.IENetworkHandler;
 import org.infernalstudios.infernalexp.network.WhipReachPacket;
 
@@ -79,6 +83,18 @@ public class WhipItem extends TieredItem implements IVanishable {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         tooltip.add(new StringTextComponent("\u00A76" + "Hold right click to charge, then when fully charged, release to strike!"));
+    }
+
+    @Override
+    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+        if (isInGroup(group)) {
+            ItemStack itemStack = new ItemStack(this);
+            if (itemStack.isItemEqual(IEItems.KINETIC_OPAL_WHIP.get().getDefaultInstance())) {
+                itemStack.addEnchantment(Enchantments.KNOCKBACK, 3);
+            }
+
+            items.add(itemStack);
+        }
     }
 
     @Override

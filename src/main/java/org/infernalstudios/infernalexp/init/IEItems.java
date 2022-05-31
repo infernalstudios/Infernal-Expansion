@@ -144,6 +144,10 @@ public class IEItems {
     public static final RegistryObject<HoeItem> FROSTBITTEN_HOE = ITEMS.register("frostbitten_hoe", () -> new HoeItem(ModItemTier.FROSTBITTEN_NETHERITE, -2, -1.0F, new Item.Properties().group(InfernalExpansion.TAB)));
 
  */
+
+    // Compat Items
+    public static final RegistryObject<WhipItem> KINETIC_OPAL_WHIP = registerItem("kinetic_opal_whip", () -> new WhipItem(IEItemTiers.KINETIC_OPAL, 1.0F, -3.4F, new Item.Properties().group(ModList.get().isLoaded("miningmaster") ? InfernalExpansion.TAB : null)));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
         InfernalExpansion.LOGGER.info("Infernal Expansion: Items Registered!");

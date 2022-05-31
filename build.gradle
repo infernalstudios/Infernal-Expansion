@@ -101,7 +101,6 @@ jar {
                 'Implementation-Version': config.VERSION,
                 'Implementation-Vendor' : config.AUTHOR,
                 'MixinConfigs'          : 'infernal-expansion.mixins.json',
-                'MixinConnector'        : 'org.infernalstudios.infernalexp.mixin.MixinConnector'
         ])
     }
 }
