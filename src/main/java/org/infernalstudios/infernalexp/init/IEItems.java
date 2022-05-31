@@ -49,8 +49,6 @@ import org.infernalstudios.infernalexp.items.WhipItem;
 
 import java.util.function.Supplier;
 
-//import org.infernalstudios.infernalexp.util.ModItemTier;
-
 public class IEItems {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, InfernalExpansion.MOD_ID);
@@ -133,7 +131,7 @@ public class IEItems {
     // Tools
     public static final RegistryObject<BowItem> GLOWSILK_BOW = registerItem("glowsilk_bow", () -> new GlowsilkBowItem(new Item.Properties().durability(384).tab(InfernalExpansion.TAB)));
     public static final RegistryObject<WhipItem> BLINDSIGHT_TONGUE_WHIP = registerItem("blindsight_tongue_whip", () -> new WhipItem(IEItemTiers.BLINDSIGHT_TONGUE, 4.0F, -3.4F, new Item.Properties().tab(InfernalExpansion.TAB)));
-    public static final RegistryObject<WhipItem> KINETIC_TONGUE_WHIP = registerItem("kinetic_tongue_whip", () -> new WhipItem(IEItemTiers.BLINDSIGHT_TONGUE, 6.0F, -3.4F, ModList.get().isLoaded("miningmaster") ? new Item.Properties().tab(InfernalExpansion.TAB) : new Item.Properties()));
+    public static final RegistryObject<WhipItem> KINETIC_TONGUE_WHIP = registerItem("kinetic_tongue_whip", () -> new WhipItem(IEItemTiers.KINETIC_OPAL, 6.0F, -3.4F, ModList.get().isLoaded("miningmaster") ? new Item.Properties().tab(InfernalExpansion.TAB) : new Item.Properties()));
 
     public static final RegistryObject<Item> TAB_ITEM = registerItem("tab_icon", () -> new Item(new Item.Properties()));
 
@@ -143,8 +141,8 @@ public class IEItems {
     public static final RegistryObject<AxeItem> FROSTBITTEN_AXE = ITEMS.register("frostbitten_axe", () -> new AxeItem(ModItemTier.FROSTBITTEN_NETHERITE, 4, -3.1F, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<ShovelItem> FROSTBITTEN_SHOVEL = ITEMS.register("frostbitten_shovel", () -> new ShovelItem(ModItemTier.FROSTBITTEN_NETHERITE, -1, -2.4F, new Item.Properties().group(InfernalExpansion.TAB)));
     public static final RegistryObject<HoeItem> FROSTBITTEN_HOE = ITEMS.register("frostbitten_hoe", () -> new HoeItem(ModItemTier.FROSTBITTEN_NETHERITE, -2, -1.0F, new Item.Properties().group(InfernalExpansion.TAB)));
+    */
 
- */
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
         InfernalExpansion.LOGGER.info("Infernal Expansion: Items Registered!");
@@ -152,10 +150,5 @@ public class IEItems {
 
     public static <T extends Item> RegistryObject<T> registerItem(String name, Supplier<? extends T> itemSupplier) {
         return ITEMS.register(name, itemSupplier);
-    }
-
-    public static <T extends Item> RegistryObject<T> registerItemConditioned(String name, Supplier<? extends T> itemSupplier, Supplier<? extends T> itemSupplierCompat, String modID) {
-        RegistryObject<T> item = ITEMS.register(name, ModList.get().isLoaded(modID) ? itemSupplier : itemSupplierCompat);
-        return item;
     }
 }
