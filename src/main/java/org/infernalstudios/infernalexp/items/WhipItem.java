@@ -82,7 +82,7 @@ public class WhipItem extends TieredItem implements IVanishable {
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(new StringTextComponent("\u00A76" + "Hold right click to charge, then, when fully charged, release to strike!"));
+        tooltip.add(new StringTextComponent("\u00A76" + "Hold right click to charge, then when fully charged, release to strike!"));
     }
 
     @Override

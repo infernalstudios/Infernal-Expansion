@@ -1,12 +1,8 @@
 {
   "replace": false,
   "values": [
-    "minecraft:crimson_nylium",
-    "minecraft:crimson_stem",
-    "minecraft:stripped_crimson_stem",
-    "minecraft:weeping_vines",
-    "minecraft:weeping_vines_plant",
-    "minecraft:nether_wart_block",
+    "minecraft:crimson_roots",
+    "minecraft:crimson_fungus",
     "infernalexp:crimson_fungus_cap"
   ]
 }

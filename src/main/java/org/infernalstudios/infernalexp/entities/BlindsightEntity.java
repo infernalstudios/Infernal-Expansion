@@ -201,7 +201,8 @@ public class BlindsightEntity extends MonsterEntity {
     protected void dealDamage(LivingEntity entityIn) {
         if (this.isAlive()) {
             if (this.canEntityBeSeen(entityIn) && entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE))) {
-                entityIn.addPotionEffect(new EffectInstance(IEEffects.LUMINOUS.get(), 600, 0, true, true));
+                entityIn.addPotionEffect(new EffectInstance(IEEffects.LUMINOUS.get(), 100, 0, true, true));
+                entityIn.addPotionEffect(new EffectInstance(Effects.JUMP_BOOST, 100, 1, true, true));
                 this.playSound(SoundEvents.ENTITY_SLIME_ATTACK, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
                 this.applyEnchantments(this, entityIn);
             }
