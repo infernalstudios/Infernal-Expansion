@@ -129,9 +129,9 @@ public class IEItems {
     public static final RegistryObject<Item> MUSIC_DISC_FLUSH = registerItem("music_disc_flush", () -> new RecordItem(7, () -> IESoundEvents.MUSIC_DISC_FLUSH.get(), new Item.Properties().tab(InfernalExpansion.TAB).rarity(Rarity.RARE).stacksTo(1)));
 
     // Tools
-    public static final RegistryObject<BowItem> GLOWSILK_BOW = registerItem("glowsilk_bow", () -> new GlowsilkBowItem(new Item.Properties().maxDamage(384).group(InfernalExpansion.TAB)));
-    public static final RegistryObject<WhipItem> BLINDSIGHT_TONGUE_WHIP = registerItem("blindsight_tongue_whip", () -> new WhipItem(IEItemTiers.BLINDSIGHT_TONGUE, 4.0F, -3.4F, new Item.Properties().group(InfernalExpansion.TAB)));
-    public static final RegistryObject<WhipItem> KINETIC_TONGUE_WHIP = registerItem("kinetic_tongue_whip", () -> new WhipItem(IEItemTiers.KINETIC_OPAL, 6.0F, -3.4F, ModList.get().isLoaded("miningmaster") ? new Item.Properties().group(InfernalExpansion.TAB) : new Item.Properties()));
+    public static final RegistryObject<BowItem> GLOWSILK_BOW = registerItem("glowsilk_bow", () -> new GlowsilkBowItem(new Item.Properties().durability(384).tab(InfernalExpansion.TAB)));
+    public static final RegistryObject<WhipItem> BLINDSIGHT_TONGUE_WHIP = registerItem("blindsight_tongue_whip", () -> new WhipItem(IEItemTiers.BLINDSIGHT_TONGUE, 4.0F, -3.4F, new Item.Properties().tab(InfernalExpansion.TAB)));
+    public static final RegistryObject<WhipItem> KINETIC_TONGUE_WHIP = registerItem("kinetic_tongue_whip", () -> new WhipItem(IEItemTiers.KINETIC_OPAL, 6.0F, -3.4F, ModList.get().isLoaded("miningmaster") ? new Item.Properties().tab(InfernalExpansion.TAB) : new Item.Properties()));
 
     public static final RegistryObject<Item> TAB_ITEM = registerItem("tab_icon", () -> new Item(new Item.Properties()));
 

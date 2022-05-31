@@ -19,6 +19,7 @@ package org.infernalstudios.infernalexp.items;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.sounds.SoundEvents;
@@ -35,6 +36,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
@@ -44,6 +46,7 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.Vanishable;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -58,6 +61,7 @@ import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.util.LazyOptional;
 import org.infernalstudios.infernalexp.capabilities.IWhipUpdate;
 import org.infernalstudios.infernalexp.init.IECapabilities;
+import org.infernalstudios.infernalexp.init.IEItems;
 import org.infernalstudios.infernalexp.network.IENetworkHandler;
 import org.infernalstudios.infernalexp.network.WhipReachPacket;
 
@@ -83,11 +87,11 @@ public class WhipItem extends TieredItem implements Vanishable {
     }
 
     @Override
-    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-        if (isInGroup(group)) {
+    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) {
+        if (this.allowdedIn(tab)) {
             ItemStack itemStack = new ItemStack(this);
-            if (itemStack.isItemEqual(IEItems.KINETIC_TONGUE_WHIP.get().getDefaultInstance())) {
-                itemStack.addEnchantment(Enchantments.KNOCKBACK, 3);
+            if (itemStack.is(IEItems.KINETIC_TONGUE_WHIP.get())) {
+                itemStack.enchant(Enchantments.KNOCKBACK, 3);
             }
 
             items.add(itemStack);
@@ -174,12 +178,12 @@ public class WhipItem extends TieredItem implements Vanishable {
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+    public void inventoryTick(ItemStack stack, Level level, Entity entity, int itemSlot, boolean isSelected) {
         if ((getCharging(stack) && getTicksSinceAttack(stack) <= 15) || getAttacking(stack)) {
             setTicksSinceAttack(stack, getTicksSinceAttack(stack) + 1);
         }
 
-        if (getTicksSinceAttack(stack) >= 30 || (!isSelected && entityIn instanceof Player player && player.getOffhandItem() != stack)) {
+        if (getTicksSinceAttack(stack) >= 30 || (!isSelected && entity instanceof Player player && player.getOffhandItem() != stack)) {
             setTicksSinceAttack(stack, 0);
             setAttacking(stack, false);
             setCharging(stack, false);

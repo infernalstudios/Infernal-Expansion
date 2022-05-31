@@ -16,18 +16,19 @@
 
 package org.infernalstudios.infernalexp.init;
 
+import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.util.LazyLoadedValue;
+import org.infernalstudios.infernalexp.util.CompatibilityUtil;
 
 import java.util.function.Supplier;
 
 public enum IEItemTiers implements Tier {
     BLINDSIGHT_TONGUE(0, 131, 4.0F, 1.0F, 10, () -> {
-        return Ingredient.fromItems(IEItems.BLINDSIGHT_TONGUE::get);
+        return Ingredient.of(IEItems.BLINDSIGHT_TONGUE::get);
     }),
     KINETIC_OPAL(0, 131, 4.0F, 1.0F, 10, () -> {
-        return Ingredient.fromItems(() -> CompatibilityUtil.getModItem("miningmaster", "kinetic_opal"));
+        return Ingredient.of(() -> CompatibilityUtil.getModItem("miningmaster", "kinetic_opal"));
     });
 
     private final int harvestLevel;
