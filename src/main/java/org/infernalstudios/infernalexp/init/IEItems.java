@@ -16,15 +16,17 @@
 
 package org.infernalstudios.infernalexp.init;
 
-import com.mojang.datafixers.util.Pair;
-import net.minecraft.block.Block;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.item.*;
+import net.minecraft.item.BowItem;
+import net.minecraft.item.Food;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.MusicDiscItem;
+import net.minecraft.item.Rarity;
+import net.minecraft.item.SoupItem;
+import net.minecraft.item.WallOrFloorItem;
 import net.minecraftforge.fml.ModList;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.blocks.DullthornsBlockItem;
-import org.infernalstudios.infernalexp.blocks.VerticalSlabBlock;
-import org.infernalstudios.infernalexp.items.*;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluids;
@@ -35,10 +37,18 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.infernalstudios.infernalexp.items.AscusBombItem;
+import org.infernalstudios.infernalexp.items.EntityBucketItem;
+import org.infernalstudios.infernalexp.items.GlowcoalItem;
+import org.infernalstudios.infernalexp.items.GlowsilkBowItem;
+import org.infernalstudios.infernalexp.items.IESpawnEggItem;
+import org.infernalstudios.infernalexp.items.InfernalPaintingItem;
+import org.infernalstudios.infernalexp.items.ItemBase;
+import org.infernalstudios.infernalexp.items.SlurpItem;
+import org.infernalstudios.infernalexp.items.SlurpSoupItem;
+import org.infernalstudios.infernalexp.items.WhipItem;
 
 import java.util.function.Supplier;
-
-//import org.infernalstudios.infernalexp.util.ModItemTier;
 
 public class IEItems {
 

@@ -90,7 +90,7 @@ public class WhipItem extends TieredItem implements IVanishable {
 
             int ticksSinceStart = this.getUseDuration(stack) - timeLeft;
 
-            if (ticksSinceStart < 0 || getTicksSinceAttack(stack) < 8) {
+            if (ticksSinceStart < 0 || getTicksSinceAttack(stack) < 15) {
                 setTicksSinceAttack(stack, 0);
                 return;
             } else {
@@ -164,7 +164,7 @@ public class WhipItem extends TieredItem implements IVanishable {
 
     @Override
     public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-        if ((getCharging(stack) && getTicksSinceAttack(stack) <= 8) || getAttacking(stack)) {
+        if ((getCharging(stack) && getTicksSinceAttack(stack) <= 15) || getAttacking(stack)) {
             setTicksSinceAttack(stack, getTicksSinceAttack(stack) + 1);
         }
 
