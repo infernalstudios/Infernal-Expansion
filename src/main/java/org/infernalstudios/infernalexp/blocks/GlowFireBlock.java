@@ -50,10 +50,11 @@ public class GlowFireBlock extends BaseFireBlock {
     }
 
     @Override
-    public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
-        if (!worldIn.isClientSide()) {
-            if (entityIn instanceof LivingEntity && entityIn.isAlive() && InfernalExpansionConfig.Miscellaneous.LUMINOUS_FUNGUS_GIVES_EFFECT.getBool()) {
-                LivingEntity livingEntity = (LivingEntity) entityIn;
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+        super.entityInside(state, level, pos, entity);
+
+        if (!level.isClientSide()) {
+            if (entity instanceof LivingEntity livingEntity && entity.isAlive() && InfernalExpansionConfig.Miscellaneous.LUMINOUS_FUNGUS_GIVES_EFFECT.getBool()) {
                 livingEntity.addEffect(new MobEffectInstance(IEEffects.LUMINOUS.get(), 600, 0, true, true));
             }
         }
