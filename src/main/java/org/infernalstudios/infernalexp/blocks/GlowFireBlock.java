@@ -53,6 +53,8 @@ public class GlowFireBlock extends AbstractFireBlock {
 
     @Override
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
+        super.onEntityCollision(state, worldIn, pos, entityIn);
+
         if (!worldIn.isRemote()) {
             if (entityIn instanceof LivingEntity && entityIn.isAlive() && InfernalExpansionConfig.Miscellaneous.LUMINOUS_FUNGUS_GIVES_EFFECT.getBool()) {
                 LivingEntity livingEntity = (LivingEntity) entityIn;
