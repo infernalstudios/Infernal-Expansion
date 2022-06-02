@@ -17,6 +17,8 @@
 package org.infernalstudios.infernalexp.world.gen.features;
 
 import com.mojang.serialization.Codec;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.SnowBlock;
 import org.infernalstudios.infernalexp.blocks.GlowdustBlock;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import net.minecraft.block.BlockState;
@@ -63,13 +65,13 @@ public class GlowLayerFeature extends Feature<NoFeatureConfig> {
 
                     // Checks for if we are at glowdust sand and moves up to check for air space.
                     BlockState currentBlock = cachedChunk.getBlockState(mutableBlockPos);
-                    if (currentBlock.matchesBlock(IEBlocks.GLOWDUST_SAND.get()) &&
+                    if (currentBlock.matchesBlock(Blocks.SAND) &&
                         cachedChunk.getBlockState(mutableBlockPos.move(Direction.UP)).isAir()) {
                         // we are now in the air space above Glowdust sand. Check if any of the 8 blocks around it is glowdust sand
                         // maximum return is 8.
                         int glowdustLayerHeight = numberOfGlowdustSandNearby(world, mutableBlockPos, mutableBlockPosNeighbors);
                         if (glowdustLayerHeight > 0) {
-                            world.setBlockState(mutableBlockPos, IEBlocks.GLOWDUST.get().getDefaultState().with(GlowdustBlock.LAYERS, glowdustLayerHeight), 3);
+                            world.setBlockState(mutableBlockPos, Blocks.SNOW.getDefaultState().with(SnowBlock.LAYERS, glowdustLayerHeight), 3);
                         }
                     }
                 }
@@ -112,7 +114,7 @@ public class GlowLayerFeature extends Feature<NoFeatureConfig> {
                 mutableBlockPosNeighbors.setPos(mutableBlockPos).move(x, 0, z);
                 BlockState neighborBlock = world.getBlockState(mutableBlockPosNeighbors);
                 // Do not use .isSolid check because Glowdust Sand is marked notSolid (cause it uses Glowstone properties)
-                if (neighborBlock.matchesBlock(IEBlocks.GLOWDUST_SAND.get())) {
+                if (neighborBlock.matchesBlock(Blocks.SNOW)) {
                     glowdustSandCount++;
                 }
             }

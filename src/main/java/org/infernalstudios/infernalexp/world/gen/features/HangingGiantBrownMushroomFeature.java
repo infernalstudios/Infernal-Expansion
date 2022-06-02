@@ -44,7 +44,7 @@ public class HangingGiantBrownMushroomFeature extends Feature<NoFeatureConfig> {
 
     @Override
     public boolean generate(ISeedReader world, ChunkGenerator chunk, Random random, BlockPos pos, NoFeatureConfig config) {
-        if (!world.isAirBlock(pos) || world.getBlockState(pos.up()) != IEBlocks.DULLSTONE.get().getDefaultState()) {
+        if (!world.isAirBlock(pos) || world.getBlockState(pos.up()) != Blocks.RED_SANDSTONE.getDefaultState()) {
             return false;
         } else {
             // Generate size between minSize and maxSize

@@ -20,6 +20,8 @@ import java.util.Random;
 
 import com.mojang.serialization.Codec;
 
+import net.minecraft.block.Blocks;
+import net.minecraft.block.MushroomBlock;
 import org.infernalstudios.infernalexp.blocks.LuminousFungusBlock;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 
@@ -56,11 +58,16 @@ public class LuminousFungusFeature extends Feature<NoFeatureConfig> {
         // Try to place luminous fungus 128 times
         for (int j = 0; j < 128; j++) {
             // Randomize the location of the next luminous fungus to be placed
-            BlockState state = IEBlocks.LUMINOUS_FUNGUS.get().getDefaultState().with(LuminousFungusBlock.FACE, face);
+
             BlockPos blockpos = pos.add(random.nextInt(10) - random.nextInt(20), random.nextInt(4) - random.nextInt(8), random.nextInt(10) - random.nextInt(20));
 
             // If the randomly chosen location is valid, then place the fungus
-            if (world.isAirBlock(blockpos) && state.isValidPosition(world, blockpos) && (world.getBlockState(blockpos.up()) == IEBlocks.DULLSTONE.get().getDefaultState() || world.getBlockState(blockpos.down()) == IEBlocks.GLOWDUST_SAND.get().getDefaultState())) {
+            if (world.isAirBlock(blockpos) && world.getBlockState(blockpos.up()) == Blocks.RED_SANDSTONE.getDefaultState()) {
+                BlockState state = Blocks.TWISTING_VINES_PLANT.getDefaultState();
+                world.setBlockState(blockpos, state, 2);
+                i++;
+            } else if (world.isAirBlock(blockpos) && world.getBlockState(blockpos.down()) == Blocks.SAND.getDefaultState()) {
+                BlockState state = Blocks.BROWN_MUSHROOM.getDefaultState();
                 world.setBlockState(blockpos, state, 2);
                 i++;
             }

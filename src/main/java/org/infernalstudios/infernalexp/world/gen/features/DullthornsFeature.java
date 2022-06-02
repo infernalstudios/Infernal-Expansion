@@ -19,6 +19,7 @@ package org.infernalstudios.infernalexp.world.gen.features;
 import java.util.Random;
 
 import com.mojang.serialization.Codec;
+import net.minecraft.block.Blocks;
 import org.infernalstudios.infernalexp.blocks.DullthornsBlock;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 
@@ -38,18 +39,18 @@ public class DullthornsFeature extends Feature<NoFeatureConfig> {
         int height = random.nextInt(9) + 1;
         int top = 0;
 
-        if (!worldIn.isAirBlock(pos) || worldIn.getBlockState(pos.down()).getBlock() != IEBlocks.GLOWDUST_SAND.get()) {
+        if (!worldIn.isAirBlock(pos) || worldIn.getBlockState(pos.down()).getBlock() != Blocks.SAND) {
             return false;
         } else {
             // Generate dullthorns up "height" blocks unless there is something in the way
             for (int i = 0; i < height; i++) {
                 if (worldIn.isAirBlock(pos.up(i))) {
-                    worldIn.setBlockState(pos.up(i), IEBlocks.DULLTHORNS.get().getDefaultState(), 10);
+                    worldIn.setBlockState(pos.up(i), Blocks.WEEPING_VINES_PLANT.getDefaultState(), 10);
                     top = i;
                 }
             }
 
-            worldIn.setBlockState(pos.up(top), IEBlocks.DULLTHORNS.get().getDefaultState().with(DullthornsBlock.TIP, true), 10);
+            worldIn.setBlockState(pos.up(top), Blocks.WEEPING_VINES.getDefaultState(), 10);
 
             return true;
         }

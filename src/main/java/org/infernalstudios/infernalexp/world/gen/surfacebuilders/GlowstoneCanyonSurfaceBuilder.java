@@ -67,16 +67,16 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
 
                         // If the block is floating, make it Glimmer Gravel, otherwise let it be the regular surface
                         if (blockBelow.isAir()) {
-                            chunk.setBlockState(mutable, IEBlocks.TRAPPED_GLOWDUST_SAND.get().getDefaultState(), false);
+                            chunk.setBlockState(mutable, Blocks.GRAVEL.getDefaultState(), false);
                         } else {
                             chunk.setBlockState(mutable, topBlock, false);
                         }
                     } else {
                         // Makes the blocks at sealevel be dullstone to make cool border with lava.
                         if (random.nextInt(70) == 1) {
-                            chunk.setBlockState(mutable, IEBlocks.DIMSTONE.get().getDefaultState(), false);
+                            chunk.setBlockState(mutable, Blocks.REDSTONE_ORE.getDefaultState(), false);
                         } else {
-                            chunk.setBlockState(mutable, IEBlocks.DULLSTONE.get().getDefaultState(), false);
+                            chunk.setBlockState(mutable, Blocks.RED_SANDSTONE.getDefaultState(), false);
                         }
                     }
 
@@ -92,9 +92,9 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
                 } else {
                     // replaces all underground solid blocks with dullstone/dimstone mix
                     if (random.nextInt(50) == 1) {
-                        chunk.setBlockState(mutable, IEBlocks.DIMSTONE.get().getDefaultState(), false);
+                        chunk.setBlockState(mutable, Blocks.REDSTONE_ORE.getDefaultState(), false);
                     } else {
-                        chunk.setBlockState(mutable, IEBlocks.DULLSTONE.get().getDefaultState(), false);
+                        chunk.setBlockState(mutable, Blocks.RED_SANDSTONE.getDefaultState(), false);
                     }
                 }
 

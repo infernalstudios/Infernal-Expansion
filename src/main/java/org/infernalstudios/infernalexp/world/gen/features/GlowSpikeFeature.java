@@ -40,7 +40,7 @@ public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
     @Override
     public boolean generate(ISeedReader world, ChunkGenerator generator, Random random, BlockPos pos, GlowSpikeFeatureConfig config) {
 
-        if ((world.isAirBlock(pos) || world.getBlockState(pos.down()).getBlock() == IEBlocks.GLOWDUST_SAND.get()) || (world.getBlockState(pos).getBlock() == Blocks.LAVA && world.getBlockState(pos.down()).getBlock() != Blocks.LAVA)) {
+        if ((world.isAirBlock(pos) || world.getBlockState(pos.down()).getBlock() == Blocks.SAND) || (world.getBlockState(pos).getBlock() == Blocks.LAVA && world.getBlockState(pos.down()).getBlock() != Blocks.LAVA)) {
             // Generate a random height, diameter and offset
             int height = config.minHeight + random.nextInt(config.maxHeight - config.minHeight);
             int diameter = config.minDiameter + random.nextInt(config.maxDiameter - config.minDiameter);
@@ -97,12 +97,12 @@ public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
                 if (config.darkAtTop)
                     world.setBlockState(pos, Blocks.GLOWSTONE.getDefaultState(), 2);
                 else
-                    world.setBlockState(new BlockPos(pos), IEBlocks.DULLSTONE.get().getDefaultState(), 2);
+                    world.setBlockState(new BlockPos(pos), Blocks.RED_SANDSTONE.getDefaultState(), 2);
             } else if (percentage > 0.33 && percentage <= 0.66) {
-                world.setBlockState(new BlockPos(pos), IEBlocks.DIMSTONE.get().getDefaultState(), 2);
+                world.setBlockState(new BlockPos(pos), Blocks.REDSTONE_ORE.getDefaultState(), 2);
             } else {
                 if (config.darkAtTop)
-                    world.setBlockState(new BlockPos(pos), IEBlocks.DULLSTONE.get().getDefaultState(), 2);
+                    world.setBlockState(new BlockPos(pos), Blocks.RED_SANDSTONE.getDefaultState(), 2);
                 else
                     world.setBlockState(new BlockPos(pos), Blocks.GLOWSTONE.getDefaultState(), 2);
             }
