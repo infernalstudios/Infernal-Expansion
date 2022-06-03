@@ -16,32 +16,10 @@
 
 package org.infernalstudios.infernalexp.events;
 
-import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.blocks.DullthornsBlock;
-import org.infernalstudios.infernalexp.blocks.HorizontalBushBlock;
-import org.infernalstudios.infernalexp.config.ConfigHelper;
-import org.infernalstudios.infernalexp.config.ConfigHolder;
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig.Miscellaneous;
-import org.infernalstudios.infernalexp.data.SpawnrateManager;
-import org.infernalstudios.infernalexp.data.VolineEatTable;
-import org.infernalstudios.infernalexp.entities.ShroomloinEntity;
-import org.infernalstudios.infernalexp.entities.ThrowableBrickEntity;
-import org.infernalstudios.infernalexp.entities.ThrowableFireChargeEntity;
-import org.infernalstudios.infernalexp.entities.ThrowableMagmaCreamEntity;
-import org.infernalstudios.infernalexp.entities.ThrowableNetherBrickEntity;
-import org.infernalstudios.infernalexp.init.IEBlocks;
-import org.infernalstudios.infernalexp.init.IEEffects;
-import org.infernalstudios.infernalexp.init.IEItems;
-import org.infernalstudios.infernalexp.init.IEParticleTypes;
-import org.infernalstudios.infernalexp.init.IEShroomloinTypes;
-import org.infernalstudios.infernalexp.init.IESoundEvents;
-import org.infernalstudios.infernalexp.init.IETags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.AreaEffectCloudEntity;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.monster.ZombieEntity;
@@ -79,6 +57,27 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import org.infernalstudios.infernalexp.InfernalExpansion;
+import org.infernalstudios.infernalexp.blocks.DullthornsBlock;
+import org.infernalstudios.infernalexp.blocks.HorizontalBushBlock;
+import org.infernalstudios.infernalexp.config.ConfigHelper;
+import org.infernalstudios.infernalexp.config.ConfigHolder;
+import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
+import org.infernalstudios.infernalexp.config.InfernalExpansionConfig.Miscellaneous;
+import org.infernalstudios.infernalexp.data.SpawnrateManager;
+import org.infernalstudios.infernalexp.data.VolineEatTable;
+import org.infernalstudios.infernalexp.entities.ShroomloinEntity;
+import org.infernalstudios.infernalexp.entities.ThrowableBrickEntity;
+import org.infernalstudios.infernalexp.entities.ThrowableFireChargeEntity;
+import org.infernalstudios.infernalexp.entities.ThrowableMagmaCreamEntity;
+import org.infernalstudios.infernalexp.entities.ThrowableNetherBrickEntity;
+import org.infernalstudios.infernalexp.init.IEBlocks;
+import org.infernalstudios.infernalexp.init.IEEffects;
+import org.infernalstudios.infernalexp.init.IEItems;
+import org.infernalstudios.infernalexp.init.IEParticleTypes;
+import org.infernalstudios.infernalexp.init.IEShroomloinTypes;
+import org.infernalstudios.infernalexp.init.IESoundEvents;
+import org.infernalstudios.infernalexp.init.IETags;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,46 +129,37 @@ public class MiscEvents {
         }
     }
 
-    //Blocks being broken
     @SubscribeEvent
     public void onBlockBreak(BlockEvent.BreakEvent event) {
-        BlockState state = event.getState();
-        List<?> list = event.getPlayer().world.getEntitiesWithinAABB(ShroomloinEntity.class,
-            event.getPlayer().getBoundingBox().grow(32.0D));
-        for (int j = 0; j < list.size(); j++) {
-            Entity entity = (Entity) list.get(j);
-            if (entity instanceof ShroomloinEntity) {
-                ShroomloinEntity shroomloinEntity = (ShroomloinEntity) entity;
+        if (event.getPlayer().isSpectator() || event.getPlayer().isCreative())
+            return;
 
-                if (shroomloinEntity.getShroomloinType() == IEShroomloinTypes.CRIMSON) {
-                    if (state.getBlock().isIn(IETags.Blocks.ANGER_CRIMSON_SHROOMLOIN_BLOCKS)) {
-                        shroomloinEntity.becomeAngryAt(event.getPlayer());
-                    }
+        BlockState state = event.getState();
+
+        for (ShroomloinEntity shroomloin : event.getPlayer().getEntityWorld().getEntitiesWithinAABB(ShroomloinEntity.class, event.getPlayer().getBoundingBox().grow(32.0D))) {
+            if (shroomloin.getShroomloinType() == IEShroomloinTypes.CRIMSON) {
+                if (state.getBlock().isIn(IETags.Blocks.ANGER_CRIMSON_SHROOMLOIN_BLOCKS)) {
+                    shroomloin.becomeAngryAt(event.getPlayer());
                 }
-                if (shroomloinEntity.getShroomloinType() == IEShroomloinTypes.WARPED) {
-                    if (state.getBlock().isIn(IETags.Blocks.ANGER_WARPED_SHROOMLOIN_BLOCKS)) {
-                        shroomloinEntity.becomeAngryAt(event.getPlayer());
-                    }
+            } else if (shroomloin.getShroomloinType() == IEShroomloinTypes.WARPED) {
+                if (state.getBlock().isIn(IETags.Blocks.ANGER_WARPED_SHROOMLOIN_BLOCKS)) {
+                    shroomloin.becomeAngryAt(event.getPlayer());
                 }
-                if (shroomloinEntity.getShroomloinType() == IEShroomloinTypes.LUMINOUS) {
-                    if (state.getBlock().isIn(IETags.Blocks.ANGER_LUMINOUS_SHROOMLOIN_BLOCKS)) {
-                        shroomloinEntity.becomeAngryAt(event.getPlayer());
-                    }
+            } else if (shroomloin.getShroomloinType() == IEShroomloinTypes.LUMINOUS) {
+                if (state.getBlock().isIn(IETags.Blocks.ANGER_LUMINOUS_SHROOMLOIN_BLOCKS)) {
+                    shroomloin.becomeAngryAt(event.getPlayer());
                 }
-                if (shroomloinEntity.getShroomloinType() == IEShroomloinTypes.RED) {
-                    if (state.getBlock().isIn(IETags.Blocks.ANGER_RED_SHROOMLOIN_BLOCKS)) {
-                        shroomloinEntity.becomeAngryAt(event.getPlayer());
-                    }
+            } else if (shroomloin.getShroomloinType() == IEShroomloinTypes.RED) {
+                if (state.getBlock().isIn(IETags.Blocks.ANGER_RED_SHROOMLOIN_BLOCKS)) {
+                    shroomloin.becomeAngryAt(event.getPlayer());
                 }
-                if (shroomloinEntity.getShroomloinType() == IEShroomloinTypes.BROWN) {
-                    if (state.getBlock().isIn(IETags.Blocks.ANGER_BROWN_SHROOMLOIN_BLOCKS)) {
-                        shroomloinEntity.becomeAngryAt(event.getPlayer());
-                    }
+            } else if (shroomloin.getShroomloinType() == IEShroomloinTypes.BROWN) {
+                if (state.getBlock().isIn(IETags.Blocks.ANGER_BROWN_SHROOMLOIN_BLOCKS)) {
+                    shroomloin.becomeAngryAt(event.getPlayer());
                 }
             }
         }
     }
-
 
     @SubscribeEvent
     public void onRightClickBlock(PostRightClickBlockEvent event) {
