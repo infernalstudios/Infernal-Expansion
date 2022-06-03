@@ -172,8 +172,8 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
         return flyingpathnavigator;
     }
 
-    // Entity won't take fall damage
-    public boolean causeFallDamage(float distance, float damageMultiplier) {
+    @Override
+    public boolean causeFallDamage(float distance, float multiplier, DamageSource source) {
         return false;
     }
 
@@ -183,6 +183,7 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
     }
 
     static class LookAroundGoal extends Goal {
+
         private final GlowsquitoEntity parentEntity;
 
         public LookAroundGoal(GlowsquitoEntity ghast) {
