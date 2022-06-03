@@ -16,13 +16,6 @@
 
 package org.infernalstudios.infernalexp.entities;
 
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-import org.infernalstudios.infernalexp.entities.ai.TargetWithEffectGoal;
-import org.infernalstudios.infernalexp.init.IEBlocks;
-import org.infernalstudios.infernalexp.init.IEEffects;
-import org.infernalstudios.infernalexp.init.IEEntityTypes;
-import org.infernalstudios.infernalexp.init.IESoundEvents;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.CreatureAttribute;
@@ -36,7 +29,6 @@ import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.controller.FlyingMovementController;
-import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.BreedGoal;
 import net.minecraft.entity.ai.goal.EatGrassGoal;
 import net.minecraft.entity.ai.goal.Goal;
@@ -62,19 +54,21 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
+import org.infernalstudios.infernalexp.entities.ai.TargetWithEffectGoal;
+import org.infernalstudios.infernalexp.init.IEBlocks;
+import org.infernalstudios.infernalexp.init.IEEffects;
+import org.infernalstudios.infernalexp.init.IEEntityTypes;
+import org.infernalstudios.infernalexp.init.IESoundEvents;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
-import java.util.Random;
 
 // Extends AnimalEntity and implements IFlyingAnimal like BeeEntity class
 public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
@@ -102,6 +96,7 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
         // that?
     }
 
+    @Override
     public CreatureAttribute getCreatureAttribute() {
         return CreatureAttribute.ARTHROPOD;
     }
@@ -114,10 +109,12 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
         return glowsquitoEntity;
     }
 
+    @Override
     public boolean isBreedingItem(ItemStack stack) {
         return TEMPTATION_ITEMS.test(stack);
     }
 
+    @Override
     protected void registerData() {
         super.registerData();
         this.dataManager.register(BRED, false);
@@ -131,6 +128,7 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
         this.dataManager.set(BRED, isBred);
     }
 
+    @Override
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
         compound.putBoolean("Bred", this.getBred());
@@ -139,11 +137,13 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
     /**
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
+    @Override
     public void readAdditional(CompoundNBT compound) {
         super.readAdditional(compound);
         this.setBred(compound.getBoolean("Bred"));
     }
 
+    @Override
     protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
         return this.isChild() ? sizeIn.height * 0.35F : sizeIn.height * 0.72F;
     }
@@ -156,6 +156,7 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
         }
     }
 
+    @Override
     protected PathNavigator createNavigator(World worldIn) {
         FlyingPathNavigator flyingpathnavigator = new FlyingPathNavigator(this, worldIn) {
             public boolean canEntityStandOnPos(BlockPos pos) {
@@ -173,118 +174,9 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
     }
 
     // Entity won't take fall damage
+    @Override
     public boolean onLivingFall(float distance, float damageMultiplier) {
         return false;
-    }
-
-    static class LookAroundGoal extends Goal {
-        private final GlowsquitoEntity parentEntity;
-
-        public LookAroundGoal(GlowsquitoEntity ghast) {
-            this.parentEntity = ghast;
-            this.setMutexFlags(EnumSet.of(Goal.Flag.LOOK));
-        }
-
-        /**
-         * Returns whether execution should begin. You can also read and cache any state
-         * necessary for execution in this method as well.
-         */
-        public boolean shouldExecute() {
-            return true;
-        }
-
-        /**
-         * Keep ticking a continuous task that has already been started
-         */
-        public void tick() {
-            Vector3d vector3d = this.parentEntity.getMotion();
-            this.parentEntity.rotationYaw = -((float) MathHelper.atan2(vector3d.x, vector3d.z)) * (180F / (float) Math.PI);
-            this.parentEntity.renderYawOffset = this.parentEntity.rotationYaw;
-        }
-    }
-
-    static class MoveHelperController extends MovementController {
-        private final GlowsquitoEntity parentEntity;
-        private int courseChangeCooldown;
-
-        public MoveHelperController(GlowsquitoEntity ghast) {
-            super(ghast);
-            this.parentEntity = ghast;
-        }
-
-        public void tick() {
-            if (this.action == MovementController.Action.MOVE_TO) {
-                if (this.courseChangeCooldown-- <= 0) {
-                    this.courseChangeCooldown += this.parentEntity.getRNG().nextInt(5) + 2;
-                    Vector3d vector3d = new Vector3d(this.posX - this.parentEntity.getPosX(), this.posY - this.parentEntity.getPosY(), this.posZ - this.parentEntity.getPosZ());
-                    double d0 = vector3d.length();
-                    vector3d = vector3d.normalize();
-                    if (this.func_220673_a(vector3d, MathHelper.ceil(d0))) {
-                        this.parentEntity.setMotion(this.parentEntity.getMotion().add(vector3d.scale(0.1D)));
-                    } else {
-                        this.action = MovementController.Action.WAIT;
-                    }
-                }
-
-            }
-        }
-
-        private boolean func_220673_a(Vector3d p_220673_1_, int p_220673_2_) {
-            AxisAlignedBB axisalignedbb = this.parentEntity.getBoundingBox();
-
-            for (int i = 1; i < p_220673_2_; ++i) {
-                axisalignedbb = axisalignedbb.offset(p_220673_1_);
-                if (!this.parentEntity.world.hasNoCollisions(this.parentEntity, axisalignedbb)) {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-    }
-
-    static class RandomFlyGoal extends Goal {
-        private final GlowsquitoEntity parentEntity;
-
-        public RandomFlyGoal(GlowsquitoEntity glowsquito) {
-            this.parentEntity = glowsquito;
-            this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE));
-        }
-
-        /**
-         * Returns whether execution should begin. You can also read and cache any state
-         * necessary for execution in this method as well.
-         */
-        public boolean shouldExecute() {
-            MovementController movementcontroller = this.parentEntity.getMoveHelper();
-            if (!movementcontroller.isUpdating()) {
-                return true;
-            } else {
-                double d0 = movementcontroller.getX() - this.parentEntity.getPosX();
-                double d1 = movementcontroller.getY() - this.parentEntity.getPosY();
-                double d2 = movementcontroller.getZ() - this.parentEntity.getPosZ();
-                double d3 = d0 * d0 + d1 * d1 + d2 * d2;
-                return d3 < 1.0D || d3 > 3600.0D;
-            }
-        }
-
-        /**
-         * Returns whether an in-progress EntityAIBase should continue executing
-         */
-        public boolean shouldContinueExecuting() {
-            return false;
-        }
-
-        /**
-         * Execute a one shot task or start executing a continuous task
-         */
-        public void startExecuting() {
-            Random random = this.parentEntity.getRNG();
-            double d0 = this.parentEntity.getPosX() + (double) ((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
-            double d1 = this.parentEntity.getPosY() + (double) ((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
-            double d2 = this.parentEntity.getPosZ() + (double) ((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
-            this.parentEntity.getMoveHelper().setMoveTo(d0, d1, d2, 1.0D);
-        }
     }
 
     // Simple goal for wandering around. Modified from Vanilla's BeeEntity
@@ -298,6 +190,7 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
          * Returns whether execution should begin. You can also read and cache any state
          * necessary for execution in this method as well.
          */
+        @Override
         public boolean shouldExecute() {
             return GlowsquitoEntity.this.navigator.noPath() && GlowsquitoEntity.this.rand.nextInt(10) == 0;
         }
@@ -305,6 +198,7 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
         /**
          * Returns whether an in-progress EntityAIBase should continue executing
          */
+        @Override
         public boolean shouldContinueExecuting() {
             return GlowsquitoEntity.this.navigator.hasPath();
         }
@@ -312,6 +206,7 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
         /**
          * Execute a one shot task or start executing a continuous task
          */
+        @Override
         public void startExecuting() {
             Vector3d vector3d = this.getRandomLocation();
             if (vector3d != null) {
@@ -335,18 +230,14 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
     protected void registerGoals() {
         super.registerGoals();
 
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 0.6D, true));
-
         this.eatGrassGoal = new EatGrassGoal(this);
 
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 0.6D, true));
         this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 0.8D, true));
         this.goalSelector.addGoal(1, new MoveTowardsTargetGoal(this, 0.8D, 32.0F));
-        // this.goalSelector.addGoal(5, new GlowsquitoEntity.RandomFlyGoal(this));
         this.goalSelector.addGoal(2, new BreedGoal(this, 0.8d));
         this.goalSelector.addGoal(3, new TemptGoal(this, 0.8d, false, TEMPTATION_ITEMS));
         this.goalSelector.addGoal(8, new GlowsquitoEntity.WanderGoal());
-        // this.goalSelector.addGoal(7, new GlowsquitoEntity.LookAroundGoal(this));
-        // this.goalSelector.addGoal(5, this.eatGrassGoal);
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         if (InfernalExpansionConfig.MobInteractions.GLOWSQUITO_ATTACK_LUMINOUS.getBoolean()) {
             this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, LivingEntity.class, true, false, IEEffects.LUMINOUS.get(), GlowsquitoEntity.class));
@@ -356,6 +247,7 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
         }
     }
 
+    @Override
     public boolean isImmuneToFire() {
         return true;
     }
@@ -385,6 +277,7 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
         this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
     }
 
+    @Override
     public boolean attackEntityAsMob(Entity entityIn) {
         if (!super.attackEntityAsMob(entityIn)) {
             return false;
@@ -413,6 +306,7 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
     }
 
     @OnlyIn(Dist.CLIENT)
+    @Override
     public void handleStatusUpdate(byte id) {
         if (id == 10) {
             this.hogTimer = 40;
