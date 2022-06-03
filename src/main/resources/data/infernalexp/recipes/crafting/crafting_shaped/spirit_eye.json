@@ -10,11 +10,11 @@
       "item": "infernalexp:soul_salt_clump"
     },
     "y": {
-      "item": "minecraft:rotten_flesh"
+      "item": "minecraft:spider_eye"
     }
   },
   "result": {
-    "item": "infernalexp:cured_jerky",
+    "item": "infernalexp:spirit_eye",
     "count": 2
   }
 }
