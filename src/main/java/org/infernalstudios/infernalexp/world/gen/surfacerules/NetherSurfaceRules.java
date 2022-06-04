@@ -17,7 +17,9 @@
 package org.infernalstudios.infernalexp.world.gen.surfacerules;
 
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.SurfaceRules;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import org.infernalstudios.infernalexp.init.IEBiomes;
 import org.infernalstudios.infernalexp.init.IEBlocks;
@@ -30,6 +32,7 @@ public class NetherSurfaceRules {
     private static final SurfaceRules.RuleSource TRAPPED_GLOWDUST_SAND = makeStateRule(IEBlocks.TRAPPED_GLOWDUST_SAND.get());
     private static final SurfaceRules.RuleSource DIMSTONE = makeStateRule(IEBlocks.DIMSTONE.get());
     private static final SurfaceRules.RuleSource DULLSTONE = makeStateRule(IEBlocks.DULLSTONE.get());
+    private static final SurfaceRules.RuleSource BEDROCK = makeStateRule(Blocks.BEDROCK);
 
     private static final SurfaceRules.RuleSource GLOWSTONE_CANYON = SurfaceRules.ifTrue(SurfaceRules.isBiome(IEBiomes.GLOWSTONE_CANYON), SurfaceRules.sequence(
         SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SurfaceRules.sequence(
@@ -42,6 +45,14 @@ public class NetherSurfaceRules {
 
     public static SurfaceRules.RuleSource addNetherSurfaceRules() {
         return SurfaceRules.sequence(GLOWSTONE_CANYON);
+    }
+
+    public static SurfaceRules.RuleSource addNetherSurfaceRulesWithBedrock() {
+        return SurfaceRules.sequence(
+            SurfaceRules.ifTrue(SurfaceRules.verticalGradient("bedrock_floor", VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(5)), BEDROCK),
+            SurfaceRules.ifTrue(SurfaceRules.not(SurfaceRules.verticalGradient("bedrock_roof", VerticalAnchor.belowTop(5), VerticalAnchor.top())), BEDROCK),
+            addNetherSurfaceRules()
+        );
     }
 
     private static SurfaceRules.RuleSource makeStateRule(Block block) {

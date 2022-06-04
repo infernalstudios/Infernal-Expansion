@@ -39,7 +39,7 @@ public class TerrablenderSurfaceRuleCompat {
                 Method nameMethod = constant.getClass().getMethod("name");
 
                 if (nameMethod.invoke(constant).equals("NETHER"))
-                    addSurfaceRulesMethod.invoke(surfaceRuleManagerClass, constant, InfernalExpansion.MOD_ID, NetherSurfaceRules.addNetherSurfaceRules());
+                    addSurfaceRulesMethod.invoke(surfaceRuleManagerClass, constant, InfernalExpansion.MOD_ID, NetherSurfaceRules.addNetherSurfaceRulesWithBedrock());
             }
 
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException exception) {
