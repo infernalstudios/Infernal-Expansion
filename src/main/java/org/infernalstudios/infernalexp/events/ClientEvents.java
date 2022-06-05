@@ -23,6 +23,7 @@ import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -51,6 +52,7 @@ import org.infernalstudios.infernalexp.client.entity.render.WarpbeetleRenderer;
 import org.infernalstudios.infernalexp.init.IEBlockEntityTypes;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
+import org.infernalstudios.infernalexp.init.IEItems;
 import org.infernalstudios.infernalexp.items.IESpawnEggItem;
 
 @Mod.EventBusSubscriber(modid = InfernalExpansion.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -124,4 +126,20 @@ public class ClientEvents {
     public static void onPostRegisterEntities(final RegistryEvent.Register<EntityType<?>> event) {
         IESpawnEggItem.initUnaddedEggs();
     }
+
+    @SubscribeEvent
+    public void glowsilkBowFOVModifier(FOVUpdateEvent event) {
+        if (event.getEntity().isUsingItem() && event.getEntity().getUseItem().is(IEItems.GLOWSILK_BOW.get())) {
+            float fovModifier = event.getEntity().getTicksUsingItem() / 20.0F;
+
+            if (fovModifier > 1.0F)
+                fovModifier = 1.0F;
+
+            else
+                fovModifier *= fovModifier;
+
+            event.setNewfov(event.getFov() * (1.0F - (fovModifier * 0.15F)));
+        }
+    }
+
 }
