@@ -23,6 +23,7 @@
     "common.MixinShearsItem",
     "common.MixinShovelItem",
     "common.MixinStriderEntity",
+    "common.PotionBrewingAccessor",
     "common.WorldCarverAccessor"
   ],
   "client": [
