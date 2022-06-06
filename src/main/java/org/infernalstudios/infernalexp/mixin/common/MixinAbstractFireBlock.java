@@ -50,7 +50,7 @@ public abstract class MixinAbstractFireBlock extends Block {
         }
     }
 
-    @Inject(method = "onEntityCollision", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;forceFireTicks(I)V"))
+    @Inject(method = "onEntityCollision", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;attackEntityFrom(Lnet/minecraft/util/DamageSource;F)Z"))
     private void IE_setCustomFires(BlockState state, World worldIn, BlockPos pos, Entity entityIn, CallbackInfo info) {
         FireTypeAccess access = ((FireTypeAccess) entityIn);
         if (state.matchesBlock(Blocks.SOUL_FIRE)) {

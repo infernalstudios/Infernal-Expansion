@@ -60,8 +60,8 @@ public abstract class MixinEntity implements FireTypeAccess {
         this.setFireType(KnownFireTypes.byName(tag.getString("fireType")));
     }
 
-    @Inject(method = "setOnFireFromLava", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setFire(I)V", shift = Shift.BEFORE))
-    private void IE_setCustomFireFromLava(CallbackInfo ci) {
+    @Inject(method = "setFire", at = @At("HEAD"))
+    private void IE_setToDefaultFireType(int seconds, CallbackInfo ci) {
         this.setFireType(KnownFireTypes.FIRE);
     }
 
