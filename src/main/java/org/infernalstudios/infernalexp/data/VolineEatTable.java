@@ -33,15 +33,13 @@ import net.minecraft.resources.ResourceLocation;
 
 import net.minecraftforge.registries.ForgeRegistries;
 
-import org.apache.commons.io.IOUtils;
-
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 public class VolineEatTable extends SimpleJsonResourceReloadListener {
 
@@ -57,32 +55,29 @@ public class VolineEatTable extends SimpleJsonResourceReloadListener {
         ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, "loot_tables/gameplay/voline_eat_table.json");
 
         try {
-            for (Resource iResource : resourceManagerIn.getResources(resourceLocation)) {
-                try (Reader reader = new BufferedReader(new InputStreamReader(iResource.getInputStream(), StandardCharsets.UTF_8))) {
-                    JsonObject jsonObject = GsonHelper.fromJson(GSON_INSTANCE, reader, JsonObject.class);
+            Optional<Resource> iResource = resourceManagerIn.getResource(resourceLocation);
+            try (Reader reader = new InputStreamReader(iResource.get().open())) {
+                JsonObject jsonObject = GsonHelper.fromJson(GSON_INSTANCE, reader, JsonObject.class);
 
-                    if (jsonObject != null) {
-                        for (JsonElement entry : jsonObject.getAsJsonArray("entries")) {
+                if (jsonObject != null) {
+                    for (JsonElement entry : jsonObject.getAsJsonArray("entries")) {
 
-                            VOLINE_EAT_TABLE.put(ForgeRegistries.ITEMS.getValue(new ResourceLocation(entry.getAsJsonObject().get("accepted_item").getAsString())),
-                                new HashMap<Item, Integer>() {{
-                                    for (JsonElement item : entry.getAsJsonObject().getAsJsonArray("returned_items")) {
-                                        put(ForgeRegistries.ITEMS.getValue(new ResourceLocation(item.getAsJsonObject().get("item").getAsString())),
-                                            item.getAsJsonObject().get("amount").getAsInt());
-                                    }
-                                }}
-                            );
-                        }
+                        VOLINE_EAT_TABLE.put(ForgeRegistries.ITEMS.getValue(new ResourceLocation(entry.getAsJsonObject().get("accepted_item").getAsString())),
+                            new HashMap<Item, Integer>() {{
+                                for (JsonElement item : entry.getAsJsonObject().getAsJsonArray("returned_items")) {
+                                    put(ForgeRegistries.ITEMS.getValue(new ResourceLocation(item.getAsJsonObject().get("item").getAsString())),
+                                        item.getAsJsonObject().get("amount").getAsInt());
+                                }
+                            }}
+                        );
                     }
-
-                } catch (RuntimeException | IOException exception) {
-                    InfernalExpansion.LOGGER.error("Couldn't read voline eat table list {} in data pack {}", resourceLocation, iResource.getSourceName(), exception);
-
-                } finally {
-                    IOUtils.closeQuietly(iResource);
                 }
+
+            } catch (RuntimeException | IOException exception) {
+                InfernalExpansion.LOGGER.error("Couldn't read voline eat table list {} in data pack {}", resourceLocation, iResource.get().sourcePackId(), exception);
+
             }
-        } catch (IOException exception) {
+        } catch (NoSuchElementException exception) {
             InfernalExpansion.LOGGER.error("Couldn't read voline eat table from {}", resourceLocation, exception);
         }
 

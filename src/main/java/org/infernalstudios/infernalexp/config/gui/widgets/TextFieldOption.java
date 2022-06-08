@@ -17,7 +17,6 @@
 package org.infernalstudios.infernalexp.config.gui.widgets;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.Option;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.util.FormattedCharSequence;

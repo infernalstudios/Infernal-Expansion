@@ -203,7 +203,7 @@ public class VolineEntity extends Monster implements IBucketable, IResizable {
 
     // EXP POINTS
     @Override
-    protected int getExperienceReward(Player player) {
+    public int getExperienceReward() {
         return 1 + this.level.random.nextInt(4);
     }
 

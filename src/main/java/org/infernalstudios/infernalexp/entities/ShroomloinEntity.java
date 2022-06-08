@@ -39,6 +39,8 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.registries.ForgeRegistries;
+
 import org.infernalstudios.infernalexp.init.IEEffects;
 import org.infernalstudios.infernalexp.init.IEItems;
 import org.infernalstudios.infernalexp.init.IEShroomloinTypes;
@@ -119,7 +121,7 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        ResourceLocation biome = worldIn.getBiome(this.blockPosition()).value().getRegistryName();
+        ResourceLocation biome = ForgeRegistries.BIOMES.getKey(worldIn.getBiome(this.blockPosition()).value());
         if (reason == MobSpawnType.NATURAL) {
             if (ModList.get().isLoaded("byg")) {
                 if (biome.equals(new ResourceLocation("byg", "glowstone_gardens"))) {
@@ -184,7 +186,7 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
 	 */
 	public void tick() {
 		if (this.isAlive()) {
-            if (this.getName().getContents().equals("pizza")) {
+            if (this.getName().getContents().toString().equals("pizza")) {
                 if (getShroomloinType() != IEShroomloinTypes.PIZZA && this.predictedType != IEShroomloinTypes.PIZZA) {
                     this.predictedType = IEShroomloinTypes.PIZZA;
                     this.conversionTicks = 40;
@@ -295,7 +297,7 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
 
     // EXP POINTS
     @Override
-    protected int getExperienceReward(Player player) {
+    public int getExperienceReward() {
         return 1 + this.level.random.nextInt(4);
 	}
 

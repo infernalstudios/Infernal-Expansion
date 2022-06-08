@@ -47,7 +47,7 @@ public class InfectionHeartOverlay {
         int top = mc.getWindow().getGuiScaledHeight() - heartOffset;
 
         if (player.getEffect(IEEffects.INFECTION.get()) != null && ((ForgeIngameGui) mc.gui).shouldDrawSurvivalElements() && !mc.options.hideGui) {
-            drawInfectionOverlay(mc, event.getMatrixStack(), left, top);
+            drawInfectionOverlay(mc, event.getPoseStack(), left, top);
         }
     }
 

@@ -22,7 +22,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Widget;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.infernalstudios.infernalexp.InfernalExpansion;
@@ -34,17 +34,17 @@ public class ConfigScreen extends Screen {
     private static final int BUTTON_HEIGHT = 20;
 
     public ConfigScreen() {
-        super(new TranslatableComponent(InfernalExpansion.MOD_ID + ".config.title"));
+        super(Component.translatable(InfernalExpansion.MOD_ID + ".config.title"));
     }
 
     @Override
     protected void init() {
-        addWidget(new Button(width / 2 - 155, height / 6, BUTTON_WIDTH, BUTTON_HEIGHT, new TranslatableComponent(InfernalExpansion.MOD_ID + ".config.button.mobInteractions"), button -> Minecraft.getInstance().setScreen(new MobInteractionsScreen(this))));
-        addWidget(new Button(width / 2 + 5, height / 6, BUTTON_WIDTH, BUTTON_HEIGHT, new TranslatableComponent(InfernalExpansion.MOD_ID + ".config.button.mobSpawning"), button -> Minecraft.getInstance().setScreen(new MobSpawningScreen(this))));
-        addWidget(new Button(width / 2 - 155, height / 6 + 24, BUTTON_WIDTH, BUTTON_HEIGHT, new TranslatableComponent(InfernalExpansion.MOD_ID + ".config.button.miscellaneous"), button -> Minecraft.getInstance().setScreen(new MiscellaneousScreen(this))));
-        addWidget(new Button(width / 2 + 5, height / 6 + 24, BUTTON_WIDTH, BUTTON_HEIGHT, new TranslatableComponent(InfernalExpansion.MOD_ID + ".config.button.clientConfig"), button -> Minecraft.getInstance().setScreen(new ClientConfigScreen(this))));
+        addWidget(new Button(width / 2 - 155, height / 6, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable(InfernalExpansion.MOD_ID + ".config.button.mobInteractions"), button -> Minecraft.getInstance().setScreen(new MobInteractionsScreen(this))));
+        addWidget(new Button(width / 2 + 5, height / 6, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable(InfernalExpansion.MOD_ID + ".config.button.mobSpawning"), button -> Minecraft.getInstance().setScreen(new MobSpawningScreen(this))));
+        addWidget(new Button(width / 2 - 155, height / 6 + 24, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable(InfernalExpansion.MOD_ID + ".config.button.miscellaneous"), button -> Minecraft.getInstance().setScreen(new MiscellaneousScreen(this))));
+        addWidget(new Button(width / 2 + 5, height / 6 + 24, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable(InfernalExpansion.MOD_ID + ".config.button.clientConfig"), button -> Minecraft.getInstance().setScreen(new ClientConfigScreen(this))));
 
-        addWidget(new Button((width - 200) / 2, height - 26, 200, BUTTON_HEIGHT, new TranslatableComponent("gui.done"), button -> onClose()));
+        addWidget(new Button((width - 200) / 2, height - 26, 200, BUTTON_HEIGHT, Component.translatable("gui.done"), button -> onClose()));
     }
 
     @Override

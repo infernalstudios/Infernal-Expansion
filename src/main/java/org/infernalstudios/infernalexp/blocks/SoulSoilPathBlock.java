@@ -18,13 +18,12 @@ package org.infernalstudios.infernalexp.blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DirtPathBlock;
 import net.minecraft.world.level.block.state.BlockState;
-
-import java.util.Random;
 
 public class SoulSoilPathBlock extends DirtPathBlock {
 
@@ -38,7 +37,7 @@ public class SoulSoilPathBlock extends DirtPathBlock {
     }
 
     @Override
-    public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, Random rand) {
+    public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource rand) {
         worldIn.setBlockAndUpdate(pos, pushEntitiesUp(state, Blocks.SOUL_SOIL.defaultBlockState(), worldIn, pos));
     }
 }

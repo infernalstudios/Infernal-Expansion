@@ -20,6 +20,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.level.Level;
@@ -27,8 +28,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
 import org.infernalstudios.infernalexp.init.IEParticleTypes;
-
-import java.util.Random;
 
 public class TrappedGlowSandBlock extends GlowSandBlock {
     public TrappedGlowSandBlock(int dustColorIn, Properties properties) {
@@ -39,7 +38,7 @@ public class TrappedGlowSandBlock extends GlowSandBlock {
     private int ticksToFall = 10;
 
     @Override
-    public void tick(BlockState state, ServerLevel world, BlockPos pos, Random rand) {
+    public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource rand) {
     }
 
     @Override

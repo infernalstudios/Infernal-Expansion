@@ -129,7 +129,7 @@ public class CerobeetleEntity extends PathfinderMob {
 
     // EXP POINTS
     @Override
-    protected int getExperienceReward(Player player) {
+    public int getExperienceReward() {
         return 1 + this.level.random.nextInt(4);
     }
 

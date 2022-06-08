@@ -21,8 +21,6 @@ import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.ChatType;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.network.protocol.game.ClientboundChatPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -56,10 +54,11 @@ public class DullthornsBlockItem extends BlockItemBase {
             // Prevent placing outside world
             if (!world.isClientSide && !world.isInWorldBounds(placepos)) {
                 Player player = context.getPlayer();
-                if (player instanceof ServerPlayer serverPlayer && placepos.getY() >= worldHeight) {
-                    ClientboundChatPacket schatpacket = new ClientboundChatPacket((new TranslatableComponent("build.tooHigh", worldHeight)).withStyle(ChatFormatting.RED), ChatType.GAME_INFO, Util.NIL_UUID);
-                    serverPlayer.connection.send(schatpacket);
-                }
+                // TODO: fix
+                // if (player instanceof ServerPlayer serverPlayer && placepos.getY() >= worldHeight) {
+                //     ClientboundChatPacket schatpacket = new ClientboundChatPacket((new TranslatableComponent("build.tooHigh", worldHeight)).withStyle(ChatFormatting.RED), ChatType.GAME_INFO, Util.NIL_UUID);
+                //     serverPlayer.connection.send(schatpacket);
+                // }
                 return null;
             }
         }

@@ -82,11 +82,6 @@ public class ShroomlightFungusBlock extends HorizontalBushBlock {
     }
 
     @Override
-    public OffsetType getOffsetType() {
-        return OffsetType.XZ;
-    }
-
-    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builderIn) {
         builderIn.add(FACING, FACE);
     }

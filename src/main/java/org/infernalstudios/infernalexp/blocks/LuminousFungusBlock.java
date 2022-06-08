@@ -19,6 +19,7 @@ package org.infernalstudios.infernalexp.blocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -48,7 +49,6 @@ import org.infernalstudios.infernalexp.init.IEEffects;
 import org.infernalstudios.infernalexp.init.IETags;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
 public class LuminousFungusBlock extends HorizontalBushBlock implements BonemealableBlock, EntityBlock, BlockEntityTicker<LuminousFungusBlockEntity> {
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
@@ -97,12 +97,6 @@ public class LuminousFungusBlock extends HorizontalBushBlock implements Bonemeal
         }
     }
 
-
-    @Override
-    public OffsetType getOffsetType() {
-        return OffsetType.XZ;
-    }
-
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builderIn) {
         builderIn.add(FACING, FACE, LIT);
@@ -119,12 +113,12 @@ public class LuminousFungusBlock extends HorizontalBushBlock implements Bonemeal
     }
 
     @Override
-    public boolean isBonemealSuccess(Level worldIn, Random rand, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level worldIn, RandomSource rand, BlockPos pos, BlockState state) {
         return (double) rand.nextFloat() < 0.4D;
     }
 
     @Override
-    public void performBonemeal(ServerLevel worldIn, Random rand, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel worldIn, RandomSource rand, BlockPos pos, BlockState state) {
         IEConfiguredFeatures.DULLTHORN_TREE_PLANTED.value().place(worldIn, worldIn.getChunkSource().getGenerator(), rand, pos);
     }
 

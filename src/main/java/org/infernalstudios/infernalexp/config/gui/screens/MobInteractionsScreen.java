@@ -16,11 +16,8 @@
 
 package org.infernalstudios.infernalexp.config.gui.screens;
 
-import net.minecraft.client.CycleOption;
-import net.minecraft.client.ProgressOption;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.infernalstudios.infernalexp.InfernalExpansion;
@@ -30,23 +27,24 @@ import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 public class MobInteractionsScreen extends IESettingsScreen {
 
     public MobInteractionsScreen(Screen parentScreen) {
-        super(parentScreen, new TranslatableComponent(InfernalExpansion.MOD_ID + ".config.title.mobInteractions"));
+        super(parentScreen, Component.translatable(InfernalExpansion.MOD_ID + ".config.title.mobInteractions"));
     }
 
     @Override
     public void addSettings() {
+        // TODO
         for (InfernalExpansionConfig.MobInteractions mobInteraction : InfernalExpansionConfig.MobInteractions.values()) {
             if (mobInteraction.isSlider()) {
-                optionsRowList.addBig(new ProgressOption(InfernalExpansion.MOD_ID + ".config.option." + mobInteraction.getTranslationName(),
-                    0.2D, 10.0D, 0.2F,
-                    settings -> mobInteraction.getDouble(), (settings, value) -> mobInteraction.setDouble(value),
-                    (settings, option) -> new TranslatableComponent("options.generic_value", option.getCaption(),
-                        new TextComponent(Double.toString((double) Math.round(option.get(settings) * 100) / 100))),
-                    minecraft -> minecraft.font.split(new TranslatableComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + mobInteraction.getTranslationName()), 200)));
+                // optionsRowList.addBig(new ProgressOption(InfernalExpansion.MOD_ID + ".config.option." + mobInteraction.getTranslationName(),
+                //     0.2D, 10.0D, 0.2F,
+                //     settings -> mobInteraction.getDouble(), (settings, value) -> mobInteraction.setDouble(value),
+                //     (settings, option) -> Component.translatable("options.generic_value", option.getCaption(),
+                //         new TextComponent(Double.toString((double) Math.round(option.get(settings) * 100) / 100))),
+                //     minecraft -> minecraft.font.split(Component.translatable(InfernalExpansion.MOD_ID + ".config.tooltip." + mobInteraction.getTranslationName()), 200)));
             } else {
-                optionsRowList.addBig(CycleOption.createOnOff(InfernalExpansion.MOD_ID + ".config.option." + mobInteraction.getTranslationName(),
-                    new TranslatableComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + mobInteraction.getTranslationName()),
-                    settings -> mobInteraction.getBoolean(), (settings, option, value) -> mobInteraction.setBoolean(value)));
+                // optionsRowList.addBig(CycleOption.createOnOff(InfernalExpansion.MOD_ID + ".config.option." + mobInteraction.getTranslationName(),
+                //     Component.translatable(InfernalExpansion.MOD_ID + ".config.tooltip." + mobInteraction.getTranslationName()),
+                //     settings -> mobInteraction.getBoolean(), (settings, option, value) -> mobInteraction.setBoolean(value)));
             }
         }
     }

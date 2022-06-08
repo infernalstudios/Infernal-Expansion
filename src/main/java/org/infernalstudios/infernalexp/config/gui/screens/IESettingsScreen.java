@@ -25,7 +25,6 @@ import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.OptionsSubScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -53,7 +52,7 @@ public abstract class IESettingsScreen extends Screen {
         addSettings();
 
         addWidget(optionsRowList);
-        addWidget(new Button((width - 200) / 2, height - 26, 200, 20, new TranslatableComponent("gui.done"), button -> onClose()));
+        addWidget(new Button((width - 200) / 2, height - 26, 200, 20, Component.translatable("gui.done"), button -> onClose()));
     }
 
     @Override

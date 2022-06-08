@@ -20,6 +20,7 @@ import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -28,8 +29,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public abstract class LoopingSound<E extends Entity> extends AbstractTickableSoundInstance {
     protected final E entity;
 
-    public LoopingSound(E entity, SoundEvent event, SoundSource category) {
-        super(event, category);
+    public LoopingSound(E entity, SoundEvent event, SoundSource category, RandomSource rand) {
+        super(event, category, rand);
         this.entity = entity;
         this.x = entity.getX();
         this.y = entity.getY();

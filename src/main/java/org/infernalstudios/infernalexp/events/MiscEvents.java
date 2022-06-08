@@ -59,10 +59,10 @@ import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.common.util.BlockSnapshot;
@@ -124,7 +124,7 @@ public class MiscEvents {
                 }
             } else if (!left.getHoverName().getString().equals(event.getName())) {
                 cost += 1;
-                output.setHoverName(new TextComponent(event.getName()));
+                output.setHoverName(Component.literal(event.getName()));
             }
 
             event.setMaterialCost(1);

@@ -161,7 +161,7 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements NeutralMob {
 
     // EXP POINTS
     @Override
-    protected int getExperienceReward(Player player) {
+    public int getExperienceReward() {
         return 2 + this.level.random.nextInt(2);
     }
 

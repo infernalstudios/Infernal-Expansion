@@ -19,6 +19,7 @@ package org.infernalstudios.infernalexp.blocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -52,7 +53,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 public class DullthornsBlock extends BushBlock implements IForgeShearable {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_15;
@@ -81,7 +81,7 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
     }
 
     @Override
-    public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, Random rand) {
+    public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource rand) {
         if (!worldIn.isAreaLoaded(pos, 1))
             return; // Forge: prevent growing cactus from loading unloaded chunks with block update
         if (!state.canSurvive(worldIn, pos)) {
@@ -94,7 +94,7 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
      */
 
     @Override
-    public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource random) {
         BlockPos blockpos = pos.above();
         if (worldIn.isEmptyBlock(blockpos)) {
             int i;
@@ -190,11 +190,6 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         Vec3 vector3d = state.getOffset(worldIn, pos);
         return SHAPE.move(vector3d.x, vector3d.y, vector3d.z);
-    }
-
-    @Override
-    public OffsetType getOffsetType() {
-        return OffsetType.XZ;
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {

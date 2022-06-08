@@ -256,7 +256,7 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
 
     // EXP POINTS
     @Override
-    protected int getExperienceReward(Player player) {
+    public int getExperienceReward() {
         return 73;
     }
 

@@ -26,8 +26,8 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.PaintingRenderer;
 import net.minecraft.client.resources.PaintingTextureManager;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.decoration.Motive;
 import net.minecraft.world.entity.decoration.Painting;
+import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.infernalstudios.infernalexp.InfernalExpansion;
@@ -47,7 +47,7 @@ public class InfernalPaintingRenderer extends PaintingRenderer {
         matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(180.0F - entityYaw));
         matrixStackIn.scale(0.0625F, 0.0625F, 0.0625F);
 
-        Motive paintingType = entityIn.motive;
+        PaintingVariant paintingType = entityIn.getVariant().get();
         VertexConsumer iVertexBuilder = bufferIn.getBuffer(RenderType.entitySolid(this.getTextureLocation(entityIn)));
         PaintingTextureManager paintingSpriteUploader = Minecraft.getInstance().getPaintingTextures();
         renderPainting(matrixStackIn, iVertexBuilder, entityIn, paintingType.getWidth(), paintingType.getHeight(), paintingSpriteUploader.get(paintingType), paintingSpriteUploader.getSprite(BACK_TEXTURE_ATLAS_LOCATION));

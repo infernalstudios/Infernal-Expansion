@@ -18,12 +18,13 @@ package org.infernalstudios.infernalexp.entities;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.decoration.Motive;
 import net.minecraft.world.entity.decoration.Painting;
+import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
@@ -54,17 +55,17 @@ public class InfernalPaintingEntity extends Painting {
         this.pos = pos;
         setDirection(facing);
 
-        List<Motive> paintings = new ArrayList<>();
+        List<PaintingVariant> paintings = new ArrayList<>();
         int maxSurfaceArea = 0;
 
-        for (Motive paintingType : ForgeRegistries.PAINTING_TYPES) {
-            motive = paintingType;
+        for (PaintingVariant variant : ForgeRegistries.PAINTING_VARIANTS) {
+            this.setVariant(Holder.direct(variant));
             setDirection(facing);
 
-            if (survives() && paintingType.getRegistryName().getNamespace().equals("infernalexp")) {
-                paintings.add(paintingType);
+            if (survives() && ForgeRegistries.PAINTING_VARIANTS.getKey(variant).getNamespace().equals("infernalexp")) {
+                paintings.add(variant);
 
-                int surfaceArea = paintingType.getWidth() * paintingType.getHeight();
+                int surfaceArea = variant.getWidth() * variant.getHeight();
 
                 if (surfaceArea > maxSurfaceArea) {
                     maxSurfaceArea = surfaceArea;
@@ -73,26 +74,26 @@ public class InfernalPaintingEntity extends Painting {
         }
 
         if (!paintings.isEmpty()) {
-            Iterator<Motive> iterator = paintings.iterator();
+            Iterator<PaintingVariant> iterator = paintings.iterator();
 
             while (iterator.hasNext()) {
-                Motive paintingType = iterator.next();
+                PaintingVariant paintingType = iterator.next();
 
                 if (paintingType.getWidth() * paintingType.getHeight() < maxSurfaceArea) {
                     iterator.remove();
                 }
             }
 
-            motive = paintings.get(this.random.nextInt(paintings.size()));
+            this.setVariant(Holder.direct(paintings.get(this.random.nextInt(paintings.size()))));
         }
 
         setDirection(facing);
     }
 
     @OnlyIn(Dist.CLIENT)
-    public InfernalPaintingEntity(Level world, BlockPos pos, Direction facing, Motive art) {
+    public InfernalPaintingEntity(Level world, BlockPos pos, Direction facing, PaintingVariant art) {
         this(world, pos, facing);
-        this.motive = art;
+        this.setVariant(Holder.direct(art));
         this.setDirection(facing);
     }
 
