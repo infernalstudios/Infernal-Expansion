@@ -34,16 +34,22 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.function.Consumer;
 
 @OnlyIn(Dist.CLIENT)
 public class InfernalExpansionClient {
-    public static void init() {
+
+    public static void init(Consumer<Runnable> enqueueWorkConsumer) {
         // Register GUI Factories
         ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.CONFIGGUIFACTORY, () -> (mc, screen) -> new ConfigScreen());
 
         MinecraftForge.EVENT_BUS.register(new InfectionHeartOverlay());
         MinecraftForge.EVENT_BUS.addListener((LivingUpdateEvent event) -> DynamicLightingHandler.tick(event.getEntityLiving()));
 
+        enqueueWorkConsumer.accept(InfernalExpansionClient::threadSafeInit);
+    }
+
+    private static void threadSafeInit() {
         ItemModelsProperties.registerProperty(IEItems.GLOWSILK_BOW.get(), new ResourceLocation("pull"), (itemStack, clientWorld, livingEntity) -> {
             if (livingEntity == null) {
                 return 0.0F;

@@ -182,7 +182,7 @@ public class InfernalExpansion {
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
-        event.enqueueWork(() -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> InfernalExpansionClient::init));
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> InfernalExpansionClient.init(event::enqueueWork));
     }
 
     @SubscribeEvent
