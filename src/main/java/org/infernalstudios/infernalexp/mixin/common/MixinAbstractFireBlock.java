@@ -75,5 +75,10 @@ public abstract class MixinAbstractFireBlock extends Block {
             }
         }
 
+        if (ModList.get().isLoaded("dungeons_mobs")) {
+            if (state.getBlock().getRegistryName().equals(new ResourceLocation("dungeons_mobs", "wraith_fire")) && state.getBlock() instanceof AbstractFireBlock) {
+                access.setFireType(FireTypeAccess.KnownFireTypes.WRAITH_FIRE);
+            }
+        }
     }
 }
