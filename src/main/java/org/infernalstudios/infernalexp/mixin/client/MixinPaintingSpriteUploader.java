@@ -18,7 +18,7 @@ package org.infernalstudios.infernalexp.mixin.client;
 
 import net.minecraft.client.resources.PaintingTextureManager;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.core.Registry;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.infernalstudios.infernalexp.client.entity.render.InfernalPaintingRenderer;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -39,7 +39,7 @@ public class MixinPaintingSpriteUploader {
     @SuppressWarnings("deprecation")
     @Inject(method = "getResourcesToLoad", at = @At("RETURN"), cancellable = true)
     private void getResourcesToLoad(CallbackInfoReturnable<Stream<ResourceLocation>> cir) {
-        cir.setReturnValue(Stream.concat(Registry.MOTIVE.keySet().stream(), Stream.of(BACK_SPRITE_LOCATION, InfernalPaintingRenderer.BACK_TEXTURE_ATLAS_LOCATION)));
+        cir.setReturnValue(Stream.concat(ForgeRegistries.PAINTING_VARIANTS.getKeys().stream(), Stream.of(BACK_SPRITE_LOCATION, InfernalPaintingRenderer.BACK_TEXTURE_ATLAS_LOCATION)));
     }
 
 }

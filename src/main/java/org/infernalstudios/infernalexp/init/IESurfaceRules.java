@@ -17,14 +17,16 @@
 package org.infernalstudios.infernalexp.init;
 
 import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.SurfaceRules;
+import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.world.gen.surfacerules.ChanceConditionSource;
 import org.infernalstudios.infernalexp.world.gen.surfacerules.TerrablenderSurfaceRuleCompat;
 
 public class IESurfaceRules {
 
     public static void register() {
-        Registry.register(Registry.CONDITION, "chance", ChanceConditionSource.CODEC);
+        Registry.register(Registry.CONDITION, new ResourceLocation(InfernalExpansion.MOD_ID, "chance"), ChanceConditionSource.CODEC.codec());
 
         TerrablenderSurfaceRuleCompat.addSurfaceRules();
     }

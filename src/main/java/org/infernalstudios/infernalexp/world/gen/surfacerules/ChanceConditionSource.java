@@ -19,28 +19,30 @@ package org.infernalstudios.infernalexp.world.gen.surfacerules;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.KeyDispatchDataCodec;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.levelgen.PositionalRandomFactory;
-import net.minecraft.world.level.levelgen.RandomSource;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.mixin.common.SurfaceRulesContextAccessor;
-import org.infernalstudios.infernalexp.mixin.common.SurfaceSystemAccessor;
 import org.jetbrains.annotations.NotNull;
 
 public record ChanceConditionSource(String name, float percentageChance) implements SurfaceRules.ConditionSource {
-    public static final Codec<ChanceConditionSource> CODEC = RecordCodecBuilder.create((conditionSource) ->
-        conditionSource.group(Codec.STRING.fieldOf("name").forGetter(ChanceConditionSource::name), Codec.FLOAT.fieldOf("percentage_chance").forGetter(ChanceConditionSource::percentageChance)).apply(conditionSource, ChanceConditionSource::new));
+
+    public static final KeyDispatchDataCodec<ChanceConditionSource> CODEC = KeyDispatchDataCodec.of(RecordCodecBuilder.create((conditionSource) ->
+        conditionSource.group(Codec.STRING.fieldOf("name").forGetter(ChanceConditionSource::name), Codec.FLOAT.fieldOf("percentage_chance").forGetter(ChanceConditionSource::percentageChance)).apply(conditionSource, ChanceConditionSource::new)));
 
     @NotNull
     @Override
-    public Codec<? extends SurfaceRules.ConditionSource> codec() {
+    public KeyDispatchDataCodec<? extends SurfaceRules.ConditionSource> codec() {
         return CODEC;
     }
 
     @Override
     public SurfaceRules.Condition apply(SurfaceRules.Context context) {
         class ChanceCondition extends SurfaceRules.LazyYCondition {
-            private final PositionalRandomFactory randomFactory = ((SurfaceSystemAccessor) ((SurfaceRulesContextAccessor) (Object) context).getSystem()).invokeGetOrCreateRandomFactory(new ResourceLocation(InfernalExpansion.MOD_ID, name()));
+
+            private final PositionalRandomFactory randomFactory = ((SurfaceRulesContextAccessor) (Object) context).getRandomState().getOrCreateRandomFactory(new ResourceLocation(InfernalExpansion.MOD_ID, name()));
 
             protected ChanceCondition(SurfaceRules.Context context) {
                 super(context);

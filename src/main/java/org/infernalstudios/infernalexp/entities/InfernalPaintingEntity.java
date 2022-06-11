@@ -19,6 +19,7 @@ package org.infernalstudios.infernalexp.entities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
@@ -33,9 +34,10 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
 import org.infernalstudios.infernalexp.init.IEItems;
+import org.infernalstudios.infernalexp.init.IETags;
+import org.infernalstudios.infernalexp.mixin.common.PaintingAccessor;
 import org.infernalstudios.infernalexp.network.IENetworkHandler;
 import org.infernalstudios.infernalexp.network.SpawnInfernalPaintingPacket;
 
@@ -55,17 +57,17 @@ public class InfernalPaintingEntity extends Painting {
         this.pos = pos;
         setDirection(facing);
 
-        List<PaintingVariant> paintings = new ArrayList<>();
+        List<Holder<PaintingVariant>> paintings = new ArrayList<>();
         int maxSurfaceArea = 0;
 
-        for (PaintingVariant variant : ForgeRegistries.PAINTING_VARIANTS) {
-            this.setVariant(Holder.direct(variant));
+        for (Holder<PaintingVariant> variant : Registry.PAINTING_VARIANT.getOrCreateTag(IETags.Paintings.INFERNAL_PLACEABLE)) {
+            ((PaintingAccessor) this).invokeSetVariant(variant);
             setDirection(facing);
 
-            if (survives() && ForgeRegistries.PAINTING_VARIANTS.getKey(variant).getNamespace().equals("infernalexp")) {
+            if (survives()) {
                 paintings.add(variant);
 
-                int surfaceArea = variant.getWidth() * variant.getHeight();
+                int surfaceArea = variant.value().getWidth() * variant.value().getHeight();
 
                 if (surfaceArea > maxSurfaceArea) {
                     maxSurfaceArea = surfaceArea;
@@ -74,17 +76,17 @@ public class InfernalPaintingEntity extends Painting {
         }
 
         if (!paintings.isEmpty()) {
-            Iterator<PaintingVariant> iterator = paintings.iterator();
+            Iterator<Holder<PaintingVariant>> iterator = paintings.iterator();
 
             while (iterator.hasNext()) {
-                PaintingVariant paintingType = iterator.next();
+                PaintingVariant paintingType = iterator.next().value();
 
                 if (paintingType.getWidth() * paintingType.getHeight() < maxSurfaceArea) {
                     iterator.remove();
                 }
             }
 
-            this.setVariant(Holder.direct(paintings.get(this.random.nextInt(paintings.size()))));
+            ((PaintingAccessor) this).invokeSetVariant(paintings.get(this.random.nextInt(paintings.size())));
         }
 
         setDirection(facing);
@@ -93,9 +95,10 @@ public class InfernalPaintingEntity extends Painting {
     @OnlyIn(Dist.CLIENT)
     public InfernalPaintingEntity(Level world, BlockPos pos, Direction facing, PaintingVariant art) {
         this(world, pos, facing);
-        this.setVariant(Holder.direct(art));
+        ((PaintingAccessor) this).invokeSetVariant(Holder.direct(art));
         this.setDirection(facing);
     }
+
 
     @Override
     public void dropItem(@Nullable Entity brokenEntity) {

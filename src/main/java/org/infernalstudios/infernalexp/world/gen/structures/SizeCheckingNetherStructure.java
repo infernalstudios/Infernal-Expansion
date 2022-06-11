@@ -16,32 +16,38 @@
 
 package org.infernalstudios.infernalexp.world.gen.structures;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
-import net.minecraft.world.level.levelgen.structure.PoolElementStructurePiece;
-import net.minecraft.world.level.levelgen.structure.PostPlacementProcessor;
-import net.minecraft.world.level.levelgen.structure.pieces.PieceGenerator;
-import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier;
-import org.infernalstudios.infernalexp.world.gen.structures.config.SizeCheckingConfiguration;
+import net.minecraft.core.Holder;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureType;
+import net.minecraft.world.level.levelgen.structure.pools.JigsawPlacement;
+import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
+import org.infernalstudios.infernalexp.init.IEStructureTypes;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-public class SizeCheckingNetherStructure extends StructureFeature<SizeCheckingConfiguration> {
+public class SizeCheckingNetherStructure extends Structure {
 
-    public SizeCheckingNetherStructure() {
-        super(SizeCheckingConfiguration.CODEC, SizeCheckingNetherStructure::createPiecesGenerator, PostPlacementProcessor.NONE);
+    public static final Codec<SizeCheckingNetherStructure> CODEC = RecordCodecBuilder.<SizeCheckingNetherStructure>mapCodec(instance -> instance.group(
+        settingsCodec(instance),
+        StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
+        Codec.INT.fieldOf("size_to_check").forGetter(structure -> structure.sizeToCheck)
+    ).apply(instance, SizeCheckingNetherStructure::new)).codec();
+
+    private final Holder<StructureTemplatePool> startPool;
+    private final int sizeToCheck;
+
+    public SizeCheckingNetherStructure(StructureSettings settings, Holder<StructureTemplatePool> startPool, int sizeToCheck) {
+        super(settings);
+        this.startPool = startPool;
+        this.sizeToCheck = sizeToCheck;
     }
 
-    @NotNull
     @Override
-    public GenerationStep.Decoration step() {
-        return GenerationStep.Decoration.UNDERGROUND_DECORATION;
-    }
-
-    @NotNull
-    private static Optional<PieceGenerator<SizeCheckingConfiguration>> createPiecesGenerator(PieceGeneratorSupplier.Context<SizeCheckingConfiguration> context) {
+    public @NotNull Optional<GenerationStub> findGenerationPoint(@NotNull GenerationContext context) {
         Optional<Integer> yLevel = StructureUtil.getSuitableNetherYLevel(context, context.chunkPos().getMiddleBlockPosition(0));
 
         if (yLevel.isEmpty())
@@ -49,15 +55,20 @@ public class SizeCheckingNetherStructure extends StructureFeature<SizeCheckingCo
 
 
         BlockPos pos = context.chunkPos().getMiddleBlockPosition(yLevel.get());
-        int size = context.config().sizeToCheck();
 
-        for (int x = pos.getX() - size; x <= pos.getX() + size; x += size) {
-            for (int z = pos.getZ() - size; z <= pos.getZ() + size; z += size) {
+        for (int x = pos.getX() - this.sizeToCheck; x <= pos.getX() + this.sizeToCheck; x += this.sizeToCheck) {
+            for (int z = pos.getZ() - this.sizeToCheck; z <= pos.getZ() + this.sizeToCheck; z += this.sizeToCheck) {
                 if (!StructureUtil.checkLandAtHeight(context, pos, 5))
                     return Optional.empty();
             }
         }
 
-        return StructureUtil.addPieces(context, PoolElementStructurePiece::new, pos, false);
+        return JigsawPlacement.addPieces(context, this.startPool, Optional.empty(), 1, pos, false, Optional.empty(), 1);
     }
+
+    @Override
+    public @NotNull StructureType<?> type() {
+        return IEStructureTypes.SIZE_CHECKING_NETHER_STRUCTURE;
+    }
+
 }

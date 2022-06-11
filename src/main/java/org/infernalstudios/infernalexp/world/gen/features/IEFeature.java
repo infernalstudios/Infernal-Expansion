@@ -20,11 +20,11 @@ import com.mojang.serialization.Codec;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.server.level.WorldGenRegion;
-import net.minecraft.world.level.StructureFeatureManager;
-import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
+import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.structure.Structure;
 import org.infernalstudios.infernalexp.init.IETags;
 import org.infernalstudios.infernalexp.mixin.common.WorldGenRegionAccessor;
 
@@ -42,10 +42,10 @@ public abstract class IEFeature<FC extends FeatureConfiguration> extends Feature
         if (!(context.level() instanceof WorldGenRegion))
             return false;
 
-        Registry<ConfiguredStructureFeature<?, ?>> registry = context.level().registryAccess().registryOrThrow(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY);
-        StructureFeatureManager manager = ((WorldGenRegionAccessor) context.level()).getStructureFeatureManager();
+        Registry<Structure> registry = context.level().registryAccess().registryOrThrow(Registry.STRUCTURE_REGISTRY);
+        StructureManager manager = ((WorldGenRegionAccessor) context.level()).getStructureManager();
 
-        for (Holder<ConfiguredStructureFeature<?, ?>> structure : registry.getOrCreateTag(IETags.Structures.NO_INTERSECTING_FEATURES)) {
+        for (Holder<Structure> structure : registry.getOrCreateTag(IETags.Structures.NO_INTERSECTING_FEATURES)) {
             if (manager.getStructureAt(context.origin(), structure.value()).isValid())
                 return false;
         }

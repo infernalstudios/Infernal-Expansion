@@ -29,7 +29,6 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
-import java.util.Random;
 
 @Mixin(targets = "net.minecraft.client.renderer.item.ItemProperties$static$1")
 public class MixinItemProperties {
@@ -47,7 +46,7 @@ public class MixinItemProperties {
         Optional<ResourceKey<Biome>> biomeKey = clientWorld.getBiome(entity.blockPosition()).unwrapKey();
 
         if (biomeKey.isPresent() && biomeKey.get().equals(IEBiomes.GLOWSTONE_CANYON)) {
-            return Mth.nextDouble(new Random(), 0.95, 1.05) % 1;
+            return Mth.nextDouble(entity.getRandom(), 0.95, 1.05) % 1;
         }
         return in;
     }

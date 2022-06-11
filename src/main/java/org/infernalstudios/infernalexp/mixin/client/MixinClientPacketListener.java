@@ -16,6 +16,14 @@
 
 package org.infernalstudios.infernalexp.mixin.client;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import org.infernalstudios.infernalexp.client.sound.GlowsquitoFlightSound;
 import org.infernalstudios.infernalexp.entities.GlowsquitoEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -25,16 +33,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import org.infernalstudios.infernalexp.client.sound.GlowsquitoFlightSound;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientPacketListener;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.network.protocol.game.ClientboundAddMobPacket;
-
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-
 @OnlyIn(Dist.CLIENT)
 @Mixin(ClientPacketListener.class)
 public class MixinClientPacketListener {
@@ -42,9 +40,9 @@ public class MixinClientPacketListener {
     @Shadow
     private Minecraft minecraft;
 
-    @Inject(method = "handleAddMob", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;putNonPlayerEntity(ILnet/minecraft/world/entity/Entity;)V", shift = Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD)
-    private void IE_playGlowsquitoSound(ClientboundAddMobPacket packetIn, CallbackInfo ci, LivingEntity livingentity) {
-        if (livingentity instanceof GlowsquitoEntity glowsquito) {
+    @Inject(method = "handleAddEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;putNonPlayerEntity(ILnet/minecraft/world/entity/Entity;)V", shift = Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD)
+    private void IE_playGlowsquitoSound(ClientboundAddEntityPacket packet, CallbackInfo ci, EntityType<?> entityType, Entity entity, int entityId) {
+        if (entity instanceof GlowsquitoEntity glowsquito) {
             this.minecraft.getSoundManager().queueTickingSound(new GlowsquitoFlightSound(glowsquito));
         }
     }

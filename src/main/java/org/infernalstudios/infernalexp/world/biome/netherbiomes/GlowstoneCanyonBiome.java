@@ -32,7 +32,6 @@ import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraftforge.common.BiomeDictionary;
 import org.infernalstudios.infernalexp.init.IECarvers;
 import org.infernalstudios.infernalexp.init.IEParticleTypes;
 import org.infernalstudios.infernalexp.init.IEPlacedFeatures;
@@ -40,11 +39,6 @@ import org.infernalstudios.infernalexp.init.IESoundEvents;
 import org.infernalstudios.infernalexp.world.biome.IEBiome;
 
 public class GlowstoneCanyonBiome extends IEBiome {
-
-    @Override
-    protected Biome.BiomeCategory configureCategory() {
-        return Biome.BiomeCategory.NETHER;
-    }
 
     @Override
     protected Climate.Parameter configureTemperature() {
@@ -125,16 +119,16 @@ public class GlowstoneCanyonBiome extends IEBiome {
 
     @Override
     protected void configureSpawns(MobSpawnSettings.Builder spawns) {
-//        spawns.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(IEEntityTypes.GLOWSQUITO.get(), 80, 1, 3));
-//        spawns.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(IEEntityTypes.BLINDSIGHT.get(), 10, 1, 1));
+        //        spawns.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(IEEntityTypes.GLOWSQUITO.get(), 80, 1, 3));
+        //        spawns.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(IEEntityTypes.BLINDSIGHT.get(), 10, 1, 1));
         spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.STRIDER, 60, 1, 2));
 
         //It doesn't work properly. Glowsquitos don't spawn at all and Blindsights spawn en-masse regardless of if
         // they're set to 1 or 100. Putting spawning for new biomes back in IEEvents for now.
     }
 
-    @Override
-    public BiomeDictionary.Type[] getBiomeTypes() {
-        return new BiomeDictionary.Type[]{BiomeDictionary.Type.NETHER, BiomeDictionary.Type.HOT, BiomeDictionary.Type.DRY, BiomeDictionary.Type.SANDY};
-    }
+    //    @Override
+    //    public BiomeDictionary.Type[] getBiomeTypes() {
+    //        return new BiomeDictionary.Type[]{BiomeDictionary.Type.NETHER, BiomeDictionary.Type.HOT, BiomeDictionary.Type.DRY, BiomeDictionary.Type.SANDY};
+    //    }
 }

@@ -47,12 +47,12 @@ public class CompatibilityQuark implements ICondition {
     }
 
     @Override
-    public boolean test() {
+    public boolean test(IContext context) {
         if (ModList.get().isLoaded("quark")) {
             JsonObject jsonDummy = new JsonObject();
             jsonDummy.addProperty("type", "quark:flag");
             jsonDummy.addProperty("flag", this.flag);
-            return CraftingHelper.getCondition(jsonDummy).test();
+            return CraftingHelper.getCondition(jsonDummy).test(context);
         } else {
             return false;
         }

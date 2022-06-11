@@ -44,7 +44,7 @@ public class SpawnInfernalPaintingPacket {
         this.uniqueID = painting.getUUID();
         this.pos = painting.getPos();
         this.facing = painting.getDirection();
-        this.title = ForgeRegistries.PAINTING_TYPES.getKey(painting.motive).toString();
+        this.title = ForgeRegistries.PAINTING_VARIANTS.getKey(painting.getVariant().value()).toString();
     }
 
     public SpawnInfernalPaintingPacket(int entityID, UUID uniqueID, BlockPos pos, Direction facing, String title) {
@@ -77,7 +77,7 @@ public class SpawnInfernalPaintingPacket {
         ctx.get().enqueueWork(() -> {
             Optional<Level> world = LogicalSidedProvider.CLIENTWORLD.get(ctx.get().getDirection().getReceptionSide());
 
-            InfernalPaintingEntity paintingEntity = new InfernalPaintingEntity(world.orElse(null), message.pos, message.facing, ForgeRegistries.PAINTING_TYPES.getValue(new ResourceLocation(message.title)));
+            InfernalPaintingEntity paintingEntity = new InfernalPaintingEntity(world.orElse(null), message.pos, message.facing, ForgeRegistries.PAINTING_VARIANTS.getValue(new ResourceLocation(message.title)));
             paintingEntity.setId(message.entityID);
             paintingEntity.setUUID(message.uniqueID);
 

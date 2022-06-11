@@ -16,23 +16,43 @@
 
 package org.infernalstudios.infernalexp.config.gui.widgets;
 
-import net.minecraft.client.Option;
+import com.mojang.datafixers.util.Unit;
+import com.mojang.serialization.Codec;
+import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.components.AbstractWidget;
-
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.infernalstudios.infernalexp.mixin.client.OptionInstanceAccessor;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Optional;
+import java.util.function.Function;
 
 @OnlyIn(Dist.CLIENT)
-public class TitleOption extends Option {
+public class TitleOption {
 
-    public TitleOption(String translationKeyIn) {
-        super(translationKeyIn);
+    public static OptionInstance<Unit> create(String title) {
+        return new OptionInstance<>(title, OptionInstance.noTooltip(), (component, unit) -> component, new TitleValueSet(), Unit.INSTANCE, (unit) -> {});
     }
 
-    @Override
-    public AbstractWidget createButton(Options options, int xIn, int yIn, int widthIn) {
-        return new Title(xIn, yIn, widthIn, 20, getCaption());
+    private record TitleValueSet() implements OptionInstance.ValueSet<Unit> {
+
+        @Override
+        public @NotNull Function<OptionInstance<Unit>, AbstractWidget> createButton(@NotNull OptionInstance.TooltipSupplier<Unit> tooltipSupplier, @NotNull Options options, int x, int y, int width) {
+            return (optionInstance) -> new Title(x, y, width, 20, ((OptionInstanceAccessor<Unit>) (Object) optionInstance).getToString().apply(Unit.INSTANCE));
+        }
+
+        @Override
+        public @NotNull Optional<Unit> validateValue(@NotNull Unit value) {
+            return Optional.empty();
+        }
+
+        @Override
+        public @NotNull Codec<Unit> codec() {
+            return Codec.EMPTY.codec();
+        }
+
     }
 
 }

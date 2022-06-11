@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Infernal Studios
+ * Copyright 2021 Infernal Studios
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,21 +16,16 @@
 
 package org.infernalstudios.infernalexp.mixin.common;
 
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.levelgen.carver.WorldCarver;
-
+import net.minecraft.core.Holder;
+import net.minecraft.world.entity.decoration.Painting;
+import net.minecraft.world.entity.decoration.PaintingVariant;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Accessor;
+import org.spongepowered.asm.mixin.gen.Invoker;
 
-import java.util.Set;
+@Mixin(Painting.class)
+public interface PaintingAccessor {
 
-@Mixin(WorldCarver.class)
-public interface WorldCarverAccessor {
-
-    @Accessor("replaceableBlocks")
-    Set<Block> getReplaceableBlocks();
-
-    @Accessor("replaceableBlocks")
-    void setReplaceableBlocks(Set<Block> carvableBlocks);
+    @Invoker("setVariant")
+    void invokeSetVariant(Holder<PaintingVariant> variant);
 
 }

@@ -16,9 +16,20 @@
 
 package org.infernalstudios.infernalexp.events;
 
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.monster.Ghast;
+import net.minecraft.world.entity.monster.MagmaCube;
+import net.minecraft.world.entity.monster.Skeleton;
+import net.minecraft.world.entity.monster.Spider;
+import net.minecraft.world.entity.monster.hoglin.Hoglin;
+import net.minecraft.world.entity.monster.piglin.Piglin;
+import net.minecraft.world.entity.monster.piglin.PiglinBrute;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-import org.infernalstudios.infernalexp.data.SpawnrateManager;
 import org.infernalstudios.infernalexp.entities.BasaltGiantEntity;
 import org.infernalstudios.infernalexp.entities.BlackstoneDwarfEntity;
 import org.infernalstudios.infernalexp.entities.EmbodyEntity;
@@ -27,28 +38,6 @@ import org.infernalstudios.infernalexp.entities.VolineEntity;
 import org.infernalstudios.infernalexp.entities.WarpbeetleEntity;
 import org.infernalstudios.infernalexp.entities.ai.AvoidBlockGoal;
 import org.infernalstudios.infernalexp.init.IETags;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.monster.Ghast;
-import net.minecraft.world.entity.monster.hoglin.Hoglin;
-import net.minecraft.world.entity.monster.MagmaCube;
-import net.minecraft.world.entity.monster.Skeleton;
-import net.minecraft.world.entity.monster.Spider;
-import net.minecraft.world.entity.monster.piglin.PiglinBrute;
-import net.minecraft.world.entity.monster.piglin.Piglin;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.ResourceLocationException;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.Arrays;
-import java.util.List;
 
 @Mod.EventBusSubscriber(modid = InfernalExpansion.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MobEvents {
@@ -155,7 +144,7 @@ public class MobEvents {
             }
             if (InfernalExpansionConfig.MobInteractions.GHAST_ATTACK_SKELETON.getBoolean()) {
                 entity.targetSelector.addGoal(3,
-                        new NearestAttackableTargetGoal<>(entity, Skeleton.class, true, false));
+                    new NearestAttackableTargetGoal<>(entity, Skeleton.class, true, false));
             }
         }
 
@@ -164,88 +153,89 @@ public class MobEvents {
         }
     }
 
-    private void addEntityToSpawner(BiomeLoadingEvent event, EntityType<?> entityType, SpawnrateManager.SpawnInfo spawnInfo) {
-        // Check if creatureSpawnProbability is within the exclusive bounds of 0-1,
-        // If so change the creatureSpawnProbability
-//        if (spawnInfo.getCreatureSpawnProbability() > 0 && spawnInfo.getCreatureSpawnProbability() < 1) {
-//            event.getSpawns().withCreatureSpawnProbability(spawnInfo.getCreatureSpawnProbability());
-//        }
-
-//        // Check if there are any other changes to be made to the spawner
-//        Optional.ofNullable(spawnInfo.getChanges()).ifPresent(changes -> changes.forEach((changeEntity, changeSpawnInfo) -> {
-//            // If so, get the entity type of the change
-//            EntityType<?> changeEntityType = ForgeRegistries.ENTITIES.getValue(changeEntity);
-//
-//            // Check if the change entity type exists
-//            if (changeEntityType == null) {
-//                throw new ResourceLocationException("Invalid EntityType resource location " + entityType.toString());
-//            }
-//
-//            // Check if the change entity type exists in the spawner
-//            MobSpawnInfo.Spawners spawner = event.getSpawns().getSpawner(changeEntityType.getClassification()).stream().filter(s -> s.type == changeEntityType).findFirst().orElseThrow(
-//                // If not, through an exception
-//                () -> new RuntimeException("Can't make changes to " + changeEntity.toString() + " because it doesn't exist in the spawner")
-//            );
-//
-//            // Find which data to update from SpawnrateManager
-//            int spawnrate = changeSpawnInfo.getSpawnRate() != 0 ? changeSpawnInfo.getSpawnRate() : spawner.itemWeight;
-//            int minCount = changeSpawnInfo.getMinCount() != 0 ? changeSpawnInfo.getMinCount() : spawner.minCount;
-//            int maxCount = changeSpawnInfo.getMaxCount() != 0 ? changeSpawnInfo.getMaxCount() : spawner.maxCount;
-//
-//            // Remove entity from spawner to make changes
-//            event.getSpawns().getSpawner(changeEntityType.getClassification()).remove(spawner);
-//
-//            // Add it back with changes
-//            event.getSpawns().withSpawner(changeEntityType.getClassification(),
-//                new MobSpawnInfo.Spawners(changeEntityType, spawnrate, minCount, maxCount));
-//        }));
-
-        // Add our entity to the spawner
-        event.getSpawns().addSpawn(entityType.getCategory(),
-            new MobSpawnSettings.SpawnerData(entityType, spawnInfo.getSpawnRate(), spawnInfo.getMinCount(), spawnInfo.getMaxCount()));
-
-        // Change spawn costs
-        if (spawnInfo.getSpawnCostPerEntity() != null && spawnInfo.getMaxSpawnCost() != null) {
-            event.getSpawns().addMobCharge(entityType, spawnInfo.getSpawnCostPerEntity(), spawnInfo.getMaxSpawnCost());
-        } else if (spawnInfo.getSpawnCostPerEntity() != null || spawnInfo.getMaxSpawnCost() != null) {
-            InfernalExpansion.LOGGER.error("EntityType {} has incomplete spawn cost data. When editing spawn costs, make sure to set both \"spawn_cost_per_entity\" and \"max_spawn_cost\"", entityType.toString());
-        }
-    }
-
-    //Mob Spawning in pre-existing biomes
-    @SubscribeEvent
-    public void onBiomeLoad(BiomeLoadingEvent event) {
-
-        if (event.getCategory() != Biome.BiomeCategory.NETHER) {
-            return;
-        }
-
-        MiscEvents.getSpawnrateManager().forEach((entity, value) -> {
-            // Get the biomes the entity is allowed to spawn in from InfernalExpansionConfig
-            List<String> spawnableBiomes = Arrays.asList(InfernalExpansionConfig.MobSpawning.getByName(entity.split(":")[1]).getSpawnableBiomes().replace(" ", "").split(","));
-
-            // Check if the current biome getting loaded is in the spawnable biomes, if not, return
-            if (!spawnableBiomes.contains(event.getName().toString())) {
-                return;
-            }
-
-            // Get the entity type from the name
-            EntityType<?> entityType = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(entity));
-
-            // Check if the entity type exists
-            if (entityType == null) {
-                throw new ResourceLocationException("Invalid EntityType resource location " + entity);
-            }
-
-            // Find either the default spawn info or the spawn info for a specific biome from SpawnrateManager
-            if (value.containsKey(event.getName().toString()) && spawnableBiomes.contains(event.getName().toString())) {
-                addEntityToSpawner(event, entityType, value.get(event.getName().toString()));
-            } else if (value.containsKey("default") && spawnableBiomes.contains(event.getName().toString())) {
-                addEntityToSpawner(event, entityType, value.get("default"));
-            } else {
-                InfernalExpansion.LOGGER.error("{} doesn't have a default spawn entry", entity);
-            }
-        });
-    }
+    // TODO: Figure out what to do with this system?
+    //    private void addEntityToSpawner(BiomeLoadingEvent event, EntityType<?> entityType, SpawnrateManager.SpawnInfo spawnInfo) {
+    //        // Check if creatureSpawnProbability is within the exclusive bounds of 0-1,
+    //        // If so change the creatureSpawnProbability
+    ////        if (spawnInfo.getCreatureSpawnProbability() > 0 && spawnInfo.getCreatureSpawnProbability() < 1) {
+    ////            event.getSpawns().withCreatureSpawnProbability(spawnInfo.getCreatureSpawnProbability());
+    ////        }
+    //
+    ////        // Check if there are any other changes to be made to the spawner
+    ////        Optional.ofNullable(spawnInfo.getChanges()).ifPresent(changes -> changes.forEach((changeEntity, changeSpawnInfo) -> {
+    ////            // If so, get the entity type of the change
+    ////            EntityType<?> changeEntityType = ForgeRegistries.ENTITIES.getValue(changeEntity);
+    ////
+    ////            // Check if the change entity type exists
+    ////            if (changeEntityType == null) {
+    ////                throw new ResourceLocationException("Invalid EntityType resource location " + entityType.toString());
+    ////            }
+    ////
+    ////            // Check if the change entity type exists in the spawner
+    ////            MobSpawnInfo.Spawners spawner = event.getSpawns().getSpawner(changeEntityType.getClassification()).stream().filter(s -> s.type == changeEntityType).findFirst().orElseThrow(
+    ////                // If not, through an exception
+    ////                () -> new RuntimeException("Can't make changes to " + changeEntity.toString() + " because it doesn't exist in the spawner")
+    ////            );
+    ////
+    ////            // Find which data to update from SpawnrateManager
+    ////            int spawnrate = changeSpawnInfo.getSpawnRate() != 0 ? changeSpawnInfo.getSpawnRate() : spawner.itemWeight;
+    ////            int minCount = changeSpawnInfo.getMinCount() != 0 ? changeSpawnInfo.getMinCount() : spawner.minCount;
+    ////            int maxCount = changeSpawnInfo.getMaxCount() != 0 ? changeSpawnInfo.getMaxCount() : spawner.maxCount;
+    ////
+    ////            // Remove entity from spawner to make changes
+    ////            event.getSpawns().getSpawner(changeEntityType.getClassification()).remove(spawner);
+    ////
+    ////            // Add it back with changes
+    ////            event.getSpawns().withSpawner(changeEntityType.getClassification(),
+    ////                new MobSpawnInfo.Spawners(changeEntityType, spawnrate, minCount, maxCount));
+    ////        }));
+    //
+    //        // Add our entity to the spawner
+    //        event.getSpawns().addSpawn(entityType.getCategory(),
+    //            new MobSpawnSettings.SpawnerData(entityType, spawnInfo.getSpawnRate(), spawnInfo.getMinCount(), spawnInfo.getMaxCount()));
+    //
+    //        // Change spawn costs
+    //        if (spawnInfo.getSpawnCostPerEntity() != null && spawnInfo.getMaxSpawnCost() != null) {
+    //            event.getSpawns().addMobCharge(entityType, spawnInfo.getSpawnCostPerEntity(), spawnInfo.getMaxSpawnCost());
+    //        } else if (spawnInfo.getSpawnCostPerEntity() != null || spawnInfo.getMaxSpawnCost() != null) {
+    //            InfernalExpansion.LOGGER.error("EntityType {} has incomplete spawn cost data. When editing spawn costs, make sure to set both \"spawn_cost_per_entity\" and \"max_spawn_cost\"", entityType.toString());
+    //        }
+    //    }
+    //
+    //    //Mob Spawning in pre-existing biomes
+    //    @SubscribeEvent
+    //    public void onBiomeLoad(BiomeLoadingEvent event) {
+    //
+    //        if (event.getCategory() != Biome.BiomeCategory.NETHER) {
+    //            return;
+    //        }
+    //
+    //        MiscEvents.getSpawnrateManager().forEach((entity, value) -> {
+    //            // Get the biomes the entity is allowed to spawn in from InfernalExpansionConfig
+    //            List<String> spawnableBiomes = Arrays.asList(InfernalExpansionConfig.MobSpawning.getByName(entity.split(":")[1]).getSpawnableBiomes().replace(" ", "").split(","));
+    //
+    //            // Check if the current biome getting loaded is in the spawnable biomes, if not, return
+    //            if (!spawnableBiomes.contains(event.getName().toString())) {
+    //                return;
+    //            }
+    //
+    //            // Get the entity type from the name
+    //            EntityType<?> entityType = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(entity));
+    //
+    //            // Check if the entity type exists
+    //            if (entityType == null) {
+    //                throw new ResourceLocationException("Invalid EntityType resource location " + entity);
+    //            }
+    //
+    //            // Find either the default spawn info or the spawn info for a specific biome from SpawnrateManager
+    //            if (value.containsKey(event.getName().toString()) && spawnableBiomes.contains(event.getName().toString())) {
+    //                addEntityToSpawner(event, entityType, value.get(event.getName().toString()));
+    //            } else if (value.containsKey("default") && spawnableBiomes.contains(event.getName().toString())) {
+    //                addEntityToSpawner(event, entityType, value.get("default"));
+    //            } else {
+    //                InfernalExpansion.LOGGER.error("{} doesn't have a default spawn entry", entity);
+    //            }
+    //        });
+    //    }
 
 }

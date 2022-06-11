@@ -22,10 +22,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.NoiseColumn;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
-import net.minecraft.world.level.levelgen.structure.pieces.PieceGenerator;
-import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier;
-import net.minecraft.world.level.levelgen.structure.pools.JigsawPlacement;
+import net.minecraft.world.level.levelgen.structure.Structure;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,13 +30,14 @@ import java.util.Optional;
 import java.util.Random;
 
 public class StructureUtil {
+
     /**
      * Looks for suitable y levels to place a structure then randomly picks one if multiple are found.
      *
      * @return Will return an empty {@link java.util.Optional} if no suitable y level has been found
      */
-    public static Optional<Integer> getSuitableNetherYLevel(PieceGeneratorSupplier.Context<?> context, BlockPos pos) {
-        NoiseColumn column = context.chunkGenerator().getBaseColumn(pos.getX(), pos.getZ(), context.heightAccessor());
+    public static Optional<Integer> getSuitableNetherYLevel(Structure.GenerationContext context, BlockPos pos) {
+        NoiseColumn column = context.chunkGenerator().getBaseColumn(pos.getX(), pos.getZ(), context.heightAccessor(), context.randomState());
         List<Integer> suitableYLevels = new ArrayList<>();
 
         for (int y = 127; y > context.chunkGenerator().getSeaLevel(); y--) {
@@ -59,9 +57,9 @@ public class StructureUtil {
      *
      * @return Will return an empty {@link java.util.Optional} if lava floor is not found
      */
-    public static Optional<Integer> getNetherLavaFloorY(PieceGeneratorSupplier.Context<?> context, BlockPos pos) {
+    public static Optional<Integer> getNetherLavaFloorY(Structure.GenerationContext context, BlockPos pos) {
         int y = context.chunkGenerator().getSeaLevel();
-        NoiseColumn column = context.chunkGenerator().getBaseColumn(pos.getX(), pos.getZ(), context.heightAccessor());
+        NoiseColumn column = context.chunkGenerator().getBaseColumn(pos.getX(), pos.getZ(), context.heightAccessor(), context.randomState());
 
         BlockPos lavaPos = new BlockPos(pos.getX(), y, pos.getZ());
 
@@ -85,8 +83,8 @@ public class StructureUtil {
         return Optional.empty();
     }
 
-    public static boolean checkLandAtHeight(PieceGeneratorSupplier.Context<?> context, BlockPos pos, int heightTolerance) {
-        NoiseColumn column = context.chunkGenerator().getBaseColumn(pos.getX(), pos.getZ(), context.heightAccessor());
+    public static boolean checkLandAtHeight(Structure.GenerationContext context, BlockPos pos, int heightTolerance) {
+        NoiseColumn column = context.chunkGenerator().getBaseColumn(pos.getX(), pos.getZ(), context.heightAccessor(), context.randomState());
 
         for (int y = pos.getY() - heightTolerance; y <= pos.getZ() + heightTolerance; y++) {
             if (column.getBlock(y).canOcclude() && column.getBlock(y + 1).isAir())
@@ -94,11 +92,6 @@ public class StructureUtil {
         }
 
         return false;
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <T extends JigsawConfiguration> Optional<PieceGenerator<T>> addPieces(PieceGeneratorSupplier.Context<T> context, JigsawPlacement.PieceFactory pieceFactory, BlockPos pos, boolean usePosHeight) {
-        return JigsawPlacement.addPieces((PieceGeneratorSupplier.Context<JigsawConfiguration>) context, pieceFactory, pos, false, usePosHeight).map(pieceGenerator -> (PieceGenerator<T>) pieceGenerator);
     }
 
 }

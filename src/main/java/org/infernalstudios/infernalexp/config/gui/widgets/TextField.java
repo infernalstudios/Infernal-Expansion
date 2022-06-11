@@ -32,21 +32,17 @@ import java.util.List;
 public class TextField extends EditBox implements TooltipAccessor {
 
     private final Options settings;
-    private final TextFieldOption option;
     private final List<FormattedCharSequence> tooltip;
 
-    @SuppressWarnings("resource")
-    public TextField(Options settings, int x, int y, int width, Component title, TextFieldOption option, List<FormattedCharSequence> tooltip) {
+    public TextField(Options settings, int x, int y, int width, Component title, List<FormattedCharSequence> tooltip) {
         super(Minecraft.getInstance().font, x + 2 + 100, y, width - 4 - 100, 20, title);
-        this.option = option;
         this.settings = settings;
         this.tooltip = tooltip;
 
         setMaxLength(1892);
-        setValue(option.get(settings));
+        //        setValue();
     }
 
-    @SuppressWarnings("resource")
     @Override
     public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         super.renderButton(matrixStack, mouseX, mouseY, partialTicks);
@@ -57,7 +53,7 @@ public class TextField extends EditBox implements TooltipAccessor {
     @Override
     public void onValueChange(String newText) {
         super.onValueChange(newText);
-        option.set(settings, newText);
+        //        option.set(settings, newText);
     }
 
     @Override

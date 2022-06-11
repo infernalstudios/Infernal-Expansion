@@ -60,7 +60,7 @@ public class MixinMultiNoiseBiomeSourcePreset {
         List<Pair<Climate.ParameterPoint, Holder<Biome>>> biomeParameters = new ArrayList<>(parameterList.values());
 
         for (Pair<ResourceKey<Biome>, Climate.ParameterPoint> biome : IEBiomes.getBiomeParameters()) {
-            biomeParameters.add(Pair.of(biome.getSecond(), biomeRegistry.getOrCreateHolder(biome.getFirst())));
+            biomeParameters.add(Pair.of(biome.getSecond(), biomeRegistry.getOrCreateHolder(biome.getFirst()).result().orElseThrow()));
         }
 
         return new Climate.ParameterList<>(biomeParameters);

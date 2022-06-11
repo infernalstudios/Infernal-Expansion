@@ -31,41 +31,40 @@ import net.minecraft.world.level.levelgen.carver.CarverDebugSettings;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.carver.WorldCarver;
 import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.world.gen.carvers.GlowstoneRavineCarver;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class IECarvers {
 
-    public static List<WorldCarver<? extends CarverConfiguration>> carvers = new ArrayList<>();
+    public static final Map<ResourceLocation, WorldCarver<?>> carvers = new HashMap<>();
 
     // Carvers
     public static final WorldCarver<CanyonCarverConfiguration> GLOWSTONE_RAVINE = registerWorldCarver("glowstone_ravine", new GlowstoneRavineCarver(CanyonCarverConfiguration.CODEC));
 
     // Configured Carvers
     public static final Holder<ConfiguredWorldCarver<?>> CONFIGURED_GLOWSTONE_RAVINE = registerConfiguredCarver("glowstone_ravine", GLOWSTONE_RAVINE.configured(
-        new CanyonCarverConfiguration(0.1f, UniformHeight.of(VerticalAnchor.absolute(0), VerticalAnchor.belowTop(1)), ConstantFloat.of(2.0F), VerticalAnchor.aboveBottom(10), CarverDebugSettings.of(false, Blocks.WARPED_BUTTON.defaultBlockState()), UniformFloat.of(-0.125F, 0.125F), new CanyonCarverConfiguration.CanyonShapeConfiguration(UniformFloat.of(0.75F, 1.0F), TrapezoidFloat.of(0.0F, 6.0F, 2.0F), 3, UniformFloat.of(0.75F, 1.0F), 1.0F, 0.0F))));
+        new CanyonCarverConfiguration(0.1f, UniformHeight.of(VerticalAnchor.absolute(0), VerticalAnchor.belowTop(1)), ConstantFloat.of(2.0F), VerticalAnchor.aboveBottom(10), CarverDebugSettings.of(false, Blocks.WARPED_BUTTON.defaultBlockState()), Registry.BLOCK.getOrCreateTag(IETags.Blocks.GLOWSTONE_CANYON_CARVER_REPLACEABLES), UniformFloat.of(-0.125F, 0.125F), new CanyonCarverConfiguration.CanyonShapeConfiguration(UniformFloat.of(0.75F, 1.0F), TrapezoidFloat.of(0.0F, 6.0F, 2.0F), 3, UniformFloat.of(0.75F, 1.0F), 1.0F, 0.0F))));
 
-    @SuppressWarnings("deprecation")
-    private static <C extends CarverConfiguration> WorldCarver<C> registerWorldCarver(String registryName, WorldCarver<C> carver) {
-        ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, registryName);
+    private static <C extends CarverConfiguration> WorldCarver<C> registerWorldCarver(String name, WorldCarver<C> carver) {
+        ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, name);
 
-        if (Registry.CARVER.keySet().contains(resourceLocation))
-            throw new IllegalStateException("World Carver ID: \"" + resourceLocation.toString() + "\" is already in the registry!");
+        if (ForgeRegistries.WORLD_CARVERS.getKeys().contains(resourceLocation))
+            throw new IllegalStateException("World Carver ID: \"" + resourceLocation + "\" is already in the registry!");
 
-        carver.setRegistryName(resourceLocation);
-        carvers.add(carver);
+        carvers.put(resourceLocation, carver);
 
         return carver;
     }
 
-    private static Holder<ConfiguredWorldCarver<?>> registerConfiguredCarver(String registryName, ConfiguredWorldCarver<?> configuredCarver) {
-        ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, registryName);
+    private static Holder<ConfiguredWorldCarver<?>> registerConfiguredCarver(String name, ConfiguredWorldCarver<?> configuredCarver) {
+        ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, name);
 
         if (BuiltinRegistries.CONFIGURED_FEATURE.keySet().contains(resourceLocation))
-            throw new IllegalStateException("Configured Carver ID: \"" + resourceLocation.toString() + "\" is already in the registry!");
+            throw new IllegalStateException("Configured Carver ID: \"" + resourceLocation + "\" is already in the registry!");
 
         return BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_CARVER, resourceLocation, configuredCarver);
     }

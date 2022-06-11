@@ -23,11 +23,9 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
-import net.minecraft.world.level.levelgen.carver.WorldCarver;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;
@@ -57,7 +55,6 @@ import org.infernalstudios.infernalexp.init.IEBrewingRecipes;
 import org.infernalstudios.infernalexp.init.IECapabilities;
 import org.infernalstudios.infernalexp.init.IECommands;
 import org.infernalstudios.infernalexp.init.IECompostables;
-import org.infernalstudios.infernalexp.init.IEConfiguredStructures;
 import org.infernalstudios.infernalexp.init.IEEffects;
 import org.infernalstudios.infernalexp.init.IEEntityClassifications;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
@@ -70,17 +67,13 @@ import org.infernalstudios.infernalexp.init.IEProcessors;
 import org.infernalstudios.infernalexp.init.IEShroomloinTypes;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
 import org.infernalstudios.infernalexp.init.IEStructureSets;
+import org.infernalstudios.infernalexp.init.IEStructureTypes;
+import org.infernalstudios.infernalexp.init.IEStructures;
 import org.infernalstudios.infernalexp.init.IESurfaceRules;
 import org.infernalstudios.infernalexp.items.IESpawnEggItem;
-import org.infernalstudios.infernalexp.mixin.common.WorldCarverAccessor;
 import org.infernalstudios.infernalexp.network.IENetworkHandler;
 import org.infernalstudios.infernalexp.util.CompatibilityQuark;
 import org.infernalstudios.infernalexp.world.gen.ModEntityPlacement;
-
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Mod(InfernalExpansion.MOD_ID)
 public class InfernalExpansion {
@@ -128,7 +121,8 @@ public class InfernalExpansion {
     private void commonSetup(final FMLCommonSetupEvent event) {
         // Setup and register structures, processors, packets, capabilities and brewing recipes
         event.enqueueWork(IEProcessors::bootstrap); // If we fully switched over to using just code for structures, this line wouldn't be necessary
-        event.enqueueWork(IEConfiguredStructures::register);
+        event.enqueueWork(IEStructureTypes::register);
+        event.enqueueWork(IEStructures::register);
         event.enqueueWork(IEStructureSets::register);
         event.enqueueWork(IESurfaceRules::register);
         event.enqueueWork(IENetworkHandler::register);
@@ -137,14 +131,6 @@ public class InfernalExpansion {
         // Create mob spawnrate config files, they get created on game load instead of world load
         // just in case someone only launches the games once then goes and looks at the config files.
         event.enqueueWork(SpawnrateManager::createResources);
-
-        // Add custom blocks to nether cave carver
-        event.enqueueWork(() -> {
-            Set<Block> newCarvableBlocks = Stream.of(IEBlocks.DULLSTONE.get(), IEBlocks.DIMSTONE.get(), Blocks.GLOWSTONE, IEBlocks.GLOWDUST_SAND.get(), IEBlocks.GLOWDUST.get(), IEBlocks.GLOWDUST_STONE.get()).collect(Collectors.toCollection(HashSet::new));
-
-            newCarvableBlocks.addAll(((WorldCarverAccessor) WorldCarver.NETHER_CAVE).getReplaceableBlocks());
-            ((WorldCarverAccessor) WorldCarver.NETHER_CAVE).setReplaceableBlocks(newCarvableBlocks);
-        });
 
         // Register for Quark Compatibility in recipe
         CraftingHelper.register(new CompatibilityQuark.Serializer());

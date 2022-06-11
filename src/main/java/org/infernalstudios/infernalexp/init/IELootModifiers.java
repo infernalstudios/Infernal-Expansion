@@ -17,6 +17,7 @@
 package org.infernalstudios.infernalexp.init;
 
 import com.google.gson.JsonObject;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -30,9 +31,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-
-import javax.annotation.Nonnull;
-import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
 public class IELootModifiers {
 
@@ -52,9 +51,8 @@ public class IELootModifiers {
             super(conditionsIn);
         }
 
-        @Nonnull
         @Override
-        protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
+        protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
             if (context.getRandom().nextDouble() < 0.6 || !InfernalExpansionConfig.MobInteractions.USE_HOGCHOPS.getBoolean()) {
                 return generatedLoot;
             }

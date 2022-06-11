@@ -88,7 +88,7 @@ public class IEStructurePools {
     );
 
     private static Holder<StructureTemplatePool> registerPool(StructureTemplatePool pool) {
-        if (BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.keySet().contains(pool.getName()))
+        if (BuiltinRegistries.TEMPLATE_POOL.keySet().contains(pool.getName()))
             throw new IllegalStateException("Structure Pool ID: \"" + pool.getName() + "\" is already in the registry!");
 
         return BuiltinRegistries.register(BuiltinRegistries.TEMPLATE_POOL, pool.getName(), pool);

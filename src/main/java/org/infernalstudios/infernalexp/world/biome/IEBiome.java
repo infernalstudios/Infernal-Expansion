@@ -22,7 +22,6 @@ import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraftforge.common.BiomeDictionary;
 
 /**
  * In 1.18, the world generator uses six different parameters to decide where to place biomes.
@@ -31,15 +30,6 @@ import net.minecraftforge.common.BiomeDictionary;
  * {@link net.minecraft.world.level.biome.Climate.Parameter#span(float, float)} can be used to set a parameter to a range of values.
  */
 public abstract class IEBiome {
-
-    private static final float PARAMETER_MODIFIER = 0F;
-
-    /**
-     * Method to configure category
-     *
-     * @return Category for biome to use
-     */
-    protected abstract Biome.BiomeCategory configureCategory();
 
     /**
      * See {@link org.infernalstudios.infernalexp.world.biome.IEBiome} for documentation
@@ -102,7 +92,8 @@ public abstract class IEBiome {
      */
     protected abstract void configureSpawns(MobSpawnSettings.Builder spawns);
 
-    public abstract BiomeDictionary.Type[] getBiomeTypes();
+    // TODO: Figure out what replaces this
+    //    public abstract BiomeDictionary.Type[] getBiomeTypes();
 
     public final Climate.ParameterPoint getBiomeParameters() {
         // We add the PARAMETER_MODIFIER to remove any chance that another mod adds a biome with the same parameter values.
@@ -126,8 +117,6 @@ public abstract class IEBiome {
     public final Biome build() {
         Biome.BiomeBuilder builder = new Biome.BiomeBuilder();
 
-        builder.biomeCategory(this.configureCategory());
-
         // Configure biome ambience
         BiomeSpecialEffects.Builder ambience = new BiomeSpecialEffects.Builder();
         this.configureAmbience(ambience);
@@ -135,10 +124,10 @@ public abstract class IEBiome {
 
         // Configure biome climate
         Biome.ClimateSettings climate = configureClimate();
-        builder.precipitation(climate.precipitation);
-        builder.temperature(climate.temperature);
-        builder.temperatureAdjustment(climate.temperatureModifier);
-        builder.downfall(climate.downfall);
+        builder.precipitation(climate.precipitation());
+        builder.temperature(climate.temperature());
+        builder.temperatureAdjustment(climate.temperatureModifier());
+        builder.downfall(climate.downfall());
 
         // Configure biome generation settings
         BiomeGenerationSettings.Builder generation = new BiomeGenerationSettings.Builder();

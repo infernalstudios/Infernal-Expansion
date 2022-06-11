@@ -16,54 +16,41 @@
 
 package org.infernalstudios.infernalexp.world.gen.structures;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.NoiseColumn;
-import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
-import net.minecraft.world.level.levelgen.structure.PoolElementStructurePiece;
-import net.minecraft.world.level.levelgen.structure.PostPlacementProcessor;
-import net.minecraft.world.level.levelgen.structure.pieces.PieceGenerator;
-import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier;
-import net.minecraft.world.level.levelgen.structure.pools.JigsawPlacement;
-import org.jetbrains.annotations.NotNull;
+public class StriderAltarStructure {
 
-import java.util.Optional;
-
-public class StriderAltarStructure extends StructureFeature<JigsawConfiguration> {
-
-    // Minimum space allowed above lava ocean for structure to spawn
-    private static final int MIN_VALID_SPACE = 20;
-
-    public StriderAltarStructure() {
-        super(JigsawConfiguration.CODEC, StriderAltarStructure::createPiecesGenerator, PostPlacementProcessor.NONE);
-    }
-
-    @NotNull
-    @Override
-    public GenerationStep.Decoration step() {
-        return GenerationStep.Decoration.SURFACE_STRUCTURES;
-    }
-
-    @NotNull
-    private static Optional<PieceGenerator<JigsawConfiguration>> createPiecesGenerator(PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
-        BlockPos pos = context.chunkPos().getMiddleBlockPosition(0);
-        NoiseColumn column = context.chunkGenerator().getBaseColumn(pos.getX(), pos.getZ(), context.heightAccessor());
-
-        int maxHeight = Math.min(context.chunkGenerator().getGenDepth(), context.chunkGenerator().getSeaLevel() + MIN_VALID_SPACE);
-
-        for (int y = context.chunkGenerator().getSeaLevel(); y < maxHeight; y++) {
-            if (!column.getBlock(y).isAir())
-                return Optional.empty();
-        }
-
-        Optional<Integer> yLevel = StructureUtil.getNetherLavaFloorY(context, pos);
-
-        if (yLevel.isEmpty())
-            return Optional.empty();
-
-        pos = pos.above(yLevel.get());
-
-        return JigsawPlacement.addPieces(context, PoolElementStructurePiece::new, pos, false, false);
-    }
+    // TODO
+    //    // Minimum space allowed above lava ocean for structure to spawn
+    //    private static final int MIN_VALID_SPACE = 20;
+    //
+    //    public StriderAltarStructure() {
+    //        super(JigsawConfiguration.CODEC, StriderAltarStructure::createPiecesGenerator, PostPlacementProcessor.NONE);
+    //    }
+    //
+    //    @NotNull
+    //    @Override
+    //    public GenerationStep.Decoration step() {
+    //        return GenerationStep.Decoration.SURFACE_STRUCTURES;
+    //    }
+    //
+    //    @NotNull
+    //    private static Optional<PieceGenerator<JigsawConfiguration>> createPiecesGenerator(PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
+    //        BlockPos pos = context.chunkPos().getMiddleBlockPosition(0);
+    //        NoiseColumn column = context.chunkGenerator().getBaseColumn(pos.getX(), pos.getZ(), context.heightAccessor());
+    //
+    //        int maxHeight = Math.min(context.chunkGenerator().getGenDepth(), context.chunkGenerator().getSeaLevel() + MIN_VALID_SPACE);
+    //
+    //        for (int y = context.chunkGenerator().getSeaLevel(); y < maxHeight; y++) {
+    //            if (!column.getBlock(y).isAir())
+    //                return Optional.empty();
+    //        }
+    //
+    //        Optional<Integer> yLevel = StructureUtil.getNetherLavaFloorY(context, pos);
+    //
+    //        if (yLevel.isEmpty())
+    //            return Optional.empty();
+    //
+    //        pos = pos.above(yLevel.get());
+    //
+    //        return JigsawPlacement.addPieces(context, PoolElementStructurePiece::new, pos, false, false);
+    //    }
 }

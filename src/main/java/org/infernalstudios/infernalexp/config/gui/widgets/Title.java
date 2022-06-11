@@ -24,6 +24,7 @@ import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class Title extends AbstractWidget {
@@ -32,9 +33,8 @@ public class Title extends AbstractWidget {
         super(x, y, width, height, title);
     }
 
-    @SuppressWarnings("resource")
     @Override
-    public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+    public void renderButton(@NotNull PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         drawCenteredString(matrixStack, Minecraft.getInstance().font, getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, 0xFFFFFF);
     }
 

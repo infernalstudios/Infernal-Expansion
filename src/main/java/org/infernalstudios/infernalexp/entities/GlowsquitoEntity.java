@@ -25,6 +25,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -54,7 +55,6 @@ import net.minecraft.world.entity.ai.util.AirRandomPos;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.FlyingAnimal;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -73,7 +73,6 @@ import org.infernalstudios.infernalexp.init.IESoundEvents;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
-import java.util.Random;
 
 // Extends AnimalEntity and implements IFlyingAnimal like BeeEntity class
 public class GlowsquitoEntity extends Animal implements FlyingAnimal {
@@ -284,7 +283,7 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
          * Execute a one shot task or start executing a continuous task
          */
         public void start() {
-            Random random = this.parentEntity.getRandom();
+            RandomSource random = this.parentEntity.getRandom();
             double d0 = this.parentEntity.getX() + (double) ((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
             double d1 = this.parentEntity.getY() + (double) ((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
             double d2 = this.parentEntity.getZ() + (double) ((random.nextFloat() * 2.0F - 1.0F) * 16.0F);

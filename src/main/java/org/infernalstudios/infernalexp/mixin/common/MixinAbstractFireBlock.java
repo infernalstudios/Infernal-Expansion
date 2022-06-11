@@ -27,6 +27,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.infernalstudios.infernalexp.access.FireTypeAccess;
 import org.infernalstudios.infernalexp.blocks.GlowFireBlock;
 import org.infernalstudios.infernalexp.init.IEBlocks;
@@ -62,15 +63,15 @@ public abstract class MixinAbstractFireBlock extends Block {
         }
 
         if (ModList.get().isLoaded("endergetic")) {
-            if (state.getBlock().getRegistryName().equals(new ResourceLocation("endergetic", "ender_fire")) && state.getBlock() instanceof BaseFireBlock) {
+            if (ForgeRegistries.BLOCKS.getKey(state.getBlock()).equals(new ResourceLocation("endergetic", "ender_fire")) && state.getBlock() instanceof BaseFireBlock) {
                 access.setFireType(FireTypeAccess.KnownFireTypes.ENDER_FIRE);
             }
         }
 
         if (ModList.get().isLoaded("byg")) {
-            if (state.getBlock().getRegistryName().equals(new ResourceLocation("byg", "boric_fire")) && state.getBlock() instanceof BaseFireBlock) {
+            if (ForgeRegistries.BLOCKS.getKey(state.getBlock()).equals(new ResourceLocation("byg", "boric_fire")) && state.getBlock() instanceof BaseFireBlock) {
                 access.setFireType(FireTypeAccess.KnownFireTypes.BORIC_FIRE);
-            } else if (state.getBlock().getRegistryName().equals(new ResourceLocation("byg", "cryptic_fire")) && state.getBlock() instanceof BaseFireBlock) {
+            } else if (ForgeRegistries.BLOCKS.getKey(state.getBlock()).equals(new ResourceLocation("byg", "cryptic_fire")) && state.getBlock() instanceof BaseFireBlock) {
                 access.setFireType(FireTypeAccess.KnownFireTypes.CRYPTIC_FIRE);
             }
         }

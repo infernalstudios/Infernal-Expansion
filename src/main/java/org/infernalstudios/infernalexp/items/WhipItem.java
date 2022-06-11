@@ -21,7 +21,6 @@ import com.google.common.collect.Multimap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -83,12 +82,12 @@ public class WhipItem extends TieredItem implements Vanishable {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-        tooltip.add(new TextComponent("\u00A76" + "Hold right click to charge, then when fully charged, release to strike!"));
+        tooltip.add(Component.literal("\u00A76" + "Hold right click to charge, then when fully charged, release to strike!"));
     }
 
     @Override
     public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) {
-        if (this.allowdedIn(tab)) {
+        if (this.allowedIn(tab)) {
             ItemStack itemStack = new ItemStack(this);
             if (itemStack.is(IEItems.KINETIC_TONGUE_WHIP.get())) {
                 itemStack.enchant(Enchantments.KNOCKBACK, 3);

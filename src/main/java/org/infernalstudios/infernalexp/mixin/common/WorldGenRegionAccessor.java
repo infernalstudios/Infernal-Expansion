@@ -17,7 +17,7 @@
 package org.infernalstudios.infernalexp.mixin.common;
 
 import net.minecraft.server.level.WorldGenRegion;
-import net.minecraft.world.level.StructureFeatureManager;
+import net.minecraft.world.level.StructureManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
@@ -25,6 +25,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface WorldGenRegionAccessor {
 
     @Accessor
-    StructureFeatureManager getStructureFeatureManager();
+    StructureManager getStructureManager();
 
 }

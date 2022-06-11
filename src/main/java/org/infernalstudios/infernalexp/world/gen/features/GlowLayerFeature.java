@@ -38,6 +38,9 @@ public class GlowLayerFeature extends IEFeature<NoneFeatureConfiguration> {
 
     @Override
     public boolean placeFeature(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+        if (context.level().isClientSide())
+            return false;
+
         BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos().set(context.origin());
         BlockPos.MutableBlockPos mutableBlockPosNeighbors = new BlockPos.MutableBlockPos().set(mutableBlockPos);
         boolean doExpandedPlacing = isMultipleBiomesInChunk(context.level(), context.origin(), mutableBlockPos);
@@ -50,7 +53,7 @@ public class GlowLayerFeature extends IEFeature<NoneFeatureConfiguration> {
 
                 // Only check between top land and sealevel.
                 // Prevents glowdust in caves below sealevel and better performance if player removes ceiling of Nether with datapack.
-                int maxY = context.chunkGenerator().getBaseHeight(context.origin().getX() + x, context.origin().getZ() + z, Heightmap.Types.MOTION_BLOCKING, cachedChunk);
+                int maxY = context.chunkGenerator().getBaseHeight(context.origin().getX() + x, context.origin().getZ() + z, Heightmap.Types.MOTION_BLOCKING, cachedChunk, context.level().getLevel().getChunkSource().randomState());
                 for (int y = maxY; y > context.chunkGenerator().getSeaLevel(); y--) {
                     mutableBlockPos.set(context.origin()).move(x, y, z);
 

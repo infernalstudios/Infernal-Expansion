@@ -16,8 +16,8 @@
 
 package org.infernalstudios.infernalexp.mixin.common;
 
+import net.minecraft.world.level.levelgen.RandomState;
 import net.minecraft.world.level.levelgen.SurfaceRules;
-import net.minecraft.world.level.levelgen.SurfaceSystem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
@@ -34,6 +34,6 @@ public interface SurfaceRulesContextAccessor {
     int getBlockZ();
 
     @Accessor
-    SurfaceSystem getSystem();
+    RandomState getRandomState();
 
 }

@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.infernalstudios.infernalexp.blocks.ShroomlightFungusBlock;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 
@@ -37,7 +38,7 @@ public class ShroomlightTearFeature extends IEFeature<NoneFeatureConfiguration> 
 
     @Override
     public boolean placeFeature(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-        boolean isWarpedForest = context.level().getBiome(context.origin()).value().getRegistryName().equals(new ResourceLocation("warped_forest"));
+        boolean isWarpedForest = ForgeRegistries.BIOMES.getKey(context.level().getBiome(context.origin()).value()).equals(new ResourceLocation("warped_forest"));
         int amount = 0;
 
         // Try to place Shroomlight Tear 64 times

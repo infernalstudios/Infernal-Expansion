@@ -34,16 +34,10 @@ import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraftforge.common.BiomeDictionary;
 import org.infernalstudios.infernalexp.init.IEPlacedFeatures;
 import org.infernalstudios.infernalexp.world.biome.IEBiome;
 
 public class DeltaShoresSubBiome extends IEBiome {
-
-    @Override
-    protected Biome.BiomeCategory configureCategory() {
-        return Biome.BiomeCategory.NETHER;
-    }
 
     @Override
     protected Climate.Parameter configureTemperature() {
@@ -133,12 +127,12 @@ public class DeltaShoresSubBiome extends IEBiome {
 
     @Override
     protected void configureSpawns(MobSpawnSettings.Builder spawns) {
-//        spawns.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(IEEntityTypes.GLOWSQUITO.get(), 1, 1, 3));
+        //        spawns.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(IEEntityTypes.GLOWSQUITO.get(), 1, 1, 3));
         spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.STRIDER, 60, 1, 2));
     }
 
-    @Override
-    public BiomeDictionary.Type[] getBiomeTypes() {
-        return new BiomeDictionary.Type[]{BiomeDictionary.Type.NETHER};
-    }
+    //    @Override
+    //    public BiomeDictionary.Type[] getBiomeTypes() {
+    //        return new BiomeDictionary.Type[]{BiomeDictionary.Type.NETHER};
+    //    }
 }

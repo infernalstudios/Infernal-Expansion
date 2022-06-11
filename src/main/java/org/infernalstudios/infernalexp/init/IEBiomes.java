@@ -22,7 +22,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Climate;
-import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -43,7 +42,6 @@ public class IEBiomes {
     private static ResourceKey<Biome> registerBiome(String name, IEBiome biome) {
         ResourceKey<Biome> resourceKey = ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(InfernalExpansion.MOD_ID, name));
 
-        BiomeDictionary.addTypes(resourceKey, biome.getBiomeTypes());
         biomeParameters.add(Pair.of(resourceKey, biome.getBiomeParameters()));
         BIOMES.register(name, biome::build);
 

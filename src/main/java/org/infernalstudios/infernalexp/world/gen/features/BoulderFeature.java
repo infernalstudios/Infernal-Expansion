@@ -18,13 +18,12 @@ package org.infernalstudios.infernalexp.world.gen.features;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.util.ShapeUtil;
-
-import java.util.Random;
 
 public class BoulderFeature extends IEFeature<BlockStateConfiguration> {
 
@@ -49,7 +48,7 @@ public class BoulderFeature extends IEFeature<BlockStateConfiguration> {
         return false;
     }
 
-    private void placeSphere(WorldGenLevel world, Random random, BlockPos pos, int radius, BlockStateConfiguration config) {
+    private void placeSphere(WorldGenLevel world, RandomSource random, BlockPos pos, int radius, BlockStateConfiguration config) {
 
         // Checks to see if block is within radius to the center of the sphere, if so, fill in blocks
 
@@ -61,7 +60,7 @@ public class BoulderFeature extends IEFeature<BlockStateConfiguration> {
         }
     }
 
-    private void randomNoise(WorldGenLevel world, Random random, BlockPos pos, BlockStateConfiguration config) {
+    private void randomNoise(WorldGenLevel world, RandomSource random, BlockPos pos, BlockStateConfiguration config) {
         switch (random.nextInt(8)) {
             case 0:
                 if (!world.getBlockState(pos.west().below()).isAir()) {

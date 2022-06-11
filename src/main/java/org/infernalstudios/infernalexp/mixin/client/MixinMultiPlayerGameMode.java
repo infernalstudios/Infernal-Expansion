@@ -16,7 +16,6 @@
 
 package org.infernalstudios.infernalexp.mixin.client;
 
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.InteractionHand;
@@ -32,9 +31,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(MultiPlayerGameMode.class)
 public class MixinMultiPlayerGameMode {
 
-    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/GameType;isCreative()Z"), method = "useItemOn")
-    private void IE_firePostRightClickBlockEventClient(LocalPlayer player, ClientLevel world, InteractionHand hand, BlockHitResult hitVec, CallbackInfoReturnable<InteractionResult> cir) {
-        MinecraftForge.EVENT_BUS.post(new PostRightClickBlockEvent(player, hand, hitVec.getBlockPos(), hitVec));
+    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/GameType;isCreative()Z"), method = "performUseItemOn")
+    private void IE_firePostRightClickBlockEventClient(LocalPlayer player, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> cir) {
+        MinecraftForge.EVENT_BUS.post(new PostRightClickBlockEvent(player, hand, hitResult.getBlockPos(), hitResult));
     }
 
 }

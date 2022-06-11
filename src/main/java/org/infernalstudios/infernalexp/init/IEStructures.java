@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Infernal Studios
+ * Copyright 2021 Infernal Studios
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,35 +16,44 @@
 
 package org.infernalstudios.infernalexp.init;
 
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
+import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.world.gen.structures.SizeCheckingNetherStructure;
-import org.infernalstudios.infernalexp.world.gen.structures.StriderAltarStructure;
-import org.infernalstudios.infernalexp.world.gen.structures.config.SizeCheckingConfiguration;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 public class IEStructures {
 
-    public static final List<StructureFeature<?>> structures = new ArrayList<>();
+    public static final Holder<Structure> GLOWSTONE_CANYON_RUIN = registerStructure("glowstone_canyon_ruin", new SizeCheckingNetherStructure(settings(IETags.Biomes.HAS_GLOWSTONE_CANYON_RUIN, TerrainAdjustment.NONE), IEStructurePools.GLOWSTONE_CANYON_RUIN, 5));
+    //    public static final Holder<Structure> SOUL_SAND_VALLEY_RUIN = registerStructure("soul_sand_valley_ruin", IEStructureTypes.SIMPLE_NETHER_STRUCTURE.configured(new SizeCheckingConfiguration(IEStructurePools.SOUL_SAND_VALLEY_RUIN, 1, 4), IETags.Biomes.HAS_SOUL_SAND_VALLEY_RUIN, true));
+    //    public static final Holder<Structure> BASTION_OUTPOST = registerStructure("bastion_outpost", IEStructureTypes.SIMPLE_NETHER_STRUCTURE.configured(new SizeCheckingConfiguration(IEStructurePools.BASTION_OUTPOST, 1, 8), IETags.Biomes.HAS_BASTION_OUTPOST, true));
+    //    public static final Holder<Structure> STRIDER_ALTAR = registerStructure("strider_altar", IEStructureTypes.STRIDER_ALTAR.configured(new JigsawConfiguration(IEStructurePools.STRIDER_ALTAR, 1), IETags.Biomes.HAS_STRIDER_ALTAR, false));
 
-    public static final StructureFeature<SizeCheckingConfiguration> SIMPLE_NETHER_STRUCTURE = registerStructure("simple_nether_structure", new SizeCheckingNetherStructure());
-    public static final StructureFeature<JigsawConfiguration> STRIDER_ALTAR = registerStructure("strider_altar", new StriderAltarStructure());
+    private static Holder<Structure> registerStructure(String name, Structure structure) {
+        ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, name);
 
-    private static <T extends JigsawConfiguration> StructureFeature<T> registerStructure(String registryName, StructureFeature<T> structure) {
-        ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, registryName);
+        if (BuiltinRegistries.STRUCTURES.keySet().contains(resourceLocation))
+            throw new IllegalStateException("Configured Structure ID: \"" + resourceLocation + "\" is already in the registry!");
 
-        if (ForgeRegistries.STRUCTURE_FEATURES.getKeys().contains(resourceLocation))
-            throw new IllegalStateException("Feature ID: \"" + resourceLocation + "\" is already in the registry!");
-
-        structure.setRegistryName(resourceLocation);
-        structures.add(structure);
-
-        return structure;
+        return BuiltinRegistries.register(BuiltinRegistries.STRUCTURES, resourceLocation, structure);
     }
+
+    private static Structure.StructureSettings settings(TagKey<Biome> biomes, TerrainAdjustment terrainAdjustment) {
+        return new Structure.StructureSettings(biomes(biomes), Map.of(), GenerationStep.Decoration.SURFACE_STRUCTURES, terrainAdjustment);
+    }
+
+    private static HolderSet<Biome> biomes(TagKey<Biome> tag) {
+        return BuiltinRegistries.BIOME.getOrCreateTag(tag);
+    }
+
+    public static void register() {}
 
 }

@@ -21,10 +21,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
+import net.minecraft.world.level.levelgen.structure.Structure;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 
 public class IETags {
@@ -46,6 +47,7 @@ public class IETags {
         public static final TagKey<Block> EMBODY_FALL_BLOCKS = tag("embody_fall_blocks");
         public static final TagKey<Block> LUMINOUS_FUNGUS_SPAWNABLE_ON_BLOCKS = tag("luminous_fungus_spawnable_on_blocks");
         public static final TagKey<Block> LUMINOUS_FUNGUS_BASE_BLOCKS = tag("luminous_fungus_base_blocks");
+        public static final TagKey<Block> GLOWSTONE_CANYON_CARVER_REPLACEABLES = tag("glowstone_canyon_carver_replaceables");
 
         private static TagKey<Block> tag(String name) {
             return BlockTags.create(new ResourceLocation(InfernalExpansion.MOD_ID, name));
@@ -76,10 +78,20 @@ public class IETags {
 
     public static class Structures {
 
-        public static final TagKey<ConfiguredStructureFeature<?, ?>> NO_INTERSECTING_FEATURES = tag("no_intersecting_features");
+        public static final TagKey<Structure> NO_INTERSECTING_FEATURES = tag("no_intersecting_features");
 
-        private static TagKey<ConfiguredStructureFeature<?, ?>> tag(String name) {
-            return TagKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, new ResourceLocation(InfernalExpansion.MOD_ID, name));
+        private static TagKey<Structure> tag(String name) {
+            return TagKey.create(Registry.STRUCTURE_REGISTRY, new ResourceLocation(InfernalExpansion.MOD_ID, name));
+        }
+
+    }
+
+    public static class Paintings {
+
+        public static final TagKey<PaintingVariant> INFERNAL_PLACEABLE = tag("infernal_placeable");
+
+        private static TagKey<PaintingVariant> tag(String name) {
+            return TagKey.create(Registry.PAINTING_VARIANT_REGISTRY, new ResourceLocation(InfernalExpansion.MOD_ID, name));
         }
 
     }

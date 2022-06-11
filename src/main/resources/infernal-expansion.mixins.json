@@ -9,7 +9,6 @@
     "defaultRequire": 1
   },
   "mixins": [
-    "common.IngredientAccessor",
     "common.MixinAbstractArrowEntity",
     "common.MixinAbstractFireBlock",
     "common.MixinArrowEntity",
@@ -19,16 +18,14 @@
     "common.MixinMagmaCubeEntity",
     "common.MixinMinecraftServer",
     "common.MixinMultiNoiseBiomeSourcePreset",
-    "common.MixinPaintingEntity",
     "common.MixinServerPlayerGameMode",
     "common.MixinShearsItem",
     "common.MixinShovelItem",
     "common.MixinStriderEntity",
     "common.NoiseBasedChunkGeneratorAccessor",
     "common.NoiseGeneratorSettingsAccessor",
+    "common.PaintingAccessor",
     "common.SurfaceRulesContextAccessor",
-    "common.SurfaceSystemAccessor",
-    "common.WorldCarverAccessor",
     "common.WorldGenRegionAccessor",
     "dev.MixinDataFixers",
     "dev.MixinMinecraftServer",
@@ -43,6 +40,7 @@
     "client.MixinMultiPlayerGameMode",
     "client.MixinOverlayRenderer",
     "client.MixinPaintingSpriteUploader",
-    "client.MixinPlayerRenderer"
+    "client.MixinPlayerRenderer",
+    "client.OptionInstanceAccessor"
   ]
 }

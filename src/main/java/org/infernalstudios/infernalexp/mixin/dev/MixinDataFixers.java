@@ -33,9 +33,8 @@ public class MixinDataFixers {
         return new DataFixerBuilder(dataVersion) {
 
             @Override
-            public DataFixer build(Executor executor) {
-                return super.build(command -> {
-                });
+            public DataFixer buildOptimized(Executor executor) {
+                return super.buildOptimized(command -> {});
             }
 
         };

@@ -16,16 +16,12 @@
 
 package org.infernalstudios.infernalexp.config.gui.screens;
 
-import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-import org.infernalstudios.infernalexp.config.gui.widgets.TextFieldOption;
-import org.infernalstudios.infernalexp.config.gui.widgets.TitleOption;
-
-import net.minecraft.client.OptionInstance;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.infernalstudios.infernalexp.InfernalExpansion;
+import org.infernalstudios.infernalexp.config.gui.widgets.TitleOption;
 
 @OnlyIn(Dist.CLIENT)
 public class MobSpawningScreen extends IESettingsScreen {
@@ -37,23 +33,23 @@ public class MobSpawningScreen extends IESettingsScreen {
     @Override
     public void addSettings() {
         // TODO
-        // optionsRowList.addBig(new TitleOption(InfernalExpansion.MOD_ID + ".config.subtitle.spawnable_biomes"));
+        optionsRowList.addBig(TitleOption.create(InfernalExpansion.MOD_ID + ".config.subtitle.spawnable_biomes"));
 
-        for (InfernalExpansionConfig.MobSpawning mobSpawn : InfernalExpansionConfig.MobSpawning.values()) {
-            // optionsRowList.addBig(new TextFieldOption("entity." + InfernalExpansion.MOD_ID + "." + mobSpawn.getTranslationName(),
-            //     settings -> mobSpawn.getSpawnableBiomes(), (settings, value) -> mobSpawn.setSpawnableBiomes(value),
-            //     minecraft -> minecraft.font.split(Component.translatable(InfernalExpansion.MOD_ID + ".config.tooltip." + mobSpawn.getTranslationName()), 200)));
-        }
+        //        for (InfernalExpansionConfig.MobSpawning mobSpawn : InfernalExpansionConfig.MobSpawning.values()) {
+        //             optionsRowList.addBig(new TextFieldOption("entity." + InfernalExpansion.MOD_ID + "." + mobSpawn.getTranslationName(),
+        //                 settings -> mobSpawn.getSpawnableBiomes(), (settings, value) -> mobSpawn.setSpawnableBiomes(value),
+        //                 minecraft -> minecraft.font.split(Component.translatable(InfernalExpansion.MOD_ID + ".config.tooltip." + mobSpawn.getTranslationName()), 200)));
+        //        }
 
-//		List<AbstractOption> options = new ArrayList<>();
-//
-//		for (InfernalExpansionConfig.MobSpawning mobSpawn : InfernalExpansionConfig.MobSpawning.values()) {
-//			options.add(new BooleanOption(InfernalExpansion.MOD_ID + ".config.option." + mobSpawn.getTranslationName() + ".enable",
-//				new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + mobSpawn.getTranslationName() + ".enable"),
-//				settings -> mobSpawn.isEnabled(), (settings, value) -> mobSpawn.setEnabled(value)));
-//
-//			options.add(new SliderPercentageOption(InfernalExpansion.MOD_ID + ".config.option.spawnrate", 1, 200, 1,
-//				settings -> (double) mobSpawn.getSpawnrate(), (settings, value) -> mobSpawn.setSpawnrate(value.intValue()),
+        //		List<AbstractOption> options = new ArrayList<>();
+        //
+        //		for (InfernalExpansionConfig.MobSpawning mobSpawn : InfernalExpansionConfig.MobSpawning.values()) {
+        //			options.add(new BooleanOption(InfernalExpansion.MOD_ID + ".config.option." + mobSpawn.getTranslationName() + ".enable",
+        //				new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + mobSpawn.getTranslationName() + ".enable"),
+        //				settings -> mobSpawn.isEnabled(), (settings, value) -> mobSpawn.setEnabled(value)));
+        //
+        //			options.add(new SliderPercentageOption(InfernalExpansion.MOD_ID + ".config.option.spawnrate", 1, 200, 1,
+        //				settings -> (double) mobSpawn.getSpawnrate(), (settings, value) -> mobSpawn.setSpawnrate(value.intValue()),
 //				(settings, option) -> {
 //					option.setOptionValues(Minecraft.getInstance().fontRenderer.trimStringToWidth(
 //						new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + mobSpawn.getTranslationName() + ".spawnrate"), 200));

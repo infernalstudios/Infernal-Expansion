@@ -16,41 +16,30 @@
 
 package org.infernalstudios.infernalexp.config.gui.widgets;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.Options;
-import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.util.FormattedCharSequence;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.List;
-import java.util.function.BiConsumer;
-import java.util.function.Function;
-
 @OnlyIn(Dist.CLIENT)
-public class TextFieldOption extends Option {
+public class TextFieldOption {
 
-    private final Function<Minecraft, List<FormattedCharSequence>> tooltipSupplier;
-    private final Function<Options, String> getter;
-    private final BiConsumer<Options, String> setter;
+    // TODO: Finish converting this to the new OptionInstance system
+    //    private record TextFieldValueSet() implements OptionInstance.ValueSet<String> {
+    //
+    //        @Override
+    //        public @NotNull Function<OptionInstance<String>, AbstractWidget> createButton(@NotNull OptionInstance.TooltipSupplier<String> tooltipSupplier, @NotNull Options options, int x, int y, int width) {
+    //            return (optionInstance) -> new TextField(options, x, y, width, ((OptionInstanceAccessor)(Object) optionInstance).getToString().apply();
+    //        }
+    //
+    //        @Override
+    //        public @NotNull Optional<String> validateValue(@NotNull String value) {
+    //            return Optional.empty();
+    //        }
+    //
+    //        @Override
+    //        public @NotNull Codec<String> codec() {
+    //            return null;
+    //        }
+    //
+    //    }
 
-    public TextFieldOption(String translationKey, Function<Options, String> getter, BiConsumer<Options, String> setter, Function<Minecraft, List<FormattedCharSequence>> tooltipSupplier) {
-        super(translationKey);
-        this.tooltipSupplier = tooltipSupplier;
-        this.getter = getter;
-        this.setter = setter;
-    }
-
-    @Override
-    public AbstractWidget createButton(Options options, int xIn, int yIn, int widthIn) {
-        return new TextField(options, xIn, yIn, widthIn, getCaption(), this, tooltipSupplier.apply(Minecraft.getInstance()));
-    }
-
-    public void set(Options options, String textIn) {
-        setter.accept(options, textIn);
-    }
-
-    public String get(Options options) {
-        return getter.apply(options);
-    }
 }

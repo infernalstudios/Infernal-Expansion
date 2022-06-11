@@ -18,6 +18,7 @@ package org.infernalstudios.infernalexp.world.gen.features;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
@@ -26,7 +27,6 @@ import org.infernalstudios.infernalexp.util.ShapeUtil;
 import org.infernalstudios.infernalexp.world.gen.features.config.GlowSpikeFeatureConfig;
 
 import java.util.List;
-import java.util.Random;
 
 public class GlowSpikeFeature extends IEFeature<GlowSpikeFeatureConfig> {
 
@@ -76,7 +76,7 @@ public class GlowSpikeFeature extends IEFeature<GlowSpikeFeatureConfig> {
         return false;
     }
 
-    private void placeGlowSpikeLine(WorldGenLevel world, BlockPos startPos, BlockPos endPos, Random random, GlowSpikeFeatureConfig config) {
+    private void placeGlowSpikeLine(WorldGenLevel world, BlockPos startPos, BlockPos endPos, RandomSource random, GlowSpikeFeatureConfig config) {
         List<BlockPos> line = ShapeUtil.generateLine(startPos, endPos);
 
         for (int i = 0; i < line.size(); i++) {

@@ -17,20 +17,20 @@
 package org.infernalstudios.infernalexp.init;
 
 import com.mojang.brigadier.CommandDispatcher;
-import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.util.NetherTeleportCommandUtil;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.border.WorldBorder;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.dimension.DimensionType;
+import org.infernalstudios.infernalexp.InfernalExpansion;
+import org.infernalstudios.infernalexp.util.NetherTeleportCommandUtil;
 
 import java.util.Collection;
 
@@ -50,7 +50,7 @@ public class IECommands {
             player.setRespawnPosition(world.dimension(), pos, 0.0F, true, false);
 
             // Prints out the location of the new spawnpoint, including player name, coordinates, rotation, and dimension
-            command.getSource().sendSuccess(new TranslatableComponent(InfernalExpansion.MOD_ID + ".commands.setdimensionspawn.success.single", player.getDisplayName(), pos.getX(), pos.getY(), pos.getZ(), 0.0F, dimension), true);
+            command.getSource().sendSuccess(Component.translatable(InfernalExpansion.MOD_ID + ".commands.setdimensionspawn.success.single", player.getDisplayName(), pos.getX(), pos.getY(), pos.getZ(), 0.0F, dimension), true);
             return 1;
         }).then(Commands.argument("players", EntityArgument.players()).executes(command -> {
             Collection<ServerPlayer> players = EntityArgument.getPlayers(command, "players");
@@ -65,9 +65,9 @@ public class IECommands {
 
             // Prints out the location of the new spawnpoint, including player if only one player targeted or how many if multiple, coordinates, rotation, and dimension
             if (players.size() == 1) {
-                command.getSource().sendSuccess(new TranslatableComponent(InfernalExpansion.MOD_ID + ".commands.setdimensionspawn.success.single", players.iterator().next().getDisplayName(), pos.getX(), pos.getY(), pos.getZ(), 0.0F, dimension), true);
+                command.getSource().sendSuccess(Component.translatable(InfernalExpansion.MOD_ID + ".commands.setdimensionspawn.success.single", players.iterator().next().getDisplayName(), pos.getX(), pos.getY(), pos.getZ(), 0.0F, dimension), true);
             } else {
-                command.getSource().sendSuccess(new TranslatableComponent(InfernalExpansion.MOD_ID + ".commands.setdimensionspawn.success.multiple", players.size(), pos.getX(), pos.getY(), pos.getZ(), 0.0F, dimension), true);
+                command.getSource().sendSuccess(Component.translatable(InfernalExpansion.MOD_ID + ".commands.setdimensionspawn.success.multiple", players.size(), pos.getX(), pos.getY(), pos.getZ(), 0.0F, dimension), true);
             }
             return players.size();
         })));

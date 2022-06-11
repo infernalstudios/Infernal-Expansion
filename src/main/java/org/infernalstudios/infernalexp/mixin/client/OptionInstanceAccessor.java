@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-package org.infernalstudios.infernalexp.mixin.common;
+package org.infernalstudios.infernalexp.mixin.client;
 
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.levelgen.PositionalRandomFactory;
-import net.minecraft.world.level.levelgen.SurfaceSystem;
+import net.minecraft.client.OptionInstance;
+import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Invoker;
+import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(SurfaceSystem.class)
-public interface SurfaceSystemAccessor {
+import java.util.function.Function;
 
-    @Invoker("getOrCreateRandomFactory")
-    PositionalRandomFactory invokeGetOrCreateRandomFactory(ResourceLocation resourceLocation);
+@Mixin(OptionInstance.class)
+public interface OptionInstanceAccessor<T> {
+
+    @Accessor
+    Function<T, Component> getToString();
 
 }
