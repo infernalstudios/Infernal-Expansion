@@ -28,9 +28,9 @@ import org.infernalstudios.infernalexp.InfernalExpansion;
 public class IEStructureSets {
 
     public static final Holder<StructureSet> GLOWSTONE_CANYON_RUINS = registerSet("glowstone_canyon_ruins", new StructureSet(IEStructures.GLOWSTONE_CANYON_RUIN, new RandomSpreadStructurePlacement(8, 4, RandomSpreadType.LINEAR, 20394857)));
-    //    public static final Holder<StructureSet> SOUL_SAND_VALLEY_RUINS = registerSet("soul_sand_valley_ruins", new StructureSet(IEStructures.SOUL_SAND_VALLEY_RUIN, new RandomSpreadStructurePlacement(8, 4, RandomSpreadType.LINEAR, 29456392)));
-    //    public static final Holder<StructureSet> BASTION_OUTPOSTS = registerSet("bastion_outposts", new StructureSet(IEStructures.BASTION_OUTPOST, new RandomSpreadStructurePlacement(16, 8, RandomSpreadType.LINEAR, 72043594)));
-    //    public static final Holder<StructureSet> STRIDER_ALTARS = registerSet("strider_altars", new StructureSet(IEStructures.STRIDER_ALTAR, new RandomSpreadStructurePlacement(8, 4, RandomSpreadType.LINEAR, 80837592)));
+    public static final Holder<StructureSet> SOUL_SAND_VALLEY_RUINS = registerSet("soul_sand_valley_ruins", new StructureSet(IEStructures.SOUL_SAND_VALLEY_RUIN, new RandomSpreadStructurePlacement(8, 4, RandomSpreadType.LINEAR, 29456392)));
+    public static final Holder<StructureSet> BASTION_OUTPOSTS = registerSet("bastion_outposts", new StructureSet(IEStructures.BASTION_OUTPOST, new RandomSpreadStructurePlacement(16, 8, RandomSpreadType.LINEAR, 72043594)));
+    public static final Holder<StructureSet> STRIDER_ALTARS = registerSet("strider_altars", new StructureSet(IEStructures.STRIDER_ALTAR, new RandomSpreadStructurePlacement(8, 4, RandomSpreadType.LINEAR, 80837592)));
 
     private static Holder<StructureSet> registerSet(String name, StructureSet pool) {
         ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, name);

@@ -27,15 +27,16 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.world.gen.structures.SizeCheckingNetherStructure;
+import org.infernalstudios.infernalexp.world.gen.structures.StriderAltarStructure;
 
 import java.util.Map;
 
 public class IEStructures {
 
-    public static final Holder<Structure> GLOWSTONE_CANYON_RUIN = registerStructure("glowstone_canyon_ruin", new SizeCheckingNetherStructure(settings(IETags.Biomes.HAS_GLOWSTONE_CANYON_RUIN, TerrainAdjustment.NONE), IEStructurePools.GLOWSTONE_CANYON_RUIN, 5));
-    //    public static final Holder<Structure> SOUL_SAND_VALLEY_RUIN = registerStructure("soul_sand_valley_ruin", IEStructureTypes.SIMPLE_NETHER_STRUCTURE.configured(new SizeCheckingConfiguration(IEStructurePools.SOUL_SAND_VALLEY_RUIN, 1, 4), IETags.Biomes.HAS_SOUL_SAND_VALLEY_RUIN, true));
-    //    public static final Holder<Structure> BASTION_OUTPOST = registerStructure("bastion_outpost", IEStructureTypes.SIMPLE_NETHER_STRUCTURE.configured(new SizeCheckingConfiguration(IEStructurePools.BASTION_OUTPOST, 1, 8), IETags.Biomes.HAS_BASTION_OUTPOST, true));
-    //    public static final Holder<Structure> STRIDER_ALTAR = registerStructure("strider_altar", IEStructureTypes.STRIDER_ALTAR.configured(new JigsawConfiguration(IEStructurePools.STRIDER_ALTAR, 1), IETags.Biomes.HAS_STRIDER_ALTAR, false));
+    public static final Holder<Structure> GLOWSTONE_CANYON_RUIN = registerStructure("glowstone_canyon_ruin", new SizeCheckingNetherStructure(settings(IETags.Biomes.HAS_GLOWSTONE_CANYON_RUIN, TerrainAdjustment.BEARD_THIN), IEStructurePools.GLOWSTONE_CANYON_RUIN, 5));
+    public static final Holder<Structure> SOUL_SAND_VALLEY_RUIN = registerStructure("soul_sand_valley_ruin", new SizeCheckingNetherStructure(settings(IETags.Biomes.HAS_SOUL_SAND_VALLEY_RUIN, TerrainAdjustment.BEARD_THIN), IEStructurePools.SOUL_SAND_VALLEY_RUIN, 4));
+    public static final Holder<Structure> BASTION_OUTPOST = registerStructure("bastion_outpost", new SizeCheckingNetherStructure(settings(IETags.Biomes.HAS_BASTION_OUTPOST, TerrainAdjustment.BEARD_BOX), IEStructurePools.BASTION_OUTPOST, 8));
+    public static final Holder<Structure> STRIDER_ALTAR = registerStructure("strider_altar", new StriderAltarStructure(settings(IETags.Biomes.HAS_STRIDER_ALTAR, TerrainAdjustment.NONE), IEStructurePools.STRIDER_ALTAR));
 
     private static Holder<Structure> registerStructure(String name, Structure structure) {
         ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, name);

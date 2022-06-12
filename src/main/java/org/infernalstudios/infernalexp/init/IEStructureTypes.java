@@ -23,11 +23,12 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.world.gen.structures.SizeCheckingNetherStructure;
+import org.infernalstudios.infernalexp.world.gen.structures.StriderAltarStructure;
 
 public class IEStructureTypes {
 
     public static final StructureType<SizeCheckingNetherStructure> SIZE_CHECKING_NETHER_STRUCTURE = registerStructureType("simple_nether_structure", SizeCheckingNetherStructure.CODEC);
-    //    public static final Structure STRIDER_ALTAR = registerStructure("strider_altar", new StriderAltarStructure());
+    public static final StructureType<StriderAltarStructure> STRIDER_ALTAR = registerStructureType("strider_altar", StriderAltarStructure.CODEC);
 
     private static <S extends Structure> StructureType<S> registerStructureType(String registryName, Codec<S> codec) {
         return Registry.register(Registry.STRUCTURE_TYPES, new ResourceLocation(InfernalExpansion.MOD_ID, registryName), () -> codec);
