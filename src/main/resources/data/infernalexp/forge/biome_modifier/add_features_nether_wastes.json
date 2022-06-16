@@ -1,0 +1,12 @@
+{
+  "type": "infernalexp:add_features",
+  "biome": "minecraft:nether_wastes",
+  "features_at_steps": [
+    {
+      "step": "vegetal_decoration",
+      "features": [
+        "infernalexp:planted_quartz_patch"
+      ]
+    }
+  ]
+}
