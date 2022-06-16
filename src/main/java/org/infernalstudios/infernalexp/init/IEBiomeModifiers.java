@@ -23,6 +23,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.infernalstudios.infernalexp.InfernalExpansion;
+import org.infernalstudios.infernalexp.world.biome.modifiers.AddConfigurableSpawnsBiomeModifier;
 import org.infernalstudios.infernalexp.world.biome.modifiers.AddFeaturesBiomeModifier;
 
 public class IEBiomeModifiers {
@@ -30,6 +31,7 @@ public class IEBiomeModifiers {
     private static final DeferredRegister<Codec<? extends BiomeModifier>> BIOME_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, InfernalExpansion.MOD_ID);
 
     public static final RegistryObject<Codec<AddFeaturesBiomeModifier>> ADD_FEATURES = BIOME_MODIFIERS.register("add_features", () -> AddFeaturesBiomeModifier.CODEC);
+    public static final RegistryObject<Codec<AddConfigurableSpawnsBiomeModifier>> ADD_CONFIGURABLE_SPAWNS = BIOME_MODIFIERS.register("add_configurable_spawns", () -> AddConfigurableSpawnsBiomeModifier.CODEC);
 
     public static void register(IEventBus eventBus) {
         BIOME_MODIFIERS.register(eventBus);
