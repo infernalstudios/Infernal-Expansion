@@ -1,0 +1,19 @@
+{
+  "type": "infernalexp:add_features",
+  "biome": "minecraft:soul_sand_valley",
+  "features_at_steps": [
+    {
+      "step": "underground_ores",
+      "features": [
+        "infernalexp:ore_basalt_iron_basalt_deltas",
+        "infernalexp:ore_soul_stone"
+      ]
+    },
+    {
+      "step": "vegetal_decoration",
+      "features": [
+        "infernalexp:patch_buried_bone"
+      ]
+    }
+  ]
+}

@@ -33,33 +33,4 @@ public class WorldEvents {
         event.register(ForgeRegistries.Keys.WORLD_CARVERS, helper -> IECarvers.carvers.forEach(helper::register));
     }
 
-    // TODO: Use the new biome modifiers
-    //    @SubscribeEvent(priority = EventPriority.HIGH)
-    //    public void onBiomeLoad(BiomeLoadingEvent event) {
-    //        if (event.getName() == null) {
-    //            return;
-    //        }
-    //
-    //        ResourceLocation name = event.getName();
-    //        ResourceKey<Biome> biome = ResourceKey.create(Registry.BIOME_REGISTRY, name);
-    //
-    //        if (biome == Biomes.CRIMSON_FOREST) {
-    //            event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, IEPlacedFeatures.ORE_GLOWSILK_COCOON);
-    //            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, IEPlacedFeatures.PATCH_CRIMSON_CAP);
-    //            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, IEPlacedFeatures.SHROOMLIGHT_TEAR);
-    //        } else if (biome == Biomes.BASALT_DELTAS) {
-    //            event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, IEPlacedFeatures.ORE_GLOWSILK_COCOON);
-    //            event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, IEPlacedFeatures.ORE_BASALT_IRON_BASALT_DELTA);
-    //            event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, IEPlacedFeatures.BASALTIC_MAGMA);
-    //        } else if (biome == Biomes.WARPED_FOREST) {
-    //            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, IEPlacedFeatures.PATCH_WARPED_CAP);
-    //            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, IEPlacedFeatures.SHROOMLIGHT_TEAR);
-    //        } else if (biome == Biomes.SOUL_SAND_VALLEY) {
-    //            event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, IEPlacedFeatures.ORE_BASALT_IRON_BASALT_DELTA);
-    //            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, IEPlacedFeatures.PATCH_BURIED_BONE);
-    //            event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, IEPlacedFeatures.ORE_SOUL_STONE);
-    //        } else if (biome == Biomes.NETHER_WASTES) {
-    //            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, IEPlacedFeatures.PATCH_PLANTED_QUARTZ);
-    //        }
-    //    }
 }

@@ -48,6 +48,7 @@ import org.infernalstudios.infernalexp.data.SpawnrateManager;
 import org.infernalstudios.infernalexp.events.MiscEvents;
 import org.infernalstudios.infernalexp.events.MobEvents;
 import org.infernalstudios.infernalexp.events.WorldEvents;
+import org.infernalstudios.infernalexp.init.IEBiomeModifiers;
 import org.infernalstudios.infernalexp.init.IEBiomes;
 import org.infernalstudios.infernalexp.init.IEBlockEntityTypes;
 import org.infernalstudios.infernalexp.init.IEBlocks;
@@ -99,6 +100,7 @@ public class InfernalExpansion {
         IEBlockEntityTypes.register(modEventBus);
         IEBiomes.register(modEventBus);
         IELootModifiers.register(modEventBus);
+        IEBiomeModifiers.register(modEventBus);
 
         IEShroomloinTypes.registerAll();
         IEEntityClassifications.register();
