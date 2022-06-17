@@ -32,15 +32,15 @@ import java.util.function.Function;
 @OnlyIn(Dist.CLIENT)
 public class TitleOption {
 
-    public static OptionInstance<Unit> create(String title) {
-        return new OptionInstance<>(title, OptionInstance.noTooltip(), (component, unit) -> component, new TitleValueSet(), Unit.INSTANCE, (unit) -> {});
+    public static OptionInstance<Unit> create(String caption) {
+        return new OptionInstance<>(caption, OptionInstance.noTooltip(), (component, unit) -> component, new TitleValueSet(), Unit.INSTANCE, (unit) -> {});
     }
 
     private record TitleValueSet() implements OptionInstance.ValueSet<Unit> {
 
         @Override
         public @NotNull Function<OptionInstance<Unit>, AbstractWidget> createButton(@NotNull OptionInstance.TooltipSupplier<Unit> tooltipSupplier, @NotNull Options options, int x, int y, int width) {
-            return (optionInstance) -> new Title(x, y, width, 20, ((OptionInstanceAccessor<Unit>) (Object) optionInstance).getToString().apply(Unit.INSTANCE));
+            return (optionInstance) -> new Title(x, y, width, 20, ((OptionInstanceAccessor) (Object) optionInstance).getCaption());
         }
 
         @Override

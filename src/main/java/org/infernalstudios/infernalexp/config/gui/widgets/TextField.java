@@ -18,29 +18,30 @@ package org.infernalstudios.infernalexp.config.gui.widgets;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.Options;
+import net.minecraft.client.OptionInstance;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.TooltipAccessor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class TextField extends EditBox implements TooltipAccessor {
 
-    private final Options settings;
-    private final List<FormattedCharSequence> tooltip;
+    private final OptionInstance<String> instance;
+    private final OptionInstance.TooltipSupplier<String> tooltip;
 
-    public TextField(Options settings, int x, int y, int width, Component title, List<FormattedCharSequence> tooltip) {
+    public TextField(OptionInstance<String> instance, int x, int y, int width, Component title, OptionInstance.TooltipSupplier<String> tooltip) {
         super(Minecraft.getInstance().font, x + 2 + 100, y, width - 4 - 100, 20, title);
-        this.settings = settings;
+        this.instance = instance;
         this.tooltip = tooltip;
 
-        setMaxLength(1892);
-        //        setValue();
+        this.setMaxLength(1892);
+        this.setValue(instance.get());
     }
 
     @Override
@@ -51,13 +52,13 @@ public class TextField extends EditBox implements TooltipAccessor {
     }
 
     @Override
-    public void onValueChange(String newText) {
+    public void onValueChange(@NotNull String newText) {
         super.onValueChange(newText);
-        //        option.set(settings, newText);
+        this.instance.set(newText);
     }
 
     @Override
-    public List<FormattedCharSequence> getTooltip() {
-        return tooltip;
+    public @NotNull List<FormattedCharSequence> getTooltip() {
+        return this.tooltip.apply(null);
     }
 }

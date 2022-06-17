@@ -16,30 +16,44 @@
 
 package org.infernalstudios.infernalexp.config.gui.widgets;
 
+import com.mojang.serialization.Codec;
+import net.minecraft.client.OptionInstance;
+import net.minecraft.client.Options;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.infernalstudios.infernalexp.mixin.client.OptionInstanceAccessor;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Optional;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 @OnlyIn(Dist.CLIENT)
 public class TextFieldOption {
 
-    // TODO: Finish converting this to the new OptionInstance system
-    //    private record TextFieldValueSet() implements OptionInstance.ValueSet<String> {
-    //
-    //        @Override
-    //        public @NotNull Function<OptionInstance<String>, AbstractWidget> createButton(@NotNull OptionInstance.TooltipSupplier<String> tooltipSupplier, @NotNull Options options, int x, int y, int width) {
-    //            return (optionInstance) -> new TextField(options, x, y, width, ((OptionInstanceAccessor)(Object) optionInstance).getToString().apply();
-    //        }
-    //
-    //        @Override
-    //        public @NotNull Optional<String> validateValue(@NotNull String value) {
-    //            return Optional.empty();
-    //        }
-    //
-    //        @Override
-    //        public @NotNull Codec<String> codec() {
-    //            return null;
-    //        }
-    //
-    //    }
+    public static OptionInstance<String> create(String caption, String tooltip, String initialValue, Consumer<String> setter) {
+        return new OptionInstance<>(caption, OptionInstance.cachedConstantTooltip(Component.translatable(tooltip)), (component, string) -> component, new TextFieldValueSet(), initialValue, setter);
+    }
+
+    private record TextFieldValueSet() implements OptionInstance.ValueSet<String> {
+
+        @Override
+        public @NotNull Function<OptionInstance<String>, AbstractWidget> createButton(@NotNull OptionInstance.TooltipSupplier<String> tooltipSupplier, @NotNull Options options, int x, int y, int width) {
+            return (optionInstance) -> new TextField(optionInstance, x, y, width, ((OptionInstanceAccessor) (Object) optionInstance).getCaption(), tooltipSupplier);
+        }
+
+        @Override
+        public @NotNull Optional<String> validateValue(@NotNull String value) {
+            return Optional.of(value);
+        }
+
+        @Override
+        public @NotNull Codec<String> codec() {
+            return Codec.STRING.stable();
+        }
+
+    }
 
 }

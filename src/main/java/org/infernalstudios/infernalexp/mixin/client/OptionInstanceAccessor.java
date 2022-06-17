@@ -21,12 +21,10 @@ import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-import java.util.function.Function;
-
 @Mixin(OptionInstance.class)
-public interface OptionInstanceAccessor<T> {
+public interface OptionInstanceAccessor {
 
     @Accessor
-    Function<T, Component> getToString();
+    Component getCaption();
 
 }
