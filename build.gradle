@@ -40,7 +40,7 @@ minecraft {
         client {
             workingDirectory project.file('run')
             arg '-mixin.config=infernal-expansion.mixins.json'
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.markers', 'SCAN,REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             mods {
                 infernalexp {
@@ -52,7 +52,7 @@ minecraft {
         server {
             workingDirectory project.file('run')
             arg '-mixin.config=infernal-expansion.mixins.json'
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.markers', 'SCAN,REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             mods {
                 infernalexp {
@@ -63,7 +63,7 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.markers', 'SCAN,REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             args '--mod', 'infernalexp', '--all', '--output', file('src/generated/resources/')
             mods {
