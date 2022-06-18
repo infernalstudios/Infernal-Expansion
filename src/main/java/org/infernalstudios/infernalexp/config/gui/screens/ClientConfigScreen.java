@@ -16,13 +16,10 @@
 
 package org.infernalstudios.infernalexp.config.gui.screens;
 
-import net.minecraft.client.gui.components.CycleButton;
-// import net.minecraft.client.CycleOption;
-// import net.minecraft.client.ProgressOption;
+import net.minecraft.client.OptionInstance;
+import net.minecraft.client.Options;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-// import net.minecraft.network.chat.TextComponent;
-// import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.infernalstudios.infernalexp.InfernalExpansion;
@@ -38,17 +35,10 @@ public class ClientConfigScreen extends IESettingsScreen {
     @Override
     public void addSettings() {
         for (InfernalExpansionConfig.ClientConfig clientConfig : InfernalExpansionConfig.ClientConfig.values()) {
-            // TODO
             if (clientConfig.isSlider()) {
-                // optionsRowList.addBig(new ProgressOption(InfernalExpansion.MOD_ID + ".config.option." + clientConfig.getTranslationName(), clientConfig.getMinValue(), clientConfig.getMaxValue(), clientConfig.getStepSize(),
-                //     settings -> clientConfig.getDouble(), (settings, value) -> clientConfig.set(value),
-                //     (settings, option) -> Component.translatable("options.generic_value", option.getCaption(),
-                //         new TextComponent(Integer.toString((int) option.get(settings)))),
-                //     (minecraft) -> minecraft.font.split(Component.translatable(InfernalExpansion.MOD_ID + ".config.tooltip." + clientConfig.getTranslationName()), 200)));
+                optionsRowList.addBig(new OptionInstance<>(InfernalExpansion.MOD_ID + ".config.option." + clientConfig.getTranslationName(), OptionInstance.cachedConstantTooltip(Component.translatable(InfernalExpansion.MOD_ID + ".config.tooltip." + clientConfig.getTranslationName())), Options::genericValueLabel, new OptionInstance.IntRange((int) clientConfig.getMinValue(), (int) clientConfig.getMaxValue()), (int) clientConfig.getDouble(), clientConfig::set));
             } else {
-                // optionsRowList.addBig(CycleButton.createOnOff(InfernalExpansion.MOD_ID + ".config.option." + clientConfig.getTranslationName(),
-                //     Component.translatable(InfernalExpansion.MOD_ID + ".config.tooltip." + clientConfig.getTranslationName()),
-                //     settings -> clientConfig.getBool(), (settings, option, value) -> clientConfig.set(value)));
+                optionsRowList.addBig(OptionInstance.createBoolean(InfernalExpansion.MOD_ID + ".config.option." + clientConfig.getTranslationName(), OptionInstance.cachedConstantTooltip(Component.translatable(InfernalExpansion.MOD_ID + ".config.tooltip." + clientConfig.getTranslationName())), clientConfig.getBool(), clientConfig::set));
             }
         }
     }

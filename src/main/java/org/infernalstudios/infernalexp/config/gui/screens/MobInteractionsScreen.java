@@ -16,12 +16,15 @@
 
 package org.infernalstudios.infernalexp.config.gui.screens;
 
+import net.minecraft.client.OptionInstance;
+import net.minecraft.client.Options;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
+import org.infernalstudios.infernalexp.config.gui.widgets.DoubleRangeOption;
 
 @OnlyIn(Dist.CLIENT)
 public class MobInteractionsScreen extends IESettingsScreen {
@@ -32,19 +35,11 @@ public class MobInteractionsScreen extends IESettingsScreen {
 
     @Override
     public void addSettings() {
-        // TODO
         for (InfernalExpansionConfig.MobInteractions mobInteraction : InfernalExpansionConfig.MobInteractions.values()) {
             if (mobInteraction.isSlider()) {
-                // optionsRowList.addBig(new ProgressOption(InfernalExpansion.MOD_ID + ".config.option." + mobInteraction.getTranslationName(),
-                //     0.2D, 10.0D, 0.2F,
-                //     settings -> mobInteraction.getDouble(), (settings, value) -> mobInteraction.setDouble(value),
-                //     (settings, option) -> Component.translatable("options.generic_value", option.getCaption(),
-                //         new TextComponent(Double.toString((double) Math.round(option.get(settings) * 100) / 100))),
-                //     minecraft -> minecraft.font.split(Component.translatable(InfernalExpansion.MOD_ID + ".config.tooltip." + mobInteraction.getTranslationName()), 200)));
+                optionsRowList.addBig(new OptionInstance<>(InfernalExpansion.MOD_ID + ".config.option." + mobInteraction.getTranslationName(), OptionInstance.cachedConstantTooltip(Component.translatable(InfernalExpansion.MOD_ID + ".config.tooltip." + mobInteraction.getTranslationName())), (caption, value) -> Options.genericValueLabel(caption, Component.literal(String.valueOf(Math.round(value * 100.0D) / 100.0D))), new DoubleRangeOption(0.2F, 10.0F, 0.2F), mobInteraction.getDouble(), mobInteraction::setDouble));
             } else {
-                // optionsRowList.addBig(CycleOption.createOnOff(InfernalExpansion.MOD_ID + ".config.option." + mobInteraction.getTranslationName(),
-                //     Component.translatable(InfernalExpansion.MOD_ID + ".config.tooltip." + mobInteraction.getTranslationName()),
-                //     settings -> mobInteraction.getBoolean(), (settings, option, value) -> mobInteraction.setBoolean(value)));
+                optionsRowList.addBig(OptionInstance.createBoolean(InfernalExpansion.MOD_ID + ".config.option." + mobInteraction.getTranslationName(), OptionInstance.cachedConstantTooltip(Component.translatable(InfernalExpansion.MOD_ID + ".config.tooltip." + mobInteraction.getTranslationName())), mobInteraction.getBoolean(), mobInteraction::setBoolean));
             }
         }
     }
