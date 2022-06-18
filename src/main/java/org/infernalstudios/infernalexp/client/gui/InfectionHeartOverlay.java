@@ -55,7 +55,7 @@ public class InfectionHeartOverlay {
         matrixStack.translate(0, 0, 0.01);
 
         PlayerEntity player = mc.player;
-        float currentHealth = player.getHealth();
+        float currentHealth = MathHelper.ceil(player.getHealth());
         int ticks = mc.ingameGUI.getTicks();
         Random rand = new Random();
         rand.setSeed(ticks * 312871L);
