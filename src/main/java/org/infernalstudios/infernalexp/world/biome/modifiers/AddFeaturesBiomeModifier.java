@@ -30,7 +30,10 @@ import java.util.List;
 
 public record AddFeaturesBiomeModifier(Holder<Biome> biome, List<FeaturesAtStep> featuresAtSteps) implements BiomeModifier {
 
-    public static final Codec<AddFeaturesBiomeModifier> CODEC = RecordCodecBuilder.create(builder -> builder.group(Biome.CODEC.fieldOf("biome").forGetter(AddFeaturesBiomeModifier::biome), FeaturesAtStep.LIST_CODEC.fieldOf("features_at_steps").forGetter(AddFeaturesBiomeModifier::featuresAtSteps)).apply(builder, AddFeaturesBiomeModifier::new));
+    public static final Codec<AddFeaturesBiomeModifier> CODEC = RecordCodecBuilder.create(builder -> builder.group(
+        Biome.CODEC.fieldOf("biome").forGetter(AddFeaturesBiomeModifier::biome),
+        FeaturesAtStep.LIST_CODEC.fieldOf("features_at_steps").forGetter(AddFeaturesBiomeModifier::featuresAtSteps)
+    ).apply(builder, AddFeaturesBiomeModifier::new));
 
     @Override
     public void modify(Holder<Biome> biome, Phase phase, ModifiableBiomeInfo.BiomeInfo.Builder builder) {
