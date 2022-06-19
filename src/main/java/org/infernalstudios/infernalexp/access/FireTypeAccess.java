@@ -16,78 +16,81 @@
 
 package org.infernalstudios.infernalexp.access;
 
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import javax.annotation.Nullable;
-
-import com.google.common.base.Supplier;
-
-import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.client.ClientFireType;
-
-import net.minecraft.client.renderer.model.ModelBakery;
 import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import org.infernalstudios.infernalexp.InfernalExpansion;
+
+import javax.annotation.Nonnull;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public interface FireTypeAccess {
-    KnownFireTypes getFireType();
 
-    void setFireType(KnownFireTypes type);
+    FireTypes getFireType();
 
-    RenderMaterial LOCATION_SOUL_FIRE_0 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("block/soul_fire_0"));
-    RenderMaterial LOCATION_SOUL_FIRE_1 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("block/soul_fire_1"));
+    void setFireType(FireTypes type);
 
-    RenderMaterial LOCATION_GLOW_FIRE_0 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation(InfernalExpansion.MOD_ID, "block/glow_fire_0"));
-    RenderMaterial LOCATION_GLOW_FIRE_1 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation(InfernalExpansion.MOD_ID, "block/glow_fire_1"));
+    enum FireTypes {
+        FIRE(new ResourceLocation("fire"), () -> new FireType(new ResourceLocation("block/fire_0"), new ResourceLocation("block/fire_1"))),
+        SOUL_FIRE(new ResourceLocation("soul_fire"), () -> new FireType(new ResourceLocation("block/soul_fire_0"), new ResourceLocation("block/soul_fire_1"))),
+        GLOW_FIRE(new ResourceLocation(InfernalExpansion.MOD_ID, "glow_fire"), () -> new FireType(new ResourceLocation(InfernalExpansion.MOD_ID, "block/glow_fire_0"), new ResourceLocation(InfernalExpansion.MOD_ID, "block/glow_fire_1"))),
+        ENDER_FIRE(new ResourceLocation("endergetic", "ender_fire"), () -> new FireType(new ResourceLocation("endergetic", "block/ender_fire_0"), new ResourceLocation("endergetic", "block/ender_fire_1"))),
+        BORIC_FIRE(new ResourceLocation("byg", "boric_fire"), () -> new FireType(new ResourceLocation("byg", "block/boric_fire_0"), new ResourceLocation("byg", "block/boric_fire_1"))),
+        CRYPTIC_FIRE(new ResourceLocation("byg", "cryptic_fire"), () -> new FireType(new ResourceLocation("byg", "block/cryptic_fire_0"), new ResourceLocation("byg", "block/cryptic_fire_0")));
 
-    RenderMaterial LOCATION_ENDER_FIRE_0 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("endergetic", "block/ender_fire_0"));
-    RenderMaterial LOCATION_ENDER_FIRE_1 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("endergetic", "block/ender_fire_1"));
+        public static final Map<ResourceLocation, FireTypes> NAME_LOOKUP = Arrays.stream(values()).collect(Collectors.toMap(FireTypes::getName, (fireType) -> fireType));
+        private final ResourceLocation name;
+        private final Supplier<FireType> supplier;
 
-    RenderMaterial LOCATION_BORIC_FIRE_0 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("byg", "block/boric_fire_0"));
-    RenderMaterial LOCATION_BORIC_FIRE_1 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("byg", "block/boric_fire_1"));
-
-    RenderMaterial LOCATION_CRYPTIC_FIRE_0 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("byg", "block/cryptic_fire_0"));
-    RenderMaterial LOCATION_CRYPTIC_FIRE_1 = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation("byg", "block/cryptic_fire_1"));
-
-    public static enum KnownFireTypes {
-        FIRE("fire", () -> new ClientFireType(ModelBakery.LOCATION_FIRE_0, ModelBakery.LOCATION_FIRE_1)),
-        SOUL_FIRE("soul_fire", () -> new ClientFireType(LOCATION_SOUL_FIRE_0, LOCATION_SOUL_FIRE_1)),
-        GLOW_FIRE("glow_fire", () -> new ClientFireType(LOCATION_GLOW_FIRE_0, LOCATION_GLOW_FIRE_1)),
-        ENDER_FIRE("ender_fire", () -> new ClientFireType(LOCATION_ENDER_FIRE_0, LOCATION_ENDER_FIRE_1)),
-        BORIC_FIRE("boric_fire", () -> new ClientFireType(LOCATION_BORIC_FIRE_0, LOCATION_BORIC_FIRE_1)),
-        CRYPTIC_FIRE("cryptic_fire", () -> new ClientFireType(LOCATION_CRYPTIC_FIRE_0, LOCATION_CRYPTIC_FIRE_1));
-
-        public static final KnownFireTypes[] VALUES = values();
-        public static final Map<String, KnownFireTypes> NAME_LOOKUP = Arrays.stream(VALUES).collect(Collectors.toMap(KnownFireTypes::getName, (fireType) -> fireType));
-        private final String name;
-        private final Supplier<ClientFireType> supplier;
-
-        KnownFireTypes(String name, Supplier<ClientFireType> supplier) {
+        FireTypes(ResourceLocation name, Supplier<FireType> supplier) {
             this.name = name;
             this.supplier = supplier;
         }
 
         @Override
         public String toString() {
-            return getName();
+            return getName().toString();
         }
 
-        public String getName() {
+        public ResourceLocation getName() {
             return name;
         }
 
-        public Supplier<ClientFireType> getSupplier() {
+        public Supplier<FireType> getSupplier() {
             return supplier;
         }
 
-        @Nullable
-        public static KnownFireTypes byName(String name) {
-            return name.equals("") ? FIRE : NAME_LOOKUP.get(name.toLowerCase(Locale.ROOT));
+        @Nonnull
+        public static FireTypes byName(ResourceLocation name) {
+            return NAME_LOOKUP.get(name) == null ? FIRE : NAME_LOOKUP.get(name);
         }
+    }
+
+    class FireType {
+
+        private final ResourceLocation associatedSprite0;
+        private final ResourceLocation associatedSprite1;
+
+        public FireType(ResourceLocation associatedSprite0, ResourceLocation associatedSprite1) {
+            this.associatedSprite0 = associatedSprite0;
+            this.associatedSprite1 = associatedSprite1;
+        }
+
+        @OnlyIn(Dist.CLIENT)
+        public RenderMaterial getAssociatedSprite0() {
+            return new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, associatedSprite0);
+        }
+
+        @OnlyIn(Dist.CLIENT)
+        public RenderMaterial getAssociatedSprite1() {
+            return new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, associatedSprite1);
+        }
+
     }
 
 }

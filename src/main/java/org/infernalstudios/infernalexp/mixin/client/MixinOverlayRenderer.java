@@ -16,16 +16,14 @@
 
 package org.infernalstudios.infernalexp.mixin.client;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.OverlayRenderer;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import org.infernalstudios.infernalexp.access.FireTypeAccess;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-
-import com.mojang.blaze3d.matrix.MatrixStack;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.OverlayRenderer;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 @Mixin(OverlayRenderer.class)
 public class MixinOverlayRenderer {

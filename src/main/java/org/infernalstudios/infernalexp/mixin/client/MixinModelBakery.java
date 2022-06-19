@@ -37,21 +37,13 @@ public class MixinModelBakery {
     protected static Set<RenderMaterial> LOCATIONS_BUILTIN_TEXTURES;
 
     static {
-        LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_SOUL_FIRE_0);
-        LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_SOUL_FIRE_1);
-        LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_GLOW_FIRE_0);
-        LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_GLOW_FIRE_1);
-
-        if (ModList.get().isLoaded("endergetic")) {
-            LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_ENDER_FIRE_0);
-            LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_ENDER_FIRE_1);
-        }
-
-        if (ModList.get().isLoaded("byg")) {
-            LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_BORIC_FIRE_0);
-            LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_BORIC_FIRE_1);
-            LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_CRYPTIC_FIRE_0);
-            LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_CRYPTIC_FIRE_1);
+        for (FireTypeAccess.FireTypes fireType : FireTypeAccess.FireTypes.values()) {
+            if (fireType != FireTypeAccess.FireTypes.FIRE) {
+                if (ModList.get().isLoaded(fireType.getName().getNamespace())) {
+                    LOCATIONS_BUILTIN_TEXTURES.add(fireType.getSupplier().get().getAssociatedSprite0());
+                    LOCATIONS_BUILTIN_TEXTURES.add(fireType.getSupplier().get().getAssociatedSprite1());
+                }
+            }
         }
     }
 

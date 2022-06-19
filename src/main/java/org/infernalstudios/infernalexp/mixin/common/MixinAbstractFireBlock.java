@@ -22,7 +22,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
@@ -54,24 +53,24 @@ public abstract class MixinAbstractFireBlock extends Block {
     private void IE_setCustomFires(BlockState state, World worldIn, BlockPos pos, Entity entityIn, CallbackInfo info) {
         FireTypeAccess access = ((FireTypeAccess) entityIn);
         if (state.matchesBlock(Blocks.SOUL_FIRE)) {
-            access.setFireType(FireTypeAccess.KnownFireTypes.SOUL_FIRE);
+            access.setFireType(FireTypeAccess.FireTypes.SOUL_FIRE);
         } else if (state.matchesBlock(IEBlocks.GLOW_FIRE.get())) {
-            access.setFireType(FireTypeAccess.KnownFireTypes.GLOW_FIRE);
+            access.setFireType(FireTypeAccess.FireTypes.GLOW_FIRE);
         } else {
-            access.setFireType(FireTypeAccess.KnownFireTypes.FIRE);
+            access.setFireType(FireTypeAccess.FireTypes.FIRE);
         }
 
         if (ModList.get().isLoaded("endergetic")) {
-            if (state.getBlock().getRegistryName().equals(new ResourceLocation("endergetic", "ender_fire")) && state.getBlock() instanceof AbstractFireBlock) {
-                access.setFireType(FireTypeAccess.KnownFireTypes.ENDER_FIRE);
+            if (state.getBlock().getRegistryName().equals(FireTypeAccess.FireTypes.ENDER_FIRE.getName()) && state.getBlock() instanceof AbstractFireBlock) {
+                access.setFireType(FireTypeAccess.FireTypes.ENDER_FIRE);
             }
         }
 
         if (ModList.get().isLoaded("byg")) {
-            if (state.getBlock().getRegistryName().equals(new ResourceLocation("byg", "boric_fire")) && state.getBlock() instanceof AbstractFireBlock) {
-                access.setFireType(FireTypeAccess.KnownFireTypes.BORIC_FIRE);
-            } else if (state.getBlock().getRegistryName().equals(new ResourceLocation("byg", "cryptic_fire")) && state.getBlock() instanceof AbstractFireBlock) {
-                access.setFireType(FireTypeAccess.KnownFireTypes.CRYPTIC_FIRE);
+            if (state.getBlock().getRegistryName().equals(FireTypeAccess.FireTypes.BORIC_FIRE.getName()) && state.getBlock() instanceof AbstractFireBlock) {
+                access.setFireType(FireTypeAccess.FireTypes.BORIC_FIRE);
+            } else if (state.getBlock().getRegistryName().equals(FireTypeAccess.FireTypes.CRYPTIC_FIRE.getName()) && state.getBlock() instanceof AbstractFireBlock) {
+                access.setFireType(FireTypeAccess.FireTypes.CRYPTIC_FIRE);
             }
         }
 
