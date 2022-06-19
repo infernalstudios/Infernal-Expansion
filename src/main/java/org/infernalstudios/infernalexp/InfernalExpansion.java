@@ -69,7 +69,6 @@ import org.infernalstudios.infernalexp.init.IEShroomloinTypes;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
 import org.infernalstudios.infernalexp.init.IEStructures;
 import org.infernalstudios.infernalexp.init.IETileEntityTypes;
-import org.infernalstudios.infernalexp.items.IESpawnEggItem;
 import org.infernalstudios.infernalexp.mixin.common.WorldCarverAccessor;
 import org.infernalstudios.infernalexp.network.IENetworkHandler;
 import org.infernalstudios.infernalexp.util.CompatibilityQuark;
@@ -178,7 +177,6 @@ public class InfernalExpansion {
         });
 
         IECompostables.registerCompostables();
-        IESpawnEggItem.initUnaddedEggs();
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
