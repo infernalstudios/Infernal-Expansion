@@ -21,7 +21,8 @@ import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.ModList;
-import org.infernalstudios.infernalexp.access.FireTypeAccess;
+import org.infernalstudios.infernalexp.api.FireType;
+import org.infernalstudios.infernalexp.init.IEFireTypes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -37,14 +38,14 @@ public class MixinModelBakery {
     protected static Set<RenderMaterial> LOCATIONS_BUILTIN_TEXTURES;
 
     static {
-        for (FireTypeAccess.FireTypes fireType : FireTypeAccess.FireTypes.values()) {
-            if (fireType != FireTypeAccess.FireTypes.FIRE) {
+        FireType.getFireTypes().forEach(fireType -> {
+            if (fireType != IEFireTypes.FIRE) {
                 if (ModList.get().isLoaded(fireType.getName().getNamespace())) {
-                    LOCATIONS_BUILTIN_TEXTURES.add(fireType.getSupplier().get().getAssociatedSprite0());
-                    LOCATIONS_BUILTIN_TEXTURES.add(fireType.getSupplier().get().getAssociatedSprite1());
+                    LOCATIONS_BUILTIN_TEXTURES.add(fireType.getSprite0());
+                    LOCATIONS_BUILTIN_TEXTURES.add(fireType.getSprite1());
                 }
             }
-        }
+        });
     }
 
 }

@@ -34,12 +34,12 @@ public class MixinEntityRendererManager {
 
     @ModifyVariable(method = "renderFire", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/client/renderer/model/RenderMaterial;getSprite()Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;", ordinal = 0), name = "textureatlassprite")
     private TextureAtlasSprite IE_renderCustomFires0(TextureAtlasSprite original, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, Entity entityIn) {
-        return ((FireTypeAccess) entityIn).getFireType().getSupplier().get().getAssociatedSprite0().getSprite();
+        return ((FireTypeAccess) entityIn).getFireType().getSprite0().getSprite();
     }
 
     @ModifyVariable(method = "renderFire", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/client/renderer/model/RenderMaterial;getSprite()Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;", ordinal = 1), name = "textureatlassprite1")
     private TextureAtlasSprite IE_renderCustomFires1(TextureAtlasSprite original, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, Entity entityIn) {
-        return ((FireTypeAccess) entityIn).getFireType().getSupplier().get().getAssociatedSprite1().getSprite();
+        return ((FireTypeAccess) entityIn).getFireType().getSprite1().getSprite();
     }
 
 }

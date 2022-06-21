@@ -25,6 +25,8 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import org.infernalstudios.infernalexp.access.FireTypeAccess;
+import org.infernalstudios.infernalexp.api.FireType;
+import org.infernalstudios.infernalexp.init.IEFireTypes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -47,7 +49,7 @@ public abstract class MixinEntity implements FireTypeAccess {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void IE_init(EntityType<?> entityTypeIn, World worldIn, CallbackInfo ci) {
-        this.dataManager.register(FIRE_TYPE, FireTypes.FIRE.getName().toString());
+        this.dataManager.register(FIRE_TYPE, IEFireTypes.FIRE.getName().toString());
     }
 
     @Inject(method = "writeWithoutTypeId", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundNBT;putShort(Ljava/lang/String;S)V", ordinal = 0, shift = Shift.AFTER))
@@ -57,21 +59,21 @@ public abstract class MixinEntity implements FireTypeAccess {
 
     @Inject(method = "read", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundNBT;getShort(Ljava/lang/String;)S", ordinal = 0, shift = Shift.AFTER))
     private void IE_readCustomFires(CompoundNBT tag, CallbackInfo ci) {
-        this.setFireType(FireTypes.byName(new ResourceLocation(tag.getString("fireType"))));
+        this.setFireType(FireType.getOrDefault(new ResourceLocation(tag.getString("fireType")), IEFireTypes.FIRE));
     }
 
     @Inject(method = "setFire", at = @At("HEAD"))
     private void IE_setToDefaultFireType(int seconds, CallbackInfo ci) {
-        this.setFireType(FireTypes.FIRE);
+        this.setFireType(IEFireTypes.FIRE);
     }
 
     @Override
-    public FireTypes getFireType() {
-        return FireTypes.byName(new ResourceLocation(this.dataManager.get(FIRE_TYPE)));
+    public FireType getFireType() {
+        return FireType.getOrDefault(new ResourceLocation(this.dataManager.get(FIRE_TYPE)), IEFireTypes.FIRE);
     }
 
     @Override
-    public void setFireType(FireTypes type) {
+    public void setFireType(FireType type) {
         this.dataManager.set(FIRE_TYPE, type.getName().toString());
     }
 
