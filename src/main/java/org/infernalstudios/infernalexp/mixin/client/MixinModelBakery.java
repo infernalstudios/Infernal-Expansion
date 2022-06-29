@@ -21,7 +21,8 @@ import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.ModList;
-import org.infernalstudios.infernalexp.access.FireTypeAccess;
+import org.infernalstudios.infernalexp.api.FireType;
+import org.infernalstudios.infernalexp.init.IEFireTypes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -37,22 +38,14 @@ public class MixinModelBakery {
     protected static Set<RenderMaterial> LOCATIONS_BUILTIN_TEXTURES;
 
     static {
-        LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_SOUL_FIRE_0);
-        LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_SOUL_FIRE_1);
-        LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_GLOW_FIRE_0);
-        LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_GLOW_FIRE_1);
-
-        if (ModList.get().isLoaded("endergetic")) {
-            LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_ENDER_FIRE_0);
-            LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_ENDER_FIRE_1);
-        }
-
-        if (ModList.get().isLoaded("byg")) {
-            LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_BORIC_FIRE_0);
-            LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_BORIC_FIRE_1);
-            LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_CRYPTIC_FIRE_0);
-            LOCATIONS_BUILTIN_TEXTURES.add(FireTypeAccess.LOCATION_CRYPTIC_FIRE_1);
-        }
+        FireType.getFireTypes().forEach(fireType -> {
+            if (fireType != IEFireTypes.FIRE) {
+                if (ModList.get().isLoaded(fireType.getName().getNamespace())) {
+                    LOCATIONS_BUILTIN_TEXTURES.add(fireType.getSprite0());
+                    LOCATIONS_BUILTIN_TEXTURES.add(fireType.getSprite1());
+                }
+            }
+        });
     }
 
 }

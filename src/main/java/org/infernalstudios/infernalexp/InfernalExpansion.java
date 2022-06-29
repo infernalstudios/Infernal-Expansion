@@ -59,6 +59,7 @@ import org.infernalstudios.infernalexp.init.IECompostables;
 import org.infernalstudios.infernalexp.init.IEEffects;
 import org.infernalstudios.infernalexp.init.IEEntityClassifications;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
+import org.infernalstudios.infernalexp.init.IEFireTypes;
 import org.infernalstudios.infernalexp.init.IEItems;
 import org.infernalstudios.infernalexp.init.IELootModifiers;
 import org.infernalstudios.infernalexp.init.IEPaintings;
@@ -132,6 +133,7 @@ public class InfernalExpansion {
         event.enqueueWork(IENetworkHandler::register);
         event.enqueueWork(IECapabilities::registerCapabilities);
         event.enqueueWork(IEBrewingRecipes::register);
+        event.enqueueWork(IEFireTypes::register);
 
         // Create mob spawnrate config files, they get created on game load instead of world load
         // just in case someone only launches the games once then goes and looks at the config files.
