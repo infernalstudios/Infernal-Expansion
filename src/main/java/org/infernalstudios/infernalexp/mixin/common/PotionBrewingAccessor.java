@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Infernal Studios
+ * Copyright 2021 Infernal Studios
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,20 @@
  * limitations under the License.
  */
 
-package org.infernalstudios.infernalexp.access;
+package org.infernalstudios.infernalexp.mixin.common;
 
-import org.infernalstudios.infernalexp.api.FireType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionBrewing;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Invoker;
 
-public interface FireTypeAccess {
+@Mixin(PotionBrewing.class)
+public interface PotionBrewingAccessor {
 
-    FireType getFireType();
-
-    void setFireType(FireType type);
+    @Invoker("addMix")
+    static void invokeAddMix(Potion input, Item reagent, Potion output) {
+        throw new AssertionError();
+    }
 
 }
