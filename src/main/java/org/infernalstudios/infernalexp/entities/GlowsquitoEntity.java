@@ -36,6 +36,7 @@ import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.MoveTowardsTargetGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.TemptGoal;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.IFlyingAnimal;
@@ -168,7 +169,7 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
             }
         };
         flyingpathnavigator.setCanOpenDoors(false);
-        flyingpathnavigator.setCanSwim(false);
+        flyingpathnavigator.setCanSwim(true);
         flyingpathnavigator.setCanEnterDoors(true);
         return flyingpathnavigator;
     }
@@ -232,8 +233,8 @@ public class GlowsquitoEntity extends AnimalEntity implements IFlyingAnimal {
 
         this.eatGrassGoal = new EatGrassGoal(this);
 
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 0.6D, true));
         this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 0.8D, true));
+        this.goalSelector.addGoal(1, new SwimGoal(this));
         this.goalSelector.addGoal(1, new MoveTowardsTargetGoal(this, 0.8D, 32.0F));
         this.goalSelector.addGoal(2, new BreedGoal(this, 0.8d));
         this.goalSelector.addGoal(3, new TemptGoal(this, 0.8d, false, TEMPTATION_ITEMS));
