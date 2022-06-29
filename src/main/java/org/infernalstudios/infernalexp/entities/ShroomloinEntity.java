@@ -234,7 +234,7 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
 		this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 0.5d));
 		this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0f));
 		this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
-		this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(1, new ShroomloinTargetGoal(this));
 
 //        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal(this, PlayerEntity.class, 10, true, false, this::func_233680_b_));
 //?        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
@@ -328,25 +328,53 @@ public class ShroomloinEntity extends CreatureEntity implements IRangedAttackMob
 
 		float distance = MathHelper.sqrt(x * x + z * z);
 
-		AscusBombEntity ascusBombEntity = new AscusBombEntity(this.world, this);
+        AscusBombEntity ascusBombEntity = new AscusBombEntity(this.world, this);
 
-		ascusBombEntity.setItem(new ItemStack(IEItems.ASCUS_BOMB.get()));
-		ascusBombEntity.rotationPitch -= -20;
-		ascusBombEntity.shoot(x, y + (distance * 0.2), z, 0.75f, 8);
+        ascusBombEntity.setItem(new ItemStack(IEItems.ASCUS_BOMB.get()));
+        ascusBombEntity.rotationPitch -= -20;
+        ascusBombEntity.shoot(x, y + (distance * 0.2), z, 0.75f, 8);
 
-		this.setShroomloinState(-1);
-		this.world.addEntity(ascusBombEntity);
-	}
+        this.setShroomloinState(-1);
+        this.world.addEntity(ascusBombEntity);
+    }
+
+    static class ShroomloinTargetGoal extends HurtByTargetGoal {
+
+        private final ShroomloinEntity shroomloin;
+
+        public ShroomloinTargetGoal(ShroomloinEntity shroomloin, Class<?>... excludeReinforcementTypes) {
+            super(shroomloin, excludeReinforcementTypes);
+
+            this.shroomloin = shroomloin;
+        }
+
+        @Override
+        public boolean shouldExecute() {
+            if (this.shroomloin.isConverting())
+                return false;
+
+            return super.shouldExecute();
+        }
+
+        @Override
+        public boolean shouldContinueExecuting() {
+            if (this.shroomloin.isConverting())
+                return false;
+
+            return super.shouldContinueExecuting();
+        }
+
+    }
 
     static class MeleeAttackInfectedGoal extends MeleeAttackGoal {
 
-		public MeleeAttackInfectedGoal(CreatureEntity creature, double speedIn, boolean useLongMemory) {
-			super(creature, speedIn, useLongMemory);
-		}
+        public MeleeAttackInfectedGoal(CreatureEntity creature, double speedIn, boolean useLongMemory) {
+            super(creature, speedIn, useLongMemory);
+        }
 
-		@Override
-		public boolean shouldExecute() {
-			LivingEntity attackTarget = this.attacker.getAttackTarget();
+        @Override
+        public boolean shouldExecute() {
+            LivingEntity attackTarget = this.attacker.getAttackTarget();
 			if (attackTarget != null && !attackTarget.isPotionActive(IEEffects.INFECTION.get())) {
 				return false;
 			}
