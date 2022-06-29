@@ -16,7 +16,7 @@
 
 package org.infernalstudios.infernalexp.init;
 
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.api.FireType;
 

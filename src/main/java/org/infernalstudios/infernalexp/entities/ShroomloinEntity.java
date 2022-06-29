@@ -333,7 +333,7 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
         AscusBombEntity ascusBombEntity = new AscusBombEntity(this.level, this);
 
         ascusBombEntity.setItem(new ItemStack(IEItems.ASCUS_BOMB.get()));
-        ascusBombEntity.rotationPitch -= -20;
+        ascusBombEntity.setXRot(-20);
         ascusBombEntity.shoot(x, y + (distance * 0.2), z, 0.75f, 8);
 
         this.setShroomloinState(-1);

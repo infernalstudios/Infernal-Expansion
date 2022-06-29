@@ -296,8 +296,8 @@ public class BlindsightEntity extends Monster {
          * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
          * method as well.
          */
-        public boolean shouldExecute() {
-            return !this.blindsight.isPassenger() && this.blindsight.getAttackTarget() != null && this.blindsight.getMoveHelper() instanceof BlindsightEntity.MoveHelperController;
+        public boolean canUse() {
+            return !this.blindsight.isPassenger() && this.blindsight.getTarget() != null && this.blindsight.getMoveControl() instanceof BlindsightEntity.MoveHelperController;
         }
 
         /**
@@ -391,8 +391,8 @@ public class BlindsightEntity extends Monster {
         /**
          * Returns whether an in-progress EntityAIBase should continue executing
          */
-        public boolean shouldContinueExecuting() {
-            return --this.growTieredTimer > 0 && this.shouldExecute();
+        public boolean canContinueToUse() {
+            return --this.growTieredTimer > 0 && this.canUse();
         }
 
         /**

@@ -349,7 +349,7 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
     protected void registerGoals() {
         super.registerGoals();
 
-        this.eatGrassGoal = new EatGrassGoal(this);
+        this.eatGrassGoal = new EatBlockGoal(this);
 
         this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 0.8D, true));
         this.goalSelector.addGoal(1, new FloatGoal(this));
