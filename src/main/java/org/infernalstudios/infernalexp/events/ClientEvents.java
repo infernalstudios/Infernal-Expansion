@@ -20,12 +20,9 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.CampfireRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.FOVUpdateEvent;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.client.event.FOVModifierEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -122,7 +119,7 @@ public class ClientEvents {
     }
 
     @SubscribeEvent
-    public void glowsilkBowFOVModifier(FOVUpdateEvent event) {
+    public void glowsilkBowFOVModifier(FOVModifierEvent event) {
         if (event.getEntity().isUsingItem() && event.getEntity().getUseItem().is(IEItems.GLOWSILK_BOW.get())) {
             float fovModifier = event.getEntity().getTicksUsingItem() / 20.0F;
 
