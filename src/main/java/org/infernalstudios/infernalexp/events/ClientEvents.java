@@ -53,7 +53,6 @@ import org.infernalstudios.infernalexp.init.IEBlockEntityTypes;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
 import org.infernalstudios.infernalexp.init.IEItems;
-import org.infernalstudios.infernalexp.items.IESpawnEggItem;
 
 @Mod.EventBusSubscriber(modid = InfernalExpansion.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientEvents {
@@ -120,11 +119,6 @@ public class ClientEvents {
         ItemBlockRenderTypes.setRenderLayer(IEBlocks.GLOW_GLASS_PANE.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(IEBlocks.QUARTZ_GLASS.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(IEBlocks.QUARTZ_GLASS_PANE.get(), RenderType.cutout());
-    }
-
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void onPostRegisterEntities(final RegistryEvent.Register<EntityType<?>> event) {
-        IESpawnEggItem.initUnaddedEggs();
     }
 
     @SubscribeEvent

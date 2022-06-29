@@ -1,54 +1,54 @@
 {
   "entity.voline.ambient": {
-    "subtitle": "Voline chatters",
+    "subtitle": "subtitles.entity.voline.ambient",
     "sounds": [
       "infernalexp:entity/voline/voline_ambient"
     ]
   },
   "entity.voline.hurt": {
-    "subtitle": "Voline hurts",
+    "subtitle": "subtitles.entity.voline.hurt",
     "sounds": [
       "infernalexp:entity/voline/voline_hurt"
     ]
   },
   "entity.shroomloin.ambient": {
-    "subtitle": "Voline hisses",
+    "subtitle": "subtitles.entity.shroomloin.ambient",
     "sounds": [
       "infernalexp:entity/shroomloin/shroomloin_ambient"
     ]
   },
   "entity.shroomloin.hurt": {
-    "subtitle": "Shroomloin hurts",
+    "subtitle": "subtitles.entity.shroomloin.hurt",
     "sounds": [
       "infernalexp:entity/shroomloin/shroomloin_hurt"
     ]
   },
   "entity.shroomloin.death": {
-    "subtitle": "Shroomloin dies",
+    "subtitle": "subtitles.entity.shroomloin.death",
     "sounds": [
       "infernalexp:entity/shroomloin/shroomloin_death"
     ]
   },
   "entity.basalt_giant.ambient": {
-    "subtitle": "Basalt Giant grunts",
+    "subtitle": "subtitles.entity.basalt_giant.ambient",
     "sounds": [
       "infernalexp:entity/basalt_giant/basalt_giant_ambient"
     ]
   },
   "entity.basalt_giant.hurt": {
-    "subtitle": "Basalt Giant hurts",
+    "subtitle": "subtitles.entity.basalt_giant.hurt",
     "sounds": [
       "infernalexp:entity/basalt_giant/basalt_giant_hurt"
     ]
   },
   "entity.basalt_giant.death": {
-    "subtitle": "Basalt Giant dies",
+    "subtitle": "subtitles.entity.basalt_giant.death",
     "sounds": [
       "infernalexp:entity/basalt_giant/basalt_giant_death"
     ]
   },
   "entity.blindsight.ambient":  {
-    "subtitle": "Blindsight clicks tongue",
+    "subtitle": "subtitles.entity.blindsight.ambient",
     "sounds":[
       "infernalexp:entity/blindsight/blindsight_ambient_1",
       "infernalexp:entity/blindsight/blindsight_ambient_2",
@@ -56,37 +56,37 @@
     ]
   },
   "entity.blindsight.hurt": {
-    "subtitle": "Blindsight shrieks",
+    "subtitle": "subtitles.entity.blindsight.hurt",
     "sounds": [
       "infernalexp:entity/blindsight/blindsight_hurt"
     ]
   },
   "entity.blindsight.death":  {
-    "subtitle": "Blindsight dies",
+    "subtitle": "subtitles.entity.blindsight.death",
     "sounds": [
       "infernalexp:entity/blindsight/blindsight_death"
     ]
   },
   "entity.blindsight.leap":  {
-    "subtitle": "Blindsight leaps",
+    "subtitle": "subtitles.entity.blindsight.leap",
     "sounds": [
       "infernalexp:entity/blindsight/blindsight_leap"
     ]
   },
   "entity.warpbeetle.ambient": {
-    "subtitle": "Warpbeetle squeaks",
+    "subtitle": "subtitles.entity.warpbeetle.ambient",
     "sounds": [
       "infernalexp:entity/warpbeetle/warpbeetle_ambient"
     ]
   },
   "entity.warpbeetle.hurt": {
-    "subtitle": "Warpbeetle hurts",
+    "subtitle": "subtitles.entity.warpbeetle.hurt",
     "sounds": [
       "infernalexp:entity/warpbeetle/warpbeetle_hurt"
     ]
   },
   "entity.warpbeetle.death": {
-    "subtitle": "Warpbeetle dies",
+    "subtitle": "subtitles.entity.warpbeetle.death",
     "sounds": [
       "infernalexp:entity/warpbeetle/warpbeetle_death"
     ]
@@ -116,37 +116,37 @@
     ]
   },
   "entity.embody.ambient": {
-    "subtitle": "Embody hisses",
+    "subtitle": "subtitles.entity.embody.ambient",
     "sounds": [
       "infernalexp:entity/embody/embody_ambient"
     ]
   },
   "entity.embody.hurt": {
-    "subtitle": "Embody hurts",
+    "subtitle": "subtitles.entity.embody.hurt",
     "sounds": [
       "infernalexp:entity/embody/embody_hurt"
     ]
   },
   "entity.embody.death": {
-    "subtitle": "Embody dies",
+    "subtitle": "subtitles.entity.embody.death",
     "sounds": [
       "infernalexp:entity/embody/embody_death"
     ]
   },
   "entity.glowsilk_moth.ambient": {
-    "subtitle": "Glowsilk Moth shimmers",
+    "subtitle": "subtitles.entity.glowsilk_moth.ambient",
     "sounds": [
       "infernalexp:entity/glowsilk_moth/glowsilk_moth_ambient"
     ]
   },
   "entity.glowsilk_moth.hurt": {
-    "subtitle": "Glowsilk Moth hurts",
+    "subtitle": "subtitles.entity.glowsilk_moth.hurt",
     "sounds": [
       "infernalexp:entity/glowsilk_moth/glowsilk_moth_hurt"
     ]
   },
   "entity.glowsilk_moth.death": {
-    "subtitle": "Glowsilk Moth dies",
+    "subtitle": "subtitles.entity.glowsilk_moth.death",
     "sounds": [
       "infernalexp:entity/glowsilk_moth/glowsilk_moth_death"
     ]
@@ -176,6 +176,7 @@
     ]
   },
   "entity.glowsquito.hurt": {
+    "subtitle": "subtitles.entity.glowsquito.hurt",
     "sounds": [
       "infernalexp:entity/glowsquito/hit1",
       "infernalexp:entity/glowsquito/hit2",
@@ -184,6 +185,7 @@
     ]
   },
   "entity.glowsquito.death": {
+    "subtitle": "subtitles.entity.glowsquito.death",
     "sounds": [
       "infernalexp:entity/glowsquito/death1"
     ]

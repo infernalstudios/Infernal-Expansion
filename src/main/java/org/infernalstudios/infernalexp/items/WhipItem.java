@@ -83,7 +83,7 @@ public class WhipItem extends TieredItem implements Vanishable {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-        tooltip.add(new TextComponent("\u00A76" + "Hold right click to charge, then when fully charged, release to strike!"));
+        tooltip.add(new TextComponent("\u00A76Hold right click to charge, then when fully charged, release to strike!"));
     }
 
     @Override
@@ -116,38 +116,10 @@ public class WhipItem extends TieredItem implements Vanishable {
             worldIn.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F / (player.getRandom().nextFloat() * 0.4F + 1.2F));
             player.awardStat(Stats.ITEM_USED.get(this));
 
-            if (worldIn.isClientSide()) {
-                handleExtendedReach(player, stack);
+            if (!worldIn.isClientSide()) {
+                IENetworkHandler.sendToServer(new WhipReachPacket(player.getUUID()));
             }
         }
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    private boolean handleExtendedReach(Player player, ItemStack stack) {
-
-        // Change the value added here to adjust the reach of the charge attack of the whip, must also be changed in WhipReachPacket
-        double reach = player.getAttribute(ForgeMod.REACH_DISTANCE.get()).getValue() + 1.0D;
-
-        Vec3 eyePos = player.getEyePosition(1.0F);
-        Vec3 lookVec = player.getLookAngle();
-        Vec3 reachVec = eyePos.add(lookVec.multiply(reach, reach, reach));
-
-        AABB playerBox = player.getBoundingBox().expandTowards(lookVec.scale(reach)).inflate(1.0D, 1.0D, 1.0D);
-        EntityHitResult entityTraceResult = ProjectileUtil.getEntityHitResult(player, eyePos, reachVec, playerBox, (target) -> !target.isSpectator() && target.showVehicleHealth(), reach * reach);
-        BlockHitResult blockTraceResult = player.getCommandSenderWorld().clip(new ClipContext(eyePos, reachVec, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player));
-
-        if (entityTraceResult != null) {
-            double distance = eyePos.distanceToSqr(entityTraceResult.getLocation());
-
-            if (distance < reach * reach && distance < eyePos.distanceToSqr(blockTraceResult.getLocation())) {
-                player.attackStrengthTicker = (int) player.getCurrentItemAttackStrengthDelay();
-                IENetworkHandler.sendToServer(new WhipReachPacket(player.getUUID(), entityTraceResult.getEntity().getId(), stack));
-
-                return true;
-            }
-        }
-
-        return false;
     }
 
     @Override
@@ -163,7 +135,9 @@ public class WhipItem extends TieredItem implements Vanishable {
     @Override
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
-        playerIn.startUsingItem(handIn);
+        if (handIn.equals(InteractionHand.MAIN_HAND)) {
+            playerIn.startUsingItem(handIn);
+        }
         return InteractionResultHolder.pass(itemstack);
     }
 
@@ -198,19 +172,14 @@ public class WhipItem extends TieredItem implements Vanishable {
     @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         super.hurtEnemy(stack, target, attacker);
-
-        stack.hurtAndBreak(1, attacker, (entity) -> {
-            entity.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-        });
+        stack.hurtAndBreak(1, attacker, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         return true;
     }
 
     @Override
     public boolean mineBlock(ItemStack stack, Level worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
         if (state.getDestroySpeed(worldIn, pos) != 0.0F) {
-            stack.hurtAndBreak(2, entityLiving, (entity) -> {
-                entity.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-            });
+            stack.hurtAndBreak(2, entityLiving, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         }
 
         return true;
