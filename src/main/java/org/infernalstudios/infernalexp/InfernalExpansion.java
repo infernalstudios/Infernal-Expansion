@@ -59,6 +59,7 @@ import org.infernalstudios.infernalexp.init.IECompostables;
 import org.infernalstudios.infernalexp.init.IEEffects;
 import org.infernalstudios.infernalexp.init.IEEntityClassifications;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
+import org.infernalstudios.infernalexp.init.IEFireTypes;
 import org.infernalstudios.infernalexp.init.IEItems;
 import org.infernalstudios.infernalexp.init.IELootModifiers;
 import org.infernalstudios.infernalexp.init.IEPaintings;
@@ -71,7 +72,6 @@ import org.infernalstudios.infernalexp.init.IEStructureSets;
 import org.infernalstudios.infernalexp.init.IEStructureTypes;
 import org.infernalstudios.infernalexp.init.IEStructures;
 import org.infernalstudios.infernalexp.init.IESurfaceRules;
-import org.infernalstudios.infernalexp.items.IESpawnEggItem;
 import org.infernalstudios.infernalexp.network.IENetworkHandler;
 import org.infernalstudios.infernalexp.util.CompatibilityQuark;
 import org.infernalstudios.infernalexp.world.gen.ModEntityPlacement;
@@ -129,6 +129,8 @@ public class InfernalExpansion {
         event.enqueueWork(IESurfaceRules::register);
         event.enqueueWork(IENetworkHandler::register);
         event.enqueueWork(IEBrewingRecipes::register);
+        event.enqueueWork(IEFireTypes::register);
+        event.enqueueWork(IECompostables::register);
 
         // Create mob spawnrate config files, they get created on game load instead of world load
         // just in case someone only launches the games once then goes and looks at the config files.
@@ -164,13 +166,10 @@ public class InfernalExpansion {
                 return stack;
             }
         });
-
-        IECompostables.registerCompostables();
-        IESpawnEggItem.initUnaddedEggs();
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> InfernalExpansionClient::init);
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> InfernalExpansionClient.init(event::enqueueWork));
     }
 
     @SubscribeEvent

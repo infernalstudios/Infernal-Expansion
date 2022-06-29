@@ -115,4 +115,20 @@ public class ClientEvents {
         ItemBlockRenderTypes.setRenderLayer(IEBlocks.QUARTZ_GLASS.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(IEBlocks.QUARTZ_GLASS_PANE.get(), RenderType.cutout());
     }
+
+    @SubscribeEvent
+    public void glowsilkBowFOVModifier(FOVModifierEvent event) {
+        if (event.getEntity().isUsingItem() && event.getEntity().getUseItem().is(IEItems.GLOWSILK_BOW.get())) {
+            float fovModifier = event.getEntity().getTicksUsingItem() / 20.0F;
+
+            if (fovModifier > 1.0F)
+                fovModifier = 1.0F;
+
+            else
+                fovModifier *= fovModifier;
+
+            event.setNewfov(event.getFov() * (1.0F - (fovModifier * 0.15F)));
+        }
+    }
+
 }

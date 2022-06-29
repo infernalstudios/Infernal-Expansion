@@ -16,6 +16,7 @@
 
 package org.infernalstudios.infernalexp.network;
 
+import com.mojang.math.Vector3d;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -26,80 +27,76 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.network.NetworkEvent;
 import org.infernalstudios.infernalexp.init.IEItems;
 
+import javax.sound.sampled.Clip;
 import java.util.Random;
 import java.util.UUID;
 import java.util.function.Supplier;
 
 public class WhipReachPacket {
     private final UUID playerUUID;
-    private final int targetEntityID;
-    private final ItemStack stack;
     private static final Random random = new Random();
 
 
-    public WhipReachPacket(UUID playerUUID, int target, ItemStack stack) {
+    public WhipReachPacket(UUID playerUUID) {
         this.playerUUID = playerUUID;
-        this.targetEntityID = target;
-        this.stack = stack;
     }
 
     public static void encode(WhipReachPacket message, FriendlyByteBuf buffer) {
         buffer.writeUUID(message.playerUUID);
-        buffer.writeVarInt(message.targetEntityID);
-        buffer.writeItem(message.stack);
     }
 
     public static WhipReachPacket decode(FriendlyByteBuf buffer) {
-        return new WhipReachPacket(buffer.readUUID(), buffer.readVarInt(), buffer.readItem());
+        return new WhipReachPacket(buffer.readUUID());
     }
 
     public static void handle(WhipReachPacket message, Supplier<NetworkEvent.Context> context) {
         context.get().enqueueWork(() -> {
-            Player playerEntity = context.get().getSender();
-            playerEntity.getCommandSenderWorld().playSound(playerEntity, playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F));
+            Player player = context.get().getSender();
 
-            if (playerEntity != null && playerEntity.getServer() != null) {
-                ServerPlayer player = playerEntity.getServer().getPlayerList().getPlayer(message.playerUUID);
-                Entity target = playerEntity.getCommandSenderWorld().getEntity(message.targetEntityID);
+            // Change the value added here to adjust the reach of the charge attack of the whip, must also be changed in WhipReachPacket
+            double reach = player.getAttribute(ForgeMod.REACH_DISTANCE.get()).getValue() + 1.0D;
 
-                double reach = player.getAttributeValue(ForgeMod.REACH_DISTANCE.get()) + 1.0D;
+            Vec3 eyePos = player.getEyePosition(1.0F);
+            Vec3 lookVec = player.getLookAngle();
+            Vec3 reachVec = eyePos.add(lookVec.multiply(reach, reach, reach));
 
-                if (player != null && target != null) {
-                    if (player.distanceToSqr(target) < (reach * reach) * player.getAttackStrengthScale(0.0F)) {
-                        player.attack(target);
-                        player.getCommandSenderWorld().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F));
+            AABB playerBox = player.getBoundingBox().expandTowards(lookVec.scale(reach)).inflate(1.0D, 1.0D, 1.0D);
+            EntityHitResult entityTraceResult = ProjectileUtil.getEntityHitResult(player, eyePos, reachVec, playerBox, (target) -> !target.isSpectator() && target.isAlive(), reach * reach);
+            BlockHitResult blockTraceResult = player.getCommandSenderWorld().clip(new ClipContext(eyePos, reachVec, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player));
 
-                        int knockbackLevel = message.getActiveKnockback(message.stack);
+            if (entityTraceResult != null) {
+                double distance = eyePos.distanceToSqr(entityTraceResult.getLocation());
+                if (distance < reach * reach && distance < eyePos.distanceToSqr(blockTraceResult.getLocation())) {
+                    player.attackStrengthTicker = (int) player.getCurrentItemAttackStrengthDelay();
 
-                        // Change the first float value to change the amount of knockback on hit
-                        ((LivingEntity) target).knockback(1.0F + knockbackLevel * 0.5F, Mth.sin(player.getYRot() * ((float) Math.PI / 180F)), -Mth.cos(player.getYRot() * ((float) Math.PI / 180F)));
+                    player.getCommandSenderWorld().playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F));
+
+                    if (player != null && player.getServer() != null) {
+                        ServerPlayer serverPlayer = player.getServer().getPlayerList().getPlayer(message.playerUUID);
+                        Entity target = entityTraceResult.getEntity();
+
+                        if (serverPlayer != null && target != null) {
+                            if (serverPlayer.distanceToSqr(target) < (reach * reach) * serverPlayer.getAttackStrengthScale(0.0F)) {
+                                serverPlayer.attack(target);
+                                serverPlayer.getCommandSenderWorld().playSound(null, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F));}
+                        }
                     }
+
                 }
             }
         });
 
         context.get().setPacketHandled(true);
-    }
-
-    private int getActiveKnockback(ItemStack stack) {
-        if (stack.getItem() != IEItems.BLINDSIGHT_TONGUE_WHIP.get()) {
-            return 0;
-        }
-        ListTag listnbt = stack.getEnchantmentTags();
-
-        for(int i = 0; i < listnbt.size(); ++i) {
-            CompoundTag compoundNBT = listnbt.getCompound(i);
-
-            if (compoundNBT.getString("id").equals("minecraft:knockback")) {
-                return Mth.clamp(compoundNBT.getInt("lvl"), 0, 2);
-            }
-        }
-
-        return 0;
     }
 }

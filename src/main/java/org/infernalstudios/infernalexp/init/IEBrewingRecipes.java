@@ -16,14 +16,29 @@
 
 package org.infernalstudios.infernalexp.init;
 
-import org.infernalstudios.infernalexp.brewing.BrewingHelper;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.Potions;
+import org.infernalstudios.infernalexp.mixin.common.PotionBrewingAccessor;
 
 public class IEBrewingRecipes {
 
     public static void register() {
-        // Register potions
-        BrewingHelper.registerBrewingRecipe(IEItems.MOTH_DUST.get(), IEPotions.LUMINOUS.get(), IEPotions.LONG_LUMINOUS.get(), IEPotions.STRONG_LUMINOUS.get());
-        BrewingHelper.registerBrewingRecipe(IEItems.ASCUS_BOMB.get(), IEPotions.INFECTION.get(), IEPotions.LONG_INFECTION.get(), IEPotions.STRONG_INFECTION.get());
+        registerBrewingRecipe(IEItems.MOTH_DUST.get(), IEPotions.LUMINOUS.get(), IEPotions.LONG_LUMINOUS.get(), IEPotions.STRONG_LUMINOUS.get());
+        registerBrewingRecipe(IEItems.ASCUS_BOMB.get(), IEPotions.INFECTION.get(), IEPotions.LONG_INFECTION.get(), IEPotions.STRONG_INFECTION.get());
+    }
+
+    private static void registerBrewingRecipe(Item ingredient, Potion normalPotion, Potion longPotion, Potion strongPotion) {
+        // Allow reagent to be used to make mundane potions
+        PotionBrewingAccessor.invokeAddMix(Potions.WATER, ingredient, Potions.MUNDANE);
+
+        // Add base potion
+        PotionBrewingAccessor.invokeAddMix(Potions.AWKWARD, ingredient, normalPotion);
+
+        // Add strong and long variants
+        PotionBrewingAccessor.invokeAddMix(normalPotion, Items.REDSTONE, longPotion);
+        PotionBrewingAccessor.invokeAddMix(normalPotion, Items.GLOWSTONE_DUST, strongPotion);
     }
 
 }

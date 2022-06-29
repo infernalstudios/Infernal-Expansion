@@ -297,7 +297,7 @@ public class BlindsightEntity extends Monster {
          * method as well.
          */
         public boolean canUse() {
-            return !this.blindsight.isPassenger() && this.blindsight.getTarget() != null;
+            return !this.blindsight.isPassenger() && this.blindsight.getTarget() != null && this.blindsight.getMoveControl() instanceof BlindsightEntity.MoveHelperController;
         }
 
         /**
@@ -392,14 +392,7 @@ public class BlindsightEntity extends Monster {
          * Returns whether an in-progress EntityAIBase should continue executing
          */
         public boolean canContinueToUse() {
-            LivingEntity livingentity = this.blindsight.getTarget();
-            if (livingentity == null) {
-                return false;
-            } else if (!livingentity.isAlive()) {
-                return false;
-            } else {
-                return --this.growTieredTimer > 0;
-            }
+            return --this.growTieredTimer > 0 && this.canUse();
         }
 
         /**

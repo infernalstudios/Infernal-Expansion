@@ -16,6 +16,7 @@
 
 package org.infernalstudios.infernalexp.entities;
 
+import com.mojang.math.Vector3d;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -43,6 +44,7 @@ import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.BreedGoal;
 import net.minecraft.world.entity.ai.goal.EatBlockGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.MoveTowardsTargetGoal;
@@ -59,6 +61,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.RandomSource;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -166,13 +169,13 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
             }
         };
         flyingpathnavigator.setCanOpenDoors(false);
-        flyingpathnavigator.setCanFloat(false);
+        flyingpathnavigator.setCanFloat(true);
         flyingpathnavigator.setCanPassDoors(true);
         return flyingpathnavigator;
     }
 
-    // Entity won't take fall damage
-    public boolean causeFallDamage(float distance, float damageMultiplier) {
+    @Override
+    public boolean causeFallDamage(float distance, float multiplier, DamageSource source) {
         return false;
     }
 
@@ -182,6 +185,7 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
     }
 
     static class LookAroundGoal extends Goal {
+
         private final GlowsquitoEntity parentEntity;
 
         public LookAroundGoal(GlowsquitoEntity ghast) {
@@ -302,6 +306,7 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
          * Returns whether execution should begin. You can also read and cache any state
          * necessary for execution in this method as well.
          */
+        @Override
         public boolean canUse() {
             return GlowsquitoEntity.this.navigation.isDone() && GlowsquitoEntity.this.random.nextInt(10) == 0;
         }
@@ -309,6 +314,7 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
         /**
          * Returns whether an in-progress EntityAIBase should continue executing
          */
+        @Override
         public boolean canContinueToUse() {
             return GlowsquitoEntity.this.navigation.isInProgress();
         }
@@ -316,6 +322,7 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
         /**
          * Execute a one shot task or start executing a continuous task
          */
+        @Override
         public void start() {
             Vec3 vector3d = this.getRandomLocation();
             if (vector3d != null) {
@@ -341,18 +348,14 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
     protected void registerGoals() {
         super.registerGoals();
 
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 0.6D, true));
-
         this.eatGrassGoal = new EatBlockGoal(this);
 
         this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 0.8D, true));
+        this.goalSelector.addGoal(1, new FloatGoal(this));
         this.goalSelector.addGoal(1, new MoveTowardsTargetGoal(this, 0.8D, 32.0F));
-        // this.goalSelector.addGoal(5, new GlowsquitoEntity.RandomFlyGoal(this));
         this.goalSelector.addGoal(2, new BreedGoal(this, 0.8d));
         this.goalSelector.addGoal(3, new TemptGoal(this, 0.8d, TEMPTATION_ITEMS, false));
         this.goalSelector.addGoal(8, new GlowsquitoEntity.WanderGoal());
-        // this.goalSelector.addGoal(7, new GlowsquitoEntity.LookAroundGoal(this));
-        // this.goalSelector.addGoal(5, this.eatGrassGoal);
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         if (InfernalExpansionConfig.MobInteractions.GLOWSQUITO_ATTACK_LUMINOUS.getBoolean()) {
             this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, LivingEntity.class, true, false, IEEffects.LUMINOUS.get(), GlowsquitoEntity.class));
@@ -391,6 +394,7 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
         this.playSound(SoundEvents.PIG_STEP, 0.15F, 1.0F);
     }
 
+    @Override
     public boolean doHurtTarget(Entity entityIn) {
         if (!super.doHurtTarget(entityIn)) {
             return false;
@@ -419,6 +423,7 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
     }
 
     @OnlyIn(Dist.CLIENT)
+    @Override
     public void handleEntityEvent(byte id) {
         if (id == 10) {
             this.hogTimer = 40;
