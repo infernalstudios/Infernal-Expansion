@@ -16,20 +16,21 @@
 
 package org.infernalstudios.infernalexp.init;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.ComposterBlock;
-import net.minecraft.util.IItemProvider;
 
 public class IECompostables {
 
-    public static void registerCompostables() {
-        registerCompostable(1.0F, IEBlocks.CRIMSON_FUNGUS_CAP.get().asItem());
-        registerCompostable(0.45F, IEBlocks.LUMINOUS_FUNGUS.get().asItem());
-        registerCompostable(1.0F, IEBlocks.LUMINOUS_FUNGUS_CAP.get().asItem());
-        registerCompostable(0.65F, IEBlocks.SHROOMLIGHT_FUNGUS.get().asItem());
-        registerCompostable(1.0F, IEBlocks.WARPED_FUNGUS_CAP.get().asItem());
+    public static void register() {
+        registerCompostable(IEBlocks.CRIMSON_FUNGUS_CAP.get(), 1.0F);
+        registerCompostable(IEBlocks.LUMINOUS_FUNGUS.get(), 0.45F);
+        registerCompostable(IEBlocks.LUMINOUS_FUNGUS_CAP.get(), 1.0F);
+        registerCompostable(IEBlocks.SHROOMLIGHT_FUNGUS.get(), 0.65F);
+        registerCompostable(IEBlocks.WARPED_FUNGUS_CAP.get(), 1.0F);
     }
 
-    private static void registerCompostable(float chance, IItemProvider item) {
-        ComposterBlock.CHANCES.put(item.asItem(), chance);
+    private static void registerCompostable(Block block, float chance) {
+        ComposterBlock.CHANCES.put(block.asItem(), chance);
     }
+
 }

@@ -134,6 +134,7 @@ public class InfernalExpansion {
         event.enqueueWork(IECapabilities::registerCapabilities);
         event.enqueueWork(IEBrewingRecipes::register);
         event.enqueueWork(IEFireTypes::register);
+        event.enqueueWork(IECompostables::register);
 
         // Create mob spawnrate config files, they get created on game load instead of world load
         // just in case someone only launches the games once then goes and looks at the config files.
@@ -177,8 +178,6 @@ public class InfernalExpansion {
                 return stack;
             }
         });
-
-        IECompostables.registerCompostables();
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
