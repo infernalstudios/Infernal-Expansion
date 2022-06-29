@@ -29,7 +29,6 @@ import org.infernalstudios.infernalexp.client.gui.InfectionHeartOverlay;
 import org.infernalstudios.infernalexp.config.gui.screens.ConfigScreen;
 import org.infernalstudios.infernalexp.events.ClientEvents;
 import org.infernalstudios.infernalexp.init.IEItems;
-import org.infernalstudios.infernalexp.items.IESpawnEggItem;
 import org.infernalstudios.infernalexp.items.WhipItem;
 
 import java.io.File;
@@ -77,7 +76,6 @@ public class InfernalExpansionClient {
         ItemProperties.register(IEItems.KINETIC_TONGUE_WHIP.get(), new ResourceLocation("attacking"), (itemStack, clientWorld, livingEntity, entityId) -> livingEntity != null && (((WhipItem) itemStack.getItem()).getAttacking(itemStack) || ((WhipItem) itemStack.getItem()).getCharging(itemStack)) && (livingEntity.getMainHandItem() == itemStack || livingEntity.getOffhandItem() == itemStack) ? 1.0F : 0.0F);
 
         InfernalExpansionClient.loadInfernalResources();
-        IESpawnEggItem.initUnaddedEggs();
     }
 
     public static void loadInfernalResources() {

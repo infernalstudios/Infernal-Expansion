@@ -41,8 +41,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import org.infernalstudios.infernalexp.client.InfernalExpansionClient;
-import org.infernalstudios.infernalexp.config.ConfigHelper;
 import org.infernalstudios.infernalexp.config.ConfigHolder;
 import org.infernalstudios.infernalexp.data.SpawnrateManager;
 import org.infernalstudios.infernalexp.events.MiscEvents;
@@ -114,10 +114,6 @@ public class InfernalExpansion {
         // Registering Configs
         modLoadingContext.registerConfig(ModConfig.Type.CLIENT, ConfigHolder.CLIENT_SPEC);
         modLoadingContext.registerConfig(ModConfig.Type.COMMON, ConfigHolder.COMMON_SPEC);
-
-        // Baking Configs
-        ConfigHelper.bakeClient(null);
-        ConfigHelper.bakeCommon(null);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

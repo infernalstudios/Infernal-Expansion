@@ -22,6 +22,7 @@ import net.minecraft.client.renderer.blockentity.CampfireRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.FOVModifierEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -48,6 +49,7 @@ import org.infernalstudios.infernalexp.client.entity.render.WarpbeetleRenderer;
 import org.infernalstudios.infernalexp.init.IEBlockEntityTypes;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
+import org.infernalstudios.infernalexp.init.IEItems;
 
 @Mod.EventBusSubscriber(modid = InfernalExpansion.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientEvents {
@@ -118,8 +120,8 @@ public class ClientEvents {
 
     @SubscribeEvent
     public void glowsilkBowFOVModifier(FOVModifierEvent event) {
-        if (event.getEntity().isUsingItem() && event.getEntity().getUseItem().is(IEItems.GLOWSILK_BOW.get())) {
-            float fovModifier = event.getEntity().getTicksUsingItem() / 20.0F;
+        if (event.getPlayer().isUsingItem() && event.getPlayer().getUseItem().is(IEItems.GLOWSILK_BOW.get())) {
+            float fovModifier = event.getPlayer().getTicksUsingItem() / 20.0F;
 
             if (fovModifier > 1.0F)
                 fovModifier = 1.0F;
@@ -127,7 +129,7 @@ public class ClientEvents {
             else
                 fovModifier *= fovModifier;
 
-            event.setNewfov(event.getFov() * (1.0F - (fovModifier * 0.15F)));
+            event.setNewFov(event.getFov() * (1.0F - (fovModifier * 0.15F)));
         }
     }
 
