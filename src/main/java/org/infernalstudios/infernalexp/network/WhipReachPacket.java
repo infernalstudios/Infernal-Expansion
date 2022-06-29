@@ -20,13 +20,19 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceContext;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.fml.network.NetworkEvent;
 import org.infernalstudios.infernalexp.init.IEItems;
@@ -37,48 +43,54 @@ import java.util.function.Supplier;
 
 public class WhipReachPacket {
     private final UUID playerUUID;
-    private final int targetEntityID;
-    private final ItemStack stack;
     private static final Random random = new Random();
 
 
-    public WhipReachPacket(UUID playerUUID, int target, ItemStack stack) {
+    public WhipReachPacket(UUID playerUUID) {
         this.playerUUID = playerUUID;
-        this.targetEntityID = target;
-        this.stack = stack;
     }
 
     public static void encode(WhipReachPacket message, PacketBuffer buffer) {
         buffer.writeUniqueId(message.playerUUID);
-        buffer.writeVarInt(message.targetEntityID);
-        buffer.writeItemStack(message.stack);
     }
 
     public static WhipReachPacket decode(PacketBuffer buffer) {
-        return new WhipReachPacket(buffer.readUniqueId(), buffer.readVarInt(), buffer.readItemStack());
+        return new WhipReachPacket(buffer.readUniqueId());
     }
 
     public static void handle(WhipReachPacket message, Supplier<NetworkEvent.Context> context) {
         context.get().enqueueWork(() -> {
-            PlayerEntity playerEntity = context.get().getSender();
-            playerEntity.getEntityWorld().playSound(playerEntity, playerEntity.getPosX(), playerEntity.getPosY(), playerEntity.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F));
+            PlayerEntity player = context.get().getSender();
 
-            if (playerEntity != null && playerEntity.getServer() != null) {
-                ServerPlayerEntity player = playerEntity.getServer().getPlayerList().getPlayerByUUID(message.playerUUID);
-                Entity target = playerEntity.getEntityWorld().getEntityByID(message.targetEntityID);
+            // Change the value added here to adjust the reach of the charge attack of the whip, must also be changed in WhipReachPacket
+            double reach = player.getAttribute(ForgeMod.REACH_DISTANCE.get()).getValue() + 1.0D;
 
-                double reach = player.getAttributeValue(ForgeMod.REACH_DISTANCE.get()) + 1.0D;
+            Vector3d eyePos = player.getEyePosition(1.0F);
+            Vector3d lookVec = player.getLookVec();
+            Vector3d reachVec = eyePos.add(lookVec.mul(reach, reach, reach));
 
-                if (player != null && target != null) {
-                    if (player.getDistanceSq(target) < (reach * reach) * player.getCooledAttackStrength(0.0F)) {
-                        player.attackTargetEntityWithCurrentItem(target);
-                        player.getEntityWorld().playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F));
+            AxisAlignedBB playerBox = player.getBoundingBox().expand(lookVec.scale(reach)).grow(1.0D, 1.0D, 1.0D);
+            EntityRayTraceResult entityTraceResult = ProjectileHelper.rayTraceEntities(player, eyePos, reachVec, playerBox, (target) -> !target.isSpectator() && target.isLiving(), reach * reach);
+            BlockRayTraceResult blockTraceResult = player.getEntityWorld().rayTraceBlocks(new RayTraceContext(eyePos, reachVec, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, player));
 
-                        int knockbackLevel = message.getActiveKnockback(message.stack);
+            if (entityTraceResult != null) {
+                double distance = eyePos.squareDistanceTo(entityTraceResult.getHitVec());
+                if (distance < reach * reach && distance < eyePos.squareDistanceTo(blockTraceResult.getHitVec())) {
+                    player.ticksSinceLastSwing = (int) player.getCooldownPeriod();
 
-                        // Change the first float value to change the amount of knockback on hit
-                        ((LivingEntity) target).applyKnockback(1.0F + knockbackLevel * 0.5F, MathHelper.sin(player.rotationYaw * ((float) Math.PI / 180F)), -MathHelper.cos(player.rotationYaw * ((float) Math.PI / 180F)));
+                    player.getEntityWorld().playSound(player, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F));
+
+                    if (player != null && player.getServer() != null) {
+                        ServerPlayerEntity serverPlayer = player.getServer().getPlayerList().getPlayerByUUID(message.playerUUID);
+                        Entity target = entityTraceResult.getEntity();
+
+                        if (serverPlayer != null && target != null) {
+                            if (serverPlayer.getDistanceSq(target) < (reach * reach) * serverPlayer.getCooledAttackStrength(0.0F)) {
+                                serverPlayer.attackTargetEntityWithCurrentItem(target);
+                                serverPlayer.getEntityWorld().playSound(null, serverPlayer.getPosX(), serverPlayer.getPosY(), serverPlayer.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F));}
+                        }
                     }
+
                 }
             }
         });
