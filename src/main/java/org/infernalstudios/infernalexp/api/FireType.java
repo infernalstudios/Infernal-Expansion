@@ -16,9 +16,9 @@
 
 package org.infernalstudios.infernalexp.api;
 
-import net.minecraft.client.renderer.model.RenderMaterial;
-import net.minecraft.client.renderer.texture.AtlasTexture;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -81,23 +81,23 @@ public class FireType {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public RenderMaterial getSprite0() {
-        return RenderMaterialCache.getOrCreate(this.sprite0);
+    public Material getSprite0() {
+        return MaterialCache.getOrCreate(this.sprite0);
     }
 
     @OnlyIn(Dist.CLIENT)
-    public RenderMaterial getSprite1() {
-        return RenderMaterialCache.getOrCreate(this.sprite1);
+    public Material getSprite1() {
+        return MaterialCache.getOrCreate(this.sprite1);
     }
 
     @OnlyIn(Dist.CLIENT)
-    private static final class RenderMaterialCache {
+    private static final class MaterialCache {
 
-        private static final Map<ResourceLocation, RenderMaterial> RENDER_MATERIALS = new HashMap<>();
+        private static final Map<ResourceLocation, Material> RENDER_MATERIALS = new HashMap<>();
 
-        private static RenderMaterial getOrCreate(ResourceLocation resourceLocation) {
+        private static Material getOrCreate(ResourceLocation resourceLocation) {
             if (!RENDER_MATERIALS.containsKey(resourceLocation))
-                RENDER_MATERIALS.put(resourceLocation, new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, resourceLocation));
+                RENDER_MATERIALS.put(resourceLocation, new Material(TextureAtlas.LOCATION_BLOCKS, resourceLocation));
 
             return RENDER_MATERIALS.get(resourceLocation);
         }
