@@ -133,44 +133,40 @@ public class MiscEvents {
         }
     }
 
-    //Blocks being broken
     @SubscribeEvent
     public void onBlockBreak(BlockEvent.BreakEvent event) {
+        if (event.getPlayer().isSpectator() || event.getPlayer().isCreative())
+            return;
+
         BlockState state = event.getState();
-        List<?> list = event.getPlayer().level.getEntitiesOfClass(ShroomloinEntity.class,
-            event.getPlayer().getBoundingBox().inflate(32.0D));
-        for (int j = 0; j < list.size(); j++) {
-            Entity entity = (Entity) list.get(j);
-            if (entity instanceof ShroomloinEntity shroomloinEntity) {
-                if (shroomloinEntity.getShroomloinType() == IEShroomloinTypes.CRIMSON) {
-                    if (state.is(IETags.Blocks.ANGER_CRIMSON_SHROOMLOIN_BLOCKS)) {
-                        shroomloinEntity.becomeAngryAt(event.getPlayer());
-                    }
+        for (ShroomloinEntity shroomloin : event.getPlayer().level.getEntitiesOfClass(ShroomloinEntity.class, event.getPlayer().getBoundingBox().inflate(32.0D))) {
+            if (shroomloin.getShroomloinType() == IEShroomloinTypes.CRIMSON) {
+                if (state.is(IETags.Blocks.ANGER_CRIMSON_SHROOMLOIN_BLOCKS)) {
+                    shroomloin.becomeAngryAt(event.getPlayer());
                 }
-                if (shroomloinEntity.getShroomloinType() == IEShroomloinTypes.WARPED) {
-                    if (state.is(IETags.Blocks.ANGER_WARPED_SHROOMLOIN_BLOCKS)) {
-                        shroomloinEntity.becomeAngryAt(event.getPlayer());
-                    }
+            }
+            if (shroomloin.getShroomloinType() == IEShroomloinTypes.WARPED) {
+                if (state.is(IETags.Blocks.ANGER_WARPED_SHROOMLOIN_BLOCKS)) {
+                    shroomloin.becomeAngryAt(event.getPlayer());
                 }
-                if (shroomloinEntity.getShroomloinType() == IEShroomloinTypes.LUMINOUS) {
-                    if (state.is(IETags.Blocks.ANGER_LUMINOUS_SHROOMLOIN_BLOCKS)) {
-                        shroomloinEntity.becomeAngryAt(event.getPlayer());
-                    }
+            }
+            if (shroomloin.getShroomloinType() == IEShroomloinTypes.LUMINOUS) {
+                if (state.is(IETags.Blocks.ANGER_LUMINOUS_SHROOMLOIN_BLOCKS)) {
+                    shroomloin.becomeAngryAt(event.getPlayer());
                 }
-                if (shroomloinEntity.getShroomloinType() == IEShroomloinTypes.RED) {
-                    if (state.is(IETags.Blocks.ANGER_RED_SHROOMLOIN_BLOCKS)) {
-                        shroomloinEntity.becomeAngryAt(event.getPlayer());
-                    }
+            }
+            if (shroomloin.getShroomloinType() == IEShroomloinTypes.RED) {
+                if (state.is(IETags.Blocks.ANGER_RED_SHROOMLOIN_BLOCKS)) {
+                    shroomloin.becomeAngryAt(event.getPlayer());
                 }
-                if (shroomloinEntity.getShroomloinType() == IEShroomloinTypes.BROWN) {
-                    if (state.is(IETags.Blocks.ANGER_BROWN_SHROOMLOIN_BLOCKS)) {
-                        shroomloinEntity.becomeAngryAt(event.getPlayer());
-                    }
+            }
+            if (shroomloin.getShroomloinType() == IEShroomloinTypes.BROWN) {
+                if (state.is(IETags.Blocks.ANGER_BROWN_SHROOMLOIN_BLOCKS)) {
+                    shroomloin.becomeAngryAt(event.getPlayer());
                 }
             }
         }
     }
-
 
     @SubscribeEvent
     public void onRightClickBlock(PostRightClickBlockEvent event) {

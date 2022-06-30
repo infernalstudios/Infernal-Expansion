@@ -83,12 +83,12 @@ public record AddConfigurableSpawnsBiomeModifier() implements BiomeModifier {
 
 
     private void addSpawn(ModifiableBiomeInfo.BiomeInfo.Builder builder, EntityType<?> entityType, SpawnrateManager.SpawnInfo spawnInfo) {
-        builder.getMobSpawnSettings().addSpawn(entityType.getCategory(), new MobSpawnSettings.SpawnerData(entityType, spawnInfo.getSpawnRate(), spawnInfo.getMinCount(), spawnInfo.getMaxCount()));
+        builder.getMobSpawnSettings().addSpawn(entityType.getCategory(), new MobSpawnSettings.SpawnerData(entityType, spawnInfo.spawnRate(), spawnInfo.minCount(), spawnInfo.maxCount()));
 
         // Change spawn costs
-        if (spawnInfo.getSpawnCostPerEntity() != null && spawnInfo.getMaxSpawnCost() != null) {
-            builder.getMobSpawnSettings().addMobCharge(entityType, spawnInfo.getSpawnCostPerEntity(), spawnInfo.getMaxSpawnCost());
-        } else if (spawnInfo.getSpawnCostPerEntity() != null || spawnInfo.getMaxSpawnCost() != null) {
+        if (spawnInfo.charge() != 0.0D && spawnInfo.energyBudget() != 0.0D) {
+            builder.getMobSpawnSettings().addMobCharge(entityType, spawnInfo.charge(), spawnInfo.energyBudget());
+        } else if (spawnInfo.charge() != 0.0D || spawnInfo.energyBudget() != 0.0D) {
             InfernalExpansion.LOGGER.error("EntityType {} has incomplete spawn cost data. When editing spawn costs, make sure to set both \"spawn_cost_per_entity\" and \"max_spawn_cost\"", entityType.toString());
         }
     }

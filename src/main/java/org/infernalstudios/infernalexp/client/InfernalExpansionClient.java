@@ -29,17 +29,18 @@ import org.infernalstudios.infernalexp.client.gui.InfectionHeartOverlay;
 import org.infernalstudios.infernalexp.config.gui.screens.ConfigScreen;
 import org.infernalstudios.infernalexp.events.ClientEvents;
 import org.infernalstudios.infernalexp.init.IEItems;
-import org.infernalstudios.infernalexp.items.IESpawnEggItem;
 import org.infernalstudios.infernalexp.items.WhipItem;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.function.Consumer;
 
 @OnlyIn(Dist.CLIENT)
 public class InfernalExpansionClient {
-    public static void init() {
+
+    public static void init(Consumer<Runnable> enqueueWorkConsumer) {
         // Register GUI Factories
         ModLoadingContext.get().registerExtensionPoint(ConfigGuiHandler.ConfigGuiFactory.class, () -> new ConfigGuiHandler.ConfigGuiFactory((mc, screen) -> new ConfigScreen()));
 
@@ -47,7 +48,11 @@ public class InfernalExpansionClient {
         MinecraftForge.EVENT_BUS.register(new InfectionHeartOverlay());
         MinecraftForge.EVENT_BUS.addListener((LivingUpdateEvent event) -> DynamicLightingHandler.tick(event.getEntityLiving()));
 
-        ItemProperties.register(IEItems.GLOWSILK_BOW.get(), new ResourceLocation("pull"), (itemStack, clientWorld, livingEntity, entityId) -> {
+        enqueueWorkConsumer.accept(InfernalExpansionClient::threadSafeInit);
+    }
+
+    private static void threadSafeInit() {
+        ItemProperties.register(IEItems.GLOWSILK_BOW.get(), new ResourceLocation("pull"), (itemStack, clientWorld, livingEntity, ticks) -> {
             if (livingEntity == null) {
                 return 0.0F;
             } else {
@@ -71,7 +76,6 @@ public class InfernalExpansionClient {
         ItemProperties.register(IEItems.KINETIC_TONGUE_WHIP.get(), new ResourceLocation("attacking"), (itemStack, clientWorld, livingEntity, entityId) -> livingEntity != null && (((WhipItem) itemStack.getItem()).getAttacking(itemStack) || ((WhipItem) itemStack.getItem()).getCharging(itemStack)) && (livingEntity.getMainHandItem() == itemStack || livingEntity.getOffhandItem() == itemStack) ? 1.0F : 0.0F);
 
         InfernalExpansionClient.loadInfernalResources();
-        IESpawnEggItem.initUnaddedEggs();
     }
 
     public static void loadInfernalResources() {

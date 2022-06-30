@@ -229,16 +229,16 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
     // BEHAVIOUR
 	@Override
 	protected void registerGoals() {
-        super.registerGoals();
-        // this.goalSelector.addGoal(0, new TemptGoal(this, 0.6D, TEMPTATION_ITEMS,
-        // false));
-        // this.goalSelector.addGoal(0, new ShroomloinSwellGoal(this));
-        this.goalSelector.addGoal(1, new RangedAttackUnInfectedGoal(this, 1, 60, 10));
-        this.goalSelector.addGoal(1, new MeleeAttackInfectedGoal(this, 0.6d, true));
-        this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 0.5d));
-        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8.0f));
-        this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+		super.registerGoals();
+		// this.goalSelector.addGoal(0, new TemptGoal(this, 0.6D, TEMPTATION_ITEMS,
+		// false));
+		// this.goalSelector.addGoal(0, new ShroomloinSwellGoal(this));
+		this.goalSelector.addGoal(1, new RangedAttackUnInfectedGoal(this, 1, 60, 10));
+		this.goalSelector.addGoal(1, new MeleeAttackInfectedGoal(this, 0.6d, true));
+		this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 0.5d));
+		this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8.0f));
+		this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(1, new ShroomloinTargetGoal(this));
 
 //        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal(this, PlayerEntity.class, 10, true, false, this::isAngryAt));
 //?        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
@@ -335,12 +335,40 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
         AscusBombEntity ascusBombEntity = new AscusBombEntity(this.level, this);
 
         ascusBombEntity.setItem(new ItemStack(IEItems.ASCUS_BOMB.get()));
-        ascusBombEntity.setXRot(ascusBombEntity.getXRot() + 20);
+        ascusBombEntity.setXRot(-20);
         ascusBombEntity.shoot(x, y + (distance * 0.2), z, 0.75f, 8);
 
         this.setShroomloinState(-1);
         this.level.addFreshEntity(ascusBombEntity);
-	}
+    }
+
+    static class ShroomloinTargetGoal extends HurtByTargetGoal {
+
+        private final ShroomloinEntity shroomloin;
+
+        public ShroomloinTargetGoal(ShroomloinEntity shroomloin, Class<?>... excludeReinforcementTypes) {
+            super(shroomloin, excludeReinforcementTypes);
+
+            this.shroomloin = shroomloin;
+        }
+
+        @Override
+        public boolean canUse() {
+            if (this.shroomloin.isConverting())
+                return false;
+
+            return super.canUse();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            if (this.shroomloin.isConverting())
+                return false;
+
+            return super.canContinueToUse();
+        }
+
+    }
 
     static class MeleeAttackInfectedGoal extends MeleeAttackGoal {
 

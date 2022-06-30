@@ -20,10 +20,14 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
+
 import org.infernalstudios.infernalexp.access.FireTypeAccess;
+import org.infernalstudios.infernalexp.api.FireType;
+import org.infernalstudios.infernalexp.init.IEFireTypes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -46,32 +50,32 @@ public abstract class MixinEntity implements FireTypeAccess {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void IE_init(EntityType<?> entityTypeIn, Level worldIn, CallbackInfo ci) {
-        this.entityData.define(FIRE_TYPE, KnownFireTypes.FIRE.getName());
+        this.entityData.define(FIRE_TYPE, IEFireTypes.FIRE.getName().toString());
     }
 
     @Inject(method = "saveWithoutId", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundTag;putShort(Ljava/lang/String;S)V", ordinal = 0, shift = Shift.AFTER))
     private void IE_writeCustomFires(CompoundTag tag, CallbackInfoReturnable<CompoundTag> ci) {
-        tag.putString("fireType", this.getFireType().getName());
+        tag.putString("fireType", this.getFireType().getName().toString());
     }
 
     @Inject(method = "load", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundTag;getShort(Ljava/lang/String;)S", ordinal = 0, shift = Shift.AFTER))
     private void IE_readCustomFires(CompoundTag tag, CallbackInfo ci) {
-        this.setFireType(KnownFireTypes.byName(tag.getString("fireType")));
+        this.setFireType(FireType.getOrDefault(new ResourceLocation(tag.getString("fireType")), IEFireTypes.FIRE));
     }
 
-    @Inject(method = "lavaHurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setSecondsOnFire(I)V", shift = Shift.BEFORE))
-    private void IE_setCustomFireFromLava(CallbackInfo ci) {
-        this.setFireType(KnownFireTypes.FIRE);
-    }
-
-    @Override
-    public KnownFireTypes getFireType() {
-        return KnownFireTypes.byName(this.entityData.get(FIRE_TYPE));
+    @Inject(method = "setSecondsOnFire", at = @At("HEAD"))
+    private void IE_setToDefaultFireType(int seconds, CallbackInfo ci) {
+        this.setFireType(IEFireTypes.FIRE);
     }
 
     @Override
-    public void setFireType(KnownFireTypes type) {
-        this.entityData.set(FIRE_TYPE, type.getName());
+    public FireType getFireType() {
+        return FireType.getOrDefault(new ResourceLocation(this.entityData.get(FIRE_TYPE)), IEFireTypes.FIRE);
+    }
+
+    @Override
+    public void setFireType(FireType type) {
+        this.entityData.set(FIRE_TYPE, type.getName().toString());
     }
 
 }
