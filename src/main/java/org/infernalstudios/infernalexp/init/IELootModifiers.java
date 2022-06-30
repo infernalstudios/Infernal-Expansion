@@ -54,12 +54,17 @@ public class IELootModifiers {
         @Nonnull
         @Override
         protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-            if (context.getRandom().nextDouble() < 0.6 || !InfernalExpansionConfig.MobInteractions.USE_HOGCHOPS.getBoolean()) {
+            if (!InfernalExpansionConfig.MobInteractions.USE_HOGCHOPS.getBoolean())
                 return generatedLoot;
-            }
 
-            int numChops = 0;
-            int numCookedChops = 0;
+            generatedLoot.removeIf(stack -> stack.is(Items.PORKCHOP));
+            generatedLoot.removeIf(stack -> stack.is(Items.COOKED_PORKCHOP));
+
+            if (context.getRandom().nextDouble() < 0.7)
+                return generatedLoot;
+
+            int numChops = -1;
+            int numCookedChops = -1;
 
             for (ItemStack item : generatedLoot) {
                 if (item.sameItem(Items.PORKCHOP.getDefaultInstance())) {
@@ -69,10 +74,8 @@ public class IELootModifiers {
                 }
             }
 
-            generatedLoot.removeIf(x -> x.sameItem(Items.PORKCHOP.getDefaultInstance()));
-            generatedLoot.removeIf(x -> x.sameItem(Items.COOKED_PORKCHOP.getDefaultInstance()));
-            generatedLoot.add(new ItemStack(IEItems.COOKED_HOGCHOP.get(), numCookedChops));
-            generatedLoot.add(new ItemStack(IEItems.RAW_HOGCHOP.get(), numChops));
+            generatedLoot.add(new ItemStack(IEItems.COOKED_HOGCHOP.get(), Math.max(numCookedChops, 0)));
+            generatedLoot.add(new ItemStack(IEItems.RAW_HOGCHOP.get(), Math.max(numChops, 1)));
 
             return generatedLoot;
         }
