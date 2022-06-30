@@ -50,7 +50,7 @@ public abstract class MixinAbstractFireBlock extends Block {
         }
     }
 
-    @Inject(method = "entityInside", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setRemainingFireTicks(I)V"))
+    @Inject(method = "entityInside", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"))
     private void IE_setCustomFires(BlockState state, Level worldIn, BlockPos pos, Entity entityIn, CallbackInfo info) {
         FireType.getFireTypes().forEach(fireType -> {
             if (fireType != IEFireTypes.FIRE && ModList.get().isLoaded(fireType.getName().getNamespace())) {
