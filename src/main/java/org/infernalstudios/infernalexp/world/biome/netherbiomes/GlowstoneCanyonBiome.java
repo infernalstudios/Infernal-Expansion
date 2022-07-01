@@ -110,7 +110,6 @@ public class GlowstoneCanyonBiome extends IEBiome {
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.GLOWSTONE_EXTRA);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.GLOWSTONE);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, OrePlacements.ORE_MAGMA);
-        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, IEPlacedFeatures.ORE_GLOWSILK_COCOON);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, IEPlacedFeatures.PATCH_GLOW_FIRE);
         generation.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, IEPlacedFeatures.GLOWDUST_LAYER);
 

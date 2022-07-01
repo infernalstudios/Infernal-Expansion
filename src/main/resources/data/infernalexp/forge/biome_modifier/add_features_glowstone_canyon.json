@@ -1,0 +1,12 @@
+{
+  "type": "infernalexp:add_features",
+  "biome": "infernalexp:glowstone_canyon",
+  "features_at_steps": [
+    {
+      "step": "underground_ores",
+      "features": [
+        "infernalexp:ore_glowsilk_cocoon"
+      ]
+    }
+  ]
+}
