@@ -95,10 +95,13 @@ public class BasaltGiantModel<T extends BasaltGiantEntity> extends EntityModel<T
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 
-        int i = entity.getAttackTimer();
+        int i = entity.getKickTimer();
+        int j = entity.getRoarTimer();
         if (i <= 0) {
+            if (j <= 0) {
+                jaw.xRot = 0.0F;
+            }
             rightLeg.xRot = Mth.cos(limbSwing * 0.4F + (float) Math.PI) * 1.0F * limbSwingAmount;
-            jaw.xRot = 0.0F;
         }
 
         leftArm.xRot = Mth.cos(limbSwing * 0.4F + (float) Math.PI) * 0.8F * limbSwingAmount;
@@ -128,10 +131,13 @@ public class BasaltGiantModel<T extends BasaltGiantEntity> extends EntityModel<T
     }
 
     public void prepareMobModel(T entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
-        int i = entityIn.getAttackTimer();
+        int i = entityIn.getKickTimer();
+        int j = entityIn.getRoarTimer();
         if (i > 0) {
             rightLeg.xRot = -0.9F + 0.9F * Mth.triangleWave((float) i - partialTick, 10.0F);
             jaw.xRot = 0.375F - 0.375F * Mth.triangleWave((float) i - partialTick, 10.0F);
+        } else if (j > 0) {
+            jaw.xRot = 0.375F - 0.375F * Mth.triangleWave((float) j - partialTick, 10.0F);
         }
     }
 
