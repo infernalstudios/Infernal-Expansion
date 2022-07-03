@@ -43,6 +43,7 @@ import org.infernalstudios.infernalexp.client.entity.render.EmbodyRenderer;
 import org.infernalstudios.infernalexp.client.entity.render.GlowsilkMothRenderer;
 import org.infernalstudios.infernalexp.client.entity.render.GlowsquitoRenderer;
 import org.infernalstudios.infernalexp.client.entity.render.InfernalPaintingRenderer;
+import org.infernalstudios.infernalexp.client.entity.render.RockRenderer;
 import org.infernalstudios.infernalexp.client.entity.render.ShroomloinRenderer;
 import org.infernalstudios.infernalexp.client.entity.render.VolineRenderer;
 import org.infernalstudios.infernalexp.client.entity.render.WarpbeetleRenderer;
@@ -68,6 +69,7 @@ public class ClientEvents {
         event.registerEntityRenderer(IEEntityTypes.ASCUS_BOMB.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(IEEntityTypes.THROWABLE_MAGMA_CREAM.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(IEEntityTypes.THROWABLE_FIRE_CHARGE.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(IEEntityTypes.ROCK.get(), RockRenderer::new);
         event.registerEntityRenderer(IEEntityTypes.THROWABLE_BRICK.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(IEEntityTypes.THROWABLE_NETHER_BRICK.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(IEEntityTypes.INFERNAL_PAINTING.get(), InfernalPaintingRenderer::new);
