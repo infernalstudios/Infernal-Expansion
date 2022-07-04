@@ -97,7 +97,8 @@ public class BlackstoneDwarfModel<T extends BlackstoneDwarfEntity> extends Entit
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 
         int i = entity.getAttackTimer();
-        if (i <= 0) {
+        int j = entity.getRockTimer();
+        if (i <= 0 && j <= 0) {
             leftArm.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
             rightArm.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
             jaw.xRot = 0.0F;
@@ -117,12 +118,18 @@ public class BlackstoneDwarfModel<T extends BlackstoneDwarfEntity> extends Entit
         body.render(matrixStack, buffer, packedLight, packedOverlay);
     }
 
+    @Override
     public void prepareMobModel(T entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
         int i = entityIn.getAttackTimer();
+        int j = entityIn.getRockTimer();
         if (i > 0) {
             leftArm.xRot = -0.9F + 0.9F * Mth.triangleWave((float) i - partialTick, 10.0F);
             rightArm.xRot = -0.9F + 0.9F * Mth.triangleWave((float) i - partialTick, 10.0F);
             jaw.xRot = 0.375F - 0.375F * Mth.triangleWave((float) i - partialTick, 10.0F);
+        } else if (j > 0) {
+            leftArm.xRot = -0.9F + 0.9F * Mth.triangleWave((float) j - partialTick, 10.0F);
+            rightArm.xRot = -0.9F + 0.9F * Mth.triangleWave((float) j - partialTick, 10.0F);
+            jaw.xRot = 0.375F - 0.375F * Mth.triangleWave((float) j - partialTick, 10.0F);
         }
     }
 

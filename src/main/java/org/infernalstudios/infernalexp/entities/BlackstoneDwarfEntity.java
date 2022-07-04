@@ -26,7 +26,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -47,11 +46,8 @@ import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolActions;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
@@ -95,6 +91,9 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements RangedAttack
         super.aiStep();
         if (this.getAttackTimer() > 0) {
             this.entityData.set(ATTACK_TIMER, this.getAttackTimer() - 1);
+        }
+        if (this.getRockTimer() > 0) {
+            this.entityData.set(ROCK_TIMER, this.getRockTimer() - 1);
         }
     }
 
@@ -151,8 +150,8 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements RangedAttack
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 0.6D, true));
-        this.goalSelector.addGoal(0, new RockThrowAttack(this, 0.6D, 60, 100, 5.0F, 16.0F));
+        this.goalSelector.addGoal(0, new DwarfMeleeAttackGoal(this, 0.6D, 5.0F, true));
+        this.goalSelector.addGoal(0, new RockThrowAttackGoal(this, 0.6D, 60, 100, 5.0F, 16.0F));
         this.goalSelector.addGoal(1, new WaterAvoidingRandomStrollGoal(this, 0.5d));
         this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8.0f));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
@@ -213,53 +212,78 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements RangedAttack
         for(int i = 0; i < 5; ++i) {
             switch (i) {
                 case 0:
-                    throwRock(this.level, this, 1.6F, 1.0F, 0);
+                    throwRock(this.level, this, 1.6F, 1.0F, 0, 0.1F);
                     break;
                 case 1:
-                    throwRock(this.level, this, 1.6F, 1.0F, -5);
+                    throwRock(this.level, this, 1.6F, 1.0F, -5, 0.1F);
                     break;
                 case 2:
-                    throwRock(this.level, this, 1.6F, 1.0F, -10);
+                    throwRock(this.level, this, 1.6F, 1.0F, -10, 0.1F);
                     break;
                 case 3:
-                    throwRock(this.level, this, 1.6F, 1.0F, 5);
+                    throwRock(this.level, this, 1.6F, 1.0F, 5, 0.1F);
                     break;
                 default:
                 case 4:
-                    throwRock(this.level, this, 1.6F, 1.0F, 10);
+                    throwRock(this.level, this, 1.6F, 1.0F, 10, 0.1F);
                     break;
             }
         }
     }
 
-    private void throwRock(Level level, LivingEntity shooter, float shotPower, float componentMultiplier, float variance) {
+    private void throwRock(Level level, LivingEntity shooter, float shotPower, float componentMultiplier, float horizontalVariance, float verticalVariance) {
         if (!level.isClientSide) {
             RockEntity rock = new RockEntity(this.level, this);
             Vec3 vec31 = shooter.getUpVector(1.0F);
-            Quaternion quaternion = new Quaternion(new Vector3f(vec31), variance, true);
+            Quaternion quaternion = new Quaternion(new Vector3f(vec31), horizontalVariance, true);
             Vec3 vec3 = shooter.getViewVector(1.0F);
             Vector3f launchVector = new Vector3f(vec3);
             launchVector.transform(quaternion);
-            rock.shoot(launchVector.x(), launchVector.y(), launchVector.z(), shotPower, componentMultiplier);
+            rock.shoot(launchVector.x(), launchVector.y() + shooter.getRandom().nextFloat(2 * verticalVariance) - verticalVariance, launchVector.z(), shotPower, componentMultiplier);
 
             level.addFreshEntity(rock);
             level.playSound(null, shooter.getX(), shooter.getY(), shooter.getZ(), SoundEvents.EGG_THROW, SoundSource.PLAYERS, 1.0F, shooter.getRandom().nextFloat(0.5F) + 0.5F);
         }
     }
 
-    static class RockThrowAttack extends RangedAttackGoal {
+    static class RockThrowAttackGoal extends RangedAttackGoal {
         private final BlackstoneDwarfEntity dwarf;
-        private final float minRange;
+        private final float minRangeSqr;
 
-        public RockThrowAttack(BlackstoneDwarfEntity dwarf, double speedModifier, int minInterval, int maxInterval, float minRange, float maxRange) {
+        public RockThrowAttackGoal(BlackstoneDwarfEntity dwarf, double speedModifier, int minInterval, int maxInterval, float minRange, float maxRange) {
             super(dwarf, speedModifier, minInterval, maxInterval, maxRange);
             this.dwarf = dwarf;
-            this.minRange = minRange;
+            this.minRangeSqr = minRange * minRange;
         }
 
         @Override
         public boolean canUse() {
-            return super.canUse() && this.dwarf.getTarget() != null && this.dwarf.distanceToSqr(this.dwarf.getTarget()) >= minRange;
+            return super.canUse() && this.dwarf.getTarget() != null && this.dwarf.distanceToSqr(this.dwarf.getTarget()) >= minRangeSqr;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return super.canContinueToUse() && this.dwarf.getTarget() != null && this.dwarf.distanceToSqr(this.dwarf.getTarget()) >= minRangeSqr;
+        }
+    }
+
+    static class DwarfMeleeAttackGoal extends MeleeAttackGoal {
+        private final BlackstoneDwarfEntity dwarf;
+        private final float maxRangeSqr;
+        public DwarfMeleeAttackGoal(BlackstoneDwarfEntity dwarf, double speedModifier, float maxRange, boolean followIfNotSeen) {
+            super(dwarf, speedModifier, followIfNotSeen);
+            this.dwarf = dwarf;
+            this.maxRangeSqr = maxRange * maxRange;
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && this.dwarf.getTarget() != null && this.dwarf.distanceToSqr(this.dwarf.getTarget()) < this.maxRangeSqr;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return super.canContinueToUse() && this.dwarf.getTarget() != null && this.dwarf.distanceToSqr(this.dwarf.getTarget()) < this.maxRangeSqr;
         }
     }
 }
