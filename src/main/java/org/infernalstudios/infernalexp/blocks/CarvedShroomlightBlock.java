@@ -64,7 +64,7 @@ public class CarvedShroomlightBlock extends HorizontalDirectionalBlock implement
 
             BlockPos blockpos = patternMatch.getBlock(1, 2, 0).getPos();
             BlackstoneDwarfEntity blackstoneDwarf = IEEntityTypes.BLACKSTONE_DWARF.get().create(level);
-            //blackstoneDwarf.setPlayerCreated(true);
+            blackstoneDwarf.setPlayerCreated(true);
             blackstoneDwarf.moveTo((double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.05D, (double) blockpos.getZ() + 0.5D, 0.0F, 0.0F);
             level.addFreshEntity(blackstoneDwarf);
 

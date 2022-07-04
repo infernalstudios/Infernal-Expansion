@@ -26,6 +26,8 @@ import org.infernalstudios.infernalexp.entities.BlackstoneDwarfEntity;
 public class BlackstoneDwarfRenderer extends MobRenderer<BlackstoneDwarfEntity, BlackstoneDwarfModel<BlackstoneDwarfEntity>> {
     public static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID,
         "textures/entity/blackstone_dwarf.png");
+    public static final ResourceLocation CREATED_TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID,
+        "textures/entity/blackstone_dwarf_created.png");
 
     public BlackstoneDwarfRenderer(EntityRendererProvider.Context context) {
         super(context, new BlackstoneDwarfModel<>(context.bakeLayer(BlackstoneDwarfModel.LAYER_LOCATION)), 0.7f);
@@ -34,6 +36,6 @@ public class BlackstoneDwarfRenderer extends MobRenderer<BlackstoneDwarfEntity, 
 
     @Override
     public ResourceLocation getTextureLocation(BlackstoneDwarfEntity entity) {
-        return TEXTURE;
+        return entity.isPlayerCreated() ? CREATED_TEXTURE : TEXTURE;
     }
 }

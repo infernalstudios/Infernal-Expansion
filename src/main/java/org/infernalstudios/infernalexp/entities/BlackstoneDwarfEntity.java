@@ -18,6 +18,7 @@ package org.infernalstudios.infernalexp.entities;
 
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -59,6 +60,7 @@ import java.util.UUID;
 
 public class BlackstoneDwarfEntity extends PathfinderMob implements RangedAttackMob, NeutralMob {
 
+    private static final EntityDataAccessor<Boolean> PLAYER_CREATED = SynchedEntityData.defineId(BlackstoneDwarfEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> ATTACK_TIMER = SynchedEntityData.defineId(BlackstoneDwarfEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ROCK_TIMER = SynchedEntityData.defineId(BlackstoneDwarfEntity.class, EntityDataSerializers.INT);
     private static final UniformInt RANGED_INT = TimeUtil.rangeOfSeconds(20, 39);
@@ -72,8 +74,23 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements RangedAttack
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(PLAYER_CREATED, false);
         this.entityData.define(ATTACK_TIMER, 0);
         this.entityData.define(ROCK_TIMER, 0);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putBoolean("PlayerCreated", this.isPlayerCreated());
+        this.addPersistentAngerSaveData(tag);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        this.setPlayerCreated(tag.getBoolean("PlayerCreated"));
+        this.readPersistentAngerSaveData(this.level, tag);
     }
 
     // ATTRIBUTES
@@ -103,6 +120,14 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements RangedAttack
 
     public int getRockTimer() {
         return this.entityData.get(ROCK_TIMER);
+    }
+
+    public boolean isPlayerCreated() {
+        return this.entityData.get(PLAYER_CREATED);
+    }
+
+    public void setPlayerCreated(boolean isCreated) {
+        this.entityData.set(PLAYER_CREATED, isCreated);
     }
 
     public boolean doHurtTarget(Entity entityIn) {
@@ -167,6 +192,15 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements RangedAttack
         }
         if (InfernalExpansionConfig.MobInteractions.GLOWSQUITO_ATTACK_DWARF.getBoolean()) {
             this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, GlowsquitoEntity.class, true));
+        }
+    }
+
+    @Override
+    public boolean canAttackType(EntityType<?> targetType) {
+        if (this.isPlayerCreated() && targetType == EntityType.PLAYER) {
+            return false;
+        } else {
+            return super.canAttackType(targetType);
         }
     }
 
