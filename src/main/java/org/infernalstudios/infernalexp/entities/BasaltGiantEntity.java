@@ -16,6 +16,7 @@
 
 package org.infernalstudios.infernalexp.entities;
 
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.entity.IEntityAdditionalSpawnData;
@@ -114,11 +115,16 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
     @Override
     public void aiStep() {
         super.aiStep();
-        if (this.entityData.get(KICK_TIMER) > 0) {
-            this.entityData.set(KICK_TIMER, this.entityData.get(KICK_TIMER) - 1);
+
+        if (this.getRoarTimer() == 5) {
+            this.performRoar(this.getTarget());
         }
-        if (this.entityData.get(ROAR_TIMER) > 0) {
-            this.entityData.set(ROAR_TIMER, this.entityData.get(ROAR_TIMER) - 1);
+
+        if (this.getKickTimer() > 0) {
+            this.entityData.set(KICK_TIMER, this.getKickTimer() - 1);
+        }
+        if (this.getRoarTimer() > 0) {
+            this.entityData.set(ROAR_TIMER, this.getRoarTimer() - 1);
         }
     }
 
@@ -182,6 +188,10 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
         return this.entityData.get(ROAR_TIMER);
     }
 
+    public void setRoarTimer(int time) {
+        this.entityData.set(ROAR_TIMER, time);
+    }
+
     @Override
     public boolean doHurtTarget(Entity entityIn) {
         this.entityData.set(KICK_TIMER, 10);
@@ -205,19 +215,29 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
         return flag;
     }
 
-    private boolean performRoar(Entity target) {
-        this.entityData.set(ROAR_TIMER, 10);
-        float f = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) / 2.0F;
-        float f1 = (int) f > 0 ? f / 2.0F + (float) this.random.nextInt((int) f) : f;
-        float f2 = (float) this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
+    private boolean performRoar(@Nullable Entity target) {
+        boolean flag = false;
+        if (!this.level.isClientSide() && target != null) {
+            float f = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) / 2.0F;
+            float f1 = (int) f > 0 ? f / 2.0F + (float) this.random.nextInt((int) f) : f;
+            float f2 = (float) this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
 
-        boolean flag = target.hurt(DamageSource.mobAttack(this), f1);
-        if (target instanceof LivingEntity livingEntity) {
-            livingEntity.knockback(f2, Mth.sin(this.getYRot() * ((float) Math.PI / 180F)), -Mth.cos(this.getYRot() * ((float) Math.PI / 180F)));
+            flag = target.hurt(DamageSource.mobAttack(this), f1);
+            if (target instanceof LivingEntity livingEntity) {
+                livingEntity.knockback(f2, Mth.sin(this.getYRot() * ((float) Math.PI / 180F)), -Mth.cos(this.getYRot() * ((float) Math.PI / 180F)));
+            }
         }
 
         this.playSound(SoundEvents.FIREWORK_ROCKET_LARGE_BLAST, 1.0F, 1.0F);
+        spawnFlames(5);
+
         return flag;
+    }
+
+    private void spawnFlames(int flameCount) {
+        for (int i = 0; i < flameCount; i++) {
+            this.level.addParticle(ParticleTypes.FLAME, this.getX() - 0.75D * Mth.sin(this.getYHeadRot() * Mth.DEG_TO_RAD), this.getY() + this.getEyeHeight() - 0.3D, this.getZ() + 0.75D * Mth.cos(this.getYHeadRot() * Mth.DEG_TO_RAD), this.random.nextDouble(0.5D) * -Mth.sin(this.getYHeadRot() * Mth.DEG_TO_RAD), 0, this.random.nextDouble(0.5D) * Mth.cos(this.getYHeadRot() * Mth.DEG_TO_RAD));
+        }
     }
 
     private void attackFling(Entity entityIn, float f2, double height) {
@@ -365,13 +385,13 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
             double distance2D = this.mob.distanceToSqr(target.getX(), this.mob.getY(), target.getZ());
             if (distance2D <= range && target.getY() - this.mob.getY() <= 6.0D && this.getTicksUntilNextAttack() <= 0) {
                 this.resetAttackCooldown();
-                this.basaltGiant.performRoar(target);
+                this.basaltGiant.setRoarTimer(10);
             }
         }
 
         @Override
         protected int getAttackInterval() {
-            return this.adjustedTickDelay(60);
+            return this.adjustedTickDelay(100);
         }
 
         @Override
