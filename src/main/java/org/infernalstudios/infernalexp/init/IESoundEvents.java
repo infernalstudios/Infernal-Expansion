@@ -45,6 +45,7 @@ public class IESoundEvents {
 	public static final RegistryObject<SoundEvent> BASALT_GIANT_AMBIENT = add("entity.basalt_giant.ambient");
 	public static final RegistryObject<SoundEvent> BASALT_GIANT_HURT = add("entity.basalt_giant.hurt");
 	public static final RegistryObject<SoundEvent> BASALT_GIANT_DEATH = add("entity.basalt_giant.death");
+    public static final RegistryObject<SoundEvent> BASALT_GIANT_ATTACK = add("entity.basalt_giant.attack");
 
 	// SKELETAL PIGLIN
 	public static final RegistryObject<SoundEvent> SKELETAL_PIGLIN_AMBIENT = add("entity.skeletal_piglin.ambient");

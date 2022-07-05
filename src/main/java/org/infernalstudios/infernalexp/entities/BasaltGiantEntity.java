@@ -17,6 +17,7 @@
 package org.infernalstudios.infernalexp.entities;
 
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.entity.IEntityAdditionalSpawnData;
@@ -195,7 +196,7 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
     @Override
     public boolean doHurtTarget(Entity entityIn) {
         this.entityData.set(KICK_TIMER, 10);
-        this.playSound(IESoundEvents.BASALT_GIANT_DEATH.get(), 1.0F, 1.0F);
+        this.playSound(IESoundEvents.BASALT_GIANT_ATTACK.get(), 1.0F, 1.0F);
         float f = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
         float f1 = (int) f > 0 ? f / 2.0F + (float) this.random.nextInt((int) f) : f;
         float f2 = (float) this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
@@ -211,12 +212,12 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
             attackFling(entityIn, f2, 0.6);
         }
 
-        this.playSound(IESoundEvents.BASALT_GIANT_HURT.get(), 1.0F, 1.0F);
         return flag;
     }
 
     private boolean performRoar(@Nullable Entity target) {
         boolean flag = false;
+        this.level.playSound(null, this, IESoundEvents.BASALT_GIANT_ATTACK.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
         if (!this.level.isClientSide() && target != null) {
             float f = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) / 2.0F;
             float f1 = (int) f > 0 ? f / 2.0F + (float) this.random.nextInt((int) f) : f;

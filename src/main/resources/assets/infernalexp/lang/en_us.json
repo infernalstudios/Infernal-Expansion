@@ -212,6 +212,7 @@
   "subtitles.entity.basalt_giant.ambient": "Basalt Giant grunts",
   "subtitles.entity.basalt_giant.hurt": "Basalt Giant hurts",
   "subtitles.entity.basalt_giant.death": "Basalt Giant dies",
+  "subtitles.entity.basalt_giant.attack": "Basalt Giant roars",
   "subtitles.entity.blindsight.ambient": "Blindsight clicks tongue",
   "subtitles.entity.blindsight.hurt": "Blindsight shrieks",
   "subtitles.entity.blindsight.death": "Blindsight dies",

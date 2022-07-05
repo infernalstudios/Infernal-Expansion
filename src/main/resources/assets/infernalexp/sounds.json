@@ -32,19 +32,27 @@
   "entity.basalt_giant.ambient": {
     "subtitle": "subtitles.entity.basalt_giant.ambient",
     "sounds": [
-      "infernalexp:entity/basalt_giant/basalt_giant_ambient"
+      "infernalexp:entity/basalt_giant/basalt_giant_ambient",
+      "infernalexp:entity/basalt_giant/basalt_giant_ambient_2"
     ]
   },
   "entity.basalt_giant.hurt": {
     "subtitle": "subtitles.entity.basalt_giant.hurt",
     "sounds": [
-      "infernalexp:entity/basalt_giant/basalt_giant_hurt"
+      "infernalexp:entity/basalt_giant/basalt_giant_hurt",
+      "infernalexp:entity/basalt_giant/basalt_giant_hurt_2"
     ]
   },
   "entity.basalt_giant.death": {
     "subtitle": "subtitles.entity.basalt_giant.death",
     "sounds": [
       "infernalexp:entity/basalt_giant/basalt_giant_death"
+    ]
+  },
+  "entity.basalt_giant.attack": {
+    "subtitle": "subtitles.entity.basalt_giant.attack",
+    "sounds": [
+      "infernalexp:entity/basalt_giant/basalt_giant_attack"
     ]
   },
   "entity.blindsight.ambient":  {
