@@ -55,6 +55,36 @@
       "infernalexp:entity/basalt_giant/basalt_giant_attack"
     ]
   },
+  "entity.blackstone_dwarf.ambient": {
+    "subtitle": "subtitles.entity.blackstone_dwarf.ambient",
+    "sounds": [
+      "infernalexp:entity/blackstone_dwarf/blackstone_dwarf_ambient"
+    ]
+  },
+  "entity.blackstone_dwarf.hurt": {
+    "subtitle": "subtitles.entity.blackstone_dwarf.hurt",
+    "sounds": [
+      "infernalexp:entity/blackstone_dwarf/blackstone_dwarf_hurt"
+    ]
+  },
+  "entity.blackstone_dwarf.death": {
+    "subtitle": "subtitles.entity.blackstone_dwarf.death",
+    "sounds": [
+      "infernalexp:entity/blackstone_dwarf/blackstone_dwarf_death"
+    ]
+  },
+  "entity.blackstone_dwarf.roar_melee": {
+    "subtitle": "subtitles.entity.blackstone_dwarf.roar_melee",
+    "sounds": [
+      "infernalexp:entity/blackstone_dwarf/blackstone_dwarf_roar_melee"
+    ]
+  },
+  "entity.blackstone_dwarf.roar_ranged": {
+    "subtitle": "subtitles.entity.blackstone_dwarf.roar_ranged",
+    "sounds": [
+      "infernalexp:entity/blackstone_dwarf/blackstone_dwarf_roar_ranged"
+    ]
+  },
   "entity.blindsight.ambient":  {
     "subtitle": "subtitles.entity.blindsight.ambient",
     "sounds":[

@@ -22,6 +22,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -106,6 +107,11 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements RangedAttack
 
     public void aiStep() {
         super.aiStep();
+
+        if (this.getRockTimer() == 5) {
+            this.throwRocks();
+        }
+
         if (this.getAttackTimer() > 0) {
             this.entityData.set(ATTACK_TIMER, this.getAttackTimer() - 1);
         }
@@ -132,7 +138,7 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements RangedAttack
 
     public boolean doHurtTarget(Entity entityIn) {
         this.entityData.set(ATTACK_TIMER, 10);
-        this.playSound(IESoundEvents.BASALT_GIANT_DEATH.get(), 1.0F, 1.0F);
+        this.playSound(IESoundEvents.BLACKSTONE_DWARF_ROAR_MELEE.get(), 1.0F, 1.0F);
         boolean disableShield = false;
         float f = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
         float f1 = (int) f > 0 ? f / 2.0F + (float) this.random.nextInt((int) f) : f;
@@ -153,7 +159,6 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements RangedAttack
             ((Player) entityIn).disableShield(true);
         }
 
-        this.playSound(IESoundEvents.BASALT_GIANT_HURT.get(), 1.0F, 1.0F);
         return flag;
     }
 
@@ -175,8 +180,8 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements RangedAttack
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new DwarfMeleeAttackGoal(this, 0.6D, 5.0F, true));
-        this.goalSelector.addGoal(0, new RockThrowAttackGoal(this, 0.6D, 60, 100, 5.0F, 16.0F));
+        this.goalSelector.addGoal(0, new DwarfMeleeAttackGoal(this, 0.6D, 8.0F, true));
+        this.goalSelector.addGoal(0, new RockThrowAttackGoal(this, 0.6D, 20, 60, 8.0F));
         this.goalSelector.addGoal(1, new WaterAvoidingRandomStrollGoal(this, 0.5d));
         this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8.0f));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
@@ -193,6 +198,24 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements RangedAttack
         if (InfernalExpansionConfig.MobInteractions.GLOWSQUITO_ATTACK_DWARF.getBoolean()) {
             this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, GlowsquitoEntity.class, true));
         }
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return IESoundEvents.BLACKSTONE_DWARF_AMBIENT.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return IESoundEvents.BLACKSTONE_DWARF_HURT.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return IESoundEvents.BLACKSTONE_DWARF_DEATH.get();
     }
 
     @Override
@@ -241,8 +264,12 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements RangedAttack
     }
 
     @Override
-    public void performRangedAttack(LivingEntity target, float damage) {
+    public void performRangedAttack(LivingEntity entity, float damage) {
         this.entityData.set(ROCK_TIMER, 10);
+        this.playSound(IESoundEvents.BLACKSTONE_DWARF_ROAR_RANGED.get(), 1.0F, 1.0F);
+    }
+
+    public void throwRocks() {
         for(int i = 0; i < 5; ++i) {
             switch (i) {
                 case 0:
@@ -276,7 +303,7 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements RangedAttack
             rock.shoot(launchVector.x(), launchVector.y() + shooter.getRandom().nextFloat(2 * verticalVariance) - verticalVariance, launchVector.z(), shotPower, componentMultiplier);
 
             level.addFreshEntity(rock);
-            level.playSound(null, shooter.getX(), shooter.getY(), shooter.getZ(), SoundEvents.EGG_THROW, SoundSource.PLAYERS, 1.0F, shooter.getRandom().nextFloat(0.5F) + 0.5F);
+            this.playSound(SoundEvents.EGG_THROW, 1.0F, 1.0F);
         }
     }
 
@@ -288,6 +315,10 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements RangedAttack
             super(dwarf, speedModifier, minInterval, maxInterval, maxRange);
             this.dwarf = dwarf;
             this.minRangeSqr = minRange * minRange;
+        }
+
+        public RockThrowAttackGoal(BlackstoneDwarfEntity dwarf, double speedModifier, int minInterval, int maxInterval, float range) {
+            this(dwarf, speedModifier, minInterval, maxInterval, range, range);
         }
 
         @Override

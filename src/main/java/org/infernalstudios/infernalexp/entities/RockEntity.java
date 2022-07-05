@@ -2,6 +2,9 @@ package org.infernalstudios.infernalexp.entities;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -12,6 +15,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -24,6 +29,7 @@ import org.infernalstudios.infernalexp.init.IEEntityTypes;
 import javax.annotation.Nullable;
 
 public class RockEntity extends Projectile {
+    private static final EntityDataAccessor<ItemStack> ITEM = SynchedEntityData.defineId(RockEntity.class, EntityDataSerializers.ITEM_STACK);
 
     public RockEntity(EntityType<? extends RockEntity> entityType, Level level) {
         super(entityType, level);
@@ -37,10 +43,12 @@ public class RockEntity extends Projectile {
     public RockEntity(Level level, LivingEntity thrower) {
         this(IEEntityTypes.ROCK.get(), level, thrower.getX(), thrower.getEyeY() - (double)0.1F, thrower.getZ());
         this.setOwner(thrower);
+        this.entityData.set(ITEM, new ItemStack(thrower.level.getBlockState(thrower.getOnPos()).getBlock().asItem()));
     }
 
     @Override
     protected void defineSynchedData() {
+        this.entityData.define(ITEM, new ItemStack(Items.BLACKSTONE));
     }
 
     @Override
@@ -165,7 +173,7 @@ public class RockEntity extends Projectile {
                 }
             }
 
-            this.playSound(SoundEvents.ARROW_HIT, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+            this.playSound(SoundEvents.STONE_BREAK, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
         }
 
         this.discard();
@@ -180,6 +188,10 @@ public class RockEntity extends Projectile {
     @Nullable
     protected EntityHitResult findHitEntity(Vec3 firstBound, Vec3 secondBound) {
         return ProjectileUtil.getEntityHitResult(this.level, this, firstBound, secondBound, this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0D), this::canHitEntity);
+    }
+
+    public ItemStack getItem() {
+        return this.entityData.get(ITEM);
     }
 
 }
