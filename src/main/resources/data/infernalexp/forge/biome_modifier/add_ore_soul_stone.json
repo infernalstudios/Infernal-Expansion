@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_features",
+  "biomes": [
+    "minecraft:soul_sand_valley"
+  ],
+  "features": [
+    "infernalexp:ore_soul_stone"
+  ],
+  "step": "underground_ores"
+}

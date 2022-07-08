@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_features",
+  "biomes": [
+    "minecraft:basalt_deltas"
+  ],
+  "features": [
+    "infernalexp:basaltic_magma"
+  ],
+  "step": "underground_ores"
+}

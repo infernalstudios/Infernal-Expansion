@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_features",
+  "biomes": [
+    "minecraft:crimson_forest"
+  ],
+  "features": [
+    "infernalexp:patch_crimson_cap"
+  ],
+  "step": "vegetal_decoration"
+}

@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_features",
+  "biomes": [
+    "minecraft:basalt_deltas",
+    "minecraft:soul_sand_valley"
+  ],
+  "features": [
+    "infernalexp:ore_basalt_iron_basalt_deltas"
+  ],
+  "step": "underground_ores"
+}
