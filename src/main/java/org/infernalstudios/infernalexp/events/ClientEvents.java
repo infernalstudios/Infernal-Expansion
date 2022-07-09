@@ -20,9 +20,11 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.CampfireRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ComputeFovModifierEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.FOVModifierEvent;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -46,6 +48,7 @@ import org.infernalstudios.infernalexp.client.entity.render.InfernalPaintingRend
 import org.infernalstudios.infernalexp.client.entity.render.ShroomloinRenderer;
 import org.infernalstudios.infernalexp.client.entity.render.VolineRenderer;
 import org.infernalstudios.infernalexp.client.entity.render.WarpbeetleRenderer;
+import org.infernalstudios.infernalexp.client.gui.InfectionHeartOverlay;
 import org.infernalstudios.infernalexp.init.IEBlockEntityTypes;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
@@ -88,8 +91,13 @@ public class ClientEvents {
         event.registerLayerDefinition(GlowsquitoModel.LAYER_LOCATION, GlowsquitoModel::createBodyLayer);
         event.registerLayerDefinition(BlindsightModel.LAYER_LOCATION, BlindsightModel::createBodyLayer);
         event.registerLayerDefinition(GlowsilkMothModel.LAYER_LOCATION, GlowsilkMothModel::createBodyLayer);
-//        event.registerLayerDefinition(CerobeetleModel.LAYER_LOCATION, CerobeetleModel::createBodyLayer);
-//        event.registerLayerDefinition(PyrnoModel.LAYER_LOCATION, PyrnoModel::createBodyLayer);
+        //        event.registerLayerDefinition(CerobeetleModel.LAYER_LOCATION, CerobeetleModel::createBodyLayer);
+        //        event.registerLayerDefinition(PyrnoModel.LAYER_LOCATION, PyrnoModel::createBodyLayer);
+    }
+
+    @SubscribeEvent
+    public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
+        event.registerAbove(new ResourceLocation("player_health"), "infection_player_health", new InfectionHeartOverlay());
     }
 
     @SubscribeEvent
@@ -119,7 +127,7 @@ public class ClientEvents {
     }
 
     @SubscribeEvent
-    public void glowsilkBowFOVModifier(FOVModifierEvent event) {
+    public void glowsilkBowFOVModifier(ComputeFovModifierEvent event) {
         if (event.getPlayer().isUsingItem() && event.getPlayer().getUseItem().is(IEItems.GLOWSILK_BOW.get())) {
             float fovModifier = event.getPlayer().getTicksUsingItem() / 20.0F;
 
@@ -129,7 +137,7 @@ public class ClientEvents {
             else
                 fovModifier *= fovModifier;
 
-            event.setNewFov(event.getFov() * (1.0F - (fovModifier * 0.15F)));
+            event.setNewFovModifier(event.getFovModifier() * (1.0F - (fovModifier * 0.15F)));
         }
     }
 

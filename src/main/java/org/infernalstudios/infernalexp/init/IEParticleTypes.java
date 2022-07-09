@@ -16,18 +16,16 @@
 
 package org.infernalstudios.infernalexp.init;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.client.particle.GlowstoneSparkleParticle;
 import org.infernalstudios.infernalexp.client.particle.InfectionParticle;
@@ -40,14 +38,11 @@ public class IEParticleTypes {
     public static final RegistryObject<SimpleParticleType> GLOWSTONE_SPARKLE = PARTICLES.register("glowstone_sparkle", () -> new SimpleParticleType(false));
     public static final RegistryObject<SimpleParticleType> INFECTION = PARTICLES.register("infection", () -> new SimpleParticleType(false));
 
-    @SuppressWarnings("resource")
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
-    public static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
-        ParticleEngine particleManager = Minecraft.getInstance().particleEngine;
-
-        particleManager.register(IEParticleTypes.GLOWSTONE_SPARKLE.get(), GlowstoneSparkleParticle.Factory::new);
-        particleManager.register(IEParticleTypes.INFECTION.get(), InfectionParticle.Factory::new);
+    public static void registerParticleFactories(RegisterParticleProvidersEvent event) {
+        event.register(IEParticleTypes.GLOWSTONE_SPARKLE.get(), GlowstoneSparkleParticle.Factory::new);
+        event.register(IEParticleTypes.INFECTION.get(), InfectionParticle.Factory::new);
 
         InfernalExpansion.LOGGER.info("Infernal Expansion: Particles Registered!");
     }

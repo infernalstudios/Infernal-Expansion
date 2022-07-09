@@ -20,12 +20,11 @@ import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.ConfigGuiHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.client.ConfigGuiHandler;
 import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.client.gui.InfectionHeartOverlay;
 import org.infernalstudios.infernalexp.config.gui.screens.ConfigScreen;
 import org.infernalstudios.infernalexp.events.ClientEvents;
 import org.infernalstudios.infernalexp.init.IEItems;
@@ -45,7 +44,6 @@ public class InfernalExpansionClient {
         ModLoadingContext.get().registerExtensionPoint(ConfigGuiHandler.ConfigGuiFactory.class, () -> new ConfigGuiHandler.ConfigGuiFactory((mc, screen) -> new ConfigScreen()));
 
         MinecraftForge.EVENT_BUS.register(new ClientEvents());
-        MinecraftForge.EVENT_BUS.register(new InfectionHeartOverlay());
         MinecraftForge.EVENT_BUS.addListener((LivingUpdateEvent event) -> DynamicLightingHandler.tick(event.getEntityLiving()));
 
         enqueueWorkConsumer.accept(InfernalExpansionClient::threadSafeInit);
