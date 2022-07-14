@@ -170,9 +170,9 @@ public class IEBlocks {
     public static final RegistryObject<Block> RUBBLE = registerBlockWithDefaultItem("rubble", () -> new Block(getProperties(Blocks.GRAVEL)));
     public static final RegistryObject<Block> SILT = registerBlockWithDefaultItem("silt", () -> new Block(getProperties(Blocks.SAND)));
 
-    public static final RegistryObject<Block> BASALT_COBBLED = registerBlockWithDefaultItem("basalt_cobbled", () -> new RotatedPillarBlock(getProperties(Blocks.GRAVEL).sound(SoundType.BASALT)));
-    public static final RegistryObject<Block> BASALT_COBBLED_SLAB = registerBlockWithDefaultItem("basalt_cobbled_slab", () -> new SlabBlock(getProperties(Blocks.GRAVEL).sound(SoundType.BASALT)));
-    public static final RegistryObject<Block> BASALT_COBBLED_VERTICAL_SLAB = registerBlockWithDefaultItemConditioned("basalt_cobbled_vertical_slab", () -> new VerticalSlabBlock(getProperties(Blocks.GRAVEL).sound(SoundType.BASALT)), "quark");
+    public static final RegistryObject<Block> COBBLED_BASALT = registerBlockWithDefaultItem("cobbled_basalt", () -> new RotatedPillarBlock(getProperties(Blocks.GRAVEL).sound(SoundType.BASALT)));
+    public static final RegistryObject<Block> COBBLED_BASALT_SLAB = registerBlockWithDefaultItem("cobbled_basalt_slab", () -> new SlabBlock(getProperties(Blocks.GRAVEL).sound(SoundType.BASALT)));
+    public static final RegistryObject<Block> COBBLED_BASALT_VERTICAL_SLAB = registerBlockWithDefaultItemConditioned("cobbled_basalt_vertical_slab", () -> new VerticalSlabBlock(getProperties(Blocks.GRAVEL).sound(SoundType.BASALT)), "quark");
 
     public static final RegistryObject<Block> BASALT_SLAB = registerBlockWithDefaultItem("basalt_slab", () -> new SlabBlock(getProperties(Blocks.BASALT)));
     public static final RegistryObject<Block> BASALT_VERTICAL_SLAB = registerBlockWithDefaultItemConditioned("basalt_vertical_slab", () -> new VerticalSlabBlock(getProperties(Blocks.BASALT)), "quark");

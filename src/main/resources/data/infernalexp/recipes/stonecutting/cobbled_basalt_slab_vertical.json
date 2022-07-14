@@ -1,9 +1,9 @@
 {
   "type": "minecraft:stonecutting",
   "ingredient": {
-    "item": "infernalexp:basalt_cobbled"
+    "item": "infernalexp:cobbled_basalt"
   },
-  "result": "infernalexp:basalt_cobbled_vertical_slab",
+  "result": "infernalexp:cobbled_basalt_vertical_slab",
   "count": 2,
   "conditions": [
     {

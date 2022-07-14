@@ -5,11 +5,11 @@
   ],
   "key": {
     "x": {
-      "item": "infernalexp:basalt_cobbled"
+      "item": "infernalexp:cobbled_basalt"
     }
   },
   "result": {
-    "item": "infernalexp:basalt_cobbled_slab",
+    "item": "infernalexp:cobbled_basalt_slab",
     "count": 6
   }
 }

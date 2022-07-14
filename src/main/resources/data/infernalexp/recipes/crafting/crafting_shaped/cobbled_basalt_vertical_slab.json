@@ -7,11 +7,11 @@
   ],
   "key": {
     "#": {
-      "item": "infernalexp:basalt_cobbled_slab"
+      "item": "infernalexp:cobbled_basalt_slab"
     }
   },
   "result": {
-    "item": "infernalexp:basalt_cobbled_vertical_slab",
+    "item": "infernalexp:cobbled_basalt_vertical_slab",
     "count": 3
   },
   "conditions": [

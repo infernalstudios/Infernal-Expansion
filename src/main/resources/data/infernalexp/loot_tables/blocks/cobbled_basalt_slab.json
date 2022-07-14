@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "infernalexp:basalt_cobbled"
+          "name": "infernalexp:cobbled_basalt_slab"
         }
       ],
       "conditions": [
