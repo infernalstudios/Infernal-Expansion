@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "infernalexp:block/shimmer_sandstone_top",
+    "side": "infernalexp:block/chiseled_shimmer_sandstone"
+  }
+}

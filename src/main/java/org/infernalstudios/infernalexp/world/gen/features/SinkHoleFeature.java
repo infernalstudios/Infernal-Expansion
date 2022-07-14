@@ -42,7 +42,7 @@ public class SinkHoleFeature extends Feature<NoFeatureConfig> {
     @Override
     public boolean generate(ISeedReader world, ChunkGenerator generator, Random random, BlockPos pos, NoFeatureConfig config) {
         BlockPos.Mutable mutableBlockPos = new BlockPos.Mutable().setPos(pos);
-        if (!world.isAirBlock(mutableBlockPos) || world.getBlockState(mutableBlockPos.move(Direction.DOWN)).getBlock() != IEBlocks.GLOWDUST_SAND.get()) {
+        if (!world.isAirBlock(mutableBlockPos) || world.getBlockState(mutableBlockPos.move(Direction.DOWN)).getBlock() != IEBlocks.SHIMMER_SAND.get()) {
             return false;
         } else {
             int radius = minRadius + random.nextInt(maxRadius - minRadius);
@@ -60,7 +60,7 @@ public class SinkHoleFeature extends Feature<NoFeatureConfig> {
                 mutableBlockPos.setPos(pos);
                 mutableBlockPos.move(point.getX(), point.getY(), point.getZ());
                 for (int y = 0; y < 3; y++) {
-                    world.setBlockState(mutableBlockPos.move(Direction.DOWN), IEBlocks.GLOWDUST_SAND.get().getDefaultState(), 2);
+                    world.setBlockState(mutableBlockPos.move(Direction.DOWN), IEBlocks.SHIMMER_SAND.get().getDefaultState(), 2);
                 }
             }
 
@@ -69,7 +69,7 @@ public class SinkHoleFeature extends Feature<NoFeatureConfig> {
                 mutableBlockPos.setPos(pos);
                 mutableBlockPos.move(point.getX(), point.getY(), point.getZ());
                 mutableBlockPos.move(Direction.DOWN);
-                world.setBlockState(mutableBlockPos, IEBlocks.TRAPPED_GLOWDUST_SAND.get().getDefaultState(), 2);
+                world.setBlockState(mutableBlockPos, IEBlocks.TRAPPED_SHIMMER_SAND.get().getDefaultState(), 2);
 
                 for (int y = 2; y < depth; y++) {
                     mutableBlockPos.move(Direction.DOWN);

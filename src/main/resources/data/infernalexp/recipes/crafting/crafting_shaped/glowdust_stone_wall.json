@@ -6,11 +6,11 @@
   ],
   "key": {
     "x": {
-      "item": "infernalexp:glowdust_stone"
+      "item": "infernalexp:shimmer_stone"
     }
   },
   "result": {
-    "item": "infernalexp:glowdust_stone_wall",
+    "item": "infernalexp:shimmer_stone_wall",
     "count": 6
   }
 }

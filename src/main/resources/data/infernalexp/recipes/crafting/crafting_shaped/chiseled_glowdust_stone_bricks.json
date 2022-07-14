@@ -6,11 +6,11 @@
   ],
   "key": {
     "x": {
-      "item": "infernalexp:glowdust_stone_brick_slab"
+      "item": "infernalexp:shimmer_stone_brick_slab"
     }
   },
   "result": {
-    "item": "infernalexp:chiseled_glowdust_stone_bricks",
+    "item": "infernalexp:chiseled_shimmer_stone_bricks",
     "count": 1
   }
 }

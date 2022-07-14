@@ -7,11 +7,11 @@
   ],
   "key": {
     "x": {
-      "item": "infernalexp:glowdust_stone_bricks"
+      "item": "infernalexp:shimmer_stone_bricks"
     }
   },
   "result": {
-    "item": "infernalexp:glowdust_stone_brick_stairs",
+    "item": "infernalexp:shimmer_stone_brick_stairs",
     "count": 4
   }
 }

@@ -38,7 +38,7 @@ public class DullthornsFeature extends Feature<NoFeatureConfig> {
         int height = random.nextInt(9) + 1;
         int top = 0;
 
-        if (!worldIn.isAirBlock(pos) || worldIn.getBlockState(pos.down()).getBlock() != IEBlocks.GLOWDUST_SAND.get()) {
+        if (!worldIn.isAirBlock(pos) || worldIn.getBlockState(pos.down()).getBlock() != IEBlocks.SHIMMER_SAND.get()) {
             return false;
         } else {
             // Generate dullthorns up "height" blocks unless there is something in the way

@@ -148,23 +148,23 @@ public class IEBlocks {
     public static final RegistryObject<RotatedPillarBlock> STRIPPED_LUMINOUS_STEM = registerBlockWithDefaultItem("stripped_luminous_stem", () -> new RotatedPillarBlock(getProperties(Blocks.STRIPPED_CRIMSON_STEM)));
     public static final RegistryObject<RotatedPillarBlock> STRIPPED_LUMINOUS_HYPHAE = registerBlockWithDefaultItem("stripped_luminous_hyphae", () -> new RotatedPillarBlock(getProperties(Blocks.STRIPPED_CRIMSON_HYPHAE)));
 
-    public static final RegistryObject<Block> GLOWDUST_SAND = registerBlockWithDefaultItem("glowdust_sand", () -> new GlowSandBlock(0xFFC267, AbstractBlock.Properties.create(Material.SNOW_BLOCK, MaterialColor.SAND).setRequiresTool().harvestTool(ToolType.SHOVEL).hardnessAndResistance(0.5F).sound(SoundType.SAND)));
-    public static final RegistryObject<Block> GLOWDUST = registerBlockWithDefaultItem("glowdust", () -> new GlowdustBlock(AbstractBlock.Properties.create(Material.SNOW, MaterialColor.SAND).setRequiresTool().harvestTool(ToolType.SHOVEL).hardnessAndResistance(0.2f).sound(SoundType.SAND)));
-    public static final RegistryObject<Block> TRAPPED_GLOWDUST_SAND = registerBlockWithDefaultItem("trapped_glowdust_sand", () -> new TrappedGlowSandBlock(0xFFC267, getProperties(GLOWDUST_SAND.get()).hardnessAndResistance(0.2F)));
+    public static final RegistryObject<Block> SHIMMER_SAND = registerBlockWithDefaultItem("shimmer_sand", () -> new GlowSandBlock(0xFFC267, AbstractBlock.Properties.create(Material.SNOW_BLOCK, MaterialColor.SAND).setRequiresTool().harvestTool(ToolType.SHOVEL).hardnessAndResistance(0.5F).sound(SoundType.SAND)));
+    public static final RegistryObject<Block> SHIMMER_SHEET = registerBlockWithDefaultItem("shimmer_sheet", () -> new GlowdustBlock(AbstractBlock.Properties.create(Material.SNOW, MaterialColor.SAND).setRequiresTool().harvestTool(ToolType.SHOVEL).hardnessAndResistance(0.2f).sound(SoundType.SAND)));
+    public static final RegistryObject<Block> TRAPPED_SHIMMER_SAND = registerBlockWithDefaultItem("trapped_shimmer_sand", () -> new TrappedGlowSandBlock(0xFFC267, getProperties(SHIMMER_SAND.get()).hardnessAndResistance(0.2F)));
 
-    public static final RegistryObject<Block> GLOWDUST_STONE = registerBlockWithDefaultItem("glowdust_stone", () -> new Block(getProperties(Blocks.SANDSTONE)));
-    public static final RegistryObject<Block> GLOWDUST_STONE_SLAB = registerBlockWithDefaultItem("glowdust_stone_slab", () -> new SlabBlock(getProperties(GLOWDUST_STONE.get())));
-    public static final RegistryObject<Block> GLOWDUST_STONE_VERTICAL_SLAB = registerBlockWithDefaultItemConditioned("glowdust_stone_vertical_slab", () -> new VerticalSlabBlock(getProperties(GLOWDUST_STONE.get())), "quark");
-    public static final RegistryObject<Block> GLOWDUST_STONE_STAIRS = registerBlockWithDefaultItem("glowdust_stone_stairs", () -> new StairsBlock(() -> GLOWDUST_STONE.get().getDefaultState(), getProperties(GLOWDUST_STONE.get())));
-    public static final RegistryObject<Block> GLOWDUST_STONE_WALL = registerBlockWithDefaultItem("glowdust_stone_wall", () -> new WallBlock(getProperties(GLOWDUST_STONE.get())));
+    public static final RegistryObject<Block> SHIMMER_STONE = registerBlockWithDefaultItem("shimmer_stone", () -> new Block(getProperties(Blocks.SANDSTONE)));
+    public static final RegistryObject<Block> SHIMMER_STONE_SLAB = registerBlockWithDefaultItem("shimmer_stone_slab", () -> new SlabBlock(getProperties(SHIMMER_STONE.get())));
+    public static final RegistryObject<Block> SHIMMER_STONE_VERTICAL_SLAB = registerBlockWithDefaultItemConditioned("shimmer_stone_vertical_slab", () -> new VerticalSlabBlock(getProperties(SHIMMER_STONE.get())), "quark");
+    public static final RegistryObject<Block> SHIMMER_STONE_STAIRS = registerBlockWithDefaultItem("shimmer_stone_stairs", () -> new StairsBlock(() -> SHIMMER_STONE.get().getDefaultState(), getProperties(SHIMMER_STONE.get())));
+    public static final RegistryObject<Block> SHIMMER_STONE_WALL = registerBlockWithDefaultItem("shimmer_stone_wall", () -> new WallBlock(getProperties(SHIMMER_STONE.get())));
 
-    public static final RegistryObject<Block> GLOWDUST_STONE_BRICKS = registerBlockWithDefaultItem("glowdust_stone_bricks", () -> new Block(getProperties(Blocks.SANDSTONE)));
-    public static final RegistryObject<Block> GLOWDUST_STONE_BRICK_SLAB = registerBlockWithDefaultItem("glowdust_stone_brick_slab", () -> new SlabBlock(getProperties(GLOWDUST_STONE_BRICKS.get())));
-    public static final RegistryObject<Block> GLOWDUST_STONE_BRICK_VERTICAL_SLAB = registerBlockWithDefaultItemConditioned("glowdust_stone_brick_vertical_slab", () -> new VerticalSlabBlock(getProperties(GLOWDUST_STONE_BRICKS.get())), "quark");
-    public static final RegistryObject<Block> GLOWDUST_STONE_BRICK_STAIRS = registerBlockWithDefaultItem("glowdust_stone_brick_stairs", () -> new StairsBlock(() -> GLOWDUST_STONE_BRICKS.get().getDefaultState(), getProperties(GLOWDUST_STONE_BRICKS.get())));
-    public static final RegistryObject<Block> GLOWDUST_STONE_BRICK_WALL = registerBlockWithDefaultItem("glowdust_stone_brick_wall", () -> new WallBlock(getProperties(GLOWDUST_STONE_BRICKS.get())));
-    public static final RegistryObject<Block> CRACKED_GLOWDUST_STONE_BRICKS = registerBlockWithDefaultItem("cracked_glowdust_stone_bricks", () -> new Block(getProperties(GLOWDUST_STONE_BRICKS.get())));
-    public static final RegistryObject<Block> CHISELED_GLOWDUST_STONE_BRICKS = registerBlockWithDefaultItem("chiseled_glowdust_stone_bricks", () -> new Block(getProperties(GLOWDUST_STONE_BRICKS.get())));
+    public static final RegistryObject<Block> SHIMMER_STONE_BRICKS = registerBlockWithDefaultItem("shimmer_stone_bricks", () -> new Block(getProperties(Blocks.SANDSTONE)));
+    public static final RegistryObject<Block> SHIMMER_STONE_BRICK_SLAB = registerBlockWithDefaultItem("shimmer_stone_brick_slab", () -> new SlabBlock(getProperties(SHIMMER_STONE_BRICKS.get())));
+    public static final RegistryObject<Block> SHIMMER_STONE_BRICK_VERTICAL_SLAB = registerBlockWithDefaultItemConditioned("shimmer_stone_brick_vertical_slab", () -> new VerticalSlabBlock(getProperties(SHIMMER_STONE_BRICKS.get())), "quark");
+    public static final RegistryObject<Block> SHIMMER_STONE_BRICK_STAIRS = registerBlockWithDefaultItem("shimmer_stone_brick_stairs", () -> new StairsBlock(() -> SHIMMER_STONE_BRICKS.get().getDefaultState(), getProperties(SHIMMER_STONE_BRICKS.get())));
+    public static final RegistryObject<Block> SHIMMER_STONE_BRICK_WALL = registerBlockWithDefaultItem("shimmer_stone_brick_wall", () -> new WallBlock(getProperties(SHIMMER_STONE_BRICKS.get())));
+    public static final RegistryObject<Block> CRACKED_SHIMMER_STONE_BRICKS = registerBlockWithDefaultItem("cracked_shimmer_stone_bricks", () -> new Block(getProperties(SHIMMER_STONE_BRICKS.get())));
+    public static final RegistryObject<Block> CHISELED_SHIMMER_STONE_BRICKS = registerBlockWithDefaultItem("chiseled_shimmer_stone_bricks", () -> new Block(getProperties(SHIMMER_STONE_BRICKS.get())));
 
     public static final RegistryObject<Block> CRUMBLING_BLACKSTONE = registerBlockWithDefaultItem("crumbling_blackstone", () -> new CrumblingBlackstoneBlock(AbstractBlock.Properties.from(Blocks.NETHERRACK)));
     public static final RegistryObject<Block> RUBBLE = registerBlockWithDefaultItem("rubble", () -> new Block(getProperties(Blocks.GRAVEL)));

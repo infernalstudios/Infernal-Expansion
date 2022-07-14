@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "infernalexp:glowdust_stone_wall",
-    "infernalexp:glowdust_stone_brick_wall",
+    "infernalexp:shimmer_stone_wall",
+    "infernalexp:shimmer_stone_brick_wall",
     "infernalexp:glowstone_brick_wall",
     "infernalexp:dimstone_brick_wall",
     "infernalexp:dullstone_brick_wall",

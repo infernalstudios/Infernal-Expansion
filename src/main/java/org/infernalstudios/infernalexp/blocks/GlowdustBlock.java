@@ -38,7 +38,7 @@ public class GlowdustBlock extends SnowBlock {
             if (i < 7) {
                 return blockstate.with(LAYERS, Integer.valueOf(Math.min(8, i + 1)));
             } else {
-                return IEBlocks.GLOWDUST_SAND.get().getDefaultState();
+                return IEBlocks.SHIMMER_SAND.get().getDefaultState();
             }
         } else {
             return super.getStateForPlacement(context);

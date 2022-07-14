@@ -40,7 +40,7 @@ public class GlowSpikeFeature extends Feature<GlowSpikeFeatureConfig> {
     @Override
     public boolean generate(ISeedReader world, ChunkGenerator generator, Random random, BlockPos pos, GlowSpikeFeatureConfig config) {
 
-        if ((world.isAirBlock(pos) || world.getBlockState(pos.down()).getBlock() == IEBlocks.GLOWDUST_SAND.get()) || (world.getBlockState(pos).getBlock() == Blocks.LAVA && world.getBlockState(pos.down()).getBlock() != Blocks.LAVA)) {
+        if ((world.isAirBlock(pos) || world.getBlockState(pos.down()).getBlock() == IEBlocks.SHIMMER_SAND.get()) || (world.getBlockState(pos).getBlock() == Blocks.LAVA && world.getBlockState(pos.down()).getBlock() != Blocks.LAVA)) {
             // Generate a random height, diameter and offset
             int height = config.minHeight + random.nextInt(config.maxHeight - config.minHeight);
             int diameter = config.minDiameter + random.nextInt(config.maxDiameter - config.minDiameter);
