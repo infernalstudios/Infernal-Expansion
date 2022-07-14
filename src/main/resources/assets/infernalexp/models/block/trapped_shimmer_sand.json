@@ -1,6 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "infernalexp:block/trapped_shimmer_sand_animated"
-  }
-}

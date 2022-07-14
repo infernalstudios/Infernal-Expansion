@@ -69,7 +69,7 @@ public class SinkHoleFeature extends Feature<NoFeatureConfig> {
                 mutableBlockPos.setPos(pos);
                 mutableBlockPos.move(point.getX(), point.getY(), point.getZ());
                 mutableBlockPos.move(Direction.DOWN);
-                world.setBlockState(mutableBlockPos, IEBlocks.TRAPPED_SHIMMER_SAND.get().getDefaultState(), 2);
+                world.setBlockState(mutableBlockPos, IEBlocks.GLIMMER_GRAVEL.get().getDefaultState(), 2);
 
                 for (int y = 2; y < depth; y++) {
                     mutableBlockPos.move(Direction.DOWN);

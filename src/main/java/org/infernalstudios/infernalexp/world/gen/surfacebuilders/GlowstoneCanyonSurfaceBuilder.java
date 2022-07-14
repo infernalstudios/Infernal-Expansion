@@ -67,7 +67,7 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
 
                         // If the block is floating, make it Glimmer Gravel, otherwise let it be the regular surface
                         if (blockBelow.isAir()) {
-                            chunk.setBlockState(mutable, IEBlocks.TRAPPED_SHIMMER_SAND.get().getDefaultState(), false);
+                            chunk.setBlockState(mutable, IEBlocks.GLIMMER_GRAVEL.get().getDefaultState(), false);
                         } else {
                             chunk.setBlockState(mutable, topBlock, false);
                         }

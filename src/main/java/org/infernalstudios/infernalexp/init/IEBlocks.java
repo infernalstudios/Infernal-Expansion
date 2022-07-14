@@ -150,7 +150,7 @@ public class IEBlocks {
 
     public static final RegistryObject<Block> SHIMMER_SAND = registerBlockWithDefaultItem("shimmer_sand", () -> new GlowSandBlock(0xFFC267, AbstractBlock.Properties.create(Material.SNOW_BLOCK, MaterialColor.SAND).setRequiresTool().harvestTool(ToolType.SHOVEL).hardnessAndResistance(0.5F).sound(SoundType.SAND)));
     public static final RegistryObject<Block> SHIMMER_SHEET = registerBlockWithDefaultItem("shimmer_sheet", () -> new GlowdustBlock(AbstractBlock.Properties.create(Material.SNOW, MaterialColor.SAND).setRequiresTool().harvestTool(ToolType.SHOVEL).hardnessAndResistance(0.2f).sound(SoundType.SAND)));
-    public static final RegistryObject<Block> TRAPPED_SHIMMER_SAND = registerBlockWithDefaultItem("trapped_shimmer_sand", () -> new TrappedGlowSandBlock(0xFFC267, getProperties(SHIMMER_SAND.get()).hardnessAndResistance(0.2F)));
+    public static final RegistryObject<Block> GLIMMER_GRAVEL = registerBlockWithDefaultItem("glimmer_gravel", () -> new TrappedGlowSandBlock(0xFFC267, getProperties(SHIMMER_SAND.get()).hardnessAndResistance(0.2F)));
 
     public static final RegistryObject<Block> SHIMMER_STONE = registerBlockWithDefaultItem("shimmer_stone", () -> new Block(getProperties(Blocks.SANDSTONE)));
     public static final RegistryObject<Block> SHIMMER_STONE_SLAB = registerBlockWithDefaultItem("shimmer_stone_slab", () -> new SlabBlock(getProperties(SHIMMER_STONE.get())));
