@@ -1,6 +1,6 @@
 {
   "parent": "block/template_wall_side_tall",
   "textures": {
-    "wall": "infernalexp:block/soul_slate_bricks"
+    "wall": "infernalexp:block/polished_soul_stone_bricks"
   }
 }

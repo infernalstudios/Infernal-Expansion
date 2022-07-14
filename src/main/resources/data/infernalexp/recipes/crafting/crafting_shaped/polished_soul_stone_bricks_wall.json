@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xxx",
+    "xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "infernalexp:polished_soul_stone_bricks"
+    }
+  },
+  "result": {
+    "item": "infernalexp:polished_soul_stone_brick_wall",
+    "count": 6
+  }
+}

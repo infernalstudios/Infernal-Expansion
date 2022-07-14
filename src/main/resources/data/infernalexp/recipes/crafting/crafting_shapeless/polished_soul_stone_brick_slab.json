@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "infernalexp:polished_soul_stone_brick_vertical_slab"
+    }
+  ],
+  "result": {
+    "item": "infernalexp:polished_soul_stone_brick_slab"
+  }
+}

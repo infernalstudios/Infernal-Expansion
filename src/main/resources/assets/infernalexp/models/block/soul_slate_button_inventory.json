@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/button_inventory",
   "textures": {
-    "texture": "infernalexp:block/soul_slate"
+    "texture": "infernalexp:block/polished_soul_stone"
   }
 }

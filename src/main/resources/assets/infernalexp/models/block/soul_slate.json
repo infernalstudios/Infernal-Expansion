@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "infernalexp:block/soul_slate"
+    "all": "infernalexp:block/polished_soul_stone"
   }
 }

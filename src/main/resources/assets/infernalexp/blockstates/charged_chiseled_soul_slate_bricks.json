@@ -1,15 +1,15 @@
 {
   "variants": {
     "axis=x": {
-      "model": "infernalexp:block/charged_chiseled_soul_slate_bricks",
+      "model": "infernalexp:block/charged_chiseled_polished_soul_stone_bricks",
       "x": 90,
       "y": 90
     },
     "axis=y": {
-      "model": "infernalexp:block/charged_chiseled_soul_slate_bricks"
+      "model": "infernalexp:block/charged_chiseled_polished_soul_stone_bricks"
     },
     "axis=z": {
-      "model": "infernalexp:block/charged_chiseled_soul_slate_bricks",
+      "model": "infernalexp:block/charged_chiseled_polished_soul_stone_bricks",
       "x": 90
     }
   }
