@@ -60,10 +60,10 @@ public class PostRightClickBlockEvent extends PlayerEvent {
     }
 
     public ItemStack getItemStack() {
-        return getPlayer().getItemInHand(getHand());
+        return getEntity().getItemInHand(getHand());
     }
 
     public Level getWorld() {
-        return getPlayer().getCommandSenderWorld();
+        return getEntity().getCommandSenderWorld();
     }
 }

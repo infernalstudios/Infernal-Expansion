@@ -17,6 +17,7 @@
 package org.infernalstudios.infernalexp.events;
 
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.blocks.DullthornsBlock;
@@ -69,14 +70,13 @@ import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.PotionColorCalculationEvent;
 import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -174,7 +174,7 @@ public class MiscEvents {
         Level world = event.getWorld();
         BlockPos pos = event.getPos();
         Direction face = event.getDirection();
-        Player player = event.getPlayer();
+        Player player = event.getEntity();
         if (heldItemStack.getItem() == Items.BONE) {
             pos = pos.relative(face);
             BlockState blockstate = IEBlocks.BURIED_BONE.get().getPlaceableState(world, pos, face);
@@ -242,8 +242,8 @@ public class MiscEvents {
 
     @SubscribeEvent
     public void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
-        Level world = event.getWorld();
-        Player player = event.getPlayer();
+        Level world = event.getLevel();
+        Player player = event.getEntity();
         ItemStack heldItemStack = player.getItemInHand(event.getHand());
 
         if (heldItemStack.getItem() == Items.MAGMA_CREAM) {
@@ -318,7 +318,7 @@ public class MiscEvents {
     @SubscribeEvent
     public void onApplyBonemeal(BonemealEvent event) {
         Block block = event.getBlock().getBlock();
-        Level world = event.getWorld();
+        Level world = event.getLevel();
         BlockPos pos = event.getPos();
         if (block == Blocks.SHROOMLIGHT && Miscellaneous.SHROOMLIGHT_GROWABLE.getBool()) {
             pos = pos.below();
@@ -353,8 +353,8 @@ public class MiscEvents {
     }
 
     @SubscribeEvent
-    public void onLivingEntityUpdate(LivingEvent.LivingUpdateEvent event) {
-        LivingEntity entity = event.getEntityLiving();
+    public void onLivingEntityUpdate(LivingEvent.LivingTickEvent event) {
+        LivingEntity entity = event.getEntity();
 
         // Make sure we are checking potion effects on the server, not client
         if (entity.isEffectiveAi() && entity.getCommandSenderWorld() instanceof ServerLevel world) {
@@ -389,7 +389,7 @@ public class MiscEvents {
     }
 
     @SubscribeEvent
-    public void onEntityJoin(EntityJoinWorldEvent event) {
+    public void onEntityJoin(EntityJoinLevelEvent event) {
         if (event.getEntity() instanceof AreaEffectCloud entity) {
             for (MobEffectInstance effect : entity.potion.getEffects()) {
                 if (effect.getEffect() == IEEffects.INFECTION.get()) {
@@ -403,7 +403,7 @@ public class MiscEvents {
 
     @SubscribeEvent
     public void onLivingEntityAttack(LivingAttackEvent event) {
-        LivingEntity entity = event.getEntityLiving();
+        LivingEntity entity = event.getEntity();
 
         // If entity has infection, on hit, make a splash of particles
         if (entity.isEffectiveAi() && entity.getCommandSenderWorld() instanceof ServerLevel world) {

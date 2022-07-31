@@ -25,7 +25,7 @@ import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.monster.hoglin.Hoglin;
 import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.entity.monster.piglin.PiglinBrute;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.infernalstudios.infernalexp.InfernalExpansion;
@@ -43,7 +43,7 @@ import org.infernalstudios.infernalexp.init.IETags;
 public class MobEvents {
 
     @SubscribeEvent
-    public void onEntityJoin(EntityJoinWorldEvent event) {
+    public void onEntityJoin(EntityJoinLevelEvent event) {
 
         //
         //RUN AWAY!!

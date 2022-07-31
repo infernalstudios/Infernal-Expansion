@@ -168,7 +168,7 @@ public class SpawnrateManager {
         for (String entity : configs.keySet()) {
             String resourceLocation = InfernalExpansion.MOD_ID + ":" + entity;
 
-            if (!ForgeRegistries.ENTITIES.containsKey(new ResourceLocation(resourceLocation)) || !InfernalExpansionConfig.MobSpawning.contains(entity)) {
+            if (!ForgeRegistries.ENTITY_TYPES.containsKey(new ResourceLocation(resourceLocation)) || !InfernalExpansionConfig.MobSpawning.contains(entity)) {
                 throw new ResourceLocationException(entity.split(":")[1] + " does not exist in the registry or is not a naturally spawning mob from Infernal Expansion");
             }
 

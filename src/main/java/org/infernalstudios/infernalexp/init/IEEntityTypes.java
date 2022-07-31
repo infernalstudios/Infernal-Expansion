@@ -26,7 +26,7 @@ import org.infernalstudios.infernalexp.entities.WarpbeetleEntity;
 
 public class IEEntityTypes {
 
-    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, InfernalExpansion.MOD_ID);
+    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, InfernalExpansion.MOD_ID);
 
     // Entity Types
 

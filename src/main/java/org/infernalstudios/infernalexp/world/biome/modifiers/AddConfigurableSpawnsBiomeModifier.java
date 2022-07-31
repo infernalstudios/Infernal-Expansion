@@ -63,7 +63,7 @@ public record AddConfigurableSpawnsBiomeModifier() implements BiomeModifier {
             if (!spawnableBiomes.contains(biomeLocation)) return;
 
             // Get the entity type from the name
-            EntityType<?> entityType = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(entity));
+            EntityType<?> entityType = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(entity));
 
             // Check if the entity type exists
             if (entityType == null) {

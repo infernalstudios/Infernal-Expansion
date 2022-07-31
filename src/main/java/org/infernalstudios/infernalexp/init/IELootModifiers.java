@@ -16,30 +16,33 @@
 
 package org.infernalstudios.infernalexp.init;
 
-import com.google.gson.JsonObject;
+import org.infernalstudios.infernalexp.InfernalExpansion;
+import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
+import org.jetbrains.annotations.NotNull;
+
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
+import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.loot.LootModifier;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-import org.jetbrains.annotations.NotNull;
 
 public class IELootModifiers {
 
-    public static final DeferredRegister<GlobalLootModifierSerializer<?>> LOOT_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.LOOT_MODIFIER_SERIALIZERS, InfernalExpansion.MOD_ID);
+    public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, InfernalExpansion.MOD_ID);
 
-    public static final RegistryObject<GlobalLootModifierSerializer<HoglinLootModifier>> HOGLIN_LOOT_MODIFIER = LOOT_MODIFIERS.register("hoglin_loot_modifier", HoglinLootSerializer::new);
+    public static final RegistryObject<Codec<HoglinLootModifier>> HOGLIN_LOOT_MODIFIER = LOOT_MODIFIERS.register("hoglin_loot_modifier", () -> HoglinLootModifier.CODEC);
 
     private static class HoglinLootModifier extends LootModifier {
+        public static final Codec<HoglinLootModifier> CODEC = RecordCodecBuilder.create(inst -> codecStart(inst).apply(inst, HoglinLootModifier::new));
 
         /**
          * Constructs a LootModifier.
@@ -78,23 +81,15 @@ public class IELootModifiers {
 
             return generatedLoot;
         }
+
+        @Override
+        public Codec<? extends IGlobalLootModifier> codec() {
+            return CODEC;
+        }
     }
 
     public static void register(IEventBus eventBus) {
         LOOT_MODIFIERS.register(eventBus);
         InfernalExpansion.LOGGER.info("Infernal Expansion: Loot Modifiers Registered!");
-    }
-
-    private static class HoglinLootSerializer extends GlobalLootModifierSerializer<HoglinLootModifier> {
-
-        @Override
-        public HoglinLootModifier read(ResourceLocation location, JsonObject object, LootItemCondition[] conditionsIn) {
-            return new HoglinLootModifier(conditionsIn);
-        }
-
-        @Override
-        public JsonObject write(HoglinLootModifier instance) {
-            return null;
-        }
     }
 }
