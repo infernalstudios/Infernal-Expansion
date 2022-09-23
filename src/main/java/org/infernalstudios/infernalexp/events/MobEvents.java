@@ -53,7 +53,7 @@ public class MobEvents {
         if (event.getEntity() instanceof Piglin entity) {
             if (InfernalExpansionConfig.MobInteractions.PIGLIN_FEAR_WARPBEETLE.getBoolean()) {
                 entity.goalSelector.addGoal(4,
-                        new AvoidEntityGoal<>(entity, WarpbeetleEntity.class, 16.0F, 1.2D, 1.2D));
+                    new AvoidEntityGoal<>(entity, WarpbeetleEntity.class, 16.0F, 1.2D, 1.2D));
             }
             if (InfernalExpansionConfig.MobInteractions.PIGLIN_FEAR_EMBODY.getBoolean()) {
                 entity.goalSelector.addGoal(4, new AvoidEntityGoal<>(entity, EmbodyEntity.class, 16.0F, 1.2D, 1.2D));

@@ -22,7 +22,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.config.gui.screens.ConfigScreen;
@@ -44,7 +44,7 @@ public class InfernalExpansionClient {
         ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((mc, screen) -> new ConfigScreen()));
 
         MinecraftForge.EVENT_BUS.register(new ClientEvents());
-        MinecraftForge.EVENT_BUS.addListener((LivingTickEvent event) -> DynamicLightingHandler.tick(event.getEntity()));
+        MinecraftForge.EVENT_BUS.addListener((LivingEvent.LivingTickEvent event) -> DynamicLightingHandler.tick(event.getEntity()));
 
         enqueueWorkConsumer.accept(InfernalExpansionClient::threadSafeInit);
     }
