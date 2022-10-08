@@ -118,9 +118,37 @@ public class WhipItem extends TieredItem implements IVanishable {
             playerEntity.addStat(Stats.ITEM_USED.get(this));
 
             if (worldIn.isRemote()) {
-                IENetworkHandler.sendToServer(new WhipReachPacket(playerEntity.getUniqueID()));
+                handleExtendedReach(playerEntity, stack);
             }
         }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    private boolean handleExtendedReach(PlayerEntity player, ItemStack stack) {
+
+        // Change the value added here to adjust the reach of the charge attack of the whip, must also be changed in WhipReachPacket
+        double reach = player.getAttribute(ForgeMod.REACH_DISTANCE.get()).getValue() + 1.0D;
+
+        Vector3d eyePos = player.getEyePosition(1.0F);
+        Vector3d lookVec = player.getLookVec();
+        Vector3d reachVec = eyePos.add(lookVec.mul(reach, reach, reach));
+
+        AxisAlignedBB playerBox = player.getBoundingBox().expand(lookVec.scale(reach)).grow(1.0D, 1.0D, 1.0D);
+        EntityRayTraceResult entityTraceResult = ProjectileHelper.rayTraceEntities(player, eyePos, reachVec, playerBox, (target) -> !target.isSpectator() && target.isLiving(), reach * reach);
+        BlockRayTraceResult blockTraceResult = player.getEntityWorld().rayTraceBlocks(new RayTraceContext(eyePos, reachVec, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, player));
+
+        if (entityTraceResult != null) {
+            double distance = eyePos.squareDistanceTo(entityTraceResult.getHitVec());
+
+            if (distance < reach * reach && distance < eyePos.squareDistanceTo(blockTraceResult.getHitVec())) {
+                player.ticksSinceLastSwing = (int) player.getCooldownPeriod();
+                IENetworkHandler.sendToServer(new WhipReachPacket(player.getUniqueID(), entityTraceResult.getEntity().getEntityId(), stack));
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override
