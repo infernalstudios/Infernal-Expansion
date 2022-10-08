@@ -18,49 +18,50 @@ package org.infernalstudios.infernalexp.items;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentType;
+import net.minecraft.enchantment.Enchantments;
+import net.minecraft.enchantment.IVanishable;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.Attribute;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileHelper;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.IItemTier;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.TieredItem;
+import net.minecraft.item.UseAction;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.TieredItem;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.UseAnim;
-import net.minecraft.world.item.Vanishable;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.ClipContext;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import org.infernalstudios.infernalexp.capabilities.IWhipUpdate;
-import org.infernalstudios.infernalexp.init.IECapabilities;
+import org.infernalstudios.infernalexp.capabilities.WhipUpdateCapability;
 import org.infernalstudios.infernalexp.init.IEItems;
 import org.infernalstudios.infernalexp.network.IENetworkHandler;
 import org.infernalstudios.infernalexp.network.WhipReachPacket;
@@ -68,30 +69,28 @@ import org.infernalstudios.infernalexp.network.WhipReachPacket;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class WhipItem extends TieredItem implements Vanishable {
+public class WhipItem extends TieredItem implements IVanishable {
 
     private final float attackDamage;
     private final float attackSpeed;
 
-    private LazyOptional<IWhipUpdate> whipUpdate = LazyOptional.empty();
-
-    public WhipItem(Tier tier, float attackDamageIn, float attackSpeedIn, Item.Properties builderIn) {
+    public WhipItem(IItemTier tier, float attackDamageIn, float attackSpeedIn, Item.Properties builderIn) {
         super(tier, builderIn);
-        this.attackDamage = attackDamageIn + tier.getAttackDamageBonus();
+        this.attackDamage = attackDamageIn + tier.getAttackDamage();
         this.attackSpeed = attackSpeedIn;
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-        tooltip.add(new TextComponent("\u00A76Hold right click to charge, then when fully charged, release to strike!"));
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        tooltip.add(new StringTextComponent("\u00A76Hold right click to charge, then when fully charged, release to strike!"));
     }
 
     @Override
-    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) {
-        if (this.allowdedIn(tab)) {
+    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+        if (isInGroup(group)) {
             ItemStack itemStack = new ItemStack(this);
-            if (itemStack.is(IEItems.KINETIC_TONGUE_WHIP.get())) {
-                itemStack.enchant(Enchantments.KNOCKBACK, 3);
+            if (itemStack.isItemEqual(IEItems.KINETIC_TONGUE_WHIP.get().getDefaultInstance())) {
+                itemStack.addEnchantment(Enchantments.KNOCKBACK, 3);
             }
 
             items.add(itemStack);
@@ -99,8 +98,10 @@ public class WhipItem extends TieredItem implements Vanishable {
     }
 
     @Override
-    public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
-        if (entityLiving instanceof Player player) {
+    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
+        if (entityLiving instanceof PlayerEntity) {
+            PlayerEntity playerEntity = (PlayerEntity) entityLiving;
+
             setCharging(stack, false);
 
             int ticksSinceStart = this.getUseDuration(stack) - timeLeft;
@@ -113,18 +114,46 @@ public class WhipItem extends TieredItem implements Vanishable {
                 setTicksSinceAttack(stack, 18);
             }
 
-            worldIn.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F / (player.getRandom().nextFloat() * 0.4F + 1.2F));
-            player.awardStat(Stats.ITEM_USED.get(this));
+            playerEntity.getEntityWorld().playSound(playerEntity, playerEntity.getPosX(), playerEntity.getPosY(), playerEntity.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F));
+            playerEntity.addStat(Stats.ITEM_USED.get(this));
 
-            if (!worldIn.isClientSide()) {
-                IENetworkHandler.sendToServer(new WhipReachPacket(player.getUUID()));
+            if (worldIn.isRemote()) {
+                handleExtendedReach(playerEntity, stack);
             }
         }
     }
 
+    @OnlyIn(Dist.CLIENT)
+    private boolean handleExtendedReach(PlayerEntity player, ItemStack stack) {
+
+        // Change the value added here to adjust the reach of the charge attack of the whip, must also be changed in WhipReachPacket
+        double reach = player.getAttribute(ForgeMod.REACH_DISTANCE.get()).getValue() + 1.0D;
+
+        Vector3d eyePos = player.getEyePosition(1.0F);
+        Vector3d lookVec = player.getLookVec();
+        Vector3d reachVec = eyePos.add(lookVec.mul(reach, reach, reach));
+
+        AxisAlignedBB playerBox = player.getBoundingBox().expand(lookVec.scale(reach)).grow(1.0D, 1.0D, 1.0D);
+        EntityRayTraceResult entityTraceResult = ProjectileHelper.rayTraceEntities(player, eyePos, reachVec, playerBox, (target) -> !target.isSpectator() && target.isLiving(), reach * reach);
+        BlockRayTraceResult blockTraceResult = player.getEntityWorld().rayTraceBlocks(new RayTraceContext(eyePos, reachVec, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, player));
+
+        if (entityTraceResult != null) {
+            double distance = eyePos.squareDistanceTo(entityTraceResult.getHitVec());
+
+            if (distance < reach * reach && distance < eyePos.squareDistanceTo(blockTraceResult.getHitVec())) {
+                player.ticksSinceLastSwing = (int) player.getCooldownPeriod();
+                IENetworkHandler.sendToServer(new WhipReachPacket(player.getUniqueID(), entityTraceResult.getEntity().getEntityId(), stack));
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     @Override
-    public UseAnim getUseAnimation(ItemStack stack) {
-        return UseAnim.BOW;
+    public UseAction getUseAction(ItemStack stack) {
+        return UseAction.BOW;
     }
 
     @Override
@@ -133,12 +162,12 @@ public class WhipItem extends TieredItem implements Vanishable {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
-        ItemStack itemstack = playerIn.getItemInHand(handIn);
-        if (handIn.equals(InteractionHand.MAIN_HAND)) {
-            playerIn.startUsingItem(handIn);
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+        ItemStack itemstack = playerIn.getHeldItem(handIn);
+        if (handIn.equals(Hand.MAIN_HAND)) {
+            playerIn.setActiveHand(handIn);
         }
-        return InteractionResultHolder.pass(itemstack);
+        return ActionResult.resultPass(itemstack);
     }
 
     @Override
@@ -152,12 +181,12 @@ public class WhipItem extends TieredItem implements Vanishable {
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, Level level, Entity entity, int itemSlot, boolean isSelected) {
+    public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
         if ((getCharging(stack) && getTicksSinceAttack(stack) <= 15) || getAttacking(stack)) {
             setTicksSinceAttack(stack, getTicksSinceAttack(stack) + 1);
         }
 
-        if (getTicksSinceAttack(stack) >= 30 || (!isSelected && entity instanceof Player player && player.getOffhandItem() != stack)) {
+        if (getTicksSinceAttack(stack) >= 30 || (!isSelected && entityIn instanceof PlayerEntity && ((PlayerEntity) entityIn).getHeldItemOffhand() != stack)) {
             setTicksSinceAttack(stack, 0);
             setAttacking(stack, false);
             setCharging(stack, false);
@@ -165,21 +194,23 @@ public class WhipItem extends TieredItem implements Vanishable {
     }
 
     @Override
-    public boolean canAttackBlock(BlockState state, Level worldIn, BlockPos pos, Player player) {
+    public boolean canPlayerBreakBlockWhileHolding(BlockState state, World worldIn, BlockPos pos, PlayerEntity player) {
         return !player.isCreative();
     }
 
     @Override
-    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        super.hurtEnemy(stack, target, attacker);
-        stack.hurtAndBreak(1, attacker, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+    public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        super.hitEntity(stack, target, attacker);
+
+
+        stack.damageItem(1, attacker, (entity) -> entity.sendBreakAnimation(EquipmentSlotType.MAINHAND));
         return true;
     }
 
     @Override
-    public boolean mineBlock(ItemStack stack, Level worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
-        if (state.getDestroySpeed(worldIn, pos) != 0.0F) {
-            stack.hurtAndBreak(2, entityLiving, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+    public boolean onBlockDestroyed(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
+        if (state.getBlockHardness(worldIn, pos) != 0.0F) {
+            stack.damageItem(2, entityLiving, (entity) -> entity.sendBreakAnimation(EquipmentSlotType.MAINHAND));
         }
 
         return true;
@@ -188,56 +219,55 @@ public class WhipItem extends TieredItem implements Vanishable {
     @Override
     public float getDestroySpeed(ItemStack stack, BlockState state) {
         Material material = state.getMaterial();
-        return material != Material.PLANT && material != Material.REPLACEABLE_PLANT && !state.is(BlockTags.LEAVES) && material != Material.VEGETABLE ? 1.0F : 1.5F;
+        return material != Material.PLANTS && material != Material.TALL_PLANTS && material != Material.CORAL && !state.isIn(BlockTags.LEAVES) && material != Material.GOURD ? 1.0F : 1.5F;
     }
 
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        return enchantment.category == (EnchantmentCategory.WEAPON);
+        return enchantment.type == (EnchantmentType.WEAPON);
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot equipmentSlot, ItemStack itemStack) {
+    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType equipmentSlot, ItemStack itemStack) {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> attributeBuilder = ImmutableMultimap.builder();
-        attributeBuilder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
-        attributeBuilder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", this.attackSpeed, AttributeModifier.Operation.ADDITION));
+        attributeBuilder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
+        attributeBuilder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", this.attackSpeed, AttributeModifier.Operation.ADDITION));
         Multimap<Attribute, AttributeModifier> attributes = attributeBuilder.build();
-        return equipmentSlot == EquipmentSlot.MAINHAND ? attributes : super.getAttributeModifiers(equipmentSlot, itemStack);
+        return equipmentSlot == EquipmentSlotType.MAINHAND ? attributes : super.getAttributeModifiers(equipmentSlot, itemStack);
     }
 
-    private LazyOptional<IWhipUpdate> getWhipUpdate(ItemStack itemStack) {
-        if (!whipUpdate.isPresent()) {
-            whipUpdate = itemStack.getCapability(IECapabilities.WHIP_UPDATE);
-            whipUpdate.addListener(self -> LazyOptional.empty());
-        }
+    @Nullable
+    @Override
+    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundNBT nbt) {
+        if (WhipUpdateCapability.INSTANCE == null) return null;
 
-        return whipUpdate;
+        return WhipUpdateCapability.createProvider();
     }
 
     public void setTicksSinceAttack(ItemStack itemStack, int ticksSinceAttack) {
-        getWhipUpdate(itemStack).ifPresent(whipUpdate -> whipUpdate.setTicksSinceAttack(ticksSinceAttack));
+        WhipUpdateCapability.getWhipUpdate(itemStack).ifPresent(whipUpdate -> whipUpdate.setTicksSinceAttack(ticksSinceAttack));
     }
 
     public int getTicksSinceAttack(ItemStack itemStack) {
-        IWhipUpdate whipUpdate = getWhipUpdate(itemStack).orElse(null);
+        IWhipUpdate whipUpdate = WhipUpdateCapability.getWhipUpdate(itemStack).orElse(null);
         return whipUpdate == null ? 0 : whipUpdate.getTicksSinceAttack();
     }
 
     public void setAttacking(ItemStack itemStack, boolean attacking) {
-        getWhipUpdate(itemStack).ifPresent(whipUpdate -> whipUpdate.setAttacking(attacking));
+        WhipUpdateCapability.getWhipUpdate(itemStack).ifPresent(whipUpdate -> whipUpdate.setAttacking(attacking));
     }
 
     public boolean getAttacking(ItemStack itemStack) {
-        IWhipUpdate whipUpdate = getWhipUpdate(itemStack).orElse(null);
+        IWhipUpdate whipUpdate = WhipUpdateCapability.getWhipUpdate(itemStack).orElse(null);
         return whipUpdate != null && whipUpdate.getAttacking();
     }
 
     public void setCharging(ItemStack itemStack, boolean charging) {
-        getWhipUpdate(itemStack).ifPresent(whipUpdate -> whipUpdate.setCharging(charging));
+        WhipUpdateCapability.getWhipUpdate(itemStack).ifPresent(whipUpdate -> whipUpdate.setCharging(charging));
     }
 
     public boolean getCharging(ItemStack itemStack) {
-        IWhipUpdate whipUpdate = getWhipUpdate(itemStack).orElse(null);
+        IWhipUpdate whipUpdate = WhipUpdateCapability.getWhipUpdate(itemStack).orElse(null);
         return whipUpdate != null && whipUpdate.getCharging();
     }
 }
