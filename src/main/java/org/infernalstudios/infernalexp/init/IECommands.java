@@ -17,20 +17,24 @@
 package org.infernalstudios.infernalexp.init;
 
 import com.mojang.brigadier.CommandDispatcher;
-import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.util.NetherTeleportCommandUtil;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.Mth;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.world.level.dimension.DimensionType;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.border.WorldBorder;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.border.WorldBorder;
+import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.phys.Vec3;
+import org.infernalstudios.infernalexp.InfernalExpansion;
+import org.infernalstudios.infernalexp.util.NetherTeleportCommandUtil;
 
 import java.util.Collection;
 
@@ -111,8 +115,37 @@ public class IECommands {
         }));
     }
 
+    private static void mapNearbyBiomes(CommandDispatcher<CommandSourceStack> dispatcher) {
+        String commandString = "map_biomes";
+
+        dispatcher.register(Commands.literal(commandString)
+            .requires(commandSource -> commandSource.hasPermission(3))
+            .then(Commands.argument("radius", IntegerArgumentType.integer(1))
+                .executes(command -> {
+                        int radius = IntegerArgumentType.getInteger(command, "radius");
+                        Vec3 pos = command.getSource().getPosition().add(0, -1, 0);
+
+                        for (int x = -radius; x <= radius; x++) {
+                            for (int y = -radius; y <= radius; y++) {
+                                BlockState state = switch (command.getSource().getLevel().getBiome(new BlockPos(pos.add(x * 16, 0, y * 16))).unwrapKey().get().location().toString()) {
+                                    case "minecraft:basalt_deltas" -> Blocks.COAL_BLOCK.defaultBlockState();
+                                    case "infernalexp:delta_shores" -> Blocks.BASALT.defaultBlockState();
+                                    default -> Blocks.RED_TERRACOTTA.defaultBlockState();
+                                };
+
+                                command.getSource().getLevel().setBlock(new BlockPos(pos.add(x, 0, y)), state, 2);
+                            }
+                        }
+
+                        return 1;
+                    }
+                )));
+    }
+
     public static void registerCommands(CommandDispatcher<CommandSourceStack> dispatcher) {
         dimensionTeleportCommand(dispatcher);
         netherSpawnCommand(dispatcher);
+        mapNearbyBiomes(dispatcher);
     }
+
 }

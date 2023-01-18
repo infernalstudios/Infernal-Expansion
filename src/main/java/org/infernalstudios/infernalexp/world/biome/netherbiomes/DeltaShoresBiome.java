@@ -38,7 +38,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import org.infernalstudios.infernalexp.init.IEPlacedFeatures;
 import org.infernalstudios.infernalexp.world.biome.IEBiome;
 
-public class DeltaShoresSubBiome extends IEBiome {
+public class DeltaShoresBiome extends IEBiome {
 
     @Override
     protected Biome.BiomeCategory configureCategory() {
@@ -47,34 +47,38 @@ public class DeltaShoresSubBiome extends IEBiome {
 
     @Override
     protected Climate.Parameter configureTemperature() {
-        return null;
+        return Climate.Parameter.span(-0.32F, -0.31F);
     }
 
     @Override
     protected Climate.Parameter configureHumidity() {
-        return null;
+        return Climate.Parameter.point(0);
     }
 
     @Override
     protected Climate.Parameter configureContinentalness() {
-        return null;
+        return Climate.Parameter.point(0);
     }
 
     @Override
     protected Climate.Parameter configureErosion() {
-        return null;
+        return Climate.Parameter.point(0);
     }
 
     @Override
     protected Climate.Parameter configureDepth() {
-        return null;
+        return Climate.Parameter.point(0);
     }
 
     @Override
     protected Climate.Parameter configureWeirdness() {
-        return null;
+        return Climate.Parameter.point(0);
     }
 
+    @Override
+    protected float configureOffset() {
+        return 0.175F;
+    }
 
     @Override
     protected void configureAmbience(BiomeSpecialEffects.Builder ambience) {
@@ -98,21 +102,21 @@ public class DeltaShoresSubBiome extends IEBiome {
 
     @Override
     protected void configureGeneration(BiomeGenerationSettings.Builder generation) {
-//        generation.addStructureStart(StructureFeatures.RUINED_PORTAL_NETHER);
-//        generation.addStructureStart(StructureFeatures.NETHER_BRIDGE);
+        //        generation.addStructureStart(StructureFeatures.RUINED_PORTAL_NETHER);
+        //        generation.addStructureStart(StructureFeatures.NETHER_BRIDGE);
         generation.addCarver(GenerationStep.Carving.AIR, Carvers.NETHER_CAVE);
         //generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.DELTA);
                 /*FeatureSpread.of(3, 4), FeatureSpread.of(0, 2),
                 (((Placement.COUNT_MULTILAYER.configure(new FeatureSpreadConfig(40))));*/
         generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, NetherPlacements.BASALT_BLOBS);
-        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.BLACKSTONE_BLOBS);
         generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, NetherPlacements.SMALL_BASALT_COLUMNS);
-//        generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.SPRING_LAVA);
-//        generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.SPRING_LAVA_DOUBLE);
+        //        generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.SPRING_LAVA);
+        //        generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.SPRING_LAVA_DOUBLE);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.BLACKSTONE_BLOBS);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.PATCH_FIRE);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.PATCH_SOUL_FIRE);
-        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.GLOWSTONE);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.GLOWSTONE_EXTRA);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.GLOWSTONE);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, OrePlacements.ORE_MAGMA);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.SPRING_CLOSED_DOUBLE);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, IEPlacedFeatures.ORE_BASALT_IRON_DELTA_SHORES);
@@ -133,7 +137,7 @@ public class DeltaShoresSubBiome extends IEBiome {
 
     @Override
     protected void configureSpawns(MobSpawnSettings.Builder spawns) {
-//        spawns.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(IEEntityTypes.GLOWSQUITO.get(), 1, 1, 3));
+        //        spawns.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(IEEntityTypes.GLOWSQUITO.get(), 1, 1, 3));
         spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.STRIDER, 60, 1, 2));
     }
 
@@ -141,4 +145,5 @@ public class DeltaShoresSubBiome extends IEBiome {
     public BiomeDictionary.Type[] getBiomeTypes() {
         return new BiomeDictionary.Type[]{BiomeDictionary.Type.NETHER};
     }
+
 }

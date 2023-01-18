@@ -72,7 +72,7 @@ public abstract class IEBiome {
     protected abstract Climate.Parameter configureWeirdness();
 
     /**
-     * Method to configure offset value. Offset seems to work differently from the other six parameters. I'd say just leave it set to 0.0F
+     * Method to configure offset value. Offset is just rarity, the higher the offset, the rarer the biome
      *
      * @return Offset value for biome to use
      */
@@ -105,9 +105,6 @@ public abstract class IEBiome {
     public abstract BiomeDictionary.Type[] getBiomeTypes();
 
     public final Climate.ParameterPoint getBiomeParameters() {
-        // We add the PARAMETER_MODIFIER to remove any chance that another mod adds a biome with the same parameter values.
-        // If two biomes have the exact same parameter values only one of them will ever generate.
-
         return Climate.parameters(
             this.configureTemperature(),
             this.configureHumidity(),

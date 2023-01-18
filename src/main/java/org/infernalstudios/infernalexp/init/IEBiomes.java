@@ -28,17 +28,20 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.world.biome.IEBiome;
+import org.infernalstudios.infernalexp.world.biome.netherbiomes.DeltaShoresBiome;
 import org.infernalstudios.infernalexp.world.biome.netherbiomes.GlowstoneCanyonBiome;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class IEBiomes {
+
     private static final List<Pair<ResourceKey<Biome>, Climate.ParameterPoint>> biomeParameters = new ArrayList<>();
 
     private static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, InfernalExpansion.MOD_ID);
 
-    public static ResourceKey<Biome> GLOWSTONE_CANYON = registerBiome("glowstone_canyon", new GlowstoneCanyonBiome());
+    public static final ResourceKey<Biome> GLOWSTONE_CANYON = registerBiome("glowstone_canyon", new GlowstoneCanyonBiome());
+    public static final ResourceKey<Biome> DELTA_SHORES = registerBiome("delta_shores", new DeltaShoresBiome());
 
     private static ResourceKey<Biome> registerBiome(String name, IEBiome biome) {
         ResourceKey<Biome> resourceKey = ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(InfernalExpansion.MOD_ID, name));

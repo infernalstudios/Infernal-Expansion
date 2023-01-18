@@ -32,6 +32,8 @@ public class NetherSurfaceRules {
     private static final SurfaceRules.RuleSource TRAPPED_GLOWDUST_SAND = makeStateRule(IEBlocks.TRAPPED_GLOWDUST_SAND.get());
     private static final SurfaceRules.RuleSource DIMSTONE = makeStateRule(IEBlocks.DIMSTONE.get());
     private static final SurfaceRules.RuleSource DULLSTONE = makeStateRule(IEBlocks.DULLSTONE.get());
+    private static final SurfaceRules.RuleSource SILT = makeStateRule(IEBlocks.SILT.get());
+    private static final SurfaceRules.RuleSource BASALT = makeStateRule(Blocks.BASALT);
     private static final SurfaceRules.RuleSource BEDROCK = makeStateRule(Blocks.BEDROCK);
 
     private static final SurfaceRules.RuleSource GLOWSTONE_CANYON = SurfaceRules.ifTrue(SurfaceRules.isBiome(IEBiomes.GLOWSTONE_CANYON), SurfaceRules.sequence(
@@ -43,8 +45,13 @@ public class NetherSurfaceRules {
         DULLSTONE
     ));
 
+    private static final SurfaceRules.RuleSource DELTA_SHORES = SurfaceRules.ifTrue(SurfaceRules.isBiome(IEBiomes.DELTA_SHORES), SurfaceRules.sequence(
+        SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(3, false, CaveSurface.FLOOR), SILT),
+        BASALT
+    ));
+
     public static SurfaceRules.RuleSource addNetherSurfaceRules() {
-        return SurfaceRules.sequence(GLOWSTONE_CANYON);
+        return SurfaceRules.sequence(GLOWSTONE_CANYON, DELTA_SHORES);
     }
 
     public static SurfaceRules.RuleSource addNetherSurfaceRulesWithBedrock() {
