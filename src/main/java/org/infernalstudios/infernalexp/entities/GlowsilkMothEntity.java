@@ -36,6 +36,7 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 public class GlowsilkMothEntity extends AmbientCreature {
     private BlockPos spawnPosition;
@@ -75,7 +76,7 @@ public class GlowsilkMothEntity extends AmbientCreature {
     }
 
     @Override
-    protected void doPush(Entity entityIn) {
+    protected void doPush(@NotNull Entity entityIn) {
     }
 
     @Override
@@ -128,12 +129,12 @@ public class GlowsilkMothEntity extends AmbientCreature {
     }
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
         return IESoundEvents.GLOWSILK_MOTH_HURT.get();
     }
 
     @Override
-    public MobType getMobType() {
+    public @NotNull MobType getMobType() {
         return MobType.ARTHROPOD;
     }
 
@@ -146,7 +147,7 @@ public class GlowsilkMothEntity extends AmbientCreature {
     }
 
     @Override
-    protected void checkFallDamage(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
+    protected void checkFallDamage(double y, boolean onGroundIn, @NotNull BlockState state, @NotNull BlockPos pos) {
     }
 
     /**
@@ -161,12 +162,12 @@ public class GlowsilkMothEntity extends AmbientCreature {
      * Called when the entity is attacked.
      */
     @Override
-    public boolean hurt(DamageSource source, float amount) {
+    public boolean hurt(@NotNull DamageSource source, float amount) {
         return this.isInvulnerableTo(source) ? false : super.hurt(source, amount);
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
+    protected float getStandingEyeHeight(@NotNull Pose poseIn, EntityDimensions sizeIn) {
         return sizeIn.height * 0.5F;
     }
 }
