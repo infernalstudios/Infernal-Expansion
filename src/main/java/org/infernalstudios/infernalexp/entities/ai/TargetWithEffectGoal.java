@@ -21,6 +21,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.effect.MobEffect;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.function.Predicate;
@@ -53,7 +54,7 @@ public class TargetWithEffectGoal extends NearestAttackableTargetGoal<LivingEnti
     }
 
     @Override
-    protected boolean canAttack(@Nullable LivingEntity potentialTarget, TargetingConditions targetPredicate) {
+    protected boolean canAttack(@Nullable LivingEntity potentialTarget, @NotNull TargetingConditions targetPredicate) {
         if (this.invalidTarget != null && potentialTarget != null && potentialTarget.getClass() == this.invalidTarget) {
             return false;
         }

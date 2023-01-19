@@ -34,6 +34,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import org.apache.commons.io.IOUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -53,7 +54,7 @@ public class VolineEatTable extends SimpleJsonResourceReloadListener {
     }
 
     @Override
-    protected void apply(Map<ResourceLocation, JsonElement> objectIn, ResourceManager resourceManagerIn, ProfilerFiller profilerIn) {
+    protected void apply(@NotNull Map<ResourceLocation, JsonElement> objectIn, ResourceManager resourceManagerIn, @NotNull ProfilerFiller profilerIn) {
         ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, "loot_tables/gameplay/voline_eat_table.json");
 
         try {

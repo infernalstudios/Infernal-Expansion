@@ -30,6 +30,7 @@ import net.minecraft.util.FormattedCharSequence;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.infernalstudios.infernalexp.config.ConfigHelper;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -57,7 +58,7 @@ public abstract class IESettingsScreen extends Screen {
     }
 
     @Override
-    public void render(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+    public void render(@NotNull PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         renderBackground(matrixStack);
 
         optionsRowList.render(matrixStack, mouseX, mouseY, partialTicks);

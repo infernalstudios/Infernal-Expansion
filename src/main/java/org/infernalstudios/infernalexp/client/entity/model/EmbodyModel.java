@@ -36,6 +36,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.entities.EmbodyEntity;
+import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("unused")
 public class EmbodyModel<E extends EmbodyEntity> extends EntityModel<EmbodyEntity> {
@@ -67,14 +68,14 @@ public class EmbodyModel<E extends EmbodyEntity> extends EntityModel<EmbodyEntit
     }
 
     @Override
-    public void setupAnim(EmbodyEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(@NotNull EmbodyEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         rightArm.xRot = Mth.sin(limbSwing) / 2 - 45;
         leftArm.xRot = Mth.sin(-limbSwing) / 2 - 45;
         body.zRot = Mth.sin(limbSwing) / 8;
     }
 
     @Override
-    public void renderToBuffer(PoseStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(@NotNull PoseStack matrixStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         body.render(matrixStack, buffer, packedLight, packedOverlay);
     }
 

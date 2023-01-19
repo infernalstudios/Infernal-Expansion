@@ -22,6 +22,7 @@ import net.minecraft.client.gui.components.AbstractWidget;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class TitleOption extends Option {
@@ -31,7 +32,7 @@ public class TitleOption extends Option {
     }
 
     @Override
-    public AbstractWidget createButton(Options options, int xIn, int yIn, int widthIn) {
+    public @NotNull AbstractWidget createButton(@NotNull Options options, int xIn, int yIn, int widthIn) {
         return new Title(xIn, yIn, widthIn, 20, getCaption());
     }
 

@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraftforge.common.IPlantable;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A copy of the BushBlock class provided by MinecraftForge that extends HorizontalFaceBlock in order to allow for
@@ -48,12 +49,12 @@ public class HorizontalBushBlock extends FaceAttachedHorizontalDirectionalBlock 
      * Note that this method should ideally consider only the specific face passed in.
      */
     @Override
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
+    public @NotNull BlockState updateShape(BlockState stateIn, @NotNull Direction facing, @NotNull BlockState facingState, @NotNull LevelAccessor worldIn, @NotNull BlockPos currentPos, @NotNull BlockPos facingPos) {
         return !stateIn.canSurvive(worldIn, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 
     @Override
-    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
+    public boolean canSurvive(BlockState state, @NotNull LevelReader worldIn, BlockPos pos) {
         BlockPos blockpos = pos.below();
         if (state.getBlock() == this) //Forge: This function is called during world gen and placement, before this block is set, so if we are not 'here' then assume it's the pre-check.
             return worldIn.getBlockState(blockpos).canSustainPlant(worldIn, blockpos, Direction.UP, this);
@@ -61,13 +62,13 @@ public class HorizontalBushBlock extends FaceAttachedHorizontalDirectionalBlock 
     }
 
     @Override
-    public boolean propagatesSkylightDown(BlockState state, BlockGetter reader, BlockPos pos) {
+    public boolean propagatesSkylightDown(BlockState state, @NotNull BlockGetter reader, @NotNull BlockPos pos) {
         return state.getFluidState().isEmpty();
     }
 
     @Override
     @SuppressWarnings("deprecation")
-    public boolean isPathfindable(BlockState state, BlockGetter worldIn, BlockPos pos, PathComputationType type) {
+    public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter worldIn, @NotNull BlockPos pos, @NotNull PathComputationType type) {
         return type == PathComputationType.AIR && !this.hasCollision || super.isPathfindable(state, worldIn, pos, type);
     }
 

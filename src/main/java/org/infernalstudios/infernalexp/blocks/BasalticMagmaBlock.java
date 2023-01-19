@@ -25,6 +25,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Rotation;
+import org.jetbrains.annotations.NotNull;
 
 public class BasalticMagmaBlock extends MagmaBlock {
     public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.AXIS;
@@ -35,7 +36,7 @@ public class BasalticMagmaBlock extends MagmaBlock {
     }
 
     @Override
-    public BlockState rotate(BlockState state, Rotation rot) {
+    public @NotNull BlockState rotate(@NotNull BlockState state, Rotation rot) {
         switch (rot) {
             case COUNTERCLOCKWISE_90:
             case CLOCKWISE_90:

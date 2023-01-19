@@ -31,6 +31,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.entities.BasaltGiantEntity;
+import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class BasaltGiantModel<T extends BasaltGiantEntity> extends EntityModel<T> {
@@ -123,7 +124,7 @@ public class BasaltGiantModel<T extends BasaltGiantEntity> extends EntityModel<T
     }
 
     @Override
-    public void renderToBuffer(PoseStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(@NotNull PoseStack matrixStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         body.render(matrixStack, buffer, packedLight, packedOverlay);
     }
 

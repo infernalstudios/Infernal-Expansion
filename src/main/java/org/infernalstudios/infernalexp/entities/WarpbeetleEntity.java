@@ -55,6 +55,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 public class WarpbeetleEntity extends PathfinderMob {
     private int attackTimer;
@@ -113,14 +114,14 @@ public class WarpbeetleEntity extends PathfinderMob {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("chorus", this.isChorus());
         compound.putInt("WarpbeetleConversionTime", this.isConverting() ? this.conversionTicks : -1);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setChorus(compound.getBoolean("chorus"));
     }
@@ -134,7 +135,7 @@ public class WarpbeetleEntity extends PathfinderMob {
     }
 
     @Override
-    protected InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
+    protected @NotNull InteractionResult mobInteract(Player playerIn, @NotNull InteractionHand hand) {
         ItemStack stack = playerIn.getItemInHand(hand);
         if (this.isConverting()) {
             return InteractionResult.FAIL;
@@ -209,7 +210,7 @@ public class WarpbeetleEntity extends PathfinderMob {
 
     // EXP POINTS
     @Override
-    protected int getExperienceReward(Player player) {
+    protected int getExperienceReward(@NotNull Player player) {
         return 1 + this.level.random.nextInt(4);
     }
 
@@ -225,22 +226,22 @@ public class WarpbeetleEntity extends PathfinderMob {
     }
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
         return IESoundEvents.WARPBEETLE_HURT.get();
     }
 
     @Override
-    public MobType getMobType() {
+    public @NotNull MobType getMobType() {
         return MobType.ARTHROPOD;
     }
 
     @Override
-    protected void playStepSound(BlockPos pos, BlockState blockIn) {
+    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState blockIn) {
         this.playSound(SoundEvents.PIG_STEP, 0.15F, 1.0F);
     }
 
     @Override
-    public boolean causeFallDamage(float distance, float damageMultiplier, DamageSource damageSource) {
+    public boolean causeFallDamage(float distance, float damageMultiplier, @NotNull DamageSource damageSource) {
         return false;
     }
 }

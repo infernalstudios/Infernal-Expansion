@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.infernalstudios.infernalexp.entities.BlindsightEntity;
 import org.infernalstudios.infernalexp.init.IEEffects;
+import org.jetbrains.annotations.NotNull;
 
 public class DullthornsBlockBlock extends Block {
 
@@ -35,7 +36,7 @@ public class DullthornsBlockBlock extends Block {
     }
 
     @Override
-    public void stepOn(Level worldIn, BlockPos pos, BlockState state, Entity entityIn) {
+    public void stepOn(Level worldIn, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Entity entityIn) {
         if (!worldIn.isClientSide()) {
             if (entityIn instanceof LivingEntity livingEntity && entityIn.isAlive() && !(entityIn instanceof BlindsightEntity)) {
                 livingEntity.addEffect(new MobEffectInstance(IEEffects.LUMINOUS.get(), 300, 0));

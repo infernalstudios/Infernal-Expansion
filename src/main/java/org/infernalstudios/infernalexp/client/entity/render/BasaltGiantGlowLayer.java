@@ -27,6 +27,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 class BasaltGiantGlowLayer<T extends BasaltGiantEntity, M extends EntityModel<T>> extends EyesLayer<T, M> {
@@ -38,7 +39,7 @@ class BasaltGiantGlowLayer<T extends BasaltGiantEntity, M extends EntityModel<T>
     }
 
     @Override
-    public RenderType renderType() {
+    public @NotNull RenderType renderType() {
         return RENDER_TYPE;
     }
 }

@@ -22,6 +22,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.client.entity.model.PyrnoModel;
 import org.infernalstudios.infernalexp.entities.PyrnoEntity;
+import org.jetbrains.annotations.NotNull;
 
 public class PyrnoRenderer extends MobRenderer<PyrnoEntity, PyrnoModel<PyrnoEntity>> {
 
@@ -33,7 +34,7 @@ public class PyrnoRenderer extends MobRenderer<PyrnoEntity, PyrnoModel<PyrnoEnti
     }
 
     @Override
-    public ResourceLocation getTextureLocation(PyrnoEntity entity) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull PyrnoEntity entity) {
         return TEXTURE;
     }
 }

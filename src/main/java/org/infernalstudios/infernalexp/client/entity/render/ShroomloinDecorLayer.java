@@ -24,6 +24,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.infernalstudios.infernalexp.client.entity.model.ShroomloinModel;
 import org.infernalstudios.infernalexp.entities.ShroomloinEntity;
 import org.infernalstudios.infernalexp.util.ShroomloinType;
+import org.jetbrains.annotations.NotNull;
 
 public class ShroomloinDecorLayer extends RenderLayer<ShroomloinEntity, ShroomloinModel<ShroomloinEntity>> {
     private final ShroomloinModel<ShroomloinEntity> model;
@@ -35,7 +36,7 @@ public class ShroomloinDecorLayer extends RenderLayer<ShroomloinEntity, Shroomlo
     }
 
     @Override
-    public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, ShroomloinEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void render(@NotNull PoseStack matrixStackIn, @NotNull MultiBufferSource bufferIn, int packedLightIn, ShroomloinEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         ResourceLocation texture = ShroomloinType.getById(entitylivingbaseIn.getShroomloinType().getId()).getTextureLocation();
         coloredCutoutModelCopyLayerRender(this.getParentModel(), model, texture, matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTicks, 1.0F, 1.0F, 1.0F);
     }

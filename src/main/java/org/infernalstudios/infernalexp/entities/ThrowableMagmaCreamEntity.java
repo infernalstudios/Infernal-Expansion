@@ -31,6 +31,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 public class ThrowableMagmaCreamEntity extends ThrowableItemProjectile {
 
@@ -43,12 +44,12 @@ public class ThrowableMagmaCreamEntity extends ThrowableItemProjectile {
     }
 
     @Override
-    protected Item getDefaultItem() {
+    protected @NotNull Item getDefaultItem() {
         return Items.MAGMA_CREAM;
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public @NotNull Packet<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
@@ -56,7 +57,7 @@ public class ThrowableMagmaCreamEntity extends ThrowableItemProjectile {
      * Called when the magma cream hits an entity
      */
     @Override
-    protected void onHitEntity(EntityHitResult entityRayTraceResult) {
+    protected void onHitEntity(@NotNull EntityHitResult entityRayTraceResult) {
         super.onHitEntity(entityRayTraceResult);
         Entity entity = entityRayTraceResult.getEntity();
         if (entity instanceof LivingEntity livingEntity) {
@@ -68,7 +69,7 @@ public class ThrowableMagmaCreamEntity extends ThrowableItemProjectile {
      * Called when this ThrowableMagmaCreamEntity hits a block or entity.
      */
     @Override
-    protected void onHit(HitResult result) {
+    protected void onHit(@NotNull HitResult result) {
         super.onHit(result);
 
         if (result.getType() == HitResult.Type.BLOCK) {

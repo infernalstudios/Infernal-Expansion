@@ -30,6 +30,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.entities.GlowsquitoEntity;
+import org.jetbrains.annotations.NotNull;
 
 public class GlowsquitoModel<T extends GlowsquitoEntity> extends AgeableListModel<T> {
 
@@ -78,19 +79,19 @@ public class GlowsquitoModel<T extends GlowsquitoEntity> extends AgeableListMode
     }
 
     @Override
-    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         // Flap wings back and forth constantly
         leftWing.zRot = Mth.cos(2.0F * ageInTicks);
         rightWing.zRot = -Mth.cos(2.0F * ageInTicks);
     }
 
     @Override
-    protected Iterable<ModelPart> headParts() {
+    protected @NotNull Iterable<ModelPart> headParts() {
         return ImmutableList.of(head, stinger);
     }
 
     @Override
-    protected Iterable<ModelPart> bodyParts() {
+    protected @NotNull Iterable<ModelPart> bodyParts() {
         return ImmutableList.of(body, butt, rightWing, leftWing,
             rightArm, leftArm, rightLeg, leftLeg);
     }

@@ -31,6 +31,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.entities.WarpbeetleEntity;
+import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("unused")
 public class WarpbeetleModel<T extends WarpbeetleEntity> extends EntityModel<T> {
@@ -132,7 +133,7 @@ public class WarpbeetleModel<T extends WarpbeetleEntity> extends EntityModel<T> 
 
 
     @Override
-    public void renderToBuffer(PoseStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(@NotNull PoseStack matrixStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         all.render(matrixStack, buffer, packedLight, packedOverlay);
     }
 

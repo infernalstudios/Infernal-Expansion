@@ -46,6 +46,7 @@ import org.infernalstudios.infernalexp.init.IEBlockEntityTypes;
 import org.infernalstudios.infernalexp.init.IEConfiguredFeatures;
 import org.infernalstudios.infernalexp.init.IEEffects;
 import org.infernalstudios.infernalexp.init.IETags;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -71,12 +72,12 @@ public class LuminousFungusBlock extends HorizontalBushBlock implements Bonemeal
     }
 
     @Override
-    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
+    public boolean canSurvive(BlockState state, @NotNull LevelReader worldIn, BlockPos pos) {
         return !state.getValue(FACE).equals(AttachFace.WALL) && canAttachToSurface(worldIn, pos, getConnectedDirection(state).getOpposite());
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+    public @NotNull VoxelShape getShape(BlockState state, @NotNull BlockGetter worldIn, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         Vec3 vector3d = state.getOffset(worldIn, pos);
 
         switch (state.getValue(FACE)) {
@@ -89,7 +90,7 @@ public class LuminousFungusBlock extends HorizontalBushBlock implements Bonemeal
     }
 
     @Override
-    public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
+    public void entityInside(@NotNull BlockState state, Level worldIn, @NotNull BlockPos pos, @NotNull Entity entityIn) {
         if (!worldIn.isClientSide()) {
             if (entityIn instanceof LivingEntity livingEntity && entityIn.isAlive() && InfernalExpansionConfig.Miscellaneous.LUMINOUS_FUNGUS_GIVES_EFFECT.getBool()) {
                 livingEntity.addEffect(new MobEffectInstance(IEEffects.LUMINOUS.get(), 120, 0, true, true));
@@ -99,7 +100,7 @@ public class LuminousFungusBlock extends HorizontalBushBlock implements Bonemeal
 
 
     @Override
-    public OffsetType getOffsetType() {
+    public @NotNull OffsetType getOffsetType() {
         return OffsetType.XZ;
     }
 
@@ -112,30 +113,30 @@ public class LuminousFungusBlock extends HorizontalBushBlock implements Bonemeal
      * Whether this IGrowable can grow
      */
     @Override
-    public boolean isValidBonemealTarget(BlockGetter worldIn, BlockPos pos, BlockState state, boolean isClient) {
+    public boolean isValidBonemealTarget(BlockGetter worldIn, BlockPos pos, @NotNull BlockState state, boolean isClient) {
         Block block = ((HugeFungusConfiguration) IEConfiguredFeatures.DULLTHORN_TREE_PLANTED.value().config()).validBaseState.getBlock();
         Block block1 = worldIn.getBlockState(pos.below()).getBlock();
         return block1 == block;
     }
 
     @Override
-    public boolean isBonemealSuccess(Level worldIn, Random rand, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(@NotNull Level worldIn, Random rand, @NotNull BlockPos pos, @NotNull BlockState state) {
         return (double) rand.nextFloat() < 0.4D;
     }
 
     @Override
-    public void performBonemeal(ServerLevel worldIn, Random rand, BlockPos pos, BlockState state) {
+    public void performBonemeal(@NotNull ServerLevel worldIn, @NotNull Random rand, @NotNull BlockPos pos, @NotNull BlockState state) {
         IEConfiguredFeatures.DULLTHORN_TREE_PLANTED.value().place(worldIn, worldIn.getChunkSource().getGenerator(), rand, pos);
     }
 
     @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
         return new LuminousFungusBlockEntity(pos, state);
     }
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
         if (!world.isClientSide())
             return createTickerHelper(type, IEBlockEntityTypes.LUMINOUS_FUNGUS.get(), LuminousFungusBlockEntity::tick);
 
@@ -147,7 +148,7 @@ public class LuminousFungusBlock extends HorizontalBushBlock implements Bonemeal
     }
 
     @Override
-    public void tick(Level p_155253_, BlockPos p_155254_, BlockState p_155255_, LuminousFungusBlockEntity p_155256_) {
+    public void tick(@NotNull Level p_155253_, @NotNull BlockPos p_155254_, @NotNull BlockState p_155255_, @NotNull LuminousFungusBlockEntity p_155256_) {
 
     }
 }

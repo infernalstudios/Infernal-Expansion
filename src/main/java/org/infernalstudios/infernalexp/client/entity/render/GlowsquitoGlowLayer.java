@@ -27,6 +27,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class GlowsquitoGlowLayer<T extends GlowsquitoEntity, M extends EntityModel<T>> extends EyesLayer<T, M> {
@@ -38,7 +39,7 @@ public class GlowsquitoGlowLayer<T extends GlowsquitoEntity, M extends EntityMod
     }
 
     @Override
-    public RenderType renderType() {
+    public @NotNull RenderType renderType() {
         return RENDER_TYPE;
     }
 }

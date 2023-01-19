@@ -16,36 +16,32 @@
 
 package org.infernalstudios.infernalexp.entities;
 
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.AreaEffectCloud;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkHooks;
 import org.infernalstudios.infernalexp.init.IEEffects;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
 import org.infernalstudios.infernalexp.init.IEItems;
 import org.infernalstudios.infernalexp.init.IEParticleTypes;
-
-import net.minecraft.world.entity.AreaEffectCloud;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.projectile.ItemSupplier;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
-import net.minecraft.world.item.Item;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@OnlyIn(
-    value = Dist.CLIENT,
-    _interface = ItemSupplier.class
-)
+@OnlyIn(value = Dist.CLIENT)
 public class AscusBombEntity extends ThrowableItemProjectile {
 
     public AscusBombEntity(EntityType<? extends AscusBombEntity> typeIn, Level worldIn) {
@@ -57,17 +53,17 @@ public class AscusBombEntity extends ThrowableItemProjectile {
     }
 
     @Override
-    protected Item getDefaultItem() {
+    protected @NotNull Item getDefaultItem() {
         return IEItems.ASCUS_BOMB.get();
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public @NotNull Packet<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     @Override
-    protected void onHit(HitResult result) {
+    protected void onHit(@NotNull HitResult result) {
         super.onHit(result);
 
         if (!this.level.isClientSide) {

@@ -23,6 +23,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 public class CrumblingBlackstoneBlock extends FallingBlock {
     public CrumblingBlackstoneBlock(BlockBehaviour.Properties properties) {
@@ -31,7 +32,7 @@ public class CrumblingBlackstoneBlock extends FallingBlock {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public int getDustColor(BlockState state, BlockGetter reader, BlockPos pos) {
+    public int getDustColor(@NotNull BlockState state, @NotNull BlockGetter reader, @NotNull BlockPos pos) {
         return -462091;
     }
 }

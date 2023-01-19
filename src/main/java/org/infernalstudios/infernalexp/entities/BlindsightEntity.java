@@ -45,6 +45,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 import org.infernalstudios.infernalexp.init.IEEffects;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -91,7 +92,7 @@ public class BlindsightEntity extends Monster {
 
     //EXP POINTS
     @Override
-    protected int getExperienceReward(Player player) {
+    protected int getExperienceReward(@NotNull Player player) {
         return 1 + this.level.random.nextInt(4);
     }
 
@@ -107,12 +108,12 @@ public class BlindsightEntity extends Monster {
     }
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
         return IESoundEvents.BLINDSIGHT_HURT.get();
     }
 
     @Override
-    protected void playStepSound(BlockPos pos, BlockState blockIn) {
+    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState blockIn) {
         this.playSound(SoundEvents.PIG_STEP, 0.15F, 1.0F);
     }
 
@@ -182,7 +183,7 @@ public class BlindsightEntity extends Monster {
     }
 
     @Override
-    public boolean hurt(DamageSource source, float amount) {
+    public boolean hurt(@NotNull DamageSource source, float amount) {
         if (source == DamageSource.FALL) {
             return false;
         }
@@ -190,7 +191,7 @@ public class BlindsightEntity extends Monster {
     }
 
     @Override
-    public void push(Entity entityIn) {
+    public void push(@NotNull Entity entityIn) {
         super.push(entityIn);
         if (entityIn instanceof GlowsquitoEntity || entityIn instanceof Player) {
             this.dealDamage((LivingEntity) entityIn);
@@ -265,7 +266,7 @@ public class BlindsightEntity extends Monster {
         }
 
         @Override
-        protected AABB getTargetSearchArea(double targetDistance) {
+        protected @NotNull AABB getTargetSearchArea(double targetDistance) {
             return this.mob.getBoundingBox().inflate(targetDistance, 4.5D, targetDistance);
         }
     }
@@ -277,7 +278,7 @@ public class BlindsightEntity extends Monster {
         }
 
         @Override
-        protected boolean canAttack(@Nullable LivingEntity potentialTarget, TargetingConditions targetPredicate) {
+        protected boolean canAttack(@Nullable LivingEntity potentialTarget, @NotNull TargetingConditions targetPredicate) {
             return super.canAttack(potentialTarget, targetPredicate) &&
                 (this.mob.distanceToSqr(this.target) <= 10.0F ||
                     (this.mob.distanceToSqr(this.target) > 10.0F &&

@@ -25,6 +25,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -48,20 +49,20 @@ public class TextField extends EditBox implements TooltipAccessor {
 
     @SuppressWarnings("resource")
     @Override
-    public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+    public void renderButton(@NotNull PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         super.renderButton(matrixStack, mouseX, mouseY, partialTicks);
         // The parameter names for this function are wrong. The three integers at the end should be x, y, color
         drawString(matrixStack, Minecraft.getInstance().font, this.getMessage(), this.x - 100, (this.y + (this.height - 8) / 2), -6250336);
     }
 
     @Override
-    public void onValueChange(String newText) {
+    public void onValueChange(@NotNull String newText) {
         super.onValueChange(newText);
         option.set(settings, newText);
     }
 
     @Override
-    public List<FormattedCharSequence> getTooltip() {
+    public @NotNull List<FormattedCharSequence> getTooltip() {
         return tooltip;
     }
 }

@@ -71,6 +71,7 @@ import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IEEffects;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -103,13 +104,13 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
     }
 
     @Override
-    public MobType getMobType() {
+    public @NotNull MobType getMobType() {
         return MobType.ARTHROPOD;
     }
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob parent) {
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel world, @NotNull AgeableMob parent) {
         GlowsquitoEntity glowsquitoEntity = IEEntityTypes.GLOWSQUITO.get().create(world);
         glowsquitoEntity.setBred(true);
 
@@ -117,7 +118,7 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
     }
 
     @Override
-    public boolean isFood(ItemStack stack) {
+    public boolean isFood(@NotNull ItemStack stack) {
         return TEMPTATION_ITEMS.test(stack);
     }
 
@@ -136,7 +137,7 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("Bred", this.getBred());
     }
@@ -145,18 +146,18 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setBred(compound.getBoolean("Bred"));
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
+    protected float getStandingEyeHeight(@NotNull Pose poseIn, @NotNull EntityDimensions sizeIn) {
         return this.isBaby() ? sizeIn.height * 0.35F : sizeIn.height * 0.72F;
     }
 
     @Override
-    protected void doPush(Entity entityIn) {
+    protected void doPush(@NotNull Entity entityIn) {
         super.doPush(entityIn);
         if (!this.isBaby() && entityIn instanceof LivingEntity livingEntity && !(entityIn instanceof GlowsquitoEntity)) {
             livingEntity.addEffect(new MobEffectInstance(IEEffects.LUMINOUS.get(), 200));
@@ -164,7 +165,7 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
     }
 
     @Override
-    protected PathNavigation createNavigation(Level worldIn) {
+    protected @NotNull PathNavigation createNavigation(@NotNull Level worldIn) {
         FlyingPathNavigation flyingpathnavigator = new FlyingPathNavigation(this, worldIn) {
             @Override
             public boolean isStableDestination(BlockPos pos) {
@@ -183,7 +184,7 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
     }
 
     @Override
-    public boolean causeFallDamage(float distance, float multiplier, DamageSource source) {
+    public boolean causeFallDamage(float distance, float multiplier, @NotNull DamageSource source) {
         return false;
     }
 
@@ -385,7 +386,7 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
     }
 
     @Override
-    protected int getExperienceReward(Player player) {
+    protected int getExperienceReward(@NotNull Player player) {
         return 1 + this.level.random.nextInt(4);
     }
 
@@ -400,17 +401,17 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
     }
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
         return IESoundEvents.GLOWSQUITO_HURT.get();
     }
 
     @Override
-    protected void playStepSound(BlockPos pos, BlockState blockIn) {
+    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState blockIn) {
         this.playSound(SoundEvents.PIG_STEP, 0.15F, 1.0F);
     }
 
     @Override
-    public boolean doHurtTarget(Entity entityIn) {
+    public boolean doHurtTarget(@NotNull Entity entityIn) {
         if (!super.doHurtTarget(entityIn)) {
             return false;
         } else {

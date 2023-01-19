@@ -38,6 +38,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.infernalstudios.infernalexp.entities.IBucketable;
 import org.infernalstudios.infernalexp.init.IEItems;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -54,7 +55,7 @@ public abstract class MixinStriderEntity extends Animal implements ItemSteerable
 
     @Override
     @Shadow
-    public abstract void readAdditionalSaveData(CompoundTag compound);
+    public abstract void readAdditionalSaveData(@NotNull CompoundTag compound);
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Strider.class, EntityDataSerializers.BOOLEAN);
 

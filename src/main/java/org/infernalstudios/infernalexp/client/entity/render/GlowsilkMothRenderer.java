@@ -22,6 +22,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.client.entity.model.GlowsilkMothModel;
 import org.infernalstudios.infernalexp.entities.GlowsilkMothEntity;
+import org.jetbrains.annotations.NotNull;
 
 public class GlowsilkMothRenderer extends MobRenderer<GlowsilkMothEntity, GlowsilkMothModel<GlowsilkMothEntity>> {
     protected static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID,
@@ -34,7 +35,7 @@ public class GlowsilkMothRenderer extends MobRenderer<GlowsilkMothEntity, Glowsi
     }
 
     @Override
-    public ResourceLocation getTextureLocation(GlowsilkMothEntity entity) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull GlowsilkMothEntity entity) {
         return TEXTURE;
     }
 

@@ -30,6 +30,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelReader;
+import org.jetbrains.annotations.NotNull;
 
 public class ShroomlightFungusBlock extends HorizontalBushBlock {
     protected static final VoxelShape FLOOR_SHAPE = box(5.0D, 0.0D, 5.0D, 11.0D, 10.0D, 11.0D);
@@ -64,12 +65,12 @@ public class ShroomlightFungusBlock extends HorizontalBushBlock {
     }
 
     @Override
-    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
+    public boolean canSurvive(BlockState state, @NotNull LevelReader worldIn, BlockPos pos) {
         return !state.getValue(FACE).equals(AttachFace.WALL) && canAttachToSurface(worldIn, pos, getConnectedDirection(state).getOpposite());
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+    public @NotNull VoxelShape getShape(BlockState state, @NotNull BlockGetter worldIn, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         Vec3 vector3d = state.getOffset(worldIn, pos);
 
         switch (state.getValue(FACE)) {
@@ -82,7 +83,7 @@ public class ShroomlightFungusBlock extends HorizontalBushBlock {
     }
 
     @Override
-    public OffsetType getOffsetType() {
+    public @NotNull OffsetType getOffsetType() {
         return OffsetType.XZ;
     }
 

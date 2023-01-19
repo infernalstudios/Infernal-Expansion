@@ -47,6 +47,7 @@ import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IEEffects;
 import org.infernalstudios.infernalexp.init.IEItems;
 import org.infernalstudios.infernalexp.init.IETags;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -76,12 +77,12 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
     }
 
     @Override
-    protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
+    protected boolean mayPlaceOn(BlockState state, @NotNull BlockGetter worldIn, @NotNull BlockPos pos) {
         return state.is(IETags.Blocks.DULLTHORNS_GROUND);
     }
 
     @Override
-    public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, Random rand) {
+    public void tick(@NotNull BlockState state, ServerLevel worldIn, @NotNull BlockPos pos, @NotNull Random rand) {
         if (!worldIn.isAreaLoaded(pos, 1))
             return; // Forge: prevent growing cactus from loading unloaded chunks with block update
         if (!state.canSurvive(worldIn, pos)) {
@@ -94,7 +95,7 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
      */
 
     @Override
-    public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) {
+    public void randomTick(@NotNull BlockState state, ServerLevel worldIn, BlockPos pos, @NotNull Random random) {
         BlockPos blockpos = pos.above();
         if (worldIn.isEmptyBlock(blockpos)) {
             int i;
@@ -141,7 +142,7 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
     }
 
     @Override
-    public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
+    public void entityInside(@NotNull BlockState state, Level worldIn, @NotNull BlockPos pos, @NotNull Entity entityIn) {
         if (!worldIn.isClientSide()) {
             if (entityIn instanceof LivingEntity livingEntity && entityIn.isAlive() && !(entityIn instanceof BlindsightEntity)) {
                 livingEntity.addEffect(new MobEffectInstance(IEEffects.LUMINOUS.get(), 200, 0, true, true));
@@ -164,7 +165,7 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
     }
 
     @Override
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
+    public @NotNull BlockState updateShape(BlockState stateIn, @NotNull Direction facing, @NotNull BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, @NotNull BlockPos facingPos) {
         BlockState aboveBlockState = worldIn.getBlockState(currentPos.above());
         boolean aboveIsDullthorns = aboveBlockState.is(IEBlocks.DULLTHORNS.get());
 
@@ -182,18 +183,18 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
     }
 
     @Override
-    public boolean isPathfindable(BlockState state, BlockGetter worldIn, BlockPos pos, PathComputationType type) {
+    public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter worldIn, @NotNull BlockPos pos, @NotNull PathComputationType type) {
         return false;
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+    public @NotNull VoxelShape getShape(BlockState state, @NotNull BlockGetter worldIn, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         Vec3 vector3d = state.getOffset(worldIn, pos);
         return SHAPE.move(vector3d.x, vector3d.y, vector3d.z);
     }
 
     @Override
-    public OffsetType getOffsetType() {
+    public @NotNull OffsetType getOffsetType() {
         return OffsetType.XZ;
     }
 

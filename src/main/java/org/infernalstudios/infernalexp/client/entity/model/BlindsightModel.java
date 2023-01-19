@@ -31,6 +31,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.entities.BlindsightEntity;
+import org.jetbrains.annotations.NotNull;
 
 public class BlindsightModel<T extends BlindsightEntity> extends EntityModel<T> {
 
@@ -78,12 +79,12 @@ public class BlindsightModel<T extends BlindsightEntity> extends EntityModel<T> 
     }
 
     @Override
-    public void prepareMobModel(T entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
+    public void prepareMobModel(@NotNull T entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
         head.xRot = -Mth.abs(Mth.cos(0.4662F * limbSwing) * 1.2F * limbSwingAmount);
     }
 
     @Override
-    public void renderToBuffer(PoseStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(@NotNull PoseStack matrixStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         all.render(matrixStack, buffer, packedLight, packedOverlay);
     }
 

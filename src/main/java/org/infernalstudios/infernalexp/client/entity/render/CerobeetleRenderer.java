@@ -22,6 +22,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.client.entity.model.CerobeetleModel;
 import org.infernalstudios.infernalexp.entities.CerobeetleEntity;
+import org.jetbrains.annotations.NotNull;
 
 public class CerobeetleRenderer extends MobRenderer<CerobeetleEntity, CerobeetleModel<CerobeetleEntity>> {
     protected static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID,
@@ -32,7 +33,7 @@ public class CerobeetleRenderer extends MobRenderer<CerobeetleEntity, Cerobeetle
     }
 
     @Override
-    public ResourceLocation getTextureLocation(CerobeetleEntity entity) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull CerobeetleEntity entity) {
         return TEXTURE;
     }
 }

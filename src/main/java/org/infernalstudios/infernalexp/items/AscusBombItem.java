@@ -26,6 +26,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 public class AscusBombItem extends Item {
     public AscusBombItem() {
@@ -33,7 +34,7 @@ public class AscusBombItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
+    public @NotNull InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, @NotNull InteractionHand handIn) {
         ItemStack itemStack = playerIn.getItemInHand(handIn);
 
         if (!worldIn.isClientSide) {

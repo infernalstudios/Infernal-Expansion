@@ -29,6 +29,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.infernalstudios.infernalexp.util.ShroomloinType;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class ShroomloinGlowLayer extends RenderLayer<ShroomloinEntity, ShroomloinModel<ShroomloinEntity>> {
@@ -37,7 +38,7 @@ public class ShroomloinGlowLayer extends RenderLayer<ShroomloinEntity, Shroomloi
     }
 
     @Override
-    public void render(PoseStack matrixStack, MultiBufferSource bufferIn, int packedLightIn, ShroomloinEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void render(@NotNull PoseStack matrixStack, MultiBufferSource bufferIn, int packedLightIn, ShroomloinEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         ResourceLocation texture = ShroomloinType.getById(entitylivingbaseIn.getShroomloinType().getId()).getGlowTextureLocation();
         VertexConsumer ivertexbuilder = bufferIn.getBuffer(this.getRenderType(texture));
         this.getParentModel().renderToBuffer(matrixStack, ivertexbuilder, 15728640, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);

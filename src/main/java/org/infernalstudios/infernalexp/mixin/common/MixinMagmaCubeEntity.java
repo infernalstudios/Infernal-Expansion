@@ -37,6 +37,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 
 import javax.annotation.Nullable;
@@ -66,19 +67,19 @@ public abstract class MixinMagmaCubeEntity extends Slime implements IBucketable 
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("FromBucket", this.isFromBucket());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setFromBucket(compound.getBoolean("FromBucket"));
     }
 
     @Override
-    protected InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
+    protected @NotNull InteractionResult mobInteract(@NotNull Player playerIn, @NotNull InteractionHand hand) {
         if (this.isTiny()) {
             return IBucketable.tryBucketEntity(playerIn, hand, this).orElse(super.mobInteract(playerIn, hand));
         } else {
@@ -88,7 +89,7 @@ public abstract class MixinMagmaCubeEntity extends Slime implements IBucketable 
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor worldIn, @NotNull DifficultyInstance difficultyIn, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         if (reason == MobSpawnType.BUCKET) {
             return spawnDataIn;
         } else {

@@ -23,6 +23,7 @@ import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -43,7 +44,7 @@ public class TextFieldOption extends Option {
     }
 
     @Override
-    public AbstractWidget createButton(Options options, int xIn, int yIn, int widthIn) {
+    public @NotNull AbstractWidget createButton(@NotNull Options options, int xIn, int yIn, int widthIn) {
         return new TextField(options, xIn, yIn, widthIn, getCaption(), this, tooltipSupplier.apply(Minecraft.getInstance()));
     }
 

@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
 import org.infernalstudios.infernalexp.init.IEParticleTypes;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
@@ -39,11 +40,11 @@ public class TrappedGlowSandBlock extends GlowSandBlock {
     private int ticksToFall = 10;
 
     @Override
-    public void tick(BlockState state, ServerLevel world, BlockPos pos, Random rand) {
+    public void tick(@NotNull BlockState state, @NotNull ServerLevel world, @NotNull BlockPos pos, @NotNull Random rand) {
     }
 
     @Override
-    public void stepOn(Level world, BlockPos pos, BlockState state, Entity entity) {
+    public void stepOn(Level world, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Entity entity) {
         // Check if the world is the server
         if (!world.isClientSide() && entity.getType() != IEEntityTypes.BLINDSIGHT.get()) {
 

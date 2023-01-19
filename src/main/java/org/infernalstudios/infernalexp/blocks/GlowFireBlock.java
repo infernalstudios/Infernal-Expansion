@@ -30,6 +30,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 import org.infernalstudios.infernalexp.init.IEEffects;
 import org.infernalstudios.infernalexp.init.IETags;
+import org.jetbrains.annotations.NotNull;
 
 public class GlowFireBlock extends BaseFireBlock {
 
@@ -38,12 +39,12 @@ public class GlowFireBlock extends BaseFireBlock {
     }
 
     @Override
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
+    public @NotNull BlockState updateShape(@NotNull BlockState stateIn, @NotNull Direction facing, @NotNull BlockState facingState, @NotNull LevelAccessor worldIn, @NotNull BlockPos currentPos, @NotNull BlockPos facingPos) {
         return this.canSurvive(stateIn, worldIn, currentPos) ? this.defaultBlockState() : Blocks.AIR.defaultBlockState();
     }
 
     @Override
-    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
+    public boolean canSurvive(@NotNull BlockState state, LevelReader worldIn, BlockPos pos) {
         return isGlowFireBase(worldIn.getBlockState(pos.below()));
     }
 
@@ -52,7 +53,7 @@ public class GlowFireBlock extends BaseFireBlock {
     }
 
     @Override
-    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+    public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
         super.entityInside(state, level, pos, entity);
 
         if (!level.isClientSide()) {
@@ -63,7 +64,7 @@ public class GlowFireBlock extends BaseFireBlock {
     }
 
     @Override
-    protected boolean canBurn(BlockState stateIn) {
+    protected boolean canBurn(@NotNull BlockState stateIn) {
         return true;
     }
 

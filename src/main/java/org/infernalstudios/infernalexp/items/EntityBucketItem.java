@@ -36,6 +36,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import org.infernalstudios.infernalexp.entities.IBucketable;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
@@ -51,14 +52,14 @@ public class EntityBucketItem extends BucketItem {
     }
 
     @Override
-    public void checkExtraContent(@Nullable Player player, Level world, ItemStack stack, BlockPos pos) {
+    public void checkExtraContent(@Nullable Player player, @NotNull Level world, @NotNull ItemStack stack, @NotNull BlockPos pos) {
         if (world instanceof ServerLevel serverWorld) {
             this.placeEntity(serverWorld, stack, pos);
         }
     }
 
     @Override
-    protected void playEmptySound(@Nullable Player player, LevelAccessor worldIn, BlockPos pos) {
+    protected void playEmptySound(@Nullable Player player, LevelAccessor worldIn, @NotNull BlockPos pos) {
         worldIn.playSound(player, pos, this.emptyingSoundSupplier.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
     }
 
@@ -71,7 +72,7 @@ public class EntityBucketItem extends BucketItem {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, @NotNull Player playerIn, @NotNull InteractionHand handIn) {
         InteractionResultHolder<ItemStack> actionResult = super.use(worldIn, playerIn, handIn);
         ItemStack heldItem = playerIn.getItemInHand(handIn);
         BlockHitResult rayTraceResult = getPlayerPOVHitResult(worldIn, playerIn, ClipContext.Fluid.SOURCE_ONLY);

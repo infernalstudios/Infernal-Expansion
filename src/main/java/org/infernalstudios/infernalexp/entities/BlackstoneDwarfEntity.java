@@ -43,6 +43,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolActions;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
@@ -98,7 +99,7 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements NeutralMob {
     }
 
     @Override
-    public boolean doHurtTarget(Entity entityIn) {
+    public boolean doHurtTarget(@NotNull Entity entityIn) {
         this.attackTimer = 10;
         this.level.broadcastEntityEvent(this, (byte) 4);
         boolean disableShield = false;
@@ -164,7 +165,7 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements NeutralMob {
 
     // EXP POINTS
     @Override
-    protected int getExperienceReward(Player player) {
+    protected int getExperienceReward(@NotNull Player player) {
         return 2 + this.level.random.nextInt(2);
     }
 

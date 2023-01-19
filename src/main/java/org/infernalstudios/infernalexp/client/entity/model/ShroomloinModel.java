@@ -34,6 +34,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.entities.ShroomloinEntity;
+import org.jetbrains.annotations.NotNull;
 
 public class ShroomloinModel<T extends ShroomloinEntity> extends EntityModel<T> {
 
@@ -67,7 +68,7 @@ public class ShroomloinModel<T extends ShroomloinEntity> extends EntityModel<T> 
     }
 
     @Override
-    public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(@NotNull T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         body.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.25F * limbSwingAmount;
         hat.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.5F * limbSwingAmount;
         leftLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
@@ -75,7 +76,7 @@ public class ShroomloinModel<T extends ShroomloinEntity> extends EntityModel<T> 
     }
 
     @Override
-    public void renderToBuffer(PoseStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(@NotNull PoseStack matrixStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         all.render(matrixStack, buffer, packedLight, packedOverlay);
     }
 

@@ -44,6 +44,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
+import org.jetbrains.annotations.NotNull;
 
 public class CerobeetleEntity extends PathfinderMob {
 
@@ -132,7 +133,7 @@ public class CerobeetleEntity extends PathfinderMob {
 
     // EXP POINTS
     @Override
-    protected int getExperienceReward(Player player) {
+    protected int getExperienceReward(@NotNull Player player) {
         return 1 + this.level.random.nextInt(4);
     }
 
@@ -148,12 +149,12 @@ public class CerobeetleEntity extends PathfinderMob {
     }
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
         return IESoundEvents.CEROBEETLE_HURT.get();
     }
 
     @Override
-    protected void playStepSound(BlockPos pos, BlockState blockIn) {
+    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState blockIn) {
         this.playSound(SoundEvents.PIG_STEP, 0.15F, 1.0F);
     }
 

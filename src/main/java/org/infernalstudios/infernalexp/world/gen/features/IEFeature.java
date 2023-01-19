@@ -27,6 +27,7 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import org.infernalstudios.infernalexp.init.IETags;
 import org.infernalstudios.infernalexp.mixin.common.WorldGenRegionAccessor;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class IEFeature<FC extends FeatureConfiguration> extends Feature<FC> {
 
@@ -35,7 +36,7 @@ public abstract class IEFeature<FC extends FeatureConfiguration> extends Feature
     }
 
     @Override
-    public boolean place(FeaturePlaceContext<FC> context) {
+    public boolean place(@NotNull FeaturePlaceContext<FC> context) {
         if (!shouldPlaceOnStructures())
             return placeFeature(context);
 

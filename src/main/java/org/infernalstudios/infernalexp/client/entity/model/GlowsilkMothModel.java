@@ -31,6 +31,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.entities.GlowsilkMothEntity;
+import org.jetbrains.annotations.NotNull;
 
 public class GlowsilkMothModel<T extends GlowsilkMothEntity> extends EntityModel<T> {
 
@@ -70,7 +71,7 @@ public class GlowsilkMothModel<T extends GlowsilkMothEntity> extends EntityModel
     }
 
     @Override
-    public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(@NotNull T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         // Flap wings back and forth constantly
         leftWing.yRot = Mth.cos(0.75F * ageInTicks);
         rightWing.yRot = -Mth.cos(0.75F * ageInTicks);
@@ -79,7 +80,7 @@ public class GlowsilkMothModel<T extends GlowsilkMothEntity> extends EntityModel
     }
 
     @Override
-    public void renderToBuffer(PoseStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(@NotNull PoseStack matrixStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         all.render(matrixStack, buffer, packedLight, packedOverlay);
     }
 

@@ -36,6 +36,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 public class PyrnoEntity extends Hoglin {
 
@@ -65,7 +66,7 @@ public class PyrnoEntity extends Hoglin {
 
     //EXP POINTS
     @Override
-    protected int getExperienceReward(Player player) {
+    protected int getExperienceReward(@NotNull Player player) {
         return 1 + this.level.random.nextInt(4);
     }
 
@@ -81,12 +82,12 @@ public class PyrnoEntity extends Hoglin {
     }
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
         return SoundEvents.PIG_HURT;
     }
 
     @Override
-    protected void playStepSound(BlockPos pos, BlockState blockIn) {
+    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState blockIn) {
         this.playSound(SoundEvents.PIG_STEP, 0.15F, 1.0F);
     }
 

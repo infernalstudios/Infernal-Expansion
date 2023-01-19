@@ -30,6 +30,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
+import org.jetbrains.annotations.NotNull;
 
 public class ThrowableFireChargeEntity extends Fireball {
 
@@ -43,7 +44,7 @@ public class ThrowableFireChargeEntity extends Fireball {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public @NotNull Packet<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
@@ -64,7 +65,7 @@ public class ThrowableFireChargeEntity extends Fireball {
     }
 
     @Override
-    protected void onHitEntity(EntityHitResult result) {
+    protected void onHitEntity(@NotNull EntityHitResult result) {
         super.onHitEntity(result);
         if (!this.level.isClientSide) {
             Entity entity = result.getEntity();

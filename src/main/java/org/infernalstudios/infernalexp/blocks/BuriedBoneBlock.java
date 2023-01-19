@@ -33,6 +33,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IETags;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckForNull;
 
@@ -81,12 +82,12 @@ public class BuriedBoneBlock extends HorizontalBushBlock {
     }
 
     @Override
-    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
+    public boolean canSurvive(BlockState state, @NotNull LevelReader worldIn, BlockPos pos) {
         return !state.getValue(FACE).equals(AttachFace.WALL) && canAttachToSurface(worldIn, pos, getConnectedDirection(state).getOpposite());
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+    public @NotNull VoxelShape getShape(BlockState state, @NotNull BlockGetter worldIn, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         Vec3 vector3d = state.getOffset(worldIn, pos);
 
         switch (state.getValue(FACE)) {
@@ -99,7 +100,7 @@ public class BuriedBoneBlock extends HorizontalBushBlock {
     }
 
     @Override
-    public OffsetType getOffsetType() {
+    public @NotNull OffsetType getOffsetType() {
         return OffsetType.XZ;
     }
 
@@ -109,7 +110,7 @@ public class BuriedBoneBlock extends HorizontalBushBlock {
     }
 
     @Override
-    public Item asItem() {
+    public @NotNull Item asItem() {
         return Items.BONE;
     }
 }

@@ -25,6 +25,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 import org.infernalstudios.infernalexp.blocks.LuminousFungusBlock;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IETags;
+import org.jetbrains.annotations.NotNull;
 
 public class LuminousFungusFeature extends IEFeature<NoneFeatureConfiguration> {
 
@@ -33,7 +34,7 @@ public class LuminousFungusFeature extends IEFeature<NoneFeatureConfiguration> {
     }
 
     @Override
-    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+    public boolean place(@NotNull FeaturePlaceContext<NoneFeatureConfiguration> context) {
         // Pick whether the fungus will spawn on the ceiling or on the floor and set the amount to spawn appropriately
         boolean onCeiling = context.random().nextInt(3) == 0;
         int maxAmount = onCeiling ? 4 : 10;

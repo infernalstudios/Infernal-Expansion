@@ -76,6 +76,7 @@ import org.infernalstudios.infernalexp.mixin.common.WorldCarverAccessor;
 import org.infernalstudios.infernalexp.network.IENetworkHandler;
 import org.infernalstudios.infernalexp.util.CompatibilityQuark;
 import org.infernalstudios.infernalexp.world.gen.ModEntityPlacement;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -163,7 +164,7 @@ public class InfernalExpansion {
         // Custom Dispenser Behavior
         DispenserBlock.registerBehavior(Items.GLOWSTONE_DUST, new DefaultDispenseItemBehavior() {
             @Override
-            protected ItemStack execute(BlockSource source, ItemStack stack) {
+            protected @NotNull ItemStack execute(@NotNull BlockSource source, @NotNull ItemStack stack) {
                 Level world = source.getLevel();
                 BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
                 ItemStack itemstack = stack.split(1);
@@ -192,7 +193,7 @@ public class InfernalExpansion {
     public static final CreativeModeTab TAB = new CreativeModeTab("InfernalTab") {
 
         @Override
-        public ItemStack makeIcon() {
+        public @NotNull ItemStack makeIcon() {
             return new ItemStack(IEItems.TAB_ITEM.get());
         }
 

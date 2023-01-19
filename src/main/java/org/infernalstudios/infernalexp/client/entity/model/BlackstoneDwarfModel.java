@@ -31,6 +31,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.entities.BlackstoneDwarfEntity;
+import org.jetbrains.annotations.NotNull;
 
 public class BlackstoneDwarfModel<T extends BlackstoneDwarfEntity> extends EntityModel<T> {
 
@@ -113,7 +114,7 @@ public class BlackstoneDwarfModel<T extends BlackstoneDwarfEntity> extends Entit
     }
 
     @Override
-    public void renderToBuffer(PoseStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(@NotNull PoseStack matrixStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         body.render(matrixStack, buffer, packedLight, packedOverlay);
     }
 

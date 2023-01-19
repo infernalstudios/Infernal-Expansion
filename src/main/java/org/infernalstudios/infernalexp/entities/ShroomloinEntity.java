@@ -45,6 +45,7 @@ import org.infernalstudios.infernalexp.init.IEItems;
 import org.infernalstudios.infernalexp.init.IEShroomloinTypes;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
 import org.infernalstudios.infernalexp.util.ShroomloinType;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -102,14 +103,14 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putString("ShroomloinType", this.getShroomloinType().getId().toString());
         compound.putInt("ShroomloinConversionTime", this.isConverting() ? this.conversionTicks : -1);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         ShroomloinType type = ShroomloinType.getById(compound.getString("ShroomloinType"));
         if (type == null) {
@@ -120,7 +121,7 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, @NotNull DifficultyInstance difficultyIn, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         ResourceLocation biome = worldIn.getBiome(this.blockPosition()).value().getRegistryName();
         if (reason == MobSpawnType.NATURAL) {
             if (ModList.get().isLoaded("byg")) {
@@ -154,7 +155,7 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
     }
 
     @Override
-    protected InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
+    protected @NotNull InteractionResult mobInteract(@NotNull Player playerIn, @NotNull InteractionHand hand) {
         if (this.isConverting()) {
             return InteractionResult.FAIL;
         }
@@ -298,9 +299,9 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
 
     // EXP POINTS
     @Override
-    protected int getExperienceReward(Player player) {
+    protected int getExperienceReward(@NotNull Player player) {
         return 1 + this.level.random.nextInt(4);
-	}
+    }
 
     // SOUNDS
 	@Override
@@ -313,15 +314,15 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
 		return IESoundEvents.SHROOMLOIN_DEATH.get();
 	}
 
-	@Override
-	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return IESoundEvents.SHROOMLOIN_HURT.get();
-	}
+    @Override
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+        return IESoundEvents.SHROOMLOIN_HURT.get();
+    }
 
-	@Override
-	protected void playStepSound(BlockPos pos, BlockState blockIn) {
+    @Override
+    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState blockIn) {
         this.playSound(SoundEvents.PIG_STEP, 0.15F, 1.0F);
-	}
+    }
 
     @Override
     public void performRangedAttack(LivingEntity target, float distanceFactor) {

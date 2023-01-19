@@ -19,6 +19,7 @@ package org.infernalstudios.infernalexp.items;
 import net.minecraft.world.item.BowlFoodItem;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import org.jetbrains.annotations.NotNull;
 
 public class SlurpSoupItem extends BowlFoodItem {
     public SlurpSoupItem(Properties builder) {
@@ -26,12 +27,12 @@ public class SlurpSoupItem extends BowlFoodItem {
     }
 
     @Override
-    public SoundEvent getDrinkingSound() {
+    public @NotNull SoundEvent getDrinkingSound() {
         return SoundEvents.HONEY_DRINK;
     }
 
     @Override
-    public SoundEvent getEatingSound() {
+    public @NotNull SoundEvent getEatingSound() {
         return SoundEvents.HONEY_DRINK;
     }
 }

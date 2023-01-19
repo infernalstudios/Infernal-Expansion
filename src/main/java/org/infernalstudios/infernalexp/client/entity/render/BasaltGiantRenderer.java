@@ -24,6 +24,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.client.entity.model.BasaltGiantModel;
 import org.infernalstudios.infernalexp.entities.BasaltGiantEntity;
+import org.jetbrains.annotations.NotNull;
 
 public class BasaltGiantRenderer extends MobRenderer<BasaltGiantEntity, BasaltGiantModel<BasaltGiantEntity>> {
     public static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID,
@@ -35,7 +36,7 @@ public class BasaltGiantRenderer extends MobRenderer<BasaltGiantEntity, BasaltGi
     }
 
     @Override
-    public void render(BasaltGiantEntity entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
+    public void render(BasaltGiantEntity entityIn, float entityYaw, float partialTicks, @NotNull PoseStack matrixStackIn, @NotNull MultiBufferSource bufferIn, int packedLightIn) {
         shadowRadius = 0.25F * entityIn.getEntitySize();
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
@@ -46,7 +47,7 @@ public class BasaltGiantRenderer extends MobRenderer<BasaltGiantEntity, BasaltGi
     }
 
     @Override
-    public ResourceLocation getTextureLocation(BasaltGiantEntity entity) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull BasaltGiantEntity entity) {
         return TEXTURE;
     }
 }

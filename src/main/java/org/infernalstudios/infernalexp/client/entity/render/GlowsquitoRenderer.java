@@ -22,6 +22,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.client.entity.model.GlowsquitoModel;
 import org.infernalstudios.infernalexp.entities.GlowsquitoEntity;
+import org.jetbrains.annotations.NotNull;
 
 public class GlowsquitoRenderer extends MobRenderer<GlowsquitoEntity, GlowsquitoModel<GlowsquitoEntity>> {
     protected static final ResourceLocation UNBRED_TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID,
@@ -36,7 +37,7 @@ public class GlowsquitoRenderer extends MobRenderer<GlowsquitoEntity, Glowsquito
     }
 
     @Override
-    public ResourceLocation getTextureLocation(GlowsquitoEntity entity) {
+    public @NotNull ResourceLocation getTextureLocation(GlowsquitoEntity entity) {
         if (entity.getBred()) {
             return BRED_TEXTURE;
         } else {

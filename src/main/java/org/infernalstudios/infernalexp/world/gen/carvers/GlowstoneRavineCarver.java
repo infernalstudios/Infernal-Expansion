@@ -31,6 +31,7 @@ import net.minecraft.world.level.levelgen.carver.CanyonWorldCarver;
 import net.minecraft.world.level.levelgen.carver.CarvingContext;
 import org.apache.commons.lang3.mutable.MutableBoolean;
 import org.infernalstudios.infernalexp.init.IEBlocks;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Function;
 
@@ -45,7 +46,7 @@ public class GlowstoneRavineCarver extends CanyonWorldCarver {
      * Ripped from NetherCarver so that this ravine does not create floating lava in the nether.
      */
     @Override
-    protected boolean carveBlock(CarvingContext context, CanyonCarverConfiguration config, ChunkAccess chunk, Function<BlockPos, Holder<Biome>> biomePos, CarvingMask carvingMask, BlockPos.MutableBlockPos mutablePos, BlockPos.MutableBlockPos p_159294_, Aquifer aquifer, MutableBoolean mutableBoolean) {
+    protected boolean carveBlock(@NotNull CarvingContext context, @NotNull CanyonCarverConfiguration config, ChunkAccess chunk, @NotNull Function<BlockPos, Holder<Biome>> biomePos, @NotNull CarvingMask carvingMask, BlockPos.@NotNull MutableBlockPos mutablePos, BlockPos.@NotNull MutableBlockPos p_159294_, @NotNull Aquifer aquifer, @NotNull MutableBoolean mutableBoolean) {
         if (this.canReplaceBlock(chunk.getBlockState(mutablePos))) {
             BlockState blockstate;
             if (mutablePos.getY() <= context.getMinGenY() + 31) {

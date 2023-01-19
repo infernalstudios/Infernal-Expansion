@@ -26,6 +26,7 @@ import net.minecraft.core.particles.SimpleParticleType;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class GlowstoneSparkleParticle extends TextureSheetParticle {
@@ -63,7 +64,7 @@ public class GlowstoneSparkleParticle extends TextureSheetParticle {
     }
 
     @Override
-    public ParticleRenderType getRenderType() {
+    public @NotNull ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_LIT;
     }
 
@@ -81,7 +82,7 @@ public class GlowstoneSparkleParticle extends TextureSheetParticle {
         }
 
         @Override
-        public Particle createParticle(SimpleParticleType typeIn, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+        public Particle createParticle(@NotNull SimpleParticleType typeIn, @NotNull ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             GlowstoneSparkleParticle glowstoneSparkleParticle = new GlowstoneSparkleParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed);
             glowstoneSparkleParticle.pickSprite(this.spriteSet);
             glowstoneSparkleParticle.scale(0.5F);

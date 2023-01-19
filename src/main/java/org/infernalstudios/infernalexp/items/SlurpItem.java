@@ -19,6 +19,7 @@ package org.infernalstudios.infernalexp.items;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.Item;
+import org.jetbrains.annotations.NotNull;
 
 public class SlurpItem extends Item {
     public SlurpItem(Properties builder) {
@@ -26,12 +27,12 @@ public class SlurpItem extends Item {
     }
 
     @Override
-    public SoundEvent getDrinkingSound() {
+    public @NotNull SoundEvent getDrinkingSound() {
         return SoundEvents.HONEY_DRINK;
     }
 
     @Override
-    public SoundEvent getEatingSound() {
+    public @NotNull SoundEvent getEatingSound() {
         return SoundEvents.HONEY_DRINK;
     }
 }

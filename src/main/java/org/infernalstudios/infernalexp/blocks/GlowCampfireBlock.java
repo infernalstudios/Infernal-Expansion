@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import org.infernalstudios.infernalexp.blockentities.GlowCampfireBlockEntity;
 import org.infernalstudios.infernalexp.init.IEBlockEntityTypes;
+import org.jetbrains.annotations.NotNull;
 
 public class GlowCampfireBlock extends CampfireBlock {
     public GlowCampfireBlock(boolean smokey, int fireDamage, BlockBehaviour.Properties properties) {
@@ -34,12 +35,12 @@ public class GlowCampfireBlock extends CampfireBlock {
     }
 
     @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
         return new GlowCampfireBlockEntity(pos, state);
     }
 
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
         if (world.isClientSide) {
             return state.getValue(LIT) ? createTickerHelper(type, IEBlockEntityTypes.GLOW_CAMPFIRE.get(), CampfireBlockEntity::particleTick) : null;
         } else {

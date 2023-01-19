@@ -66,6 +66,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.Map;
@@ -92,7 +93,7 @@ public class VolineEntity extends Monster implements IBucketable, IResizable {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor worldIn, @NotNull DifficultyInstance difficultyIn, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         setEntitySize(1 + (level.getRandom().nextFloat() * 0.4F));
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
@@ -165,7 +166,7 @@ public class VolineEntity extends Monster implements IBucketable, IResizable {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putFloat("Size", getEntitySize());
         compound.putBoolean("FromBucket", this.isFromBucket());
@@ -188,12 +189,12 @@ public class VolineEntity extends Monster implements IBucketable, IResizable {
     }
 
     @Override
-    public EntityDimensions getDimensions(Pose poseIn) {
+    public @NotNull EntityDimensions getDimensions(@NotNull Pose poseIn) {
         return super.getDimensions(poseIn).scale(0.85F * getEntitySize());
     }
 
     @Override
-    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
         if (VOLINE_SIZE.equals(key)) {
             refreshDimensions();
         }
@@ -203,7 +204,7 @@ public class VolineEntity extends Monster implements IBucketable, IResizable {
 
     // EXP POINTS
     @Override
-    protected int getExperienceReward(Player player) {
+    protected int getExperienceReward(@NotNull Player player) {
         return 1 + this.level.random.nextInt(4);
     }
 
@@ -219,12 +220,12 @@ public class VolineEntity extends Monster implements IBucketable, IResizable {
     }
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
         return IESoundEvents.VOLINE_HURT.get();
     }
 
     @Override
-    protected void playStepSound(BlockPos pos, BlockState blockIn) {
+    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState blockIn) {
         this.playSound(SoundEvents.PIG_STEP, 0.15F, 1.0F);
     }
 
@@ -252,7 +253,7 @@ public class VolineEntity extends Monster implements IBucketable, IResizable {
 
     //BUCKETABLE
     @Override
-    protected InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
+    protected @NotNull InteractionResult mobInteract(@NotNull Player playerIn, @NotNull InteractionHand hand) {
         return IBucketable.tryBucketEntity(playerIn, hand, this).orElse(super.mobInteract(playerIn, hand));
     }
 

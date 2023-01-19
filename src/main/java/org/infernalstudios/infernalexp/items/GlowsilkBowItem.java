@@ -30,6 +30,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import org.infernalstudios.infernalexp.access.AbstractArrowEntityAccess;
+import org.jetbrains.annotations.NotNull;
 
 public class GlowsilkBowItem extends BowItem {
 
@@ -38,7 +39,7 @@ public class GlowsilkBowItem extends BowItem {
     }
 
     @Override
-    public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
+    public void releaseUsing(@NotNull ItemStack stack, @NotNull Level worldIn, @NotNull LivingEntity entityLiving, int timeLeft) {
         if (entityLiving instanceof Player playerEntity) {
             ItemStack itemStack = playerEntity.getProjectile(stack);
             boolean hasInfinity = playerEntity.getAbilities().instabuild || EnchantmentHelper.getItemEnchantmentLevel(Enchantments.INFINITY_ARROWS, stack) > 0;

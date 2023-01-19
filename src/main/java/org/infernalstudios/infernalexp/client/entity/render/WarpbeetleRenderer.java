@@ -22,6 +22,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.client.entity.model.WarpbeetleModel;
 import org.infernalstudios.infernalexp.entities.WarpbeetleEntity;
+import org.jetbrains.annotations.NotNull;
 
 public class WarpbeetleRenderer extends MobRenderer<WarpbeetleEntity, WarpbeetleModel<WarpbeetleEntity>> {
 
@@ -33,7 +34,7 @@ public class WarpbeetleRenderer extends MobRenderer<WarpbeetleEntity, Warpbeetle
     }
 
     @Override
-    public ResourceLocation getTextureLocation(WarpbeetleEntity entity) {
+    public @NotNull ResourceLocation getTextureLocation(WarpbeetleEntity entity) {
         return entity.isChorus() ? CHORUS_TEXTURE : TEXTURE;
     }
 

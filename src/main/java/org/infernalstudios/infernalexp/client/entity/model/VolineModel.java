@@ -31,6 +31,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.entities.VolineEntity;
+import org.jetbrains.annotations.NotNull;
 
 public class VolineModel<T extends VolineEntity> extends EntityModel<T> {
 
@@ -89,7 +90,7 @@ public class VolineModel<T extends VolineEntity> extends EntityModel<T> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(@NotNull PoseStack matrixStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         body.render(matrixStack, buffer, packedLight, packedOverlay);
         mouth.render(matrixStack, buffer, packedLight, packedOverlay);
         leg1.render(matrixStack, buffer, packedLight, packedOverlay);

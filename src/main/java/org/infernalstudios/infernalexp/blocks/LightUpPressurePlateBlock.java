@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import org.jetbrains.annotations.NotNull;
 
 public class LightUpPressurePlateBlock extends PressurePlateBlock {
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
@@ -33,7 +34,7 @@ public class LightUpPressurePlateBlock extends PressurePlateBlock {
     }
 
     @Override
-    protected BlockState setSignalForState(BlockState state, int strength) {
+    protected @NotNull BlockState setSignalForState(BlockState state, int strength) {
         return state.setValue(POWERED, strength > 0).setValue(LIT, strength > 0);
     }
 

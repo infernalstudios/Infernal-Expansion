@@ -33,6 +33,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class VolineGlowLayer<T extends VolineEntity, M extends EntityModel<T>> extends EyesLayer<T, M> {
@@ -50,7 +51,7 @@ public class VolineGlowLayer<T extends VolineEntity, M extends EntityModel<T>> e
     }
 
     @Override
-    public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void render(@NotNull PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, @NotNull T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         VertexConsumer ivertexbuilder = bufferIn.getBuffer(this.getVolineRenderType(entitylivingbaseIn));
         this.getParentModel().renderToBuffer(matrixStackIn, ivertexbuilder, 15728640, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
     }
@@ -58,7 +59,7 @@ public class VolineGlowLayer<T extends VolineEntity, M extends EntityModel<T>> e
     // I've created a custom getRenderType method above because I need to be able to change the glow layer texture
     // It returns something just in case something breaks and it gets called (it shouldn't though), thanks Swan for the reminder
     @Override
-    public RenderType renderType() {
+    public @NotNull RenderType renderType() {
         return RENDER_TYPE;
     }
 }

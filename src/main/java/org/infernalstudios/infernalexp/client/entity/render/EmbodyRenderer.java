@@ -22,6 +22,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.client.entity.model.EmbodyModel;
 import org.infernalstudios.infernalexp.entities.EmbodyEntity;
+import org.jetbrains.annotations.NotNull;
 
 public class EmbodyRenderer extends MobRenderer<EmbodyEntity, EmbodyModel<EmbodyEntity>> {
 
@@ -34,7 +35,7 @@ public class EmbodyRenderer extends MobRenderer<EmbodyEntity, EmbodyModel<Embody
     }
 
     @Override
-    public ResourceLocation getTextureLocation(EmbodyEntity entity) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull EmbodyEntity entity) {
         return TEXTURE;
     }
 }

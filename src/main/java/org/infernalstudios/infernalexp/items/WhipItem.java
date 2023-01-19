@@ -64,6 +64,7 @@ import org.infernalstudios.infernalexp.init.IECapabilities;
 import org.infernalstudios.infernalexp.init.IEItems;
 import org.infernalstudios.infernalexp.network.IENetworkHandler;
 import org.infernalstudios.infernalexp.network.WhipReachPacket;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -82,12 +83,12 @@ public class WhipItem extends TieredItem implements Vanishable {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, @NotNull TooltipFlag flagIn) {
         tooltip.add(new TextComponent("\u00A76Hold right click to charge, then when fully charged, release to strike!"));
     }
 
     @Override
-    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) {
+    public void fillItemCategory(@NotNull CreativeModeTab tab, @NotNull NonNullList<ItemStack> items) {
         if (this.allowdedIn(tab)) {
             ItemStack itemStack = new ItemStack(this);
             if (itemStack.is(IEItems.KINETIC_TONGUE_WHIP.get())) {
@@ -99,7 +100,7 @@ public class WhipItem extends TieredItem implements Vanishable {
     }
 
     @Override
-    public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
+    public void releaseUsing(@NotNull ItemStack stack, @NotNull Level worldIn, @NotNull LivingEntity entityLiving, int timeLeft) {
         if (entityLiving instanceof Player player) {
             setCharging(stack, false);
 
@@ -123,17 +124,17 @@ public class WhipItem extends TieredItem implements Vanishable {
     }
 
     @Override
-    public UseAnim getUseAnimation(ItemStack stack) {
+    public @NotNull UseAnim getUseAnimation(@NotNull ItemStack stack) {
         return UseAnim.BOW;
     }
 
     @Override
-    public int getUseDuration(ItemStack stack) {
+    public int getUseDuration(@NotNull ItemStack stack) {
         return 72000;
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         if (handIn.equals(InteractionHand.MAIN_HAND)) {
             playerIn.startUsingItem(handIn);
@@ -152,7 +153,7 @@ public class WhipItem extends TieredItem implements Vanishable {
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, Level level, Entity entity, int itemSlot, boolean isSelected) {
+    public void inventoryTick(@NotNull ItemStack stack, @NotNull Level level, @NotNull Entity entity, int itemSlot, boolean isSelected) {
         if ((getCharging(stack) && getTicksSinceAttack(stack) <= 15) || getAttacking(stack)) {
             setTicksSinceAttack(stack, getTicksSinceAttack(stack) + 1);
         }
@@ -165,19 +166,19 @@ public class WhipItem extends TieredItem implements Vanishable {
     }
 
     @Override
-    public boolean canAttackBlock(BlockState state, Level worldIn, BlockPos pos, Player player) {
+    public boolean canAttackBlock(@NotNull BlockState state, @NotNull Level worldIn, @NotNull BlockPos pos, Player player) {
         return !player.isCreative();
     }
 
     @Override
-    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+    public boolean hurtEnemy(@NotNull ItemStack stack, @NotNull LivingEntity target, @NotNull LivingEntity attacker) {
         super.hurtEnemy(stack, target, attacker);
         stack.hurtAndBreak(1, attacker, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         return true;
     }
 
     @Override
-    public boolean mineBlock(ItemStack stack, Level worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
+    public boolean mineBlock(@NotNull ItemStack stack, @NotNull Level worldIn, BlockState state, @NotNull BlockPos pos, @NotNull LivingEntity entityLiving) {
         if (state.getDestroySpeed(worldIn, pos) != 0.0F) {
             stack.hurtAndBreak(2, entityLiving, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         }
@@ -186,7 +187,7 @@ public class WhipItem extends TieredItem implements Vanishable {
     }
 
     @Override
-    public float getDestroySpeed(ItemStack stack, BlockState state) {
+    public float getDestroySpeed(@NotNull ItemStack stack, BlockState state) {
         Material material = state.getMaterial();
         return material != Material.PLANT && material != Material.REPLACEABLE_PLANT && !state.is(BlockTags.LEAVES) && material != Material.VEGETABLE ? 1.0F : 1.5F;
     }

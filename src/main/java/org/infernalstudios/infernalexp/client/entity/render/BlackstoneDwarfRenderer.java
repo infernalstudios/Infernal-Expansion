@@ -22,6 +22,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.client.entity.model.BlackstoneDwarfModel;
 import org.infernalstudios.infernalexp.entities.BlackstoneDwarfEntity;
+import org.jetbrains.annotations.NotNull;
 
 public class BlackstoneDwarfRenderer extends MobRenderer<BlackstoneDwarfEntity, BlackstoneDwarfModel<BlackstoneDwarfEntity>> {
     public static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID,
@@ -33,7 +34,7 @@ public class BlackstoneDwarfRenderer extends MobRenderer<BlackstoneDwarfEntity, 
     }
 
     @Override
-    public ResourceLocation getTextureLocation(BlackstoneDwarfEntity entity) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull BlackstoneDwarfEntity entity) {
         return TEXTURE;
     }
 }

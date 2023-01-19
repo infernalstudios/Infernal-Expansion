@@ -24,6 +24,7 @@ import net.minecraft.util.Mth;
 import org.infernalstudios.infernalexp.client.entity.model.ShroomloinModel;
 import org.infernalstudios.infernalexp.entities.ShroomloinEntity;
 import org.infernalstudios.infernalexp.init.IEShroomloinTypes;
+import org.jetbrains.annotations.NotNull;
 
 public class ShroomloinRenderer extends MobRenderer<ShroomloinEntity, ShroomloinModel<ShroomloinEntity>> {
 
@@ -52,12 +53,12 @@ public class ShroomloinRenderer extends MobRenderer<ShroomloinEntity, Shroomloin
     }
 
     @Override
-    public ResourceLocation getTextureLocation(ShroomloinEntity entity) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull ShroomloinEntity entity) {
         return IEShroomloinTypes.CRIMSON.getTextureLocation();
     }
 
     @Override
-    protected boolean isShaking(ShroomloinEntity entity) {
+    protected boolean isShaking(@NotNull ShroomloinEntity entity) {
         return super.isShaking(entity) || entity.isShaking();
     }
 }

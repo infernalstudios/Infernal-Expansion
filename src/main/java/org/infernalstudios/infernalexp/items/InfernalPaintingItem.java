@@ -24,6 +24,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.core.BlockPos;
+import org.jetbrains.annotations.NotNull;
 
 public class InfernalPaintingItem extends HangingEntityItem {
 
@@ -32,7 +33,7 @@ public class InfernalPaintingItem extends HangingEntityItem {
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext context) {
+    public @NotNull InteractionResult useOn(UseOnContext context) {
         BlockPos blockPos = context.getClickedPos().relative(context.getClickedFace());
 
         if (context.getPlayer() == null || !this.mayPlace(context.getPlayer(), context.getClickedFace(), context.getItemInHand(), blockPos)) {

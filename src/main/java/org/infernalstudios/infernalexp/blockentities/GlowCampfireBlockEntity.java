@@ -22,6 +22,7 @@ import org.infernalstudios.infernalexp.init.IEBlockEntityTypes;
 
 import net.minecraft.world.level.block.entity.CampfireBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import org.jetbrains.annotations.NotNull;
 
 public class GlowCampfireBlockEntity extends CampfireBlockEntity {
     public GlowCampfireBlockEntity(BlockPos pos, BlockState state) {
@@ -29,7 +30,7 @@ public class GlowCampfireBlockEntity extends CampfireBlockEntity {
     }
 
     @Override
-    public BlockEntityType<?> getType() {
+    public @NotNull BlockEntityType<?> getType() {
         return IEBlockEntityTypes.GLOW_CAMPFIRE.get();
     }
 }

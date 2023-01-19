@@ -25,6 +25,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.client.entity.model.VolineModel;
 import org.infernalstudios.infernalexp.entities.VolineEntity;
+import org.jetbrains.annotations.NotNull;
 
 public class VolineRenderer extends MobRenderer<VolineEntity, VolineModel<VolineEntity>> {
     protected static final ResourceLocation TEXTURE = new ResourceLocation(InfernalExpansion.MOD_ID,
@@ -38,7 +39,7 @@ public class VolineRenderer extends MobRenderer<VolineEntity, VolineModel<Voline
     }
 
     @Override
-    public void render(VolineEntity entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
+    public void render(VolineEntity entityIn, float entityYaw, float partialTicks, @NotNull PoseStack matrixStackIn, @NotNull MultiBufferSource bufferIn, int packedLightIn) {
         shadowRadius = 0.25F * entityIn.getEntitySize();
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
@@ -49,7 +50,7 @@ public class VolineRenderer extends MobRenderer<VolineEntity, VolineModel<Voline
     }
 
     @Override
-    public ResourceLocation getTextureLocation(VolineEntity entity) {
+    public @NotNull ResourceLocation getTextureLocation(VolineEntity entity) {
         return entity.getAttributeValue(Attributes.MOVEMENT_SPEED) <= 0 ? TIRED_TEXTURE : TEXTURE;
     }
 }

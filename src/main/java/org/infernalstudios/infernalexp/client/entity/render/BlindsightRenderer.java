@@ -22,6 +22,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.client.entity.model.BlindsightModel;
 import org.infernalstudios.infernalexp.entities.BlindsightEntity;
+import org.jetbrains.annotations.NotNull;
 
 public class BlindsightRenderer extends MobRenderer<BlindsightEntity, BlindsightModel<BlindsightEntity>> {
 
@@ -34,7 +35,7 @@ public class BlindsightRenderer extends MobRenderer<BlindsightEntity, Blindsight
     }
 
     @Override
-    public ResourceLocation getTextureLocation(BlindsightEntity entity) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull BlindsightEntity entity) {
         return TEXTURE;
     }
 }
