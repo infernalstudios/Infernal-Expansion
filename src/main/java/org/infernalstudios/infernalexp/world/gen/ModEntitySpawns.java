@@ -31,8 +31,6 @@ import org.infernalstudios.infernalexp.entities.VolineEntity;
 import org.infernalstudios.infernalexp.entities.WarpbeetleEntity;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
 
-//import net.minecraft.entity.monster.MonsterEntity;
-
 @Mod.EventBusSubscriber(modid = InfernalExpansion.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModEntitySpawns {
 
@@ -41,12 +39,10 @@ public class ModEntitySpawns {
         event.put(IEEntityTypes.VOLINE.get(), VolineEntity.setCustomAttributes().build());
         event.put(IEEntityTypes.SHROOMLOIN.get(), ShroomloinEntity.setCustomAttributes().build());
         event.put(IEEntityTypes.WARPBEETLE.get(), WarpbeetleEntity.setCustomAttributes().build());
-        //event.put(IEEntityTypes.CEROBEETLE.get(), CerobeetleEntity.setCustomAttributes().create());
         event.put(IEEntityTypes.EMBODY.get(), EmbodyEntity.setCustomAttributes().build());
         event.put(IEEntityTypes.BASALT_GIANT.get(), BasaltGiantEntity.setCustomAttributes().build());
         event.put(IEEntityTypes.BLACKSTONE_DWARF.get(), BlackstoneDwarfEntity.setCustomAttributes().build());
         event.put(IEEntityTypes.GLOWSQUITO.get(), GlowsquitoEntity.setCustomAttributes().build());
-        //event.put(IEEntityTypes.PYRNO.get(), PyrnoEntity.setCustomAttributes().create());
         event.put(IEEntityTypes.BLINDSIGHT.get(), BlindsightEntity.setCustomAttributes().build());
         event.put(IEEntityTypes.GLOWSILK_MOTH.get(), GlowsilkMothEntity.setCustomAttributes().build());
     }

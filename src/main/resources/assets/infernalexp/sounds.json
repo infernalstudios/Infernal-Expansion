@@ -91,30 +91,6 @@
       "infernalexp:entity/warpbeetle/warpbeetle_death"
     ]
   },
-  "entity.cerobeetle.ambient": {
-    "subtitle": "Cerobeetle squeaks",
-    "sounds": [
-      "infernalexp:entity/cerobeetle/cerobeetle_ambient"
-    ]
-  },
-  "entity.cerobeetle.hurt": {
-    "subtitle": "Cerobeetle hurts",
-    "sounds": [
-      "infernalexp:entity/cerobeetle/cerobeetle_hurt"
-    ]
-  },
-  "entity.cerobeetle.death": {
-    "subtitle": "Cerobeetle dies",
-    "sounds": [
-      "infernalexp:entity/cerobeetle/cerobeetle_death"
-    ]
-  },
-  "entity.cerobeetle.roar": {
-    "subtitle": "Cerobeetle dies",
-    "sounds": [
-      "infernalexp:entity/cerobeetle/cerobeetle_roar"
-    ]
-  },
   "entity.embody.ambient": {
     "subtitle": "subtitles.entity.embody.ambient",
     "sounds": [
