@@ -16,7 +16,6 @@
 
 package org.infernalstudios.infernalexp.entities;
 
-import com.mojang.math.Vector3d;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -61,7 +60,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.RandomSource;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -104,6 +102,7 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
         // that?
     }
 
+    @Override
     public MobType getMobType() {
         return MobType.ARTHROPOD;
     }
@@ -117,10 +116,12 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
         return glowsquitoEntity;
     }
 
+    @Override
     public boolean isFood(ItemStack stack) {
         return TEMPTATION_ITEMS.test(stack);
     }
 
+    @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(BRED, false);
@@ -134,6 +135,7 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
         this.entityData.set(BRED, isBred);
     }
 
+    @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("Bred", this.getBred());
@@ -142,11 +144,13 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
     /**
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
+    @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setBred(compound.getBoolean("Bred"));
     }
 
+    @Override
     protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
         return this.isBaby() ? sizeIn.height * 0.35F : sizeIn.height * 0.72F;
     }
@@ -159,12 +163,15 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
         }
     }
 
+    @Override
     protected PathNavigation createNavigation(Level worldIn) {
         FlyingPathNavigation flyingpathnavigator = new FlyingPathNavigation(this, worldIn) {
+            @Override
             public boolean isStableDestination(BlockPos pos) {
                 return !this.level.getBlockState(pos.below()).isAir();
             }
 
+            @Override
             public void tick() {
                 super.tick();
             }
@@ -198,6 +205,7 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
          * Returns whether execution should begin. You can also read and cache any state
          * necessary for execution in this method as well.
          */
+        @Override
         public boolean canUse() {
             return true;
         }
@@ -205,6 +213,7 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
         /**
          * Keep ticking a continuous task that has already been started
          */
+        @Override
         public void tick() {
             Vec3 vector3d = this.parentEntity.getDeltaMovement();
             this.parentEntity.setYRot(-((float) Mth.atan2(vector3d.x, vector3d.z)) * (180F / (float) Math.PI));
@@ -221,6 +230,7 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
             this.parentEntity = ghast;
         }
 
+        @Override
         public void tick() {
             if (this.operation == MoveControl.Operation.MOVE_TO) {
                 if (this.courseChangeCooldown-- <= 0) {
@@ -264,6 +274,7 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
          * Returns whether execution should begin. You can also read and cache any state
          * necessary for execution in this method as well.
          */
+        @Override
         public boolean canUse() {
             MoveControl movementcontroller = this.parentEntity.getMoveControl();
             if (!movementcontroller.hasWanted()) {
@@ -280,6 +291,7 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
         /**
          * Returns whether an in-progress EntityAIBase should continue executing
          */
+        @Override
         public boolean canContinueToUse() {
             return false;
         }
@@ -287,6 +299,7 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
         /**
          * Execute a one shot task or start executing a continuous task
          */
+        @Override
         public void start() {
             Random random = this.parentEntity.getRandom();
             double d0 = this.parentEntity.getX() + (double) ((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
@@ -366,6 +379,7 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
         }
     }
 
+    @Override
     public boolean fireImmune() {
         return true;
     }

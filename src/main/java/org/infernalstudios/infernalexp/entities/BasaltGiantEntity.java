@@ -170,6 +170,7 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
 
     // ---
     // Retaliating
+    @Override
     @OnlyIn(Dist.CLIENT)
     public void handleEntityEvent(byte id) {
         if (id == 4) {
@@ -186,6 +187,7 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
         return this.attackTimer;
     }
 
+    @Override
     public boolean doHurtTarget(Entity entityIn) {
         this.attackTimer = 10;
         this.level.broadcastEntityEvent(this, (byte) 4);
@@ -281,6 +283,7 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
         this.playSound(SoundEvents.PIG_STEP, 0.15F, 1.0F);
     }
 
+    @Override
     public boolean fireImmune() {
         return true;
     }

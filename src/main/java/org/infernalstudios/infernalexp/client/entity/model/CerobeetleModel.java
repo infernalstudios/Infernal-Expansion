@@ -157,6 +157,7 @@ public class CerobeetleModel<T extends CerobeetleEntity> extends EntityModel<T> 
         rightLeg3.render(matrixStack, buffer, packedLight, packedOverlay);
     }
 
+    @Override
     public void prepareMobModel(CerobeetleEntity entity, float limbSwing, float limbSwingAmount, float partialTick) {
 
         int i = entity.getAttackTimer();

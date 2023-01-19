@@ -127,6 +127,7 @@ public class BasaltGiantModel<T extends BasaltGiantEntity> extends EntityModel<T
         body.render(matrixStack, buffer, packedLight, packedOverlay);
     }
 
+    @Override
     public void prepareMobModel(T entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
         int i = entityIn.getAttackTimer();
         if (i > 0) {

@@ -80,6 +80,7 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
             .add(Attributes.MOVEMENT_SPEED, 0.6D);
     }
 
+    @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(STATE, -1);
@@ -181,10 +182,11 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
     }
 
     /**
-	 * Called to update the entity's position/logic.
-	 */
-	public void tick() {
-		if (this.isAlive()) {
+     * Called to update the entity's position/logic.
+     */
+    @Override
+    public void tick() {
+        if (this.isAlive()) {
             if (this.getName().getContents().equals("pizza")) {
                 if (getShroomloinType() != IEShroomloinTypes.PIZZA && this.predictedType != IEShroomloinTypes.PIZZA) {
                     this.predictedType = IEShroomloinTypes.PIZZA;
@@ -428,6 +430,7 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
          * Returns whether execution should begin. You can also read and cache any state
          * necessary for execution in this method as well.
          */
+        @Override
         public boolean canUse() {
             LivingEntity attackTarget = this.entityHost.getTarget();
             if (attackTarget != null && attackTarget.isAlive() && !attackTarget.hasEffect(IEEffects.INFECTION.get())) {
@@ -441,6 +444,7 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
         /**
          * Returns whether an in-progress EntityAIBase should continue executing
          */
+        @Override
         public boolean canContinueToUse() {
             return this.canUse() || !this.entityHost.getNavigation().isDone();
         }
@@ -449,6 +453,7 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
          * Reset the task's internal state. Called when this task is interrupted by
          * another one
          */
+        @Override
         public void stop() {
             this.attackTarget = null;
             this.seeTime = 0;
@@ -459,6 +464,7 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
 		/**
 		 * Keep ticking a continuous task that has already been started
          */
+        @Override
         public void tick() {
             double d0 = this.entityHost.distanceToSqr(this.attackTarget.getX(), this.attackTarget.getY(), this.attackTarget.getZ());
             boolean flag = this.entityHost.getSensing().hasLineOfSight(this.attackTarget);

@@ -39,6 +39,7 @@ public abstract class LoopingSound<E extends Entity> extends AbstractTickableSou
         this.volume = 0.0F;
     }
 
+    @Override
     public void tick() {
         if (this.entity.isAlive()) {
             this.x = (float) this.entity.getX();
@@ -66,10 +67,12 @@ public abstract class LoopingSound<E extends Entity> extends AbstractTickableSou
         return 1.1F;
     }
 
+    @Override
     public boolean canStartSilent() {
         return true;
     }
 
+    @Override
     public boolean canPlaySound() {
         return !this.entity.isSilent();
     }

@@ -72,6 +72,7 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements NeutralMob {
 
     // ---
     // Retaliating
+    @Override
     @OnlyIn(Dist.CLIENT)
     public void handleEntityEvent(byte id) {
         if (id == 4) {
@@ -83,6 +84,7 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements NeutralMob {
 
     }
 
+    @Override
     public void aiStep() {
         super.aiStep();
         if (this.attackTimer > 0) {
@@ -95,6 +97,7 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements NeutralMob {
         return this.attackTimer;
     }
 
+    @Override
     public boolean doHurtTarget(Entity entityIn) {
         this.attackTimer = 10;
         this.level.broadcastEntityEvent(this, (byte) 4);
@@ -165,6 +168,7 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements NeutralMob {
         return 2 + this.level.random.nextInt(2);
     }
 
+    @Override
     public boolean fireImmune() {
         return true;
     }

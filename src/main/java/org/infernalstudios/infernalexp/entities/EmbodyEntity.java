@@ -51,6 +51,7 @@ public class EmbodyEntity extends Monster {
         super(type, worldIn);
     }
 
+    @Override
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         this.randomizeAttributes();
@@ -99,14 +100,17 @@ public class EmbodyEntity extends Monster {
         return super.hurt(source, amount);
     }
 
+    @Override
     public boolean fireImmune() {
         return true;
     }
 
+    @Override
     public boolean isOnFire() {
         return false;
     }
 
+    @Override
     public boolean isSensitiveToWater() {
         return true;
     }

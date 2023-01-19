@@ -29,6 +29,7 @@ public class CrumblingBlackstoneBlock extends FallingBlock {
         super(properties);
     }
 
+    @Override
     @OnlyIn(Dist.CLIENT)
     public int getDustColor(BlockState state, BlockGetter reader, BlockPos pos) {
         return -462091;

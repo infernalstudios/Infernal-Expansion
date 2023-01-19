@@ -197,6 +197,7 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
         return OffsetType.XZ;
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(AGE);
         builder.add(TIP);

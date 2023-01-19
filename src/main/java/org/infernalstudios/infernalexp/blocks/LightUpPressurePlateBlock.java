@@ -37,6 +37,7 @@ public class LightUpPressurePlateBlock extends PressurePlateBlock {
         return state.setValue(POWERED, strength > 0).setValue(LIT, strength > 0);
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(POWERED).add(LIT);
     }

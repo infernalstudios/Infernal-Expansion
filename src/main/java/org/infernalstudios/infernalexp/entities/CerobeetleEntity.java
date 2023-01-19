@@ -79,6 +79,7 @@ public class CerobeetleEntity extends PathfinderMob {
     // ---
     // Retaliating
 
+    @Override
     @OnlyIn(Dist.CLIENT)
     public void handleEntityEvent(byte id) {
         if (id == 4) {
@@ -90,6 +91,7 @@ public class CerobeetleEntity extends PathfinderMob {
 
     }
 
+    @Override
     public void aiStep() {
         super.aiStep();
         if (this.attackTimer > 0) {
@@ -102,6 +104,7 @@ public class CerobeetleEntity extends PathfinderMob {
         return this.attackTimer;
     }
 
+    @Override
     public boolean doHurtTarget(Entity entityIn) {
         this.attackTimer = 10;
         this.level.broadcastEntityEvent(this, (byte) 4);

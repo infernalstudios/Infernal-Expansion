@@ -228,6 +228,7 @@ public class VolineEntity extends Monster implements IBucketable, IResizable {
         this.playSound(SoundEvents.PIG_STEP, 0.15F, 1.0F);
     }
 
+    @Override
     public boolean fireImmune() {
         return true;
     }

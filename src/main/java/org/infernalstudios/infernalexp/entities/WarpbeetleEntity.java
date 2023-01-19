@@ -93,6 +93,7 @@ public class WarpbeetleEntity extends PathfinderMob {
         }
     }
 
+    @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(CONVERTING, false);
@@ -184,6 +185,7 @@ public class WarpbeetleEntity extends PathfinderMob {
         }
     }
 
+    @Override
     public boolean doHurtTarget(Entity entityIn) {
         this.attackTimer = 10;
         this.level.broadcastEntityEvent(this, (byte) 4);

@@ -39,6 +39,7 @@ public class FungusCapBlock extends Block {
         }
     }
 
+    @Override
     public void updateEntityAfterFallOn(BlockGetter worldIn, Entity entityIn) {
         if (entityIn.isSuppressingBounce()) {
             super.updateEntityAfterFallOn(worldIn, entityIn);

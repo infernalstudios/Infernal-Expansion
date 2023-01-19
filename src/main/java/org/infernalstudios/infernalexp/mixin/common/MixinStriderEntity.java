@@ -47,9 +47,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Strider.class)
 public abstract class MixinStriderEntity extends Animal implements ItemSteerable, Saddleable, IBucketable {
+
+    @Override
     @Shadow
     protected abstract void defineSynchedData();
 
+    @Override
     @Shadow
     public abstract void readAdditionalSaveData(CompoundTag compound);
 

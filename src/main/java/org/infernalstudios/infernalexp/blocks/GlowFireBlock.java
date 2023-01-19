@@ -37,10 +37,12 @@ public class GlowFireBlock extends BaseFireBlock {
         super(builder, 2.0F);
     }
 
+    @Override
     public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
         return this.canSurvive(stateIn, worldIn, currentPos) ? this.defaultBlockState() : Blocks.AIR.defaultBlockState();
     }
 
+    @Override
     public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
         return isGlowFireBase(worldIn.getBlockState(pos.below()));
     }
@@ -60,6 +62,7 @@ public class GlowFireBlock extends BaseFireBlock {
         }
     }
 
+    @Override
     protected boolean canBurn(BlockState stateIn) {
         return true;
     }

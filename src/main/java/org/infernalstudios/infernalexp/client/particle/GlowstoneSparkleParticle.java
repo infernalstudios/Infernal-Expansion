@@ -39,11 +39,13 @@ public class GlowstoneSparkleParticle extends TextureSheetParticle {
         this.lifetime = 60 + this.random.nextInt(12);
     }
 
+    @Override
     public void move(double x, double y, double z) {
         this.setBoundingBox(this.getBoundingBox().move(x, y, z));
         this.setLocationFromBoundingbox();
     }
 
+    @Override
     public void tick() {
         this.xo = this.x;
         this.yo = this.y;
@@ -60,10 +62,12 @@ public class GlowstoneSparkleParticle extends TextureSheetParticle {
         }
     }
 
+    @Override
     public ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_LIT;
     }
 
+    @Override
     public int getLightColor(float partialTick) {
         return 15728880;
     }
@@ -76,6 +80,7 @@ public class GlowstoneSparkleParticle extends TextureSheetParticle {
             this.spriteSet = spriteSet;
         }
 
+        @Override
         public Particle createParticle(SimpleParticleType typeIn, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             GlowstoneSparkleParticle glowstoneSparkleParticle = new GlowstoneSparkleParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed);
             glowstoneSparkleParticle.pickSprite(this.spriteSet);
