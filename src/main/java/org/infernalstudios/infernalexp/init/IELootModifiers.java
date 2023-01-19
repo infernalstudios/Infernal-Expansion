@@ -34,6 +34,7 @@ import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 import javax.annotation.Nonnull;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class IELootModifiers {
 
     public static final DeferredRegister<GlobalLootModifierSerializer<?>> LOOT_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.LOOT_MODIFIER_SERIALIZERS, InfernalExpansion.MOD_ID);
@@ -80,6 +81,7 @@ public class IELootModifiers {
 
             return generatedLoot;
         }
+
     }
 
     public static void register(IEventBus eventBus) {
@@ -98,5 +100,6 @@ public class IELootModifiers {
         public JsonObject write(HoglinLootModifier instance) {
             return null;
         }
+
     }
 }

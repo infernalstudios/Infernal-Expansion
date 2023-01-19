@@ -84,7 +84,7 @@ public class DynamicLightingHandler {
     public static class LightData {
         public boolean shouldKeep = true;
         public double time;
-        public double amplifier;
+        public final double amplifier;
 
         public LightData(double amplifier) {
             this.amplifier = amplifier;

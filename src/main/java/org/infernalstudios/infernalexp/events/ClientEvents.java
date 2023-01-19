@@ -71,8 +71,6 @@ public class ClientEvents {
         event.registerEntityRenderer(IEEntityTypes.THROWABLE_BRICK.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(IEEntityTypes.THROWABLE_NETHER_BRICK.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(IEEntityTypes.INFERNAL_PAINTING.get(), InfernalPaintingRenderer::new);
-//        event.registerEntityRenderer(IEEntityTypes.CEROBEETLE.get(), CerobeetleRenderer::new);
-//        event.registerEntityRenderer(IEEntityTypes.PYRNO.get(), PyrnoRenderer::new);
 
         event.registerBlockEntityRenderer(IEBlockEntityTypes.GLOW_CAMPFIRE.get(), CampfireRenderer::new);
     }
@@ -88,8 +86,6 @@ public class ClientEvents {
         event.registerLayerDefinition(GlowsquitoModel.LAYER_LOCATION, GlowsquitoModel::createBodyLayer);
         event.registerLayerDefinition(BlindsightModel.LAYER_LOCATION, BlindsightModel::createBodyLayer);
         event.registerLayerDefinition(GlowsilkMothModel.LAYER_LOCATION, GlowsilkMothModel::createBodyLayer);
-//        event.registerLayerDefinition(CerobeetleModel.LAYER_LOCATION, CerobeetleModel::createBodyLayer);
-//        event.registerLayerDefinition(PyrnoModel.LAYER_LOCATION, PyrnoModel::createBodyLayer);
     }
 
     @SubscribeEvent

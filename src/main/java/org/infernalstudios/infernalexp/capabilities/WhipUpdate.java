@@ -52,23 +52,4 @@ public class WhipUpdate implements IWhipUpdate {
         this.charging = charging;
     }
 
-//    @Override
-//    public Tag serializeNBT() {
-//        CompoundTag nbt = new CompoundTag();
-//
-//        nbt.putInt("TicksSinceAttack", getTicksSinceAttack());
-//        nbt.putBoolean("Attacking", getAttacking());
-//        nbt.putBoolean("Charging", getCharging());
-//
-//        return nbt;
-//    }
-//
-//    @Override
-//    public void deserializeNBT(Tag inbt) {
-//        CompoundTag nbt = (CompoundTag) inbt;
-//
-//        setTicksSinceAttack(nbt.getInt("TicksSinceAttack"));
-//        setAttacking(nbt.getBoolean("Attacking"));
-//        setCharging(nbt.getBoolean("Charging"));
-//    }
 }

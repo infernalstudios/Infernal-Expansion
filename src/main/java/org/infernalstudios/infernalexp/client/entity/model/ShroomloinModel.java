@@ -80,9 +80,4 @@ public class ShroomloinModel<T extends ShroomloinEntity> extends EntityModel<T> 
         all.render(matrixStack, buffer, packedLight, packedOverlay);
     }
 
-    public void setRotationAngle(ModelPart modelRenderer, float x, float y, float z) {
-        modelRenderer.xRot = x;
-        modelRenderer.yRot = y;
-        modelRenderer.zRot = z;
-    }
 }

@@ -40,7 +40,7 @@ import java.util.List;
 
 public class IEFeatures {
 
-    public static List<Feature<?>> features = new ArrayList<>();
+    public static final List<Feature<?>> features = new ArrayList<>();
 
     public static final Feature<NoneFeatureConfiguration> GLOWDUST_LAYER = registerFeature("glowdust_layer", new GlowLayerFeature(NoneFeatureConfiguration.CODEC));
     public static final Feature<GlowSpikeFeatureConfig> GLOWSPIKE = registerFeature("glowspike", new GlowSpikeFeature(GlowSpikeFeatureConfig.CODEC));
@@ -57,7 +57,7 @@ public class IEFeatures {
         ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, registryName);
 
         if (Registry.FEATURE.keySet().contains(resourceLocation))
-            throw new IllegalStateException("Feature ID: \"" + resourceLocation.toString() + "\" is already in the registry!");
+            throw new IllegalStateException("Feature ID: \"" + resourceLocation + "\" is already in the registry!");
 
         feature.setRegistryName(resourceLocation);
         features.add(feature);

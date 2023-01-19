@@ -16,27 +16,24 @@
 
 package org.infernalstudios.infernalexp.mixin.common;
 
-import org.infernalstudios.infernalexp.init.IEItems;
-import org.infernalstudios.infernalexp.entities.IBucketable;
-
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.monster.MagmaCube;
-import net.minecraft.world.entity.monster.Slime;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.monster.MagmaCube;
+import net.minecraft.world.entity.monster.Slime;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import org.infernalstudios.infernalexp.entities.IBucketable;
+import org.infernalstudios.infernalexp.init.IEItems;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 
@@ -112,11 +109,6 @@ public abstract class MixinMagmaCubeEntity extends Slime implements IBucketable 
         if (compound.contains("Size", 99)) {
             this.setSize(compound.getInt("Size"), false);
         }
-    }
-
-    @Override
-    public SoundEvent getBucketedSound() {
-        return SoundEvents.BUCKET_FILL_LAVA;
     }
 
     @Override

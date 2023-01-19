@@ -39,7 +39,7 @@ import java.util.List;
 
 public class IECarvers {
 
-    public static List<WorldCarver<? extends CarverConfiguration>> carvers = new ArrayList<>();
+    public static final List<WorldCarver<? extends CarverConfiguration>> carvers = new ArrayList<>();
 
     // Carvers
     public static final WorldCarver<CanyonCarverConfiguration> GLOWSTONE_RAVINE = registerWorldCarver("glowstone_ravine", new GlowstoneRavineCarver(CanyonCarverConfiguration.CODEC));
@@ -53,7 +53,7 @@ public class IECarvers {
         ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, registryName);
 
         if (Registry.CARVER.keySet().contains(resourceLocation))
-            throw new IllegalStateException("World Carver ID: \"" + resourceLocation.toString() + "\" is already in the registry!");
+            throw new IllegalStateException("World Carver ID: \"" + resourceLocation + "\" is already in the registry!");
 
         carver.setRegistryName(resourceLocation);
         carvers.add(carver);
@@ -65,7 +65,7 @@ public class IECarvers {
         ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, registryName);
 
         if (BuiltinRegistries.CONFIGURED_FEATURE.keySet().contains(resourceLocation))
-            throw new IllegalStateException("Configured Carver ID: \"" + resourceLocation.toString() + "\" is already in the registry!");
+            throw new IllegalStateException("Configured Carver ID: \"" + resourceLocation + "\" is already in the registry!");
 
         return BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_CARVER, resourceLocation, configuredCarver);
     }

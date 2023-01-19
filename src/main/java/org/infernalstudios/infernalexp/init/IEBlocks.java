@@ -284,7 +284,7 @@ public class IEBlocks {
     }
 
     private static Boolean neverAllowSpawn(BlockState state, BlockGetter reader, BlockPos pos, EntityType<?> entity) {
-        return (boolean) false;
+        return false;
     }
 
     public static BlockBehaviour.Properties getProperties(Material materialIn, float hardnessAndResistanceIn) {

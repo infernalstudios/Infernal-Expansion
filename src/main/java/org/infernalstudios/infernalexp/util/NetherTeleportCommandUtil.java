@@ -106,7 +106,7 @@ public class NetherTeleportCommandUtil {
             shortestDistToOpen = shortestDistToFit;
         }
 
-        // If the portal will fit nowhere, return the original position (clamped to between y 70 and dimension height - 10) as the best candidate, unless it's not in the world border
+        // If the portal does not fit anywhere, return the original position (clamped to between y 70 and dimension height - 10) as the best candidate, unless it's not in the world border
         if (shortestDistToOpen == -1.0D) {
             safePos = (new BlockPos(pos.getX(), Mth.clamp(pos.getY(), 70, dimHeight - 10), pos.getZ())).immutable();
             // If the original position is not in the world border, return that there is NO safe position for a portal
@@ -120,13 +120,6 @@ public class NetherTeleportCommandUtil {
 
     /**
      * Checks whether the area around the provided position is large enough to teleport a player
-     *
-     * @param world
-     * @param originalPos
-     * @param offsetPos
-     * @param directionIn
-     * @param offsetScale
-     * @return
      */
     private static boolean checkRegionForPlacement(ServerLevel world, BlockPos originalPos, BlockPos.MutableBlockPos offsetPos, Direction directionIn, int offsetScale) {
         Direction direction = directionIn.getClockWise();

@@ -93,12 +93,6 @@ public class CerobeetleModel<T extends CerobeetleEntity> extends EntityModel<T> 
 
     @Override
     public void setupAnim(CerobeetleEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-/*
-            int i = entity.getAttackTimer();
-            if(i <= 0){
-            this.head.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-         }
-*/
         leftLeg1.zRot = Mth.cos(limbSwing * 1.6662F) * 1.4F * limbSwingAmount;
         leftLeg2.zRot = Mth.cos(limbSwing * 1.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
         leftLeg3.zRot = Mth.cos(limbSwing * 1.6662F) * 1.4F * limbSwingAmount;

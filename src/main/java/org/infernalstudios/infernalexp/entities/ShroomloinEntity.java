@@ -64,8 +64,6 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
     private final int fuseTime = 59;
     private int conversionTicks;
     private ShroomloinType predictedType;
-    // public static final Ingredient TEMPTATION_ITEMS =
-    // Ingredient.fromItems(IEItems.DULLROCKS.get(), Items.MAGMA_CREAM);
 
     public ShroomloinEntity(EntityType<? extends PathfinderMob> type, Level worldIn) {
         super(type, worldIn);
@@ -230,44 +228,13 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
 	@Override
 	protected void registerGoals() {
 		super.registerGoals();
-		// this.goalSelector.addGoal(0, new TemptGoal(this, 0.6D, TEMPTATION_ITEMS,
-		// false));
-		// this.goalSelector.addGoal(0, new ShroomloinSwellGoal(this));
 		this.goalSelector.addGoal(1, new RangedAttackUnInfectedGoal(this, 1, 60, 10));
 		this.goalSelector.addGoal(1, new MeleeAttackInfectedGoal(this, 0.6d, true));
 		this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 0.5d));
 		this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8.0f));
 		this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new ShroomloinTargetGoal(this));
-
-//        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal(this, PlayerEntity.class, 10, true, false, this::isAngryAt));
-//?        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
 	}
-
-	//
-
-	/**
-	 * Returns whether execution should begin. You can also read and cache any state
-	 * necessary for execution in this method as well.
-	 */
-
-    /*
-     * public boolean shouldExecute() { int i = this.goalOwner.getRevengeTimer();
-     * LivingEntity livingentity = this.goalOwner.getRevengeTarget(); if (i !=
-     * this.revengeTimerOld && livingentity != null) { if (livingentity.getType() ==
-     * EntityType.PLAYER &&
-     * this.goalOwner.world.getGameRules().getBoolean(GameRules.UNIVERSAL_ANGER)) {
-     * return false; } else { for(Class<?> oclass : this.excludedReinforcementTypes)
-     * { if (oclass.isAssignableFrom(livingentity.getClass())) { return false; } }
-     *
-     * return this.isSuitableTarget(livingentity, HURT_BY_TARGETING); } } else { return
-     * false; } }
-     *
-     * public HurtByTargetGoal setCallsForHelp(Class<?>... reinforcementTypes) {
-     * this.entityCallsForHelp = true; this.reinforcementTypes = reinforcementTypes;
-     * return this; }
-     *
-     */
 
 	@OnlyIn(Dist.CLIENT)
 	public float getShroomloinFlashIntensity(float partialTicks) {
@@ -291,10 +258,6 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
 	public void becomeAngryAt(LivingEntity entity) {
         this.setTarget(entity);
 	}
-
-//    public boolean isImmuneToFire() {
-//    return true;
-//    }
 
     // EXP POINTS
     @Override

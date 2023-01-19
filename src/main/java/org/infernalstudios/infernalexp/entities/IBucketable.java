@@ -17,6 +17,7 @@
 package org.infernalstudios.infernalexp.entities;
 
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -33,6 +34,7 @@ import net.minecraft.world.level.Level;
 import java.util.Optional;
 
 public interface IBucketable {
+
     boolean isFromBucket();
 
     void setFromBucket(boolean isFromBucket);
@@ -43,7 +45,9 @@ public interface IBucketable {
 
     ItemStack getBucketItem();
 
-    SoundEvent getBucketedSound();
+    default SoundEvent getBucketedSound() {
+        return SoundEvents.BUCKET_FILL_LAVA;
+    }
 
     static void copyToStack(Mob entity, ItemStack stack) {
         CompoundTag compound = stack.getOrCreateTag();

@@ -52,7 +52,7 @@ public class SinkHoleFeature extends IEFeature<NoneFeatureConfiguration> {
                 if (context.level().getBlockState(mutableBlockPos).is(Blocks.AIR)) return false;
             }
 
-            // Build the walls down a few blocks so if the sink hole spawns on a slope it isn't open from the side
+            // Build the walls down a few blocks so if the sinkhole spawns on a slope it isn't open from the side
             for (BlockPos point : ShapeUtil.generateSolidCircle(radius + 1)) {
                 mutableBlockPos.set(context.origin());
                 mutableBlockPos.move(point.getX(), point.getY(), point.getZ());
@@ -82,16 +82,6 @@ public class SinkHoleFeature extends IEFeature<NoneFeatureConfiguration> {
                 carveSpot(context.level(), context.chunkGenerator(), mutableBlockPos);
             }
 
-            // Create fairy ring of luminous fungus around sinkhole
-//            for (BlockPos point : ShapeUtil.generateCircle(radius + 2)) {
-//                for (int y = -5; y < 5; y++) {
-            //                    if (IEBlocks.LUMINOUS_FUNGUS.get().getDefaultState().isValidPosition(world, pos.add(point).down(y))) {
-            //                        world.setBlockState(pos.add(point).down(y), IEBlocks.LUMINOUS_FUNGUS.get().getDefaultState(), 2);
-            //                        break;
-            //                    }
-            //                }
-            //            }
-
             return true;
         }
     }
@@ -102,7 +92,7 @@ public class SinkHoleFeature extends IEFeature<NoneFeatureConfiguration> {
     }
 
     private void carveSpot(WorldGenLevel world, ChunkGenerator generator, BlockPos.MutableBlockPos mutableBlockPos) {
-        // only carve spot if space isnt liquid and above isnt liquid
+        // only carve spot if space isn't liquid and above isn't liquid
         if (world.getBlockState(mutableBlockPos).getFluidState().isEmpty()) {
 
             if (mutableBlockPos.getY() < generator.getSeaLevel()) {

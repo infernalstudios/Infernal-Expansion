@@ -43,7 +43,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.entity.AreaEffectCloud;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.monster.Zombie;
@@ -96,9 +95,9 @@ public class MiscEvents {
         final ModConfig config = event.getConfig();
         //Recalculates what the configs should be when changed
         if (config.getSpec() == ConfigHolder.CLIENT_SPEC) {
-            ConfigHelper.bakeClient(config);
+            ConfigHelper.bakeClient();
         } else if (config.getSpec() == ConfigHolder.COMMON_SPEC) {
-            ConfigHelper.bakeCommon(config);
+            ConfigHelper.bakeCommon();
         }
     }
 

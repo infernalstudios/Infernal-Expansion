@@ -20,8 +20,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -98,6 +96,7 @@ public abstract class MixinStriderEntity extends Animal implements ItemSteerable
         }
     }
 
+    @SuppressWarnings("ParameterCanBeLocal")
     @Inject(method = "finalizeSpawn", at = @At("HEAD"), cancellable = true)
     private void IE_onInitialSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag, CallbackInfoReturnable<SpawnGroupData> cir) {
         if (reason == MobSpawnType.BUCKET) {
@@ -121,11 +120,6 @@ public abstract class MixinStriderEntity extends Animal implements ItemSteerable
         if (compound.contains("Age", 99)) {
             this.setAge(compound.getInt("Age"));
         }
-    }
-
-    @Override
-    public SoundEvent getBucketedSound() {
-        return SoundEvents.BUCKET_FILL_LAVA;
     }
 
     @Override

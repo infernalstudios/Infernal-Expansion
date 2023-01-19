@@ -90,12 +90,10 @@ public class BuriedBoneBlock extends HorizontalBushBlock {
     public @NotNull VoxelShape getShape(BlockState state, @NotNull BlockGetter worldIn, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         Vec3 vector3d = state.getOffset(worldIn, pos);
 
-        switch (state.getValue(FACE)) {
-            case FLOOR:
-                return FLOOR_SHAPE.move(vector3d.x, vector3d.y, vector3d.z);
-            case CEILING:
-            default:
-                return CEILING_SHAPE.move(vector3d.x, vector3d.y, vector3d.z);
+        if (state.getValue(FACE) == AttachFace.FLOOR) {
+            return FLOOR_SHAPE.move(vector3d.x, vector3d.y, vector3d.z);
+        } else {
+            return CEILING_SHAPE.move(vector3d.x, vector3d.y, vector3d.z);
         }
     }
 

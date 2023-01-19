@@ -17,6 +17,7 @@
 package org.infernalstudios.infernalexp.entities;
 
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.entity.IEntityAdditionalSpawnData;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
@@ -68,7 +69,6 @@ import java.util.UUID;
 
 public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEntityAdditionalSpawnData, IResizable {
 
-    //    private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.BASALT, Items.POLISHED_BASALT);
     private static final UniformInt RANGED_INT = TimeUtil.rangeOfSeconds(20, 39);
     private int attackTimer;
     private int angerTime;
@@ -83,19 +83,11 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
 
     public BasaltGiantEntity(EntityType<? extends BasaltGiantEntity> type, Level worldIn) {
         super(type, worldIn);
-        this.maxUpStep = 2.0f;
     }
-
-//    public BasaltGiantEntity(EntityType<? extends BasaltGiantEntity> type, World worldIn, float size) {
-//        super(type, worldIn);
-//        if (size != 1)
-//            this.dataManager.set(GIANT_SIZE, size);
-//    }
 
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor worldIn, @NotNull DifficultyInstance difficultyIn, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-
         // Get a random size scale value resulting in a height between the MIN and MAX
         // values specified above
         float size = random.nextFloat();
@@ -108,7 +100,13 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
 
     // ATTRIBUTES
     public static AttributeSupplier.Builder setCustomAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 56.0D).add(Attributes.ATTACK_DAMAGE, 12.0D).add(Attributes.ATTACK_KNOCKBACK, 2.0D).add(Attributes.KNOCKBACK_RESISTANCE, 30.0D).add(Attributes.MOVEMENT_SPEED, 0.45D);
+        return Mob.createMobAttributes()
+            .add(Attributes.MAX_HEALTH, 56.0D)
+            .add(Attributes.ATTACK_DAMAGE, 12.0D)
+            .add(Attributes.ATTACK_KNOCKBACK, 2.0D)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 30.0D)
+            .add(Attributes.MOVEMENT_SPEED, 0.45D)
+            .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1.4D);
     }
 
     @Override

@@ -96,9 +96,4 @@ public class GlowsquitoModel<T extends GlowsquitoEntity> extends AgeableListMode
             rightArm, leftArm, rightLeg, leftLeg);
     }
 
-    public void setRotationAngle(ModelPart modelRenderer, float x, float y, float z) {
-        modelRenderer.xRot = x;
-        modelRenderer.yRot = y;
-        modelRenderer.zRot = z;
-    }
 }

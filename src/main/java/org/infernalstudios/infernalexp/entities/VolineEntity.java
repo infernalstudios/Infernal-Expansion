@@ -102,8 +102,6 @@ public class VolineEntity extends Monster implements IBucketable, IResizable {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        // this.goalSelector.addGoal(0, new TemptGoal(this, 0.6D, TEMPTATION_ITEMS,
-        // false));
         this.goalSelector.addGoal(0, new VolineEatItemsGoal(this, MiscEvents.getVolineEatTable(), 32.0D, getAttributeValue(Attributes.MOVEMENT_SPEED) * 2.0D));
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.2D, true));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED)));
@@ -271,11 +269,6 @@ public class VolineEntity extends Monster implements IBucketable, IResizable {
         if (compound.contains("Size", 99)) {
             this.setEntitySize(compound.getFloat("Size"));
         }
-    }
-
-    @Override
-    public SoundEvent getBucketedSound() {
-        return SoundEvents.BUCKET_FILL_LAVA;
     }
 
     @Override

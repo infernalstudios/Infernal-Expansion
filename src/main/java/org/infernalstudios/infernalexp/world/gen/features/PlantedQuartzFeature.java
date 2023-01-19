@@ -61,7 +61,7 @@ public class PlantedQuartzFeature extends IEFeature<PlantedQuartzFeatureConfig> 
             if (context.level().isEmptyBlock(pos) && state.canSurvive(context.level(), pos)) {
                 // If there is quartz nearby or the chance to generate passes, generate it
                 float chance = context.random().nextFloat();
-                if (findOre(context.level(), pos) || chance > context.config().chanceToFail) {
+                if (findOre(context.level(), pos) || chance > context.config().chanceToFail()) {
                     context.level().setBlock(pos, state, 2);
                     amount++;
                 }

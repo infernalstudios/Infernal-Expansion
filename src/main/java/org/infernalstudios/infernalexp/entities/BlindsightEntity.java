@@ -49,13 +49,11 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
-import java.util.Random;
 
 public class BlindsightEntity extends Monster {
 
     private int jumpDuration;
     private int jumpTicks;
-    private Random rand = new Random();
 
     public BlindsightEntity(EntityType<? extends Monster> type, Level worldIn) {
         super(type, worldIn);
@@ -140,7 +138,7 @@ public class BlindsightEntity extends Monster {
         jumpTicks = 0;
 
         //Randomizes jump height to vary how high the Blindsight jumps
-        float f = this.getJumpPower() + (rand.nextFloat() * 0.7F);
+        float f = this.getJumpPower() + (random.nextFloat() * 0.7F);
 
         //Copied from super.jump(), gives the Blindsight upwards motion
         Vec3 vector3d = this.getDeltaMovement();
@@ -168,14 +166,8 @@ public class BlindsightEntity extends Monster {
         }
     }
 
-    /*
-    public boolean isImmuneToFire() {
-        return true;
-    }
-*/
-
     protected int getJumpDelay() {
-        return (this.rand.nextInt(20) + 10) * 2;
+        return (this.random.nextInt(20) + 10) * 2;
     }
 
     protected SoundEvent getJumpSound() {
@@ -203,7 +195,7 @@ public class BlindsightEntity extends Monster {
             if (this.hasLineOfSight(entityIn) && entityIn.hurt(DamageSource.mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE))) {
                 entityIn.addEffect(new MobEffectInstance(IEEffects.LUMINOUS.get(), 100, 0, true, true));
                 entityIn.addEffect(new MobEffectInstance(MobEffects.JUMP, 100, 1, true, true));
-                this.playSound(SoundEvents.SLIME_ATTACK, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+                this.playSound(SoundEvents.SLIME_ATTACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                 this.doEnchantDamageEffects(this, entityIn);
             }
         }

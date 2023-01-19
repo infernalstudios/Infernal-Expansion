@@ -13,7 +13,9 @@ import java.util.function.Supplier;
 
 import static org.infernalstudios.infernalexp.InfernalExpansion.MOD_ID;
 
+@SuppressWarnings("unused")
 public final class IEShroomloinTypes {
+
     // Make sure to change the initial size of this ArrayList when adding new shroomloin variants
     private static final List<ShroomloinType> SHROOMLOIN_TYPES = new ArrayList<>(34);
 

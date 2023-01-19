@@ -23,8 +23,10 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 
+@SuppressWarnings("unused")
 public class IEPaintings {
-    public static DeferredRegister<Motive> PAINTING_TYPES = DeferredRegister.create(ForgeRegistries.PAINTING_TYPES, InfernalExpansion.MOD_ID);
+
+    public static final DeferredRegister<Motive> PAINTING_TYPES = DeferredRegister.create(ForgeRegistries.PAINTING_TYPES, InfernalExpansion.MOD_ID);
 
     public static RegistryObject<Motive> THE_FALLEN_ONES = PAINTING_TYPES.register("the_fallen_ones", () -> new Motive(48, 64));
     public static RegistryObject<Motive> CHILLING_ISLES = PAINTING_TYPES.register("chilling_isles", () -> new Motive(48, 48));

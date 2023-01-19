@@ -93,25 +93,16 @@ public class PlantedQuartzBlock extends HorizontalBushBlock {
 
     @Override
     public @NotNull VoxelShape getShape(BlockState state, @NotNull BlockGetter worldIn, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-        switch (state.getValue(FACE)) {
-            case WALL:
-                switch (state.getValue(FACING)) {
-                    case NORTH:
-                        return WALL_SHAPE_NORTH;
-                    case SOUTH:
-                        return WALL_SHAPE_SOUTH;
-                    case EAST:
-                        return WALL_SHAPE_EAST;
-                    case WEST:
-                    default:
-                        return WALL_SHAPE_WEST;
-                }
-            case FLOOR:
-                return FLOOR_SHAPE;
-            case CEILING:
-            default:
-                return CEILING_SHAPE;
-        }
+        return switch (state.getValue(FACE)) {
+            case WALL -> switch (state.getValue(FACING)) {
+                case NORTH -> WALL_SHAPE_NORTH;
+                case SOUTH -> WALL_SHAPE_SOUTH;
+                case EAST -> WALL_SHAPE_EAST;
+                default -> WALL_SHAPE_WEST;
+            };
+            case FLOOR -> FLOOR_SHAPE;
+            case CEILING -> CEILING_SHAPE;
+        };
     }
 
     @Override

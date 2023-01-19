@@ -16,24 +16,21 @@
 
 package org.infernalstudios.infernalexp.config;
 
-import net.minecraftforge.fml.config.ModConfig;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig.ClientConfig;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig.Miscellaneous;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig.MobInteractions;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig.MobSpawning;
 
-import javax.annotation.Nullable;
-
 public final class ConfigHelper {
 
     //Client
-    public static void bakeClient(@Nullable final ModConfig config) {
+    public static void bakeClient() {
         //Luminous Effect
         ClientConfig.LUMINOUS_REFRESH_DELAY.set(ConfigHolder.CLIENT.luminousRefreshDelay.get());
     }
 
     //Common
-    public static void bakeCommon(@Nullable final ModConfig config) {
+    public static void bakeCommon() {
         //Mob Interactions
         MobInteractions.PIGLIN_FEAR_WARPBEETLE.setBoolean(ConfigHolder.COMMON.piglinFearWarpbeetle.get());
         MobInteractions.PIGLIN_FEAR_EMBODY.setBoolean(ConfigHolder.COMMON.piglinFearEmbody.get());

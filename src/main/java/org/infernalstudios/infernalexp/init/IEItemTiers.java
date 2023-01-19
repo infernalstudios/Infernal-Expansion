@@ -25,12 +25,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Supplier;
 
 public enum IEItemTiers implements Tier {
-    BLINDSIGHT_TONGUE(0, 131, 4.0F, 1.0F, 10, () -> {
-        return Ingredient.of(IEItems.BLINDSIGHT_TONGUE::get);
-    }),
-    KINETIC_OPAL(0, 131, 4.0F, 1.0F, 10, () -> {
-        return Ingredient.of(() -> CompatibilityUtil.getModItem("miningmaster", "kinetic_opal"));
-    });
+    BLINDSIGHT_TONGUE(0, 131, 4.0F, 1.0F, 10, () -> Ingredient.of(IEItems.BLINDSIGHT_TONGUE::get)),
+    KINETIC_OPAL(0, 131, 4.0F, 1.0F, 10, () -> Ingredient.of(() -> CompatibilityUtil.getModItem("miningmaster", "kinetic_opal")));
 
     private final int harvestLevel;
     private final int maxUses;

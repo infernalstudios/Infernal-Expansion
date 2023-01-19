@@ -29,6 +29,7 @@ import org.infernalstudios.infernalexp.InfernalExpansion;
 
 public class IETags {
 
+    @SuppressWarnings("unused")
     public static class Blocks {
 
         public static final TagKey<Block> BASE_STONE_CANYON = tag("base_stone_canyon");
@@ -50,6 +51,7 @@ public class IETags {
         private static TagKey<Block> tag(String name) {
             return BlockTags.create(new ResourceLocation(InfernalExpansion.MOD_ID, name));
         }
+
     }
 
     public static class Items {

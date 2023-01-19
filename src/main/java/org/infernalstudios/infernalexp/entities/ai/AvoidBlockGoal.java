@@ -16,18 +16,15 @@
 
 package org.infernalstudios.infernalexp.entities.ai;
 
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.monster.Slime;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.entity.EntitySelector;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.Mth;
+import net.minecraft.world.level.block.Block;
 
 import java.util.EnumSet;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 public class AvoidBlockGoal extends Goal {
 
@@ -36,16 +33,10 @@ public class AvoidBlockGoal extends Goal {
     protected final int avoidDistance;
     protected final TagKey<Block> avoidBlocks;
 
-    public AvoidBlockGoal(Slime entityIn, TagKey<Block> blocksToAvoidIn, int avoidDistanceIn) {
-        this(entityIn, blocksToAvoidIn, (p_200828_0_) -> {
-            return true;
-        }, avoidDistanceIn, EntitySelector.NO_CREATIVE_OR_SPECTATOR::test);
-    }
-
-    private AvoidBlockGoal(Slime entityIn, TagKey<Block> blocksToAvoidIn, Predicate<LivingEntity> targetPredicate, int distance, Predicate<LivingEntity> p_i48859_9_) {
+    public AvoidBlockGoal(Slime entityIn, TagKey<Block> blocksToAvoidIn, int avoidDistance) {
         this.entity = entityIn;
         this.avoidBlocks = blocksToAvoidIn;
-        this.avoidDistance = distance;
+        this.avoidDistance = avoidDistance;
         this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
     }
 
@@ -70,7 +61,7 @@ public class AvoidBlockGoal extends Goal {
 
     @Override
     public void stop() {
-        this.avoidBlockPos = null;
+        this.avoidBlockPos = Optional.empty();
     }
 
     @Override

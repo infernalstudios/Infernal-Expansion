@@ -138,14 +138,6 @@ public class GlowsilkMothEntity extends AmbientCreature {
         return MobType.ARTHROPOD;
     }
 
-    protected boolean isMovementNoisy() {
-        return false;
-    }
-
-    public boolean causeFallDamage(float distance, float damageMultiplier) {
-        return false;
-    }
-
     @Override
     protected void checkFallDamage(double y, boolean onGroundIn, @NotNull BlockState state, @NotNull BlockPos pos) {
     }
@@ -163,7 +155,7 @@ public class GlowsilkMothEntity extends AmbientCreature {
      */
     @Override
     public boolean hurt(@NotNull DamageSource source, float amount) {
-        return this.isInvulnerableTo(source) ? false : super.hurt(source, amount);
+        return !this.isInvulnerableTo(source) && super.hurt(source, amount);
     }
 
     @Override

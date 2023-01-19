@@ -41,11 +41,6 @@ import org.infernalstudios.infernalexp.world.biome.IEBiome;
 public class DeltaShoresBiome extends IEBiome {
 
     @Override
-    protected Biome.BiomeCategory configureCategory() {
-        return Biome.BiomeCategory.NETHER;
-    }
-
-    @Override
     protected Climate.Parameter configureTemperature() {
         return Climate.Parameter.span(-0.32F, -0.31F);
     }
@@ -102,16 +97,9 @@ public class DeltaShoresBiome extends IEBiome {
 
     @Override
     protected void configureGeneration(BiomeGenerationSettings.Builder generation) {
-        //        generation.addStructureStart(StructureFeatures.RUINED_PORTAL_NETHER);
-        //        generation.addStructureStart(StructureFeatures.NETHER_BRIDGE);
         generation.addCarver(GenerationStep.Carving.AIR, Carvers.NETHER_CAVE);
-        //generation.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.DELTA);
-                /*FeatureSpread.of(3, 4), FeatureSpread.of(0, 2),
-                (((Placement.COUNT_MULTILAYER.configure(new FeatureSpreadConfig(40))));*/
         generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, NetherPlacements.BASALT_BLOBS);
         generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, NetherPlacements.SMALL_BASALT_COLUMNS);
-        //        generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.SPRING_LAVA);
-        //        generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.SPRING_LAVA_DOUBLE);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.BLACKSTONE_BLOBS);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.PATCH_FIRE);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.PATCH_SOUL_FIRE);
@@ -121,23 +109,11 @@ public class DeltaShoresBiome extends IEBiome {
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.SPRING_CLOSED_DOUBLE);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, IEPlacedFeatures.ORE_BASALT_IRON_DELTA_SHORES);
 
- /*
- DELTA = register("delta", Feature.DELTA_FEATURE.withConfiguration(new BasaltDeltasFeature(Features.States.LAVA_BLOCK, Features.States.MAGMA_BLOCK,
- SMALL_BASALT_COLUMNS = register("small_basalt_columns", Feature.BASALT_COLUMNS.withConfiguration(new ColumnConfig(FeatureSpread.fixed(1), FeatureSpread.of(1, 3))).withPlacement(Placement.COUNT_MULTILAYER.configure(new FeatureSpreadConfig(4))));
- LARGE_BASALT_COLUMNS = register("large_basalt_columns", Feature.BASALT_COLUMNS.withConfiguration(new ColumnConfig(FeatureSpread.of(2, 1), FeatureSpread.of(5, 5))).withPlacement(Placement.COUNT_MULTILAYER.configure(new FeatureSpreadConfig(2))));
- BASALT_BLOBS = register("basalt_blobs", Feature.NETHERRACK_REPLACE_BLOBS.withConfiguration(new BlobReplacementConfig(Features.States.NETHERRACK, Features.States.BASALT, FeatureSpread.of(3, 4))).range(128).square().count(75));
- BLACKSTONE_BLOBS = register("blackstone_blobs", Feature.NETHERRACK_REPLACE_BLOBS.withConfiguration(new BlobReplacementConfig(Features.States.NETHERRACK, Features.States.BLACKSTONE, FeatureSpread.of(3, 4))).range(128).square().count(25));
- GLOWSTONE_EXTRA = register("glowstone_extra", Feature.GLOWSTONE_BLOB.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.GLOWSTONE.configure(new FeatureSpreadConfig(10))));
- GLOWSTONE = register("glowstone", Feature.GLOWSTONE_BLOB.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).range(128).square().count(10));
-*/
-
-
         BiomeDefaultFeatures.addNetherDefaultOres(generation);
     }
 
     @Override
     protected void configureSpawns(MobSpawnSettings.Builder spawns) {
-        //        spawns.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(IEEntityTypes.GLOWSQUITO.get(), 1, 1, 3));
         spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.STRIDER, 60, 1, 2));
     }
 

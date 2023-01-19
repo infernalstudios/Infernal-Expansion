@@ -51,7 +51,6 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -62,7 +61,7 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
 
     public DullthornsBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.defaultBlockState().setValue(AGE, Integer.valueOf(0)).setValue(TIP, false));
+        this.registerDefaultState(this.defaultBlockState().setValue(AGE, 0).setValue(TIP, false));
     }
 
     @Override
@@ -73,7 +72,7 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
     @Nonnull
     @Override
     public List<ItemStack> onSheared(@Nullable Player player, @Nonnull ItemStack item, Level world, BlockPos pos, int fortune) {
-        return Arrays.asList(new ItemStack(IEItems.DULLTHORNS.get()));
+        return List.of(new ItemStack(IEItems.DULLTHORNS.get()));
     }
 
     @Override

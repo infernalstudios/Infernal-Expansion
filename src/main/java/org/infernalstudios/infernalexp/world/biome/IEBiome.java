@@ -32,14 +32,14 @@ import net.minecraftforge.common.BiomeDictionary;
  */
 public abstract class IEBiome {
 
-    private static final float PARAMETER_MODIFIER = 0F;
-
     /**
      * Method to configure category
      *
      * @return Category for biome to use
      */
-    protected abstract Biome.BiomeCategory configureCategory();
+    protected Biome.BiomeCategory configureCategory() {
+        return Biome.BiomeCategory.NETHER;
+    }
 
     /**
      * See {@link org.infernalstudios.infernalexp.world.biome.IEBiome} for documentation
@@ -79,8 +79,6 @@ public abstract class IEBiome {
     protected float configureOffset() {
         return 0.0F;
     }
-
-    ;
 
     /**
      * Method to configure ambience settings

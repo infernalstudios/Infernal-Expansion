@@ -43,24 +43,5 @@ public class MobSpawningScreen extends IESettingsScreen {
                 settings -> mobSpawn.getSpawnableBiomes(), (settings, value) -> mobSpawn.setSpawnableBiomes(value),
                 minecraft -> minecraft.font.split(new TranslatableComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + mobSpawn.getTranslationName()), 200)));
         }
-
-//		List<AbstractOption> options = new ArrayList<>();
-//
-//		for (InfernalExpansionConfig.MobSpawning mobSpawn : InfernalExpansionConfig.MobSpawning.values()) {
-//			options.add(new BooleanOption(InfernalExpansion.MOD_ID + ".config.option." + mobSpawn.getTranslationName() + ".enable",
-//				new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + mobSpawn.getTranslationName() + ".enable"),
-//				settings -> mobSpawn.isEnabled(), (settings, value) -> mobSpawn.setEnabled(value)));
-//
-//			options.add(new SliderPercentageOption(InfernalExpansion.MOD_ID + ".config.option.spawnrate", 1, 200, 1,
-//				settings -> (double) mobSpawn.getSpawnrate(), (settings, value) -> mobSpawn.setSpawnrate(value.intValue()),
-//				(settings, option) -> {
-//					option.setOptionValues(Minecraft.getInstance().fontRenderer.trimStringToWidth(
-//						new TranslationTextComponent(InfernalExpansion.MOD_ID + ".config.tooltip." + mobSpawn.getTranslationName() + ".spawnrate"), 200));
-//
-//					return option.getMessageWithValue((int) option.get(settings));
-//				}));
-//		}
-//
-//		optionsRowList.addOptions(options.toArray(new AbstractOption[0]));
     }
 }

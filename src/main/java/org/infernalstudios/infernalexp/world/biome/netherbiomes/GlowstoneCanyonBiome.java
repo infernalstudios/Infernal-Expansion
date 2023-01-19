@@ -42,11 +42,6 @@ import org.infernalstudios.infernalexp.world.biome.IEBiome;
 public class GlowstoneCanyonBiome extends IEBiome {
 
     @Override
-    protected Biome.BiomeCategory configureCategory() {
-        return Biome.BiomeCategory.NETHER;
-    }
-
-    @Override
     protected Climate.Parameter configureTemperature() {
         return Climate.Parameter.point(0.7F);
     }
@@ -98,10 +93,6 @@ public class GlowstoneCanyonBiome extends IEBiome {
 
     @Override
     protected void configureGeneration(BiomeGenerationSettings.Builder generation) {
-//        generation.addStructureStart(StructureFeatures.RUINED_PORTAL_NETHER);
-//        generation.addStructureStart(StructureFeatures.NETHER_BRIDGE);
-//        generation.addStructureStart(IEConfiguredStructures.GLOWSTONE_CANYON_RUIN);
-//        generation.addStructureStart(IEConfiguredStructures.BASTION_OUTPOST);
         generation.addCarver(GenerationStep.Carving.AIR, Carvers.NETHER_CAVE);
         generation.addCarver(GenerationStep.Carving.AIR, IECarvers.CONFIGURED_GLOWSTONE_RAVINE);
         generation.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, IEPlacedFeatures.GSC_BLACKSTONE_BLOBS);
@@ -125,8 +116,6 @@ public class GlowstoneCanyonBiome extends IEBiome {
 
     @Override
     protected void configureSpawns(MobSpawnSettings.Builder spawns) {
-//        spawns.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(IEEntityTypes.GLOWSQUITO.get(), 80, 1, 3));
-//        spawns.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(IEEntityTypes.BLINDSIGHT.get(), 10, 1, 1));
         spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.STRIDER, 60, 1, 2));
 
         //It doesn't work properly. Glowsquitos don't spawn at all and Blindsights spawn en-masse regardless of if

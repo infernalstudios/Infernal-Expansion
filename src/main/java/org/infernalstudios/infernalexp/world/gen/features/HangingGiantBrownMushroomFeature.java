@@ -28,6 +28,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.util.ShapeUtil;
 
+import java.util.Objects;
+
 public class HangingGiantBrownMushroomFeature extends IEFeature<NoneFeatureConfiguration> {
 
     public HangingGiantBrownMushroomFeature(Codec<NoneFeatureConfiguration> codec) {
@@ -54,11 +56,7 @@ public class HangingGiantBrownMushroomFeature extends IEFeature<NoneFeatureConfi
 
             // Generate stem
             for (int y = 0; y <= size; y++) {
-                if (enhancedMushroomsBrownStemBlockState != null) {
-                    context.level().setBlock(context.origin().below(y), enhancedMushroomsBrownStemBlockState, 2);
-                } else {
-                    context.level().setBlock(context.origin().below(y), Blocks.MUSHROOM_STEM.defaultBlockState(), 2);
-                }
+                context.level().setBlock(context.origin().below(y), Objects.requireNonNullElseGet(enhancedMushroomsBrownStemBlockState, Blocks.MUSHROOM_STEM::defaultBlockState), 2);
             }
 
             // Generate mushroom cap

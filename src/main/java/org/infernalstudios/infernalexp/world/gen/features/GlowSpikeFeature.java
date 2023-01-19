@@ -38,10 +38,10 @@ public class GlowSpikeFeature extends IEFeature<GlowSpikeFeatureConfig> {
     public boolean placeFeature(FeaturePlaceContext<GlowSpikeFeatureConfig> context) {
         if ((context.level().isEmptyBlock(context.origin()) || context.level().getBlockState(context.origin().below()).getBlock() == IEBlocks.GLOWDUST_SAND.get()) || (context.level().getBlockState(context.origin()).getBlock() == Blocks.LAVA && context.level().getBlockState(context.origin().below()).getBlock() != Blocks.LAVA)) {
             // Generate a random height, diameter and offset
-            int height = context.config().minHeight + context.random().nextInt(context.config().maxHeight - context.config().minHeight);
-            int diameter = context.config().minDiameter + context.random().nextInt(context.config().maxDiameter - context.config().minDiameter);
-            int xOffset = -context.config().maxXOffset + context.random().nextInt(context.config().maxXOffset * 2);
-            int zOffset = -context.config().maxZOffset + context.random().nextInt(context.config().maxZOffset * 2);
+            int height = context.config().minHeight() + context.random().nextInt(context.config().maxHeight() - context.config().minHeight());
+            int diameter = context.config().minDiameter() + context.random().nextInt(context.config().maxDiameter() - context.config().minDiameter());
+            int xOffset = -context.config().maxXOffset() + context.random().nextInt(context.config().maxXOffset() * 2);
+            int zOffset = -context.config().maxZOffset() + context.random().nextInt(context.config().maxZOffset() * 2);
 
             List<BlockPos> points = ShapeUtil.generateSolidCircle((float) diameter / 2);
 
@@ -90,19 +90,19 @@ public class GlowSpikeFeature extends IEFeature<GlowSpikeFeatureConfig> {
             // Finds what percentage of the line has been built and then adds some
             // randomness to it to make for a
             // more gradual change between blocks
-            float percentage = (((float) i / line.size()) - config.blockDitheringAmount / 2) + (random.nextFloat() * config.blockDitheringAmount);
+            float percentage = (((float) i / line.size()) - config.blockDitheringAmount() / 2) + (random.nextFloat() * config.blockDitheringAmount());
 
             // Generate blocks from dullstone to dimstone to glowstone, or reversed if
             // darkAtTop is true
             if (percentage <= 0.33) {
-                if (config.darkAtTop)
+                if (config.darkAtTop())
                     world.setBlock(pos, Blocks.GLOWSTONE.defaultBlockState(), 2);
                 else
                     world.setBlock(new BlockPos(pos), IEBlocks.DULLSTONE.get().defaultBlockState(), 2);
             } else if (percentage > 0.33 && percentage <= 0.66) {
                 world.setBlock(new BlockPos(pos), IEBlocks.DIMSTONE.get().defaultBlockState(), 2);
             } else {
-                if (config.darkAtTop)
+                if (config.darkAtTop())
                     world.setBlock(new BlockPos(pos), IEBlocks.DULLSTONE.get().defaultBlockState(), 2);
                 else
                     world.setBlock(new BlockPos(pos), Blocks.GLOWSTONE.defaultBlockState(), 2);

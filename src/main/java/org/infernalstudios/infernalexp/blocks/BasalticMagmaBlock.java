@@ -37,20 +37,14 @@ public class BasalticMagmaBlock extends MagmaBlock {
 
     @Override
     public @NotNull BlockState rotate(@NotNull BlockState state, Rotation rot) {
-        switch (rot) {
-            case COUNTERCLOCKWISE_90:
-            case CLOCKWISE_90:
-                switch (state.getValue(AXIS)) {
-                    case X:
-                        return state.setValue(AXIS, Direction.Axis.Z);
-                    case Z:
-                        return state.setValue(AXIS, Direction.Axis.X);
-                    default:
-                        return state;
-                }
-            default:
-                return state;
-        }
+        return switch (rot) {
+            case COUNTERCLOCKWISE_90, CLOCKWISE_90 -> switch (state.getValue(AXIS)) {
+                case X -> state.setValue(AXIS, Direction.Axis.Z);
+                case Z -> state.setValue(AXIS, Direction.Axis.X);
+                default -> state;
+            };
+            default -> state;
+        };
     }
 
     @Override

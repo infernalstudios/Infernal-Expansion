@@ -31,6 +31,7 @@ import org.infernalstudios.infernalexp.InfernalExpansion;
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class IEPlacedFeatures {
 
     public static final Holder<PlacedFeature> GLOWDUST_LAYER = registerPlacedFeature("glowdust_layer", IEConfiguredFeatures.GLOWDUST_LAYER);

@@ -9,12 +9,10 @@
     "defaultRequire": 1
   },
   "mixins": [
-    "common.IngredientAccessor",
     "common.MixinAbstractArrowEntity",
     "common.MixinAbstractFireBlock",
     "common.MixinArrowEntity",
     "common.MixinBubbleColumnBlock",
-    "common.MixinDimensionGeneratorSettings",
     "common.MixinEntity",
     "common.MixinMagmaCubeEntity",
     "common.MixinMinecraftServer",
@@ -33,7 +31,7 @@
     "common.WorldGenRegionAccessor",
     "dev.MixinDataFixers",
     "dev.MixinMinecraftServer",
-    "dev.MixinPrimaryLevelData",
+    "dev.MixinPrimaryLevelData"
   ],
   "client": [
     "client.MixinBlockGetter",

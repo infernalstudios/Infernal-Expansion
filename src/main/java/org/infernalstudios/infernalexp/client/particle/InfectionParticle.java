@@ -35,7 +35,7 @@ import javax.annotation.Nullable;
 public class InfectionParticle extends TextureSheetParticle {
     private final SpriteSet spriteWithAge;
 
-    protected InfectionParticle(ClientLevel world, double x, double y, double z, double motionX, double motionY, double motionZ, SpriteSet spriteWithAge) {
+    protected InfectionParticle(ClientLevel world, double x, double y, double z, double motionX, double motionY, SpriteSet spriteWithAge) {
         super(world, x, y, z, 0.5 - Math.random(), motionY, 0.5 - Math.random());
 
         this.spriteWithAge = spriteWithAge;
@@ -103,10 +103,7 @@ public class InfectionParticle extends TextureSheetParticle {
         @Nullable
         @Override
         public Particle createParticle(@NotNull SimpleParticleType typeIn, @NotNull ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            InfectionParticle infectionParticle = new InfectionParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, this.spriteSet);
-            //            infectionParticle.setColor(0.8f, 0, 0);
-
-            return infectionParticle;
+            return new InfectionParticle(worldIn, x, y, z, xSpeed, ySpeed, this.spriteSet);
         }
     }
 }

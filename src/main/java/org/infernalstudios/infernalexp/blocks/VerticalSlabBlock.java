@@ -119,7 +119,7 @@ public class VerticalSlabBlock extends Block implements SimpleWaterloggedBlock {
         return type == PathComputationType.WATER && worldIn.getFluidState(pos).is(FluidTags.WATER);
     }
 
-    public static enum VerticalSlabType implements StringRepresentable {
+    public enum VerticalSlabType implements StringRepresentable {
         NORTH(Direction.NORTH),
         SOUTH(Direction.SOUTH),
         WEST(Direction.WEST),

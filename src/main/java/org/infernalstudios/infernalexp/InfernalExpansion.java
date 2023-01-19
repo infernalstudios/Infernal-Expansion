@@ -122,8 +122,8 @@ public class InfernalExpansion {
         modLoadingContext.registerConfig(ModConfig.Type.COMMON, ConfigHolder.COMMON_SPEC);
 
         // Baking Configs
-        ConfigHelper.bakeClient(null);
-        ConfigHelper.bakeCommon(null);
+        ConfigHelper.bakeClient();
+        ConfigHelper.bakeCommon();
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

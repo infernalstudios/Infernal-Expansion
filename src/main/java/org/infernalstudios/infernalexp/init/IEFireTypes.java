@@ -20,6 +20,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.api.FireType;
 
+@SuppressWarnings("unused")
 public class IEFireTypes {
 
     public static final FireType FIRE = FireType.register(new ResourceLocation("fire"));
@@ -30,7 +31,5 @@ public class IEFireTypes {
     public static final FireType CRYPTIC_FIRE = FireType.register(new ResourceLocation("byg", "cryptic_fire"));
 
     public static void register() {}
-
-    ;
 
 }

@@ -31,7 +31,6 @@ public class GlowsilkMothRenderer extends MobRenderer<GlowsilkMothEntity, Glowsi
     public GlowsilkMothRenderer(EntityRendererProvider.Context context) {
         super(context, new GlowsilkMothModel<>(context.bakeLayer(GlowsilkMothModel.LAYER_LOCATION)), 0.7f);
         this.addLayer(new GlowsilkMothGlowLayer<>(this));
-        ;
     }
 
     @Override
