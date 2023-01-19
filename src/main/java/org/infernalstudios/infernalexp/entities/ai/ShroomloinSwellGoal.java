@@ -23,11 +23,12 @@ import org.infernalstudios.infernalexp.entities.ShroomloinEntity;
 import java.util.EnumSet;
 
 public class ShroomloinSwellGoal extends Goal {
+
     private final ShroomloinEntity swellingShroomloin;
     private LivingEntity shroomloinAttackTarget;
 
-    public ShroomloinSwellGoal(ShroomloinEntity entityshroomloinIn) {
-        this.swellingShroomloin = entityshroomloinIn;
+    public ShroomloinSwellGoal(ShroomloinEntity shroomloinEntity) {
+        this.swellingShroomloin = shroomloinEntity;
         this.setFlags(EnumSet.of(Goal.Flag.MOVE));
     }
 

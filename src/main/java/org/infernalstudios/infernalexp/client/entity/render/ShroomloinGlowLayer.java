@@ -38,10 +38,10 @@ public class ShroomloinGlowLayer extends RenderLayer<ShroomloinEntity, Shroomloi
     }
 
     @Override
-    public void render(@NotNull PoseStack matrixStack, MultiBufferSource bufferIn, int packedLightIn, ShroomloinEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        ResourceLocation texture = ShroomloinType.getById(entitylivingbaseIn.getShroomloinType().getId()).getGlowTextureLocation();
-        VertexConsumer ivertexbuilder = bufferIn.getBuffer(this.getRenderType(texture));
-        this.getParentModel().renderToBuffer(matrixStack, ivertexbuilder, 15728640, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+    public void render(@NotNull PoseStack poseStack, MultiBufferSource buffer, int packetLight, ShroomloinEntity shroomloinEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+        ResourceLocation texture = ShroomloinType.getById(shroomloinEntity.getShroomloinType().getId()).getGlowTextureLocation();
+        VertexConsumer vertexConsumer = buffer.getBuffer(this.getRenderType(texture));
+        this.getParentModel().renderToBuffer(poseStack, vertexConsumer, 15728640, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
     }
 
     public RenderType getRenderType(ResourceLocation texture) {

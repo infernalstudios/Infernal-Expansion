@@ -35,20 +35,20 @@ public class ShroomloinRenderer extends MobRenderer<ShroomloinEntity, Shroomloin
     }
 
     @Override
-    protected void scale(ShroomloinEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
-        float f = entitylivingbaseIn.getShroomloinFlashIntensity(partialTickTime);
+    protected void scale(ShroomloinEntity shroomloinEntity, PoseStack poseStack, float partialTickTime) {
+        float f = shroomloinEntity.getShroomloinFlashIntensity(partialTickTime);
         float f1 = 1.0F + Mth.sin(f * 100.0F) * f * 0.01F;
         f = Mth.clamp(f, 0.0F, 1.0F);
         f = f * f;
         f = f * f;
         float f2 = (1.0F + f * 0.4F) * f1;
         float f3 = (1.0F + f * 0.1F) / f1;
-        matrixStackIn.scale(f2, f3, f2);
+        poseStack.scale(f2, f3, f2);
     }
 
     @Override
-    protected float getWhiteOverlayProgress(ShroomloinEntity livingEntityIn, float partialTicks) {
-        float f = livingEntityIn.getShroomloinFlashIntensity(partialTicks);
+    protected float getWhiteOverlayProgress(ShroomloinEntity shroomloinEntity, float partialTicks) {
+        float f = shroomloinEntity.getShroomloinFlashIntensity(partialTicks);
         return (int) (f * 10.0F) % 2 == 0 ? 0.0F : Mth.clamp(f, 0.5F, 1.0F);
     }
 

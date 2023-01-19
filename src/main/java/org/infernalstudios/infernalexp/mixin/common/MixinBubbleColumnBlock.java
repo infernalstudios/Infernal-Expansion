@@ -33,9 +33,9 @@ public class MixinBubbleColumnBlock {
 
     @Inject(at = @At("HEAD"), method = "canSurvive", cancellable = true)
     public void IE_isValidPosition(BlockState state, LevelReader worldIn, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-        BlockState blockstate_IE = worldIn.getBlockState(pos.below());
+        BlockState blockState_IE = worldIn.getBlockState(pos.below());
 
-        if (blockstate_IE.is(IEBlocks.BASALTIC_MAGMA.get())) {
+        if (blockState_IE.is(IEBlocks.BASALTIC_MAGMA.get())) {
             cir.setReturnValue(true);
         }
     }

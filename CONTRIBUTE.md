@@ -19,7 +19,7 @@ For all of these, you'll need:
 
 ### IntelliJ
 
-Prerequesites:
+Prerequisites:
  - IntelliJ IDEA: _[Download Link](https://www.jetbrains.com/idea/download/)_
 
 1. Clone this repository using Git: `git clone https://github.com/nekomaster1000/Infernal-Expansion`
@@ -92,7 +92,7 @@ Some other things to note:
 
 ### Entities
 
-1. Place your texture in main/resources/assets/infernaldiv/textures/entity
+1. Place your texture in main/resources/assets/infernalexp/textures/entity
 
 2. Create a new java class in org.infernalstudios.infernalexp.entities called `MobNameEntity`. Replace `MobName` with
    your mob name.
@@ -155,7 +155,7 @@ Some other things to note:
     public class MobNameModel<T extends MobNameEntity> extends EntityModel<T>
     ```
 
-6. Fix any errors you recieve
+6. Fix any errors you receive
 
 7. Refactor it again, changing it to `MobNameModel`, replacing `MobName` with the same as in step 2.
 

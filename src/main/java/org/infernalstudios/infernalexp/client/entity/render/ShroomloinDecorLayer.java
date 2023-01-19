@@ -36,8 +36,8 @@ public class ShroomloinDecorLayer extends RenderLayer<ShroomloinEntity, Shroomlo
     }
 
     @Override
-    public void render(@NotNull PoseStack matrixStackIn, @NotNull MultiBufferSource bufferIn, int packedLightIn, ShroomloinEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        ResourceLocation texture = ShroomloinType.getById(entitylivingbaseIn.getShroomloinType().getId()).getTextureLocation();
-        coloredCutoutModelCopyLayerRender(this.getParentModel(), model, texture, matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTicks, 1.0F, 1.0F, 1.0F);
+    public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight, ShroomloinEntity shroomloinEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+        ResourceLocation texture = ShroomloinType.getById(shroomloinEntity.getShroomloinType().getId()).getTextureLocation();
+        coloredCutoutModelCopyLayerRender(this.getParentModel(), model, texture, poseStack, buffer, packedLight, shroomloinEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTicks, 1.0F, 1.0F, 1.0F);
     }
 }

@@ -34,7 +34,7 @@ public class BasaltIronOreBlock extends RotatedPillarBlock {
     }
 
     @Override
-    public int getExpDrop(BlockState state, net.minecraft.world.level.LevelReader reader, BlockPos pos, int fortune, int silktouch) {
-        return silktouch == 0 ? this.getExperience(RANDOM) : 0;
+    public int getExpDrop(BlockState state, net.minecraft.world.level.LevelReader reader, BlockPos pos, int fortune, int silkTouch) {
+        return silkTouch == 0 ? this.getExperience(RANDOM) : 0;
     }
 }

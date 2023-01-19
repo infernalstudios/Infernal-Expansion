@@ -45,8 +45,8 @@ public class VolineRenderer extends MobRenderer<VolineEntity, VolineModel<Voline
     }
 
     @Override
-    protected void scale(VolineEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
-        matrixStackIn.scale(entitylivingbaseIn.getEntitySize(), entitylivingbaseIn.getEntitySize(), entitylivingbaseIn.getEntitySize());
+    protected void scale(VolineEntity volineEntity, PoseStack poseStack, float partialTickTime) {
+        poseStack.scale(volineEntity.getEntitySize(), volineEntity.getEntitySize(), volineEntity.getEntitySize());
     }
 
     @Override

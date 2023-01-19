@@ -42,8 +42,8 @@ public class BasaltGiantRenderer extends MobRenderer<BasaltGiantEntity, BasaltGi
     }
 
     @Override
-    protected void scale(BasaltGiantEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
-        matrixStackIn.scale(entitylivingbaseIn.getEntitySize(), entitylivingbaseIn.getEntitySize(), entitylivingbaseIn.getEntitySize());
+    protected void scale(BasaltGiantEntity entity, PoseStack poseStack, float partialTickTime) {
+        poseStack.scale(entity.getEntitySize(), entity.getEntitySize(), entity.getEntitySize());
     }
 
     @Override

@@ -51,9 +51,9 @@ public class VolineGlowLayer<T extends VolineEntity, M extends EntityModel<T>> e
     }
 
     @Override
-    public void render(@NotNull PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, @NotNull T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        VertexConsumer ivertexbuilder = bufferIn.getBuffer(this.getVolineRenderType(entitylivingbaseIn));
-        this.getParentModel().renderToBuffer(matrixStackIn, ivertexbuilder, 15728640, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+    public void render(@NotNull PoseStack poseStack, MultiBufferSource buffer, int packetLight, @NotNull T entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+        VertexConsumer vertexConsumer = buffer.getBuffer(this.getVolineRenderType(entity));
+        this.getParentModel().renderToBuffer(poseStack, vertexConsumer, 15728640, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
     }
 
     // I've created a custom getRenderType method above because I need to be able to change the glow layer texture

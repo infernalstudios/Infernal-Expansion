@@ -273,13 +273,13 @@ public class IEBlocks {
     public static final RegistryObject<Block> WARPED_NYLIUM_CARPET = registerBlockWithDefaultItem("warped_nylium_carpet", () -> new NetherCarpetBlock(BlockBehaviour.Properties.of(Material.CLOTH_DECORATION, MaterialColor.WARPED_NYLIUM).strength(0.1F).sound(SoundType.NYLIUM)));
     public static final RegistryObject<Block> SOUL_SOIL_PATH = registerBlockWithDefaultItem("soul_soil_path", () -> new SoulSoilPathBlock(getProperties(Blocks.SOUL_SOIL)));
 
-    public static final RegistryObject<Block> QUARTZ_GLASS = registerBlockWithDefaultItem("quartz_glass", () -> new GlassBlock(BlockBehaviour.Properties.of(Material.GLASS).strength(2.0F, 6.0F).sound(SoundType.GLASS).noOcclusion().isValidSpawn(IEBlocks::neverAllowSpawn).isRedstoneConductor(IEBlocks::isntSolid).isSuffocating(IEBlocks::isntSolid).isViewBlocking(IEBlocks::isntSolid)));
+    public static final RegistryObject<Block> QUARTZ_GLASS = registerBlockWithDefaultItem("quartz_glass", () -> new GlassBlock(BlockBehaviour.Properties.of(Material.GLASS).strength(2.0F, 6.0F).sound(SoundType.GLASS).noOcclusion().isValidSpawn(IEBlocks::neverAllowSpawn).isRedstoneConductor(IEBlocks::isNotSolid).isSuffocating(IEBlocks::isNotSolid).isViewBlocking(IEBlocks::isNotSolid)));
     public static final RegistryObject<Block> QUARTZ_GLASS_PANE = registerBlockWithDefaultItem("quartz_glass_pane", () -> new IronBarsBlock(BlockBehaviour.Properties.of(Material.GLASS).strength(2.0F, 6.0F).sound(SoundType.GLASS).noOcclusion()));
 
-    public static final RegistryObject<Block> GLOW_GLASS = registerBlockWithDefaultItem("glow_glass", () -> new GlassBlock(BlockBehaviour.Properties.of(Material.GLASS).strength(0.3F).sound(SoundType.GLASS).noOcclusion().isValidSpawn(IEBlocks::neverAllowSpawn).isRedstoneConductor(IEBlocks::isntSolid).isSuffocating(IEBlocks::isntSolid).isViewBlocking(IEBlocks::isntSolid).lightLevel(value -> 10)));
+    public static final RegistryObject<Block> GLOW_GLASS = registerBlockWithDefaultItem("glow_glass", () -> new GlassBlock(BlockBehaviour.Properties.of(Material.GLASS).strength(0.3F).sound(SoundType.GLASS).noOcclusion().isValidSpawn(IEBlocks::neverAllowSpawn).isRedstoneConductor(IEBlocks::isNotSolid).isSuffocating(IEBlocks::isNotSolid).isViewBlocking(IEBlocks::isNotSolid).lightLevel(value -> 10)));
     public static final RegistryObject<Block> GLOW_GLASS_PANE = registerBlockWithDefaultItem("glow_glass_pane", () -> new IronBarsBlock(BlockBehaviour.Properties.of(Material.GLASS).strength(0.3F).sound(SoundType.GLASS).noOcclusion().lightLevel(value -> 10)));
 
-    private static boolean isntSolid(BlockState state, BlockGetter reader, BlockPos pos) {
+    private static boolean isNotSolid(BlockState state, BlockGetter reader, BlockPos pos) {
         return false;
     }
 

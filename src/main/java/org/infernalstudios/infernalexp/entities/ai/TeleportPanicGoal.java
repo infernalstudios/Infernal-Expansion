@@ -29,7 +29,7 @@ public class TeleportPanicGoal extends PanicGoal {
 
     @Override
     public void start() {
-        this.mob.randomTeleport(this.posX, this.posY, this.posZ, true); //Final parameter determines whether or not purple enderman particles appear on teleport
+        this.mob.randomTeleport(this.posX, this.posY, this.posZ, true); //Final parameter determines whether purple enderman particles appear on teleport
         this.mob.setDeltaMovement(0.0D, 0.0D, 0.0D);
         this.mob.setLastHurtByMob(null);
     }

@@ -36,12 +36,12 @@ public class IEEntityTypes {
             .build(new ResourceLocation(InfernalExpansion.MOD_ID, "voline").toString()));
 
     public static final RegistryObject<EntityType<ShroomloinEntity>> SHROOMLOIN = ENTITY_TYPES.register("shroomloin",
-        () -> EntityType.Builder.of(ShroomloinEntity::new, IEEntityClassifications.IECREATURE)
+        () -> EntityType.Builder.of(ShroomloinEntity::new, IEEntityClassifications.IE_CREATURE)
             .sized(1.0f, 1.0f) // Hitbox Size
             .build(new ResourceLocation(InfernalExpansion.MOD_ID, "shroomloin").toString()));
 
     public static final RegistryObject<EntityType<WarpbeetleEntity>> WARPBEETLE = ENTITY_TYPES.register("warpbeetle",
-        () -> EntityType.Builder.of(WarpbeetleEntity::new, IEEntityClassifications.IECREATURE)
+        () -> EntityType.Builder.of(WarpbeetleEntity::new, IEEntityClassifications.IE_CREATURE)
             .sized(0.5f, 0.5f) // Hitbox Size
             .build(new ResourceLocation(InfernalExpansion.MOD_ID, "warpbeetle").toString()));
 
@@ -58,7 +58,7 @@ public class IEEntityTypes {
             .build(new ResourceLocation(InfernalExpansion.MOD_ID, "embody").toString()));
 
     public static final RegistryObject<EntityType<BasaltGiantEntity>> BASALT_GIANT = ENTITY_TYPES.register("basalt_giant",
-        () -> EntityType.Builder.<BasaltGiantEntity>of(BasaltGiantEntity::new, IEEntityClassifications.IECREATURE)
+        () -> EntityType.Builder.<BasaltGiantEntity>of(BasaltGiantEntity::new, IEEntityClassifications.IE_CREATURE)
             .sized(1.2f, 4.3f)// Hitbox Size
             .build(new ResourceLocation(InfernalExpansion.MOD_ID, "basalt_giant").toString()));
 
@@ -68,7 +68,7 @@ public class IEEntityTypes {
             .build(new ResourceLocation(InfernalExpansion.MOD_ID, "blackstone_dwarf").toString()));
 
     public static final RegistryObject<EntityType<GlowsquitoEntity>> GLOWSQUITO = ENTITY_TYPES.register("glowsquito",
-        () -> EntityType.Builder.of(GlowsquitoEntity::new, IEEntityClassifications.IECREATURE)
+        () -> EntityType.Builder.of(GlowsquitoEntity::new, IEEntityClassifications.IE_CREATURE)
             .sized(0.8f, 0.5f)// Hitbox Size
             .build(new ResourceLocation(InfernalExpansion.MOD_ID, "glowsquito").toString()));
 
@@ -85,7 +85,7 @@ public class IEEntityTypes {
             .build(new ResourceLocation(InfernalExpansion.MOD_ID, "blindsight").toString()));
 
     public static final RegistryObject<EntityType<GlowsilkMothEntity>> GLOWSILK_MOTH = ENTITY_TYPES.register("glowsilk_moth",
-        () -> EntityType.Builder.of(GlowsilkMothEntity::new, IEEntityClassifications.IECREATURE)
+        () -> EntityType.Builder.of(GlowsilkMothEntity::new, IEEntityClassifications.IE_CREATURE)
             .sized(1.0F, 1.5F) //Hitbox Size
             .build(new ResourceLocation(InfernalExpansion.MOD_ID, "glowsilk_moth").toString()));
 

@@ -45,27 +45,27 @@ public class DullthornsBlockItem extends BlockItemBase {
         }
 
         Level world = context.getLevel();
-        Direction placedirection = context.isInside() ? context.getClickedFace() : context.getClickedFace().getOpposite();
-        BlockPos placepos = context.getClickedPos().relative(placedirection);
+        Direction placeDirection = context.isInside() ? context.getClickedFace() : context.getClickedFace().getOpposite();
+        BlockPos placePos = context.getClickedPos().relative(placeDirection);
         int worldHeight = world.getMaxBuildHeight();
         Block dullthorns = this.getBlock();
 
-        while (world.getBlockState(placepos).getBlock() == dullthorns) {
-            placepos = placepos.above();
+        while (world.getBlockState(placePos).getBlock() == dullthorns) {
+            placePos = placePos.above();
 
             // Prevent placing outside world
-            if (!world.isClientSide && !world.isInWorldBounds(placepos)) {
+            if (!world.isClientSide && !world.isInWorldBounds(placePos)) {
                 Player player = context.getPlayer();
-                if (player instanceof ServerPlayer serverPlayer && placepos.getY() >= worldHeight) {
-                    ClientboundChatPacket schatpacket = new ClientboundChatPacket((new TranslatableComponent("build.tooHigh", worldHeight)).withStyle(ChatFormatting.RED), ChatType.GAME_INFO, Util.NIL_UUID);
-                    serverPlayer.connection.send(schatpacket);
+                if (player instanceof ServerPlayer serverPlayer && placePos.getY() >= worldHeight) {
+                    ClientboundChatPacket chatPacket = new ClientboundChatPacket((new TranslatableComponent("build.tooHigh", worldHeight)).withStyle(ChatFormatting.RED), ChatType.GAME_INFO, Util.NIL_UUID);
+                    serverPlayer.connection.send(chatPacket);
                 }
                 return null;
             }
         }
 
-        if (world.isEmptyBlock(placepos)) {
-            return BlockPlaceContext.at(context, placepos, placedirection);
+        if (world.isEmptyBlock(placePos)) {
+            return BlockPlaceContext.at(context, placePos, placeDirection);
         } else {
             return null;
         }

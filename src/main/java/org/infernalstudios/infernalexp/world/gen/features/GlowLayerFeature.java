@@ -48,13 +48,13 @@ public class GlowLayerFeature extends IEFeature<NoneFeatureConfiguration> {
         for (int x = minimumRange; x < maxRange; x++) {
             for (int z = minimumRange; z < maxRange; z++) {
 
-                // Only check between top land and sealevel.
-                // Prevents glowdust in caves below sealevel and better performance if player removes ceiling of Nether with datapack.
+                // Only check between top land and sea level.
+                // Prevents glowdust in caves below sea level and better performance if player removes ceiling of Nether with datapack.
                 int maxY = context.chunkGenerator().getBaseHeight(context.origin().getX() + x, context.origin().getZ() + z, Heightmap.Types.MOTION_BLOCKING, cachedChunk);
                 for (int y = maxY; y > context.chunkGenerator().getSeaLevel(); y--) {
                     mutableBlockPos.set(context.origin()).move(x, y, z);
 
-                    // recache chunk if we need to. Faster performance this way when chunk scanning like we are.
+                    // re-cache chunk if we need to. Faster performance this way when chunk scanning like we are.
                     if (cachedChunk.getPos().x != x >> 4 || cachedChunk.getPos().z != z >> 4) {
                         cachedChunk = context.level().getChunk(mutableBlockPos);
                     }

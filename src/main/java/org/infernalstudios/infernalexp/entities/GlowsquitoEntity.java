@@ -166,7 +166,7 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level worldIn) {
-        FlyingPathNavigation flyingpathnavigator = new FlyingPathNavigation(this, worldIn) {
+        FlyingPathNavigation flyingPathNavigation = new FlyingPathNavigation(this, worldIn) {
             @Override
             public boolean isStableDestination(BlockPos pos) {
                 return !this.level.getBlockState(pos.below()).isAir();
@@ -177,10 +177,10 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
                 super.tick();
             }
         };
-        flyingpathnavigator.setCanOpenDoors(false);
-        flyingpathnavigator.setCanFloat(true);
-        flyingpathnavigator.setCanPassDoors(true);
-        return flyingpathnavigator;
+        flyingPathNavigation.setCanOpenDoors(false);
+        flyingPathNavigation.setCanFloat(true);
+        flyingPathNavigation.setCanPassDoors(true);
+        return flyingPathNavigation;
     }
 
     @Override
@@ -250,11 +250,11 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
         }
 
         private boolean canReach(Vec3 p_220673_1_, int p_220673_2_) {
-            AABB axisalignedbb = this.parentEntity.getBoundingBox();
+            AABB axisAlignedBB = this.parentEntity.getBoundingBox();
 
             for (int i = 1; i < p_220673_2_; ++i) {
-                axisalignedbb = axisalignedbb.move(p_220673_1_);
-                if (!this.parentEntity.level.noCollision(this.parentEntity, axisalignedbb)) {
+                axisAlignedBB = axisAlignedBB.move(p_220673_1_);
+                if (!this.parentEntity.level.noCollision(this.parentEntity, axisAlignedBB)) {
                     return false;
                 }
             }
@@ -277,13 +277,13 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
          */
         @Override
         public boolean canUse() {
-            MoveControl movementcontroller = this.parentEntity.getMoveControl();
-            if (!movementcontroller.hasWanted()) {
+            MoveControl moveControl = this.parentEntity.getMoveControl();
+            if (!moveControl.hasWanted()) {
                 return true;
             } else {
-                double d0 = movementcontroller.getWantedX() - this.parentEntity.getX();
-                double d1 = movementcontroller.getWantedY() - this.parentEntity.getY();
-                double d2 = movementcontroller.getWantedZ() - this.parentEntity.getZ();
+                double d0 = moveControl.getWantedX() - this.parentEntity.getX();
+                double d1 = moveControl.getWantedY() - this.parentEntity.getY();
+                double d2 = moveControl.getWantedZ() - this.parentEntity.getZ();
                 double d3 = d0 * d0 + d1 * d1 + d2 * d2;
                 return d3 < 1.0D || d3 > 3600.0D;
             }

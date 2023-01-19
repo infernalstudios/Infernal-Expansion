@@ -78,29 +78,29 @@ public class AscusBombEntity extends ThrowableItemProjectile {
     }
 
     private void spawnExplosionCloud() {
-        AreaEffectCloud areaeffectcloudentity = new AreaEffectCloud(this.level, this.getX(), this.getY() + 0.6, this.getZ());
+        AreaEffectCloud areaEffectCloud = new AreaEffectCloud(this.level, this.getX(), this.getY() + 0.6, this.getZ());
 
-        areaeffectcloudentity.setRadius(0.1F);
-        areaeffectcloudentity.setWaitTime(0);
-        areaeffectcloudentity.setDuration(10);
-        areaeffectcloudentity.setRadiusPerTick(0);
-        areaeffectcloudentity.setParticle(ParticleTypes.EXPLOSION);
+        areaEffectCloud.setRadius(0.1F);
+        areaEffectCloud.setWaitTime(0);
+        areaEffectCloud.setDuration(10);
+        areaEffectCloud.setRadiusPerTick(0);
+        areaEffectCloud.setParticle(ParticleTypes.EXPLOSION);
 
-        this.level.addFreshEntity(areaeffectcloudentity);
+        this.level.addFreshEntity(areaEffectCloud);
     }
 
     private void spawnLingeringCloud() {
-        AreaEffectCloud areaeffectcloudentity = new AreaEffectCloud(this.level, this.getX(), this.getY(), this.getZ());
+        AreaEffectCloud areaEffectCloud = new AreaEffectCloud(this.level, this.getX(), this.getY(), this.getZ());
 
-        areaeffectcloudentity.setRadius(3.0F);
-        areaeffectcloudentity.setRadiusOnUse(-0.5F);
-        areaeffectcloudentity.setWaitTime(10);
-        areaeffectcloudentity.setDuration(areaeffectcloudentity.getDuration() / 8);
-        areaeffectcloudentity.setRadiusPerTick(-areaeffectcloudentity.getRadius() / (float) areaeffectcloudentity.getDuration());
-        areaeffectcloudentity.addEffect(new MobEffectInstance(IEEffects.INFECTION.get(), 300));
-        areaeffectcloudentity.setParticle(IEParticleTypes.INFECTION.get());
+        areaEffectCloud.setRadius(3.0F);
+        areaEffectCloud.setRadiusOnUse(-0.5F);
+        areaEffectCloud.setWaitTime(10);
+        areaEffectCloud.setDuration(areaEffectCloud.getDuration() / 8);
+        areaEffectCloud.setRadiusPerTick(-areaEffectCloud.getRadius() / (float) areaEffectCloud.getDuration());
+        areaEffectCloud.addEffect(new MobEffectInstance(IEEffects.INFECTION.get(), 300));
+        areaEffectCloud.setParticle(IEParticleTypes.INFECTION.get());
 
-        this.level.addFreshEntity(areaeffectcloudentity);
+        this.level.addFreshEntity(areaEffectCloud);
     }
 
     private void initialEffect(HitResult result) {

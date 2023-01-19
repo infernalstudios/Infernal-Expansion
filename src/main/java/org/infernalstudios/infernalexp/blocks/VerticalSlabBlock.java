@@ -87,8 +87,8 @@ public class VerticalSlabBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     public boolean canBeReplaced(BlockState state, @Nonnull BlockPlaceContext context) {
-        VerticalSlabType slabtype = state.getValue(TYPE);
-        return slabtype != VerticalSlabType.DOUBLE && context.getItemInHand().getItem() == this.asItem() && context.replacingClickedOnBlock() && (context.getClickedFace() == slabtype.direction && this.getDirectionForPlacement(context) == slabtype.direction);
+        VerticalSlabType slabType = state.getValue(TYPE);
+        return slabType != VerticalSlabType.DOUBLE && context.getItemInHand().getItem() == this.asItem() && context.replacingClickedOnBlock() && (context.getClickedFace() == slabType.direction && this.getDirectionForPlacement(context) == slabType.direction);
     }
 
     @Override
