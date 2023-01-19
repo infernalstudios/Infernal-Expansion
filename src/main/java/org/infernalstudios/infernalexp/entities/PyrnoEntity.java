@@ -46,7 +46,6 @@ public class PyrnoEntity extends Hoglin {
         super(type, worldIn);
     }
 
-    //ATTRIBUTES
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
             .add(Attributes.MAX_HEALTH, 50.0D)
@@ -54,7 +53,6 @@ public class PyrnoEntity extends Hoglin {
             .add(Attributes.ATTACK_DAMAGE, 5.0D);
     }
 
-    //BEHAVIOUR
     @Override
     protected void registerGoals() {
         super.registerGoals();

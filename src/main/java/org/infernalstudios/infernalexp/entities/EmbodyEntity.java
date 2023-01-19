@@ -53,22 +53,21 @@ public class EmbodyEntity extends Monster {
     }
 
     @Override
-    @Nullable
-    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor worldIn, @NotNull DifficultyInstance difficultyIn, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        this.randomizeAttributes();
-        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    public @NotNull MobType getMobType() {
+        return MobType.UNDEAD;
     }
 
-    // ATTRIBUTES
     public static AttributeSupplier.Builder setCustomAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 15.0D).add(Attributes.ATTACK_DAMAGE, 4.0D).add(Attributes.ATTACK_KNOCKBACK, 1.2D);
+        return Mob.createMobAttributes()
+            .add(Attributes.MAX_HEALTH, 15.0D)
+            .add(Attributes.ATTACK_DAMAGE, 4.0D)
+            .add(Attributes.ATTACK_KNOCKBACK, 1.2D);
     }
 
     protected void randomizeAttributes() {
         this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(this.getModifiedMovementSpeed());
     }
 
-    // BEHAVIOUR
     @Override
     protected void registerGoals() {
         super.registerGoals();
@@ -85,6 +84,13 @@ public class EmbodyEntity extends Monster {
         if (InfernalExpansionConfig.MobInteractions.EMBODY_ATTACK_PIGLIN.getBoolean()) {
             this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, AbstractPiglin.class, true, false));
         }
+    }
+
+    @Override
+    @Nullable
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor worldIn, @NotNull DifficultyInstance difficultyIn, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+        this.randomizeAttributes();
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
     protected double getModifiedMovementSpeed() {
@@ -117,30 +123,23 @@ public class EmbodyEntity extends Monster {
     }
 
     @Override
-    public @NotNull MobType getMobType() {
-        return MobType.UNDEAD;
-    }
-
-    // EXP POINTS
-    @Override
     protected int getExperienceReward(@NotNull Player player) {
         return 1 + this.level.random.nextInt(2);
     }
 
-    // SOUNDS
     @Override
     protected SoundEvent getAmbientSound() {
         return IESoundEvents.EMBODY_AMBIENT.get();
     }
 
     @Override
-    protected SoundEvent getDeathSound() {
-        return IESoundEvents.EMBODY_DEATH.get();
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+        return IESoundEvents.EMBODY_HURT.get();
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
-        return IESoundEvents.EMBODY_HURT.get();
+    protected SoundEvent getDeathSound() {
+        return IESoundEvents.EMBODY_DEATH.get();
     }
 
 }

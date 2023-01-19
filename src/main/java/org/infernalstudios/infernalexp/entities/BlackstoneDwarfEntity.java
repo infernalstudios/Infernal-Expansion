@@ -48,8 +48,6 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-//import net.minecraft.entity.projectile.ArrowEntity;
-
 public class BlackstoneDwarfEntity extends PathfinderMob implements NeutralMob {
     private static final UniformInt RANGED_INT = TimeUtil.rangeOfSeconds(20, 39);
     private int attackTimer;
@@ -60,7 +58,6 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements NeutralMob {
         super(type, worldIn);
     }
 
-    // ATTRIBUTES
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
             .add(Attributes.MAX_HEALTH, 40.0D)
@@ -68,11 +65,38 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements NeutralMob {
             .add(Attributes.ATTACK_KNOCKBACK, 2.0D)
             .add(Attributes.KNOCKBACK_RESISTANCE, 2.0D)
             .add(Attributes.MOVEMENT_SPEED, 0.40D);
-        // .createMutableAttribute(Attributes.FOLLOW_RANGE, 20.0D);
     }
 
-    // ---
-    // Retaliating
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 0.6D, true));
+        this.goalSelector.addGoal(1, new WaterAvoidingRandomStrollGoal(this, 0.5d));
+        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8.0f));
+        this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+        if (InfernalExpansionConfig.MobInteractions.DWARF_ATTACK_PIGLIN.getBoolean()) {
+            this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, AbstractPiglin.class, true, false));
+        }
+        if (InfernalExpansionConfig.MobInteractions.DWARF_ATTACK_ZOMBIE_PIGLIN.getBoolean()) {
+            this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, ZombifiedPiglin.class, true, false));
+        }
+        if (InfernalExpansionConfig.MobInteractions.DWARF_ATTACK_PLAYER.getBoolean()) {
+            this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        }
+        if (InfernalExpansionConfig.MobInteractions.GLOWSQUITO_ATTACK_DWARF.getBoolean()) {
+            this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, GlowsquitoEntity.class, true));
+        }
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        if (this.attackTimer > 0) {
+            --this.attackTimer;
+        }
+    }
+
     @Override
     @OnlyIn(Dist.CLIENT)
     public void handleEntityEvent(byte id) {
@@ -83,14 +107,6 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements NeutralMob {
             super.handleEntityEvent(id);
         }
 
-    }
-
-    @Override
-    public void aiStep() {
-        super.aiStep();
-        if (this.attackTimer > 0) {
-            --this.attackTimer;
-        }
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -132,38 +148,6 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements NeutralMob {
         this.doEnchantDamageEffects(this, entityIn);
     }
 
-    /*
-     * @Override public boolean attackEntityFrom(DamageSource source, float amount)
-     * { if(source.getImmediateSource() instanceof ArrowEntity){ return false; }
-     * return super.attackEntityFrom(source, amount); }
-     */
-
-    // ---
-
-    // BEHAVIOUR
-    @Override
-    protected void registerGoals() {
-        super.registerGoals();
-        this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 0.6D, true));
-        this.goalSelector.addGoal(1, new WaterAvoidingRandomStrollGoal(this, 0.5d));
-        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8.0f));
-        this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        if (InfernalExpansionConfig.MobInteractions.DWARF_ATTACK_PIGLIN.getBoolean()) {
-            this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, AbstractPiglin.class, true, false));
-        }
-        if (InfernalExpansionConfig.MobInteractions.DWARF_ATTACK_ZOMBIE_PIGLIN.getBoolean()) {
-            this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, ZombifiedPiglin.class, true, false));
-        }
-        if (InfernalExpansionConfig.MobInteractions.DWARF_ATTACK_PLAYER.getBoolean()) {
-            this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
-        }
-        if (InfernalExpansionConfig.MobInteractions.GLOWSQUITO_ATTACK_DWARF.getBoolean()) {
-            this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, GlowsquitoEntity.class, true));
-        }
-    }
-
-    // EXP POINTS
     @Override
     protected int getExperienceReward(@NotNull Player player) {
         return 2 + this.level.random.nextInt(2);

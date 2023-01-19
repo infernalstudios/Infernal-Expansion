@@ -71,13 +71,19 @@ public class WarpbeetleEntity extends PathfinderMob {
 
     public static final Ingredient TEMPTATION_ITEMS = Ingredient.of(Items.CRIMSON_FUNGUS, IEBlocks.CRIMSON_FUNGUS_CAP.get().asItem());
 
-    // ATTRIBUTES
-    public static AttributeSupplier.Builder setCustomAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.MOVEMENT_SPEED, 0.4D)
-            .add(Attributes.ATTACK_DAMAGE, 2.0F).add(Attributes.ATTACK_KNOCKBACK, 2.0F);
+    @Override
+    public @NotNull MobType getMobType() {
+        return MobType.ARTHROPOD;
     }
 
-    // BEHAVIOUR
+    public static AttributeSupplier.Builder setCustomAttributes() {
+        return Mob.createMobAttributes()
+            .add(Attributes.MAX_HEALTH, 8.0D)
+            .add(Attributes.MOVEMENT_SPEED, 0.4D)
+            .add(Attributes.ATTACK_DAMAGE, 2.0F)
+            .add(Attributes.ATTACK_KNOCKBACK, 2.0F);
+    }
+
     @Override
     protected void registerGoals() {
         super.registerGoals();
@@ -95,10 +101,50 @@ public class WarpbeetleEntity extends PathfinderMob {
     }
 
     @Override
+    public void aiStep() {
+        super.aiStep();
+
+        if (this.attackTimer > 0) {
+            --this.attackTimer;
+        }
+
+        if (this.isAlive()) {
+            if (this.isConverting() && this.conversionTicks > 0) {
+                this.conversionTicks--;
+                this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2D);
+                if (this.conversionTicks == 0) {
+                    this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.4D);
+                    this.setChorus(!this.isChorus());
+                    this.setConverting(false);
+                }
+            }
+        }
+
+        // This slows the falling speed
+        Vec3 vector3d = this.getDeltaMovement();
+        if (!this.onGround && vector3d.y < 0.0D) {
+            this.setDeltaMovement(vector3d.multiply(1.0D, 0.6D, 1.0D));
+        }
+    }
+
+    @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(CONVERTING, false);
         this.entityData.define(CHORUS, false);
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setChorus(compound.getBoolean("chorus"));
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putBoolean("chorus", this.isChorus());
+        compound.putInt("WarpbeetleConversionTime", this.isConverting() ? this.conversionTicks : -1);
     }
 
     public boolean isConverting() {
@@ -111,19 +157,6 @@ public class WarpbeetleEntity extends PathfinderMob {
 
     public boolean isShaking() {
         return this.isConverting();
-    }
-
-    @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("chorus", this.isChorus());
-        compound.putInt("WarpbeetleConversionTime", this.isConverting() ? this.conversionTicks : -1);
-    }
-
-    @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setChorus(compound.getBoolean("chorus"));
     }
 
     public boolean isChorus() {
@@ -160,33 +193,6 @@ public class WarpbeetleEntity extends PathfinderMob {
     }
 
     @Override
-    public void aiStep() {
-        super.aiStep();
-
-        if (this.attackTimer > 0) {
-            --this.attackTimer;
-        }
-
-        if (this.isAlive()) {
-            if (this.isConverting() && this.conversionTicks > 0) {
-                this.conversionTicks--;
-                this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2D);
-                if (this.conversionTicks == 0) {
-                    this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.4D);
-                    this.setChorus(!this.isChorus());
-                    this.setConverting(false);
-                }
-            }
-        }
-
-        // This slows the falling speed
-        Vec3 vector3d = this.getDeltaMovement();
-        if (!this.onGround && vector3d.y < 0.0D) {
-            this.setDeltaMovement(vector3d.multiply(1.0D, 0.6D, 1.0D));
-        }
-    }
-
-    @Override
     public boolean doHurtTarget(Entity entityIn) {
         this.attackTimer = 10;
         this.level.broadcastEntityEvent(this, (byte) 4);
@@ -208,31 +214,14 @@ public class WarpbeetleEntity extends PathfinderMob {
         return (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
     }
 
-    // EXP POINTS
     @Override
     protected int getExperienceReward(@NotNull Player player) {
         return 1 + this.level.random.nextInt(4);
     }
 
-    // SOUNDS
     @Override
-    protected SoundEvent getAmbientSound() {
-        return IESoundEvents.WARPBEETLE_AMBIENT.get();
-    }
-
-    @Override
-    protected SoundEvent getDeathSound() {
-        return IESoundEvents.WARPBEETLE_DEATH.get();
-    }
-
-    @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
-        return IESoundEvents.WARPBEETLE_HURT.get();
-    }
-
-    @Override
-    public @NotNull MobType getMobType() {
-        return MobType.ARTHROPOD;
+    public boolean causeFallDamage(float distance, float damageMultiplier, @NotNull DamageSource damageSource) {
+        return false;
     }
 
     @Override
@@ -241,7 +230,17 @@ public class WarpbeetleEntity extends PathfinderMob {
     }
 
     @Override
-    public boolean causeFallDamage(float distance, float damageMultiplier, @NotNull DamageSource damageSource) {
-        return false;
+    protected SoundEvent getAmbientSound() {
+        return IESoundEvents.WARPBEETLE_AMBIENT.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+        return IESoundEvents.WARPBEETLE_HURT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return IESoundEvents.WARPBEETLE_DEATH.get();
     }
 }

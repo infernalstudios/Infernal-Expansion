@@ -16,31 +16,37 @@
 
 package org.infernalstudios.infernalexp.entities;
 
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-import org.infernalstudios.infernalexp.entities.ai.EatItemsGoal;
-import org.infernalstudios.infernalexp.entities.ai.TargetWithEffectGoal;
-import org.infernalstudios.infernalexp.events.MiscEvents;
-import org.infernalstudios.infernalexp.init.IEItems;
-import org.infernalstudios.infernalexp.init.IESoundEvents;
-
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.MagmaCube;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
@@ -48,24 +54,17 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
+import org.infernalstudios.infernalexp.entities.ai.EatItemsGoal;
+import org.infernalstudios.infernalexp.entities.ai.TargetWithEffectGoal;
+import org.infernalstudios.infernalexp.events.MiscEvents;
+import org.infernalstudios.infernalexp.init.IEItems;
+import org.infernalstudios.infernalexp.init.IESoundEvents;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -86,19 +85,14 @@ public class VolineEntity extends Monster implements IBucketable, IResizable {
         super(type, worldIn);
     }
 
-    // ATTRIBUTES
     public static AttributeSupplier.Builder setCustomAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 16.0D).add(Attributes.ATTACK_DAMAGE, 1.0D).add(Attributes.ATTACK_KNOCKBACK, 1.0D).add(Attributes.MOVEMENT_SPEED, 0.5D);
+        return Mob.createMobAttributes()
+            .add(Attributes.MAX_HEALTH, 16.0D)
+            .add(Attributes.ATTACK_DAMAGE, 1.0D)
+            .add(Attributes.ATTACK_KNOCKBACK, 1.0D)
+            .add(Attributes.MOVEMENT_SPEED, 0.5D);
     }
 
-    @Nullable
-    @Override
-    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor worldIn, @NotNull DifficultyInstance difficultyIn, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        setEntitySize(1 + (level.getRandom().nextFloat() * 0.4F));
-        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-    }
-
-    // BEHAVIOUR
     @Override
     protected void registerGoals() {
         super.registerGoals();
@@ -121,14 +115,32 @@ public class VolineEntity extends Monster implements IBucketable, IResizable {
         }
     }
 
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor worldIn, @NotNull DifficultyInstance difficultyIn, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+        setEntitySize(1 + (level.getRandom().nextFloat() * 0.4F));
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    }
+
     @Override
     public void aiStep() {
         if (getAttributeValue(Attributes.MOVEMENT_SPEED) <= 0) {
-
             level.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, getRandomX(0.5D), getY() + 1.6D, getRandomZ(0.5D), 0, 0.07D, 0);
         }
 
         super.aiStep();
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @Override
+    public void handleEntityEvent(byte id) {
+        if (id == 8) {
+            isEating = false;
+        } else if (id == 9) {
+            isEating = true;
+        } else {
+            super.handleEntityEvent(id);
+        }
     }
 
     @Override
@@ -136,6 +148,23 @@ public class VolineEntity extends Monster implements IBucketable, IResizable {
         super.defineSynchedData();
         entityData.define(VOLINE_SIZE, 1.0F);
         entityData.define(FROM_BUCKET, false);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        float size = Math.max(compound.getFloat("Size"), 1.0F);
+
+        setEntitySize(size);
+
+        this.setFromBucket(compound.getBoolean("FromBucket"));
+        super.readAdditionalSaveData(compound);
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putFloat("Size", getEntitySize());
+        compound.putBoolean("FromBucket", this.isFromBucket());
     }
 
     @Override
@@ -164,23 +193,6 @@ public class VolineEntity extends Monster implements IBucketable, IResizable {
     }
 
     @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putFloat("Size", getEntitySize());
-        compound.putBoolean("FromBucket", this.isFromBucket());
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        float size = Math.max(compound.getFloat("Size"), 1.0F);
-
-        setEntitySize(size);
-
-        this.setFromBucket(compound.getBoolean("FromBucket"));
-        super.readAdditionalSaveData(compound);
-    }
-
-    @Override
     public void refreshDimensions() {
         super.refreshDimensions();
         setPos(getX(), getY(), getZ());
@@ -206,27 +218,6 @@ public class VolineEntity extends Monster implements IBucketable, IResizable {
         return 1 + this.level.random.nextInt(4);
     }
 
-    // SOUNDS
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return IESoundEvents.VOLINE_AMBIENT.get();
-    }
-
-    @Override
-    protected SoundEvent getDeathSound() {
-        return IESoundEvents.VOLINE_HURT.get();
-    }
-
-    @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
-        return IESoundEvents.VOLINE_HURT.get();
-    }
-
-    @Override
-    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState blockIn) {
-        this.playSound(SoundEvents.PIG_STEP, 0.15F, 1.0F);
-    }
-
     @Override
     public boolean fireImmune() {
         return true;
@@ -235,18 +226,6 @@ public class VolineEntity extends Monster implements IBucketable, IResizable {
     @OnlyIn(Dist.CLIENT)
     public boolean isEating() {
         return isEating;
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    @Override
-    public void handleEntityEvent(byte id) {
-        if (id == 8) {
-            isEating = false;
-        } else if (id == 9) {
-            isEating = true;
-        } else {
-            super.handleEntityEvent(id);
-        }
     }
 
     //BUCKETABLE
@@ -276,7 +255,27 @@ public class VolineEntity extends Monster implements IBucketable, IResizable {
         return new ItemStack(IEItems.VOLINE_BUCKET.get());
     }
 
-    public static class VolineEatItemsGoal extends EatItemsGoal<VolineEntity> {
+    @Override
+    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState blockIn) {
+        this.playSound(SoundEvents.PIG_STEP, 0.15F, 1.0F);
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return IESoundEvents.VOLINE_AMBIENT.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+        return IESoundEvents.VOLINE_HURT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return IESoundEvents.VOLINE_HURT.get();
+    }
+
+    private static class VolineEatItemsGoal extends EatItemsGoal<VolineEntity> {
 
         private final Map<Item, Map<Item, Integer>> eatItemsMap;
 

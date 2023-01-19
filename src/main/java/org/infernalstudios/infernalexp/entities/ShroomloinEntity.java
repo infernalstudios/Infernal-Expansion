@@ -69,7 +69,6 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
         super(type, worldIn);
     }
 
-    // ATTRIBUTES
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
             .add(Attributes.MAX_HEALTH, 24.0D)
@@ -79,41 +78,14 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(STATE, -1);
-        this.entityData.define(IGNITED, false);
-        this.entityData.define(CONVERTING, false);
-        this.entityData.define(TYPE, IEShroomloinTypes.CRIMSON.getId().toString());
-    }
-
-    public boolean isConverting() {
-        return this.entityData.get(CONVERTING);
-    }
-
-    public void setConverting(boolean converting) {
-        this.entityData.set(CONVERTING, converting);
-    }
-
-    public boolean isShaking() {
-	    return this.isConverting();
-    }
-
-    @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putString("ShroomloinType", this.getShroomloinType().getId().toString());
-        compound.putInt("ShroomloinConversionTime", this.isConverting() ? this.conversionTicks : -1);
-    }
-
-    @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        ShroomloinType type = ShroomloinType.getById(compound.getString("ShroomloinType"));
-        if (type == null) {
-            type = IEShroomloinTypes.CRIMSON;
-        }
-        this.setShroomloinType(type);
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(1, new RangedAttackUnInfectedGoal(this, 1, 60, 10));
+        this.goalSelector.addGoal(1, new MeleeAttackInfectedGoal(this, 0.6d, true));
+        this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 0.5d));
+        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8.0f));
+        this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(1, new ShroomloinTargetGoal(this));
     }
 
     @Nullable
@@ -139,6 +111,86 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
+    @Override
+    public void tick() {
+        if (this.isAlive()) {
+            if (this.getName().getContents().equals("pizza")) {
+                if (getShroomloinType() != IEShroomloinTypes.PIZZA && this.predictedType != IEShroomloinTypes.PIZZA) {
+                    this.predictedType = IEShroomloinTypes.PIZZA;
+                    this.conversionTicks = 40;
+                    this.setConverting(true);
+                }
+            }
+            if (this.isConverting() && this.conversionTicks > 0) {
+                this.conversionTicks--;
+                this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2D);
+                if (this.conversionTicks == 0) {
+                    this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.6D);
+                    this.setShroomloinType(this.predictedType);
+                    this.setConverting(false);
+                }
+            }
+            if (this.hasEffect(IEEffects.INFECTION.get())) {
+                this.removeEffectNoUpdate(IEEffects.INFECTION.get());
+            }
+            if (this.hasEffect(MobEffects.POISON)) {
+                this.removeEffectNoUpdate(MobEffects.POISON);
+            }
+        }
+
+        this.lastActiveTime = this.timeSinceIgnited;
+
+        int i = this.getShroomloinState();
+        if (i > 0 && this.timeSinceIgnited == 0) {
+            this.playSound(SoundEvents.CREEPER_PRIMED, 1.0F, 0.5F);
+        }
+
+        this.timeSinceIgnited += i;
+        if (this.timeSinceIgnited < 0 || this.timeSinceIgnited >= this.fuseTime || i < 0) {
+            this.timeSinceIgnited = 0;
+        }
+
+        super.tick();
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(STATE, -1);
+        this.entityData.define(IGNITED, false);
+        this.entityData.define(CONVERTING, false);
+        this.entityData.define(TYPE, IEShroomloinTypes.CRIMSON.getId().toString());
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        ShroomloinType type = ShroomloinType.getById(compound.getString("ShroomloinType"));
+        if (type == null) {
+            type = IEShroomloinTypes.CRIMSON;
+        }
+        this.setShroomloinType(type);
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putString("ShroomloinType", this.getShroomloinType().getId().toString());
+        compound.putInt("ShroomloinConversionTime", this.isConverting() ? this.conversionTicks : -1);
+    }
+
+    public boolean isConverting() {
+        return this.entityData.get(CONVERTING);
+    }
+
+    public void setConverting(boolean converting) {
+        this.entityData.set(CONVERTING, converting);
+    }
+
+    public boolean isShaking() {
+        return this.isConverting();
+    }
+
     public void setShroomloinType(ShroomloinType shroomloinType) {
         this.entityData.set(TYPE, shroomloinType.getId().toString());
     }
@@ -148,7 +200,7 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
     }
 
     public Item getConversionItem() {
-	    return this.getShroomloinType().getConversionItem();
+        return this.getShroomloinType().getConversionItem();
     }
 
     @Override
@@ -179,72 +231,15 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
         return InteractionResult.SUCCESS;
     }
 
-    /**
-     * Called to update the entity's position/logic.
-     */
-    @Override
-    public void tick() {
-        if (this.isAlive()) {
-            if (this.getName().getContents().equals("pizza")) {
-                if (getShroomloinType() != IEShroomloinTypes.PIZZA && this.predictedType != IEShroomloinTypes.PIZZA) {
-                    this.predictedType = IEShroomloinTypes.PIZZA;
-                    this.conversionTicks = 40;
-                    this.setConverting(true);
-                }
-            }
-            if (this.isConverting() && this.conversionTicks > 0) {
-                this.conversionTicks--;
-                this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2D);
-                if (this.conversionTicks == 0) {
-                    this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.6D);
-                    this.setShroomloinType(this.predictedType);
-                    this.setConverting(false);
-                }
-            }
-            if (this.hasEffect(IEEffects.INFECTION.get())) {
-                this.removeEffectNoUpdate(IEEffects.INFECTION.get());
-            }
-            if (this.hasEffect(MobEffects.POISON)) {
-                this.removeEffectNoUpdate(MobEffects.POISON);
-            }
-        }
-
-		this.lastActiveTime = this.timeSinceIgnited;
-
-		int i = this.getShroomloinState();
-		if (i > 0 && this.timeSinceIgnited == 0) {
-            this.playSound(SoundEvents.CREEPER_PRIMED, 1.0F, 0.5F);
-		}
-
-		this.timeSinceIgnited += i;
-		if (this.timeSinceIgnited < 0 || this.timeSinceIgnited >= this.fuseTime || i < 0) {
-			this.timeSinceIgnited = 0;
-		}
-
-		super.tick();
-	}
-
-    // BEHAVIOUR
-	@Override
-	protected void registerGoals() {
-		super.registerGoals();
-		this.goalSelector.addGoal(1, new RangedAttackUnInfectedGoal(this, 1, 60, 10));
-		this.goalSelector.addGoal(1, new MeleeAttackInfectedGoal(this, 0.6d, true));
-		this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 0.5d));
-		this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8.0f));
-		this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new ShroomloinTargetGoal(this));
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	public float getShroomloinFlashIntensity(float partialTicks) {
+    @OnlyIn(Dist.CLIENT)
+    public float getShroomloinFlashIntensity(float partialTicks) {
         return Mth.lerp(partialTicks, (float) this.lastActiveTime, (float) this.timeSinceIgnited) / (float) (this.fuseTime - 2);
-	}
+    }
 
-	/**
-	 * Returns the current state of shroomloin, -1 is idle, 1 is 'in fuse'
-	 */
-	public int getShroomloinState() {
+    /**
+     * Returns the current state of shroomloin, -1 is idle, 1 is 'in fuse'
+     */
+    public int getShroomloinState() {
         return this.entityData.get(STATE);
 	}
 
@@ -265,27 +260,6 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
         return 1 + this.level.random.nextInt(4);
     }
 
-    // SOUNDS
-	@Override
-	protected SoundEvent getAmbientSound() {
-		return IESoundEvents.SHROOMLOIN_AMBIENT.get();
-	}
-
-	@Override
-	protected SoundEvent getDeathSound() {
-		return IESoundEvents.SHROOMLOIN_DEATH.get();
-	}
-
-    @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
-        return IESoundEvents.SHROOMLOIN_HURT.get();
-    }
-
-    @Override
-    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState blockIn) {
-        this.playSound(SoundEvents.PIG_STEP, 0.15F, 1.0F);
-    }
-
     @Override
     public void performRangedAttack(LivingEntity target, float distanceFactor) {
         Vec3 vector3d = target.getDeltaMovement();
@@ -303,6 +277,26 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
 
         this.setShroomloinState(-1);
         this.level.addFreshEntity(ascusBombEntity);
+    }
+
+    @Override
+    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState blockIn) {
+        this.playSound(SoundEvents.PIG_STEP, 0.15F, 1.0F);
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return IESoundEvents.SHROOMLOIN_AMBIENT.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+        return IESoundEvents.SHROOMLOIN_HURT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return IESoundEvents.SHROOMLOIN_DEATH.get();
     }
 
     static class ShroomloinTargetGoal extends HurtByTargetGoal {
@@ -389,10 +383,6 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
 			}
 		}
 
-        /**
-         * Returns whether execution should begin. You can also read and cache any state
-         * necessary for execution in this method as well.
-         */
         @Override
         public boolean canUse() {
             LivingEntity attackTarget = this.entityHost.getTarget();
@@ -404,18 +394,11 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
             }
         }
 
-        /**
-         * Returns whether an in-progress EntityAIBase should continue executing
-         */
         @Override
         public boolean canContinueToUse() {
             return this.canUse() || !this.entityHost.getNavigation().isDone();
         }
 
-        /**
-         * Reset the task's internal state. Called when this task is interrupted by
-         * another one
-         */
         @Override
         public void stop() {
             this.attackTarget = null;
@@ -424,9 +407,6 @@ public class ShroomloinEntity extends PathfinderMob implements RangedAttackMob {
             this.entityHost.setShroomloinState(-1);
 		}
 
-		/**
-		 * Keep ticking a continuous task that has already been started
-         */
         @Override
         public void tick() {
             double d0 = this.entityHost.distanceToSqr(this.attackTarget.getX(), this.attackTarget.getY(), this.attackTarget.getZ());

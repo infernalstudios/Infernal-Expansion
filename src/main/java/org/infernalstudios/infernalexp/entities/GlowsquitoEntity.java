@@ -24,7 +24,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -39,7 +38,6 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
-import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.BreedGoal;
 import net.minecraft.world.entity.ai.goal.EatBlockGoal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -61,7 +59,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -75,9 +72,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
-import java.util.Random;
 
-// Extends AnimalEntity and implements IFlyingAnimal like BeeEntity class
 public class GlowsquitoEntity extends Animal implements FlyingAnimal {
     private static final EntityDataAccessor<Boolean> BRED = SynchedEntityData.defineId(GlowsquitoEntity.class, EntityDataSerializers.BOOLEAN);
 
@@ -94,18 +89,82 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 16.0F);
     }
 
-    // createMobAttributes ---> registerAttributes()
-    public static AttributeSupplier.Builder setCustomAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 32.0D).add(Attributes.ATTACK_DAMAGE, 1.0D).add(Attributes.FLYING_SPEED, 0.6D)
-            // Required for flying entity, doesn't seem to affect actual movement speed
-            .add(Attributes.MOVEMENT_SPEED, 0.5D);
-        // Turning this up makes them bounce on the ground like crazy, how do we fix
-        // that?
-    }
-
     @Override
     public @NotNull MobType getMobType() {
         return MobType.ARTHROPOD;
+    }
+
+    public static AttributeSupplier.Builder setCustomAttributes() {
+        return Mob.createMobAttributes()
+            .add(Attributes.MAX_HEALTH, 32.0D)
+            .add(Attributes.ATTACK_DAMAGE, 1.0D)
+            .add(Attributes.FLYING_SPEED, 0.6D)
+            .add(Attributes.MOVEMENT_SPEED, 0.5D);
+        // Movement speed is required for flying entity, doesn't seem to affect actual movement speed
+        // Turning this up makes them bounce on the ground like crazy, how do we fix that?
+    }
+
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+
+        this.eatGrassGoal = new EatBlockGoal(this);
+
+        this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 0.8D, true));
+        this.goalSelector.addGoal(1, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new MoveTowardsTargetGoal(this, 0.8D, 32.0F));
+        this.goalSelector.addGoal(2, new BreedGoal(this, 0.8d));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 0.8d, TEMPTATION_ITEMS, false));
+        this.goalSelector.addGoal(8, new GlowsquitoEntity.WanderGoal());
+        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+        if (InfernalExpansionConfig.MobInteractions.GLOWSQUITO_ATTACK_LUMINOUS.getBoolean()) {
+            this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, LivingEntity.class, true, false, IEEffects.LUMINOUS.get(), GlowsquitoEntity.class));
+        }
+        if (InfernalExpansionConfig.MobInteractions.GLOWSQUITO_ATTACK_DWARF.getBoolean()) {
+            this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, BlackstoneDwarfEntity.class, true));
+        }
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        if (this.level.isClientSide) {
+            this.hogTimer = Math.max(0, this.hogTimer - 1);
+        }
+    }
+
+    @Override
+    protected void customServerAiStep() {
+        this.hogTimer = this.eatGrassGoal.getEatAnimationTick();
+        super.customServerAiStep();
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @Override
+    public void handleEntityEvent(byte id) {
+        if (id == 10) {
+            this.hogTimer = 40;
+        } else {
+            super.handleEntityEvent(id);
+        }
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(BRED, false);
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setBred(compound.getBoolean("Bred"));
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putBoolean("Bred", this.getBred());
     }
 
     @Nullable
@@ -122,33 +181,12 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
         return TEMPTATION_ITEMS.test(stack);
     }
 
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(BRED, false);
-    }
-
     public boolean getBred() {
         return this.entityData.get(BRED);
     }
 
     public void setBred(boolean isBred) {
         this.entityData.set(BRED, isBred);
-    }
-
-    @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("Bred", this.getBred());
-    }
-
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setBred(compound.getBoolean("Bred"));
     }
 
     @Override
@@ -193,192 +231,6 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
         return !this.onGround;
     }
 
-    static class LookAroundGoal extends Goal {
-
-        private final GlowsquitoEntity parentEntity;
-
-        public LookAroundGoal(GlowsquitoEntity ghast) {
-            this.parentEntity = ghast;
-            this.setFlags(EnumSet.of(Goal.Flag.LOOK));
-        }
-
-        /**
-         * Returns whether execution should begin. You can also read and cache any state
-         * necessary for execution in this method as well.
-         */
-        @Override
-        public boolean canUse() {
-            return true;
-        }
-
-        /**
-         * Keep ticking a continuous task that has already been started
-         */
-        @Override
-        public void tick() {
-            Vec3 vector3d = this.parentEntity.getDeltaMovement();
-            this.parentEntity.setYRot(-((float) Mth.atan2(vector3d.x, vector3d.z)) * (180F / (float) Math.PI));
-            this.parentEntity.yBodyRot = this.parentEntity.getYRot();
-        }
-    }
-
-    static class MoveHelperController extends MoveControl {
-        private final GlowsquitoEntity parentEntity;
-        private int courseChangeCooldown;
-
-        public MoveHelperController(GlowsquitoEntity ghast) {
-            super(ghast);
-            this.parentEntity = ghast;
-        }
-
-        @Override
-        public void tick() {
-            if (this.operation == MoveControl.Operation.MOVE_TO) {
-                if (this.courseChangeCooldown-- <= 0) {
-                    this.courseChangeCooldown += this.parentEntity.getRandom().nextInt(5) + 2;
-                    Vec3 vector3d = new Vec3(this.wantedX - this.parentEntity.getX(), this.wantedY - this.parentEntity.getY(), this.wantedZ - this.parentEntity.getZ());
-                    double d0 = vector3d.length();
-                    vector3d = vector3d.normalize();
-                    if (this.canReach(vector3d, Mth.ceil(d0))) {
-                        this.parentEntity.setDeltaMovement(this.parentEntity.getDeltaMovement().add(vector3d.scale(0.1D)));
-                    } else {
-                        this.operation = MoveControl.Operation.WAIT;
-                    }
-                }
-
-            }
-        }
-
-        private boolean canReach(Vec3 p_220673_1_, int p_220673_2_) {
-            AABB axisAlignedBB = this.parentEntity.getBoundingBox();
-
-            for (int i = 1; i < p_220673_2_; ++i) {
-                axisAlignedBB = axisAlignedBB.move(p_220673_1_);
-                if (!this.parentEntity.level.noCollision(this.parentEntity, axisAlignedBB)) {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-    }
-
-    static class RandomFlyGoal extends Goal {
-        private final GlowsquitoEntity parentEntity;
-
-        public RandomFlyGoal(GlowsquitoEntity glowsquito) {
-            this.parentEntity = glowsquito;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
-        }
-
-        /**
-         * Returns whether execution should begin. You can also read and cache any state
-         * necessary for execution in this method as well.
-         */
-        @Override
-        public boolean canUse() {
-            MoveControl moveControl = this.parentEntity.getMoveControl();
-            if (!moveControl.hasWanted()) {
-                return true;
-            } else {
-                double d0 = moveControl.getWantedX() - this.parentEntity.getX();
-                double d1 = moveControl.getWantedY() - this.parentEntity.getY();
-                double d2 = moveControl.getWantedZ() - this.parentEntity.getZ();
-                double d3 = d0 * d0 + d1 * d1 + d2 * d2;
-                return d3 < 1.0D || d3 > 3600.0D;
-            }
-        }
-
-        /**
-         * Returns whether an in-progress EntityAIBase should continue executing
-         */
-        @Override
-        public boolean canContinueToUse() {
-            return false;
-        }
-
-        /**
-         * Execute a one shot task or start executing a continuous task
-         */
-        @Override
-        public void start() {
-            Random random = this.parentEntity.getRandom();
-            double d0 = this.parentEntity.getX() + (double) ((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
-            double d1 = this.parentEntity.getY() + (double) ((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
-            double d2 = this.parentEntity.getZ() + (double) ((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
-            this.parentEntity.getMoveControl().setWantedPosition(d0, d1, d2, 1.0D);
-        }
-    }
-
-    // Simple goal for wandering around. Modified from Vanilla's BeeEntity
-    // WanderGoal subclass
-    class WanderGoal extends Goal {
-        WanderGoal() {
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
-        }
-
-        /**
-         * Returns whether execution should begin. You can also read and cache any state
-         * necessary for execution in this method as well.
-         */
-        @Override
-        public boolean canUse() {
-            return GlowsquitoEntity.this.navigation.isDone() && GlowsquitoEntity.this.random.nextInt(10) == 0;
-        }
-
-        /**
-         * Returns whether an in-progress EntityAIBase should continue executing
-         */
-        @Override
-        public boolean canContinueToUse() {
-            return GlowsquitoEntity.this.navigation.isInProgress();
-        }
-
-        /**
-         * Execute a one shot task or start executing a continuous task
-         */
-        @Override
-        public void start() {
-            Vec3 vector3d = this.getRandomLocation();
-            if (vector3d != null) {
-                GlowsquitoEntity.this.navigation.moveTo(GlowsquitoEntity.this.navigation.createPath(new BlockPos(vector3d), 1), 1.0D);
-            }
-
-        }
-
-        @Nullable
-        private Vec3 getRandomLocation() {
-            Vec3 vector3d;
-            vector3d = GlowsquitoEntity.this.getViewVector(0.0F);
-
-            // I think should work similarly to how it did in 1.16.5.
-            // RandomPos got a major rework, and it's hard to tell what anything does without any parameter mappings
-            Vec3 vector3d2 = AirRandomPos.getPosTowards(GlowsquitoEntity.this, 8, 7, 2, vector3d, ((float) Math.PI / 2F));
-            return vector3d2 != null ? vector3d2 : LandRandomPos.getPosTowards(GlowsquitoEntity.this, 8, 4, vector3d);
-        }
-    }
-
-    // GOALS
-    @Override
-    protected void registerGoals() {
-        super.registerGoals();
-
-        this.eatGrassGoal = new EatBlockGoal(this);
-
-        this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 0.8D, true));
-        this.goalSelector.addGoal(1, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new MoveTowardsTargetGoal(this, 0.8D, 32.0F));
-        this.goalSelector.addGoal(2, new BreedGoal(this, 0.8d));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 0.8d, TEMPTATION_ITEMS, false));
-        this.goalSelector.addGoal(8, new GlowsquitoEntity.WanderGoal());
-        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        if (InfernalExpansionConfig.MobInteractions.GLOWSQUITO_ATTACK_LUMINOUS.getBoolean()) {
-            this.targetSelector.addGoal(1, new TargetWithEffectGoal(this, LivingEntity.class, true, false, IEEffects.LUMINOUS.get(), GlowsquitoEntity.class));
-        }
-        if (InfernalExpansionConfig.MobInteractions.GLOWSQUITO_ATTACK_DWARF.getBoolean()) {
-            this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, BlackstoneDwarfEntity.class, true));
-        }
-    }
 
     @Override
     public boolean fireImmune() {
@@ -388,26 +240,6 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
     @Override
     protected int getExperienceReward(@NotNull Player player) {
         return 1 + this.level.random.nextInt(4);
-    }
-
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return null;
-    }
-
-    @Override
-    protected SoundEvent getDeathSound() {
-        return IESoundEvents.GLOWSQUITO_DEATH.get();
-    }
-
-    @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
-        return IESoundEvents.GLOWSQUITO_HURT.get();
-    }
-
-    @Override
-    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState blockIn) {
-        this.playSound(SoundEvents.PIG_STEP, 0.15F, 1.0F);
     }
 
     @Override
@@ -425,27 +257,63 @@ public class GlowsquitoEntity extends Animal implements FlyingAnimal {
     }
 
     @Override
-    protected void customServerAiStep() {
-        this.hogTimer = this.eatGrassGoal.getEatAnimationTick();
-        super.customServerAiStep();
+    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState blockIn) {
+        this.playSound(SoundEvents.PIG_STEP, 0.15F, 1.0F);
     }
 
     @Override
-    public void aiStep() {
-        super.aiStep();
-        if (this.level.isClientSide) {
-            this.hogTimer = Math.max(0, this.hogTimer - 1);
-        }
+    protected SoundEvent getAmbientSound() {
+        return null;
     }
 
-    @OnlyIn(Dist.CLIENT)
     @Override
-    public void handleEntityEvent(byte id) {
-        if (id == 10) {
-            this.hogTimer = 40;
-        } else {
-            super.handleEntityEvent(id);
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+        return IESoundEvents.GLOWSQUITO_HURT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return IESoundEvents.GLOWSQUITO_DEATH.get();
+    }
+
+    /**
+     * Simple goal for wandering around. Modified from Vanilla's BeeEntity WanderGoal subclass
+     */
+    class WanderGoal extends Goal {
+
+        WanderGoal() {
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
         }
+
+        @Override
+        public boolean canUse() {
+            return GlowsquitoEntity.this.navigation.isDone() && GlowsquitoEntity.this.random.nextInt(10) == 0;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return GlowsquitoEntity.this.navigation.isInProgress();
+        }
+
+        @Override
+        public void start() {
+            Vec3 randomPos = this.getRandomLocation();
+            if (randomPos != null) {
+                GlowsquitoEntity.this.navigation.moveTo(GlowsquitoEntity.this.navigation.createPath(new BlockPos(randomPos), 1), 1.0D);
+            }
+
+        }
+
+        @Nullable
+        private Vec3 getRandomLocation() {
+            Vec3 viewVec = GlowsquitoEntity.this.getViewVector(0.0F);
+
+            // I think should work similarly to how it did in 1.16.5.
+            // RandomPos got a major rework, and it's hard to tell what anything does without any parameter mappings
+            Vec3 randomAirPos = AirRandomPos.getPosTowards(GlowsquitoEntity.this, 8, 7, 2, viewVec, ((float) Math.PI / 2F));
+            return randomAirPos != null ? randomAirPos : LandRandomPos.getPosTowards(GlowsquitoEntity.this, 8, 4, viewVec);
+        }
+
     }
 
 }

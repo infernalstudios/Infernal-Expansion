@@ -60,7 +60,6 @@ public class BlindsightEntity extends Monster {
         this.moveControl = new BlindsightEntity.MoveHelperController(this);
     }
 
-    //ATTRIBUTES
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
             .add(Attributes.MAX_HEALTH, 24.0D)
@@ -70,7 +69,6 @@ public class BlindsightEntity extends Monster {
             .add(Attributes.FOLLOW_RANGE, 18.0D);
     }
 
-    //BEHAVIOUR
     @Override
     protected void registerGoals() {
         super.registerGoals();
@@ -88,38 +86,6 @@ public class BlindsightEntity extends Monster {
         }
     }
 
-    //EXP POINTS
-    @Override
-    protected int getExperienceReward(@NotNull Player player) {
-        return 1 + this.level.random.nextInt(4);
-    }
-
-    //SOUNDS
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return IESoundEvents.BLINDSIGHT_AMBIENT.get();
-    }
-
-    @Override
-    protected SoundEvent getDeathSound() {
-        return IESoundEvents.BLINDSIGHT_DEATH.get();
-    }
-
-    @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
-        return IESoundEvents.BLINDSIGHT_HURT.get();
-    }
-
-    @Override
-    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState blockIn) {
-        this.playSound(SoundEvents.PIG_STEP, 0.15F, 1.0F);
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public float getJumpCompletion(float adjustTicks) {
-        return jumpDuration == 0 ? 0.0F : ((float) jumpTicks + adjustTicks) / (float) jumpDuration;
-    }
-
     @Override
     public void aiStep() {
         if (jumpTicks != jumpDuration) {
@@ -130,6 +96,26 @@ public class BlindsightEntity extends Monster {
         }
 
         super.aiStep();
+    }
+
+    @Override
+    public void handleEntityEvent(byte id) {
+        if (id == 1) {
+            jumpDuration = 10;
+            jumpTicks = 0;
+        } else {
+            super.handleEntityEvent(id);
+        }
+    }
+
+    @Override
+    protected int getExperienceReward(@NotNull Player player) {
+        return 1 + this.level.random.nextInt(4);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public float getJumpCompletion(float adjustTicks) {
+        return jumpDuration == 0 ? 0.0F : ((float) jumpTicks + adjustTicks) / (float) jumpDuration;
     }
 
     @Override
@@ -153,16 +139,6 @@ public class BlindsightEntity extends Monster {
 
         if (!level.isClientSide) {
             level.broadcastEntityEvent(this, (byte) 1);
-        }
-    }
-
-    @Override
-    public void handleEntityEvent(byte id) {
-        if (id == 1) {
-            jumpDuration = 10;
-            jumpTicks = 0;
-        } else {
-            super.handleEntityEvent(id);
         }
     }
 
@@ -202,7 +178,28 @@ public class BlindsightEntity extends Monster {
 
     }
 
+    @Override
+    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState blockIn) {
+        this.playSound(SoundEvents.PIG_STEP, 0.15F, 1.0F);
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return IESoundEvents.BLINDSIGHT_AMBIENT.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+        return IESoundEvents.BLINDSIGHT_HURT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return IESoundEvents.BLINDSIGHT_DEATH.get();
+    }
+
     static class LeapGoal extends Goal {
+
         private final Mob leaper;
         private LivingEntity leapTarget;
         private final double maxJumpHeight;
@@ -286,18 +283,11 @@ public class BlindsightEntity extends Monster {
             this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
         }
 
-        /**
-         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
-         * method as well.
-         */
         @Override
         public boolean canUse() {
             return !this.blindsight.isPassenger() && this.blindsight.getTarget() != null && this.blindsight.getMoveControl() instanceof BlindsightEntity.MoveHelperController;
         }
 
-        /**
-         * Keep ticking a continuous task that has already been started
-         */
         @Override
         public void tick() {
             ((BlindsightEntity.MoveHelperController) this.blindsight.getMoveControl()).setSpeed(1.0D);
@@ -362,10 +352,6 @@ public class BlindsightEntity extends Monster {
             this.setFlags(EnumSet.of(Goal.Flag.LOOK));
         }
 
-        /**
-         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
-         * method as well.
-         */
         @Override
         public boolean canUse() {
             LivingEntity livingentity = this.blindsight.getTarget();
@@ -378,26 +364,17 @@ public class BlindsightEntity extends Monster {
             }
         }
 
-        /**
-         * Execute a one shot task or start executing a continuous task
-         */
         @Override
         public void start() {
             this.growTieredTimer = 300;
             super.start();
         }
 
-        /**
-         * Returns whether an in-progress EntityAIBase should continue executing
-         */
         @Override
         public boolean canContinueToUse() {
             return --this.growTieredTimer > 0 && this.canUse();
         }
 
-        /**
-         * Keep ticking a continuous task that has already been started
-         */
         @Override
         public void tick() {
             this.blindsight.lookAt(this.blindsight.getTarget(), 10.0F, 10.0F);
@@ -415,18 +392,11 @@ public class BlindsightEntity extends Monster {
             this.setFlags(EnumSet.of(Goal.Flag.LOOK));
         }
 
-        /**
-         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
-         * method as well.
-         */
         @Override
         public boolean canUse() {
             return this.blindsight.getTarget() == null && (this.blindsight.onGround || this.blindsight.isInWater() || this.blindsight.isInLava() || this.blindsight.hasEffect(MobEffects.LEVITATION)) && this.blindsight.getMoveControl() instanceof BlindsightEntity.MoveHelperController;
         }
 
-        /**
-         * Keep ticking a continuous task that has already been started
-         */
         @Override
         public void tick() {
             if (--this.nextRandomizeTime <= 0) {
@@ -447,18 +417,11 @@ public class BlindsightEntity extends Monster {
             blindsightIn.getNavigation().setCanFloat(true);
         }
 
-        /**
-         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
-         * method as well.
-         */
         @Override
         public boolean canUse() {
             return (this.blindsight.isInWater() || this.blindsight.isInLava()) && this.blindsight.getMoveControl() instanceof BlindsightEntity.MoveHelperController;
         }
 
-        /**
-         * Keep ticking a continuous task that has already been started
-         */
         @Override
         public void tick() {
             if (this.blindsight.getRandom().nextFloat() < 0.8F) {

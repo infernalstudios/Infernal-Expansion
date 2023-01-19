@@ -16,76 +16,45 @@
 
 package org.infernalstudios.infernalexp.entities;
 
-import net.minecraft.world.entity.MobType;
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-
-import org.infernalstudios.infernalexp.init.IESoundEvents;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Vec3i;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ambient.AmbientCreature;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Vec3i;
-import net.minecraft.util.Mth;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
+import org.infernalstudios.infernalexp.init.IESoundEvents;
 import org.jetbrains.annotations.NotNull;
 
 public class GlowsilkMothEntity extends AmbientCreature {
+
     private BlockPos spawnPosition;
 
     public GlowsilkMothEntity(EntityType<? extends GlowsilkMothEntity> type, Level worldIn) {
         super(type, worldIn);
     }
 
-    //ATTRIBUTES
+    @Override
+    public @NotNull MobType getMobType() {
+        return MobType.ARTHROPOD;
+    }
+
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
             .add(Attributes.MAX_HEALTH, 6.0D);
     }
 
-    /**
-     * Returns the volume for the sounds this mob makes.
-     */
-    @Override
-    protected float getSoundVolume() {
-        return 0.1F;
-    }
-
-    /**
-     * Gets the pitch of living sounds in living entities.
-     */
-    @Override
-    public float getVoicePitch() {
-        return super.getVoicePitch() * 0.95F;
-    }
-
-    /**
-     * Returns true if this entity should push and be pushed by other entities when colliding.
-     */
-    @Override
-    public boolean isPushable() {
-        return false;
-    }
-
-    @Override
-    protected void doPush(@NotNull Entity entityIn) {
-    }
-
-    @Override
-    protected void pushEntities() {
-    }
-
-    /**
-     * Called to update the entity's position/logic.
-     */
     @Override
     public void tick() {
         super.tick();
@@ -117,42 +86,38 @@ public class GlowsilkMothEntity extends AmbientCreature {
         setYRot(getYRot() + f1);
     }
 
-    // SOUNDS
     @Override
-    protected SoundEvent getAmbientSound() {
-        return IESoundEvents.GLOWSILK_MOTH_AMBIENT.get();
+    protected float getSoundVolume() {
+        return 0.1F;
     }
 
     @Override
-    protected SoundEvent getDeathSound() {
-        return IESoundEvents.GLOWSILK_MOTH_DEATH.get();
+    public float getVoicePitch() {
+        return super.getVoicePitch() * 0.95F;
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
-        return IESoundEvents.GLOWSILK_MOTH_HURT.get();
+    public boolean isPushable() {
+        return false;
     }
 
     @Override
-    public @NotNull MobType getMobType() {
-        return MobType.ARTHROPOD;
+    protected void doPush(@NotNull Entity entityIn) {
+    }
+
+    @Override
+    protected void pushEntities() {
     }
 
     @Override
     protected void checkFallDamage(double y, boolean onGroundIn, @NotNull BlockState state, @NotNull BlockPos pos) {
     }
 
-    /**
-     * Return whether this entity should NOT trigger a pressure plate or a tripwire.
-     */
     @Override
     public boolean isIgnoringBlockTriggers() {
         return true;
     }
 
-    /**
-     * Called when the entity is attacked.
-     */
     @Override
     public boolean hurt(@NotNull DamageSource source, float amount) {
         return !this.isInvulnerableTo(source) && super.hurt(source, amount);
@@ -162,4 +127,23 @@ public class GlowsilkMothEntity extends AmbientCreature {
     protected float getStandingEyeHeight(@NotNull Pose poseIn, EntityDimensions sizeIn) {
         return sizeIn.height * 0.5F;
     }
+
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return IESoundEvents.GLOWSILK_MOTH_AMBIENT.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+        return IESoundEvents.GLOWSILK_MOTH_HURT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return IESoundEvents.GLOWSILK_MOTH_DEATH.get();
+    }
+
 }
+
+
