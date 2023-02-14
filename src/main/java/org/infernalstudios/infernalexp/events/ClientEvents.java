@@ -20,6 +20,7 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.CampfireRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.client.renderer.entity.TippableArrowRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.FOVModifierEvent;
@@ -71,6 +72,7 @@ public class ClientEvents {
         event.registerEntityRenderer(IEEntityTypes.THROWABLE_BRICK.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(IEEntityTypes.THROWABLE_NETHER_BRICK.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(IEEntityTypes.INFERNAL_PAINTING.get(), InfernalPaintingRenderer::new);
+        event.registerEntityRenderer(IEEntityTypes.GLOWSILK_ARROW.get(), TippableArrowRenderer::new);
 //        event.registerEntityRenderer(IEEntityTypes.CEROBEETLE.get(), CerobeetleRenderer::new);
 //        event.registerEntityRenderer(IEEntityTypes.PYRNO.get(), PyrnoRenderer::new);
 

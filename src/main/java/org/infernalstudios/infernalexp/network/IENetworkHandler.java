@@ -38,6 +38,7 @@ public class IENetworkHandler {
     public static synchronized void register() {
         INSTANCE.messageBuilder(WhipReachPacket.class, index++).encoder(WhipReachPacket::encode).decoder(WhipReachPacket::decode).consumer(WhipReachPacket::handle).add();
         INSTANCE.messageBuilder(SpawnInfernalPaintingPacket.class, index++).encoder(SpawnInfernalPaintingPacket::encode).decoder(SpawnInfernalPaintingPacket::decode).consumer(SpawnInfernalPaintingPacket::handle).add();
+        INSTANCE.messageBuilder(GlowsilkArrowVelocityPacket.class, index++).encoder(GlowsilkArrowVelocityPacket::encode).decoder(GlowsilkArrowVelocityPacket::decode).consumer(GlowsilkArrowVelocityPacket::handle).add();
     }
 
     public static <MSG> void sendToPlayer(MSG message, ServerPlayer player) {

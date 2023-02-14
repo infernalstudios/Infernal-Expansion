@@ -20,6 +20,7 @@
     "common.MixinMinecraftServer",
     "common.MixinMultiNoiseBiomeSourcePreset",
     "common.MixinPaintingEntity",
+    "common.MixinServerEntity",
     "common.MixinServerPlayerGameMode",
     "common.MixinShearsItem",
     "common.MixinShovelItem",
@@ -33,7 +34,7 @@
     "common.WorldGenRegionAccessor",
     "dev.MixinDataFixers",
     "dev.MixinMinecraftServer",
-    "dev.MixinPrimaryLevelData",
+    "dev.MixinPrimaryLevelData"
   ],
   "client": [
     "client.MixinBlockGetter",

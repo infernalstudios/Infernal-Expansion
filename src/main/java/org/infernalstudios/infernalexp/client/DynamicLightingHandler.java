@@ -16,18 +16,16 @@
 
 package org.infernalstudios.infernalexp.client;
 
-import org.infernalstudios.infernalexp.access.AbstractArrowEntityAccess;
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-import org.infernalstudios.infernalexp.init.IEEffects;
-
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.core.BlockPos;
-
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
+import org.infernalstudios.infernalexp.entities.GlowsilkArrowEntity;
+import org.infernalstudios.infernalexp.init.IEEffects;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -74,7 +72,7 @@ public class DynamicLightingHandler {
     }
 
     public static boolean shouldGlow(AbstractArrow entity) {
-        return ((AbstractArrowEntityAccess) entity).getGlow();
+        return entity instanceof GlowsilkArrowEntity;
     }
 
     public static boolean shouldGlow(LivingEntity entity) {

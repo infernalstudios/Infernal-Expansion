@@ -29,7 +29,4 @@ public interface AbstractArrowEntityAccess {
 
     void setInfectedSource(boolean isInfectedSource);
 
-    boolean getGlow();
-
-    void setGlow(boolean shouldGlow);
 }

@@ -13,6 +13,7 @@ import org.infernalstudios.infernalexp.entities.BasaltGiantEntity;
 import org.infernalstudios.infernalexp.entities.BlackstoneDwarfEntity;
 import org.infernalstudios.infernalexp.entities.BlindsightEntity;
 import org.infernalstudios.infernalexp.entities.EmbodyEntity;
+import org.infernalstudios.infernalexp.entities.GlowsilkArrowEntity;
 import org.infernalstudios.infernalexp.entities.GlowsilkMothEntity;
 import org.infernalstudios.infernalexp.entities.GlowsquitoEntity;
 import org.infernalstudios.infernalexp.entities.InfernalPaintingEntity;
@@ -104,7 +105,12 @@ public class IEEntityTypes {
             .sized(0.25f, 0.25f).clientTrackingRange(4).updateInterval(10)
             .build(new ResourceLocation(InfernalExpansion.MOD_ID, "throwable_fire_charge").toString()));
 
-	public static final RegistryObject<EntityType<InfernalPaintingEntity>> INFERNAL_PAINTING = ENTITY_TYPES.register("infernal_painting",
+    public static final RegistryObject<EntityType<GlowsilkArrowEntity>> GLOWSILK_ARROW = ENTITY_TYPES.register("glowsilk_arrow",
+        () -> EntityType.Builder.<GlowsilkArrowEntity>of(GlowsilkArrowEntity::new, MobCategory.MISC)
+            .sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20)
+            .build(new ResourceLocation(InfernalExpansion.MOD_ID, "glowsilk_arrow").toString()));
+
+    public static final RegistryObject<EntityType<InfernalPaintingEntity>> INFERNAL_PAINTING = ENTITY_TYPES.register("infernal_painting",
         () -> EntityType.Builder.<InfernalPaintingEntity>of(InfernalPaintingEntity::new, MobCategory.MISC)
             .sized(0.5F, 0.5F).clientTrackingRange(10).updateInterval(Integer.MAX_VALUE)
             .build(new ResourceLocation(InfernalExpansion.MOD_ID, "infernal_painting").toString()));
