@@ -35,7 +35,6 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -47,17 +46,9 @@ import net.minecraft.world.item.Vanishable;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.util.LazyOptional;
 import org.infernalstudios.infernalexp.capabilities.IWhipUpdate;
 import org.infernalstudios.infernalexp.init.IECapabilities;
@@ -101,24 +92,25 @@ public class WhipItem extends TieredItem implements Vanishable {
     @Override
     public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
         if (entityLiving instanceof Player player) {
-            setCharging(stack, false);
-
             int ticksSinceStart = this.getUseDuration(stack) - timeLeft;
+
+            if (worldIn.isClientSide() && (ticksSinceStart < 0 || getTicksSinceAttack(stack) < 15)) {
+                worldIn.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F / (player.getRandom().nextFloat() * 0.4F + 1.2F));
+                return;
+            }
+
+            setCharging(stack, false);
 
             if (ticksSinceStart < 0 || getTicksSinceAttack(stack) < 15) {
                 setTicksSinceAttack(stack, 0);
                 return;
-            } else {
-                setAttacking(stack, true);
-                setTicksSinceAttack(stack, 18);
             }
 
-            worldIn.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F / (player.getRandom().nextFloat() * 0.4F + 1.2F));
+            setAttacking(stack, true);
+            setTicksSinceAttack(stack, 18);
+
             player.awardStat(Stats.ITEM_USED.get(this));
-
-            if (!worldIn.isClientSide()) {
-                IENetworkHandler.sendToServer(new WhipReachPacket(player.getUUID()));
-            }
+            IENetworkHandler.sendToServer(new WhipReachPacket(player.getUUID()));
         }
     }
 
@@ -143,6 +135,9 @@ public class WhipItem extends TieredItem implements Vanishable {
 
     @Override
     public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
+        if (player.getLevel().isClientSide())
+            return;
+
         if (getAttacking(stack)) {
             setTicksSinceAttack(stack, 0);
             setAttacking(stack, false);
