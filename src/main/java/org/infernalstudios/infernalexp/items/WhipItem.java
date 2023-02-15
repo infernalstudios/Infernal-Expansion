@@ -92,25 +92,24 @@ public class WhipItem extends TieredItem implements Vanishable {
     @Override
     public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
         if (entityLiving instanceof Player player) {
-            int ticksSinceStart = this.getUseDuration(stack) - timeLeft;
-
-            if (worldIn.isClientSide() && (ticksSinceStart < 0 || getTicksSinceAttack(stack) < 15)) {
-                worldIn.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F / (player.getRandom().nextFloat() * 0.4F + 1.2F));
-                return;
-            }
-
             setCharging(stack, false);
+
+            int ticksSinceStart = this.getUseDuration(stack) - timeLeft;
 
             if (ticksSinceStart < 0 || getTicksSinceAttack(stack) < 15) {
                 setTicksSinceAttack(stack, 0);
                 return;
+            } else {
+                setAttacking(stack, true);
+                setTicksSinceAttack(stack, 18);
             }
 
-            setAttacking(stack, true);
-            setTicksSinceAttack(stack, 18);
-
+            worldIn.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F / (player.getRandom().nextFloat() * 0.4F + 1.2F));
             player.awardStat(Stats.ITEM_USED.get(this));
-            IENetworkHandler.sendToServer(new WhipReachPacket(player.getUUID()));
+
+            if (worldIn.isClientSide()) {
+                IENetworkHandler.sendToServer(new WhipReachPacket(player.getUUID()));
+            }
         }
     }
 
@@ -135,9 +134,6 @@ public class WhipItem extends TieredItem implements Vanishable {
 
     @Override
     public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
-        if (player.getLevel().isClientSide())
-            return;
-
         if (getAttacking(stack)) {
             setTicksSinceAttack(stack, 0);
             setAttacking(stack, false);
