@@ -70,10 +70,10 @@ public class WhipReachPacket {
             Vector3d reachVec = eyePos.add(lookVec.mul(reach, reach, reach));
 
             AxisAlignedBB playerBox = player.getBoundingBox().expand(lookVec.scale(reach)).grow(1.0D, 1.0D, 1.0D);
-            EntityRayTraceResult entityTraceResult = ProjectileHelper.rayTraceEntities(player, eyePos, reachVec, playerBox, (target) -> !target.isSpectator() && target.isLiving(), reach * reach);
+            EntityRayTraceResult entityTraceResult = ProjectileHelper.rayTraceEntities(player.getEntityWorld(), player, eyePos, reachVec, playerBox, (target) -> !target.isSpectator() && target instanceof LivingEntity);
             BlockRayTraceResult blockTraceResult = player.getEntityWorld().rayTraceBlocks(new RayTraceContext(eyePos, reachVec, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, player));
 
-            if (entityTraceResult != null) {
+            if (entityTraceResult != null && eyePos.squareDistanceTo(entityTraceResult.getHitVec()) < reach * reach) {
                 double distance = eyePos.squareDistanceTo(entityTraceResult.getHitVec());
                 if (distance < reach * reach && distance < eyePos.squareDistanceTo(blockTraceResult.getHitVec())) {
                     player.ticksSinceLastSwing = (int) player.getCooldownPeriod();
