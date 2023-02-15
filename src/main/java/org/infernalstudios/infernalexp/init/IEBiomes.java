@@ -29,15 +29,19 @@ import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.world.biome.ModBiome;
 import org.infernalstudios.infernalexp.world.biome.netherbiomes.GlowstoneCanyonBiome;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class IEBiomes {
+
     public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, InfernalExpansion.MOD_ID);
+    private static final Map<String, BiomeDictionary.Type[]> BIOME_TYPES = new HashMap<>();
 
     public static final RegistryObject<Biome> GLOWSTONE_CANYON = registerNetherBiome("glowstone_canyon", new GlowstoneCanyonBiome());
     //public static final RegistryObject<Biome> DELTA_SHORES = registerNetherBiome("delta_shores", () -> new DeltaShoresSubBiome().build());
 
     private static RegistryObject<Biome> registerNetherBiome(String name, ModBiome biome) {
-        BiomeDictionary.addTypes(RegistryKey.getOrCreateKey(Registry.BIOME_KEY, new ResourceLocation(InfernalExpansion.MOD_ID, name)), biome.getBiomeTypes());
-
+        BIOME_TYPES.put(name, biome.getBiomeTypes());
         return BIOMES.register(name, biome::build);
     }
 
@@ -45,6 +49,13 @@ public class IEBiomes {
         BIOMES.register(eventBus);
         InfernalExpansion.LOGGER.info("Infernal Expansion: Biomes Registered!");
     }
+
+    public static void registerBiomeTypes() {
+        BIOME_TYPES.forEach((name, biomeTypes) -> {
+            BiomeDictionary.addTypes(RegistryKey.getOrCreateKey(Registry.BIOME_KEY, new ResourceLocation(InfernalExpansion.MOD_ID, name)), biomeTypes);
+        });
+    }
+
 }
 
 

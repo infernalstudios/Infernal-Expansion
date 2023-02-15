@@ -124,6 +124,8 @@ public class InfernalExpansion {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
+        event.enqueueWork(IEBiomes::registerBiomeTypes);
+
         // Search for all biomes to add to nether and register nether biome provider
         event.enqueueWork(ModNetherBiomeProvider::registerBiomeProvider);
 
