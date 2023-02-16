@@ -29,9 +29,9 @@ public final class IEShroomloinTypes {
     public static final ShroomloinType FAIRY_RING =               registerWithIEDirectory("fairy_ring_mushroom", "habitat",       "fairy_ring_mushroom");
     public static final ShroomloinType FUNGAL_IMPARIUS =          registerWithIEDirectory("fungal_imparius",     "byg",           "fungal_imparius");
     public static final ShroomloinType GLOWSHROOM_BOP =           registerWithIEDirectory("glowshroom",          "biomesoplenty", "glowshroom");
-    public static final ShroomloinType GLOWSHROOM_DARKER_DEPTHS = registerWithIEDirectory("glowshroom",          "darkerdepths",  "glowshroom");
-    public static final ShroomloinType GLOWSHROOM_QUARK =         registerWithIEDirectory("glowshroom",          "quark",         "glowshroom");
-    public static final ShroomloinType GREEN_MUSHROOM =           registerWithIEDirectory("green_mushroom",      "byg",           "green_mushroom");
+    public static final ShroomloinType GLOWSHROOM_DARKER_DEPTHS = registerWithIEDirectory("glowshroom", "darkerdepths", "glowshroom");
+    public static final ShroomloinType GLOWSHROOM_QUARK = registerWithIEDirectory("glow_shroom", "quark", "glowshroom");
+    public static final ShroomloinType GREEN_MUSHROOM = registerWithIEDirectory("green_mushroom", "byg", "green_mushroom");
     public static final ShroomloinType IMPARIUS_MUSHROOM =        registerWithIEDirectory("imparius_mushroom",   "byg",           "imparius_mushroom");
     public static final ShroomloinType INDIGO =                   registerWithIEDirectory("indigo_mushroom",     "undergarden",   "indigo_mushroom");
     public static final ShroomloinType INK =                      registerWithIEDirectory("ink_mushroom",        "undergarden",   "ink_mushroom");
