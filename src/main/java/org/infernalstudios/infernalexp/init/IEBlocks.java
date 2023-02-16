@@ -246,7 +246,7 @@ public class IEBlocks {
     public static final RegistryObject<Block> GLOW_TORCH = registerBlock("glow_torch", () -> new GlowTorchBlock(getProperties(Blocks.TORCH)));
     @SuppressWarnings("deprecation")
     public static final RegistryObject<Block> GLOW_TORCH_WALL = registerBlock("glow_torch_wall", () -> new GlowWallTorchBlock(getProperties(IEBlocks.GLOW_TORCH.get()).dropsLike(GLOW_TORCH.get())));
-    public static final RegistryObject<Block> GLOW_CAMPFIRE = registerBlockWithDefaultItem("glow_campfire", () -> new GlowCampfireBlock(true, 2, getProperties(Blocks.CAMPFIRE)));
+    public static final RegistryObject<Block> GLOW_CAMPFIRE = registerBlockWithDefaultItem("glow_campfire", () -> new GlowCampfireBlock(2, getProperties(Blocks.CAMPFIRE)));
     public static final RegistryObject<Block> GLOW_FIRE = registerBlock("glow_fire", () -> new GlowFireBlock(getProperties(Blocks.FIRE)));
 
     public static final RegistryObject<Block> GLOWSILK_COCOON = registerBlockWithDefaultItem("glowsilk_cocoon", () -> new RotatedPillarBlock(getProperties(Material.GRASS).sound(SoundType.WOOL).requiresCorrectToolForDrops().strength(5.0F, 1200.0F).lightLevel(value -> 5)));
