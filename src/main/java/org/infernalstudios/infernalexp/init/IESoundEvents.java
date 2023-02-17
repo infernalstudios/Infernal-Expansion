@@ -46,11 +46,6 @@ public class IESoundEvents {
 	public static final RegistryObject<SoundEvent> BASALT_GIANT_HURT = add("entity.basalt_giant.hurt");
 	public static final RegistryObject<SoundEvent> BASALT_GIANT_DEATH = add("entity.basalt_giant.death");
 
-	// SKELETAL PIGLIN
-	public static final RegistryObject<SoundEvent> SKELETAL_PIGLIN_AMBIENT = add("entity.skeletal_piglin.ambient");
-	public static final RegistryObject<SoundEvent> SKELETAL_PIGLIN_HURT = add("entity.skeletal_piglin.hurt");
-	public static final RegistryObject<SoundEvent> SKELETAL_PIGLIN_DEATH = add("entity.skeletal_piglin.death");
-
 	// GLOWSQUITO
 	public static final RegistryObject<SoundEvent> GLOWSQUITO_LOOP = add("entity.glowsquito.loop");
 	public static final RegistryObject<SoundEvent> GLOWSQUITO_HURT = add("entity.glowsquito.hurt");
@@ -62,30 +57,10 @@ public class IESoundEvents {
 	public static final RegistryObject<SoundEvent> BLINDSIGHT_DEATH = add("entity.blindsight.death");
     public static final RegistryObject<SoundEvent> BLINDSIGHT_LEAP = add("entity.blindsight.leap");
 
-	// BLACKSTONE_DWARF
-	public static final RegistryObject<SoundEvent> BLACKSTONE_DWARF_AMBIENT = add("entity.dwarf.ambient");
-	public static final RegistryObject<SoundEvent> BLACKSTONE_DWARF_HURT = add("entity.dwarf.hurt");
-	public static final RegistryObject<SoundEvent> BLACKSTONE_DWARF_DEATH = add("entity.dwarf.death");
-
     // GLOWSILK_MOTH
     public static final RegistryObject<SoundEvent> GLOWSILK_MOTH_AMBIENT = add("entity.glowsilk_moth.ambient");
     public static final RegistryObject<SoundEvent> GLOWSILK_MOTH_HURT = add("entity.glowsilk_moth.hurt");
     public static final RegistryObject<SoundEvent> GLOWSILK_MOTH_DEATH = add("entity.glowsilk_moth.death");
-
-	// GLAW
-	public static final RegistryObject<SoundEvent> GLAW_AMBIENT = add("entity.glaw.ambient");
-	public static final RegistryObject<SoundEvent> GLAW_HURT = add("entity.glaw.hurt");
-	public static final RegistryObject<SoundEvent> GLAW_DEATH = add("entity.glaw.death");
-
-	// SMOLT
-	public static final RegistryObject<SoundEvent> SMOLT_AMBIENT = add("entity.smolt.ambient");
-	public static final RegistryObject<SoundEvent> SMOLT_HURT = add("entity.smolt.hurt");
-	public static final RegistryObject<SoundEvent> SMOLT_DEATH = add("entity.smolt.death");
-
-	// PYRNO
-	public static final RegistryObject<SoundEvent> PYRNO_AMBIENT = add("entity.pyrno.ambient");
-	public static final RegistryObject<SoundEvent> PYRNO_HURT = add("entity.pyrno.hurt");
-	public static final RegistryObject<SoundEvent> PYRNO_DEATH = add("entity.pyrno.death");
 
 	// GLOWSTONE CANYON
 	public static final RegistryObject<SoundEvent> AMBIENT_GLOWSTONE_CANYON_LOOP = add("ambient.glowstone_canyon.loop");
