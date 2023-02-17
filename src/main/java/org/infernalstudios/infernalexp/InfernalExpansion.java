@@ -69,6 +69,7 @@ import org.infernalstudios.infernalexp.init.IEProcessors;
 import org.infernalstudios.infernalexp.init.IEShroomloinTypes;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
 import org.infernalstudios.infernalexp.init.IEStructures;
+import org.infernalstudios.infernalexp.init.IETags;
 import org.infernalstudios.infernalexp.init.IETileEntityTypes;
 import org.infernalstudios.infernalexp.mixin.common.WorldCarverAccessor;
 import org.infernalstudios.infernalexp.network.IENetworkHandler;
@@ -87,6 +88,9 @@ public class InfernalExpansion {
     public static final String MOD_ID = "infernalexp";
 
     public InfernalExpansion() {
+        IETags.Blocks.bootstrap();
+        IETags.Items.bootstrap();
+
         final ModLoadingContext modLoadingContext = ModLoadingContext.get();
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 

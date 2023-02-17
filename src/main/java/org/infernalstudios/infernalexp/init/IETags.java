@@ -46,6 +46,9 @@ public class IETags {
         private static ITag.INamedTag<Block> tag(String name) {
             return BlockTags.createOptional(new ResourceLocation(InfernalExpansion.MOD_ID, name));
         }
+
+        public static void bootstrap() {}
+
     }
 
     public static class Items {
@@ -55,5 +58,8 @@ public class IETags {
         private static ITag.INamedTag<Item> tag(String name) {
             return ItemTags.createOptional(new ResourceLocation(InfernalExpansion.MOD_ID, name));
         }
+
+        public static void bootstrap() {}
+
     }
 }
