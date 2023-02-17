@@ -2,12 +2,12 @@ name: Build JAR
 on:
   workflow_dispatch:
   push:
-    branches: [ '1.17' ]
+      branches: [ '1.18' ]
     paths:
       - 'build.gradle'
       - 'build.properties'
   pull_request:
-    branches: [ '1.17' ]
+      branches: [ '1.18' ]
     paths:
       - 'src/**'
       - 'build.gradle'
