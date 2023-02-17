@@ -46,6 +46,7 @@ public class IETags {
         public static final TagKey<Block> EMBODY_FALL_BLOCKS = tag("embody_fall_blocks");
         public static final TagKey<Block> LUMINOUS_FUNGUS_SPAWNABLE_ON_BLOCKS = tag("luminous_fungus_spawnable_on_blocks");
         public static final TagKey<Block> LUMINOUS_FUNGUS_BASE_BLOCKS = tag("luminous_fungus_base_blocks");
+        public static final TagKey<Block> SINK_HOLE_CARVABLE_BLOCKS = tag("sink_hole_carvable_blocks");
 
         private static TagKey<Block> tag(String name) {
             return BlockTags.create(new ResourceLocation(InfernalExpansion.MOD_ID, name));

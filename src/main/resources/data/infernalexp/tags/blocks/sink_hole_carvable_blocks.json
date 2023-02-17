@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "infernalexp:dullstone",
+    "infernalexp:dimstone",
+    "minecraft:glowstone",
+    "infernalexp:glowdust_sand",
+    "infernalexp:glowdust",
+    "infernalexp:glowdust_stone",
+    "minecraft:blackstone",
+    "minecraft:lava",
+    "minecraft:netherrack"
+  ]
+}
