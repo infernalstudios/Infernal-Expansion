@@ -369,5 +369,36 @@
   "infernalexp.config.option.luminousFungusGivesEffect": "Luminous Fungus gives Luminance Effect",
   "infernalexp.config.tooltip.luminousFungusGivesEffect": "Determines whether Luminous Fungus gives the Luminance effect on collision with an entity",
   "infernalexp.commands.setdimensionspawn.success.single": "Set %s's spawnpoint to %s, %s, %s [%s] in %s",
-  "infernalexp.commands.setdimensionspawn.success.multiple": "Set %s players' spawnpoints to %s, %s, %s [%s] in %s"
+  "infernalexp.commands.setdimensionspawn.success.multiple": "Set %s players' spawnpoints to %s, %s, %s [%s] in %s",
+
+  "tips.title.tip": "Infernal Tip",
+
+  "tips.tip.voline_distraction": "Voline are Hostile, but prioritise targets with Fire Resistance, including other Voline. Throw Magma Cream at a target to give them Fire Resistance!",
+  "tips.tip.voline_feeding": "Voline are gluttonous - Feed them Magma Cream to fatten and slow them, and Gold items to earn Molten Gold Clusters!",
+  "tips.tip.shroomloin_conversion": "A Shroomloin's colour and aggression can be changed by feeding (right-clicking) them a different fungus type!",
+  "tips.tip.warpbeetle_chorus": "Warpbeetles can be fed Chorus Fruit to gain a purple palette. They also hate Spiders!",
+  "tips.tip.embody_music": "Embodies have a one in a hundred chance at dropping a music disk by LudoCrypt: Soul Spunk!",
+  "tips.tip.giant_xp": "Basalt Giants are not to be trifled with. If you were to trifle with them though... They would drop a lot of XP.",
+  "tips.tip.glowsquito_breeding": "Glowsquitos can be bred with Shroomlight Tears for a continuous stream of furnace fuel!",
+
+  "tips.tip.fire_charge": "Throw Fire Charges through Netherrack for easy Netherite-mining!",
+  "tips.tip.quartz_glass": "Reinforce your glass with Quartz - Quartz Glass is blast-resistant! No more Ghast troubles!",
+  "tips.tip.shroomlight_tears": "Bonemeal a Shroomlight Block for a Shroomlight Tear! Nine of them will make a new Shroomlight Block!",
+  "tips.tip.soul_salt": "Hold on to your Rotten Flesh and Spider Eyes - Soul Salt can make them both edible and useful!",
+  "tips.tip.basaltic_magma": "Feed Basaltic Magma to a Voline for a whole Iron Ingot in return!",
+  "tips.tip.glowsilk": "Use Glowsilk in an anvil to repair your tools and armour!",
+  "tips.tip.blindsight_tongue": "Blindsight Tongues are tasty, but go even better with some mushrooms in a bowl!",
+
+  "tips.tip.strider_altar": "Strider Altars may contain hidden chests inside...",
+  "tips.tip.infection": "The Ascus Bombs' Infection effect is like a virus - It spreads to others in close proximity! Throw it in an enclosed space!",
+  "tips.tip.luminance": "The Luminance effect burns undead like sunlight - Make use of Luminous Fungus in the Overworld to capitalise on that!",
+
+  "tips.tip.canyon_plantlife": "All plantlife in the Glowstone Canyon gives you Luminance - Which attracts the local hostiles. Don't touch anything!",
+  "tips.tip.death_pits": "Unstable Glimmer Gravel pits can be spotted by their discolouration - Pay close attention to where you tread in the Glowstone Canyon!",
+
+  "tips.tip.glowsilk_bow": "The Glowsilk Bow has twice the projectile speed and range of the regular bow, and lights up the darkness to boot!",
+  "tips.tip.blindsight_whip": "The Blindsight Tongue Whip has a longer range than other weapons - Use it to keep dangerous foes away from you!",
+  "tips.tip.kinetic_whip": "With Mining Master's Kinetic Opal, The Blindsight Tongue Whip can receive a major upgrade!",
+
+  "tips.tip.ntp": "Use the /ntp command to quickly teleport between the Overworld and the Nether!"
 }
