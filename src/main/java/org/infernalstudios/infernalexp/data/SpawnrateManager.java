@@ -72,7 +72,7 @@ public class SpawnrateManager {
     private static final Map<String, Map<String, SpawnInfo>> configs = ImmutableMap.<String, Map<String, SpawnInfo>>builder()
         .put("basalt_giant", ImmutableMap.of(
             "default", new SpawnInfo(5, 1, 1, 0, 0),
-            "minecraft:basalt_deltas", new SpawnInfo(1, 1, 1, 2.0D, 0.1D),
+            "minecraft:basalt_deltas", new SpawnInfo(1, 1, 1, 0.5D, 1.0D),
             "infernalexp:delta_shores", new SpawnInfo(1, 1, 1, 0, 0)
         ))
         .put("blackstone_dwarf", ImmutableMap.of(
