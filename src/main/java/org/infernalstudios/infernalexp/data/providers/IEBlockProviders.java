@@ -30,7 +30,6 @@ import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelProvider;
-import net.minecraftforge.registries.RegistryObject;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.blocks.VerticalSlabBlock;
 import org.infernalstudios.infernalexp.data.DataGenDeferredRegister;
@@ -42,12 +41,19 @@ public class IEBlockProviders {
 
     public static final String BLOCK_FOLDER = ModelProvider.BLOCK_FOLDER + "/";
 
+    /**
+     * For simple blocks where all six faces have the same texture
+     */
     public static BlockProviderConsumer simple() {
         return (provider, block) -> {
             provider.simpleBlock(block.get());
         };
     }
 
+    /**
+     * For blocks that have multiple variants that are enumerated 0 - n. E.g: Dimstone
+     * @param variants The number of variants. Variants are zero-indexed, so with 25 variants they will be numbered 0 - 24.
+     */
     public static BlockProviderConsumer enumerateVariants(int variants) {
         return enumerateVariants(variants, ((provider, block, variant) -> {
             return new ConfiguredModel(provider.models().cubeAll(
@@ -69,6 +75,9 @@ public class IEBlockProviders {
         };
     }
 
+    /**
+     * For blocks with randomized rotations. E.g: Sand
+     */
     public static BlockProviderConsumer randomizeRotations() {
         return (provider, block) -> {
             ConfiguredModel[] models = new ConfiguredModel[16];
@@ -88,19 +97,29 @@ public class IEBlockProviders {
         };
     }
 
+    /**
+     * For rotatable pillar blocks that have a top texture and a side texture. E.g: Basalt
+     */
     public static BlockProviderConsumer pillar() {
         return (provider, block) -> {
             pillarInternal(provider, block.get(), extend(blockTexture(block.get()), "_side"), extend(blockTexture(block.get()), "_top"));
         };
     }
 
+    /**
+     * For rotatable pillar blocks that have only a single texture on all six sides. E.g: Hyphae
+     */
     public static BlockProviderConsumer singleTexturePillar() {
         return (provider, block) -> {
             pillarInternal(provider, block.get(), blockTexture(block.get()), blockTexture(block.get()));
         };
     }
 
-    public static BlockProviderConsumer singleTexturePillar(RegistryObject<? extends Block> textureFrom) {
+    /**
+     * For rotatable pillar blocks that have only a single texture on all six sides. E.g: Hyphae
+     * @param textureFrom Block to get the texture from
+     */
+    public static BlockProviderConsumer singleTexturePillar(Supplier<? extends Block> textureFrom) {
         return (provider, block) -> {
             pillarInternal(provider, block.get(), blockTexture(textureFrom.get()), blockTexture(textureFrom.get()));
         };
@@ -119,36 +138,59 @@ public class IEBlockProviders {
             .modelForState().modelFile(horizontal).rotationX(90).rotationY(90).addModel();
     }
 
+
+    /**
+     * For non-rotatable pillar blocks with bottom, side and top textures. E.g: Crimson Fungus Cap
+     */
     public static BlockProviderConsumer staticPillar() {
         return (provider, block) -> {
             provider.simpleBlock(block.get(), provider.models().cubeBottomTop(name(block.get()), extend(blockTexture(block.get()), "_side"), extend(blockTexture(block.get()), "_bottom"), extend(blockTexture(block.get()), "_top")));
         };
     }
 
+    /**
+     * For log blocks. Very similar to {@link IEBlockProviders#pillar()} except the side texture doesn't have the "_side" suffix. E.g: Oak Log
+     */
     public static BlockProviderConsumer log() {
         return (provider, block) -> {
             provider.logBlock((RotatedPillarBlock) block.get());
         };
     }
 
+    /**
+     * For slabs. E.g: Stone Brick Slab
+     * @param fullBlock Full block parent to get texture from
+     */
     public static BlockProviderConsumer slab(Supplier<? extends Block> fullBlock) {
         return (provider, block) -> {
             provider.slabBlock((SlabBlock) block.get(), location(fullBlock.get()), blockTexture(fullBlock.get()));
         };
     }
 
+    /**
+     * For slabs of pillar blocks. E.g: Basalt Slab
+     * @param fullBlock Full block parent to get textures from
+     */
     public static BlockProviderConsumer pillarSlab(Supplier<? extends Block> fullBlock) {
         return (provider, block) -> {
             provider.slabBlock((SlabBlock) block.get(), location(fullBlock.get()), extend(blockTexture(fullBlock.get()), "_side"), extend(blockTexture(fullBlock.get()), "_top"), extend(blockTexture(fullBlock.get()), "_top"));
         };
     }
 
+    /**
+     * For vertical slabs. E.g: Polished Glowstone Vertical Slab
+     * @param fullBlock Full block parent to get texture from
+     */
     public static BlockProviderConsumer verticalSlab(Supplier<? extends Block> fullBlock) {
         return (provider, block) -> {
             verticalSlabInternal(provider, block.get(), fullBlock.get(), verticalSlabModel(provider.models(), name(block.get()), blockTexture(fullBlock.get()), blockTexture(fullBlock.get())));
         };
     }
 
+    /**
+     * For vertical slabs of pillar blocks. E.g: Polished Basalt Vertical Slab
+     * @param fullBlock Full block parent to get textures from
+     */
     public static BlockProviderConsumer pillarVerticalSlab(Supplier<? extends Block> fullBlock) {
         return (provider, block) -> {
             verticalSlabInternal(provider, block.get(), fullBlock.get(), verticalSlabModel(provider.models(), name(block.get()), extend(blockTexture(fullBlock.get()), "_side"), extend(blockTexture(fullBlock.get()), "_top")));
@@ -176,48 +218,80 @@ public class IEBlockProviders {
             .texture("side", side);
     }
 
+    /**
+     * For stairs. E.g: Dullstone Brick Stairs
+     * @param fullBlock Full block parent to get texture from
+     */
     public static BlockProviderConsumer stairs(Supplier<? extends Block> fullBlock) {
         return (provider, block) -> {
             provider.stairsBlock((StairBlock) block.get(), blockTexture(fullBlock.get()));
         };
     }
 
+    /**
+     * For stairs of pillar blocks. E.g: Basalt Stairs
+     * @param fullBlock Full block parent to get textures from
+     */
     public static BlockProviderConsumer pillarStairs(Supplier<? extends Block> fullBlock) {
         return (provider, block) -> {
             provider.stairsBlock((StairBlock) block.get(), extend(blockTexture(fullBlock.get()), "_side"), extend(blockTexture(fullBlock.get()), "_top"), extend(blockTexture(fullBlock.get()), "_top"));
         };
     }
 
+    /**
+     * For buttons. E.g: Soul Slate Button
+     * @param fullBlock Full block parent to get texture from
+     */
     public static BlockProviderConsumer button(Supplier<? extends Block> fullBlock) {
         return (provider, block) -> {
             provider.buttonBlock((ButtonBlock) block.get(), blockTexture(fullBlock.get()));
         };
     }
 
+    /**
+     * For buttons of pillar blocks. E.g: Basalt Button
+     * @param fullBlock Full block parent to get textures from
+     */
     public static BlockProviderConsumer pillarButton(Supplier<? extends Block> fullBlock) {
         return (provider, block) -> {
             provider.buttonBlock((ButtonBlock) block.get(), extend(blockTexture(fullBlock.get()), "_side"));
         };
     }
 
+    /**
+     * For pressure plates. E.g: Smooth Glowstone Pressure Plate
+     * @param fullBlock Full block parent to get texture from
+     */
     public static BlockProviderConsumer pressurePlate(Supplier<? extends Block> fullBlock) {
         return (provider, block) -> {
             provider.pressurePlateBlock((PressurePlateBlock) block.get(), blockTexture(fullBlock.get()));
         };
     }
 
+    /**
+     * For pressure plates of pillar blocks. E.g: Polished Basalt Pressure Plate
+     * @param fullBlock Full block parent to get textures from
+     */
     public static BlockProviderConsumer pillarPressurePlate(Supplier<? extends Block> fullBlock) {
         return (provider, block) -> {
             provider.pressurePlateBlock((PressurePlateBlock) block.get(), extend(blockTexture(fullBlock.get()), "_top"));
         };
     }
 
+    /**
+     * For walls. E.g: Soul Stone Wall
+     * @param fullBlock Full block parent to get texture from
+     */
     public static BlockProviderConsumer wall(Supplier<? extends Block> fullBlock) {
         return (provider, block) -> {
             provider.wallBlock((WallBlock) block.get(), blockTexture(fullBlock.get()));
         };
     }
 
+    /**
+     * For walls of pillar blocks. E.g: Basalt Wall
+     * @param fullBlock Full block parent to get textures from
+     */
     public static BlockProviderConsumer pillarWall(Supplier<? extends Block> fullBlock) {
         return (provider, block) -> {
             provider.wallBlock((WallBlock) block.get(),
