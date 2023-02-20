@@ -1,6 +1,6 @@
 {
-  "parent": "block/template_wall_post",
+  "parent": "minecraft:block/template_wall_post",
   "textures": {
-    "wall": "infernalexp:block/glowdust_stone_animated"
+    "wall": "infernalexp:block/glowdust_stone"
   }
 }

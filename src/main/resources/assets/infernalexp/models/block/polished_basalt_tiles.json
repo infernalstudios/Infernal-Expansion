@@ -1,8 +1,7 @@
 {
-  "parent": "minecraft:block/cube_column",
+  "parent": "minecraft:block/cube_column_horizontal",
   "textures": {
-    "end": "infernalexp:block/polished_basalt_tiles",
-    "side": "infernalexp:block/polished_basalt_tiles"
+    "side": "infernalexp:block/polished_basalt_tiles",
+    "end": "infernalexp:block/polished_basalt_tiles"
   }
 }
-

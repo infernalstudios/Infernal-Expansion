@@ -65,7 +65,7 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'SCAN,REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            args '--mod', 'infernalexp', '--all', '--output', file('src/generated/resources/')
+            args '--mod', 'infernalexp', '--all', '--output', file('src/generated/resources/'), '--existing', sourceSets.main.resources.srcDirs[0]
             mods {
                 infernalexp {
                     source sourceSets.main

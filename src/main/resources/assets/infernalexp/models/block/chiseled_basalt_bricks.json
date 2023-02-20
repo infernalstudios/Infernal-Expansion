@@ -1,8 +1,7 @@
 {
-  "parent": "minecraft:block/cube_column",
+  "parent": "minecraft:block/cube_column_horizontal",
   "textures": {
-    "end": "infernalexp:block/chiseled_basalt_bricks_top",
-    "side": "infernalexp:block/chiseled_basalt_bricks"
+    "side": "infernalexp:block/chiseled_basalt_bricks_side",
+    "end": "infernalexp:block/chiseled_basalt_bricks_top"
   }
 }
-

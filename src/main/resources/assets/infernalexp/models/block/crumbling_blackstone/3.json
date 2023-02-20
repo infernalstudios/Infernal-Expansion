@@ -1,8 +1,0 @@
-{
-  "parent": "block/cube_bottom_top",
-  "textures": {
-    "top": "infernalexp:block/crumbling_blackstone/top3",
-    "bottom": "infernalexp:block/crumbling_blackstone/top3",
-    "side": "infernalexp:block/crumbling_blackstone/3"
-  }
-}

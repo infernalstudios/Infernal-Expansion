@@ -1,6 +1,6 @@
 {
-  "parent": "block/template_wall_side",
+  "parent": "minecraft:block/template_wall_side",
   "textures": {
-    "wall": "infernalexp:block/dullstone_bricks_small"
+    "wall": "infernalexp:block/dullstone_bricks"
   }
 }

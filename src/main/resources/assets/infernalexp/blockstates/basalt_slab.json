@@ -1,13 +1,13 @@
 {
   "variants": {
+    "type=top": {
+      "model": "infernalexp:block/basalt_slab_top"
+    },
     "type=bottom": {
       "model": "infernalexp:block/basalt_slab"
     },
     "type=double": {
       "model": "minecraft:block/basalt"
-    },
-    "type=top": {
-      "model": "infernalexp:block/basalt_slab_top"
     }
   }
 }

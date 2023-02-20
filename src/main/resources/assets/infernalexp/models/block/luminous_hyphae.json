@@ -1,7 +1,7 @@
 {
-  "parent": "minecraft:block/cube_column",
+  "parent": "minecraft:block/cube_column_horizontal",
   "textures": {
-    "end": "infernalexp:block/luminous_stem",
-    "side": "infernalexp:block/luminous_stem"
+    "side": "infernalexp:block/luminous_stem",
+    "end": "infernalexp:block/luminous_stem"
   }
 }
