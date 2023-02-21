@@ -155,7 +155,7 @@ public class IEBlocks {
     public static final RegistryObject<RotatedPillarBlock> STRIPPED_LUMINOUS_HYPHAE = registerBlockWithDefaultItem("stripped_luminous_hyphae", () -> new RotatedPillarBlock(getProperties(Blocks.STRIPPED_CRIMSON_HYPHAE)), IEBlockProviders.singleTexturePillar(STRIPPED_LUMINOUS_STEM));
 
     public static final RegistryObject<Block> GLOWDUST_SAND = registerBlockWithDefaultItem("glowdust_sand", () -> new GlowSandBlock(0xFFC267, BlockBehaviour.Properties.of(Material.SNOW, MaterialColor.SAND).requiresCorrectToolForDrops().strength(0.5F).sound(SoundType.SAND)), IEBlockProviders.randomizeRotations());
-    public static final RegistryObject<Block> GLOWDUST = registerBlockWithDefaultItem("glowdust", () -> new GlowdustBlock(BlockBehaviour.Properties.of(Material.TOP_SNOW, MaterialColor.SAND).requiresCorrectToolForDrops().strength(0.2f).sound(SoundType.SAND)));
+    public static final RegistryObject<Block> GLOWDUST = registerBlockWithDefaultItem("glowdust", () -> new GlowdustBlock(BlockBehaviour.Properties.of(Material.TOP_SNOW, MaterialColor.SAND).requiresCorrectToolForDrops().strength(0.2f).sound(SoundType.SAND)), IEBlockProviders.layer(GLOWDUST_SAND));
     public static final RegistryObject<Block> TRAPPED_GLOWDUST_SAND = registerBlockWithDefaultItem("trapped_glowdust_sand", () -> new TrappedGlowSandBlock(0xFFC267, getProperties(GLOWDUST_SAND.get()).strength(0.2F)), IEBlockProviders.randomizeRotations());
 
     public static final RegistryObject<Block> GLOWDUST_STONE = registerBlockWithDefaultItem("glowdust_stone", () -> new Block(getProperties(Blocks.SANDSTONE)), IEBlockProviders.simple());

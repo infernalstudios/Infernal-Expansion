@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraftforge.client.model.generators.BlockModelProvider;
@@ -299,6 +300,41 @@ public class IEBlockProviders {
                 provider.models().wallSide(name(block.get()) + "_side", extend(blockTexture(fullBlock.get()), "_side")),
                 provider.models().wallSideTall(name(block.get()) + "_side_tall", extend(blockTexture(fullBlock.get()), "_side")));
         };
+    }
+
+    /**
+     * For layered blocks. E.g: Snow
+     * @param fullBlock Full block parent to get texture from
+     */
+    public static BlockProviderConsumer layer(Supplier<? extends Block> fullBlock) {
+        return (provider, block) -> {
+            provider.getVariantBuilder(block.get())
+                .forAllStates(state -> {
+                    int layer = state.getValue(SnowLayerBlock.LAYERS);
+                    ModelFile model = switch(layer) {
+                        case 8 -> provider.models().getExistingFile(location(fullBlock.get()));
+                        default -> layerModel(provider.models(), name(block.get()) + "_height" + layer * 2, blockTexture(fullBlock.get()), layer);
+                    };
+
+                    return ConfiguredModel.builder().modelFile(model).build();
+                });
+        };
+    }
+
+    private static ModelFile layerModel(BlockModelProvider models, String name, ResourceLocation texture, int layer) {
+        return models.withExistingParent(name, new ResourceLocation(BLOCK_FOLDER + "thin_block"))
+            .texture("particle", texture)
+            .texture("texture", texture)
+            .element()
+            .from(0, 0, 0)
+            .to(16, layer * 2, 16)
+            .allFaces((direction, faceBuilder) -> {
+                switch (direction) {
+                    case UP -> faceBuilder.texture("#texture");
+                    default -> faceBuilder.texture("#texture").cullface(direction);
+                }
+            })
+            .end();
     }
 
     public static String name(Block block) {
