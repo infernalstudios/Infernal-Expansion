@@ -255,42 +255,48 @@ public class IEBlocks {
     public static final RegistryObject<Block> WARPED_FUNGUS_CAP = registerBlockWithDefaultItem("warped_fungus_cap", () -> new FungusCapBlock(BlockBehaviour.Properties.copy(Blocks.WARPED_WART_BLOCK)), IEBlockProviders.staticPillar());
     public static final RegistryObject<Block> LUMINOUS_FUNGUS_CAP = registerBlockWithDefaultItem("luminous_fungus_cap", () -> new FungusCapBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_WART_BLOCK).lightLevel(value -> 14)), IEBlockProviders.staticPillar());
 
-    public static final RegistryObject<Block> GLOW_LANTERN = registerBlockWithDefaultItem("glow_lantern", () -> new LanternBlock(getProperties(Blocks.LANTERN)));
-    public static final RegistryObject<Block> GLOW_TORCH = registerBlock("glow_torch", () -> new GlowTorchBlock(getProperties(Blocks.TORCH)));
+    public static final RegistryObject<Block> GLOW_LANTERN = registerBlockWithDefaultItem("glow_lantern", () -> new LanternBlock(getProperties(Blocks.LANTERN)), IEBlockProviders.lantern());
+    public static final RegistryObject<Block> GLOW_TORCH = registerBlock("glow_torch", () -> new GlowTorchBlock(getProperties(Blocks.TORCH)), IEBlockProviders.torch());
     @SuppressWarnings("deprecation")
-    public static final RegistryObject<Block> GLOW_TORCH_WALL = registerBlock("glow_torch_wall", () -> new GlowWallTorchBlock(getProperties(IEBlocks.GLOW_TORCH.get()).dropsLike(GLOW_TORCH.get())));
-    public static final RegistryObject<Block> GLOW_CAMPFIRE = registerBlockWithDefaultItem("glow_campfire", () -> new GlowCampfireBlock(2, getProperties(Blocks.CAMPFIRE)));
-    public static final RegistryObject<Block> GLOW_FIRE = registerBlock("glow_fire", () -> new GlowFireBlock(getProperties(Blocks.FIRE)));
+    public static final RegistryObject<Block> GLOW_TORCH_WALL = registerBlock("glow_torch_wall", () -> new GlowWallTorchBlock(getProperties(IEBlocks.GLOW_TORCH.get()).dropsLike(GLOW_TORCH.get())), IEBlockProviders.wallTorch());
+    public static final RegistryObject<Block> GLOW_CAMPFIRE = registerBlockWithDefaultItem("glow_campfire", () -> new GlowCampfireBlock(2, getProperties(Blocks.CAMPFIRE)), IEBlockProviders.campfire());
+    public static final RegistryObject<Block> GLOW_FIRE = registerBlock("glow_fire", () -> new GlowFireBlock(getProperties(Blocks.FIRE)), IEBlockProviders.fire());
 
     public static final RegistryObject<Block> GLOWSILK_COCOON = registerBlockWithDefaultItem("glowsilk_cocoon", () -> new RotatedPillarBlock(getProperties(Material.GRASS).sound(SoundType.WOOL).requiresCorrectToolForDrops().strength(5.0F, 1200.0F).lightLevel(value -> 5)), IEBlockProviders.pillar());
     // Foliage
     public static final RegistryObject<Block> LUMINOUS_FUNGUS = registerBlockWithDefaultItem("luminous_fungus", () -> new LuminousFungusBlock(getProperties(Material.PLANT).lightLevel(getLightValueLit(15)).noCollission().sound(SoundType.GRASS)));
-    public static final RegistryObject<Block> DULLTHORNS = registerBlock("dullthorns", () -> new DullthornsBlock(BlockBehaviour.Properties.of(Material.PLANT).lightLevel(value -> 3).noCollission().randomTicks().strength(0.1F).sound(SoundType.GRASS)));
+    public static final RegistryObject<Block> DULLTHORNS = registerBlock("dullthorns", () -> new DullthornsBlock(BlockBehaviour.Properties.of(Material.PLANT).lightLevel(value -> 3).noCollission().randomTicks().strength(0.1F).sound(SoundType.GRASS)), (provider, block) -> {
+        provider.getVariantBuilder(block.get())
+            .partialState().with(DullthornsBlock.TIP, false)
+            .modelForState().modelFile(provider.models().cross(IEBlockProviders.name(block.get()), IEBlockProviders.blockTexture(block.get()))).addModel()
+            .partialState().with(DullthornsBlock.TIP, true)
+            .modelForState().modelFile(provider.models().cross(IEBlockProviders.name(block.get()) + "_tip", IEBlockProviders.extend(IEBlockProviders.blockTexture(block.get()), "_tip"))).addModel();
+    });
 
-    public static final RegistryObject<Block> DULLTHORNS_BLOCK = registerBlockWithDefaultItem("dullthorns_block", () -> new DullthornsBlockBlock(BlockBehaviour.Properties.of(Material.CACTUS).strength(1.0F).sound(SoundType.WART_BLOCK)));
+    public static final RegistryObject<Block> DULLTHORNS_BLOCK = registerBlockWithDefaultItem("dullthorns_block", () -> new DullthornsBlockBlock(BlockBehaviour.Properties.of(Material.CACTUS).strength(1.0F).sound(SoundType.WART_BLOCK)), IEBlockProviders.randomizeRotations());
 
-    public static final RegistryObject<FlowerPotBlock> POTTED_LUMINOUS_FUNGUS = registerBlock("potted_luminous_fungus", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, LUMINOUS_FUNGUS, getProperties(Blocks.FLOWER_POT)));
-    public static final RegistryObject<FlowerPotBlock> POTTED_DULLTHORNS = registerBlock("potted_dullthorns", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, DULLTHORNS, getProperties(Blocks.FLOWER_POT)));
+    public static final RegistryObject<FlowerPotBlock> POTTED_LUMINOUS_FUNGUS = registerBlock("potted_luminous_fungus", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, LUMINOUS_FUNGUS, getProperties(Blocks.FLOWER_POT)), IEBlockProviders.pottedPlant(LUMINOUS_FUNGUS));
+    public static final RegistryObject<FlowerPotBlock> POTTED_DULLTHORNS = registerBlock("potted_dullthorns", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, DULLTHORNS, getProperties(Blocks.FLOWER_POT)), IEBlockProviders.pottedPlant(DULLTHORNS));
 
     public static final RegistryObject<Block> SHROOMLIGHT_FUNGUS = registerBlockWithDefaultItem("shroomlight_fungus", () -> new ShroomlightFungusBlock(getProperties(Material.PLANT).lightLevel(value -> 13).noCollission().sound(SoundType.GRASS)));
-    public static final RegistryObject<FlowerPotBlock> POTTED_SHROOMLIGHT_FUNGUS = registerBlock("potted_shroomlight_fungus", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, SHROOMLIGHT_FUNGUS, getProperties(Blocks.FLOWER_POT)));
+    public static final RegistryObject<FlowerPotBlock> POTTED_SHROOMLIGHT_FUNGUS = registerBlock("potted_shroomlight_fungus", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, SHROOMLIGHT_FUNGUS, getProperties(Blocks.FLOWER_POT)), IEBlockProviders.pottedPlant(SHROOMLIGHT_FUNGUS));
 
     public static final RegistryObject<BuriedBoneBlock> BURIED_BONE = registerBlock("buried_bone", () -> new BuriedBoneBlock(getProperties(Material.PLANT).noCollission().sound(SoundType.BONE_BLOCK)));
     public static final RegistryObject<FlowerPotBlock> POTTED_BURIED_BONE = registerBlock("potted_buried_bone", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, BURIED_BONE, getProperties(Blocks.FLOWER_POT)));
 
     public static final RegistryObject<PlantedQuartzBlock> PLANTED_QUARTZ = registerBlock("planted_quartz", () -> new PlantedQuartzBlock(getProperties(Material.STONE).strength(1.5F).requiresCorrectToolForDrops().noCollission().sound(SoundType.NETHER_ORE)));
 
-    public static final RegistryObject<Block> CRIMSON_NYLIUM_PATH = registerBlockWithDefaultItem("crimson_nylium_path", () -> new NetherrackPathBlock(getProperties(Blocks.NETHERRACK)));
-    public static final RegistryObject<Block> WARPED_NYLIUM_PATH = registerBlockWithDefaultItem("warped_nylium_path", () -> new NetherrackPathBlock(getProperties(Blocks.NETHERRACK)));
-    public static final RegistryObject<Block> CRIMSON_NYLIUM_CARPET = registerBlockWithDefaultItem("crimson_nylium_carpet", () -> new NetherCarpetBlock(BlockBehaviour.Properties.of(Material.CLOTH_DECORATION, MaterialColor.CRIMSON_NYLIUM).strength(0.1F).sound(SoundType.NYLIUM)));
-    public static final RegistryObject<Block> WARPED_NYLIUM_CARPET = registerBlockWithDefaultItem("warped_nylium_carpet", () -> new NetherCarpetBlock(BlockBehaviour.Properties.of(Material.CLOTH_DECORATION, MaterialColor.WARPED_NYLIUM).strength(0.1F).sound(SoundType.NYLIUM)));
-    public static final RegistryObject<Block> SOUL_SOIL_PATH = registerBlockWithDefaultItem("soul_soil_path", () -> new SoulSoilPathBlock(getProperties(Blocks.SOUL_SOIL)));
+    public static final RegistryObject<Block> CRIMSON_NYLIUM_PATH = registerBlockWithDefaultItem("crimson_nylium_path", () -> new NetherrackPathBlock(getProperties(Blocks.NETHERRACK)), IEBlockProviders.nyliumPath(() -> Blocks.CRIMSON_NYLIUM));
+    public static final RegistryObject<Block> WARPED_NYLIUM_PATH = registerBlockWithDefaultItem("warped_nylium_path", () -> new NetherrackPathBlock(getProperties(Blocks.NETHERRACK)), IEBlockProviders.nyliumPath(() -> Blocks.WARPED_NYLIUM));
+    public static final RegistryObject<Block> CRIMSON_NYLIUM_CARPET = registerBlockWithDefaultItem("crimson_nylium_carpet", () -> new NetherCarpetBlock(BlockBehaviour.Properties.of(Material.CLOTH_DECORATION, MaterialColor.CRIMSON_NYLIUM).strength(0.1F).sound(SoundType.NYLIUM)), IEBlockProviders.carpet(() -> Blocks.CRIMSON_NYLIUM));
+    public static final RegistryObject<Block> WARPED_NYLIUM_CARPET = registerBlockWithDefaultItem("warped_nylium_carpet", () -> new NetherCarpetBlock(BlockBehaviour.Properties.of(Material.CLOTH_DECORATION, MaterialColor.WARPED_NYLIUM).strength(0.1F).sound(SoundType.NYLIUM)), IEBlockProviders.carpet(() -> Blocks.WARPED_NYLIUM));
+    public static final RegistryObject<Block> SOUL_SOIL_PATH = registerBlockWithDefaultItem("soul_soil_path", () -> new SoulSoilPathBlock(getProperties(Blocks.SOUL_SOIL)), IEBlockProviders.path(() -> Blocks.SOUL_SOIL));
 
-    public static final RegistryObject<Block> QUARTZ_GLASS = registerBlockWithDefaultItem("quartz_glass", () -> new GlassBlock(BlockBehaviour.Properties.of(Material.GLASS).strength(2.0F, 6.0F).sound(SoundType.GLASS).noOcclusion().isValidSpawn(IEBlocks::neverAllowSpawn).isRedstoneConductor(IEBlocks::isntSolid).isSuffocating(IEBlocks::isntSolid).isViewBlocking(IEBlocks::isntSolid)));
-    public static final RegistryObject<Block> QUARTZ_GLASS_PANE = registerBlockWithDefaultItem("quartz_glass_pane", () -> new IronBarsBlock(BlockBehaviour.Properties.of(Material.GLASS).strength(2.0F, 6.0F).sound(SoundType.GLASS).noOcclusion()));
+    public static final RegistryObject<Block> QUARTZ_GLASS = registerBlockWithDefaultItem("quartz_glass", () -> new GlassBlock(BlockBehaviour.Properties.of(Material.GLASS).strength(2.0F, 6.0F).sound(SoundType.GLASS).noOcclusion().isValidSpawn(IEBlocks::neverAllowSpawn).isRedstoneConductor(IEBlocks::isntSolid).isSuffocating(IEBlocks::isntSolid).isViewBlocking(IEBlocks::isntSolid)), IEBlockProviders.simple());
+    public static final RegistryObject<Block> QUARTZ_GLASS_PANE = registerBlockWithDefaultItem("quartz_glass_pane", () -> new IronBarsBlock(BlockBehaviour.Properties.of(Material.GLASS).strength(2.0F, 6.0F).sound(SoundType.GLASS).noOcclusion()), IEBlockProviders.pane(QUARTZ_GLASS));
 
-    public static final RegistryObject<Block> GLOW_GLASS = registerBlockWithDefaultItem("glow_glass", () -> new GlassBlock(BlockBehaviour.Properties.of(Material.GLASS).strength(0.3F).sound(SoundType.GLASS).noOcclusion().isValidSpawn(IEBlocks::neverAllowSpawn).isRedstoneConductor(IEBlocks::isntSolid).isSuffocating(IEBlocks::isntSolid).isViewBlocking(IEBlocks::isntSolid).lightLevel(value -> 10)));
-    public static final RegistryObject<Block> GLOW_GLASS_PANE = registerBlockWithDefaultItem("glow_glass_pane", () -> new IronBarsBlock(BlockBehaviour.Properties.of(Material.GLASS).strength(0.3F).sound(SoundType.GLASS).noOcclusion().lightLevel(value -> 10)));
+    public static final RegistryObject<Block> GLOW_GLASS = registerBlockWithDefaultItem("glow_glass", () -> new GlassBlock(BlockBehaviour.Properties.of(Material.GLASS).strength(0.3F).sound(SoundType.GLASS).noOcclusion().isValidSpawn(IEBlocks::neverAllowSpawn).isRedstoneConductor(IEBlocks::isntSolid).isSuffocating(IEBlocks::isntSolid).isViewBlocking(IEBlocks::isntSolid).lightLevel(value -> 10)), IEBlockProviders.simple());
+    public static final RegistryObject<Block> GLOW_GLASS_PANE = registerBlockWithDefaultItem("glow_glass_pane", () -> new IronBarsBlock(BlockBehaviour.Properties.of(Material.GLASS).strength(0.3F).sound(SoundType.GLASS).noOcclusion().lightLevel(value -> 10)), IEBlockProviders.pane(GLOW_GLASS));
 
     private static boolean isntSolid(BlockState state, BlockGetter reader, BlockPos pos) {
         return false;
@@ -351,7 +357,11 @@ public class IEBlocks {
     }
 
     public static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<? extends T> blockSupplier) {
-        return BLOCKS.register(name, blockSupplier, null);
+        return registerBlock(name, blockSupplier, null);
+    }
+
+    public static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<? extends T> blockSupplier, @Nullable IEBlockProviders.BlockProviderConsumer blockProvider) {
+        return BLOCKS.register(name, blockSupplier, blockProvider);
     }
 
 }

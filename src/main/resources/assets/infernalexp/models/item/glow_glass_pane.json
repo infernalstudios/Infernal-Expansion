@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "infernalexp:block/glowlight_glass"
+    "layer0": "infernalexp:block/glow_glass"
   }
 }

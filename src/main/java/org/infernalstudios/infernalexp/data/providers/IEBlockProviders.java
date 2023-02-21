@@ -19,18 +19,24 @@ package org.infernalstudios.infernalexp.data.providers;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ButtonBlock;
+import net.minecraft.world.level.block.CampfireBlock;
+import net.minecraft.world.level.block.IronBarsBlock;
+import net.minecraft.world.level.block.LanternBlock;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.WallTorchBlock;
 import net.minecraftforge.client.model.generators.BlockModelProvider;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelProvider;
+import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.blocks.VerticalSlabBlock;
 import org.infernalstudios.infernalexp.data.DataGenDeferredRegister;
@@ -308,16 +314,15 @@ public class IEBlockProviders {
      */
     public static BlockProviderConsumer layer(Supplier<? extends Block> fullBlock) {
         return (provider, block) -> {
-            provider.getVariantBuilder(block.get())
-                .forAllStates(state -> {
-                    int layer = state.getValue(SnowLayerBlock.LAYERS);
-                    ModelFile model = switch(layer) {
-                        case 8 -> provider.models().getExistingFile(location(fullBlock.get()));
-                        default -> layerModel(provider.models(), name(block.get()) + "_height" + layer * 2, blockTexture(fullBlock.get()), layer);
-                    };
+            provider.getVariantBuilder(block.get()).forAllStates(state -> {
+                int layer = state.getValue(SnowLayerBlock.LAYERS);
+                ModelFile model = switch(layer) {
+                    case 8 -> provider.models().getExistingFile(location(fullBlock.get()));
+                    default -> layerModel(provider.models(), name(block.get()) + "_height" + layer * 2, blockTexture(fullBlock.get()), layer);
+                };
 
-                    return ConfiguredModel.builder().modelFile(model).build();
-                });
+                return ConfiguredModel.builder().modelFile(model).build();
+            });
         };
     }
 
@@ -335,6 +340,187 @@ public class IEBlockProviders {
                 }
             })
             .end();
+    }
+
+    /**
+     * For path blocks. E.g: Soul Soil Path
+     * @param fullBlock Full block parent to get texture from
+     */
+    public static BlockProviderConsumer path(Supplier<? extends Block> fullBlock) {
+        return (provider, block) -> {
+            provider.simpleBlock(block.get(), pathModel(provider, block.get(), fullBlock.get(), fullBlock.get(), false));
+        };
+    }
+
+    /**
+     * For nylium path blocks. E.g: Crimson Nylium Path<br>
+     * Similar to {@link IEBlockProviders#path(java.util.function.Supplier)} except it randomizes Y rotation, uses netherrack as the bottom block and uses custom side textures
+     * @param fullBlock Full block parent to get texture from
+     */
+    public static BlockProviderConsumer nyliumPath(Supplier<? extends Block> fullBlock) {
+        return (provider, block) -> {
+            ModelFile model = pathModel(provider, block.get(), fullBlock.get(), Blocks.NETHERRACK, true);
+            ConfiguredModel[] models = new ConfiguredModel[4];
+            for (int i = 0; i < models.length; i++) {
+                models[i] = ConfiguredModel.builder().modelFile(model).rotationY(i * 90).buildLast();
+            }
+
+            provider.simpleBlock(block.get(), models);
+        };
+    }
+
+    private static ModelFile pathModel(BlockStateProvider provider, Block block, Block fullBlock, Block bottomBlock, boolean customSideTexture) {
+        return provider.models().withExistingParent(name(block), new ResourceLocation(BLOCK_FOLDER + "block"))
+            .texture("particle", blockTexture(fullBlock))
+            .texture("top", blockTexture(block))
+            .texture("side", customSideTexture ? extend(blockTexture(block), "_side") : blockTexture(fullBlock))
+            .texture("bottom", blockTexture(bottomBlock))
+            .element().from(0, 0, 0).to(16, 15, 16)
+            .allFaces((direction, faceBuilder) -> {
+                switch (direction) {
+                    case UP -> faceBuilder.texture("#top").end();
+                    case DOWN -> faceBuilder.texture("#bottom").cullface(direction).end();
+                    default -> faceBuilder.texture("#side").cullface(direction).end();
+                }
+            }).end();
+    }
+
+    /**
+     * For carpet blocks. E.g: Warped Nylium Carpet
+     * @param fullBlock Full block parent to get texture from
+     */
+    public static BlockProviderConsumer carpet(Supplier<? extends Block> fullBlock) {
+        return (provider, block) -> {
+            provider.simpleBlock(block.get(), provider.models().carpet(name(block.get()), blockTexture(fullBlock.get())));
+        };
+    }
+
+    /**
+     * For thin pane blocks. E.g: Quartz Glass Pane
+     * @param fullBlock Full block parent to get texture from
+     */
+    public static BlockProviderConsumer pane(Supplier<? extends Block> fullBlock) {
+        return (provider, block) -> {
+            provider.paneBlock((IronBarsBlock) block.get(), blockTexture(fullBlock.get()), extend(blockTexture(fullBlock.get()), "_pane_top"));
+        };
+    }
+
+    /**
+     * For torch blocks. E.g: Glow Torch
+     */
+    public static BlockProviderConsumer torch() {
+        return (provider, block) -> {
+            provider.simpleBlock(block.get(), provider.models().torch(name(block.get()), blockTexture(block.get())));
+        };
+    }
+
+    /**
+     * For torch blocks. E.g: Glow Torch
+     */
+    public static BlockProviderConsumer wallTorch() {
+        return (provider, block) -> {
+            ModelFile model = provider.models().torchWall(name(block.get()), removeSuffix(blockTexture(block.get()), "_wall"));
+
+            provider.getVariantBuilder(block.get())
+                .partialState().with(WallTorchBlock.FACING, Direction.EAST)
+                .modelForState().modelFile(model).addModel()
+                .partialState().with(WallTorchBlock.FACING, Direction.SOUTH)
+                .modelForState().modelFile(model).rotationY(90).addModel()
+                .partialState().with(WallTorchBlock.FACING, Direction.WEST)
+                .modelForState().modelFile(model).rotationY(180).addModel()
+                .partialState().with(WallTorchBlock.FACING, Direction.NORTH)
+                .modelForState().modelFile(model).rotationY(270).addModel();
+        };
+    }
+
+    /**
+     * For lantern blocks. E.g: Glow Lantern
+     */
+    public static BlockProviderConsumer lantern() {
+        return (provider, block) -> {
+            provider.getVariantBuilder(block.get())
+                .partialState().with(LanternBlock.HANGING, true)
+                .modelForState().modelFile(provider.models().singleTexture(
+                    name(block.get()) + "_hanging",
+                    new ResourceLocation(BLOCK_FOLDER + "template_hanging_lantern"),
+                    "lantern",
+                    extend(blockTexture(block.get()), "_block")
+                )).addModel()
+                .partialState().with(LanternBlock.HANGING, false)
+                .modelForState().modelFile(provider.models().singleTexture(
+                    name(block.get()),
+                    new ResourceLocation(BLOCK_FOLDER + "template_lantern"),
+                    "lantern",
+                    extend(blockTexture(block.get()), "_block")
+                )).addModel();
+        };
+    }
+
+    /**
+     * For campfire blocks. E.g: Glow Campfire
+     */
+    public static BlockProviderConsumer campfire() {
+        return (provider, block) -> {
+            provider.getVariantBuilder(block.get()).forAllStates(state -> {
+                ModelFile model;
+                if (state.getValue(CampfireBlock.LIT)) {
+                    model = provider.models()
+                        .withExistingParent(name(block.get()), new ResourceLocation(BLOCK_FOLDER + "template_campfire"))
+                        .texture("fire", extend(blockTexture(block.get()), "_fire"))
+                        .texture("lit_log", extend(blockTexture(block.get()), "_log_lit"));
+                } else {
+                    model = provider.models().getExistingFile(new ResourceLocation(BLOCK_FOLDER + "campfire_off"));
+                }
+                
+                int rotationY = switch (state.getValue(CampfireBlock.FACING)) {
+                    case WEST -> 90;
+                    case NORTH -> 180;
+                    case EAST -> 270;
+                    default -> 0;
+                };
+
+                return ConfiguredModel.builder().modelFile(model).rotationY(rotationY).build();
+            });
+        };
+    }
+
+    /**
+     * For fire blocks. E.g: Glow Fire
+     */
+    public static BlockProviderConsumer fire() {
+        return (provider, block) -> {
+            ModelFile floor0 = provider.models().singleTexture(name(block.get()) + "_floor0", new ResourceLocation(BLOCK_FOLDER + "template_fire_floor"), "fire", extend(blockTexture(block.get()), "_0"));
+            ModelFile floor1 = provider.models().singleTexture(name(block.get()) + "_floor1", new ResourceLocation(BLOCK_FOLDER + "template_fire_floor"), "fire", extend(blockTexture(block.get()), "_1"));
+            ModelFile side0 = provider.models().singleTexture(name(block.get()) + "_side0", new ResourceLocation(BLOCK_FOLDER + "template_fire_side"), "fire", extend(blockTexture(block.get()), "_0"));
+            ModelFile side1 = provider.models().singleTexture(name(block.get()) + "_side1", new ResourceLocation(BLOCK_FOLDER + "template_fire_side"), "fire", extend(blockTexture(block.get()), "_1"));
+            ModelFile sideAlt0 = provider.models().singleTexture(name(block.get()) + "_side_alt0", new ResourceLocation(BLOCK_FOLDER + "template_fire_side_alt"), "fire", extend(blockTexture(block.get()), "_0"));
+            ModelFile sideAlt1 = provider.models().singleTexture(name(block.get()) + "_side_alt1", new ResourceLocation(BLOCK_FOLDER + "template_fire_side_alt"), "fire", extend(blockTexture(block.get()), "_1"));
+
+            MultiPartBlockStateBuilder builder = provider.getMultipartBuilder(block.get());
+            builder.part().modelFile(floor0).nextModel().modelFile(floor1).addModel().end();
+
+            for (int i = 0; i < 4; i++) {
+                builder.part().modelFile(side0).rotationY(i * 90).nextModel()
+                    .modelFile(side1).rotationY(i * 90).nextModel()
+                    .modelFile(sideAlt0).rotationY(i * 90).nextModel()
+                    .modelFile(sideAlt1).rotationY(i * 90).addModel().end();
+            }
+        };
+    }
+
+    /**
+     * For potted plants. E.g: Potted Shroomlight Fungus
+     * @param fullPlant Full plant parent to get texture from
+     */
+    public static BlockProviderConsumer pottedPlant(Supplier<? extends Block> fullPlant) {
+        return (provider, block) -> {
+            provider.simpleBlock(block.get(), provider.models().singleTexture(
+                name(block.get()),
+                new ResourceLocation(BLOCK_FOLDER + "flower_pot_cross"),
+                "plant",
+                blockTexture(fullPlant.get())
+            ));
+        };
     }
 
     public static String name(Block block) {
@@ -355,6 +541,16 @@ public class IEBlockProviders {
 
     public static ResourceLocation extend(ResourceLocation location, String suffix) {
         return new ResourceLocation(location.getNamespace(), location.getPath() + suffix);
+    }
+
+    public static ResourceLocation removeSuffix(ResourceLocation location, String suffix) {
+        if (location.getPath().endsWith(suffix))
+            return new ResourceLocation(
+                location.getNamespace(),
+                location.getPath().substring(0, location.getPath().length() - suffix.length())
+            );
+        else
+            return location;
     }
 
     @FunctionalInterface
