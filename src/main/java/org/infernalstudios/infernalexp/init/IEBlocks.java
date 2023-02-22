@@ -42,6 +42,7 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -172,14 +173,13 @@ public class IEBlocks {
     public static final RegistryObject<Block> CRACKED_GLOWDUST_STONE_BRICKS = registerBlockWithDefaultItem("cracked_glowdust_stone_bricks", () -> new Block(getProperties(GLOWDUST_STONE_BRICKS.get())), IEBlockProviders.simple());
     public static final RegistryObject<Block> CHISELED_GLOWDUST_STONE_BRICKS = registerBlockWithDefaultItem("chiseled_glowdust_stone_bricks", () -> new Block(getProperties(GLOWDUST_STONE_BRICKS.get())), IEBlockProviders.simple());
 
-    public static final RegistryObject<Block> CRUMBLING_BLACKSTONE = registerBlockWithDefaultItem("crumbling_blackstone", () -> new CrumblingBlackstoneBlock(BlockBehaviour.Properties.copy(Blocks.NETHERRACK)), IEBlockProviders.enumerateVariants(3, (provider, block, variant) -> {
-        return new ConfiguredModel(provider.models()
-            .withExistingParent(IEBlockProviders.BLOCK_FOLDER + IEBlockProviders.name(block) + "/" + variant, new ResourceLocation(IEBlockProviders.BLOCK_FOLDER + "cube_bottom_top"))
+    public static final RegistryObject<Block> CRUMBLING_BLACKSTONE = registerBlockWithDefaultItem("crumbling_blackstone", () -> new CrumblingBlackstoneBlock(BlockBehaviour.Properties.copy(Blocks.NETHERRACK)), IEBlockProviders.enumerateVariants(3, (models, block, variant) -> IEBlockProviders.configuredModel(
+        models.withExistingParent(IEBlockProviders.BLOCK_FOLDER + IEBlockProviders.name(block) + "/" + variant, new ResourceLocation(IEBlockProviders.BLOCK_FOLDER + "cube_bottom_top"))
             .texture("top", IEBlockProviders.extend(IEBlockProviders.blockTexture(block), "/top" + variant))
             .texture("bottom", IEBlockProviders.extend(IEBlockProviders.blockTexture(block), "/top" + variant))
             .texture("side", IEBlockProviders.extend(IEBlockProviders.blockTexture(block), "/side" + variant))
-        );
-    }));
+        )
+    ));
     public static final RegistryObject<Block> RUBBLE = registerBlockWithDefaultItem("rubble", () -> new Block(getProperties(Blocks.GRAVEL)), IEBlockProviders.randomizeRotations());
     public static final RegistryObject<Block> SILT = registerBlockWithDefaultItem("silt", () -> new Block(getProperties(Blocks.SAND)), IEBlockProviders.randomizeRotations());
 
@@ -263,8 +263,22 @@ public class IEBlocks {
     public static final RegistryObject<Block> GLOW_FIRE = registerBlock("glow_fire", () -> new GlowFireBlock(getProperties(Blocks.FIRE)), IEBlockProviders.fire());
 
     public static final RegistryObject<Block> GLOWSILK_COCOON = registerBlockWithDefaultItem("glowsilk_cocoon", () -> new RotatedPillarBlock(getProperties(Material.GRASS).sound(SoundType.WOOL).requiresCorrectToolForDrops().strength(5.0F, 1200.0F).lightLevel(value -> 5)), IEBlockProviders.pillar());
+
     // Foliage
-    public static final RegistryObject<Block> LUMINOUS_FUNGUS = registerBlockWithDefaultItem("luminous_fungus", () -> new LuminousFungusBlock(getProperties(Material.PLANT).lightLevel(getLightValueLit(15)).noCollission().sound(SoundType.GRASS)));
+    public static final RegistryObject<Block> LUMINOUS_FUNGUS = registerBlockWithDefaultItem("luminous_fungus", () -> new LuminousFungusBlock(getProperties(Material.PLANT).lightLevel(getLightValueLit(15)).noCollission().sound(SoundType.GRASS)), (provider, block) -> {
+        provider.getVariantBuilder(block.get()).forAllStates(state -> {
+            boolean lit = state.getValue(LuminousFungusBlock.LIT);
+            ModelFile model = provider.models().cross(lit ? IEBlockProviders.name(block.get()) + "_on" : IEBlockProviders.name(block.get()), IEBlockProviders.extend(IEBlockProviders.blockTexture(block.get()), lit ? "" : "_off"));
+
+            return switch (state.getValue(LuminousFungusBlock.FACE)) {
+                case FLOOR -> IEBlockProviders.configuredModel(model);
+                case CEILING -> IEBlockProviders.configuredModel(model, 180, 0);
+                case WALL -> IEBlockProviders.configuredModel(model, 90, (int) state.getValue(LuminousFungusBlock.FACING).getOpposite().toYRot());
+            };
+        });
+    });
+    public static final RegistryObject<FlowerPotBlock> POTTED_LUMINOUS_FUNGUS = registerBlock("potted_luminous_fungus", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, LUMINOUS_FUNGUS, getProperties(Blocks.FLOWER_POT)), IEBlockProviders.pottedPlant(LUMINOUS_FUNGUS));
+
     public static final RegistryObject<Block> DULLTHORNS = registerBlock("dullthorns", () -> new DullthornsBlock(BlockBehaviour.Properties.of(Material.PLANT).lightLevel(value -> 3).noCollission().randomTicks().strength(0.1F).sound(SoundType.GRASS)), (provider, block) -> {
         provider.getVariantBuilder(block.get())
             .partialState().with(DullthornsBlock.TIP, false)
@@ -272,19 +286,56 @@ public class IEBlocks {
             .partialState().with(DullthornsBlock.TIP, true)
             .modelForState().modelFile(provider.models().cross(IEBlockProviders.name(block.get()) + "_tip", IEBlockProviders.extend(IEBlockProviders.blockTexture(block.get()), "_tip"))).addModel();
     });
-
     public static final RegistryObject<Block> DULLTHORNS_BLOCK = registerBlockWithDefaultItem("dullthorns_block", () -> new DullthornsBlockBlock(BlockBehaviour.Properties.of(Material.CACTUS).strength(1.0F).sound(SoundType.WART_BLOCK)), IEBlockProviders.randomizeRotations());
-
-    public static final RegistryObject<FlowerPotBlock> POTTED_LUMINOUS_FUNGUS = registerBlock("potted_luminous_fungus", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, LUMINOUS_FUNGUS, getProperties(Blocks.FLOWER_POT)), IEBlockProviders.pottedPlant(LUMINOUS_FUNGUS));
     public static final RegistryObject<FlowerPotBlock> POTTED_DULLTHORNS = registerBlock("potted_dullthorns", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, DULLTHORNS, getProperties(Blocks.FLOWER_POT)), IEBlockProviders.pottedPlant(DULLTHORNS));
 
-    public static final RegistryObject<Block> SHROOMLIGHT_FUNGUS = registerBlockWithDefaultItem("shroomlight_fungus", () -> new ShroomlightFungusBlock(getProperties(Material.PLANT).lightLevel(value -> 13).noCollission().sound(SoundType.GRASS)));
+    public static final RegistryObject<Block> SHROOMLIGHT_FUNGUS = registerBlockWithDefaultItem("shroomlight_fungus", () -> new ShroomlightFungusBlock(getProperties(Material.PLANT).lightLevel(value -> 13).noCollission().sound(SoundType.GRASS)), (provider, block) -> {
+        provider.getVariantBuilder(block.get()).forAllStates(state -> {
+            ModelFile model = provider.models().cross(IEBlockProviders.name(block.get()), IEBlockProviders.blockTexture(block.get()));
+
+            return switch (state.getValue(ShroomlightFungusBlock.FACE)) {
+                case FLOOR -> IEBlockProviders.configuredModel(model);
+                case CEILING -> IEBlockProviders.configuredModel(model, 180, 0);
+                case WALL -> IEBlockProviders.configuredModel(model, 90, (int) state.getValue(ShroomlightFungusBlock.FACING).getOpposite().toYRot());
+            };
+        });
+    });
     public static final RegistryObject<FlowerPotBlock> POTTED_SHROOMLIGHT_FUNGUS = registerBlock("potted_shroomlight_fungus", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, SHROOMLIGHT_FUNGUS, getProperties(Blocks.FLOWER_POT)), IEBlockProviders.pottedPlant(SHROOMLIGHT_FUNGUS));
 
-    public static final RegistryObject<BuriedBoneBlock> BURIED_BONE = registerBlock("buried_bone", () -> new BuriedBoneBlock(getProperties(Material.PLANT).noCollission().sound(SoundType.BONE_BLOCK)));
-    public static final RegistryObject<FlowerPotBlock> POTTED_BURIED_BONE = registerBlock("potted_buried_bone", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, BURIED_BONE, getProperties(Blocks.FLOWER_POT)));
+    public static final RegistryObject<BuriedBoneBlock> BURIED_BONE = registerBlock("buried_bone", () -> new BuriedBoneBlock(getProperties(Material.PLANT).noCollission().sound(SoundType.BONE_BLOCK)), (provider, block) -> {
+        provider.getVariantBuilder(block.get()).forAllStatesExcept(state -> {
+            int rotationX = switch (state.getValue(BuriedBoneBlock.FACE)) {
+                case CEILING -> 180;
+                case WALL -> 90;
+                default -> 0;
+            };
 
-    public static final RegistryObject<PlantedQuartzBlock> PLANTED_QUARTZ = registerBlock("planted_quartz", () -> new PlantedQuartzBlock(getProperties(Material.STONE).strength(1.5F).requiresCorrectToolForDrops().noCollission().sound(SoundType.NETHER_ORE)));
+            ConfiguredModel[] models = new ConfiguredModel[8];
+            for (int i = 0; i < 4; i++) {
+                models[i] = new ConfiguredModel(provider.models().cross(IEBlockProviders.name(block.get()), IEBlockProviders.blockTexture(block.get())), rotationX, i * 90, false);
+                models[i + 4] = new ConfiguredModel(provider.models().cross(IEBlockProviders.name(block.get()) + "_2", IEBlockProviders.extend(IEBlockProviders.blockTexture(block.get()), "_2")), rotationX, i * 90, false);
+            }
+
+            return models;
+        }, BuriedBoneBlock.FACING);
+    });
+    public static final RegistryObject<FlowerPotBlock> POTTED_BURIED_BONE = registerBlock("potted_buried_bone", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, BURIED_BONE, getProperties(Blocks.FLOWER_POT)), IEBlockProviders.pottedPlant(BURIED_BONE));
+
+    public static final RegistryObject<PlantedQuartzBlock> PLANTED_QUARTZ = registerBlock("planted_quartz", () -> new PlantedQuartzBlock(getProperties(Material.STONE).strength(1.5F).requiresCorrectToolForDrops().noCollission().sound(SoundType.NETHER_ORE)), (provider, block) -> {
+        provider.getVariantBuilder(block.get()).forAllStates(state -> {
+            ModelFile model = provider.models().cross(IEBlockProviders.name(block.get()), IEBlockProviders.blockTexture(block.get()));
+            ModelFile model2 = provider.models().cross(IEBlockProviders.name(block.get()) + "_2", IEBlockProviders.extend(IEBlockProviders.blockTexture(block.get()), "_2"));
+
+            return switch (state.getValue(PlantedQuartzBlock.FACE)) {
+                case FLOOR -> ConfiguredModel.builder().modelFile(model).nextModel().modelFile(model2).build();
+                case CEILING -> ConfiguredModel.builder().modelFile(model).rotationX(180).nextModel().modelFile(model2).rotationX(180).build();
+                case WALL -> {
+                    int rotationY = (int) state.getValue(PlantedQuartzBlock.FACING).getOpposite().toYRot();
+                    yield ConfiguredModel.builder().modelFile(model).rotationX(90).rotationY(rotationY).nextModel().modelFile(model2).rotationX(90).rotationY(rotationY).build();
+                }
+            };
+        });
+    });
 
     public static final RegistryObject<Block> CRIMSON_NYLIUM_PATH = registerBlockWithDefaultItem("crimson_nylium_path", () -> new NetherrackPathBlock(getProperties(Blocks.NETHERRACK)), IEBlockProviders.nyliumPath(() -> Blocks.CRIMSON_NYLIUM));
     public static final RegistryObject<Block> WARPED_NYLIUM_PATH = registerBlockWithDefaultItem("warped_nylium_path", () -> new NetherrackPathBlock(getProperties(Blocks.NETHERRACK)), IEBlockProviders.nyliumPath(() -> Blocks.WARPED_NYLIUM));
@@ -331,17 +382,10 @@ public class IEBlocks {
         InfernalExpansion.LOGGER.info("Infernal Expansion: Blocks Registered!");
     }
 
-    public static <T extends Block> RegistryObject<T> registerBlockWithDefaultItem(String name, Supplier<? extends T> blockSupplier) {
-        return registerBlockWithDefaultItem(name, blockSupplier, null);
-    }
     public static <T extends Block> RegistryObject<T> registerBlockWithDefaultItem(String name, Supplier<? extends T> blockSupplier, @Nullable IEBlockProviders.BlockProviderConsumer blockProvider) {
         RegistryObject<T> block = BLOCKS.register(name, blockSupplier, blockProvider);
         IEItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(InfernalExpansion.TAB)));
         return block;
-    }
-
-    public static <T extends Block> RegistryObject<T> registerBlockWithDefaultItemConditioned(String name, Supplier<? extends T> blockSupplier, String modID) {
-        return registerBlockWithDefaultItemConditioned(name, blockSupplier, modID, null);
     }
 
     public static <T extends Block> RegistryObject<T> registerBlockWithDefaultItemConditioned(String name, Supplier<? extends T> blockSupplier, String modID, @Nullable IEBlockProviders.BlockProviderConsumer blockProvider) {
@@ -354,10 +398,6 @@ public class IEBlocks {
             IEItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
             return block;
         }
-    }
-
-    public static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<? extends T> blockSupplier) {
-        return registerBlock(name, blockSupplier, null);
     }
 
     public static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<? extends T> blockSupplier, @Nullable IEBlockProviders.BlockProviderConsumer blockProvider) {

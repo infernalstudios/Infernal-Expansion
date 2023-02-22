@@ -1,13 +1,21 @@
 {
   "variants": {
-    "face=ceiling,facing=east": [
+    "face=floor,facing=north": [
+      {
+        "model": "infernalexp:block/planted_quartz"
+      },
+      {
+        "model": "infernalexp:block/planted_quartz_2"
+      }
+    ],
+    "face=wall,facing=north": [
       {
         "model": "infernalexp:block/planted_quartz",
-        "x": 180
+        "x": 90
       },
       {
         "model": "infernalexp:block/planted_quartz_2",
-        "x": 180
+        "x": 90
       }
     ],
     "face=ceiling,facing=north": [
@@ -20,6 +28,26 @@
         "x": 180
       }
     ],
+    "face=floor,facing=south": [
+      {
+        "model": "infernalexp:block/planted_quartz"
+      },
+      {
+        "model": "infernalexp:block/planted_quartz_2"
+      }
+    ],
+    "face=wall,facing=south": [
+      {
+        "model": "infernalexp:block/planted_quartz",
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "infernalexp:block/planted_quartz_2",
+        "x": 90,
+        "y": 180
+      }
+    ],
     "face=ceiling,facing=south": [
       {
         "model": "infernalexp:block/planted_quartz",
@@ -28,6 +56,26 @@
       {
         "model": "infernalexp:block/planted_quartz_2",
         "x": 180
+      }
+    ],
+    "face=floor,facing=west": [
+      {
+        "model": "infernalexp:block/planted_quartz"
+      },
+      {
+        "model": "infernalexp:block/planted_quartz_2"
+      }
+    ],
+    "face=wall,facing=west": [
+      {
+        "model": "infernalexp:block/planted_quartz",
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "infernalexp:block/planted_quartz_2",
+        "x": 90,
+        "y": 270
       }
     ],
     "face=ceiling,facing=west": [
@@ -48,74 +96,26 @@
         "model": "infernalexp:block/planted_quartz_2"
       }
     ],
-    "face=floor,facing=north": [
-      {
-        "model": "infernalexp:block/planted_quartz"
-      },
-      {
-        "model": "infernalexp:block/planted_quartz_2"
-      }
-    ],
-    "face=floor,facing=south": [
-      {
-        "model": "infernalexp:block/planted_quartz"
-      },
-      {
-        "model": "infernalexp:block/planted_quartz_2"
-      }
-    ],
-    "face=floor,facing=west": [
-      {
-        "model": "infernalexp:block/planted_quartz"
-      },
-      {
-        "model": "infernalexp:block/planted_quartz_2"
-      }
-    ],
     "face=wall,facing=east": [
       {
         "model": "infernalexp:block/planted_quartz",
-        "y": 90,
-        "x": 90
+        "x": 90,
+        "y": 90
       },
       {
         "model": "infernalexp:block/planted_quartz_2",
-        "y": 90,
-        "x": 90
+        "x": 90,
+        "y": 90
       }
     ],
-    "face=wall,facing=north": [
+    "face=ceiling,facing=east": [
       {
         "model": "infernalexp:block/planted_quartz",
-        "x": 90
+        "x": 180
       },
       {
         "model": "infernalexp:block/planted_quartz_2",
-        "x": 90
-      }
-    ],
-    "face=wall,facing=south": [
-      {
-        "model": "infernalexp:block/planted_quartz",
-        "y": 180,
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/planted_quartz_2",
-        "y": 180,
-        "x": 90
-      }
-    ],
-    "face=wall,facing=west": [
-      {
-        "model": "infernalexp:block/planted_quartz",
-        "y": 270,
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/planted_quartz_2",
-        "y": 270,
-        "x": 90
+        "x": 180
       }
     ]
   }

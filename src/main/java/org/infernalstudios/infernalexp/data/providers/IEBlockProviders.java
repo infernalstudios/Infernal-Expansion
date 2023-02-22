@@ -62,20 +62,20 @@ public class IEBlockProviders {
      * @param variants The number of variants. Variants are zero-indexed, so with 25 variants they will be numbered 0 - 24.
      */
     public static BlockProviderConsumer enumerateVariants(int variants) {
-        return enumerateVariants(variants, ((provider, block, variant) -> {
-            return new ConfiguredModel(provider.models().cubeAll(
+        return enumerateVariants(variants, ((models, block, variant) -> configuredModel(
+            models.cubeAll(
                 BLOCK_FOLDER + name(block) + "/" + variant,
                 extend(blockTexture(block), "/" + variant)
-            ));
-        }));
+            )
+        )));
     }
 
-    public static BlockProviderConsumer enumerateVariants(int variants, TriFunction<BlockStateProvider, Block, Integer, ConfiguredModel> modelProvider) {
+    public static BlockProviderConsumer enumerateVariants(int variants, TriFunction<BlockModelProvider, Block, Integer, ConfiguredModel[]> modelProvider) {
         return (provider, block) -> {
             ConfiguredModel[] models = new ConfiguredModel[variants];
 
             for (int i = 0; i < models.length; i++) {
-                models[i] = modelProvider.apply(provider, block.get(), i);
+                models[i] = modelProvider.apply(provider.models(), block.get(), i)[0];
             }
 
             provider.simpleBlock(block.get(), models);
@@ -87,20 +87,7 @@ public class IEBlockProviders {
      */
     public static BlockProviderConsumer randomizeRotations() {
         return (provider, block) -> {
-            ConfiguredModel[] models = new ConfiguredModel[16];
-
-            for (int x = 0; x < 4; x++) {
-                for (int y = 0; y < 4; y++) {
-                    models[(x * 4) + y] = ConfiguredModel.builder()
-                        .modelFile(provider.cubeAll(block.get()))
-                        .rotationX(x * 90)
-                        .rotationY(y * 90)
-                        .buildLast();
-                }
-            }
-
-            provider.getVariantBuilder(block.get())
-                .partialState().addModels(models);
+            provider.getVariantBuilder(block.get()).partialState().addModels(ConfiguredModel.allRotations(provider.cubeAll(block.get()), false));
         };
     }
 
@@ -321,7 +308,7 @@ public class IEBlockProviders {
                     default -> layerModel(provider.models(), name(block.get()) + "_height" + layer * 2, blockTexture(fullBlock.get()), layer);
                 };
 
-                return ConfiguredModel.builder().modelFile(model).build();
+                return configuredModel(model);
             });
         };
     }
@@ -359,13 +346,7 @@ public class IEBlockProviders {
      */
     public static BlockProviderConsumer nyliumPath(Supplier<? extends Block> fullBlock) {
         return (provider, block) -> {
-            ModelFile model = pathModel(provider, block.get(), fullBlock.get(), Blocks.NETHERRACK, true);
-            ConfiguredModel[] models = new ConfiguredModel[4];
-            for (int i = 0; i < models.length; i++) {
-                models[i] = ConfiguredModel.builder().modelFile(model).rotationY(i * 90).buildLast();
-            }
-
-            provider.simpleBlock(block.get(), models);
+            provider.simpleBlock(block.get(), ConfiguredModel.allYRotations(pathModel(provider, block.get(), fullBlock.get(), Blocks.NETHERRACK, true), 0, false));
         };
     }
 
@@ -479,7 +460,7 @@ public class IEBlockProviders {
                     default -> 0;
                 };
 
-                return ConfiguredModel.builder().modelFile(model).rotationY(rotationY).build();
+                return configuredModel(model, 0, rotationY);
             });
         };
     }
@@ -551,6 +532,14 @@ public class IEBlockProviders {
             );
         else
             return location;
+    }
+
+    public static ConfiguredModel[] configuredModel(ModelFile model) {
+        return configuredModel(model, 0, 0);
+    }
+
+    public static ConfiguredModel[] configuredModel(ModelFile model, int rotationX, int rotationY) {
+        return new ConfiguredModel[]{new ConfiguredModel(model, rotationX, rotationY, false)};
     }
 
     @FunctionalInterface

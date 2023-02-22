@@ -1,16 +1,35 @@
 {
   "variants": {
-    "face=ceiling,facing=east,lit=false": {
+    "face=floor,facing=north,lit=false": {
+      "model": "infernalexp:block/luminous_fungus"
+    },
+    "face=wall,facing=north,lit=false": {
       "model": "infernalexp:block/luminous_fungus",
-      "x": 180
+      "x": 90
     },
     "face=ceiling,facing=north,lit=false": {
       "model": "infernalexp:block/luminous_fungus",
       "x": 180
     },
+    "face=floor,facing=south,lit=false": {
+      "model": "infernalexp:block/luminous_fungus"
+    },
+    "face=wall,facing=south,lit=false": {
+      "model": "infernalexp:block/luminous_fungus",
+      "x": 90,
+      "y": 180
+    },
     "face=ceiling,facing=south,lit=false": {
       "model": "infernalexp:block/luminous_fungus",
       "x": 180
+    },
+    "face=floor,facing=west,lit=false": {
+      "model": "infernalexp:block/luminous_fungus"
+    },
+    "face=wall,facing=west,lit=false": {
+      "model": "infernalexp:block/luminous_fungus",
+      "x": 90,
+      "y": 270
     },
     "face=ceiling,facing=west,lit=false": {
       "model": "infernalexp:block/luminous_fungus",
@@ -19,45 +38,45 @@
     "face=floor,facing=east,lit=false": {
       "model": "infernalexp:block/luminous_fungus"
     },
-    "face=floor,facing=north,lit=false": {
-      "model": "infernalexp:block/luminous_fungus"
-    },
-    "face=floor,facing=south,lit=false": {
-      "model": "infernalexp:block/luminous_fungus"
-    },
-    "face=floor,facing=west,lit=false": {
-      "model": "infernalexp:block/luminous_fungus"
-    },
     "face=wall,facing=east,lit=false": {
       "model": "infernalexp:block/luminous_fungus",
-      "y": 90,
-      "x": 90
+      "x": 90,
+      "y": 90
     },
-    "face=wall,facing=north,lit=false": {
+    "face=ceiling,facing=east,lit=false": {
       "model": "infernalexp:block/luminous_fungus",
-      "x": 90
-    },
-    "face=wall,facing=south,lit=false": {
-      "model": "infernalexp:block/luminous_fungus",
-      "y": 180,
-      "x": 90
-    },
-    "face=wall,facing=west,lit=false": {
-      "model": "infernalexp:block/luminous_fungus",
-      "y": 270,
-      "x": 90
-    },
-    "face=ceiling,facing=east,lit=true": {
-      "model": "infernalexp:block/luminous_fungus_on",
       "x": 180
+    },
+    "face=floor,facing=north,lit=true": {
+      "model": "infernalexp:block/luminous_fungus_on"
+    },
+    "face=wall,facing=north,lit=true": {
+      "model": "infernalexp:block/luminous_fungus_on",
+      "x": 90
     },
     "face=ceiling,facing=north,lit=true": {
       "model": "infernalexp:block/luminous_fungus_on",
       "x": 180
     },
+    "face=floor,facing=south,lit=true": {
+      "model": "infernalexp:block/luminous_fungus_on"
+    },
+    "face=wall,facing=south,lit=true": {
+      "model": "infernalexp:block/luminous_fungus_on",
+      "x": 90,
+      "y": 180
+    },
     "face=ceiling,facing=south,lit=true": {
       "model": "infernalexp:block/luminous_fungus_on",
       "x": 180
+    },
+    "face=floor,facing=west,lit=true": {
+      "model": "infernalexp:block/luminous_fungus_on"
+    },
+    "face=wall,facing=west,lit=true": {
+      "model": "infernalexp:block/luminous_fungus_on",
+      "x": 90,
+      "y": 270
     },
     "face=ceiling,facing=west,lit=true": {
       "model": "infernalexp:block/luminous_fungus_on",
@@ -66,33 +85,14 @@
     "face=floor,facing=east,lit=true": {
       "model": "infernalexp:block/luminous_fungus_on"
     },
-    "face=floor,facing=north,lit=true": {
-      "model": "infernalexp:block/luminous_fungus_on"
-    },
-    "face=floor,facing=south,lit=true": {
-      "model": "infernalexp:block/luminous_fungus_on"
-    },
-    "face=floor,facing=west,lit=true": {
-      "model": "infernalexp:block/luminous_fungus_on"
-    },
     "face=wall,facing=east,lit=true": {
       "model": "infernalexp:block/luminous_fungus_on",
-      "y": 90,
-      "x": 90
+      "x": 90,
+      "y": 90
     },
-    "face=wall,facing=north,lit=true": {
+    "face=ceiling,facing=east,lit=true": {
       "model": "infernalexp:block/luminous_fungus_on",
-      "x": 90
-    },
-    "face=wall,facing=south,lit=true": {
-      "model": "infernalexp:block/luminous_fungus_on",
-      "y": 180,
-      "x": 90
-    },
-    "face=wall,facing=west,lit=true": {
-      "model": "infernalexp:block/luminous_fungus_on",
-      "y": 270,
-      "x": 90
+      "x": 180
     }
   }
 }
