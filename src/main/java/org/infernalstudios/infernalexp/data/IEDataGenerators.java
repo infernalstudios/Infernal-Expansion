@@ -18,12 +18,14 @@ package org.infernalstudios.infernalexp.data;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.init.IEBlocks;
+import org.infernalstudios.infernalexp.init.IEItems;
 
 @Mod.EventBusSubscriber(modid = InfernalExpansion.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class IEDataGenerators {
@@ -37,6 +39,15 @@ public class IEDataGenerators {
             @Override
             protected void registerStatesAndModels() {
                 IEBlocks.BLOCKS.getDataProviders().forEach(provider -> {
+                    provider.dataProvider().accept(this, provider.registryObject());
+                });
+            }
+        });
+
+        generator.addProvider(new ItemModelProvider(generator, InfernalExpansion.MOD_ID, fileHelper) {
+            @Override
+            protected void registerModels() {
+                IEItems.ITEMS.getDataProviders().forEach(provider -> {
                     provider.dataProvider().accept(this, provider.registryObject());
                 });
             }
