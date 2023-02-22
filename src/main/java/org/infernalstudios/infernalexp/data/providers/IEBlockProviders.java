@@ -38,6 +38,11 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 import org.infernalstudios.infernalexp.InfernalExpansion;
+import org.infernalstudios.infernalexp.blocks.BuriedBoneBlock;
+import org.infernalstudios.infernalexp.blocks.DullthornsBlock;
+import org.infernalstudios.infernalexp.blocks.LuminousFungusBlock;
+import org.infernalstudios.infernalexp.blocks.PlantedQuartzBlock;
+import org.infernalstudios.infernalexp.blocks.ShroomlightFungusBlock;
 import org.infernalstudios.infernalexp.blocks.VerticalSlabBlock;
 import org.infernalstudios.infernalexp.data.DataGenDeferredRegister;
 import org.infernalstudios.infernalexp.util.TriFunction;
@@ -504,27 +509,113 @@ public class IEBlockProviders {
         };
     }
 
-    public static String name(Block block) {
+    public static BlockProviderConsumer luminousFungus() {
+        return (provider, block) -> {
+            provider.getVariantBuilder(block.get()).forAllStates(state -> {
+                boolean lit = state.getValue(LuminousFungusBlock.LIT);
+                ModelFile model = provider.models().cross(lit ? IEBlockProviders.name(block.get()) + "_on" : IEBlockProviders.name(block.get()), IEBlockProviders.extend(IEBlockProviders.blockTexture(block.get()), lit ? "" : "_off"));
+
+                return switch (state.getValue(LuminousFungusBlock.FACE)) {
+                    case FLOOR -> IEBlockProviders.configuredModel(model);
+                    case CEILING -> IEBlockProviders.configuredModel(model, 180, 0);
+                    case WALL -> IEBlockProviders.configuredModel(model, 90, (int) state.getValue(LuminousFungusBlock.FACING).getOpposite().toYRot());
+                };
+            });
+        };
+    }
+
+    public static BlockProviderConsumer dullthorns() {
+        return (provider, block) -> {
+            provider.getVariantBuilder(block.get())
+                .partialState().with(DullthornsBlock.TIP, false)
+                .modelForState().modelFile(provider.models().cross(IEBlockProviders.name(block.get()), IEBlockProviders.blockTexture(block.get()))).addModel()
+                .partialState().with(DullthornsBlock.TIP, true)
+                .modelForState().modelFile(provider.models().cross(IEBlockProviders.name(block.get()) + "_tip", IEBlockProviders.extend(IEBlockProviders.blockTexture(block.get()), "_tip"))).addModel();
+        };
+    }
+
+    public static BlockProviderConsumer shroomlightFungus() {
+        return (provider, block) -> {
+            provider.getVariantBuilder(block.get()).forAllStates(state -> {
+                ModelFile model = provider.models().cross(IEBlockProviders.name(block.get()), IEBlockProviders.blockTexture(block.get()));
+
+                return switch (state.getValue(ShroomlightFungusBlock.FACE)) {
+                    case FLOOR -> IEBlockProviders.configuredModel(model);
+                    case CEILING -> IEBlockProviders.configuredModel(model, 180, 0);
+                    case WALL -> IEBlockProviders.configuredModel(model, 90, (int) state.getValue(ShroomlightFungusBlock.FACING).getOpposite().toYRot());
+                };
+            });
+        };
+    }
+
+    public static BlockProviderConsumer buriedBone() {
+        return (provider, block) -> {
+            provider.getVariantBuilder(block.get()).forAllStatesExcept(state -> {
+                int rotationX = switch (state.getValue(BuriedBoneBlock.FACE)) {
+                    case CEILING -> 180;
+                    case WALL -> 90;
+                    default -> 0;
+                };
+
+                ConfiguredModel[] models = new ConfiguredModel[8];
+                for (int i = 0; i < 4; i++) {
+                    models[i] = new ConfiguredModel(provider.models().cross(IEBlockProviders.name(block.get()), IEBlockProviders.blockTexture(block.get())), rotationX, i * 90, false);
+                    models[i + 4] = new ConfiguredModel(provider.models().cross(IEBlockProviders.name(block.get()) + "_2", IEBlockProviders.extend(IEBlockProviders.blockTexture(block.get()), "_2")), rotationX, i * 90, false);
+                }
+
+                return models;
+            }, BuriedBoneBlock.FACING);
+        };
+    }
+
+    public static BlockProviderConsumer plantedQuartz() {
+        return (provider, block) -> {
+            provider.getVariantBuilder(block.get()).forAllStates(state -> {
+                ModelFile model = provider.models().cross(IEBlockProviders.name(block.get()), IEBlockProviders.blockTexture(block.get()));
+                ModelFile model2 = provider.models().cross(IEBlockProviders.name(block.get()) + "_2", IEBlockProviders.extend(IEBlockProviders.blockTexture(block.get()), "_2"));
+
+                return switch (state.getValue(PlantedQuartzBlock.FACE)) {
+                    case FLOOR -> ConfiguredModel.builder().modelFile(model).nextModel().modelFile(model2).build();
+                    case CEILING -> ConfiguredModel.builder().modelFile(model).rotationX(180).nextModel().modelFile(model2).rotationX(180).build();
+                    case WALL -> {
+                        int rotationY = (int) state.getValue(PlantedQuartzBlock.FACING).getOpposite().toYRot();
+                        yield ConfiguredModel.builder().modelFile(model).rotationX(90).rotationY(rotationY).nextModel().modelFile(model2).rotationX(90).rotationY(rotationY).build();
+                    }
+                };
+            });
+        };
+    }
+
+    public static BlockProviderConsumer crumblingBlackstone() {
+        return enumerateVariants(3, (models, block, variant) -> IEBlockProviders.configuredModel(
+            models.withExistingParent(IEBlockProviders.BLOCK_FOLDER + IEBlockProviders.name(block) + "/" + variant, new ResourceLocation(IEBlockProviders.BLOCK_FOLDER + "cube_bottom_top"))
+                .texture("top", IEBlockProviders.extend(IEBlockProviders.blockTexture(block), "/top" + variant))
+                .texture("bottom", IEBlockProviders.extend(IEBlockProviders.blockTexture(block), "/top" + variant))
+                .texture("side", IEBlockProviders.extend(IEBlockProviders.blockTexture(block), "/side" + variant))
+        ));
+    }
+
+    private static String name(Block block) {
         return block.getRegistryName().getPath();
     }
 
-    public static ResourceLocation location(Block block) {
+    private static ResourceLocation location(Block block) {
         return block.getRegistryName();
     }
 
-    public static ResourceLocation blockTexture(Block block) {
+    private static ResourceLocation blockTexture(Block block) {
         return prepend(location(block), BLOCK_FOLDER);
     }
 
-    public static ResourceLocation prepend(ResourceLocation location, String prefix) {
+    private static ResourceLocation prepend(ResourceLocation location, String prefix) {
         return new ResourceLocation(location.getNamespace(), prefix + location.getPath());
     }
 
-    public static ResourceLocation extend(ResourceLocation location, String suffix) {
+    private static ResourceLocation extend(ResourceLocation location, String suffix) {
         return new ResourceLocation(location.getNamespace(), location.getPath() + suffix);
     }
 
-    public static ResourceLocation removeSuffix(ResourceLocation location, String suffix) {
+    private static ResourceLocation removeSuffix(ResourceLocation location, String suffix) {
         if (location.getPath().endsWith(suffix))
             return new ResourceLocation(
                 location.getNamespace(),
@@ -534,11 +625,11 @@ public class IEBlockProviders {
             return location;
     }
 
-    public static ConfiguredModel[] configuredModel(ModelFile model) {
+    private static ConfiguredModel[] configuredModel(ModelFile model) {
         return configuredModel(model, 0, 0);
     }
 
-    public static ConfiguredModel[] configuredModel(ModelFile model, int rotationX, int rotationY) {
+    private static ConfiguredModel[] configuredModel(ModelFile model, int rotationX, int rotationY) {
         return new ConfiguredModel[]{new ConfiguredModel(model, rotationX, rotationY, false)};
     }
 
