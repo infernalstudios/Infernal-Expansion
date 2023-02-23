@@ -16,10 +16,13 @@
 
 package org.infernalstudios.infernalexp.data.providers;
 
+import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelProvider;
+import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.data.DataGenDeferredRegister;
 
 public class IEItemProviders {
@@ -32,7 +35,7 @@ public class IEItemProviders {
     public static ItemProviderConsumer simple() {
         return (provider, item) -> {
             provider
-                .withExistingParent(name(item.get()), new ResourceLocation("item/generated"))
+                .withExistingParent(name(item.get()), new ResourceLocation(ITEM_FOLDER + "generated"))
                 .texture("layer0", itemTexture(item.get()));
         };
     }
@@ -43,7 +46,7 @@ public class IEItemProviders {
     public static ItemProviderConsumer block() {
         return (provider, item) -> {
             provider
-                .withExistingParent(name(item.get()), new ResourceLocation("item/generated"))
+                .withExistingParent(name(item.get()), new ResourceLocation(ITEM_FOLDER + "generated"))
                 .texture("layer0", blockTexture(item.get()));
         };
     }
@@ -95,8 +98,49 @@ public class IEItemProviders {
     public static ItemProviderConsumer pane() {
         return (provider, item) -> {
             provider
-                .withExistingParent(name(item.get()), new ResourceLocation("item/generated"))
+                .withExistingParent(name(item.get()), new ResourceLocation(ITEM_FOLDER + "generated"))
                 .texture("layer0", removeSuffix(blockTexture(item.get()), "_pane"));
+        };
+    }
+
+    public static ItemProviderConsumer glowsilkBow() {
+        return (provider, item) -> {
+            provider
+                .withExistingParent(name(item.get()), new ResourceLocation(ITEM_FOLDER + "generated"))
+                .texture("layer0", itemTexture(item.get()))
+                .transforms()
+                    .transform(ItemTransforms.TransformType.FIRST_PERSON_RIGHT_HAND).rotation(0, -90, 25).translation(1.13F, 3.2F, 1.13F).scale(0.68F).end()
+                    .transform(ItemTransforms.TransformType.FIRST_PERSON_LEFT_HAND).rotation(0, 90, -25).translation(1.13F, 3.2F, 1.13F).scale(0.68F).end()
+                    .transform(ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND).rotation(-80, 260, -40).translation(-1.0F, -2.0F, 2.5F).scale(0.9F).end()
+                    .transform(ItemTransforms.TransformType.THIRD_PERSON_LEFT_HAND).rotation(-80, -280, 40).translation(-1.0F, -2.0F, 2.5F).scale(0.9F).end()
+                .end()
+                .override().model(provider.withExistingParent(name(item.get()) + "_pulling_0", new ResourceLocation(ITEM_FOLDER + "bow")).texture("layer0", extend(itemTexture(item.get()), "_pulling_0")))
+                    .predicate(new ResourceLocation(InfernalExpansion.MOD_ID, "pulling"), 1).end()
+                .override().model(provider.withExistingParent(name(item.get()) + "_pulling_1", new ResourceLocation(ITEM_FOLDER + "bow")).texture("layer0", extend(itemTexture(item.get()), "_pulling_1")))
+                    .predicate(new ResourceLocation(InfernalExpansion.MOD_ID, "pulling"), 1)
+                    .predicate(new ResourceLocation(InfernalExpansion.MOD_ID, "pull"), 0.65F).end()
+                .override().model(provider.withExistingParent(name(item.get()) + "_pulling_2", new ResourceLocation(ITEM_FOLDER + "bow")).texture("layer0", extend(itemTexture(item.get()), "_pulling_2")))
+                    .predicate(new ResourceLocation(InfernalExpansion.MOD_ID, "pulling"), 1)
+                    .predicate(new ResourceLocation(InfernalExpansion.MOD_ID, "pull"), 0.9F).end();
+        };
+    }
+
+    public static ItemProviderConsumer whip() {
+        return (provider, item) -> {
+            ItemModelBuilder builder = provider
+                .withExistingParent(name(item.get()), new ResourceLocation(ITEM_FOLDER + "handheld"))
+                .texture("layer0", itemTexture(item.get()));
+
+            for (int i = 0; i < 10; i++) {
+                builder.override()
+                    .model(
+                        provider.withExistingParent(name(item.get()) + "_extending_" + i, new ResourceLocation(ITEM_FOLDER + "handheld"))
+                            .texture("layer0", extend(itemTexture(item.get()), "_extending_" + i))
+                    )
+                    .predicate(new ResourceLocation(InfernalExpansion.MOD_ID, "attacking"), 1)
+                    .predicate(new ResourceLocation(InfernalExpansion.MOD_ID, "attack_frame"), i)
+                    .end();
+            }
         };
     }
 

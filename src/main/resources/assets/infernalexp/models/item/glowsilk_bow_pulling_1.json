@@ -1,5 +1,5 @@
 {
-  "parent": "item/bow",
+  "parent": "minecraft:item/bow",
   "textures": {
     "layer0": "infernalexp:item/glowsilk_bow_pulling_1"
   }

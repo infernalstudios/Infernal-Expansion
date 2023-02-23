@@ -1,43 +1,6 @@
 {
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "infernalexp:item/glowsilk_bow"
-  },
+  "parent": "minecraft:item/generated",
   "display": {
-    "thirdperson_righthand": {
-      "rotation": [
-        -80,
-        260,
-        -40
-      ],
-      "translation": [
-        -1,
-        -2,
-        2.5
-      ],
-      "scale": [
-        0.9,
-        0.9,
-        0.9
-      ]
-    },
-    "thirdperson_lefthand": {
-      "rotation": [
-        -80,
-        -280,
-        40
-      ],
-      "translation": [
-        -1,
-        -2,
-        2.5
-      ],
-      "scale": [
-        0.9,
-        0.9,
-        0.9
-      ]
-    },
     "firstperson_righthand": {
       "rotation": [
         0,
@@ -71,26 +34,63 @@
         0.68,
         0.68
       ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        -80,
+        260,
+        -40
+      ],
+      "translation": [
+        -1,
+        -2,
+        2.5
+      ],
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        -80,
+        -280,
+        40
+      ],
+      "translation": [
+        -1,
+        -2,
+        2.5
+      ],
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ]
     }
+  },
+  "textures": {
+    "layer0": "infernalexp:item/glowsilk_bow"
   },
   "overrides": [
     {
       "predicate": {
-        "pulling": 1
+        "infernalexp:pulling": 1.0
       },
       "model": "infernalexp:item/glowsilk_bow_pulling_0"
     },
     {
       "predicate": {
-        "pulling": 1,
-        "pull": 0.65
+        "infernalexp:pulling": 1.0,
+        "infernalexp:pull": 0.65
       },
       "model": "infernalexp:item/glowsilk_bow_pulling_1"
     },
     {
       "predicate": {
-        "pulling": 1,
-        "pull": 0.9
+        "infernalexp:pulling": 1.0,
+        "infernalexp:pull": 0.9
       },
       "model": "infernalexp:item/glowsilk_bow_pulling_2"
     }
