@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "infernalexp:block/polished_soul_stone_slab"
+    },
+    "type=double": {
+      "model": "infernalexp:block/polished_soul_stone"
+    },
+    "type=top": {
+      "model": "infernalexp:block/polished_soul_stone_slab_top"
+    }
+  }
+}

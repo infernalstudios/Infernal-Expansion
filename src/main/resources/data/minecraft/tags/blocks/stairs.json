@@ -7,15 +7,15 @@
     "infernalexp:glowstone_brick_stairs",
     "infernalexp:dimstone_brick_stairs",
     "infernalexp:dullstone_brick_stairs",
-    "infernalexp:glowdust_stone_stairs",
-    "infernalexp:glowdust_stone_brick_stairs",
+    "infernalexp:shimmer_stone_stairs",
+    "infernalexp:shimmer_stone_brick_stairs",
     "infernalexp:basalt_stairs",
     "infernalexp:basalt_brick_stairs",
     "infernalexp:soul_sand_stairs",
     "infernalexp:soul_soil_stairs",
     "infernalexp:soul_stone_stairs",
-    "infernalexp:soul_slate_stairs",
+    "infernalexp:polished_soul_stone_stairs",
     "infernalexp:soul_stone_brick_stairs",
-    "infernalexp:soul_slate_brick_stairs"
+    "infernalexp:polished_soul_stone_brick_stairs"
   ]
 }

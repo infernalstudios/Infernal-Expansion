@@ -39,7 +39,7 @@ public class BoulderFeature extends Feature<BlockStateFeatureConfig> {
     public boolean generate(ISeedReader world, ChunkGenerator generator, Random random, BlockPos pos, BlockStateFeatureConfig config) {
         int radius = new int[]{1, 1, 2, 2, 2, 2, 3}[random.nextInt(7)];
 
-        if (!world.isAirBlock(pos) || world.getBlockState(pos.down()).getBlock() != IEBlocks.GLOWDUST_SAND.get() || world.isAirBlock(pos.down(radius)) || random.nextInt(3) == 2) {
+        if (!world.isAirBlock(pos) || world.getBlockState(pos.down()).getBlock() != IEBlocks.SHIMMER_SAND.get() || world.isAirBlock(pos.down(radius)) || random.nextInt(3) == 2) {
             return false;
         } else {
             placeSphere(world, random, pos.down(Math.floorDiv(radius, 3)), radius, config);

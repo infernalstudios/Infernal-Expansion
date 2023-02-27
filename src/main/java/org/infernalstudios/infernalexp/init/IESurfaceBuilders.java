@@ -39,8 +39,8 @@ public class IESurfaceBuilders {
     // Surface Builder Configs
     public static class ModSurfaceBuilderConfig {
         public static final SurfaceBuilderConfig GLOWSTONE_CANYON_CONFIG = new SurfaceBuilderConfig(
-            IEBlocks.GLOWDUST_SAND.get().getDefaultState(),
-            IEBlocks.GLOWDUST_STONE.get().getDefaultState(),
+            IEBlocks.SHIMMER_SAND.get().getDefaultState(),
+            IEBlocks.SHIMMER_STONE.get().getDefaultState(),
             Blocks.GLOWSTONE.getDefaultState());
 
         public static final SurfaceBuilderConfig DELTA_SHORES_CONFIG = new SurfaceBuilderConfig(

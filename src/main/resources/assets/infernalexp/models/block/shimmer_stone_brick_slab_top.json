@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "infernalexp:block/shimmer_stone_bricks_animated",
+    "top": "infernalexp:block/shimmer_stone_bricks_animated",
+    "side": "infernalexp:block/shimmer_stone_bricks_animated"
+  }
+}

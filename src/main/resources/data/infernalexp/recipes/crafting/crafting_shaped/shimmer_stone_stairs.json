@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "x  ",
+    "xx ",
+    "xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "infernalexp:shimmer_stone"
+    }
+  },
+  "result": {
+    "item": "infernalexp:shimmer_stone_stairs",
+    "count": 4
+  }
+}

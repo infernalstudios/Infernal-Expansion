@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "infernalexp:shimmer_stone"
+  },
+  "result": "infernalexp:shimmer_stone_stairs",
+  "count": 1
+}

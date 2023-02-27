@@ -45,7 +45,7 @@ public class GlowstoneRavineFeature extends Feature<NoFeatureConfig> {
     public boolean generate(ISeedReader world, ChunkGenerator generator, Random random, BlockPos pos, NoFeatureConfig config) {
         BlockPos endPos = pos.add((40 + random.nextInt(20)) * (random.nextInt(2) == 0 ? -1 : 1), 0, (40 + random.nextInt(20)) * (random.nextInt(2) == 0 ? -1 : 1));
 
-        if (!world.isAirBlock(pos) || world.getBlockState(pos.down()) != IEBlocks.GLOWDUST_SAND.get().getDefaultState() || world.getBlockState(endPos.down()) == Blocks.LAVA.getDefaultState()) {
+        if (!world.isAirBlock(pos) || world.getBlockState(pos.down()) != IEBlocks.SHIMMER_SAND.get().getDefaultState() || world.getBlockState(endPos.down()) == Blocks.LAVA.getDefaultState()) {
             return false;
         } else {
             List<BlockPos> centerLine = ShapeUtil.generateLine(pos, endPos);

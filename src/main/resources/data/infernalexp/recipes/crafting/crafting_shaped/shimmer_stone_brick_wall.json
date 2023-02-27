@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xxx",
+    "xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "infernalexp:shimmer_stone_bricks"
+    }
+  },
+  "result": {
+    "item": "infernalexp:shimmer_stone_brick_wall",
+    "count": 6
+  }
+}

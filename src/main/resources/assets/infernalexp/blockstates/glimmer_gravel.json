@@ -1,0 +1,78 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "infernalexp:block/glimmer_gravel"
+      },
+      {
+        "model": "infernalexp:block/glimmer_gravel",
+        "x": 90
+      },
+      {
+        "model": "infernalexp:block/glimmer_gravel",
+        "x": 180
+      },
+      {
+        "model": "infernalexp:block/glimmer_gravel",
+        "x": 270
+      },
+      {
+        "model": "infernalexp:block/glimmer_gravel",
+        "y": 90
+      },
+      {
+        "model": "infernalexp:block/glimmer_gravel",
+        "y": 90,
+        "x": 90
+      },
+      {
+        "model": "infernalexp:block/glimmer_gravel",
+        "y": 90,
+        "x": 180
+      },
+      {
+        "model": "infernalexp:block/glimmer_gravel",
+        "y": 90,
+        "x": 270
+      },
+      {
+        "model": "infernalexp:block/glimmer_gravel",
+        "y": 180
+      },
+      {
+        "model": "infernalexp:block/glimmer_gravel",
+        "y": 180,
+        "x": 90
+      },
+      {
+        "model": "infernalexp:block/glimmer_gravel",
+        "y": 180,
+        "x": 180
+      },
+      {
+        "model": "infernalexp:block/glimmer_gravel",
+        "y": 180,
+        "x": 270
+      },
+      {
+        "model": "infernalexp:block/glimmer_gravel",
+        "y": 270
+      },
+      {
+        "model": "infernalexp:block/glimmer_gravel",
+        "y": 270,
+        "x": 90
+      },
+      {
+        "model": "infernalexp:block/glimmer_gravel",
+        "y": 270,
+        "x": 180
+      },
+      {
+        "model": "infernalexp:block/glimmer_gravel",
+        "y": 270,
+        "x": 270
+      }
+    ]
+  }
+}

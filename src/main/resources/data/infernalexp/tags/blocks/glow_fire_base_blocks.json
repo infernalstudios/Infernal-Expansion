@@ -1,12 +1,12 @@
 {
   "replace": false,
   "values": [
-    "infernalexp:glowdust_sand",
+    "infernalexp:shimmer_sand",
     "infernalexp:luminous_wart_block",
-    "infernalexp:glowdust_stone",
-    "infernalexp:glowdust_stone_bricks",
-    "infernalexp:glowdust_stone_brick_slab",
-    "infernalexp:glowdust_stone_brick_stairs",
-    "infernalexp:trapped_glowdust_sand"
+    "infernalexp:shimmer_stone",
+    "infernalexp:shimmer_stone_bricks",
+    "infernalexp:shimmer_stone_brick_slab",
+    "infernalexp:shimmer_stone_brick_stairs",
+    "infernalexp:glimmer_gravel"
   ]
 }

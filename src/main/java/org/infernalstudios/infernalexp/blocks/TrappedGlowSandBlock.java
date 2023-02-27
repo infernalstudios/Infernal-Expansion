@@ -51,7 +51,7 @@ public class TrappedGlowSandBlock extends GlowSandBlock {
             for (int x = -updateRadius; x <= updateRadius; x++) {
                 for (int y = -updateRadius; y <= updateRadius; y++) {
                     for (int z = -updateRadius; z <= updateRadius; z++) {
-                        if (world.getBlockState(pos.add(x, y, z)) == IEBlocks.TRAPPED_GLOWDUST_SAND.get().getDefaultState()) {
+                        if (world.getBlockState(pos.add(x, y, z)) == IEBlocks.GLIMMER_GRAVEL.get().getDefaultState()) {
                             ((TrappedGlowSandBlock) world.getBlockState(pos.add(x, y, z)).getBlock()).startFalling((ServerWorld) world, pos.add(x, y, z));
                         }
                     }

@@ -51,7 +51,7 @@ public class GlowLayerFeature extends Feature<NoFeatureConfig> {
             for (int z = minimumRange; z < maxRange; z++) {
 
                 // Only check between top land and sealevel.
-                // Prevents glowdust in caves below sealevel and better performance if player removes ceiling of Nether with datapack.
+                // Prevents shimmer_sheet in caves below sealevel and better performance if player removes ceiling of Nether with datapack.
                 int maxY = generator.getHeight(pos.getX() + x, pos.getZ() + z, Heightmap.Type.MOTION_BLOCKING);
                 for (int y = maxY; y > generator.getSeaLevel(); y--) {
                     mutableBlockPos.setPos(pos).move(x, y, z);
@@ -61,15 +61,15 @@ public class GlowLayerFeature extends Feature<NoFeatureConfig> {
                         cachedChunk = world.getChunk(mutableBlockPos);
                     }
 
-                    // Checks for if we are at glowdust sand and moves up to check for air space.
+                    // Checks for if we are at shimmer_sheet sand and moves up to check for air space.
                     BlockState currentBlock = cachedChunk.getBlockState(mutableBlockPos);
-                    if (currentBlock.matchesBlock(IEBlocks.GLOWDUST_SAND.get()) &&
+                    if (currentBlock.matchesBlock(IEBlocks.SHIMMER_SAND.get()) &&
                         cachedChunk.getBlockState(mutableBlockPos.move(Direction.UP)).isAir()) {
-                        // we are now in the air space above Glowdust sand. Check if any of the 8 blocks around it is glowdust sand
+                        // we are now in the air space above Glowdust sand. Check if any of the 8 blocks around it is shimmer_sheet sand
                         // maximum return is 8.
-                        int glowdustLayerHeight = numberOfGlowdustSandNearby(world, mutableBlockPos, mutableBlockPosNeighbors);
-                        if (glowdustLayerHeight > 0) {
-                            world.setBlockState(mutableBlockPos, IEBlocks.GLOWDUST.get().getDefaultState().with(GlowdustBlock.LAYERS, glowdustLayerHeight), 3);
+                        int shimmer_sheetLayerHeight = numberOfGlowdustSandNearby(world, mutableBlockPos, mutableBlockPosNeighbors);
+                        if (shimmer_sheetLayerHeight > 0) {
+                            world.setBlockState(mutableBlockPos, IEBlocks.SHIMMER_SHEET.get().getDefaultState().with(GlowdustBlock.LAYERS, shimmer_sheetLayerHeight), 3);
                         }
                     }
                 }
@@ -103,7 +103,7 @@ public class GlowLayerFeature extends Feature<NoFeatureConfig> {
     }
 
     private int numberOfGlowdustSandNearby(ISeedReader world, BlockPos.Mutable mutableBlockPos, BlockPos.Mutable mutableBlockPosNeighbors) {
-        int glowdustSandCount = 0;
+        int shimmer_sheetSandCount = 0;
         int radius = 2;
         for (int x = -radius; x <= radius; x++) {
             for (int z = -radius; z <= radius; z++) {
@@ -112,17 +112,17 @@ public class GlowLayerFeature extends Feature<NoFeatureConfig> {
                 mutableBlockPosNeighbors.setPos(mutableBlockPos).move(x, 0, z);
                 BlockState neighborBlock = world.getBlockState(mutableBlockPosNeighbors);
                 // Do not use .isSolid check because Glowdust Sand is marked notSolid (cause it uses Glowstone properties)
-                if (neighborBlock.matchesBlock(IEBlocks.GLOWDUST_SAND.get())) {
-                    glowdustSandCount++;
+                if (neighborBlock.matchesBlock(IEBlocks.SHIMMER_SAND.get())) {
+                    shimmer_sheetSandCount++;
                 }
             }
         }
         // changes the shape and height of layers. Modify the algorithm for neat effects
 
-        // change radius to 1 and use this version for only 1 layer high glowdust layer right next to ledges
-        //return Math.min(glowdustSandCount, 1);
+        // change radius to 1 and use this version for only 1 layer high shimmer_sheet layer right next to ledges
+        //return Math.min(shimmer_sheetSandCount, 1);
 
         // change radius to 2 and use this version for 2x2 barely sloping dust that looks neat
-        return Math.min((int) Math.ceil((glowdustSandCount) / 6D), 8);
+        return Math.min((int) Math.ceil((shimmer_sheetSandCount) / 6D), 8);
     }
 }

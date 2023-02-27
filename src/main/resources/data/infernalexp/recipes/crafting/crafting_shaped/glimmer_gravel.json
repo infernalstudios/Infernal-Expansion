@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xox",
+    "oxo",
+    "xox"
+  ],
+  "key": {
+    "x": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "o": {
+      "item": "minecraft:gravel"
+    }
+  },
+  "result": {
+    "item": "infernalexp:glimmer_gravel",
+    "count": 1
+  }
+}

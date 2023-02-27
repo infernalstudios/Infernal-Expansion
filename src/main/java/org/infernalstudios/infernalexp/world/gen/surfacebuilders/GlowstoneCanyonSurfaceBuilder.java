@@ -67,7 +67,7 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
 
                         // If the block is floating, make it Glimmer Gravel, otherwise let it be the regular surface
                         if (blockBelow.isAir()) {
-                            chunk.setBlockState(mutable, IEBlocks.TRAPPED_GLOWDUST_SAND.get().getDefaultState(), false);
+                            chunk.setBlockState(mutable, IEBlocks.GLIMMER_GRAVEL.get().getDefaultState(), false);
                         } else {
                             chunk.setBlockState(mutable, topBlock, false);
                         }
@@ -81,9 +81,9 @@ public class GlowstoneCanyonSurfaceBuilder extends SurfaceBuilder<SurfaceBuilder
                     }
 
                     // Make this a feature instead so it places the layers correctly on edges and slopes unlike Surface Builders.
-//                    // Place glowdust above if there is room as surface block is glowdust sand
+//                    // Place shimmer_sheet above if there is room as surface block is shimmer_sheet sand
 //                    if(chunk.getBlockState(mutable.up()).isAir()){
-//                        chunk.setBlockState(mutable.up(), IEBlocks.GLOWDUST.get().getDefaultState(), false);
+//                        chunk.setBlockState(mutable.up(), IEBlocks.SHIMMER_SHEET.get().getDefaultState(), false);
 //                    }
                 } else if (depth <= 2 + middleBlockExtraDepth) {
                     // Place block only when under surface and down to as deep as the scaledNoise says to go.

@@ -60,7 +60,7 @@ public class LuminousFungusFeature extends Feature<NoFeatureConfig> {
             BlockPos blockpos = pos.add(random.nextInt(10) - random.nextInt(20), random.nextInt(4) - random.nextInt(8), random.nextInt(10) - random.nextInt(20));
 
             // If the randomly chosen location is valid, then place the fungus
-            if (world.isAirBlock(blockpos) && state.isValidPosition(world, blockpos) && (world.getBlockState(blockpos.up()) == IEBlocks.DULLSTONE.get().getDefaultState() || world.getBlockState(blockpos.down()) == IEBlocks.GLOWDUST_SAND.get().getDefaultState())) {
+            if (world.isAirBlock(blockpos) && state.isValidPosition(world, blockpos) && (world.getBlockState(blockpos.up()) == IEBlocks.DULLSTONE.get().getDefaultState() || world.getBlockState(blockpos.down()) == IEBlocks.SHIMMER_SAND.get().getDefaultState())) {
                 world.setBlockState(blockpos, state, 2);
                 i++;
             }

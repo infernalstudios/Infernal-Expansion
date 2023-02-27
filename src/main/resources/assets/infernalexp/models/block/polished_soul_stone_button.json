@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button",
+  "textures": {
+    "texture": "infernalexp:block/polished_soul_stone"
+  }
+}
