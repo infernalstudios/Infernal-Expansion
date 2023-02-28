@@ -44,7 +44,7 @@ import org.infernalstudios.infernalexp.blocks.LuminousFungusBlock;
 import org.infernalstudios.infernalexp.blocks.PlantedQuartzBlock;
 import org.infernalstudios.infernalexp.blocks.ShroomlightFungusBlock;
 import org.infernalstudios.infernalexp.blocks.VerticalSlabBlock;
-import org.infernalstudios.infernalexp.data.DataGenDeferredRegister;
+import org.infernalstudios.infernalexp.data.DataProviderCollection;
 import org.infernalstudios.infernalexp.util.TriFunction;
 
 import java.util.function.Supplier;
@@ -634,6 +634,6 @@ public class IEBlockProviders {
     }
 
     @FunctionalInterface
-    public interface BlockProviderConsumer extends DataGenDeferredRegister.ProviderConsumer<Block, BlockStateProvider> {}
+    public interface BlockProviderConsumer extends DataProviderCollection.DataProviderConsumer<Block, BlockStateProvider> {}
 
 }

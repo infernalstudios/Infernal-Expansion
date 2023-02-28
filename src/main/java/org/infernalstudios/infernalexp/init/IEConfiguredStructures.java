@@ -28,10 +28,10 @@ import org.infernalstudios.infernalexp.world.gen.structures.config.SizeCheckingC
 
 public class IEConfiguredStructures {
 
-    public static final Holder<ConfiguredStructureFeature<?, ?>> GLOWSTONE_CANYON_RUIN = registerConfiguredStructure("glowstone_canyon_ruin", IEStructures.SIMPLE_NETHER_STRUCTURE.configured(new SizeCheckingConfiguration(IEStructurePools.GLOWSTONE_CANYON_RUIN, 1, 5), IETags.Biomes.HAS_GLOWSTONE_CANYON_RUIN, true));
-    public static final Holder<ConfiguredStructureFeature<?, ?>> SOUL_SAND_VALLEY_RUIN = registerConfiguredStructure("soul_sand_valley_ruin", IEStructures.SIMPLE_NETHER_STRUCTURE.configured(new SizeCheckingConfiguration(IEStructurePools.SOUL_SAND_VALLEY_RUIN, 1, 4), IETags.Biomes.HAS_SOUL_SAND_VALLEY_RUIN, true));
-    public static final Holder<ConfiguredStructureFeature<?, ?>> BASTION_OUTPOST = registerConfiguredStructure("bastion_outpost", IEStructures.SIMPLE_NETHER_STRUCTURE.configured(new SizeCheckingConfiguration(IEStructurePools.BASTION_OUTPOST, 1, 8), IETags.Biomes.HAS_BASTION_OUTPOST, true));
-    public static final Holder<ConfiguredStructureFeature<?, ?>> STRIDER_ALTAR = registerConfiguredStructure("strider_altar", IEStructures.STRIDER_ALTAR.configured(new JigsawConfiguration(IEStructurePools.STRIDER_ALTAR, 1), IETags.Biomes.HAS_STRIDER_ALTAR, false));
+    public static final Holder<ConfiguredStructureFeature<?, ?>> GLOWSTONE_CANYON_RUIN = registerConfiguredStructure("glowstone_canyon_ruin", IEStructures.SIMPLE_NETHER_STRUCTURE.configured(new SizeCheckingConfiguration(IEStructurePools.GLOWSTONE_CANYON_RUIN, 1, 5), IEBiomeTags.HAS_GLOWSTONE_CANYON_RUIN, true));
+    public static final Holder<ConfiguredStructureFeature<?, ?>> SOUL_SAND_VALLEY_RUIN = registerConfiguredStructure("soul_sand_valley_ruin", IEStructures.SIMPLE_NETHER_STRUCTURE.configured(new SizeCheckingConfiguration(IEStructurePools.SOUL_SAND_VALLEY_RUIN, 1, 4), IEBiomeTags.HAS_SOUL_SAND_VALLEY_RUIN, true));
+    public static final Holder<ConfiguredStructureFeature<?, ?>> BASTION_OUTPOST = registerConfiguredStructure("bastion_outpost", IEStructures.SIMPLE_NETHER_STRUCTURE.configured(new SizeCheckingConfiguration(IEStructurePools.BASTION_OUTPOST, 1, 8), IEBiomeTags.HAS_BASTION_OUTPOST, true));
+    public static final Holder<ConfiguredStructureFeature<?, ?>> STRIDER_ALTAR = registerConfiguredStructure("strider_altar", IEStructures.STRIDER_ALTAR.configured(new JigsawConfiguration(IEStructurePools.STRIDER_ALTAR, 1), IEBiomeTags.HAS_STRIDER_ALTAR, false));
 
     private static <SC extends FeatureConfiguration, S extends StructureFeature<SC>> Holder<ConfiguredStructureFeature<?, ?>> registerConfiguredStructure(String name, ConfiguredStructureFeature<SC, S> configuredStructure) {
         ResourceLocation resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, name);

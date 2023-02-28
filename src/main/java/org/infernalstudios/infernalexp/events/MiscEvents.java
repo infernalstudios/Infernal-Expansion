@@ -16,6 +16,8 @@
 
 package org.infernalstudios.infernalexp.events;
 
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import org.infernalstudios.infernalexp.InfernalExpansion;
@@ -32,26 +34,22 @@ import org.infernalstudios.infernalexp.entities.ThrowableBrickEntity;
 import org.infernalstudios.infernalexp.entities.ThrowableFireChargeEntity;
 import org.infernalstudios.infernalexp.entities.ThrowableMagmaCreamEntity;
 import org.infernalstudios.infernalexp.entities.ThrowableNetherBrickEntity;
+import org.infernalstudios.infernalexp.init.IEBlockTags;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IEEffects;
+import org.infernalstudios.infernalexp.init.IEItemTags;
 import org.infernalstudios.infernalexp.init.IEItems;
 import org.infernalstudios.infernalexp.init.IEParticleTypes;
 import org.infernalstudios.infernalexp.init.IEShroomloinTypes;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
-import org.infernalstudios.infernalexp.init.IETags;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.entity.AreaEffectCloud;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -108,7 +106,7 @@ public class MiscEvents {
         ItemStack right = event.getRight();
         int cost = event.getCost();
 
-        if (left.isDamageableItem() && right.getItem() == IEItems.GLOWSILK.get() && !left.is(IETags.Items.GLOWSILK_REPAIR_BLACKLIST)) {
+        if (left.isDamageableItem() && right.getItem() == IEItems.GLOWSILK.get() && !left.is(IEItemTags.GLOWSILK_REPAIR_BLACKLIST)) {
             if (left.getDamageValue() == 0) {
                 return;
             }
@@ -141,27 +139,27 @@ public class MiscEvents {
         BlockState state = event.getState();
         for (ShroomloinEntity shroomloin : event.getPlayer().level.getEntitiesOfClass(ShroomloinEntity.class, event.getPlayer().getBoundingBox().inflate(32.0D))) {
             if (shroomloin.getShroomloinType() == IEShroomloinTypes.CRIMSON) {
-                if (state.is(IETags.Blocks.ANGER_CRIMSON_SHROOMLOIN_BLOCKS)) {
+                if (state.is(IEBlockTags.ANGER_CRIMSON_SHROOMLOIN_BLOCKS)) {
                     shroomloin.becomeAngryAt(event.getPlayer());
                 }
             }
             if (shroomloin.getShroomloinType() == IEShroomloinTypes.WARPED) {
-                if (state.is(IETags.Blocks.ANGER_WARPED_SHROOMLOIN_BLOCKS)) {
+                if (state.is(IEBlockTags.ANGER_WARPED_SHROOMLOIN_BLOCKS)) {
                     shroomloin.becomeAngryAt(event.getPlayer());
                 }
             }
             if (shroomloin.getShroomloinType() == IEShroomloinTypes.LUMINOUS) {
-                if (state.is(IETags.Blocks.ANGER_LUMINOUS_SHROOMLOIN_BLOCKS)) {
+                if (state.is(IEBlockTags.ANGER_LUMINOUS_SHROOMLOIN_BLOCKS)) {
                     shroomloin.becomeAngryAt(event.getPlayer());
                 }
             }
             if (shroomloin.getShroomloinType() == IEShroomloinTypes.RED) {
-                if (state.is(IETags.Blocks.ANGER_RED_SHROOMLOIN_BLOCKS)) {
+                if (state.is(IEBlockTags.ANGER_RED_SHROOMLOIN_BLOCKS)) {
                     shroomloin.becomeAngryAt(event.getPlayer());
                 }
             }
             if (shroomloin.getShroomloinType() == IEShroomloinTypes.BROWN) {
-                if (state.is(IETags.Blocks.ANGER_BROWN_SHROOMLOIN_BLOCKS)) {
+                if (state.is(IEBlockTags.ANGER_BROWN_SHROOMLOIN_BLOCKS)) {
                     shroomloin.becomeAngryAt(event.getPlayer());
                 }
             }
@@ -175,7 +173,7 @@ public class MiscEvents {
         BlockPos pos = event.getPos();
         Direction face = event.getDirection();
         Player player = event.getPlayer();
-        if (heldItemStack.getItem() == Items.BONE) {
+        if (heldItemStack.getItem() == net.minecraft.world.item.Items.BONE) {
             pos = pos.relative(face);
             BlockState blockstate = IEBlocks.BURIED_BONE.get().getPlaceableState(world, pos, face);
             if (blockstate != null) {
@@ -190,7 +188,7 @@ public class MiscEvents {
                 }
                 ForgeEventFactory.onBlockPlace(player, BlockSnapshot.create(world.dimension(), world, pos), face);
             }
-        } else if (heldItemStack.getItem() == Items.QUARTZ) {
+        } else if (heldItemStack.getItem() == net.minecraft.world.item.Items.QUARTZ) {
             pos = pos.relative(face);
             BlockState blockstate = IEBlocks.PLANTED_QUARTZ.get().getPlaceableState(world, pos, face);
             if (blockstate != null) {
@@ -205,7 +203,7 @@ public class MiscEvents {
                 }
                 ForgeEventFactory.onBlockPlace(player, BlockSnapshot.create(world.dimension(), world, pos), face);
             }
-        } else if (heldItemStack.getItem() == Items.GLOWSTONE_DUST) {
+        } else if (heldItemStack.getItem() == net.minecraft.world.item.Items.GLOWSTONE_DUST) {
             if (heldItemStack.getCount() >= 2) {
                 if (world.getBlockState(pos).getBlock() == IEBlocks.DIMSTONE.get()) {
                     player.swing(event.getHand());
@@ -213,7 +211,7 @@ public class MiscEvents {
                         world.addParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get(), pos.getX(), pos.getY(), pos.getZ(), 0.0, 0.0, 0.0);
                     }
                     world.playSound(null, event.getPos(), IESoundEvents.GLOWSTONE_RECHARGE.get(), SoundSource.BLOCKS, 1.0F, (float) (0.75F + event.getWorld().getRandom().nextDouble() / 2));
-                    world.setBlockAndUpdate(pos, Blocks.GLOWSTONE.defaultBlockState());
+                    world.setBlockAndUpdate(pos, net.minecraft.world.level.block.Blocks.GLOWSTONE.defaultBlockState());
                     if (!player.isCreative()) {
                         heldItemStack.shrink(2);
                     }
@@ -246,7 +244,7 @@ public class MiscEvents {
         Player player = event.getPlayer();
         ItemStack heldItemStack = player.getItemInHand(event.getHand());
 
-        if (heldItemStack.getItem() == Items.MAGMA_CREAM) {
+        if (heldItemStack.getItem() == net.minecraft.world.item.Items.MAGMA_CREAM) {
             player.swing(event.getHand());
 
             if (!world.isClientSide) {
@@ -262,7 +260,7 @@ public class MiscEvents {
             if (!player.getAbilities().instabuild) {
                 heldItemStack.shrink(1);
             }
-        } else if (heldItemStack.getItem() == Items.FIRE_CHARGE) {
+        } else if (heldItemStack.getItem() == net.minecraft.world.item.Items.FIRE_CHARGE) {
             player.swing(event.getHand());
 
             if (!world.isClientSide) {
@@ -278,7 +276,7 @@ public class MiscEvents {
             }
         }
         if (InfernalExpansionConfig.Miscellaneous.USE_THROWABLE_BRICKS.getBool()) {
-            if (heldItemStack.getItem() == Items.BRICK) {
+            if (heldItemStack.getItem() == net.minecraft.world.item.Items.BRICK) {
                 player.swing(event.getHand());
 
                 if (!world.isClientSide) {
@@ -295,7 +293,7 @@ public class MiscEvents {
                     heldItemStack.shrink(1);
                 }
         }
-            if (heldItemStack.getItem() == Items.NETHER_BRICK) {
+            if (heldItemStack.getItem() == net.minecraft.world.item.Items.NETHER_BRICK) {
                 player.swing(event.getHand());
 
                 if (!world.isClientSide) {
@@ -320,7 +318,7 @@ public class MiscEvents {
         Block block = event.getBlock().getBlock();
         Level world = event.getWorld();
         BlockPos pos = event.getPos();
-        if (block == Blocks.SHROOMLIGHT && Miscellaneous.SHROOMLIGHT_GROWABLE.getBool()) {
+        if (block == net.minecraft.world.level.block.Blocks.SHROOMLIGHT && Miscellaneous.SHROOMLIGHT_GROWABLE.getBool()) {
             pos = pos.below();
             if (world.isEmptyBlock(pos)) {
                 event.setResult(Event.Result.ALLOW);

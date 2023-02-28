@@ -43,9 +43,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.infernalstudios.infernalexp.blockentities.LuminousFungusBlockEntity;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 import org.infernalstudios.infernalexp.init.IEBlockEntityTypes;
+import org.infernalstudios.infernalexp.init.IEBlockTags;
 import org.infernalstudios.infernalexp.init.IEConfiguredFeatures;
 import org.infernalstudios.infernalexp.init.IEEffects;
-import org.infernalstudios.infernalexp.init.IETags;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -62,7 +62,7 @@ public class LuminousFungusBlock extends HorizontalBushBlock implements Bonemeal
 
     @Override
     protected boolean isValidGround(BlockState state, BlockGetter worldIn, BlockPos pos) {
-        return state.is(IETags.Blocks.LUMINOUS_FUNGUS_BASE_BLOCKS);
+        return state.is(IEBlockTags.LUMINOUS_FUNGUS_BASE_BLOCKS);
     }
 
     public boolean canAttachToSurface(LevelReader reader, BlockPos pos, Direction direction) {

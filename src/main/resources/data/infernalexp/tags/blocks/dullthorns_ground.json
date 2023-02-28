@@ -7,6 +7,7 @@
     "infernalexp:glowdust_sand",
     "minecraft:coarse_dirt",
     "minecraft:crimson_nylium",
+    "minecraft:warped_nylium",
     "minecraft:dirt",
     "minecraft:farmland",
     "minecraft:glowstone",
@@ -16,7 +17,6 @@
     "minecraft:red_sand",
     "minecraft:sand",
     "minecraft:soul_sand",
-    "minecraft:soul_soil",
-    "minecraft:warped_nylium"
+    "minecraft:soul_soil"
   ]
 }

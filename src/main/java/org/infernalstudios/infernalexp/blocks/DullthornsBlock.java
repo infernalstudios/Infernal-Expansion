@@ -30,7 +30,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -43,10 +42,10 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.IForgeShearable;
 import org.infernalstudios.infernalexp.entities.BlindsightEntity;
+import org.infernalstudios.infernalexp.init.IEBlockTags;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IEEffects;
 import org.infernalstudios.infernalexp.init.IEItems;
-import org.infernalstudios.infernalexp.init.IETags;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -57,7 +56,7 @@ import java.util.Random;
 public class DullthornsBlock extends BushBlock implements IForgeShearable {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_15;
     public static final BooleanProperty TIP = BooleanProperty.create("tip");
-    protected static final VoxelShape SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 15.0D, 11.0D);
+    protected static final VoxelShape SHAPE = net.minecraft.world.level.block.Block.box(5.0D, 0.0D, 5.0D, 11.0D, 15.0D, 11.0D);
 
     public DullthornsBlock(Properties properties) {
         super(properties);
@@ -77,7 +76,7 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
 
     @Override
     protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
-        return state.is(IETags.Blocks.DULLTHORNS_GROUND);
+        return state.is(IEBlockTags.DULLTHORNS_GROUND);
     }
 
     @Override
@@ -169,13 +168,13 @@ public class DullthornsBlock extends BushBlock implements IForgeShearable {
         boolean aboveIsDullthorns = aboveBlockState.is(IEBlocks.DULLTHORNS.get());
 
         if (!stateIn.canSurvive(worldIn, currentPos)) {
-            return Blocks.AIR.defaultBlockState();
+            return net.minecraft.world.level.block.Blocks.AIR.defaultBlockState();
         }
 
         if (!aboveIsDullthorns && !stateIn.getValue(TIP)) {
-            return !stateIn.canSurvive(worldIn, currentPos) ? Blocks.AIR.defaultBlockState() : stateIn.setValue(TIP, true);
+            return !stateIn.canSurvive(worldIn, currentPos) ? net.minecraft.world.level.block.Blocks.AIR.defaultBlockState() : stateIn.setValue(TIP, true);
         } else if (aboveIsDullthorns && stateIn.getValue(TIP)) {
-            return !stateIn.canSurvive(worldIn, currentPos) ? Blocks.AIR.defaultBlockState() : stateIn.setValue(TIP, false);
+            return !stateIn.canSurvive(worldIn, currentPos) ? net.minecraft.world.level.block.Blocks.AIR.defaultBlockState() : stateIn.setValue(TIP, false);
         } else {
             return stateIn;
         }

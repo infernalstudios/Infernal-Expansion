@@ -26,7 +26,7 @@ import org.infernalstudios.infernalexp.entities.GlowsquitoEntity;
 import org.infernalstudios.infernalexp.entities.VolineEntity;
 import org.infernalstudios.infernalexp.entities.WarpbeetleEntity;
 import org.infernalstudios.infernalexp.entities.ai.AvoidBlockGoal;
-import org.infernalstudios.infernalexp.init.IETags;
+import org.infernalstudios.infernalexp.init.IEBlockTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -160,7 +160,7 @@ public class MobEvents {
         }
 
         if (event.getEntity() instanceof MagmaCube entity) {
-            entity.goalSelector.addGoal(0, new AvoidBlockGoal(entity, IETags.Blocks.MAGMA_CUBE_AVOID_BLOCKS, 8));
+            entity.goalSelector.addGoal(0, new AvoidBlockGoal(entity, IEBlockTags.MAGMA_CUBE_AVOID_BLOCKS, 8));
         }
     }
 

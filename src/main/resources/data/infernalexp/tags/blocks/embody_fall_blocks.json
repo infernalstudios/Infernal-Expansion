@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
+    "infernalexp:soul_soil_path",
     "minecraft:soul_sand",
-    "minecraft:soul_soil",
-    "infernalexp:soul_soil_path"
+    "minecraft:soul_soil"
   ]
 }

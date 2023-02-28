@@ -25,23 +25,20 @@ import net.minecraftforge.registries.RegistryObject;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Supplier;
 
 public class DataGenDeferredRegister<T extends IForgeRegistryEntry<T>, P extends DataProvider> {
 
     private final DeferredRegister<T> register;
-    private final List<ProviderPair<T, P>> dataProviders = new ArrayList<>();
+    private final DataProviderCollection<T, P> dataProviders = new DataProviderCollection<>();
 
     public DataGenDeferredRegister(IForgeRegistry<T> registry) {
         register = DeferredRegister.create(registry, InfernalExpansion.MOD_ID);
     }
 
-    public <S extends T> RegistryObject<S> register(String name, Supplier<? extends S> supplier, @Nullable ProviderConsumer<T, P> dataProvider) {
+    public <S extends T> RegistryObject<S> register(String name, Supplier<? extends S> supplier, @Nullable DataProviderCollection.DataProviderConsumer<T, P> provider) {
         RegistryObject<S> registryObject = register.register(name, supplier);
-        if (dataProvider != null)
-            dataProviders.add(new ProviderPair<>(registryObject, dataProvider));
+        dataProviders.addProvider(registryObject, provider);
 
         return registryObject;
     }
@@ -50,18 +47,12 @@ public class DataGenDeferredRegister<T extends IForgeRegistryEntry<T>, P extends
         register.register(eventBus);
     }
 
-    public List<ProviderPair<T, P>> getDataProviders() {
-        return dataProviders;
+    public DeferredRegister<T> getRegister() {
+        return register;
     }
 
-    public record ProviderPair<T extends IForgeRegistryEntry<T>, P extends DataProvider>(
-        RegistryObject<? extends T> registryObject,
-        ProviderConsumer<T, P> dataProvider
-    ) {}
-
-    @FunctionalInterface
-    public interface ProviderConsumer<T, P extends DataProvider> {
-        void accept(P dataProvider, RegistryObject<? extends T> registryObject);
+    public DataProviderCollection<T, P> getDataProviders() {
+        return dataProviders;
     }
 
 }

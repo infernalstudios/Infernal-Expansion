@@ -23,7 +23,7 @@ import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelProvider;
 import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.data.DataGenDeferredRegister;
+import org.infernalstudios.infernalexp.data.DataProviderCollection;
 
 public class IEItemProviders {
 
@@ -179,6 +179,6 @@ public class IEItemProviders {
     }
 
     @FunctionalInterface
-    public interface ItemProviderConsumer extends DataGenDeferredRegister.ProviderConsumer<Item, ItemModelProvider> {}
+    public interface ItemProviderConsumer extends DataProviderCollection.DataProviderConsumer<Item, ItemModelProvider> {}
 
 }

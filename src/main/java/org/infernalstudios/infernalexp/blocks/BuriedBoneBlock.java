@@ -31,8 +31,8 @@ import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.infernalstudios.infernalexp.init.IEBlockTags;
 import org.infernalstudios.infernalexp.init.IEBlocks;
-import org.infernalstudios.infernalexp.init.IETags;
 
 import javax.annotation.CheckForNull;
 
@@ -72,7 +72,7 @@ public class BuriedBoneBlock extends HorizontalBushBlock {
 
     @Override
     protected boolean isValidGround(BlockState state, BlockGetter worldIn, BlockPos pos) {
-        return state.is(IETags.Blocks.BURIED_BONE_BASE_BLOCKS);
+        return state.is(IEBlockTags.BURIED_BONE_BASE_BLOCKS);
     }
 
     public boolean canAttachToSurface(LevelReader reader, BlockPos pos, Direction direction) {

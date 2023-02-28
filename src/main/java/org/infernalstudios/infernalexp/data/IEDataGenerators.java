@@ -16,6 +16,8 @@
 
 package org.infernalstudios.infernalexp.data;
 
+import net.minecraft.core.Registry;
+import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
@@ -24,8 +26,14 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import org.infernalstudios.infernalexp.InfernalExpansion;
+import org.infernalstudios.infernalexp.data.providers.IETagsProviders;
+import org.infernalstudios.infernalexp.init.IEBiomeTags;
+import org.infernalstudios.infernalexp.init.IEBlockTags;
 import org.infernalstudios.infernalexp.init.IEBlocks;
+import org.infernalstudios.infernalexp.init.IEItemTags;
 import org.infernalstudios.infernalexp.init.IEItems;
+import org.infernalstudios.infernalexp.init.IEStructureTags;
+import org.jetbrains.annotations.NotNull;
 
 @Mod.EventBusSubscriber(modid = InfernalExpansion.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class IEDataGenerators {
@@ -38,8 +46,8 @@ public class IEDataGenerators {
         generator.addProvider(new BlockStateProvider(generator, InfernalExpansion.MOD_ID, fileHelper) {
             @Override
             protected void registerStatesAndModels() {
-                IEBlocks.BLOCKS.getDataProviders().forEach(provider -> {
-                    provider.dataProvider().accept(this, provider.registryObject());
+                IEBlocks.BLOCKS.getDataProviders().forEach((dataProvider, block) -> {
+                    dataProvider.accept(this, block);
                 });
             }
         });
@@ -47,10 +55,68 @@ public class IEDataGenerators {
         generator.addProvider(new ItemModelProvider(generator, InfernalExpansion.MOD_ID, fileHelper) {
             @Override
             protected void registerModels() {
-                IEItems.ITEMS.getDataProviders().forEach(provider -> {
-                    provider.dataProvider().accept(this, provider.registryObject());
+                IEItems.ITEMS.getDataProviders().forEach((dataProvider, item) -> {
+                    dataProvider.accept(this, item);
                 });
             }
+        });
+
+        generator.addProvider(new IETagsProviders<>(generator, Registry.BLOCK, InfernalExpansion.MOD_ID, fileHelper) {
+            @Override
+            protected void addTags() {
+                IEBlockTags.TAGS.forEach((dataProvider, tag) -> {
+                    dataProvider.accept(this, tag);
+                });
+            }
+
+            @Override
+            public @NotNull String getName() {
+                return "IE Block Tags";
+            }
+        });
+
+        generator.addProvider(new IETagsProviders<>(generator, Registry.ITEM, InfernalExpansion.MOD_ID, fileHelper) {
+            @Override
+            protected void addTags() {
+                IEItemTags.TAGS.forEach((dataProvider, tag) -> {
+                    dataProvider.accept(this, tag);
+                });
+            }
+
+            @Override
+            public @NotNull String getName() {
+                return "IE Item Tags";
+            }
+
+        });
+
+        generator.addProvider(new IETagsProviders<>(generator, BuiltinRegistries.BIOME, InfernalExpansion.MOD_ID, fileHelper) {
+            @Override
+            protected void addTags() {
+                IEBiomeTags.TAGS.forEach((dataProvider, tag) -> {
+                    dataProvider.accept(this, tag);
+                });
+            }
+
+            @Override
+            public @NotNull String getName() {
+                return "IE Biome Tags";
+            }
+        });
+
+        generator.addProvider(new IETagsProviders<>(generator, BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, InfernalExpansion.MOD_ID, fileHelper) {
+            @Override
+            protected void addTags() {
+                IEStructureTags.TAGS.forEach((dataProvider, tag) -> {
+                    dataProvider.accept(this, tag);
+                });
+            }
+
+            @Override
+            public String getName() {
+                return "IE Structure Tags";
+            }
+
         });
     }
 

@@ -20,12 +20,11 @@ import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import org.infernalstudios.infernalexp.init.IEBlockTags;
 import org.infernalstudios.infernalexp.init.IEBlocks;
-import org.infernalstudios.infernalexp.init.IETags;
 import org.infernalstudios.infernalexp.util.ShapeUtil;
 
 public class SinkHoleFeature extends IEFeature<NoneFeatureConfiguration> {
@@ -50,7 +49,7 @@ public class SinkHoleFeature extends IEFeature<NoneFeatureConfiguration> {
             mutableBlockPos.set(context.origin());
             for (int y = 1; y < depth; y++) {
                 mutableBlockPos.move(Direction.DOWN);
-                if (context.level().getBlockState(mutableBlockPos).is(Blocks.AIR)) return false;
+                if (context.level().getBlockState(mutableBlockPos).is(net.minecraft.world.level.block.Blocks.AIR)) return false;
             }
 
             // Build the walls down a few blocks so if the sink hole spawns on a slope it isn't open from the side
@@ -104,15 +103,15 @@ public class SinkHoleFeature extends IEFeature<NoneFeatureConfiguration> {
 
     private void carveSpot(WorldGenLevel world, ChunkGenerator generator, BlockPos.MutableBlockPos mutableBlockPos) {
         // Make sure the current block is allowed to be carved
-        if (!world.getBlockState(mutableBlockPos).is(IETags.Blocks.SINK_HOLE_CARVABLE_BLOCKS))
+        if (!world.getBlockState(mutableBlockPos).is(IEBlockTags.SINK_HOLE_CARVABLE_BLOCKS))
             return;
 
         // only carve spot if space isnt liquid and above isnt liquid
         if (world.getBlockState(mutableBlockPos).getFluidState().isEmpty()) {
             if (mutableBlockPos.getY() < generator.getSeaLevel()) {
-                world.setBlock(mutableBlockPos, Blocks.LAVA.defaultBlockState(), 3);
+                world.setBlock(mutableBlockPos, net.minecraft.world.level.block.Blocks.LAVA.defaultBlockState(), 3);
             } else {
-                world.setBlock(mutableBlockPos, Blocks.AIR.defaultBlockState(), 3);
+                world.setBlock(mutableBlockPos, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), 3);
             }
         }
     }
