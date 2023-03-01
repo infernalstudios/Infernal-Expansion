@@ -17,24 +17,25 @@
 package org.infernalstudios.infernalexp.init;
 
 import net.minecraft.core.Registry;
+import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.data.DataProviderCollection;
-import org.infernalstudios.infernalexp.data.providers.IETagsProviders;
+import org.infernalstudios.infernalexp.data.providers.IETagProviders;
 
 public class IEBiomeTags {
 
-    public static final DataProviderCollection<TagKey<Biome>, IETagsProviders<Biome>> TAGS = new DataProviderCollection<>();
+    public static final DataProviderCollection<TagKey<Biome>, TagsProvider<Biome>> TAGS = new DataProviderCollection<>();
 
-    public static final TagKey<Biome> HAS_GLOWSTONE_CANYON_RUIN = tag("has_structure/glowstone_canyon_ruin", IETagsProviders.simple(IEBiomes.GLOWSTONE_CANYON));
-    public static final TagKey<Biome> HAS_SOUL_SAND_VALLEY_RUIN = tag("has_structure/soul_sand_valley_ruin", IETagsProviders.simple(Biomes.SOUL_SAND_VALLEY));
-    public static final TagKey<Biome> HAS_BASTION_OUTPOST = tag("has_structure/bastion_outpost", IETagsProviders.simple(IEBiomes.GLOWSTONE_CANYON));
-    public static final TagKey<Biome> HAS_STRIDER_ALTAR = tag("has_structure/strider_altar", IETagsProviders.simple(Biomes.BASALT_DELTAS));
+    public static final TagKey<Biome> HAS_GLOWSTONE_CANYON_RUIN = tag("has_structure/glowstone_canyon_ruin", IETagProviders.simple(IEBiomes.GLOWSTONE_CANYON));
+    public static final TagKey<Biome> HAS_SOUL_SAND_VALLEY_RUIN = tag("has_structure/soul_sand_valley_ruin", IETagProviders.simple(Biomes.SOUL_SAND_VALLEY));
+    public static final TagKey<Biome> HAS_BASTION_OUTPOST = tag("has_structure/bastion_outpost", IETagProviders.simple(IEBiomes.GLOWSTONE_CANYON));
+    public static final TagKey<Biome> HAS_STRIDER_ALTAR = tag("has_structure/strider_altar", IETagProviders.simple(Biomes.BASALT_DELTAS));
 
-    private static TagKey<Biome> tag(String name, IETagsProviders.TagProviderConsumer<Biome> tagProvider) {
+    private static TagKey<Biome> tag(String name, IETagProviders.TagProviderConsumer<Biome> tagProvider) {
         TagKey<Biome> tag = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(InfernalExpansion.MOD_ID, name));
         TAGS.addProvider(() -> tag, tagProvider);
         return tag;

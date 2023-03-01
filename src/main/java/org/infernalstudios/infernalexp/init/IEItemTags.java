@@ -16,21 +16,22 @@
 
 package org.infernalstudios.infernalexp.init;
 
+import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.data.DataProviderCollection;
-import org.infernalstudios.infernalexp.data.providers.IETagsProviders;
+import org.infernalstudios.infernalexp.data.providers.IETagProviders;
 
 public class IEItemTags {
 
-    public static final DataProviderCollection<TagKey<Item>, IETagsProviders<Item>> TAGS = new DataProviderCollection<>();
+    public static final DataProviderCollection<TagKey<Item>, TagsProvider<Item>> TAGS = new DataProviderCollection<>();
 
-    public static final TagKey<Item> GLOWSILK_REPAIR_BLACKLIST = tag("glowsilk_repair_blacklist", IETagsProviders.simple());
+    public static final TagKey<Item> GLOWSILK_REPAIR_BLACKLIST = tag("glowsilk_repair_blacklist", IETagProviders.simple());
 
-    private static TagKey<Item> tag(String name, IETagsProviders.TagProviderConsumer<Item> tagProvider) {
+    private static TagKey<Item> tag(String name, IETagProviders.TagProviderConsumer<Item> tagProvider) {
         TagKey<Item> tag = ItemTags.create(new ResourceLocation(InfernalExpansion.MOD_ID, name));
         TAGS.addProvider(() -> tag, tagProvider);
         return tag;

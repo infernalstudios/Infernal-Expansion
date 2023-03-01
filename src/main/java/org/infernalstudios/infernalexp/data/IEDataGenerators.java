@@ -19,6 +19,7 @@ package org.infernalstudios.infernalexp.data;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.tags.TagsProvider;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -26,7 +27,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.data.providers.IETagsProviders;
 import org.infernalstudios.infernalexp.init.IEBiomeTags;
 import org.infernalstudios.infernalexp.init.IEBlockTags;
 import org.infernalstudios.infernalexp.init.IEBlocks;
@@ -61,7 +61,7 @@ public class IEDataGenerators {
             }
         });
 
-        generator.addProvider(new IETagsProviders<>(generator, Registry.BLOCK, InfernalExpansion.MOD_ID, fileHelper) {
+        generator.addProvider(new TagsProvider<>(generator, Registry.BLOCK, InfernalExpansion.MOD_ID, fileHelper) {
             @Override
             protected void addTags() {
                 IEBlockTags.TAGS.forEach((dataProvider, tag) -> {
@@ -75,7 +75,7 @@ public class IEDataGenerators {
             }
         });
 
-        generator.addProvider(new IETagsProviders<>(generator, Registry.ITEM, InfernalExpansion.MOD_ID, fileHelper) {
+        generator.addProvider(new TagsProvider<>(generator, Registry.ITEM, InfernalExpansion.MOD_ID, fileHelper) {
             @Override
             protected void addTags() {
                 IEItemTags.TAGS.forEach((dataProvider, tag) -> {
@@ -90,7 +90,7 @@ public class IEDataGenerators {
 
         });
 
-        generator.addProvider(new IETagsProviders<>(generator, BuiltinRegistries.BIOME, InfernalExpansion.MOD_ID, fileHelper) {
+        generator.addProvider(new TagsProvider<>(generator, BuiltinRegistries.BIOME, InfernalExpansion.MOD_ID, fileHelper) {
             @Override
             protected void addTags() {
                 IEBiomeTags.TAGS.forEach((dataProvider, tag) -> {
@@ -104,7 +104,7 @@ public class IEDataGenerators {
             }
         });
 
-        generator.addProvider(new IETagsProviders<>(generator, BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, InfernalExpansion.MOD_ID, fileHelper) {
+        generator.addProvider(new TagsProvider<>(generator, BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, InfernalExpansion.MOD_ID, fileHelper) {
             @Override
             protected void addTags() {
                 IEStructureTags.TAGS.forEach((dataProvider, tag) -> {

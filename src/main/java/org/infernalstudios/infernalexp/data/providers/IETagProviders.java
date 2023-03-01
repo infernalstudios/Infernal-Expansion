@@ -16,40 +16,28 @@
 
 package org.infernalstudios.infernalexp.data.providers;
 
-import net.minecraft.core.Registry;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
-import net.minecraftforge.common.data.ExistingFileHelper;
 import org.infernalstudios.infernalexp.data.DataProviderCollection;
-import org.jetbrains.annotations.Nullable;
 
-public abstract class IETagsProviders<T> extends TagsProvider<T> {
-
-    public IETagsProviders(DataGenerator generator, Registry<T> registry, String modId, @Nullable ExistingFileHelper existingFileHelper) {
-        super(generator, registry, modId, existingFileHelper);
-    }
-
-    public TagsProvider.TagAppender<T> createTag(TagKey<T> tag) {
-        return tag(tag);
-    }
+public abstract class IETagProviders<T> {
 
     @SafeVarargs
     public static <E> TagProviderConsumer<E> simple(E... elements) {
         return (provider, tag) -> {
-            provider.createTag(tag.get()).add(elements);
+            provider.tag(tag.get()).add(elements);
         };
     }
 
     @SafeVarargs
     public static <E> TagProviderConsumer<E> simple(ResourceKey<E>... elements) {
         return (provider, tag) -> {
-            provider.createTag(tag.get()).add(elements);
+            provider.tag(tag.get()).add(elements);
         };
     }
 
     @FunctionalInterface
-    public interface TagProviderConsumer<T> extends DataProviderCollection.DataProviderConsumer<TagKey<T>, IETagsProviders<T>> {}
+    public interface TagProviderConsumer<T> extends DataProviderCollection.DataProviderConsumer<TagKey<T>, TagsProvider<T>> {}
 
 }
