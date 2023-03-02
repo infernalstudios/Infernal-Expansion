@@ -17,42 +17,34 @@
 package org.infernalstudios.infernalexp.data.providers.recipes;
 
 import net.minecraft.advancements.AdvancementRewards;
-import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.UpgradeRecipeBuilder;
+import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.mixin.common.UpgradeRecipeBuilderAccessor;
+import org.infernalstudios.infernalexp.mixin.common.SingleItemRecipeBuilderAccessor;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 
-public class IEUpgradeRecipeBuilder extends UpgradeRecipeBuilder {
+public class IESingleItemRecipeBuilder extends SingleItemRecipeBuilder {
 
-    public IEUpgradeRecipeBuilder(ItemLike result, ItemLike base, ItemLike addition, RecipeSerializer<?> serializer) {
-        super(serializer, Ingredient.of(base), Ingredient.of(addition), result.asItem());
+    public IESingleItemRecipeBuilder(ItemLike result, int count, ItemLike ingredient, RecipeSerializer<?> serializer) {
+        super(serializer, Ingredient.of(ingredient), result, count);
     }
 
-    public static IEUpgradeRecipeBuilder smithing(ItemLike result, ItemLike base, ItemLike addition) {
-        return new IEUpgradeRecipeBuilder(result, base, addition, RecipeSerializer.SMITHING);
-    }
-
-    public IEUpgradeRecipeBuilder unlockedBy(String p_126390_, CriterionTriggerInstance p_126391_) {
-        ((UpgradeRecipeBuilderAccessor) this).getAdvancement().addCriterion(p_126390_, p_126391_);
-        return this;
-    }
-
-    public void save(Consumer<FinishedRecipe> consumer) {
-        this.save(consumer, ((UpgradeRecipeBuilderAccessor) this).getResult().getRegistryName());
+    public static IESingleItemRecipeBuilder stonecutting(ItemLike result, int count, ItemLike ingredient) {
+        return new IESingleItemRecipeBuilder(result, count, ingredient, RecipeSerializer.STONECUTTER);
     }
 
     @Override
-    public void save(Consumer<FinishedRecipe> consumer, ResourceLocation location) {
-        UpgradeRecipeBuilderAccessor accessor = (UpgradeRecipeBuilderAccessor) this;
+    public void save(@NotNull Consumer<FinishedRecipe> consumer, @NotNull ResourceLocation location) {
+        SingleItemRecipeBuilderAccessor accessor = (SingleItemRecipeBuilderAccessor) this;
         ResourceLocation id = new ResourceLocation(location.getNamespace(), accessor.getSerializer().getRegistryName().getPath() + "/" + location.getPath());
 
         accessor.invokeEnsureValid(id);
@@ -62,15 +54,24 @@ public class IEUpgradeRecipeBuilder extends UpgradeRecipeBuilder {
             .rewards(AdvancementRewards.Builder.recipe(id))
             .requirements(RequirementsStrategy.OR);
 
-        consumer.accept(new UpgradeRecipeBuilder.Result(
+        consumer.accept(new SingleItemRecipeBuilder.Result(
             id,
             accessor.getSerializer(),
-            accessor.getBase(),
-            accessor.getAddition(),
-            accessor.getResult(),
+            "",
+            accessor.getIngredient(),
+            getResult(),
+            accessor.getCount(),
             accessor.getAdvancement(),
             new ResourceLocation(location.getNamespace(), "recipes/" + InfernalExpansion.TAB.getRecipeFolderName() + "/" + location.getPath())
         ));
+    }
+
+    public static ResourceLocation getRecipeIdForConditionalRecipe(ResourceLocation location, RecipeSerializer<?> serializer) {
+        return new ResourceLocation(location.getNamespace(), serializer.getRegistryName().getPath() + "/" + location.getPath());
+    }
+
+    public static ResourceLocation getRecipeIdForConditionalRecipe(ItemLike itemLike, RecipeSerializer<?> serializer) {
+        return getRecipeIdForConditionalRecipe(ForgeRegistries.ITEMS.getKey(itemLike.asItem()), serializer);
     }
 
 }

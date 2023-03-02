@@ -62,7 +62,7 @@ public class IECookingRecipeBuilder extends SimpleCookingRecipeBuilder {
         SimpleCookingRecipeBuilderAccessor accessor = (SimpleCookingRecipeBuilderAccessor) this;
         ResourceLocation id = new ResourceLocation(location.getNamespace(), accessor.getSerializer().getRegistryName().getPath() + "/" + location.getPath());
 
-        accessor.invokeEnsureValid(location);
+        accessor.invokeEnsureValid(id);
         accessor.getAdvancement()
             .parent(new ResourceLocation("recipes/root"))
             .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))

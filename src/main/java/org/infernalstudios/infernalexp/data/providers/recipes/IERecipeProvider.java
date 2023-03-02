@@ -24,6 +24,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
@@ -45,6 +46,7 @@ public class IERecipeProvider extends RecipeProvider {
         // Basalt
         slab(IEBlocks.BASALT_SLAB.get(), Blocks.BASALT, consumer);
         verticalSlab(IEBlocks.BASALT_VERTICAL_SLAB.get(), IEBlocks.BASALT_SLAB.get(), Blocks.BASALT, consumer);
+        stairs(IEBlocks.BASALT_STAIRS.get(), Blocks.BASALT, consumer);
         wall(IEBlocks.BASALT_WALL.get(), Blocks.BASALT, consumer);
         button(IEBlocks.BASALT_BUTTON.get(), Blocks.BASALT, consumer);
 
@@ -59,11 +61,13 @@ public class IERecipeProvider extends RecipeProvider {
             .pattern(" # ").pattern("###").pattern(" # ")
             .unlockedBy(getHasName(IEBlocks.BASALT_BRICKS.get()), has(IEBlocks.BASALT_BRICKS.get()))
             .save(consumer);
+        stonecutting(IEBlocks.POLISHED_BASALT_TILES.get(), 1, IEBlocks.BASALT_BRICKS.get(), consumer);
         slab(IEBlocks.POLISHED_BASALT_TILES_SLAB.get(), IEBlocks.POLISHED_BASALT_TILES.get(), consumer);
         verticalSlab(IEBlocks.POLISHED_BASALT_TILES_VERTICAL_SLAB.get(), IEBlocks.POLISHED_BASALT_TILES_SLAB.get(), IEBlocks.POLISHED_BASALT_TILES.get(), consumer);
 
         // Basalt Bricks
         smallSquare(IEBlocks.BASALT_BRICKS.get(), 4, Blocks.POLISHED_BASALT, consumer);
+        stonecutting(IEBlocks.BASALT_BRICKS.get(), 1, Blocks.POLISHED_BASALT, consumer);
         slab(IEBlocks.BASALT_BRICK_SLAB.get(), IEBlocks.BASALT_BRICKS.get(), consumer);
         verticalSlab(IEBlocks.BASALT_BRICK_VERTICAL_SLAB.get(), IEBlocks.BASALT_BRICK_SLAB.get(), IEBlocks.BASALT_BRICKS.get(), consumer);
         stairs(IEBlocks.BASALT_BRICK_STAIRS.get(), IEBlocks.BASALT_BRICKS.get(), consumer);
@@ -94,6 +98,7 @@ public class IERecipeProvider extends RecipeProvider {
 
         // Glowstone Bricks
         smallSquare(IEBlocks.GLOWSTONE_BRICKS.get(), 4, IEBlocks.SMOOTH_GLOWSTONE.get(), consumer);
+        stonecutting(IEBlocks.GLOWSTONE_BRICKS.get(), 1, Blocks.GLOWSTONE, consumer);
         slab(IEBlocks.GLOWSTONE_BRICK_SLAB.get(), IEBlocks.GLOWSTONE_BRICKS.get(), consumer);
         verticalSlab(IEBlocks.GLOWSTONE_BRICK_VERTICAL_SLAB.get(), IEBlocks.GLOWSTONE_BRICK_SLAB.get(), IEBlocks.GLOWSTONE_BRICKS.get(), consumer);
         stairs(IEBlocks.GLOWSTONE_BRICK_STAIRS.get(), IEBlocks.GLOWSTONE_BRICKS.get(), consumer);
@@ -115,8 +120,10 @@ public class IERecipeProvider extends RecipeProvider {
             .unlockedBy(getHasName(Items.GLOWSTONE_DUST), has(Items.GLOWSTONE_DUST))
             .save(consumer);
         smallSquare(IEBlocks.DIMSTONE_BRICKS.get(), 4, IEBlocks.SMOOTH_DIMSTONE.get(), consumer);
+        stonecutting(IEBlocks.DIMSTONE_BRICKS.get(), 1, IEBlocks.DIMSTONE.get(), consumer);
         slab(IEBlocks.DIMSTONE_BRICK_SLAB.get(), IEBlocks.DIMSTONE_BRICKS.get(), consumer);
         verticalSlab(IEBlocks.DIMSTONE_BRICK_VERTICAL_SLAB.get(), IEBlocks.DIMSTONE_BRICK_SLAB.get(), IEBlocks.DIMSTONE_BRICKS.get(), consumer);
+        stairs(IEBlocks.DIMSTONE_BRICK_STAIRS.get(), IEBlocks.DIMSTONE_BRICKS.get(), consumer);
         wall(IEBlocks.DIMSTONE_BRICK_WALL.get(), IEBlocks.DIMSTONE_BRICKS.get(), consumer);
         chiseled(IEBlocks.CHISELED_DIMSTONE_BRICKS.get(), IEBlocks.DIMSTONE_BRICK_SLAB.get(), IEBlocks.DIMSTONE_BRICKS.get(), consumer);
         smelting(IEBlocks.CRACKED_DIMSTONE_BRICKS.get(), IEBlocks.DIMSTONE_BRICKS.get(), 0.1F, 200, consumer);
@@ -131,8 +138,10 @@ public class IERecipeProvider extends RecipeProvider {
         // Dullstone Bricks
         smallSquare(IEBlocks.DULLSTONE.get(), 4, IEItems.DULLROCKS.get(), consumer);
         smallSquare(IEBlocks.DULLSTONE_BRICKS.get(), 4, IEBlocks.DULLSTONE.get(), consumer);
+        stonecutting(IEBlocks.DULLSTONE_BRICKS.get(), 1, IEBlocks.DULLSTONE.get(), consumer);
         slab(IEBlocks.DULLSTONE_BRICK_SLAB.get(), IEBlocks.DULLSTONE_BRICKS.get(), consumer);
         verticalSlab(IEBlocks.DULLSTONE_BRICK_VERTICAL_SLAB.get(), IEBlocks.DULLSTONE_BRICK_SLAB.get(), IEBlocks.DULLSTONE_BRICKS.get(), consumer);
+        stairs(IEBlocks.DULLSTONE_BRICK_STAIRS.get(), IEBlocks.DULLSTONE_BRICKS.get(), consumer);
         wall(IEBlocks.DULLSTONE_BRICK_WALL.get(), IEBlocks.DULLSTONE_BRICKS.get(), consumer);
         chiseled(IEBlocks.CHISELED_DULLSTONE_BRICKS.get(), IEBlocks.DULLSTONE_BRICK_SLAB.get(), IEBlocks.DULLSTONE_BRICKS.get(), consumer);
         smelting(IEBlocks.CRACKED_DULLSTONE_BRICKS.get(), IEBlocks.DULLSTONE_BRICKS.get(), 0.1F, 200, consumer);
@@ -181,11 +190,20 @@ public class IERecipeProvider extends RecipeProvider {
 
         // Soul Slate Bricks
         smallSquare(IEBlocks.SOUL_SLATE_BRICKS.get(), 4, IEBlocks.SOUL_SLATE.get(), consumer);
+        stonecutting(IEBlocks.SOUL_SLATE_BRICKS.get(), 1, IEBlocks.SOUL_SLATE.get(), consumer);
         slab(IEBlocks.SOUL_SLATE_BRICK_SLAB.get(), IEBlocks.SOUL_SLATE_BRICKS.get(), consumer);
+        stonecuttingFrom(IEBlocks.SOUL_SLATE_BRICK_SLAB.get(), 2, IEBlocks.SOUL_SLATE.get(), consumer);
         verticalSlab(IEBlocks.SOUL_SLATE_BRICK_VERTICAL_SLAB.get(), IEBlocks.SOUL_SLATE_BRICK_SLAB.get(), IEBlocks.SOUL_SLATE_BRICKS.get(), consumer);
+        ConditionalRecipe.builder()
+            .addCondition(new QuarkFlagCondition("vertical_slabs"))
+            .addRecipe(c -> IESingleItemRecipeBuilder.stonecutting(IEBlocks.SOUL_SLATE_BRICK_VERTICAL_SLAB.get(), 2, IEBlocks.SOUL_SLATE.get()).unlockedBy(getHasName(IEBlocks.SOUL_SLATE.get()), has(IEBlocks.SOUL_SLATE.get())).save(c, from(IEBlocks.SOUL_SLATE_BRICK_VERTICAL_SLAB.get(), IEBlocks.SOUL_SLATE.get())))
+            .build(consumer, IESingleItemRecipeBuilder.getRecipeIdForConditionalRecipe(from(IEBlocks.SOUL_SLATE_BRICK_VERTICAL_SLAB.get(), IEBlocks.SOUL_SLATE.get()), RecipeSerializer.STONECUTTER));
         stairs(IEBlocks.SOUL_SLATE_BRICK_STAIRS.get(), IEBlocks.SOUL_SLATE_BRICKS.get(), consumer);
+        stonecuttingFrom(IEBlocks.SOUL_SLATE_BRICK_STAIRS.get(), 1, IEBlocks.SOUL_SLATE.get(), consumer);
         wall(IEBlocks.SOUL_SLATE_BRICK_WALL.get(), IEBlocks.SOUL_SLATE_BRICKS.get(), consumer);
+        stonecuttingFrom(IEBlocks.SOUL_SLATE_BRICK_WALL.get(), 1, IEBlocks.SOUL_SLATE.get(), consumer);
         chiseled(IEBlocks.CHISELED_SOUL_SLATE_BRICKS.get(), IEBlocks.SOUL_SLATE_BRICK_SLAB.get(), IEBlocks.SOUL_SLATE_BRICKS.get(), consumer);
+        stonecuttingFrom(IEBlocks.CHISELED_SOUL_SLATE_BRICKS.get(), 1, IEBlocks.SOUL_SLATE.get(), consumer);
         specialChiseled(IEBlocks.CHARGED_CHISELED_SOUL_SLATE_BRICKS.get(), IEBlocks.SOUL_SLATE_BRICK_SLAB.get(), IEItems.SOUL_SALT_CLUMP.get(), consumer);
         smelting(IEBlocks.CRACKED_SOUL_SLATE_BRICKS.get(), IEBlocks.SOUL_SLATE_BRICKS.get(), 0.1F, 200, consumer);
 
@@ -197,11 +215,20 @@ public class IERecipeProvider extends RecipeProvider {
 
         // Soul Stone Bricks
         smallSquare(IEBlocks.SOUL_STONE_BRICKS.get(), 4, IEBlocks.SOUL_STONE.get(), consumer);
+        stonecutting(IEBlocks.SOUL_STONE_BRICKS.get(), 1, IEBlocks.SOUL_STONE.get(), consumer);
         slab(IEBlocks.SOUL_STONE_BRICK_SLAB.get(), IEBlocks.SOUL_STONE_BRICKS.get(), consumer);
+        stonecuttingFrom(IEBlocks.SOUL_STONE_BRICK_SLAB.get(), 2, IEBlocks.SOUL_STONE.get(), consumer);
         verticalSlab(IEBlocks.SOUL_STONE_BRICK_VERTICAL_SLAB.get(), IEBlocks.SOUL_STONE_BRICK_SLAB.get(), IEBlocks.SOUL_STONE_BRICKS.get(), consumer);
+        ConditionalRecipe.builder()
+            .addCondition(new QuarkFlagCondition("vertical_slabs"))
+            .addRecipe(c -> IESingleItemRecipeBuilder.stonecutting(IEBlocks.SOUL_STONE_BRICK_VERTICAL_SLAB.get(), 2, IEBlocks.SOUL_STONE.get()).unlockedBy(getHasName(IEBlocks.SOUL_STONE.get()), has(IEBlocks.SOUL_STONE.get())).save(c, from(IEBlocks.SOUL_STONE_BRICK_VERTICAL_SLAB.get(), IEBlocks.SOUL_STONE.get())))
+            .build(consumer, IESingleItemRecipeBuilder.getRecipeIdForConditionalRecipe(from(IEBlocks.SOUL_STONE_BRICK_VERTICAL_SLAB.get(), IEBlocks.SOUL_STONE.get()), RecipeSerializer.STONECUTTER));
         stairs(IEBlocks.SOUL_STONE_BRICK_STAIRS.get(), IEBlocks.SOUL_STONE_BRICKS.get(), consumer);
+        stonecuttingFrom(IEBlocks.SOUL_STONE_BRICK_STAIRS.get(), 1, IEBlocks.SOUL_STONE.get(), consumer);
         wall(IEBlocks.SOUL_STONE_BRICK_WALL.get(), IEBlocks.SOUL_STONE_BRICKS.get(), consumer);
+        stonecuttingFrom(IEBlocks.SOUL_STONE_BRICK_WALL.get(), 1, IEBlocks.SOUL_STONE.get(), consumer);
         chiseled(IEBlocks.CHISELED_SOUL_STONE_BRICKS.get(), IEBlocks.SOUL_STONE_BRICK_SLAB.get(), IEBlocks.SOUL_STONE_BRICKS.get(), consumer);
+        stonecuttingFrom(IEBlocks.CHISELED_SOUL_STONE_BRICKS.get(), 1, IEBlocks.SOUL_STONE.get(), consumer);
         specialChiseled(IEBlocks.CHARGED_CHISELED_SOUL_STONE_BRICKS.get(), IEBlocks.SOUL_STONE_BRICK_SLAB.get(), IEItems.SOUL_SALT_CLUMP.get(), consumer);
         smelting(IEBlocks.CRACKED_SOUL_STONE_BRICKS.get(), IEBlocks.SOUL_STONE_BRICKS.get(), 0.1F, 200, consumer);
 
@@ -349,6 +376,7 @@ public class IERecipeProvider extends RecipeProvider {
 
     private void slab(ItemLike slab, ItemLike fullBlock, Consumer<FinishedRecipe> consumer) {
         IEShapedRecipeBuilder.shaped(slab, 6).define('#', fullBlock).pattern("###").unlockedBy(getHasName(fullBlock), has(fullBlock)).save(consumer);
+        stonecutting(slab, 2, fullBlock, consumer);
     }
 
     private void verticalSlab(ItemLike verticalSlab, ItemLike slab, ItemLike fullBlock, Consumer<FinishedRecipe> consumer) {
@@ -361,14 +389,21 @@ public class IERecipeProvider extends RecipeProvider {
             .addCondition(new QuarkFlagCondition("vertical_slabs"))
             .addRecipe(IEShapedRecipeBuilder.shaped(verticalSlab, 3).define('#', slab).pattern("#").pattern("#").pattern("#").unlockedBy(getHasName(fullBlock), has(fullBlock))::save)
             .build(consumer, IEShapedRecipeBuilder.getRecipeIdForConditionalRecipe(verticalSlab));
+
+        ConditionalRecipe.builder()
+            .addCondition(new QuarkFlagCondition("vertical_slabs"))
+            .addRecipe(IESingleItemRecipeBuilder.stonecutting(verticalSlab, 2, fullBlock).unlockedBy(getHasName(fullBlock), has(fullBlock))::save)
+            .build(consumer, IESingleItemRecipeBuilder.getRecipeIdForConditionalRecipe(verticalSlab, RecipeSerializer.STONECUTTER));
     }
 
     private void stairs(ItemLike stairs, ItemLike fullBlock, Consumer<FinishedRecipe> consumer) {
         IEShapedRecipeBuilder.shaped(stairs, 4).define('#', fullBlock).pattern("#  ").pattern("## ").pattern("###").unlockedBy(getHasName(fullBlock), has(fullBlock)).save(consumer);
+        stonecutting(stairs, 1, fullBlock, consumer);
     }
 
     private void wall(ItemLike wall, ItemLike fullBlock, Consumer<FinishedRecipe> consumer) {
         IEShapedRecipeBuilder.shaped(wall, 6).define('#', fullBlock).pattern("###").pattern("###").unlockedBy(getHasName(fullBlock), has(fullBlock)).save(consumer);
+        stonecutting(wall, 1, fullBlock, consumer);
     }
 
     private void pane(ItemLike pane, ItemLike fullBlock, Consumer<FinishedRecipe> consumer) {
@@ -381,6 +416,7 @@ public class IERecipeProvider extends RecipeProvider {
 
     private void chiseled(ItemLike chiseledBlock, ItemLike slab, ItemLike fullBlock, Consumer<FinishedRecipe> consumer) {
         IEShapedRecipeBuilder.shaped(chiseledBlock).define('#', slab).pattern("#").pattern("#").unlockedBy(getHasName(fullBlock), has(fullBlock)).save(consumer);
+        stonecutting(chiseledBlock, 1, fullBlock, consumer);
     }
 
     private void specialChiseled(ItemLike chargedChiseledBlock, ItemLike chiseledSlab, ItemLike catalyst, Consumer<FinishedRecipe> consumer) {
@@ -425,6 +461,14 @@ public class IERecipeProvider extends RecipeProvider {
 
     private void smithing(ItemLike result, ItemLike base, ItemLike addition, Consumer<FinishedRecipe> consumer) {
         IEUpgradeRecipeBuilder.smithing(result, base, addition).unlockedBy(getHasName(addition), has(addition)).save(consumer);
+    }
+
+    private void stonecutting(ItemLike result, int count, ItemLike ingredient, Consumer<FinishedRecipe> consumer) {
+        IESingleItemRecipeBuilder.stonecutting(result, count, ingredient).unlockedBy(getHasName(ingredient), has(ingredient)).save(consumer);
+    }
+
+    private void stonecuttingFrom(ItemLike result, int count, ItemLike ingredient, Consumer<FinishedRecipe> consumer) {
+        IESingleItemRecipeBuilder.stonecutting(result, count, ingredient).unlockedBy(getHasName(ingredient), has(ingredient)).save(consumer, from(result, ingredient));
     }
 
     private static ResourceLocation extend(ResourceLocation location, String suffix) {
