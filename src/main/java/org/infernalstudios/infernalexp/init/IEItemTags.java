@@ -21,6 +21,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.data.DataProviderCollection;
 import org.infernalstudios.infernalexp.data.providers.IETagProviders;
@@ -29,7 +31,16 @@ public class IEItemTags {
 
     public static final DataProviderCollection<TagKey<Item>, TagsProvider<Item>> TAGS = new DataProviderCollection<>();
 
-    public static final TagKey<Item> GLOWSILK_REPAIR_BLACKLIST = tag("glowsilk_repair_blacklist", IETagProviders.simple());
+    public static final TagKey<Item> GLOWSILK_REPAIR_BLACKLIST = tag("glowsilk_repair_blacklist", IETagProviders.items());
+
+    public static final TagKey<Item> MUSHROOMS = tag("mushrooms", IETagProviders.items(
+        Items.RED_MUSHROOM, Items.BROWN_MUSHROOM
+    ));
+
+    public static final TagKey<Item> SMOOTH_STONES = tag("smooth_stones", IETagProviders.items(
+        Blocks.SMOOTH_STONE, Blocks.SMOOTH_SANDSTONE, Blocks.SMOOTH_RED_SANDSTONE, Blocks.SMOOTH_QUARTZ,
+        IEBlocks.SMOOTH_GLOWSTONE.get(), IEBlocks.SMOOTH_DIMSTONE.get(), IEBlocks.SMOOTH_DULLSTONE.get()
+    ));
 
     private static TagKey<Item> tag(String name, IETagProviders.TagProviderConsumer<Item> tagProvider) {
         TagKey<Item> tag = ItemTags.create(new ResourceLocation(InfernalExpansion.MOD_ID, name));

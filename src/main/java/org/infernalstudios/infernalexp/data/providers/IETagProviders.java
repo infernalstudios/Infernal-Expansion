@@ -19,7 +19,11 @@ package org.infernalstudios.infernalexp.data.providers;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
 import org.infernalstudios.infernalexp.data.DataProviderCollection;
+
+import java.util.Arrays;
 
 public abstract class IETagProviders<T> {
 
@@ -35,6 +39,10 @@ public abstract class IETagProviders<T> {
         return (provider, tag) -> {
             provider.tag(tag.get()).add(elements);
         };
+    }
+
+    public static TagProviderConsumer<Item> items(ItemLike... elements) {
+        return simple(Arrays.stream(elements).map(ItemLike::asItem).toArray(Item[]::new));
     }
 
     @FunctionalInterface

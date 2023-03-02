@@ -27,6 +27,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import org.infernalstudios.infernalexp.InfernalExpansion;
+import org.infernalstudios.infernalexp.data.providers.recipes.IERecipeProvider;
 import org.infernalstudios.infernalexp.init.IEBiomeTags;
 import org.infernalstudios.infernalexp.init.IEBlockTags;
 import org.infernalstudios.infernalexp.init.IEBlocks;
@@ -118,6 +119,8 @@ public class IEDataGenerators {
             }
 
         });
+
+        generator.addProvider(new IERecipeProvider(generator));
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Infernal Studios
+ * Copyright 2023 Infernal Studios
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.infernalstudios.infernalexp.util;
+package org.infernalstudios.infernalexp.data.providers.recipes;
 
 import com.google.gson.JsonObject;
 
@@ -31,53 +31,55 @@ import net.minecraftforge.fml.ModList;
  * Condition for use in recipes making use of Quark Flags.
  */
 
-public class CompatibilityQuark implements ICondition {
+public class QuarkFlagCondition implements ICondition {
 
-    private final ResourceLocation resourceLocation;
+    private static final ResourceLocation NAME = new ResourceLocation(InfernalExpansion.MOD_ID, "quark_flag");
     private final String flag;
 
-    public CompatibilityQuark(ResourceLocation resourceLocation, String flag) {
-        this.resourceLocation = resourceLocation;
+    public QuarkFlagCondition(String flag) {
         this.flag = flag;
     }
 
     @Override
     public ResourceLocation getID() {
-        return this.resourceLocation;
+        return NAME;
     }
 
     @Override
-    public boolean test() {
+    public boolean test(IContext context) {
         if (ModList.get().isLoaded("quark")) {
             JsonObject jsonDummy = new JsonObject();
             jsonDummy.addProperty("type", "quark:flag");
             jsonDummy.addProperty("flag", this.flag);
-            return CraftingHelper.getCondition(jsonDummy).test();
+            return CraftingHelper.getCondition(jsonDummy).test(context);
         } else {
             return false;
         }
     }
 
-    public static class Serializer implements IConditionSerializer<CompatibilityQuark> {
-        private final ResourceLocation resourceLocation;
+    // Deprecated but still need to implement it unless I want to define this class as abstract
+    @Override
+    public boolean test() {
+        return false;
+    }
 
-        public Serializer() {
-            this.resourceLocation = new ResourceLocation(InfernalExpansion.MOD_ID, "quark_flag");
-        }
+    public static class Serializer implements IConditionSerializer<QuarkFlagCondition> {
+
+        public static final Serializer INSTANCE = new Serializer();
 
         @Override
-        public void write(JsonObject json, CompatibilityQuark value) {
+        public void write(JsonObject json, QuarkFlagCondition value) {
             json.addProperty("flag", value.flag);
         }
 
         @Override
-        public CompatibilityQuark read(JsonObject json) {
-            return new CompatibilityQuark(this.resourceLocation, json.getAsJsonPrimitive("flag").getAsString());
+        public QuarkFlagCondition read(JsonObject json) {
+            return new QuarkFlagCondition(json.getAsJsonPrimitive("flag").getAsString());
         }
 
         @Override
         public ResourceLocation getID() {
-            return this.resourceLocation;
+            return NAME;
         }
     }
 }

@@ -16,9 +16,49 @@
 
 package org.infernalstudios.infernalexp.events;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.AreaEffectCloud;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Skeleton;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.ZombifiedPiglin;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.AttachFace;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.common.util.BlockSnapshot;
+import net.minecraftforge.event.AddReloadListenerEvent;
+import net.minecraftforge.event.AnvilUpdateEvent;
+import net.minecraftforge.event.ForgeEventFactory;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.living.PotionColorCalculationEvent;
+import net.minecraftforge.event.entity.player.BonemealEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
+import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.blocks.DullthornsBlock;
@@ -29,6 +69,7 @@ import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig.Miscellaneous;
 import org.infernalstudios.infernalexp.data.SpawnrateManager;
 import org.infernalstudios.infernalexp.data.VolineEatTable;
+import org.infernalstudios.infernalexp.data.providers.recipes.QuarkFlagCondition;
 import org.infernalstudios.infernalexp.entities.ShroomloinEntity;
 import org.infernalstudios.infernalexp.entities.ThrowableBrickEntity;
 import org.infernalstudios.infernalexp.entities.ThrowableFireChargeEntity;
@@ -42,43 +83,6 @@ import org.infernalstudios.infernalexp.init.IEItems;
 import org.infernalstudios.infernalexp.init.IEParticleTypes;
 import org.infernalstudios.infernalexp.init.IEShroomloinTypes;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.entity.AreaEffectCloud;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.monster.Skeleton;
-import net.minecraft.world.entity.monster.Zombie;
-import net.minecraft.world.entity.monster.ZombifiedPiglin;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.UseAnim;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.level.block.state.properties.AttachFace;
-import net.minecraft.stats.Stats;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.core.Direction;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraftforge.common.util.BlockSnapshot;
-import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.event.AnvilUpdateEvent;
-import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.PotionColorCalculationEvent;
-import net.minecraftforge.event.entity.player.BonemealEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import org.infernalstudios.infernalexp.items.IFuel;
 
 import java.util.ArrayList;
@@ -448,5 +452,10 @@ public class MiscEvents {
         if (event.getItemStack().getItem() instanceof IFuel fuel) {
             event.setBurnTime(fuel.getBurnTime());
         }
+    }
+
+    @SubscribeEvent
+    public static void registerRecipeConditions(RegistryEvent.Register<RecipeSerializer<?>> event) {
+        CraftingHelper.register(QuarkFlagCondition.Serializer.INSTANCE);
     }
 }
