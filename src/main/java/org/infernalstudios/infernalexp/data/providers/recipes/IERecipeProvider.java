@@ -25,9 +25,11 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IEItemTags;
 import org.infernalstudios.infernalexp.init.IEItems;
@@ -106,6 +108,24 @@ public class IERecipeProvider extends RecipeProvider {
         chiseled(IEBlocks.CHISELED_GLOWSTONE_BRICKS.get(), IEBlocks.GLOWSTONE_BRICK_SLAB.get(), IEBlocks.GLOWSTONE_BRICKS.get(), consumer);
         smelting(IEBlocks.CRACKED_GLOWSTONE_BRICKS.get(), IEBlocks.GLOWSTONE_BRICKS.get(), 0.1F, 200, consumer);
 
+        // Dimstone
+        IEShapedRecipeBuilder.shaped(IEBlocks.DIMSTONE.get())
+            .define('X', Items.GLOWSTONE_DUST).define('O', IEItems.DULLROCKS.get())
+            .pattern("XO").pattern("OX")
+            .unlockedBy(getHasName(Items.GLOWSTONE_DUST), has(Items.GLOWSTONE_DUST))
+            .save(consumer);
+        createMod(
+            IEMultipleItemRecipeBuilder.crushing(150)
+                .ingredient(IEBlocks.DIMSTONE.get())
+                .result(Items.GLOWSTONE_DUST, 1)
+                .result(IEItems.DULLROCKS.get(), 1)
+                .result(Items.GLOWSTONE_DUST, 0.5F)
+                .result(IEItems.DULLROCKS.get(), 0.5F)
+                ::save,
+            IEMultipleItemRecipeBuilder.getRecipeIdForConditionalRecipe(IEBlocks.DIMSTONE.get(), IEMultipleItemRecipeBuilder.CRUSHING),
+            consumer
+        );
+
         // Smooth Dimstone
         smelting(IEBlocks.SMOOTH_DIMSTONE.get(), IEBlocks.DIMSTONE.get(), 0.1F, 200, consumer);
         slab(IEBlocks.SMOOTH_DIMSTONE_SLAB.get(), IEBlocks.SMOOTH_DIMSTONE.get(), consumer);
@@ -114,11 +134,6 @@ public class IERecipeProvider extends RecipeProvider {
         button(IEBlocks.SMOOTH_DIMSTONE_BUTTON.get(), IEBlocks.SMOOTH_DIMSTONE.get(), consumer);
 
         // Dimstone Bricks
-        IEShapedRecipeBuilder.shaped(IEBlocks.DIMSTONE.get())
-            .define('X', Items.GLOWSTONE_DUST).define('O', IEItems.DULLROCKS.get())
-            .pattern("XO").pattern("OX")
-            .unlockedBy(getHasName(Items.GLOWSTONE_DUST), has(Items.GLOWSTONE_DUST))
-            .save(consumer);
         smallSquare(IEBlocks.DIMSTONE_BRICKS.get(), 4, IEBlocks.SMOOTH_DIMSTONE.get(), consumer);
         stonecutting(IEBlocks.DIMSTONE_BRICKS.get(), 1, IEBlocks.DIMSTONE.get(), consumer);
         slab(IEBlocks.DIMSTONE_BRICK_SLAB.get(), IEBlocks.DIMSTONE_BRICKS.get(), consumer);
@@ -128,6 +143,17 @@ public class IERecipeProvider extends RecipeProvider {
         chiseled(IEBlocks.CHISELED_DIMSTONE_BRICKS.get(), IEBlocks.DIMSTONE_BRICK_SLAB.get(), IEBlocks.DIMSTONE_BRICKS.get(), consumer);
         smelting(IEBlocks.CRACKED_DIMSTONE_BRICKS.get(), IEBlocks.DIMSTONE_BRICKS.get(), 0.1F, 200, consumer);
 
+        // Dullstone
+        smallSquare(IEBlocks.DULLSTONE.get(), 4, IEItems.DULLROCKS.get(), consumer);
+        createMod(
+            IEMultipleItemRecipeBuilder.crushing(150)
+                .ingredient(IEBlocks.DULLSTONE.get())
+                .result(IEItems.DULLROCKS.get(), 3)
+                .result(IEItems.DULLROCKS.get(), 0.5F)
+                ::save,
+            IEMultipleItemRecipeBuilder.getRecipeIdForConditionalRecipe(IEBlocks.DULLSTONE.get(), IEMultipleItemRecipeBuilder.CRUSHING),
+            consumer);
+
         // Smooth Dullstone
         smelting(IEBlocks.SMOOTH_DULLSTONE.get(), IEBlocks.DULLSTONE.get(), 0.1F, 200, consumer);
         slab(IEBlocks.SMOOTH_DULLSTONE_SLAB.get(), IEBlocks.SMOOTH_DULLSTONE.get(), consumer);
@@ -136,7 +162,6 @@ public class IERecipeProvider extends RecipeProvider {
         button(IEBlocks.SMOOTH_DULLSTONE_BUTTON.get(), IEBlocks.SMOOTH_DULLSTONE.get(), consumer);
 
         // Dullstone Bricks
-        smallSquare(IEBlocks.DULLSTONE.get(), 4, IEItems.DULLROCKS.get(), consumer);
         smallSquare(IEBlocks.DULLSTONE_BRICKS.get(), 4, IEBlocks.DULLSTONE.get(), consumer);
         stonecutting(IEBlocks.DULLSTONE_BRICKS.get(), 1, IEBlocks.DULLSTONE.get(), consumer);
         slab(IEBlocks.DULLSTONE_BRICK_SLAB.get(), IEBlocks.DULLSTONE_BRICKS.get(), consumer);
@@ -153,6 +178,14 @@ public class IERecipeProvider extends RecipeProvider {
             .pattern("XOX").pattern("OXO").pattern("XOX")
             .unlockedBy(getHasName(Items.GLOWSTONE_DUST), has(Items.GLOWSTONE_DUST))
             .save(consumer);
+        createMod(
+            IEMultipleItemRecipeBuilder.crushing(150)
+                .ingredient(IEBlocks.GLOWDUST_SAND.get())
+                .result(Items.GLOWSTONE_DUST, 2)
+                .result(Items.GLOWSTONE_DUST, 0.25F)
+                ::save,
+            IEMultipleItemRecipeBuilder.getRecipeIdForConditionalRecipe(IEBlocks.GLOWDUST_SAND.get(), IEMultipleItemRecipeBuilder.CRUSHING),
+            consumer);
 
         // Glowdust Stone
         largeSquare(IEBlocks.GLOWDUST_STONE.get(), 4, IEBlocks.GLOWDUST_SAND.get(), consumer);
@@ -160,6 +193,14 @@ public class IERecipeProvider extends RecipeProvider {
         verticalSlab(IEBlocks.GLOWDUST_STONE_VERTICAL_SLAB.get(), IEBlocks.GLOWDUST_STONE_SLAB.get(), IEBlocks.GLOWDUST_STONE.get(), consumer);
         stairs(IEBlocks.GLOWDUST_STONE_STAIRS.get(), IEBlocks.GLOWDUST_STONE.get(), consumer);
         wall(IEBlocks.GLOWDUST_STONE_WALL.get(), IEBlocks.GLOWDUST_STONE.get(), consumer);
+        createMod(
+            IEMultipleItemRecipeBuilder.crushing(150)
+                .ingredient(IEBlocks.GLOWDUST_STONE.get())
+                .result(IEBlocks.GLOWDUST_SAND.get(), 2)
+                .result(IEBlocks.GLOWDUST_SAND.get(), 0.25F)
+                ::save,
+            IEMultipleItemRecipeBuilder.getRecipeIdForConditionalRecipe(IEBlocks.GLOWDUST_STONE.get(), IEMultipleItemRecipeBuilder.CRUSHING),
+            consumer);
 
         // Glowdust Stone Bricks
         smallSquare(IEBlocks.GLOWDUST_STONE_BRICKS.get(), 4, IEBlocks.GLOWDUST_STONE.get(), consumer);
@@ -274,6 +315,14 @@ public class IERecipeProvider extends RecipeProvider {
             .requires(IEItems.BLINDSIGHT_TONGUE.get()).requires(Blocks.CRIMSON_FUNGUS).requires(IEBlocks.LUMINOUS_FUNGUS.get()).requires(Items.WARPED_FUNGUS).requires(Items.BOWL)
             .unlockedBy(getHasName(IEItems.BLINDSIGHT_TONGUE.get()), has(IEItems.BLINDSIGHT_TONGUE.get()))
             .save(consumer);
+        farmersDelightMod(
+            FarmersDelightCookingRecipeBuilder.cooking(IEItems.BLINDSIGHT_TONGUE_STEW.get(), Items.BOWL, 0.35F, 200)
+                .ingredient(IEItems.BLINDSIGHT_TONGUE.get()).ingredient(Blocks.CRIMSON_FUNGUS)
+                .ingredient(IEBlocks.LUMINOUS_FUNGUS.get()).ingredient(Items.WARPED_FUNGUS)
+                ::save,
+            FarmersDelightCookingRecipeBuilder.getRecipeIdForConditionalRecipe(IEItems.BLINDSIGHT_TONGUE_STEW.get()),
+            consumer
+        );
 
         // Blindsight Tongue Whip
         IEShapedRecipeBuilder.shaped(IEItems.BLINDSIGHT_TONGUE_WHIP.get())
@@ -281,6 +330,18 @@ public class IERecipeProvider extends RecipeProvider {
             .pattern(" T ").pattern("MMM").pattern(" S ")
             .unlockedBy(getHasName(IEItems.BLINDSIGHT_TONGUE.get()), has(IEItems.BLINDSIGHT_TONGUE.get()))
             .save(consumer);
+
+        // Kinetic Tongue Whip
+        miningMasterMod(
+            MiningMasterForgingRecipeBuilder.forging(IEItems.KINETIC_TONGUE_WHIP.get(), IEItems.BLINDSIGHT_TONGUE_WHIP.get())
+                .gem(new ResourceLocation("miningmaster", "kinetic_opal"))
+                .gem(new ResourceLocation("miningmaster", "kinetic_opal"))
+                .gem(new ResourceLocation("miningmaster", "kinetic_opal"))
+                .enchantment(Enchantments.KNOCKBACK, 3)
+                ::save,
+            MiningMasterForgingRecipeBuilder.getRecipeIdForConditionalRecipe(IEItems.KINETIC_TONGUE_WHIP.get()),
+            consumer
+        );
 
         // Crimson Fungus
         smallSquare(IEBlocks.CRIMSON_FUNGUS_CAP.get(), 1, Blocks.CRIMSON_FUNGUS, consumer);
@@ -330,6 +391,32 @@ public class IERecipeProvider extends RecipeProvider {
             .unlockedBy(getHasName(IEItems.SOUL_SALT_CLUMP.get()), has(IEItems.SOUL_SALT_CLUMP.get()))
             .save(consumer);
 
+        // Paths
+        createMod(
+            IEMultipleItemRecipeBuilder.pressing()
+                .ingredient(Blocks.CRIMSON_NYLIUM)
+                .result(IEBlocks.CRIMSON_NYLIUM_PATH.get())
+                ::save,
+            IEMultipleItemRecipeBuilder.getRecipeIdForConditionalRecipe(IEBlocks.CRIMSON_NYLIUM_PATH.get(), IEMultipleItemRecipeBuilder.PRESSING),
+            consumer
+        );
+        createMod(
+            IEMultipleItemRecipeBuilder.pressing()
+                .ingredient(Blocks.SOUL_SOIL)
+                .result(IEBlocks.SOUL_SOIL_PATH.get())
+                ::save,
+            IEMultipleItemRecipeBuilder.getRecipeIdForConditionalRecipe(IEBlocks.SOUL_SOIL_PATH.get(), IEMultipleItemRecipeBuilder.PRESSING),
+            consumer
+        );
+        createMod(
+            IEMultipleItemRecipeBuilder.pressing()
+                .ingredient(Blocks.WARPED_NYLIUM)
+                .result(IEBlocks.WARPED_NYLIUM_PATH.get())
+                ::save,
+            IEMultipleItemRecipeBuilder.getRecipeIdForConditionalRecipe(IEBlocks.WARPED_NYLIUM_PATH.get(), IEMultipleItemRecipeBuilder.PRESSING),
+            consumer
+        );
+
         // Blast Furnace
         IEShapedRecipeBuilder.shaped(Blocks.BLAST_FURNACE)
             .define('#', IEItemTags.SMOOTH_STONES).define('X', Blocks.FURNACE).define('I', Items.IRON_INGOT)
@@ -355,6 +442,17 @@ public class IERecipeProvider extends RecipeProvider {
         // Iron Ingot
         blasting(Items.IRON_INGOT, IEBlocks.BASALT_IRON_ORE.get(), 0.7F, 100, consumer);
         smelting(Items.IRON_INGOT, IEBlocks.BASALT_IRON_ORE.get(), 0.7F, 200, consumer);
+        createMod(
+            IEMultipleItemRecipeBuilder.crushing(350)
+                .ingredient(IEBlocks.BASALT_IRON_ORE.get())
+                .result(new ResourceLocation("create", "crushed_iron_ore"), 2)
+                .result(new ResourceLocation("create", "crushed_iron_ore"), 0.25F)
+                .result(new ResourceLocation("create", "experience_nugget"), 0.75F)
+                .result(Blocks.BASALT, 0.125F)
+                ::save,
+            IEMultipleItemRecipeBuilder.getRecipeIdForConditionalRecipe(IEBlocks.BASALT_IRON_ORE.get(), IEMultipleItemRecipeBuilder.CRUSHING),
+            consumer
+        );
 
         // Paper
         IEShapedRecipeBuilder.shaped(Items.PAPER)
@@ -469,6 +567,27 @@ public class IERecipeProvider extends RecipeProvider {
 
     private void stonecuttingFrom(ItemLike result, int count, ItemLike ingredient, Consumer<FinishedRecipe> consumer) {
         IESingleItemRecipeBuilder.stonecutting(result, count, ingredient).unlockedBy(getHasName(ingredient), has(ingredient)).save(consumer, from(result, ingredient));
+    }
+
+    private void createMod(Consumer<Consumer<FinishedRecipe>> recipe, ResourceLocation id, Consumer<FinishedRecipe> consumer) {
+        ConditionalRecipe.builder()
+            .addCondition(new ModLoadedCondition("create"))
+            .addRecipe(recipe)
+            .build(consumer, id);
+    }
+
+    private void farmersDelightMod(Consumer<Consumer<FinishedRecipe>> recipe, ResourceLocation id, Consumer<FinishedRecipe> consumer) {
+        ConditionalRecipe.builder()
+            .addCondition(new ModLoadedCondition("farmersdelight"))
+            .addRecipe(recipe)
+            .build(consumer, id);
+    }
+
+    private void miningMasterMod(Consumer<Consumer<FinishedRecipe>> recipe, ResourceLocation id, Consumer<FinishedRecipe> consumer) {
+        ConditionalRecipe.builder()
+            .addCondition(new ModLoadedCondition("miningmaster"))
+            .addRecipe(recipe)
+            .build(consumer, id);
     }
 
     private static ResourceLocation extend(ResourceLocation location, String suffix) {
