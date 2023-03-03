@@ -35,10 +35,22 @@ public class IEBiomeTags {
     public static final TagKey<Biome> HAS_BASTION_OUTPOST = tag("has_structure/bastion_outpost", IETagProviders.simple(IEBiomes.GLOWSTONE_CANYON));
     public static final TagKey<Biome> HAS_STRIDER_ALTAR = tag("has_structure/strider_altar", IETagProviders.simple(Biomes.BASALT_DELTAS));
 
+    static {
+        overrideVanilla("is_nether", IETagProviders.simple(IEBiomes.GLOWSTONE_CANYON));
+    }
+
     private static TagKey<Biome> tag(String name, IETagProviders.TagProviderConsumer<Biome> tagProvider) {
         TagKey<Biome> tag = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(InfernalExpansion.MOD_ID, name));
         TAGS.addProvider(() -> tag, tagProvider);
         return tag;
+    }
+
+    private static void override(String namespace, String name, IETagProviders.TagProviderConsumer<Biome> tagProvider) {
+        TAGS.addProvider(() -> TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(namespace, name)), tagProvider);
+    }
+
+    private static void overrideVanilla(String name, IETagProviders.TagProviderConsumer<Biome> tagProvider) {
+        override("minecraft", name, tagProvider);
     }
 
 }

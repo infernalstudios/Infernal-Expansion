@@ -99,10 +99,138 @@ public class IEBlockTags {
         IEBlocks.GLOWDUST_STONE.get(), Blocks.GLOWSTONE, Blocks.BLACKSTONE, Blocks.LAVA, Blocks.NETHERRACK
     ));
 
+    static {
+        overrideVanilla("base_stone_nether", IETagProviders.simple(IEBlocks.DIMSTONE.get(), IEBlocks.DULLSTONE.get()));
+        overrideVanilla("buttons", IETagProviders.simple(
+            IEBlocks.SMOOTH_GLOWSTONE_BUTTON.get(), IEBlocks.SMOOTH_DIMSTONE_BUTTON.get(), IEBlocks.SMOOTH_DULLSTONE_BUTTON.get(),
+            IEBlocks.BASALT_BUTTON.get(), IEBlocks.SOUL_SLATE_BUTTON.get()
+        ));
+        overrideVanilla("campfire", IETagProviders.simple(IEBlocks.GLOW_CAMPFIRE.get()));
+        overrideVanilla("logs", IETagProviders.simple(
+            IEBlocks.LUMINOUS_HYPHAE.get(), IEBlocks.LUMINOUS_STEM.get(),
+            IEBlocks.STRIPPED_LUMINOUS_HYPHAE.get(), IEBlocks.STRIPPED_LUMINOUS_STEM.get()
+        ));
+        overrideVanilla("needs_diamond_tool", IETagProviders.simple(IEBlocks.GLOWSILK_COCOON.get()));
+        overrideVanilla("slabs", IETagProviders.simple(
+            IEBlocks.SMOOTH_GLOWSTONE_SLAB.get(), IEBlocks.SMOOTH_DIMSTONE_SLAB.get(), IEBlocks.SMOOTH_DULLSTONE_SLAB.get(),
+            IEBlocks.GLOWSTONE_BRICK_SLAB.get(), IEBlocks.DIMSTONE_BRICK_SLAB.get(), IEBlocks.DULLSTONE_BRICK_SLAB.get(),
+            IEBlocks.GLOWDUST_STONE_SLAB.get(), IEBlocks.GLOWDUST_STONE_BRICK_SLAB.get(), IEBlocks.BASALT_SLAB.get(),
+            IEBlocks.BASALT_COBBLED_SLAB.get(), IEBlocks.POLISHED_BASALT_SLAB.get(), IEBlocks.POLISHED_BASALT_TILES_SLAB.get(),
+            IEBlocks.BASALT_BRICK_SLAB.get(), IEBlocks.SOUL_SAND_SLAB.get(), IEBlocks.SOUL_SOIL_SLAB.get(),
+            IEBlocks.SOUL_STONE_SLAB.get(), IEBlocks.SOUL_SLATE_SLAB.get(), IEBlocks.SOUL_STONE_BRICK_SLAB.get(),
+            IEBlocks.SOUL_SLATE_BRICK_SLAB.get()
+        ));
+        overrideVanilla("soul_fire_base_blocks", IETagProviders.simple(
+            IEBlocks.SOUL_SAND_SLAB.get(), IEBlocks.SOUL_SAND_STAIRS.get(), IEBlocks.SOUL_SOIL_SLAB.get(), IEBlocks.SOUL_SOIL_STAIRS.get(),
+            IEBlocks.SOUL_STONE.get(), IEBlocks.SOUL_STONE_SLAB.get(), IEBlocks.SOUL_STONE_STAIRS.get(),
+            IEBlocks.SOUL_SLATE.get(), IEBlocks.SOUL_SLATE_SLAB.get(), IEBlocks.SOUL_SLATE_STAIRS.get(), IEBlocks.SOUL_SLATE_PRESSURE_PLATE.get(),
+            IEBlocks.SOUL_STONE_BRICKS.get(), IEBlocks.SOUL_STONE_BRICK_SLAB.get(), IEBlocks.SOUL_STONE_BRICK_STAIRS.get(),
+            IEBlocks.CRACKED_SOUL_STONE_BRICKS.get(), IEBlocks.CHISELED_SOUL_STONE_BRICKS.get(), IEBlocks.CHARGED_CHISELED_SOUL_STONE_BRICKS.get(),
+            IEBlocks.SOUL_SLATE_BRICKS.get(), IEBlocks.SOUL_SLATE_BRICK_SLAB.get(), IEBlocks.SOUL_SLATE_BRICK_STAIRS.get(),
+            IEBlocks.CRACKED_SOUL_SLATE_BRICKS.get(), IEBlocks.CHISELED_SOUL_SLATE_BRICKS.get(), IEBlocks.CHARGED_CHISELED_SOUL_SLATE_BRICKS.get()
+        ));
+        overrideVanilla("soul_speed_blocks", IETagProviders.simple(
+            IEBlocks.SOUL_SAND_SLAB.get(), IEBlocks.SOUL_SAND_STAIRS.get(), IEBlocks.SOUL_SOIL_SLAB.get(), IEBlocks.SOUL_SOIL_STAIRS.get(),
+            IEBlocks.SOUL_STONE.get(), IEBlocks.SOUL_STONE_SLAB.get(), IEBlocks.SOUL_STONE_STAIRS.get(),
+            IEBlocks.SOUL_SLATE.get(), IEBlocks.SOUL_SLATE_SLAB.get(), IEBlocks.SOUL_SLATE_STAIRS.get(), IEBlocks.SOUL_SLATE_PRESSURE_PLATE.get(),
+            IEBlocks.SOUL_STONE_BRICKS.get(), IEBlocks.SOUL_STONE_BRICK_SLAB.get(), IEBlocks.SOUL_STONE_BRICK_STAIRS.get(),
+            IEBlocks.CRACKED_SOUL_STONE_BRICKS.get(), IEBlocks.CHISELED_SOUL_STONE_BRICKS.get(), IEBlocks.CHARGED_CHISELED_SOUL_STONE_BRICKS.get(),
+            IEBlocks.SOUL_SLATE_BRICKS.get(), IEBlocks.SOUL_SLATE_BRICK_SLAB.get(), IEBlocks.SOUL_SLATE_BRICK_STAIRS.get(),
+            IEBlocks.CRACKED_SOUL_SLATE_BRICKS.get(), IEBlocks.CHISELED_SOUL_SLATE_BRICKS.get(), IEBlocks.CHARGED_CHISELED_SOUL_SLATE_BRICKS.get()
+        ));
+        overrideVanilla("stairs", IETagProviders.simple(
+            IEBlocks.SMOOTH_GLOWSTONE_STAIRS.get(), IEBlocks.SMOOTH_DIMSTONE_STAIRS.get(), IEBlocks.SMOOTH_DULLSTONE_STAIRS.get(),
+            IEBlocks.GLOWSTONE_BRICK_STAIRS.get(), IEBlocks.DIMSTONE_BRICK_STAIRS.get(), IEBlocks.DULLSTONE_BRICK_STAIRS.get(),
+            IEBlocks.GLOWDUST_STONE_STAIRS.get(), IEBlocks.GLOWDUST_STONE_BRICK_STAIRS.get(), IEBlocks.BASALT_STAIRS.get(),
+            IEBlocks.BASALT_BRICK_STAIRS.get(), IEBlocks.SOUL_SAND_STAIRS.get(), IEBlocks.SOUL_SOIL_STAIRS.get(),
+            IEBlocks.SOUL_STONE_STAIRS.get(), IEBlocks.SOUL_SLATE_STAIRS.get(), IEBlocks.SOUL_STONE_BRICK_STAIRS.get(),
+            IEBlocks.SOUL_SLATE_BRICK_STAIRS.get()
+        ));
+        overrideVanilla("stone_pressure_plates", IETagProviders.simple(
+            IEBlocks.SMOOTH_GLOWSTONE_PRESSURE_PLATE.get(), IEBlocks.POLISHED_BASALT_PRESSURE_PLATE.get(), IEBlocks.SOUL_SLATE_PRESSURE_PLATE.get()
+        ));
+        overrideVanilla("strider_warm_blocks", IETagProviders.simple(Blocks.MAGMA_BLOCK, IEBlocks.BASALTIC_MAGMA.get()));
+        overrideVanilla("walls", IETagProviders.simple(
+            IEBlocks.GLOWSTONE_BRICK_WALL.get(), IEBlocks.DIMSTONE_BRICK_WALL.get(), IEBlocks.DULLSTONE_BRICK_WALL.get(),
+            IEBlocks.GLOWDUST_STONE_WALL.get(), IEBlocks.GLOWDUST_STONE_BRICK_WALL.get(), IEBlocks.BASALT_WALL.get(),
+            IEBlocks.BASALT_BRICK_WALL.get(), IEBlocks.SOUL_STONE_WALL.get(), IEBlocks.SOUL_STONE_BRICK_WALL.get(),
+            IEBlocks.SOUL_SLATE_BRICK_WALL.get()
+        ));
+        overrideVanilla("wart_blocks", IETagProviders.simple(IEBlocks.LUMINOUS_WART_BLOCK.get()));
+
+        overrideVanilla("mineable/hoe", IETagProviders.simple(
+            IEBlocks.LUMINOUS_WART_BLOCK.get(), IEBlocks.CRIMSON_FUNGUS_CAP.get(), IEBlocks.WARPED_FUNGUS_CAP.get(),
+            IEBlocks.LUMINOUS_FUNGUS_CAP.get(), IEBlocks.DULLTHORNS_BLOCK.get(), IEBlocks.GLOWSILK_COCOON.get()
+        ));
+        overrideVanilla("mineable/pickaxe", IETagProviders.simple(
+            IEBlocks.DIMSTONE.get(), IEBlocks.DULLSTONE.get(), IEBlocks.SMOOTH_GLOWSTONE.get(), IEBlocks.SMOOTH_DIMSTONE.get(),
+            IEBlocks.SMOOTH_DULLSTONE.get(), IEBlocks.GLOWSTONE_BRICKS.get(), IEBlocks.DIMSTONE_BRICKS.get(),
+            IEBlocks.DULLSTONE_BRICKS.get(), IEBlocks.CRACKED_GLOWSTONE_BRICKS.get(), IEBlocks.CRACKED_DIMSTONE_BRICKS.get(),
+            IEBlocks.CRACKED_DULLSTONE_BRICKS.get(), IEBlocks.CHISELED_GLOWSTONE_BRICKS.get(), IEBlocks.CHISELED_DIMSTONE_BRICKS.get(),
+            IEBlocks.CHISELED_DULLSTONE_BRICKS.get(), IEBlocks.SMOOTH_GLOWSTONE_SLAB.get(), IEBlocks.SMOOTH_GLOWSTONE_VERTICAL_SLAB.get(),
+            IEBlocks.SMOOTH_GLOWSTONE_STAIRS.get(), IEBlocks.SMOOTH_GLOWSTONE_BUTTON.get(), IEBlocks.SMOOTH_GLOWSTONE_PRESSURE_PLATE.get(),
+            IEBlocks.SMOOTH_DIMSTONE_SLAB.get(), IEBlocks.SMOOTH_DIMSTONE_VERTICAL_SLAB.get(), IEBlocks.SMOOTH_DIMSTONE_STAIRS.get(),
+            IEBlocks.SMOOTH_DIMSTONE_BUTTON.get(), IEBlocks.SMOOTH_DULLSTONE_SLAB.get(), IEBlocks.SMOOTH_DULLSTONE_VERTICAL_SLAB.get(),
+            IEBlocks.SMOOTH_DULLSTONE_STAIRS.get(), IEBlocks.SMOOTH_DULLSTONE_BUTTON.get(), IEBlocks.GLOWSTONE_BRICK_SLAB.get(),
+            IEBlocks.GLOWSTONE_BRICK_VERTICAL_SLAB.get(), IEBlocks.GLOWSTONE_BRICK_STAIRS.get(), IEBlocks.GLOWSTONE_BRICK_WALL.get(),
+            IEBlocks.DIMSTONE_BRICK_SLAB.get(), IEBlocks.DIMSTONE_BRICK_VERTICAL_SLAB.get(), IEBlocks.DIMSTONE_BRICK_STAIRS.get(),
+            IEBlocks.DIMSTONE_BRICK_WALL.get(), IEBlocks.DULLSTONE_BRICK_SLAB.get(), IEBlocks.DULLSTONE_BRICK_VERTICAL_SLAB.get(),
+            IEBlocks.DULLSTONE_BRICK_STAIRS.get(), IEBlocks.DULLSTONE_BRICK_WALL.get(), IEBlocks.GLOWDUST_STONE.get(),
+            IEBlocks.GLOWDUST_STONE_SLAB.get(), IEBlocks.GLOWDUST_STONE_VERTICAL_SLAB.get(), IEBlocks.GLOWDUST_STONE_STAIRS.get(),
+            IEBlocks.GLOWDUST_STONE_WALL.get(), IEBlocks.GLOWDUST_STONE_BRICKS.get(), IEBlocks.GLOWDUST_STONE_BRICK_SLAB.get(),
+            IEBlocks.GLOWDUST_STONE_BRICK_VERTICAL_SLAB.get(), IEBlocks.GLOWDUST_STONE_BRICK_STAIRS.get(), IEBlocks.GLOWDUST_STONE_BRICK_WALL.get(),
+            IEBlocks.CRACKED_GLOWDUST_STONE_BRICKS.get(), IEBlocks.CHISELED_GLOWDUST_STONE_BRICKS.get(), IEBlocks.CRUMBLING_BLACKSTONE.get(),
+            IEBlocks.BASALT_SLAB.get(), IEBlocks.BASALT_VERTICAL_SLAB.get(), IEBlocks.BASALT_STAIRS.get(), IEBlocks.BASALT_WALL.get(),
+            IEBlocks.BASALT_BUTTON.get(), IEBlocks.POLISHED_BASALT_PRESSURE_PLATE.get(), IEBlocks.POLISHED_BASALT_SLAB.get(),
+            IEBlocks.POLISHED_BASALT_VERTICAL_SLAB.get(), IEBlocks.POLISHED_BASALT_TILES.get(), IEBlocks.POLISHED_BASALT_TILES_SLAB.get(),
+            IEBlocks.POLISHED_BASALT_TILES_VERTICAL_SLAB.get(), IEBlocks.BASALT_BRICKS.get(), IEBlocks.BASALT_BRICK_SLAB.get(),
+            IEBlocks.BASALT_BRICK_VERTICAL_SLAB.get(), IEBlocks.BASALT_BRICK_STAIRS.get(), IEBlocks.BASALT_BRICK_WALL.get(),
+            IEBlocks.CRACKED_BASALT_BRICKS.get(), IEBlocks.CHISELED_BASALT_BRICKS.get(), IEBlocks.MAGMATIC_CHISELED_BASALT_BRICKS.get(),
+            IEBlocks.BASALT_IRON_ORE.get(), IEBlocks.BASALTIC_MAGMA.get(), IEBlocks.SOUL_STONE.get(), IEBlocks.SOUL_STONE_SLAB.get(),
+            IEBlocks.SOUL_STONE_VERTICAL_SLAB.get(), IEBlocks.SOUL_STONE_STAIRS.get(), IEBlocks.SOUL_STONE_WALL.get(),
+            IEBlocks.SOUL_SLATE.get(), IEBlocks.SOUL_SLATE_SLAB.get(), IEBlocks.SOUL_SLATE_VERTICAL_SLAB.get(), IEBlocks.SOUL_SLATE_STAIRS.get(),
+            IEBlocks.SOUL_SLATE_BUTTON.get(), IEBlocks.SOUL_SLATE_PRESSURE_PLATE.get(), IEBlocks.SOUL_STONE_BRICKS.get(),
+            IEBlocks.SOUL_STONE_BRICK_SLAB.get(), IEBlocks.SOUL_STONE_BRICK_VERTICAL_SLAB.get(), IEBlocks.SOUL_STONE_BRICK_STAIRS.get(),
+            IEBlocks.SOUL_STONE_BRICK_WALL.get(), IEBlocks.CRACKED_SOUL_STONE_BRICKS.get(), IEBlocks.CHISELED_SOUL_STONE_BRICKS.get(),
+            IEBlocks.CHARGED_CHISELED_SOUL_STONE_BRICKS.get(), IEBlocks.SOUL_SLATE_BRICKS.get(), IEBlocks.SOUL_SLATE_BRICK_SLAB.get(),
+            IEBlocks.SOUL_SLATE_BRICK_VERTICAL_SLAB.get(), IEBlocks.SOUL_SLATE_BRICK_STAIRS.get(), IEBlocks.SOUL_SLATE_BRICK_WALL.get(),
+            IEBlocks.CRACKED_SOUL_SLATE_BRICKS.get(), IEBlocks.CHISELED_SOUL_SLATE_BRICKS.get(), IEBlocks.CHARGED_CHISELED_SOUL_SLATE_BRICKS.get(),
+            IEBlocks.GLOW_LANTERN.get(), IEBlocks.BURIED_BONE.get(), IEBlocks.PLANTED_QUARTZ.get(),
+            IEBlocks.CRIMSON_NYLIUM_PATH.get(), IEBlocks.WARPED_NYLIUM_PATH.get()
+        ));
+        overrideVanilla("mineable/shovel", IETagProviders.simple(
+            IEBlocks.GLOWDUST.get(), IEBlocks.GLOWDUST_SAND.get(), IEBlocks.TRAPPED_GLOWDUST_SAND.get(), IEBlocks.SOUL_SOIL_PATH.get(),
+            IEBlocks.RUBBLE.get(), IEBlocks.SILT.get(), IEBlocks.BASALT_COBBLED.get(), IEBlocks.BASALT_COBBLED_SLAB.get(),
+            IEBlocks.BASALT_COBBLED_VERTICAL_SLAB.get(), IEBlocks.SOUL_SAND_SLAB.get(), IEBlocks.SOUL_SAND_VERTICAL_SLAB.get(),
+            IEBlocks.SOUL_SAND_STAIRS.get(), IEBlocks.SOUL_SOIL_SLAB.get(), IEBlocks.SOUL_SOIL_VERTICAL_SLAB.get(),
+            IEBlocks.SOUL_SOIL_STAIRS.get()
+        ));
+
+        override("forge", "needs_wood_tool", IETagProviders.simple(IEBlocks.PLANTED_QUARTZ.get()));
+        override("forge", "ores/iron", IETagProviders.simple(IEBlocks.BASALT_IRON_ORE.get()));
+        override("quark", "vertical_slab", IETagProviders.simple(
+            IEBlocks.SMOOTH_GLOWSTONE_VERTICAL_SLAB.get(), IEBlocks.SMOOTH_DIMSTONE_VERTICAL_SLAB.get(), IEBlocks.SMOOTH_DULLSTONE_VERTICAL_SLAB.get(),
+            IEBlocks.GLOWSTONE_BRICK_VERTICAL_SLAB.get(), IEBlocks.DIMSTONE_BRICK_VERTICAL_SLAB.get(), IEBlocks.DULLSTONE_BRICK_VERTICAL_SLAB.get(),
+            IEBlocks.GLOWDUST_STONE_VERTICAL_SLAB.get(), IEBlocks.GLOWDUST_STONE_BRICK_VERTICAL_SLAB.get(), IEBlocks.BASALT_COBBLED_VERTICAL_SLAB.get(),
+            IEBlocks.BASALT_VERTICAL_SLAB.get(), IEBlocks.POLISHED_BASALT_VERTICAL_SLAB.get(), IEBlocks.POLISHED_BASALT_TILES_VERTICAL_SLAB.get(),
+            IEBlocks.BASALT_BRICK_VERTICAL_SLAB.get(), IEBlocks.SOUL_SAND_VERTICAL_SLAB.get(), IEBlocks.SOUL_SOIL_VERTICAL_SLAB.get(),
+            IEBlocks.SOUL_STONE_VERTICAL_SLAB.get(), IEBlocks.SOUL_SLATE_VERTICAL_SLAB.get(), IEBlocks.SOUL_STONE_BRICK_VERTICAL_SLAB.get(),
+            IEBlocks.SOUL_SLATE_BRICK_VERTICAL_SLAB.get()
+        ));
+    }
+
     private static TagKey<Block> tag(String name, IETagProviders.TagProviderConsumer<Block> tagProvider) {
         TagKey<Block> tag = BlockTags.create(new ResourceLocation(InfernalExpansion.MOD_ID, name));
         TAGS.addProvider(() -> tag, tagProvider);
         return tag;
+    }
+
+    private static void override(String namespace, String name, IETagProviders.TagProviderConsumer<Block> tagProvider) {
+        TAGS.addProvider(() -> BlockTags.create(new ResourceLocation(namespace, name)), tagProvider);
+    }
+
+    private static void overrideVanilla(String name, IETagProviders.TagProviderConsumer<Block> tagProvider) {
+        override("minecraft", name, tagProvider);
     }
 
 }

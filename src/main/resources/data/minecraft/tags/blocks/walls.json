@@ -1,15 +1,15 @@
 {
   "replace": false,
   "values": [
-    "infernalexp:glowdust_stone_wall",
-    "infernalexp:glowdust_stone_brick_wall",
     "infernalexp:glowstone_brick_wall",
     "infernalexp:dimstone_brick_wall",
     "infernalexp:dullstone_brick_wall",
+    "infernalexp:glowdust_stone_wall",
+    "infernalexp:glowdust_stone_brick_wall",
     "infernalexp:basalt_wall",
     "infernalexp:basalt_brick_wall",
-    "infernalexp:soul_slate_brick_wall",
     "infernalexp:soul_stone_wall",
-    "infernalexp:soul_stone_brick_wall"
+    "infernalexp:soul_stone_brick_wall",
+    "infernalexp:soul_slate_brick_wall"
   ]
 }
