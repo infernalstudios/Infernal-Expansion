@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "infernalexp:smooth_glowstone"
+    }
+  },
+  "result": {
+    "item": "infernalexp:smooth_glowstone_stairs",
+    "count": 4
+  }
+}

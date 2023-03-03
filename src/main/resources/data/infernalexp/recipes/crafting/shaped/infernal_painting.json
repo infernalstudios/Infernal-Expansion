@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#X#",
+    "XOX",
+    "#X#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:blaze_rod"
+    },
+    "X": {
+      "item": "minecraft:stick"
+    },
+    "O": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "result": {
+    "item": "infernalexp:infernal_painting"
+  }
+}

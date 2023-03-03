@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:crafting/shaped/paper_from_mushrooms"
+    ]
+  },
+  "criteria": {
+    "has_mushrooms": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "infernalexp:mushrooms"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:crafting/shaped/paper_from_mushrooms"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_mushrooms",
+      "has_the_recipe"
+    ]
+  ]
+}

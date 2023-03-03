@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:smoking/cooked_hogchop"
+    ]
+  },
+  "criteria": {
+    "has_raw_hogchop": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "infernalexp:raw_hogchop"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:smoking/cooked_hogchop"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_raw_hogchop",
+      "has_the_recipe"
+    ]
+  ]
+}

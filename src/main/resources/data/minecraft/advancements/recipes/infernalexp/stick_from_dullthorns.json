@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:crafting/shapeless/stick_from_dullthorns"
+    ]
+  },
+  "criteria": {
+    "has_dullthorns": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "infernalexp:dullthorns"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:crafting/shapeless/stick_from_dullthorns"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_dullthorns",
+      "has_the_recipe"
+    ]
+  ]
+}

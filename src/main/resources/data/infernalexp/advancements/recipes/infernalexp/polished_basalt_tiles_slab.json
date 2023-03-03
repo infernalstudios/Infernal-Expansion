@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:stonecutting/polished_basalt_tiles_slab"
+    ]
+  },
+  "criteria": {
+    "has_polished_basalt_tiles": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "infernalexp:polished_basalt_tiles"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:stonecutting/polished_basalt_tiles_slab"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_polished_basalt_tiles",
+      "has_the_recipe"
+    ]
+  ]
+}

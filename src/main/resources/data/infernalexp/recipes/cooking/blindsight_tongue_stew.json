@@ -1,0 +1,38 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "modid": "farmersdelight",
+          "type": "forge:mod_loaded"
+        }
+      ],
+      "recipe": {
+        "type": "farmersdelight:cooking",
+        "ingredients": [
+          {
+            "item": "infernalexp:blindsight_tongue"
+          },
+          {
+            "item": "minecraft:crimson_fungus"
+          },
+          {
+            "item": "infernalexp:luminous_fungus"
+          },
+          {
+            "item": "minecraft:warped_fungus"
+          }
+        ],
+        "result": {
+          "item": "infernalexp:blindsight_tongue_stew"
+        },
+        "container": {
+          "item": "minecraft:bowl"
+        },
+        "experience": 0.35,
+        "cooking_time": 200
+      }
+    }
+  ]
+}

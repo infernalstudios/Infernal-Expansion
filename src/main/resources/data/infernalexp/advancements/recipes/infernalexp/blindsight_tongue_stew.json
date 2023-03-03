@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:crafting/shapeless/blindsight_tongue_stew"
+    ]
+  },
+  "criteria": {
+    "has_blindsight_tongue": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "infernalexp:blindsight_tongue"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:crafting/shapeless/blindsight_tongue_stew"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_blindsight_tongue",
+      "has_the_recipe"
+    ]
+  ]
+}

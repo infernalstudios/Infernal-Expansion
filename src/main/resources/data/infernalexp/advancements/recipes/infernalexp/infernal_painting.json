@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:crafting/shaped/infernal_painting"
+    ]
+  },
+  "criteria": {
+    "has_blaze_rod": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:blaze_rod"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:crafting/shaped/infernal_painting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_blaze_rod",
+      "has_the_recipe"
+    ]
+  ]
+}

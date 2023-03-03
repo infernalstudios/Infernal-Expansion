@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:soul_soil"
+    }
+  },
+  "result": {
+    "item": "infernalexp:soul_soil_stairs",
+    "count": 4
+  }
+}

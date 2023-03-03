@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:stonecutting/basalt_cobbled_slab"
+    ]
+  },
+  "criteria": {
+    "has_basalt_cobbled": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "infernalexp:basalt_cobbled"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:stonecutting/basalt_cobbled_slab"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_basalt_cobbled",
+      "has_the_recipe"
+    ]
+  ]
+}

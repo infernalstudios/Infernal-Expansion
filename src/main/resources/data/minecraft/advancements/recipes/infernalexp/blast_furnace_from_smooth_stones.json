@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:crafting/shaped/blast_furnace_from_smooth_stones"
+    ]
+  },
+  "criteria": {
+    "has_smooth_stones": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "infernalexp:smooth_stones"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:crafting/shaped/blast_furnace_from_smooth_stones"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_smooth_stones",
+      "has_the_recipe"
+    ]
+  ]
+}

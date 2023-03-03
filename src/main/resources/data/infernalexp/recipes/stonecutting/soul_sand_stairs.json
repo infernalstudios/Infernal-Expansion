@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:soul_sand"
+  },
+  "result": "infernalexp:soul_sand_stairs",
+  "count": 1
+}

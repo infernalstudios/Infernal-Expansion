@@ -1,0 +1,32 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "modid": "create",
+          "type": "forge:mod_loaded"
+        }
+      ],
+      "recipe": {
+        "type": "create:crushing",
+        "ingredients": [
+          {
+            "item": "infernalexp:dullstone"
+          }
+        ],
+        "results": [
+          {
+            "item": "infernalexp:glownuggets",
+            "count": 3
+          },
+          {
+            "item": "infernalexp:glownuggets",
+            "chance": 0.5
+          }
+        ],
+        "processing_time": 150
+      }
+    }
+  ]
+}

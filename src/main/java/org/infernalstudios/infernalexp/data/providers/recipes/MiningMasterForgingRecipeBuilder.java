@@ -132,7 +132,7 @@ public class MiningMasterForgingRecipeBuilder implements RecipeBuilder {
             for (LeveledEnchantment enchantment : enchantments) {
                 JsonObject enchantmentObject = new JsonObject();
                 enchantmentObject.addProperty("enchantment", enchantment.enchantment().getRegistryName().toString());
-                enchantmentObject.addProperty("level", enchantment.level());
+                enchantmentObject.addProperty("lvl", enchantment.level());
                 enchantmentsArray.add(enchantmentObject);
             }
             json.add("enchantments", enchantmentsArray);

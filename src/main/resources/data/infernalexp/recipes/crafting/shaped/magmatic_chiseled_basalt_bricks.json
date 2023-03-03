@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "X",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "infernalexp:basalt_brick_slab"
+    },
+    "X": {
+      "item": "infernalexp:basaltic_magma"
+    }
+  },
+  "result": {
+    "item": "infernalexp:magmatic_chiseled_basalt_bricks"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:stonecutting/soul_slate_brick_slab"
+    ]
+  },
+  "criteria": {
+    "has_soul_slate_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "infernalexp:soul_slate_bricks"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:stonecutting/soul_slate_brick_slab"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_soul_slate_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

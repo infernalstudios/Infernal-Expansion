@@ -1,0 +1,26 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "modid": "create",
+          "type": "forge:mod_loaded"
+        }
+      ],
+      "recipe": {
+        "type": "create:pressing",
+        "ingredients": [
+          {
+            "item": "minecraft:warped_nylium"
+          }
+        ],
+        "results": [
+          {
+            "item": "infernalexp:warped_nylium_path"
+          }
+        ]
+      }
+    }
+  ]
+}

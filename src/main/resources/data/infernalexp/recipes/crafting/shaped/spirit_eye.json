@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "#X#",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "item": "infernalexp:soul_salt_clump"
+    },
+    "X": {
+      "item": "minecraft:spider_eye"
+    }
+  },
+  "result": {
+    "item": "infernalexp:spirit_eye"
+  }
+}

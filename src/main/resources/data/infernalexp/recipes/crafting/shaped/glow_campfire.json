@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " X ",
+    "XOX",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "tag": "minecraft:logs"
+    },
+    "X": {
+      "item": "minecraft:stick"
+    },
+    "O": {
+      "item": "infernalexp:glowcoal"
+    }
+  },
+  "result": {
+    "item": "infernalexp:glow_campfire"
+  }
+}

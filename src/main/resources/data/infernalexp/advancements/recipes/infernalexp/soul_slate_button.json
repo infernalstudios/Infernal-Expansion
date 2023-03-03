@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:crafting/shapeless/soul_slate_button"
+    ]
+  },
+  "criteria": {
+    "has_soul_slate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "infernalexp:soul_slate"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:crafting/shapeless/soul_slate_button"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_soul_slate",
+      "has_the_recipe"
+    ]
+  ]
+}

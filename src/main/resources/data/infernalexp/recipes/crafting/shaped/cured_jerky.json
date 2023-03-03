@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "#X#",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "item": "infernalexp:soul_salt_clump"
+    },
+    "X": {
+      "item": "minecraft:rotten_flesh"
+    }
+  },
+  "result": {
+    "item": "infernalexp:cured_jerky",
+    "count": 2
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "flag": "vertical_slabs",
+          "type": "infernalexp:quark_flag"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "item": "infernalexp:soul_stone_brick_vertical_slab"
+          }
+        ],
+        "result": {
+          "item": "infernalexp:soul_stone_brick_slab"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:stonecutting/soul_soil_slab"
+    ]
+  },
+  "criteria": {
+    "has_soul_soil": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:soul_soil"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:stonecutting/soul_soil_slab"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_soul_soil",
+      "has_the_recipe"
+    ]
+  ]
+}

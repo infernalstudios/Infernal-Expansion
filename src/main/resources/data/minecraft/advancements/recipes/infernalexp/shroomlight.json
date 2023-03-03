@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:crafting/shaped/shroomlight"
+    ]
+  },
+  "criteria": {
+    "has_shroomlight_fungus": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "infernalexp:shroomlight_fungus"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:crafting/shaped/shroomlight"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_shroomlight_fungus",
+      "has_the_recipe"
+    ]
+  ]
+}

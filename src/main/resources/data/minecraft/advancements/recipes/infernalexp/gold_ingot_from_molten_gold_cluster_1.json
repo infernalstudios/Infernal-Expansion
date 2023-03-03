@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:crafting/shapeless/gold_ingot_from_molten_gold_cluster_1"
+    ]
+  },
+  "criteria": {
+    "has_molten_gold_cluster": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "infernalexp:molten_gold_cluster"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:crafting/shapeless/gold_ingot_from_molten_gold_cluster_1"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_molten_gold_cluster",
+      "has_the_recipe"
+    ]
+  ]
+}
