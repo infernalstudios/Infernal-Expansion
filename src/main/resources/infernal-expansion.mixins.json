@@ -9,7 +9,9 @@
     "defaultRequire": 1
   },
   "mixins": [
+    "common.CreativeModeTabAccessor",
     "common.IngredientAccessor",
+    "common.LanguageProviderAccessor",
     "common.MixinAbstractArrowEntity",
     "common.MixinAbstractFireBlock",
     "common.MixinArrowEntity",

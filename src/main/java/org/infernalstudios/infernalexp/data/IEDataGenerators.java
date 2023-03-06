@@ -27,6 +27,23 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import org.infernalstudios.infernalexp.InfernalExpansion;
+import org.infernalstudios.infernalexp.data.providers.lang.DeDeLanguageProvider;
+import org.infernalstudios.infernalexp.data.providers.lang.EsArLanguageProvider;
+import org.infernalstudios.infernalexp.data.providers.lang.EsEsLanguageProvider;
+import org.infernalstudios.infernalexp.data.providers.lang.FrCaLanguageProvider;
+import org.infernalstudios.infernalexp.data.providers.lang.FrFrLanguageProvider;
+import org.infernalstudios.infernalexp.data.providers.lang.HeIlLanguageProvider;
+import org.infernalstudios.infernalexp.data.providers.lang.IELanguageProvider;
+import org.infernalstudios.infernalexp.data.providers.lang.IdIdLanguageProvider;
+import org.infernalstudios.infernalexp.data.providers.lang.JaJpLanguageProvider;
+import org.infernalstudios.infernalexp.data.providers.lang.LolUsLanguageProvider;
+import org.infernalstudios.infernalexp.data.providers.lang.MsMyLanguageProvider;
+import org.infernalstudios.infernalexp.data.providers.lang.NlNlLanguageProvider;
+import org.infernalstudios.infernalexp.data.providers.lang.PlPlLanguageProvider;
+import org.infernalstudios.infernalexp.data.providers.lang.PtBrLanguageProvider;
+import org.infernalstudios.infernalexp.data.providers.lang.RoRoLanguageProvider;
+import org.infernalstudios.infernalexp.data.providers.lang.RuRuLanguageProvider;
+import org.infernalstudios.infernalexp.data.providers.lang.ZhTwLanguageProvider;
 import org.infernalstudios.infernalexp.data.providers.recipes.IERecipeProvider;
 import org.infernalstudios.infernalexp.init.IEBiomeTags;
 import org.infernalstudios.infernalexp.init.IEBlockTags;
@@ -114,13 +131,36 @@ public class IEDataGenerators {
             }
 
             @Override
-            public String getName() {
+            public @NotNull String getName() {
                 return "IE Structure Tags";
             }
 
         });
 
         generator.addProvider(new IERecipeProvider(generator));
+
+        generator.addProvider(new IELanguageProvider(generator) {
+            @Override
+            protected void addTranslations() {
+                addBaseTranslations();
+            }
+        });
+        generator.addProvider(new DeDeLanguageProvider(generator));
+        generator.addProvider(new EsArLanguageProvider(generator));
+        generator.addProvider(new EsEsLanguageProvider(generator));
+        generator.addProvider(new FrCaLanguageProvider(generator));
+        generator.addProvider(new FrFrLanguageProvider(generator));
+        generator.addProvider(new HeIlLanguageProvider(generator));
+        generator.addProvider(new IdIdLanguageProvider(generator));
+        generator.addProvider(new JaJpLanguageProvider(generator));
+        generator.addProvider(new LolUsLanguageProvider(generator));
+        generator.addProvider(new MsMyLanguageProvider(generator));
+        generator.addProvider(new NlNlLanguageProvider(generator));
+        generator.addProvider(new PlPlLanguageProvider(generator));
+        generator.addProvider(new PtBrLanguageProvider(generator));
+        generator.addProvider(new RoRoLanguageProvider(generator));
+        generator.addProvider(new RuRuLanguageProvider(generator));
+        generator.addProvider(new ZhTwLanguageProvider(generator));
     }
 
 }
