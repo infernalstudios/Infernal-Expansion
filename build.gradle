@@ -87,6 +87,12 @@ mixin {
 
 repositories {
     maven { url = 'https://repo.spongepowered.org/maven/' }
+    maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
 
     jcenter()
     mavenCentral()
@@ -95,6 +101,14 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${config.MINECRAFT_VERSION}-${config.FORGE_VERSION}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
+//    implementation fg.deobf("curse.maven:jei-238222:4352925")
+//    implementation fg.deobf("curse.maven:quark-243121:3840125")
+//    implementation fg.deobf("curse.maven:autoreglib-250363:3642382")
+//    implementation fg.deobf("curse.maven:create-328085:4371807")
+//    implementation fg.deobf("curse.maven:flywheel-486392:4341461")
+//    implementation fg.deobf("curse.maven:farmersdelight-398521:3999153")
+//    implementation fg.deobf("curse.maven:miningmaster-534956:4041438")
 }
 
 jar {

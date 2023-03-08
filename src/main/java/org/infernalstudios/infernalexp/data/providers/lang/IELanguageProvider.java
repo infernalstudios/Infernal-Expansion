@@ -91,6 +91,9 @@ public abstract class IELanguageProvider extends LanguageProvider {
         if (error)
             throw new IllegalStateException("Missing translations for " + accessor.getLocale() + ", see log for details");
 
+        // Remove all translations that are the same as the base language
+        data.values().removeIf(baseData::containsValue);
+
         if (!data.isEmpty())
             saveFile(cache, data, accessor.getGenerator().getOutputFolder().resolve("assets/" + accessor.getModId() + "/lang/" + accessor.getLocale() + ".json"));
     }
@@ -531,12 +534,12 @@ public abstract class IELanguageProvider extends LanguageProvider {
         add("subtitles.entity." + ForgeRegistries.ENTITIES.getKey(key).getPath() + ".death", death);
     }
 
-    protected void addEffect(MobEffect key, String name) {
-        add(key, name);
-        add("item.minecraft.potion.effect." + ForgeRegistries.MOB_EFFECTS.getKey(key).getPath(), "Potion of " + name);
-        add("item.minecraft.splash_potion.effect." + ForgeRegistries.MOB_EFFECTS.getKey(key).getPath(), "Splash Potion of " + name);
-        add("item.minecraft.lingering_potion.effect." + ForgeRegistries.MOB_EFFECTS.getKey(key).getPath(), "Lingering Potion of " + name);
-        add("item.minecraft.tipped_arrow.effect." + ForgeRegistries.MOB_EFFECTS.getKey(key).getPath(), "Arrow of " + name);
+    protected void addEffect(MobEffect key, @Nullable String name) {
+        add(key.getDescriptionId(), name);
+        add("item.minecraft.potion.effect." + ForgeRegistries.MOB_EFFECTS.getKey(key).getPath(), name == null ? null : "Potion of " + name);
+        add("item.minecraft.splash_potion.effect." + ForgeRegistries.MOB_EFFECTS.getKey(key).getPath(), name == null ? null : "Splash Potion of " + name);
+        add("item.minecraft.lingering_potion.effect." + ForgeRegistries.MOB_EFFECTS.getKey(key).getPath(), name == null ? null : "Lingering Potion of " + name);
+        add("item.minecraft.tipped_arrow.effect." + ForgeRegistries.MOB_EFFECTS.getKey(key).getPath(), name == null ? null : "Arrow of " + name);
     }
 
     protected void addConfig(String key, String name) {
