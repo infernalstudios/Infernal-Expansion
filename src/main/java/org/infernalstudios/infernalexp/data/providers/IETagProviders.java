@@ -16,14 +16,14 @@
 
 package org.infernalstudios.infernalexp.data.providers;
 
+import java.util.Arrays;
+
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
-import org.infernalstudios.infernalexp.data.DataProviderCollection;
-
-import java.util.Arrays;
+import org.infernalstudios.infernalexp.data.DataGenDeferredRegister;
 
 public abstract class IETagProviders<T> {
 
@@ -46,6 +46,6 @@ public abstract class IETagProviders<T> {
     }
 
     @FunctionalInterface
-    public interface TagProviderConsumer<T> extends DataProviderCollection.DataProviderConsumer<TagKey<T>, TagsProvider<T>> {}
+    public interface TagProviderConsumer<T> extends DataGenDeferredRegister.DataProviderConsumer<TagKey<T>, TagsProvider<T>> {}
 
 }

@@ -16,6 +16,8 @@
 
 package org.infernalstudios.infernalexp.data.providers;
 
+import java.util.function.Supplier;
+
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -31,12 +33,6 @@ import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.WallTorchBlock;
-import net.minecraftforge.client.model.generators.BlockModelProvider;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.client.model.generators.ModelProvider;
-import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.blocks.BuriedBoneBlock;
 import org.infernalstudios.infernalexp.blocks.DullthornsBlock;
@@ -44,10 +40,15 @@ import org.infernalstudios.infernalexp.blocks.LuminousFungusBlock;
 import org.infernalstudios.infernalexp.blocks.PlantedQuartzBlock;
 import org.infernalstudios.infernalexp.blocks.ShroomlightFungusBlock;
 import org.infernalstudios.infernalexp.blocks.VerticalSlabBlock;
-import org.infernalstudios.infernalexp.data.DataProviderCollection;
+import org.infernalstudios.infernalexp.data.DataGenDeferredRegister;
 import org.infernalstudios.infernalexp.util.TriFunction;
 
-import java.util.function.Supplier;
+import net.minecraftforge.client.model.generators.BlockModelProvider;
+import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
+import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.client.model.generators.ModelProvider;
+import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 
 public class IEBlockProviders {
 
@@ -634,6 +635,6 @@ public class IEBlockProviders {
     }
 
     @FunctionalInterface
-    public interface BlockProviderConsumer extends DataProviderCollection.DataProviderConsumer<Block, BlockStateProvider> {}
+    public interface BlockProviderConsumer extends DataGenDeferredRegister.DataProviderConsumer<Block, BlockStateProvider> {}
 
 }

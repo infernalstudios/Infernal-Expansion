@@ -16,29 +16,42 @@
 
 package org.infernalstudios.infernalexp.data;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
+import com.mojang.datafixers.util.Pair;
+import javax.annotation.Nullable;
 import net.minecraft.data.DataProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.storage.loot.LootTable;
+import org.infernalstudios.infernalexp.InfernalExpansion;
+
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryObject;
-import org.infernalstudios.infernalexp.InfernalExpansion;
 
-import javax.annotation.Nullable;
-import java.util.function.Supplier;
-
-public class DataGenDeferredRegister<T extends IForgeRegistryEntry<T>, P extends DataProvider> {
+public class DataGenDeferredRegister<T extends IForgeRegistryEntry<T>, D extends DataProvider, L extends Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>> {
 
     private final DeferredRegister<T> register;
-    private final DataProviderCollection<T, P> dataProviders = new DataProviderCollection<>();
+    private final List<Pair<Supplier<? extends T>, DataProviderConsumer<T, D>>> dataProviders = new ArrayList<>();
+    private final List<Pair<Supplier<? extends T>, LootProviderConsumer<T, L>>> lootProviders = new ArrayList<>();
 
     public DataGenDeferredRegister(IForgeRegistry<T> registry) {
         register = DeferredRegister.create(registry, InfernalExpansion.MOD_ID);
     }
 
-    public <S extends T> RegistryObject<S> register(String name, Supplier<? extends S> supplier, @Nullable DataProviderCollection.DataProviderConsumer<T, P> provider) {
+    public <S extends T> RegistryObject<S> register(String name, Supplier<? extends S> supplier, @Nullable DataProviderConsumer<T, D> dataProvider, @Nullable LootProviderConsumer<T, L> lootProvider) {
         RegistryObject<S> registryObject = register.register(name, supplier);
-        dataProviders.addProvider(registryObject, provider);
+        if (registryObject != null && dataProvider != null)
+            dataProviders.add(Pair.of(registryObject, dataProvider));
+
+        if (registryObject != null && lootProvider != null)
+            lootProviders.add(Pair.of(registryObject, lootProvider));
 
         return registryObject;
     }
@@ -51,8 +64,26 @@ public class DataGenDeferredRegister<T extends IForgeRegistryEntry<T>, P extends
         return register;
     }
 
-    public DataProviderCollection<T, P> getDataProviders() {
+    public List<Pair<Supplier<? extends T>, DataProviderConsumer<T, D>>> getDataProviders() {
         return dataProviders;
     }
+
+    public List<Pair<Supplier<? extends T>, LootProviderConsumer<T, L>>> getLootProviders() {
+        return lootProviders;
+    }
+
+    @FunctionalInterface
+    public interface DataProviderConsumer<T, P extends DataProvider> {
+        void accept(P dataProvider, Supplier<? extends T> object);
+    }
+
+    public interface NoneDataProvider extends DataProvider {}
+
+    @FunctionalInterface
+    public interface LootProviderConsumer<T, L extends Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>> {
+        void accept(L loot, Supplier<? extends T> object);
+    }
+
+    public interface NoneLootProvider extends Consumer<BiConsumer<ResourceLocation, LootTable.Builder>> {}
 
 }

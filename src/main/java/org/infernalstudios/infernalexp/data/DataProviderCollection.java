@@ -16,23 +16,23 @@
 
 package org.infernalstudios.infernalexp.data;
 
-import net.minecraft.data.DataProvider;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
+import net.minecraft.data.DataProvider;
+
 public class DataProviderCollection<T, P extends DataProvider> {
 
     private final List<DataProviderPair<T, P>> collection = new ArrayList<>();
 
-    public void addProvider(Supplier<? extends T> object, DataProviderConsumer<T, P> provider) {
+    public void addProvider(Supplier<? extends T> object, DataGenDeferredRegister.DataProviderConsumer<T, P> provider) {
         if (object != null && provider != null)
             collection.add(new DataProviderPair<>(object, provider));
     }
 
-    public void forEach(BiConsumer<DataProviderConsumer<T, P>, Supplier<? extends T>> action) {
+    public void forEach(BiConsumer<DataGenDeferredRegister.DataProviderConsumer<T, P>, Supplier<? extends T>> action) {
         for (DataProviderPair<T, P> providerPair : collection) {
             action.accept(providerPair.dataProvider(), providerPair.object());
         }
@@ -40,12 +40,7 @@ public class DataProviderCollection<T, P extends DataProvider> {
 
     private record DataProviderPair<T, P extends DataProvider>(
         Supplier<? extends T> object,
-        DataProviderConsumer<T, P> dataProvider
+        DataGenDeferredRegister.DataProviderConsumer<T, P> dataProvider
     ) {}
-
-    @FunctionalInterface
-    public interface DataProviderConsumer<T, P extends DataProvider> {
-        void accept(P dataProvider, Supplier<? extends T> object);
-    }
 
 }

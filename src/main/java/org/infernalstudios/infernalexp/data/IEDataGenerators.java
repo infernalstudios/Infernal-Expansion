@@ -16,16 +16,25 @@
 
 package org.infernalstudios.infernalexp.data;
 
+import java.util.List;
+import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.loot.BlockLoot;
+import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.tags.TagsProvider;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.ValidationContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.data.providers.lang.DeDeLanguageProvider;
 import org.infernalstudios.infernalexp.data.providers.lang.EsArLanguageProvider;
@@ -53,6 +62,13 @@ import org.infernalstudios.infernalexp.init.IEItems;
 import org.infernalstudios.infernalexp.init.IEStructureTags;
 import org.jetbrains.annotations.NotNull;
 
+import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ItemModelProvider;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+
 @Mod.EventBusSubscriber(modid = InfernalExpansion.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class IEDataGenerators {
 
@@ -64,8 +80,8 @@ public class IEDataGenerators {
         generator.addProvider(new BlockStateProvider(generator, InfernalExpansion.MOD_ID, fileHelper) {
             @Override
             protected void registerStatesAndModels() {
-                IEBlocks.BLOCKS.getDataProviders().forEach((dataProvider, block) -> {
-                    dataProvider.accept(this, block);
+                IEBlocks.BLOCKS.getDataProviders().forEach(pair -> {
+                    pair.getSecond().accept(this, pair.getFirst());
                 });
             }
         });
@@ -73,10 +89,34 @@ public class IEDataGenerators {
         generator.addProvider(new ItemModelProvider(generator, InfernalExpansion.MOD_ID, fileHelper) {
             @Override
             protected void registerModels() {
-                IEItems.ITEMS.getDataProviders().forEach((dataProvider, item) -> {
-                    dataProvider.accept(this, item);
+                IEItems.ITEMS.getDataProviders().forEach(pair -> {
+                    pair.getSecond().accept(this, pair.getFirst());
                 });
             }
+        });
+
+        generator.addProvider(new LootTableProvider(generator) {
+            @Override
+            protected @NotNull List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> getTables() {
+                return List.of(
+                    Pair.of(() -> new BlockLoot() {
+                        @Override
+                        protected void addTables() {
+                            IEBlocks.BLOCKS.getLootProviders().forEach(pair -> {
+                                pair.getSecond().accept(this, pair.getFirst());
+                            });
+                        }
+
+                        @Override
+                        protected @NotNull Iterable<Block> getKnownBlocks() {
+                            return IEBlocks.BLOCKS.getLootProviders().stream().map(pair -> (Block) pair.getFirst().get()).toList();
+                        }
+                    }, LootContextParamSets.BLOCK)
+                );
+            }
+
+            @Override
+            protected void validate(@NotNull Map<ResourceLocation, LootTable> map, @NotNull ValidationContext validationTracker) {}
         });
 
         generator.addProvider(new TagsProvider<>(generator, Registry.BLOCK, InfernalExpansion.MOD_ID, fileHelper) {
