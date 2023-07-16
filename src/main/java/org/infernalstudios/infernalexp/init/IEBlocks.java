@@ -159,7 +159,7 @@ public class IEBlocks {
 
     public static final RegistryObject<Block> GLOWDUST_SAND = registerBlockWithDefaultItem("glowdust_sand", () -> new GlowSandBlock(0xFFC267, BlockBehaviour.Properties.of(Material.SNOW, MaterialColor.SAND).requiresCorrectToolForDrops().strength(0.5F).sound(SoundType.SAND)), IEBlockProviders.randomizeRotations(), IELootProviders.glowdustSand());
     public static final RegistryObject<Block> GLOWDUST = registerBlockWithDefaultItem("glowdust", () -> new GlowdustBlock(BlockBehaviour.Properties.of(Material.TOP_SNOW, MaterialColor.SAND).requiresCorrectToolForDrops().strength(0.2f).sound(SoundType.SAND)), IEBlockProviders.layer(GLOWDUST_SAND), IEItemProviders.blockLayer(), IELootProviders.glowdust());
-    public static final RegistryObject<Block> TRAPPED_GLOWDUST_SAND = registerBlockWithDefaultItem("trapped_glowdust_sand", () -> new TrappedGlowSandBlock(0xFFC267, getProperties(GLOWDUST_SAND.get()).strength(0.2F)), IEBlockProviders.randomizeRotations(), IELootProviders.none());
+    public static final RegistryObject<Block> TRAPPED_GLOWDUST_SAND = registerBlockWithDefaultItem("trapped_glowdust_sand", () -> new TrappedGlowSandBlock(0xFFC267, getProperties(GLOWDUST_SAND.get()).strength(0.2F)), IEBlockProviders.randomizeRotations(), IELootProviders.noneBlock());
 
     public static final RegistryObject<Block> GLOWDUST_STONE = registerBlockWithDefaultItem("glowdust_stone", () -> new Block(getProperties(Blocks.SANDSTONE)), IEBlockProviders.simple(), IELootProviders.self());
     public static final RegistryObject<Block> GLOWDUST_STONE_SLAB = registerBlockWithDefaultItem("glowdust_stone_slab", () -> new SlabBlock(getProperties(GLOWDUST_STONE.get())), IEBlockProviders.slab(GLOWDUST_STONE), IELootProviders.self());
@@ -175,7 +175,7 @@ public class IEBlocks {
     public static final RegistryObject<Block> CRACKED_GLOWDUST_STONE_BRICKS = registerBlockWithDefaultItem("cracked_glowdust_stone_bricks", () -> new Block(getProperties(GLOWDUST_STONE_BRICKS.get())), IEBlockProviders.simple(), IELootProviders.self());
     public static final RegistryObject<Block> CHISELED_GLOWDUST_STONE_BRICKS = registerBlockWithDefaultItem("chiseled_glowdust_stone_bricks", () -> new Block(getProperties(GLOWDUST_STONE_BRICKS.get())), IEBlockProviders.simple(), IELootProviders.self());
 
-    public static final RegistryObject<Block> CRUMBLING_BLACKSTONE = registerBlockWithDefaultItem("crumbling_blackstone", () -> new CrumblingBlackstoneBlock(BlockBehaviour.Properties.copy(Blocks.NETHERRACK)), IEBlockProviders.crumblingBlackstone(), IEItemProviders.blockVariant(0), IELootProviders.none());
+    public static final RegistryObject<Block> CRUMBLING_BLACKSTONE = registerBlockWithDefaultItem("crumbling_blackstone", () -> new CrumblingBlackstoneBlock(BlockBehaviour.Properties.copy(Blocks.NETHERRACK)), IEBlockProviders.crumblingBlackstone(), IEItemProviders.blockVariant(0), IELootProviders.noneBlock());
     public static final RegistryObject<Block> RUBBLE = registerBlockWithDefaultItem("rubble", () -> new Block(getProperties(Blocks.GRAVEL)), IEBlockProviders.randomizeRotations(), IELootProviders.gravelLike());
     public static final RegistryObject<Block> SILT = registerBlockWithDefaultItem("silt", () -> new Block(getProperties(Blocks.SAND)), IEBlockProviders.randomizeRotations(), IELootProviders.gravelLike(() -> Items.FLINT));
 
@@ -254,9 +254,9 @@ public class IEBlocks {
     public static final RegistryObject<Block> GLOW_LANTERN = registerBlockWithDefaultItem("glow_lantern", () -> new LanternBlock(getProperties(Blocks.LANTERN)), IEBlockProviders.lantern(), IELootProviders.self());
     public static final RegistryObject<Block> GLOW_TORCH = registerBlock("glow_torch", () -> new GlowTorchBlock(getProperties(Blocks.TORCH)), IEBlockProviders.torch(), IELootProviders.self());
     @SuppressWarnings("deprecation")
-    public static final RegistryObject<Block> GLOW_TORCH_WALL = registerBlock("glow_torch_wall", () -> new GlowWallTorchBlock(getProperties(IEBlocks.GLOW_TORCH.get()).dropsLike(GLOW_TORCH.get())), IEBlockProviders.wallTorch(), IELootProviders.none());
+    public static final RegistryObject<Block> GLOW_TORCH_WALL = registerBlock("glow_torch_wall", () -> new GlowWallTorchBlock(getProperties(IEBlocks.GLOW_TORCH.get()).dropsLike(GLOW_TORCH.get())), IEBlockProviders.wallTorch(), IELootProviders.noneBlock());
     public static final RegistryObject<Block> GLOW_CAMPFIRE = registerBlockWithDefaultItem("glow_campfire", () -> new GlowCampfireBlock(2, getProperties(Blocks.CAMPFIRE)), IEBlockProviders.campfire(), IELootProviders.campfire(IEItems.GLOWCOAL));
-    public static final RegistryObject<Block> GLOW_FIRE = registerBlock("glow_fire", () -> new GlowFireBlock(getProperties(Blocks.FIRE)), IEBlockProviders.fire(), IELootProviders.none());
+    public static final RegistryObject<Block> GLOW_FIRE = registerBlock("glow_fire", () -> new GlowFireBlock(getProperties(Blocks.FIRE)), IEBlockProviders.fire(), IELootProviders.noneBlock());
 
     public static final RegistryObject<Block> GLOWSILK_COCOON = registerBlockWithDefaultItem("glowsilk_cocoon", () -> new RotatedPillarBlock(getProperties(Material.GRASS).sound(SoundType.WOOL).requiresCorrectToolForDrops().strength(5.0F, 1200.0F).lightLevel(value -> 5)), IEBlockProviders.pillar(), IELootProviders.glowsilkCocoon());
 

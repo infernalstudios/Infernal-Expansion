@@ -19,14 +19,18 @@ package org.infernalstudios.infernalexp.data.providers;
 import java.util.function.Supplier;
 
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
+import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.loot.BlockLoot;
+import net.minecraft.data.loot.EntityLoot;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -35,12 +39,16 @@ import net.minecraft.world.level.storage.loot.entries.EntryGroup;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.ApplyExplosionDecay;
+import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
 import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithLootingCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.BinomialDistributionGenerator;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
@@ -48,6 +56,7 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.infernalstudios.infernalexp.blocks.GlowdustBlock;
 import org.infernalstudios.infernalexp.data.DataGenDeferredRegister;
 import org.infernalstudios.infernalexp.init.IEBlocks;
+import org.infernalstudios.infernalexp.init.IEEntityTypes;
 import org.infernalstudios.infernalexp.init.IEItems;
 
 public class IELootProviders {
@@ -256,15 +265,162 @@ public class IELootProviders {
         };
     }
 
-    public static BlockLootProviderConsumer none() {
-        return null;
-    }
-
     private static LootItemCondition.Builder hasSilkTouch() {
         return MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))));
     }
 
+    public static BlockLootProviderConsumer noneBlock() {
+        return (provider, block) -> {
+            provider.add(block.get(), LootTable.lootTable());
+        };
+    }
+
+    public static EntityLootProviderConsumer basaltGiant() {
+        return (provider, entityType) -> {
+            provider.add(entityType.get(), LootTable.lootTable().withPool(
+                LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(
+                    LootItem.lootTableItem(Blocks.MAGMA_BLOCK)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 1.0F)))
+                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+                )
+            ));
+        };
+    }
+
+    public static EntityLootProviderConsumer blackstoneDwarf() {
+        return (provider, entityType) -> {
+            provider.add(entityType.get(), LootTable.lootTable().withPool(
+                LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(
+                    LootItem.lootTableItem(Items.GOLDEN_APPLE)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 1.0F)))
+                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+                ).when(LootItemKilledByPlayerCondition.killedByPlayer())
+            ));
+        };
+    }
+
+    public static EntityLootProviderConsumer blindsight() {
+        return (provider, entityType) -> {
+            provider.add(entityType.get(), LootTable.lootTable().withPool(
+                LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(
+                    LootItem.lootTableItem(IEItems.BLINDSIGHT_TONGUE.get())
+                        .when(LootItemRandomChanceCondition.randomChance(0.3F))
+                )
+            ));
+        };
+    }
+
+    public static EntityLootProviderConsumer embody() {
+        return (provider, entityType) -> {
+            provider.add(entityType.get(), LootTable.lootTable().withPool(
+                LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(
+                    LootItem.lootTableItem(Blocks.SOUL_SOIL)
+                        .setWeight(100)
+                        .apply(SetItemCountFunction.setCount(BinomialDistributionGenerator.binomial(1, 0.3F)))
+                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+                ).add(
+                    LootItem.lootTableItem(IEItems.MUSIC_DISC_SOUL_SPUNK.get())
+                )
+            ).withPool(
+                LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(
+                    LootItem.lootTableItem(IEItems.SOUL_SALT_CLUMP.get())
+                        .apply(SetItemCountFunction.setCount(BinomialDistributionGenerator.binomial(1, 0.7F)))
+                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 3.0F)).setLimit(3))
+                )
+            ));
+        };
+    }
+
+    public static EntityLootProviderConsumer glowsilkMoth() {
+        return (provider, entityType) -> {
+            provider.add(entityType.get(), LootTable.lootTable().withPool(
+                LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(
+                    LootItem.lootTableItem(IEItems.MOTH_DUST.get())
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 1.0F)))
+                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+                )
+            ));
+        };
+    }
+
+    public static EntityLootProviderConsumer glowsquito() {
+        return (provider, entityType) -> {
+            provider.add(entityType.get(), LootTable.lootTable().withPool(
+                LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(
+                    LootItem.lootTableItem(IEItems.GLOWCOAL.get())
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+                ).add(
+                    LootItem.lootTableItem(IEItems.DULLROCKS.get())
+                        .apply(SetItemCountFunction.setCount(BinomialDistributionGenerator.binomial(1, 0.1F)))
+                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+                )
+            ).withPool(
+                LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(
+                    LootItem.lootTableItem(IEItems.MUSIC_DISC_FLUSH.get())
+                        .apply(SetItemCountFunction.setCount(BinomialDistributionGenerator.binomial(1, 0.25F)))
+                ).when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER, EntityPredicate.Builder.entity().of(IEEntityTypes.BLACKSTONE_DWARF.get())))
+            ));
+        };
+    }
+
+    public static EntityLootProviderConsumer shroomloin() {
+        return (provider, entityType) -> {
+            provider.add(entityType.get(), LootTable.lootTable().withPool(
+                LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(
+                    LootItem.lootTableItem(IEItems.ASCUS_BOMB.get())
+                        .when(LootItemRandomChanceCondition.randomChance(0.2F))
+                )
+            ).withPool(
+                LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(
+                    LootItem.lootTableItem(IEBlocks.CRIMSON_FUNGUS_CAP.get())
+                        .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                        .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
+                )
+            ));
+        };
+    }
+
+    public static EntityLootProviderConsumer voline() {
+        return (provider, entityType) -> {
+            provider.add(entityType.get(), LootTable.lootTable().withPool(
+                LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(
+                    LootItem.lootTableItem(Items.GOLD_NUGGET)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)))
+                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+                )
+            ));
+        };
+    }
+
+    public static EntityLootProviderConsumer warpbeetle() {
+        return (provider, entityType) -> {
+            provider.add(entityType.get(), LootTable.lootTable().withPool(
+                LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(
+                    LootItem.lootTableItem(Items.WARPED_FUNGUS)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)))
+                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+                )
+            ).withPool(
+                LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(
+                    LootItem.lootTableItem(IEBlocks.WARPED_FUNGUS_CAP.get())
+                        .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                        .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
+                )
+            ));
+        };
+    }
+
+    public static EntityLootProviderConsumer noneEntity() {
+        return (provider, entityType) -> {
+            provider.add(entityType.get(), LootTable.lootTable());
+        };
+    }
+
     @FunctionalInterface
     public interface BlockLootProviderConsumer extends DataGenDeferredRegister.LootProviderConsumer<Block, BlockLoot> {}
+
+    @FunctionalInterface
+    public interface EntityLootProviderConsumer extends DataGenDeferredRegister.LootProviderConsumer<EntityType<?>, EntityLoot> {}
 
 }
