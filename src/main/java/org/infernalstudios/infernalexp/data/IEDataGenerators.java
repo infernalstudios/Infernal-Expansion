@@ -39,6 +39,7 @@ import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import org.infernalstudios.infernalexp.InfernalExpansion;
+import org.infernalstudios.infernalexp.data.providers.IEChestLoot;
 import org.infernalstudios.infernalexp.data.providers.lang.DeDeLanguageProvider;
 import org.infernalstudios.infernalexp.data.providers.lang.EsArLanguageProvider;
 import org.infernalstudios.infernalexp.data.providers.lang.EsEsLanguageProvider;
@@ -135,7 +136,8 @@ public class IEDataGenerators {
                             }
                         },
                         LootContextParamSets.ENTITY
-                    )
+                    ),
+                    Pair.of(IEChestLoot::new, LootContextParamSets.CHEST)
                 );
             }
 

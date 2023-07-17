@@ -37,6 +37,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
 import net.minecraft.world.level.storage.loot.entries.EntryGroup;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.ApplyExplosionDecay;
 import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
@@ -415,6 +416,54 @@ public class IELootProviders {
         return (provider, entityType) -> {
             provider.add(entityType.get(), LootTable.lootTable());
         };
+    }
+
+    public static LootTable.Builder basaltDeltaRuin() {
+        return LootTable.lootTable().withPool(
+            LootPool.lootPool().setRolls(UniformGenerator.between(4.0F, 8.0F))
+                .add(addItemWithWeightAndCount(Items.IRON_INGOT, 7, 4.0F, 22.0F))
+                .add(addItemWithWeightAndCount(Items.GOLD_INGOT, 4, 3.0F, 10.0F))
+                .add(addItemWithWeightAndCount(IEItems.MOLTEN_GOLD_CLUSTER.get(), 3, 1.0F, 5.0F))
+                .add(addItemWithWeightAndCount(Items.CHAIN, 7, 2.0F, 5.0F))
+                .add(addItemWithWeight(IEItems.STRIDER_BUCKET.get(), 7))
+                .add(addItemWithWeightAndCount(Items.BONE, 4, 1.0F, 6.0F))
+                .add(addItemWithWeightAndCount(IEBlocks.SILT.get(), 10, 4.0F, 16.0F))
+        );
+    }
+
+    public static LootTable.Builder desolateBastionOutpost() {
+        return LootTable.lootTable().withPool(
+            LootPool.lootPool().setRolls(UniformGenerator.between(4.0F, 8.0F))
+                .add(addItemWithWeightAndCount(Items.IRON_NUGGET, 7, 16.0F, 22.0F))
+                .add(addItemWithWeightAndCount(IEBlocks.BASALT_IRON_ORE.get(), 5, 4.0F, 13.0F))
+                .add(addItemWithWeightAndCount(Items.GOLD_INGOT, 7, 4.0F, 22.0F))
+                .add(addItemWithWeightAndCount(IEItems.DULLROCKS.get(), 6, 4.0F, 8.0F))
+                .add(addItemWithWeightAndCount(Items.GLOWSTONE_DUST, 7, 4.0F, 22.0F))
+                .add(addItemWithWeight(IEItems.BLINDSIGHT_TONGUE_STEW.get(), 3))
+                .add(addItemWithWeightAndCount(Blocks.GOLD_BLOCK, 3, 1.0F, 2.0F))
+                .add(addItemWithWeightAndCount(Items.LAPIS_LAZULI, 2, 1.0F, 3.0F))
+        );
+    }
+
+    public static LootTable.Builder glowstoneCanyonRuin() {
+        return LootTable.lootTable().withPool(
+            LootPool.lootPool().setRolls(UniformGenerator.between(4.0F, 8.0F))
+                .add(addItemWithWeightAndCount(IEItems.DULLROCKS.get(), 3, 1.0F, 5.0F))
+                .add(addItemWithWeightAndCount(Items.GLOWSTONE_DUST, 4, 1.0F, 5.0F))
+                .add(addItemWithWeightAndCount(Items.GOLD_INGOT, 5, 1.0F, 9.0F))
+                .add(addItemWithWeight(IEItems.MUSIC_DISC_FLUSH.get(), 1))
+        );
+    }
+
+    private static LootPoolSingletonContainer.Builder<?> addItemWithWeight(ItemLike item, int weight) {
+        return LootItem.lootTableItem(item)
+            .setWeight(weight);
+    }
+
+    private static LootPoolSingletonContainer.Builder<?> addItemWithWeightAndCount(ItemLike item, int weight, float minCount, float maxCount) {
+        return LootItem.lootTableItem(item)
+            .setWeight(weight)
+            .apply(SetItemCountFunction.setCount(UniformGenerator.between(minCount, maxCount)));
     }
 
     @FunctionalInterface
