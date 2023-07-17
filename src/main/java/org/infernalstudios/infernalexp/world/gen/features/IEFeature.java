@@ -25,7 +25,7 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import org.infernalstudios.infernalexp.init.IETags;
+import org.infernalstudios.infernalexp.init.IEStructureTags;
 import org.infernalstudios.infernalexp.mixin.common.WorldGenRegionAccessor;
 
 public abstract class IEFeature<FC extends FeatureConfiguration> extends Feature<FC> {
@@ -45,7 +45,7 @@ public abstract class IEFeature<FC extends FeatureConfiguration> extends Feature
         Registry<ConfiguredStructureFeature<?, ?>> registry = context.level().registryAccess().registryOrThrow(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY);
         StructureFeatureManager manager = ((WorldGenRegionAccessor) context.level()).getStructureFeatureManager();
 
-        for (Holder<ConfiguredStructureFeature<?, ?>> structure : registry.getOrCreateTag(IETags.Structures.NO_INTERSECTING_FEATURES)) {
+        for (Holder<ConfiguredStructureFeature<?, ?>> structure : registry.getOrCreateTag(IEStructureTags.NO_INTERSECTING_FEATURES)) {
             if (manager.getStructureAt(context.origin(), structure.value()).isValid())
                 return false;
         }

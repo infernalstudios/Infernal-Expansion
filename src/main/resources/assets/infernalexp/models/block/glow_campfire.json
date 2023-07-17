@@ -1,5 +1,5 @@
 {
-  "parent": "block/template_campfire",
+  "parent": "minecraft:block/template_campfire",
   "textures": {
     "fire": "infernalexp:block/glow_campfire_fire",
     "lit_log": "infernalexp:block/glow_campfire_log_lit"

@@ -1,14 +1,21 @@
 {
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "minecraft:polished_basalt"
-  },
-  "result": "infernalexp:polished_basalt_vertical_slab",
-  "count": 2,
-  "conditions": [
+  "type": "forge:conditional",
+  "recipes": [
     {
-      "type": "infernalexp:quark_flag",
-      "flag": "vertical_slabs"
+      "conditions": [
+        {
+          "flag": "vertical_slabs",
+          "type": "infernalexp:quark_flag"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:stonecutting",
+        "ingredient": {
+          "item": "minecraft:polished_basalt"
+        },
+        "result": "infernalexp:polished_basalt_vertical_slab",
+        "count": 2
+      }
     }
   ]
 }

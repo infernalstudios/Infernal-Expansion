@@ -3,10 +3,10 @@
   "values": [
     "infernalexp:dullstone",
     "infernalexp:dimstone",
-    "minecraft:glowstone",
     "infernalexp:glowdust_sand",
     "infernalexp:glowdust",
     "infernalexp:glowdust_stone",
+    "minecraft:glowstone",
     "minecraft:blackstone",
     "minecraft:lava",
     "minecraft:netherrack"

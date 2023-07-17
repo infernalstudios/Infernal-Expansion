@@ -2,11 +2,11 @@
   "replace": false,
   "values": [
     "infernalexp:glowdust_sand",
-    "infernalexp:luminous_wart_block",
     "infernalexp:glowdust_stone",
     "infernalexp:glowdust_stone_bricks",
     "infernalexp:glowdust_stone_brick_slab",
     "infernalexp:glowdust_stone_brick_stairs",
-    "infernalexp:trapped_glowdust_sand"
+    "infernalexp:trapped_glowdust_sand",
+    "infernalexp:luminous_wart_block"
   ]
 }

@@ -1,8 +1,8 @@
 {
-  "parent": "block/outer_stairs",
+  "parent": "minecraft:block/outer_stairs",
   "textures": {
+    "side": "infernalexp:block/soul_stone_bricks",
     "bottom": "infernalexp:block/soul_stone_bricks",
-    "top": "infernalexp:block/soul_stone_bricks",
-    "side": "infernalexp:block/soul_stone_bricks"
+    "top": "infernalexp:block/soul_stone_bricks"
   }
 }

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "infernalexp:dullthorns"
+    }
+  },
+  "result": {
+    "item": "infernalexp:dullthorns_block",
+    "count": 4
+  }
+}

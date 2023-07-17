@@ -1,13 +1,13 @@
 {
   "variants": {
+    "type=top": {
+      "model": "infernalexp:block/soul_sand_slab_top"
+    },
     "type=bottom": {
       "model": "infernalexp:block/soul_sand_slab"
     },
     "type=double": {
       "model": "minecraft:block/soul_sand"
-    },
-    "type=top": {
-      "model": "infernalexp:block/soul_sand_slab_top"
     }
   }
 }

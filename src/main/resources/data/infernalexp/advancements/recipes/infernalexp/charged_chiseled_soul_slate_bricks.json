@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:crafting/shaped/charged_chiseled_soul_slate_bricks"
+    ]
+  },
+  "criteria": {
+    "has_soul_slate_brick_slab": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "infernalexp:soul_slate_brick_slab"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:crafting/shaped/charged_chiseled_soul_slate_bricks"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_soul_slate_brick_slab",
+      "has_the_recipe"
+    ]
+  ]
+}

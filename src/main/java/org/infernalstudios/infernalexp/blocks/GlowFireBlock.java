@@ -25,11 +25,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BaseFireBlock;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
+import org.infernalstudios.infernalexp.init.IEBlockTags;
 import org.infernalstudios.infernalexp.init.IEEffects;
-import org.infernalstudios.infernalexp.init.IETags;
 
 public class GlowFireBlock extends BaseFireBlock {
 
@@ -38,7 +37,7 @@ public class GlowFireBlock extends BaseFireBlock {
     }
 
     public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
-        return this.canSurvive(stateIn, worldIn, currentPos) ? this.defaultBlockState() : Blocks.AIR.defaultBlockState();
+        return this.canSurvive(stateIn, worldIn, currentPos) ? this.defaultBlockState() : net.minecraft.world.level.block.Blocks.AIR.defaultBlockState();
     }
 
     public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
@@ -46,7 +45,7 @@ public class GlowFireBlock extends BaseFireBlock {
     }
 
     public static boolean isGlowFireBase(BlockState block) {
-        return block.is(IETags.Blocks.GLOW_FIRE_BASE_BLOCKS);
+        return block.is(IEBlockTags.GLOW_FIRE_BASE_BLOCKS);
     }
 
     @Override

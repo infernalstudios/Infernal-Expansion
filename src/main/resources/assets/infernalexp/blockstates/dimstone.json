@@ -2,6 +2,9 @@
   "variants": {
     "": [
       {
+        "model": "infernalexp:block/dimstone/0"
+      },
+      {
         "model": "infernalexp:block/dimstone/1"
       },
       {

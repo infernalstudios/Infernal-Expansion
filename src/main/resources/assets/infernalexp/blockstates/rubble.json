@@ -6,34 +6,7 @@
       },
       {
         "model": "infernalexp:block/rubble",
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/rubble",
-        "x": 180
-      },
-      {
-        "model": "infernalexp:block/rubble",
-        "x": 270
-      },
-      {
-        "model": "infernalexp:block/rubble",
         "y": 90
-      },
-      {
-        "model": "infernalexp:block/rubble",
-        "y": 90,
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/rubble",
-        "y": 90,
-        "x": 180
-      },
-      {
-        "model": "infernalexp:block/rubble",
-        "y": 90,
-        "x": 270
       },
       {
         "model": "infernalexp:block/rubble",
@@ -41,37 +14,64 @@
       },
       {
         "model": "infernalexp:block/rubble",
-        "y": 180,
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/rubble",
-        "y": 180,
-        "x": 180
-      },
-      {
-        "model": "infernalexp:block/rubble",
-        "y": 180,
-        "x": 270
-      },
-      {
-        "model": "infernalexp:block/rubble",
         "y": 270
       },
       {
         "model": "infernalexp:block/rubble",
-        "y": 270,
         "x": 90
       },
       {
         "model": "infernalexp:block/rubble",
-        "y": 270,
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "infernalexp:block/rubble",
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "infernalexp:block/rubble",
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "infernalexp:block/rubble",
         "x": 180
       },
       {
         "model": "infernalexp:block/rubble",
-        "y": 270,
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "infernalexp:block/rubble",
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "infernalexp:block/rubble",
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "infernalexp:block/rubble",
         "x": 270
+      },
+      {
+        "model": "infernalexp:block/rubble",
+        "x": 270,
+        "y": 90
+      },
+      {
+        "model": "infernalexp:block/rubble",
+        "x": 270,
+        "y": 180
+      },
+      {
+        "model": "infernalexp:block/rubble",
+        "x": 270,
+        "y": 270
       }
     ]
   }

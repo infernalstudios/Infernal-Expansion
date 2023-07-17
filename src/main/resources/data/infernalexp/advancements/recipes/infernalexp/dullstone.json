@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:crafting/shaped/dullstone"
+    ]
+  },
+  "criteria": {
+    "has_glownuggets": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "infernalexp:glownuggets"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:crafting/shaped/dullstone"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_glownuggets",
+      "has_the_recipe"
+    ]
+  ]
+}

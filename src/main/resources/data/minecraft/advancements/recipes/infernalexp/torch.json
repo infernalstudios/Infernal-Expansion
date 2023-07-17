@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:crafting/shaped/torch"
+    ]
+  },
+  "criteria": {
+    "has_fire_charge": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:fire_charge"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:crafting/shaped/torch"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_fire_charge",
+      "has_the_recipe"
+    ]
+  ]
+}

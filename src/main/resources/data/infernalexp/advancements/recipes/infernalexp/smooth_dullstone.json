@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:smelting/smooth_dullstone"
+    ]
+  },
+  "criteria": {
+    "has_dullstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "infernalexp:dullstone"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:smelting/smooth_dullstone"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_dullstone",
+      "has_the_recipe"
+    ]
+  ]
+}

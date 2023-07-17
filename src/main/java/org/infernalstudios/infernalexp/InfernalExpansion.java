@@ -30,7 +30,6 @@ import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.levelgen.carver.WorldCarver;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -74,7 +73,6 @@ import org.infernalstudios.infernalexp.init.IEStructureSets;
 import org.infernalstudios.infernalexp.init.IESurfaceRules;
 import org.infernalstudios.infernalexp.mixin.common.WorldCarverAccessor;
 import org.infernalstudios.infernalexp.network.IENetworkHandler;
-import org.infernalstudios.infernalexp.util.CompatibilityQuark;
 import org.infernalstudios.infernalexp.world.gen.ModEntityPlacement;
 
 import java.util.HashSet;
@@ -148,9 +146,6 @@ public class InfernalExpansion {
             ((WorldCarverAccessor) WorldCarver.NETHER_CAVE).setReplaceableBlocks(newCarvableBlocks);
         });
 
-        // Register for Quark Compatibility in recipe
-        CraftingHelper.register(new CompatibilityQuark.Serializer());
-
         // Places entity spawn locations on the ground
         ModEntityPlacement.spawnPlacement();
 
@@ -196,6 +191,6 @@ public class InfernalExpansion {
             return new ItemStack(IEItems.TAB_ITEM.get());
         }
 
-    };
+    }.setRecipeFolderName(InfernalExpansion.MOD_ID);
 
 }

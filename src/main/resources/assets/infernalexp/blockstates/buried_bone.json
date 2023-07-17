@@ -1,204 +1,11 @@
 {
   "variants": {
-    "face=ceiling,facing=east": [
-      {
-        "model": "infernalexp:block/buried_bone",
-        "x": 180,
-        "y": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "x": 180,
-        "y": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone",
-        "x": 180,
-        "y": 180
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "x": 180,
-        "y": 180
-      },
-      {
-        "model": "infernalexp:block/buried_bone",
-        "x": 180,
-        "y": 270
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "x": 180,
-        "y": 270
-      },
-      {
-        "model": "infernalexp:block/buried_bone",
-        "x": 180
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "x": 180
-      }
-    ],
-    "face=ceiling,facing=north": [
-      {
-        "model": "infernalexp:block/buried_bone",
-        "x": 180,
-        "y": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "x": 180,
-        "y": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone",
-        "x": 180,
-        "y": 180
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "x": 180,
-        "y": 180
-      },
-      {
-        "model": "infernalexp:block/buried_bone",
-        "x": 180,
-        "y": 270
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "x": 180,
-        "y": 270
-      },
-      {
-        "model": "infernalexp:block/buried_bone",
-        "x": 180
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "x": 180
-      }
-    ],
-    "face=ceiling,facing=south": [
-      {
-        "model": "infernalexp:block/buried_bone",
-        "x": 180,
-        "y": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "x": 180,
-        "y": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone",
-        "x": 180,
-        "y": 180
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "x": 180,
-        "y": 180
-      },
-      {
-        "model": "infernalexp:block/buried_bone",
-        "x": 180,
-        "y": 270
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "x": 180,
-        "y": 270
-      },
-      {
-        "model": "infernalexp:block/buried_bone",
-        "x": 180
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "x": 180
-      }
-    ],
-    "face=ceiling,facing=west": [
-      {
-        "model": "infernalexp:block/buried_bone",
-        "x": 180,
-        "y": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "x": 180,
-        "y": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone",
-        "x": 180,
-        "y": 180
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "x": 180,
-        "y": 180
-      },
-      {
-        "model": "infernalexp:block/buried_bone",
-        "x": 180,
-        "y": 270
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "x": 180,
-        "y": 270
-      },
-      {
-        "model": "infernalexp:block/buried_bone",
-        "x": 180
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "x": 180
-      }
-    ],
-    "face=floor,facing=east": [
-      {
-        "model": "infernalexp:block/buried_bone",
-        "y": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "y": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone",
-        "y": 180
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "y": 180
-      },
-      {
-        "model": "infernalexp:block/buried_bone",
-        "y": 270
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "y": 270
-      },
+    "face=floor": [
       {
         "model": "infernalexp:block/buried_bone"
       },
       {
-        "model": "infernalexp:block/buried_bone_2"
-      }
-    ],
-    "face=floor,facing=north": [
-      {
         "model": "infernalexp:block/buried_bone",
-        "y": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
         "y": 90
       },
       {
@@ -206,246 +13,103 @@
         "y": 180
       },
       {
-        "model": "infernalexp:block/buried_bone_2",
-        "y": 180
-      },
-      {
         "model": "infernalexp:block/buried_bone",
         "y": 270
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "y": 270
-      },
-      {
-        "model": "infernalexp:block/buried_bone"
       },
       {
         "model": "infernalexp:block/buried_bone_2"
-      }
-    ],
-    "face=floor,facing=south": [
-      {
-        "model": "infernalexp:block/buried_bone",
-        "y": 90
       },
       {
         "model": "infernalexp:block/buried_bone_2",
         "y": 90
       },
       {
-        "model": "infernalexp:block/buried_bone",
-        "y": 180
-      },
-      {
         "model": "infernalexp:block/buried_bone_2",
         "y": 180
       },
       {
-        "model": "infernalexp:block/buried_bone",
-        "y": 270
-      },
-      {
         "model": "infernalexp:block/buried_bone_2",
         "y": 270
-      },
-      {
-        "model": "infernalexp:block/buried_bone"
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2"
       }
     ],
-    "face=floor,facing=west": [
+    "face=wall": [
       {
         "model": "infernalexp:block/buried_bone",
-        "y": 90
+        "x": 90
       },
       {
-        "model": "infernalexp:block/buried_bone_2",
+        "model": "infernalexp:block/buried_bone",
+        "x": 90,
         "y": 90
       },
       {
         "model": "infernalexp:block/buried_bone",
-        "y": 180
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
+        "x": 90,
         "y": 180
       },
       {
         "model": "infernalexp:block/buried_bone",
+        "x": 90,
         "y": 270
       },
       {
         "model": "infernalexp:block/buried_bone_2",
+        "x": 90
+      },
+      {
+        "model": "infernalexp:block/buried_bone_2",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "infernalexp:block/buried_bone_2",
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "infernalexp:block/buried_bone_2",
+        "x": 90,
+        "y": 270
+      }
+    ],
+    "face=ceiling": [
+      {
+        "model": "infernalexp:block/buried_bone",
+        "x": 180
+      },
+      {
+        "model": "infernalexp:block/buried_bone",
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "infernalexp:block/buried_bone",
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "infernalexp:block/buried_bone",
+        "x": 180,
         "y": 270
       },
       {
-        "model": "infernalexp:block/buried_bone"
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2"
-      }
-    ],
-    "face=wall,facing=east": [
-      {
-        "model": "infernalexp:block/buried_bone",
-        "x": 90
+        "model": "infernalexp:block/buried_bone_2",
+        "x": 180
       },
       {
         "model": "infernalexp:block/buried_bone_2",
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone",
-        "y": 90,
-        "x": 90
+        "x": 180,
+        "y": 90
       },
       {
         "model": "infernalexp:block/buried_bone_2",
-        "y": 90,
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone",
-        "y": 180,
-        "x": 90
+        "x": 180,
+        "y": 180
       },
       {
         "model": "infernalexp:block/buried_bone_2",
-        "y": 180,
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone",
-        "y": 270,
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "y": 270,
-        "x": 90
-      }
-    ],
-    "face=wall,facing=north": [
-      {
-        "model": "infernalexp:block/buried_bone",
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone",
-        "y": 90,
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "y": 90,
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone",
-        "y": 180,
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "y": 180,
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone",
-        "y": 270,
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "y": 270,
-        "x": 90
-      }
-    ],
-    "face=wall,facing=south": [
-      {
-        "model": "infernalexp:block/buried_bone",
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone",
-        "y": 90,
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "y": 90,
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone",
-        "y": 180,
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "y": 180,
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone",
-        "y": 270,
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "y": 270,
-        "x": 90
-      }
-    ],
-    "face=wall,facing=west": [
-      {
-        "model": "infernalexp:block/buried_bone",
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone",
-        "y": 90,
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "y": 90,
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone",
-        "y": 180,
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "y": 180,
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone",
-        "y": 270,
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/buried_bone_2",
-        "y": 270,
-        "x": 90
+        "x": 180,
+        "y": 270
       }
     ]
   }

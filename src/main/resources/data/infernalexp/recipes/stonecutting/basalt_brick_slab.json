@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "infernalexp:basalt_bricks"
+  },
+  "result": "infernalexp:basalt_brick_slab",
+  "count": 2
+}

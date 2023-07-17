@@ -6,71 +6,71 @@
   "overrides": [
     {
       "predicate": {
-        "attacking": 1,
-        "attack_frame": 0
+        "infernalexp:attacking": 1.0,
+        "infernalexp:attack_frame": 0.0
       },
       "model": "infernalexp:item/kinetic_tongue_whip_extending_0"
     },
     {
       "predicate": {
-        "attacking": 1,
-        "attack_frame": 1
+        "infernalexp:attacking": 1.0,
+        "infernalexp:attack_frame": 1.0
       },
       "model": "infernalexp:item/kinetic_tongue_whip_extending_1"
     },
     {
       "predicate": {
-        "attacking": 1,
-        "attack_frame": 2
+        "infernalexp:attacking": 1.0,
+        "infernalexp:attack_frame": 2.0
       },
       "model": "infernalexp:item/kinetic_tongue_whip_extending_2"
     },
     {
       "predicate": {
-        "attacking": 1,
-        "attack_frame": 3
+        "infernalexp:attacking": 1.0,
+        "infernalexp:attack_frame": 3.0
       },
       "model": "infernalexp:item/kinetic_tongue_whip_extending_3"
     },
     {
       "predicate": {
-        "attacking": 1,
-        "attack_frame": 4
+        "infernalexp:attacking": 1.0,
+        "infernalexp:attack_frame": 4.0
       },
       "model": "infernalexp:item/kinetic_tongue_whip_extending_4"
     },
     {
       "predicate": {
-        "attacking": 1,
-        "attack_frame": 5
+        "infernalexp:attacking": 1.0,
+        "infernalexp:attack_frame": 5.0
       },
       "model": "infernalexp:item/kinetic_tongue_whip_extending_5"
     },
     {
       "predicate": {
-        "attacking": 1,
-        "attack_frame": 6
+        "infernalexp:attacking": 1.0,
+        "infernalexp:attack_frame": 6.0
       },
       "model": "infernalexp:item/kinetic_tongue_whip_extending_6"
     },
     {
       "predicate": {
-        "attacking": 1,
-        "attack_frame": 7
+        "infernalexp:attacking": 1.0,
+        "infernalexp:attack_frame": 7.0
       },
       "model": "infernalexp:item/kinetic_tongue_whip_extending_7"
     },
     {
       "predicate": {
-        "attacking": 1,
-        "attack_frame": 8
+        "infernalexp:attacking": 1.0,
+        "infernalexp:attack_frame": 8.0
       },
       "model": "infernalexp:item/kinetic_tongue_whip_extending_8"
     },
     {
       "predicate": {
-        "attacking": 1,
-        "attack_frame": 9
+        "infernalexp:attacking": 1.0,
+        "infernalexp:attack_frame": 9.0
       },
       "model": "infernalexp:item/kinetic_tongue_whip_extending_9"
     }

@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:crafting/shaped/warped_fungus_cap"
+    ]
+  },
+  "criteria": {
+    "has_warped_fungus": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:warped_fungus"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:crafting/shaped/warped_fungus_cap"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_warped_fungus",
+      "has_the_recipe"
+    ]
+  ]
+}

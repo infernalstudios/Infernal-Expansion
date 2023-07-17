@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:smelting/glass_from_silt"
+    ]
+  },
+  "criteria": {
+    "has_silt": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "infernalexp:silt"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:smelting/glass_from_silt"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_silt",
+      "has_the_recipe"
+    ]
+  ]
+}

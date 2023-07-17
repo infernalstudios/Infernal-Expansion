@@ -6,34 +6,7 @@
       },
       {
         "model": "infernalexp:block/silt",
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/silt",
-        "x": 180
-      },
-      {
-        "model": "infernalexp:block/silt",
-        "x": 270
-      },
-      {
-        "model": "infernalexp:block/silt",
         "y": 90
-      },
-      {
-        "model": "infernalexp:block/silt",
-        "y": 90,
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/silt",
-        "y": 90,
-        "x": 180
-      },
-      {
-        "model": "infernalexp:block/silt",
-        "y": 90,
-        "x": 270
       },
       {
         "model": "infernalexp:block/silt",
@@ -41,37 +14,64 @@
       },
       {
         "model": "infernalexp:block/silt",
-        "y": 180,
-        "x": 90
-      },
-      {
-        "model": "infernalexp:block/silt",
-        "y": 180,
-        "x": 180
-      },
-      {
-        "model": "infernalexp:block/silt",
-        "y": 180,
-        "x": 270
-      },
-      {
-        "model": "infernalexp:block/silt",
         "y": 270
       },
       {
         "model": "infernalexp:block/silt",
-        "y": 270,
         "x": 90
       },
       {
         "model": "infernalexp:block/silt",
-        "y": 270,
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "infernalexp:block/silt",
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "infernalexp:block/silt",
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "infernalexp:block/silt",
         "x": 180
       },
       {
         "model": "infernalexp:block/silt",
-        "y": 270,
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "infernalexp:block/silt",
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "infernalexp:block/silt",
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "infernalexp:block/silt",
         "x": 270
+      },
+      {
+        "model": "infernalexp:block/silt",
+        "x": 270,
+        "y": 90
+      },
+      {
+        "model": "infernalexp:block/silt",
+        "x": 270,
+        "y": 180
+      },
+      {
+        "model": "infernalexp:block/silt",
+        "x": 270,
+        "y": 270
       }
     ]
   }

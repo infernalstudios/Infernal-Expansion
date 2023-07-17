@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:crafting/shaped/glowdust_stone"
+    ]
+  },
+  "criteria": {
+    "has_glowdust_sand": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "infernalexp:glowdust_sand"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:crafting/shaped/glowdust_stone"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_glowdust_sand",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:stonecutting/basalt_brick_stairs"
+    ]
+  },
+  "criteria": {
+    "has_basalt_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "infernalexp:basalt_bricks"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:stonecutting/basalt_brick_stairs"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_basalt_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

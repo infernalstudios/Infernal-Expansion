@@ -23,8 +23,8 @@ import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import org.infernalstudios.infernalexp.blocks.LuminousFungusBlock;
+import org.infernalstudios.infernalexp.init.IEBlockTags;
 import org.infernalstudios.infernalexp.init.IEBlocks;
-import org.infernalstudios.infernalexp.init.IETags;
 
 public class LuminousFungusFeature extends IEFeature<NoneFeatureConfiguration> {
 
@@ -46,7 +46,7 @@ public class LuminousFungusFeature extends IEFeature<NoneFeatureConfiguration> {
             BlockPos pos = context.origin().offset(context.random().nextInt(17) - 8, context.random().nextInt(9) - 4, context.random().nextInt(17) - 8);
 
             // If the randomly chosen location is valid, then place the fungus
-            if (context.level().isEmptyBlock(pos) && state.canSurvive(context.level(), pos) && context.level().getBlockState(onCeiling ? pos.above() : pos.below()).is(IETags.Blocks.LUMINOUS_FUNGUS_SPAWNABLE_ON_BLOCKS)) {
+            if (context.level().isEmptyBlock(pos) && state.canSurvive(context.level(), pos) && context.level().getBlockState(onCeiling ? pos.above() : pos.below()).is(IEBlockTags.LUMINOUS_FUNGUS_SPAWNABLE_ON_BLOCKS)) {
                 context.level().setBlock(pos, state, 2);
                 amount++;
             }

@@ -29,8 +29,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.infernalstudios.infernalexp.init.IEBlockTags;
 import org.infernalstudios.infernalexp.init.IEBlocks;
-import org.infernalstudios.infernalexp.init.IETags;
 
 import javax.annotation.CheckForNull;
 
@@ -49,7 +49,7 @@ public class PlantedQuartzBlock extends HorizontalBushBlock {
 
     @Override
     protected boolean isValidGround(BlockState state, BlockGetter worldIn, BlockPos pos) {
-        return state.is(IETags.Blocks.PLANTED_QUARTZ_BASE_BLOCKS);
+        return state.is(IEBlockTags.PLANTED_QUARTZ_BASE_BLOCKS);
     }
 
     @CheckForNull

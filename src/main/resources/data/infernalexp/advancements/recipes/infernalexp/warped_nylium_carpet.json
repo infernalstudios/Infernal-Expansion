@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:crafting/shaped/warped_nylium_carpet"
+    ]
+  },
+  "criteria": {
+    "has_warped_nylium": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:warped_nylium"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:crafting/shaped/warped_nylium_carpet"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_warped_nylium",
+      "has_the_recipe"
+    ]
+  ]
+}

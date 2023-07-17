@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XO",
+    "OX"
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "O": {
+      "item": "infernalexp:glownuggets"
+    }
+  },
+  "result": {
+    "item": "infernalexp:dimstone"
+  }
+}

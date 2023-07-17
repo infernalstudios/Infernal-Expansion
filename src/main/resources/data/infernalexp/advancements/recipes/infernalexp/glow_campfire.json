@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:crafting/shaped/glow_campfire"
+    ]
+  },
+  "criteria": {
+    "has_glowcoal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "infernalexp:glowcoal"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:crafting/shaped/glow_campfire"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_glowcoal",
+      "has_the_recipe"
+    ]
+  ]
+}

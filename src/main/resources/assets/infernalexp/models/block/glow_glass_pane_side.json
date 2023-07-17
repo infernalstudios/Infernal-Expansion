@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/template_glass_pane_side",
   "textures": {
-    "pane": "infernalexp:block/glowlight_glass",
-    "edge": "infernalexp:block/glowlight_glass_pane_top"
+    "pane": "infernalexp:block/glow_glass",
+    "edge": "infernalexp:block/glow_glass_pane_top"
   }
 }

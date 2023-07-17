@@ -9,7 +9,9 @@
     "defaultRequire": 1
   },
   "mixins": [
+    "common.CreativeModeTabAccessor",
     "common.IngredientAccessor",
+    "common.LanguageProviderAccessor",
     "common.MixinAbstractArrowEntity",
     "common.MixinAbstractFireBlock",
     "common.MixinArrowEntity",
@@ -28,8 +30,13 @@
     "common.NoiseBasedChunkGeneratorAccessor",
     "common.NoiseGeneratorSettingsAccessor",
     "common.PotionBrewingAccessor",
+    "common.ShapedRecipeBuilderAccessor",
+    "common.ShapelessRecipeBuilderAccessor",
+    "common.SimpleCookingRecipeBuilderAccessor",
+    "common.SingleItemRecipeBuilderAccessor",
     "common.SurfaceRulesContextAccessor",
     "common.SurfaceSystemAccessor",
+    "common.UpgradeRecipeBuilderAccessor",
     "common.WorldCarverAccessor",
     "common.WorldGenRegionAccessor",
     "dev.MixinDataFixers",

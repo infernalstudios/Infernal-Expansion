@@ -17,9 +17,9 @@
 package org.infernalstudios.infernalexp.entities;
 
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
+import org.infernalstudios.infernalexp.init.IEBlockTags;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
 
-import org.infernalstudios.infernalexp.init.IETags;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -93,7 +93,7 @@ public class EmbodyEntity extends Monster {
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        if (source.getMsgId().equals("fall") && getBlockStateOn().is(IETags.Blocks.EMBODY_FALL_BLOCKS)) {
+        if (source.getMsgId().equals("fall") && getBlockStateOn().is(IEBlockTags.EMBODY_FALL_BLOCKS)) {
             return false;
         }
         return super.hurt(source, amount);

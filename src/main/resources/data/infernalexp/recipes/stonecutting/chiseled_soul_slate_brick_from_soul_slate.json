@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "infernalexp:soul_slate"
-  },
-  "result": "infernalexp:chiseled_soul_slate_bricks",
-  "count": 1
-}

@@ -1,7 +1,7 @@
 {
-  "parent": "block/cube_column",
+  "parent": "minecraft:block/cube_column_horizontal",
   "textures": {
-    "end": "infernalexp:block/basalt_iron_ore_top",
-    "side": "infernalexp:block/basalt_iron_ore_side"
+    "side": "infernalexp:block/basalt_iron_ore_side",
+    "end": "infernalexp:block/basalt_iron_ore_top"
   }
 }

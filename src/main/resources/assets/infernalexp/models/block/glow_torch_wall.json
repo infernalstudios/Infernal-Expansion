@@ -1,5 +1,5 @@
 {
-  "parent": "block/template_torch_wall",
+  "parent": "minecraft:block/template_torch_wall",
   "textures": {
     "torch": "infernalexp:block/glow_torch"
   }

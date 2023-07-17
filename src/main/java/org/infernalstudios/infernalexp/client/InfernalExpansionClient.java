@@ -52,28 +52,27 @@ public class InfernalExpansionClient {
     }
 
     private static void threadSafeInit() {
-        ItemProperties.register(IEItems.GLOWSILK_BOW.get(), new ResourceLocation("pull"), (itemStack, clientWorld, livingEntity, ticks) -> {
+        ItemProperties.register(IEItems.GLOWSILK_BOW.get(), new ResourceLocation(InfernalExpansion.MOD_ID, "pull"), (itemStack, clientWorld, livingEntity, ticks) -> {
             if (livingEntity == null) {
                 return 0.0F;
             } else {
                 return livingEntity.getUseItem() != itemStack ? 0.0F : (float) (itemStack.getUseDuration() - livingEntity.getUseItemRemainingTicks()) / 20.0F;
             }
         });
+        ItemProperties.register(IEItems.GLOWSILK_BOW.get(), new ResourceLocation(InfernalExpansion.MOD_ID, "pulling"), (itemStack, clientWorld, livingEntity, entityId) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
 
-        ItemProperties.register(IEItems.GLOWSILK_BOW.get(), new ResourceLocation("pulling"), (itemStack, clientWorld, livingEntity, entityId) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
-
-        ItemProperties.register(IEItems.BLINDSIGHT_TONGUE_WHIP.get(), new ResourceLocation("attack_frame"), (itemStack, clientWorld, livingEntity, entityId) ->
+        ItemProperties.register(IEItems.BLINDSIGHT_TONGUE_WHIP.get(), new ResourceLocation(InfernalExpansion.MOD_ID, "attack_frame"), (itemStack, clientWorld, livingEntity, entityId) ->
             livingEntity == null || (livingEntity.getMainHandItem() != itemStack && livingEntity.getOffhandItem() != itemStack) ?
                 0 : (int) (((WhipItem) itemStack.getItem()).getTicksSinceAttack(itemStack) / 3.0F)
         );
-        ItemProperties.register(IEItems.BLINDSIGHT_TONGUE_WHIP.get(), new ResourceLocation("attacking"), (itemStack, clientWorld, livingEntity, entityId) -> livingEntity != null && (((WhipItem) itemStack.getItem()).getAttacking(itemStack) || ((WhipItem) itemStack.getItem()).getCharging(itemStack)) && (livingEntity.getMainHandItem() == itemStack || livingEntity.getOffhandItem() == itemStack) ? 1.0F : 0.0F);
+        ItemProperties.register(IEItems.BLINDSIGHT_TONGUE_WHIP.get(), new ResourceLocation(InfernalExpansion.MOD_ID, "attacking"), (itemStack, clientWorld, livingEntity, entityId) -> livingEntity != null && (((WhipItem) itemStack.getItem()).getAttacking(itemStack) || ((WhipItem) itemStack.getItem()).getCharging(itemStack)) && (livingEntity.getMainHandItem() == itemStack || livingEntity.getOffhandItem() == itemStack) ? 1.0F : 0.0F);
 
 
-        ItemProperties.register(IEItems.KINETIC_TONGUE_WHIP.get(), new ResourceLocation("attack_frame"), (itemStack, clientWorld, livingEntity, entityId) ->
+        ItemProperties.register(IEItems.KINETIC_TONGUE_WHIP.get(), new ResourceLocation(InfernalExpansion.MOD_ID, "attack_frame"), (itemStack, clientWorld, livingEntity, entityId) ->
             livingEntity == null || (livingEntity.getMainHandItem() != itemStack && livingEntity.getOffhandItem() != itemStack) ?
                 0 : (int) (((WhipItem) itemStack.getItem()).getTicksSinceAttack(itemStack) / 3.0F)
         );
-        ItemProperties.register(IEItems.KINETIC_TONGUE_WHIP.get(), new ResourceLocation("attacking"), (itemStack, clientWorld, livingEntity, entityId) -> livingEntity != null && (((WhipItem) itemStack.getItem()).getAttacking(itemStack) || ((WhipItem) itemStack.getItem()).getCharging(itemStack)) && (livingEntity.getMainHandItem() == itemStack || livingEntity.getOffhandItem() == itemStack) ? 1.0F : 0.0F);
+        ItemProperties.register(IEItems.KINETIC_TONGUE_WHIP.get(), new ResourceLocation(InfernalExpansion.MOD_ID, "attacking"), (itemStack, clientWorld, livingEntity, entityId) -> livingEntity != null && (((WhipItem) itemStack.getItem()).getAttacking(itemStack) || ((WhipItem) itemStack.getItem()).getCharging(itemStack)) && (livingEntity.getMainHandItem() == itemStack || livingEntity.getOffhandItem() == itemStack) ? 1.0F : 0.0F);
 
         InfernalExpansionClient.loadInfernalResources();
     }

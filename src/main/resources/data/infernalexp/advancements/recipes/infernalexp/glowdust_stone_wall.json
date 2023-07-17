@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:stonecutting/glowdust_stone_wall"
+    ]
+  },
+  "criteria": {
+    "has_glowdust_stone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "infernalexp:glowdust_stone"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:stonecutting/glowdust_stone_wall"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_glowdust_stone",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "infernalexp:smelting/cracked_dullstone_bricks"
+    ]
+  },
+  "criteria": {
+    "has_dullstone_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "infernalexp:dullstone_bricks"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "infernalexp:smelting/cracked_dullstone_bricks"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_dullstone_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

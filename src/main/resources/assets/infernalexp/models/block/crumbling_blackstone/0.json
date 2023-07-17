@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "infernalexp:block/crumbling_blackstone/top0",
+    "bottom": "infernalexp:block/crumbling_blackstone/top0",
+    "side": "infernalexp:block/crumbling_blackstone/side0"
+  }
+}

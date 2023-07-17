@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:crafting/shapeless/warped_fungus"
+    ]
+  },
+  "criteria": {
+    "has_warped_fungus_cap": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "infernalexp:warped_fungus_cap"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:crafting/shapeless/warped_fungus"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_warped_fungus_cap",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#infernalexp:mushrooms",
+    "minecraft:crimson_fungus",
+    "minecraft:warped_fungus",
+    "infernalexp:luminous_fungus"
+  ]
+}

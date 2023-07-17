@@ -1,0 +1,32 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "modid": "create",
+          "type": "forge:mod_loaded"
+        }
+      ],
+      "recipe": {
+        "type": "create:crushing",
+        "ingredients": [
+          {
+            "item": "infernalexp:glowdust_stone"
+          }
+        ],
+        "results": [
+          {
+            "item": "infernalexp:glowdust_sand",
+            "count": 2
+          },
+          {
+            "item": "infernalexp:glowdust_sand",
+            "chance": 0.25
+          }
+        ],
+        "processing_time": 150
+      }
+    }
+  ]
+}

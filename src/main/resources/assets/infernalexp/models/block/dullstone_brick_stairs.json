@@ -1,8 +1,8 @@
 {
-  "parent": "block/stairs",
+  "parent": "minecraft:block/stairs",
   "textures": {
+    "side": "infernalexp:block/dullstone_bricks",
     "bottom": "infernalexp:block/dullstone_bricks",
-    "top": "infernalexp:block/dullstone_bricks",
-    "side": "infernalexp:block/dullstone_bricks"
+    "top": "infernalexp:block/dullstone_bricks"
   }
 }

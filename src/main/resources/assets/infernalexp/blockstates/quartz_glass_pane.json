@@ -15,32 +15,6 @@
     },
     {
       "when": {
-        "east": "true"
-      },
-      "apply": {
-        "model": "infernalexp:block/quartz_glass_pane_side",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "south": "true"
-      },
-      "apply": {
-        "model": "infernalexp:block/quartz_glass_pane_side_alt"
-      }
-    },
-    {
-      "when": {
-        "west": "true"
-      },
-      "apply": {
-        "model": "infernalexp:block/quartz_glass_pane_side_alt",
-        "y": 90
-      }
-    },
-    {
-      "when": {
         "north": "false"
       },
       "apply": {
@@ -49,10 +23,10 @@
     },
     {
       "when": {
-        "east": "false"
+        "south": "true"
       },
       "apply": {
-        "model": "infernalexp:block/quartz_glass_pane_noside_alt"
+        "model": "infernalexp:block/quartz_glass_pane_side_alt"
       }
     },
     {
@@ -66,11 +40,37 @@
     },
     {
       "when": {
+        "west": "true"
+      },
+      "apply": {
+        "model": "infernalexp:block/quartz_glass_pane_side_alt",
+        "y": 90
+      }
+    },
+    {
+      "when": {
         "west": "false"
       },
       "apply": {
         "model": "infernalexp:block/quartz_glass_pane_noside",
         "y": 270
+      }
+    },
+    {
+      "when": {
+        "east": "true"
+      },
+      "apply": {
+        "model": "infernalexp:block/quartz_glass_pane_side",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "east": "false"
+      },
+      "apply": {
+        "model": "infernalexp:block/quartz_glass_pane_noside_alt"
       }
     }
   ]
