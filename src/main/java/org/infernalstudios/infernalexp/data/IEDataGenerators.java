@@ -148,8 +148,8 @@ public class IEDataGenerators {
         generator.addProvider(new TagsProvider<>(generator, Registry.BLOCK, InfernalExpansion.MOD_ID, fileHelper) {
             @Override
             protected void addTags() {
-                IEBlockTags.TAGS.forEach((dataProvider, tag) -> {
-                    dataProvider.accept(this, tag);
+                IEBlockTags.TAGS.forEach(pair -> {
+                    pair.getSecond().accept(this, pair.getFirst());
                 });
             }
 
@@ -162,8 +162,8 @@ public class IEDataGenerators {
         generator.addProvider(new TagsProvider<>(generator, Registry.ITEM, InfernalExpansion.MOD_ID, fileHelper) {
             @Override
             protected void addTags() {
-                IEItemTags.TAGS.forEach((dataProvider, tag) -> {
-                    dataProvider.accept(this, tag);
+                IEItemTags.TAGS.forEach(pair -> {
+                    pair.getSecond().accept(this, pair.getFirst());
                 });
             }
 
@@ -177,8 +177,8 @@ public class IEDataGenerators {
         generator.addProvider(new TagsProvider<>(generator, BuiltinRegistries.BIOME, InfernalExpansion.MOD_ID, fileHelper) {
             @Override
             protected void addTags() {
-                IEBiomeTags.TAGS.forEach((dataProvider, tag) -> {
-                    dataProvider.accept(this, tag);
+                IEBiomeTags.TAGS.forEach(pair -> {
+                    pair.getSecond().accept(this, pair.getFirst());
                 });
             }
 
@@ -191,8 +191,8 @@ public class IEDataGenerators {
         generator.addProvider(new TagsProvider<>(generator, BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, InfernalExpansion.MOD_ID, fileHelper) {
             @Override
             protected void addTags() {
-                IEStructureTags.TAGS.forEach((dataProvider, tag) -> {
-                    dataProvider.accept(this, tag);
+                IEStructureTags.TAGS.forEach(pair -> {
+                    pair.getSecond().accept(this, pair.getFirst());
                 });
             }
 

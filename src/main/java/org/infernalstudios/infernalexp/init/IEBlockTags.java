@@ -16,20 +16,24 @@
 
 package org.infernalstudios.infernalexp.init;
 
-import net.minecraft.data.tags.TagsProvider;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
+
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.Tags;
 import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.data.DataProviderCollection;
 import org.infernalstudios.infernalexp.data.providers.IETagProviders;
+
+import net.minecraftforge.common.Tags;
 
 public class IEBlockTags {
 
-    public static final DataProviderCollection<TagKey<Block>, TagsProvider<Block>> TAGS = new DataProviderCollection<>();
+    public static final List<Pair<Supplier<TagKey<Block>>, IETagProviders.TagProviderConsumer<Block>>> TAGS = new ArrayList<>();
 
     public static final TagKey<Block> BASE_STONE_CANYON = tag("base_stone_canyon", IETagProviders.simple(
         IEBlocks.DIMSTONE.get(), IEBlocks.DULLSTONE.get()
@@ -221,12 +225,12 @@ public class IEBlockTags {
 
     private static TagKey<Block> tag(String name, IETagProviders.TagProviderConsumer<Block> tagProvider) {
         TagKey<Block> tag = BlockTags.create(new ResourceLocation(InfernalExpansion.MOD_ID, name));
-        TAGS.addProvider(() -> tag, tagProvider);
+        TAGS.add(Pair.of(() -> tag, tagProvider));
         return tag;
     }
 
     private static void override(String namespace, String name, IETagProviders.TagProviderConsumer<Block> tagProvider) {
-        TAGS.addProvider(() -> BlockTags.create(new ResourceLocation(namespace, name)), tagProvider);
+        TAGS.add(Pair.of(() -> BlockTags.create(new ResourceLocation(namespace, name)), tagProvider));
     }
 
     private static void overrideVanilla(String name, IETagProviders.TagProviderConsumer<Block> tagProvider) {

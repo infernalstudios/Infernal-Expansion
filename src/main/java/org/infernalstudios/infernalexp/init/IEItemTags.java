@@ -16,7 +16,11 @@
 
 package org.infernalstudios.infernalexp.init;
 
-import net.minecraft.data.tags.TagsProvider;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
+
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -24,12 +28,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.data.DataProviderCollection;
 import org.infernalstudios.infernalexp.data.providers.IETagProviders;
 
 public class IEItemTags {
 
-    public static final DataProviderCollection<TagKey<Item>, TagsProvider<Item>> TAGS = new DataProviderCollection<>();
+    public static final List<Pair<Supplier<TagKey<Item>>, IETagProviders.TagProviderConsumer<Item>>> TAGS = new ArrayList<>();
 
     public static final TagKey<Item> GLOWSILK_REPAIR_BLACKLIST = tag("glowsilk_repair_blacklist", IETagProviders.items());
 
@@ -92,12 +95,12 @@ public class IEItemTags {
 
     private static TagKey<Item> tag(String name, IETagProviders.TagProviderConsumer<Item> tagProvider) {
         TagKey<Item> tag = ItemTags.create(new ResourceLocation(InfernalExpansion.MOD_ID, name));
-        TAGS.addProvider(() -> tag, tagProvider);
+        TAGS.add(Pair.of(() -> tag, tagProvider));
         return tag;
     }
 
     private static void override(String namespace, String name, IETagProviders.TagProviderConsumer<Item> tagProvider) {
-        TAGS.addProvider(() -> ItemTags.create(new ResourceLocation(namespace, name)), tagProvider);
+        TAGS.add(Pair.of(() -> ItemTags.create(new ResourceLocation(namespace, name)), tagProvider));
     }
 
     private static void overrideVanilla(String name, IETagProviders.TagProviderConsumer<Item> tagProvider) {

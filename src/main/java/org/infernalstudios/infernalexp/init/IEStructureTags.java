@@ -16,19 +16,22 @@
 
 package org.infernalstudios.infernalexp.init;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
+
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Registry;
-import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.data.worldgen.StructureFeatures;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.data.DataProviderCollection;
 import org.infernalstudios.infernalexp.data.providers.IETagProviders;
 
 public class IEStructureTags {
 
-    public static final DataProviderCollection<TagKey<ConfiguredStructureFeature<?, ?>>, TagsProvider<ConfiguredStructureFeature<?, ?>>> TAGS = new DataProviderCollection<>();
+    public static final List<Pair<Supplier<TagKey<ConfiguredStructureFeature<?, ?>>>, IETagProviders.TagProviderConsumer<ConfiguredStructureFeature<?, ?>>>> TAGS = new ArrayList<>();
 
     public static final TagKey<ConfiguredStructureFeature<?, ?>> NO_INTERSECTING_FEATURES = tag("no_intersecting_features", IETagProviders.simple(
         IEConfiguredStructures.GLOWSTONE_CANYON_RUIN.value(), IEConfiguredStructures.SOUL_SAND_VALLEY_RUIN.value(), IEConfiguredStructures.BASTION_OUTPOST.value(),
@@ -37,7 +40,7 @@ public class IEStructureTags {
 
     private static TagKey<ConfiguredStructureFeature<?, ?>> tag(String name, IETagProviders.TagProviderConsumer<ConfiguredStructureFeature<?, ?>> tagProvider) {
         TagKey<ConfiguredStructureFeature<?, ?>> tag = TagKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, new ResourceLocation(InfernalExpansion.MOD_ID, name));
-        TAGS.addProvider(() -> tag, tagProvider);
+        TAGS.add(Pair.of(() -> tag, tagProvider));
         return tag;
     }
 
