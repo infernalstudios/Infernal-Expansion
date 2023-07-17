@@ -3,6 +3,7 @@
   "pools": [
     {
       "rolls": 1.0,
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:alternatives",
@@ -11,19 +12,16 @@
               "type": "minecraft:alternatives",
               "conditions": [
                 {
-                  "condition": "minecraft:inverted",
-                  "term": {
-                    "condition": "minecraft:match_tool",
-                    "predicate": {
-                      "enchantments": [
-                        {
-                          "enchantment": "minecraft:silk_touch",
-                          "levels": {
-                            "min": 1
-                          }
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "enchantments": [
+                      {
+                        "enchantment": "minecraft:silk_touch",
+                        "levels": {
+                          "min": 1
                         }
-                      ]
-                    }
+                      }
+                    ]
                   }
                 }
               ],
@@ -42,14 +40,11 @@
                   "functions": [
                     {
                       "function": "minecraft:set_count",
-                      "count": {
-                        "n": 1,
-                        "p": 0.3,
-                        "type": "minecraft:binomial"
-                      }
+                      "count": 1.0,
+                      "add": false
                     }
                   ],
-                  "name": "minecraft:glowstone_dust"
+                  "name": "infernalexp:glowdust"
                 },
                 {
                   "type": "minecraft:item",
@@ -65,14 +60,11 @@
                   "functions": [
                     {
                       "function": "minecraft:set_count",
-                      "count": {
-                        "n": 2,
-                        "p": 0.3,
-                        "type": "minecraft:binomial"
-                      }
+                      "count": 2.0,
+                      "add": false
                     }
                   ],
-                  "name": "minecraft:glowstone_dust"
+                  "name": "infernalexp:glowdust"
                 },
                 {
                   "type": "minecraft:item",
@@ -88,14 +80,11 @@
                   "functions": [
                     {
                       "function": "minecraft:set_count",
-                      "count": {
-                        "n": 3,
-                        "p": 0.3,
-                        "type": "minecraft:binomial"
-                      }
+                      "count": 3.0,
+                      "add": false
                     }
                   ],
-                  "name": "minecraft:glowstone_dust"
+                  "name": "infernalexp:glowdust"
                 },
                 {
                   "type": "minecraft:item",
@@ -111,14 +100,11 @@
                   "functions": [
                     {
                       "function": "minecraft:set_count",
-                      "count": {
-                        "n": 4,
-                        "p": 0.3,
-                        "type": "minecraft:binomial"
-                      }
+                      "count": 4.0,
+                      "add": false
                     }
                   ],
-                  "name": "minecraft:glowstone_dust"
+                  "name": "infernalexp:glowdust"
                 },
                 {
                   "type": "minecraft:item",
@@ -134,14 +120,11 @@
                   "functions": [
                     {
                       "function": "minecraft:set_count",
-                      "count": {
-                        "n": 5,
-                        "p": 0.3,
-                        "type": "minecraft:binomial"
-                      }
+                      "count": 5.0,
+                      "add": false
                     }
                   ],
-                  "name": "minecraft:glowstone_dust"
+                  "name": "infernalexp:glowdust"
                 },
                 {
                   "type": "minecraft:item",
@@ -157,14 +140,11 @@
                   "functions": [
                     {
                       "function": "minecraft:set_count",
-                      "count": {
-                        "n": 6,
-                        "p": 0.3,
-                        "type": "minecraft:binomial"
-                      }
+                      "count": 6.0,
+                      "add": false
                     }
                   ],
-                  "name": "minecraft:glowstone_dust"
+                  "name": "infernalexp:glowdust"
                 },
                 {
                   "type": "minecraft:item",
@@ -180,28 +160,15 @@
                   "functions": [
                     {
                       "function": "minecraft:set_count",
-                      "count": {
-                        "n": 7,
-                        "p": 0.3,
-                        "type": "minecraft:binomial"
-                      }
+                      "count": 7.0,
+                      "add": false
                     }
                   ],
-                  "name": "minecraft:glowstone_dust"
+                  "name": "infernalexp:glowdust"
                 },
                 {
                   "type": "minecraft:item",
-                  "functions": [
-                    {
-                      "function": "minecraft:set_count",
-                      "count": {
-                        "n": 8,
-                        "p": 0.3,
-                        "type": "minecraft:binomial"
-                      }
-                    }
-                  ],
-                  "name": "minecraft:glowstone_dust"
+                  "name": "infernalexp:glowdust_sand"
                 }
               ]
             },
@@ -219,7 +186,18 @@
                       }
                     }
                   ],
-                  "name": "infernalexp:glowdust"
+                  "functions": [
+                    {
+                      "function": "minecraft:set_count",
+                      "count": {
+                        "type": "minecraft:binomial",
+                        "n": 1.0,
+                        "p": 0.3
+                      },
+                      "add": false
+                    }
+                  ],
+                  "name": "minecraft:glowstone_dust"
                 },
                 {
                   "type": "minecraft:item",
@@ -235,10 +213,15 @@
                   "functions": [
                     {
                       "function": "minecraft:set_count",
-                      "count": 2
+                      "count": {
+                        "type": "minecraft:binomial",
+                        "n": 2.0,
+                        "p": 0.3
+                      },
+                      "add": false
                     }
                   ],
-                  "name": "infernalexp:glowdust"
+                  "name": "minecraft:glowstone_dust"
                 },
                 {
                   "type": "minecraft:item",
@@ -254,10 +237,15 @@
                   "functions": [
                     {
                       "function": "minecraft:set_count",
-                      "count": 3
+                      "count": {
+                        "type": "minecraft:binomial",
+                        "n": 3.0,
+                        "p": 0.3
+                      },
+                      "add": false
                     }
                   ],
-                  "name": "infernalexp:glowdust"
+                  "name": "minecraft:glowstone_dust"
                 },
                 {
                   "type": "minecraft:item",
@@ -273,10 +261,15 @@
                   "functions": [
                     {
                       "function": "minecraft:set_count",
-                      "count": 4
+                      "count": {
+                        "type": "minecraft:binomial",
+                        "n": 4.0,
+                        "p": 0.3
+                      },
+                      "add": false
                     }
                   ],
-                  "name": "infernalexp:glowdust"
+                  "name": "minecraft:glowstone_dust"
                 },
                 {
                   "type": "minecraft:item",
@@ -292,10 +285,15 @@
                   "functions": [
                     {
                       "function": "minecraft:set_count",
-                      "count": 5
+                      "count": {
+                        "type": "minecraft:binomial",
+                        "n": 5.0,
+                        "p": 0.3
+                      },
+                      "add": false
                     }
                   ],
-                  "name": "infernalexp:glowdust"
+                  "name": "minecraft:glowstone_dust"
                 },
                 {
                   "type": "minecraft:item",
@@ -311,10 +309,15 @@
                   "functions": [
                     {
                       "function": "minecraft:set_count",
-                      "count": 6
+                      "count": {
+                        "type": "minecraft:binomial",
+                        "n": 6.0,
+                        "p": 0.3
+                      },
+                      "add": false
                     }
                   ],
-                  "name": "infernalexp:glowdust"
+                  "name": "minecraft:glowstone_dust"
                 },
                 {
                   "type": "minecraft:item",
@@ -330,14 +333,30 @@
                   "functions": [
                     {
                       "function": "minecraft:set_count",
-                      "count": 7
+                      "count": {
+                        "type": "minecraft:binomial",
+                        "n": 7.0,
+                        "p": 0.3
+                      },
+                      "add": false
                     }
                   ],
-                  "name": "infernalexp:glowdust"
+                  "name": "minecraft:glowstone_dust"
                 },
                 {
                   "type": "minecraft:item",
-                  "name": "infernalexp:glowdust_sand"
+                  "functions": [
+                    {
+                      "function": "minecraft:set_count",
+                      "count": {
+                        "type": "minecraft:binomial",
+                        "n": 8.0,
+                        "p": 0.3
+                      },
+                      "add": false
+                    }
+                  ],
+                  "name": "minecraft:glowstone_dust"
                 }
               ]
             }

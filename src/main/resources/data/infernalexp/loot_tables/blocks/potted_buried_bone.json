@@ -22,7 +22,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "infernalexp:dullthorns"
+          "name": "minecraft:bone"
         }
       ],
       "conditions": [

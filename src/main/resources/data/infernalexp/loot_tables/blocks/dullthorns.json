@@ -2,15 +2,14 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "rolls": 1,
-      "bonus_rolls": 0,
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:alternatives",
           "children": [
             {
               "type": "minecraft:item",
-              "name": "infernalexp:dullthorns",
               "conditions": [
                 {
                   "condition": "minecraft:alternative",
@@ -18,7 +17,9 @@
                     {
                       "condition": "minecraft:match_tool",
                       "predicate": {
-                        "item": "minecraft:shears"
+                        "items": [
+                          "minecraft:shears"
+                        ]
                       }
                     },
                     {
@@ -36,11 +37,11 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "name": "infernalexp:dullthorns"
             },
             {
               "type": "minecraft:item",
-              "name": "infernalexp:dullthorns",
               "conditions": [
                 {
                   "condition": "minecraft:table_bonus",
@@ -52,7 +53,8 @@
                     0.77
                   ]
                 }
-              ]
+              ],
+              "name": "infernalexp:dullthorns"
             }
           ]
         }

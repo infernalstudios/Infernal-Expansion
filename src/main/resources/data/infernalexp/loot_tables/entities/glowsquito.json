@@ -2,7 +2,8 @@
   "type": "minecraft:entity",
   "pools": [
     {
-      "rolls": 1,
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
@@ -10,14 +11,16 @@
             {
               "function": "minecraft:set_count",
               "count": {
+                "type": "minecraft:uniform",
                 "min": 0.0,
-                "max": 1.0,
-                "type": "minecraft:uniform"
-              }
+                "max": 1.0
+              },
+              "add": false
             },
             {
               "function": "minecraft:looting_enchant",
               "count": {
+                "type": "minecraft:uniform",
                 "min": 0.0,
                 "max": 1.0
               }
@@ -31,14 +34,16 @@
             {
               "function": "minecraft:set_count",
               "count": {
-                "n": 1,
-                "p": 0.1,
-                "type": "minecraft:binomial"
-              }
+                "type": "minecraft:binomial",
+                "n": 1.0,
+                "p": 0.1
+              },
+              "add": false
             },
             {
               "function": "minecraft:looting_enchant",
               "count": {
+                "type": "minecraft:uniform",
                 "min": 0.0,
                 "max": 1.0
               }
@@ -49,7 +54,7 @@
       ]
     },
     {
-      "rolls": 1,
+      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
@@ -58,10 +63,11 @@
             {
               "function": "minecraft:set_count",
               "count": {
-                "n": 1,
-                "p": 0.25,
-                "type": "minecraft:binomial"
-              }
+                "type": "minecraft:binomial",
+                "n": 1.0,
+                "p": 0.25
+              },
+              "add": false
             }
           ],
           "name": "infernalexp:music_disc_flush"
