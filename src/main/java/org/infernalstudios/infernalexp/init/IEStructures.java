@@ -16,17 +16,18 @@
 
 package org.infernalstudios.infernalexp.init;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.world.gen.structures.SizeCheckingNetherStructure;
 import org.infernalstudios.infernalexp.world.gen.structures.StriderAltarStructure;
 import org.infernalstudios.infernalexp.world.gen.structures.config.SizeCheckingConfiguration;
 
-import java.util.ArrayList;
-import java.util.List;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class IEStructures {
 

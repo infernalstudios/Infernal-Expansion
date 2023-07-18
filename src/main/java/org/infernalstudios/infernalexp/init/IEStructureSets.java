@@ -30,6 +30,7 @@ public class IEStructureSets {
     public static final Holder<StructureSet> GLOWSTONE_CANYON_RUINS = registerSet("glowstone_canyon_ruins", new StructureSet(IEConfiguredStructures.GLOWSTONE_CANYON_RUIN, new RandomSpreadStructurePlacement(8, 4, RandomSpreadType.LINEAR, 20394857)));
     public static final Holder<StructureSet> SOUL_SAND_VALLEY_RUINS = registerSet("soul_sand_valley_ruins", new StructureSet(IEConfiguredStructures.SOUL_SAND_VALLEY_RUIN, new RandomSpreadStructurePlacement(8, 4, RandomSpreadType.LINEAR, 29456392)));
     public static final Holder<StructureSet> BASTION_OUTPOSTS = registerSet("bastion_outposts", new StructureSet(IEConfiguredStructures.BASTION_OUTPOST, new RandomSpreadStructurePlacement(16, 8, RandomSpreadType.LINEAR, 72043594)));
+    public static final Holder<StructureSet> BASALT_GIANT_MOAIS = registerSet("basalt_giant_moais", new StructureSet(IEConfiguredStructures.BASALT_GIANT_MOAI, new RandomSpreadStructurePlacement(3, 2, RandomSpreadType.LINEAR, 58327523)));
     public static final Holder<StructureSet> STRIDER_ALTARS = registerSet("strider_altars", new StructureSet(IEConfiguredStructures.STRIDER_ALTAR, new RandomSpreadStructurePlacement(8, 4, RandomSpreadType.LINEAR, 80837592)));
 
     private static Holder<StructureSet> registerSet(String name, StructureSet pool) {

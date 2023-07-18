@@ -16,23 +16,6 @@
 
 package org.infernalstudios.infernalexp.data;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.TypeAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import net.minecraft.ResourceLocationException;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
-import net.minecraftforge.fml.loading.FMLPaths;
-import net.minecraftforge.registries.ForgeRegistries;
-import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -48,6 +31,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import com.google.common.collect.ImmutableMap;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+
+import net.minecraft.ResourceLocationException;
+
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import org.infernalstudios.infernalexp.InfernalExpansion;
+import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
+
+import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class SpawnrateManager {
 
@@ -73,7 +76,7 @@ public class SpawnrateManager {
         .put("basalt_giant", ImmutableMap.of(
             "default", new SpawnInfo(5, 1, 1, 0, 0),
             "minecraft:basalt_deltas", new SpawnInfo(1, 1, 1, 2.0D, 0.1D),
-            "infernalexp:delta_shores", new SpawnInfo(1, 1, 1, 0, 0)
+            "infernalexp:delta_shores", new SpawnInfo(1, 1, 1, 0.5D, 1.5D)
         ))
         .put("blackstone_dwarf", ImmutableMap.of(
             "default", new SpawnInfo(0, 0, 0, 0, 0)

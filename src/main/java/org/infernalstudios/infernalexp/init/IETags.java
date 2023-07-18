@@ -68,6 +68,7 @@ public class IETags {
         public static final TagKey<Biome> HAS_GLOWSTONE_CANYON_RUIN = tag("has_structure/glowstone_canyon_ruin");
         public static final TagKey<Biome> HAS_SOUL_SAND_VALLEY_RUIN = tag("has_structure/soul_sand_valley_ruin");
         public static final TagKey<Biome> HAS_BASTION_OUTPOST = tag("has_structure/bastion_outpost");
+        public static final TagKey<Biome> HAS_BASALT_GIANT_MOAI = tag("has_structure/basalt_giant_moai");
         public static final TagKey<Biome> HAS_STRIDER_ALTAR = tag("has_structure/strider_altar");
 
         private static TagKey<Biome> tag(String name) {

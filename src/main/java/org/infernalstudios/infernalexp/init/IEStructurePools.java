@@ -77,6 +77,18 @@ public class IEStructurePools {
         ), StructureTemplatePool.Projection.RIGID)
     );
 
+    public static final Holder<StructureTemplatePool> BASALT_GIANT_MOAI = registerPool(new StructureTemplatePool(
+        new ResourceLocation(InfernalExpansion.MOD_ID, "basalt_giant_moai/start_pool"), new ResourceLocation("empty"), ImmutableList.of(
+            Pair.of(PoolUtil.legacy("delta_shores/moai_1"), 1),
+            Pair.of(PoolUtil.legacy("delta_shores/moai_2"), 1),
+            Pair.of(PoolUtil.legacy("delta_shores/moai_3"), 1),
+            Pair.of(PoolUtil.legacy("delta_shores/moai_4"), 1),
+            Pair.of(PoolUtil.legacy("delta_shores/moai_5"), 1),
+            Pair.of(PoolUtil.legacy("delta_shores/moai_6"), 1),
+            Pair.of(PoolUtil.legacy("delta_shores/moai_7"), 1)
+        ), StructureTemplatePool.Projection.RIGID)
+    );
+
     public static final Holder<StructureTemplatePool> STRIDER_ALTAR = registerPool(new StructureTemplatePool(
             new ResourceLocation(InfernalExpansion.MOD_ID, "strider_altar/start_pool"), new ResourceLocation("empty"), ImmutableList.of(
             Pair.of(PoolUtil.legacy("basalt_deltas/strider_altar_1", IEProcessors.LOOT_CHEST_LIST), 1),
