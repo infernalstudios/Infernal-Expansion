@@ -21,6 +21,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.BowlFoodItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -38,6 +39,7 @@ import net.minecraftforge.registries.RegistryObject;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.blocks.DullthornsBlockItem;
 import org.infernalstudios.infernalexp.items.AscusBombItem;
+import org.infernalstudios.infernalexp.items.CarvedShroomlightItem;
 import org.infernalstudios.infernalexp.items.EntityBucketItem;
 import org.infernalstudios.infernalexp.items.GlowcoalItem;
 import org.infernalstudios.infernalexp.items.GlowsilkBowItem;
@@ -98,7 +100,6 @@ public class IEItems {
                 new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 200, 1), 1.0F)
             .build())));
 
-
     // Spawn Eggs
     public static final RegistryObject<ForgeSpawnEggItem> VOLINE_SPAWN_EGG = registerItem("voline_spawn_egg", () -> new ForgeSpawnEggItem(IEEntityTypes.VOLINE, 0x2E2631, 0x652833, new Item.Properties().tab(InfernalExpansion.TAB)));
     public static final RegistryObject<ForgeSpawnEggItem> SHROOMLOIN_SPAWN_EGG = registerItem("shroomloin_spawn_egg", () -> new ForgeSpawnEggItem(IEEntityTypes.SHROOMLOIN, 0x854242, 0xFF6500, new Item.Properties().tab(InfernalExpansion.TAB)));
@@ -120,6 +121,9 @@ public class IEItems {
     public static final RegistryObject<Item> GLOW_TORCH = registerItem("glow_torch", () -> new StandingAndWallBlockItem(IEBlocks.GLOW_TORCH.get(), IEBlocks.GLOW_TORCH_WALL.get(), (new Item.Properties()).tab(InfernalExpansion.TAB)));
 
     public static final RegistryObject<Item> DULLTHORNS = registerItem("dullthorns", () -> new DullthornsBlockItem(IEBlocks.DULLTHORNS.get()));
+
+    public static final RegistryObject<CarvedShroomlightItem> CARVED_SHROOMLIGHT = ITEMS.register("carved_shroomlight", () -> new CarvedShroomlightItem(IEBlocks.CARVED_SHROOMLIGHT.get(), new Item.Properties().tab(InfernalExpansion.TAB)));
+
 
     public static final RegistryObject<Item> ASCUS_BOMB = registerItem("ascus_bomb", AscusBombItem::new);
     public static final RegistryObject<Item> INFERNAL_PAINTING = registerItem("infernal_painting", () -> new InfernalPaintingItem((new Item.Properties()).tab(CreativeModeTab.TAB_DECORATIONS)));

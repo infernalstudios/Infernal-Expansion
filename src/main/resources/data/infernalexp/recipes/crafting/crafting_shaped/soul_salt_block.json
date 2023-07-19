@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xxx",
+    "xxx",
+    "xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "infernalexp:soul_salt_clump"
+    }
+  },
+  "result": {
+    "item": "infernalexp:soul_salt_block",
+    "count": 1
+  }
+}

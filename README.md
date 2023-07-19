@@ -12,7 +12,7 @@
   </a>
   
   <a href="https://infernalstudios.org/infernalexpansion/modrinth">
-    <img alt="Modrinth Downloads" src="https://img.shields.io/badge/dynamic/json?color=red&style=for-the-badge&label=Modrinth&query=%24.downloads&suffix=%20Downloads&url=https%3A%2F%2Fapi.modrinth.com%2Fapi%2Fv1%2Fmod%2FZrpxHZN4">
+    <img alt="Modrinth Downloads" src="https://img.shields.io/modrinth/dt/ZrpxHZN4?color=red&style=for-the-badge&label=Modrinth">
   </a>
 </div>
 <br>

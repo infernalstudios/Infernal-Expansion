@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "infernalexp:block/carved_shroomlight",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "infernalexp:block/carved_shroomlight"
+    },
+    "facing=south": {
+      "model": "infernalexp:block/carved_shroomlight",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "infernalexp:block/carved_shroomlight",
+      "y": 270
+    }
+  }
+}

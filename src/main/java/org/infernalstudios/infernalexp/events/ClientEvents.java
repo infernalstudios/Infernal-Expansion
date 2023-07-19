@@ -20,6 +20,7 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.CampfireRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.client.renderer.entity.TippableArrowRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.FOVModifierEvent;
@@ -43,6 +44,7 @@ import org.infernalstudios.infernalexp.client.entity.render.EmbodyRenderer;
 import org.infernalstudios.infernalexp.client.entity.render.GlowsilkMothRenderer;
 import org.infernalstudios.infernalexp.client.entity.render.GlowsquitoRenderer;
 import org.infernalstudios.infernalexp.client.entity.render.InfernalPaintingRenderer;
+import org.infernalstudios.infernalexp.client.entity.render.RockRenderer;
 import org.infernalstudios.infernalexp.client.entity.render.ShroomloinRenderer;
 import org.infernalstudios.infernalexp.client.entity.render.VolineRenderer;
 import org.infernalstudios.infernalexp.client.entity.render.WarpbeetleRenderer;
@@ -68,9 +70,11 @@ public class ClientEvents {
         event.registerEntityRenderer(IEEntityTypes.ASCUS_BOMB.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(IEEntityTypes.THROWABLE_MAGMA_CREAM.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(IEEntityTypes.THROWABLE_FIRE_CHARGE.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(IEEntityTypes.ROCK.get(), RockRenderer::new);
         event.registerEntityRenderer(IEEntityTypes.THROWABLE_BRICK.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(IEEntityTypes.THROWABLE_NETHER_BRICK.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(IEEntityTypes.INFERNAL_PAINTING.get(), InfernalPaintingRenderer::new);
+        event.registerEntityRenderer(IEEntityTypes.GLOWSILK_ARROW.get(), TippableArrowRenderer::new);
 
         event.registerBlockEntityRenderer(IEBlockEntityTypes.GLOW_CAMPFIRE.get(), CampfireRenderer::new);
     }

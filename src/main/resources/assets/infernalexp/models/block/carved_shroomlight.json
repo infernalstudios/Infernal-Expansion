@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "top": "minecraft:block/shroomlight",
+    "front": "infernalexp:block/carved_shroomlight",
+    "side": "minecraft:block/shroomlight"
+  }
+}

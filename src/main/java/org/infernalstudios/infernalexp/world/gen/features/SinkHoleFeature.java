@@ -25,6 +25,7 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import org.infernalstudios.infernalexp.init.IEBlocks;
+import org.infernalstudios.infernalexp.init.IETags;
 import org.infernalstudios.infernalexp.util.ShapeUtil;
 
 public class SinkHoleFeature extends IEFeature<NoneFeatureConfiguration> {
@@ -92,9 +93,12 @@ public class SinkHoleFeature extends IEFeature<NoneFeatureConfiguration> {
     }
 
     private void carveSpot(WorldGenLevel world, ChunkGenerator generator, BlockPos.MutableBlockPos mutableBlockPos) {
+        // Make sure the current block is allowed to be carved
+        if (!world.getBlockState(mutableBlockPos).is(IETags.Blocks.SINK_HOLE_CARVABLE_BLOCKS))
+            return;
+
         // only carve spot if space isn't liquid and above isn't liquid
         if (world.getBlockState(mutableBlockPos).getFluidState().isEmpty()) {
-
             if (mutableBlockPos.getY() < generator.getSeaLevel()) {
                 world.setBlock(mutableBlockPos, Blocks.LAVA.defaultBlockState(), 3);
             } else {

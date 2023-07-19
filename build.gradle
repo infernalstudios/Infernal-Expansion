@@ -99,13 +99,13 @@ dependencies {
 jar {
     manifest {
         attributes([
-                'Specification-Title'   : config.TITLE,
-                'Specification-Vendor'  : config.AUTHOR,
-                'Specification-Version' : '1',
-                'Implementation-Title'  : config.TITLE,
-                'Implementation-Version': config.VERSION,
-                'Implementation-Vendor' : config.AUTHOR,
-                'MixinConfigs'          : 'infernal-expansion.mixins.json',
+            'Specification-Title'   : config.TITLE,
+            'Specification-Vendor'  : config.AUTHOR,
+            'Specification-Version' : '1',
+            'Implementation-Title'  : config.TITLE,
+            'Implementation-Version': config.VERSION,
+            'Implementation-Vendor' : config.AUTHOR,
+            'MixinConfigs'          : 'infernal-expansion.mixins.json',
         ])
     }
 }
@@ -147,12 +147,12 @@ publishing {
     repositories {
         maven {
             url 'https://maven.infernalstudios.org/releases'
-            
+
             credentials {
                 username = System.getenv('MAVEN_USER')
                 password = System.getenv('MAVEN_TOKEN')
             }
-            
+
             authentication {
                 basic(BasicAuthentication)
             }
@@ -179,18 +179,18 @@ task publishModrinth (type: TaskModrinthUpload) {
 
 // Curseforge publishing
 curseforge {
-  apiKey = System.getenv('CURSEFORGE') ?: 'If you\'re seeing this, you haven\'t set your "CURSEFORGE" environment variable'
-  
-  project {
-    id = '395078'
-    changelog = 'No changelog specified.'
-    releaseType = 'release'
-    addGameVersion config.MINECRAFT_VERSION
-    mainArtifact (jar) { 
-      displayName = "Infernal Expansion Release ${project.version}"
+    apiKey = System.getenv('CURSEFORGE') ?: 'If you\'re seeing this, you haven\'t set your "CURSEFORGE" environment variable'
+
+    project {
+        id = '395078'
+        changelog = 'No changelog specified.'
+        releaseType = 'release'
+        addGameVersion config.MINECRAFT_VERSION
+        mainArtifact(jar) {
+            displayName = "Infernal Expansion Release ${project.version}"
+        }
+        addArtifact sourcesJar
     }
-    addArtifact sourcesJar
-  }
 }
 
 

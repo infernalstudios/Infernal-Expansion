@@ -60,7 +60,7 @@ public class WhipReachPacket {
             double reach = player.getAttribute(ForgeMod.REACH_DISTANCE.get()).getValue() + 1.0D;
 
             Vec3 eyePos = player.getEyePosition(1.0F);
-            Vec3 lookVec = player.getLookAngle();
+            Vec3 lookVec = player.getViewVector(1.0F);
             Vec3 reachVec = eyePos.add(lookVec.multiply(reach, reach, reach));
 
             AABB playerBox = player.getBoundingBox().expandTowards(lookVec.scale(reach)).inflate(1.0D, 1.0D, 1.0D);

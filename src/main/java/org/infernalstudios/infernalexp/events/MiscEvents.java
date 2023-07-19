@@ -16,6 +16,8 @@
 
 package org.infernalstudios.infernalexp.events;
 
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.monster.Strider;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import org.infernalstudios.infernalexp.InfernalExpansion;
@@ -311,6 +313,24 @@ public class MiscEvents {
                     heldItemStack.shrink(1);
                 }
             }
+        }
+    }
+
+    @SubscribeEvent
+    public void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
+        Player player = event.getPlayer();
+        ItemStack stack = player.getItemInHand(event.getHand());
+
+        if (player.isSecondaryUseActive() && stack.is(Items.AIR) && event.getTarget() instanceof Strider strider && strider.isSaddled()) {
+            if (!player.level.isClientSide()) {
+                strider.steering.setSaddle(false);
+                player.level.playSound(null, strider, SoundEvents.STRIDER_SADDLE, SoundSource.PLAYERS, 0.3F, 1.0F);
+                if (!player.addItem(new ItemStack(Items.SADDLE))) {
+                    player.drop(new ItemStack(Items.SADDLE), false);
+                }
+            }
+
+            event.setCancellationResult(InteractionResult.sidedSuccess(player.level.isClientSide));
         }
     }
 

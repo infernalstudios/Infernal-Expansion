@@ -39,8 +39,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(AbstractArrow.class)
 public class MixinAbstractArrowEntity implements AbstractArrowEntityAccess {
-    @Unique
-    private static final EntityDataAccessor<Boolean> GLOW = SynchedEntityData.defineId(AbstractArrow.class, EntityDataSerializers.BOOLEAN);
 
     @Unique
     private static final EntityDataAccessor<Boolean> LUMINOUS = SynchedEntityData.defineId(AbstractArrow.class, EntityDataSerializers.BOOLEAN);
@@ -61,7 +59,6 @@ public class MixinAbstractArrowEntity implements AbstractArrowEntityAccess {
     private void registerDataInfernalExpansion(CallbackInfo ci) {
         ((AbstractArrow) (Object) this).getEntityData().define(LUMINOUS, false);
         ((AbstractArrow) (Object) this).getEntityData().define(INFECTION, false);
-        ((AbstractArrow) (Object) this).getEntityData().define(GLOW, false);
         ((AbstractArrow) (Object) this).getEntityData().define(INFECTED_SOURCE, false);
     }
 
@@ -69,7 +66,6 @@ public class MixinAbstractArrowEntity implements AbstractArrowEntityAccess {
     private void writeAdditionalInfernalExpansion(CompoundTag compound, CallbackInfo ci) {
         compound.putBoolean("Luminous", ((AbstractArrow) (Object) this).getEntityData().get(LUMINOUS));
         compound.putBoolean("Infection", ((AbstractArrow) (Object) this).getEntityData().get(INFECTION));
-        compound.putBoolean("Glow", ((AbstractArrow) (Object) this).getEntityData().get(GLOW));
         compound.putBoolean("InfectedSource", ((AbstractArrow) (Object) this).getEntityData().get(INFECTED_SOURCE));
     }
 
@@ -77,7 +73,6 @@ public class MixinAbstractArrowEntity implements AbstractArrowEntityAccess {
     private void readAdditionalInfernalExpansion(CompoundTag compound, CallbackInfo ci) {
         setLuminous(compound.getBoolean("Luminous"));
         setInfection(compound.getBoolean("Infection"));
-        setGlow(compound.getBoolean("Glow"));
         setInfectedSource(compound.getBoolean("InfectedSource"));
     }
 
@@ -119,15 +114,5 @@ public class MixinAbstractArrowEntity implements AbstractArrowEntityAccess {
     @Override
     public void setInfectedSource(boolean isInfectedSource) {
         ((AbstractArrow) (Object) this).getEntityData().set(INFECTED_SOURCE, isInfectedSource);
-    }
-
-    @Override
-    public boolean getGlow() {
-        return ((AbstractArrow) (Object) this).getEntityData().get(GLOW);
-    }
-
-    @Override
-    public void setGlow(boolean shouldGlow) {
-        ((AbstractArrow) (Object) this).getEntityData().set(GLOW, shouldGlow);
     }
 }

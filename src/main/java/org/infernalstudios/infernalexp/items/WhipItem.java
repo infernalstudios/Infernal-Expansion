@@ -108,7 +108,7 @@ public class WhipItem extends TieredItem implements Vanishable {
             worldIn.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F / (player.getRandom().nextFloat() * 0.4F + 1.2F));
             player.awardStat(Stats.ITEM_USED.get(this));
 
-            if (!worldIn.isClientSide()) {
+            if (worldIn.isClientSide()) {
                 IENetworkHandler.sendToServer(new WhipReachPacket(player.getUUID()));
             }
         }

@@ -18,6 +18,7 @@
     "common.MixinMinecraftServer",
     "common.MixinMultiNoiseBiomeSourcePreset",
     "common.MixinPaintingEntity",
+    "common.MixinServerEntity",
     "common.MixinServerPlayerGameMode",
     "common.MixinShearsItem",
     "common.MixinShovelItem",

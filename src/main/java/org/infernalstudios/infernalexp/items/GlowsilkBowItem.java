@@ -29,8 +29,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
-import org.infernalstudios.infernalexp.access.AbstractArrowEntityAccess;
-import org.jetbrains.annotations.NotNull;
+import org.infernalstudios.infernalexp.entities.GlowsilkArrowEntity;
 
 public class GlowsilkBowItem extends BowItem {
 
@@ -39,7 +38,7 @@ public class GlowsilkBowItem extends BowItem {
     }
 
     @Override
-    public void releaseUsing(@NotNull ItemStack stack, @NotNull Level worldIn, @NotNull LivingEntity entityLiving, int timeLeft) {
+    public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
         if (entityLiving instanceof Player playerEntity) {
             ItemStack itemStack = playerEntity.getProjectile(stack);
             boolean hasInfinity = playerEntity.getAbilities().instabuild || EnchantmentHelper.getItemEnchantmentLevel(Enchantments.INFINITY_ARROWS, stack) > 0;
@@ -62,41 +61,39 @@ public class GlowsilkBowItem extends BowItem {
                     if (!worldIn.isClientSide) {
                         ArrowItem arrowItem = (ArrowItem) (itemStack.getItem() instanceof ArrowItem ? itemStack.getItem() : Items.ARROW);
 
-                        AbstractArrow abstractArrowEntity = arrowItem.createArrow(worldIn, itemStack, playerEntity);
+                        AbstractArrow arrowEntity = new GlowsilkArrowEntity(worldIn, itemStack, playerEntity);
 
-                        abstractArrowEntity = customArrow(abstractArrowEntity);
-                        abstractArrowEntity.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), 0.0F, velocity * 6.0F, 1.0F);
+                        arrowEntity = customArrow(arrowEntity);
+                        arrowEntity.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), 0.0F, velocity * 6.0F, 1.0F);
 
                         // Half the damage to counteract doubling the arrow velocity
-                        abstractArrowEntity.setBaseDamage((abstractArrowEntity.getBaseDamage() / 2.0D) + 0.1D);
+                        arrowEntity.setBaseDamage((arrowEntity.getBaseDamage() / 2.0D) + 0.1D);
 
                         if (velocity == 1.0F) {
-                            abstractArrowEntity.setCritArrow(true);
+                            arrowEntity.setCritArrow(true);
                         }
 
                         int power = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.POWER_ARROWS, stack);
                         if (power > 0) {
-                            abstractArrowEntity.setBaseDamage(abstractArrowEntity.getBaseDamage() + (double) power * 0.5D + 0.5D);
+                            arrowEntity.setBaseDamage(arrowEntity.getBaseDamage() + (double) power * 0.5D + 0.5D);
                         }
 
                         int knockback = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.PUNCH_ARROWS, stack);
                         if (knockback > 0) {
-                            abstractArrowEntity.setKnockback(knockback);
+                            arrowEntity.setKnockback(knockback);
                         }
 
                         if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FLAMING_ARROWS, stack) > 0) {
-                            abstractArrowEntity.setSecondsOnFire(100);
+                            arrowEntity.setSecondsOnFire(100);
                         }
 
                         stack.hurtAndBreak(1, playerEntity, (player) -> player.broadcastBreakEvent(playerEntity.getUsedItemHand()));
 
                         if (isArrowInfinite || playerEntity.getAbilities().instabuild && (itemStack.getItem() == Items.SPECTRAL_ARROW || itemStack.getItem() == Items.TIPPED_ARROW)) {
-                            abstractArrowEntity.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
+                            arrowEntity.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
                         }
 
-                        ((AbstractArrowEntityAccess) abstractArrowEntity).setGlow(true);
-
-                        worldIn.addFreshEntity(abstractArrowEntity);
+                        worldIn.addFreshEntity(arrowEntity);
                     }
 
                     worldIn.playSound(null, playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F / (worldIn.getRandom().nextFloat() * 0.4F + 1.2F) + velocity * 0.5F);
