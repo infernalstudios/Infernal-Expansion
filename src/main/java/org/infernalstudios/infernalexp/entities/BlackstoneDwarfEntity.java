@@ -16,6 +16,15 @@
 
 package org.infernalstudios.infernalexp.entities;
 
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -31,15 +40,16 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ToolActions;
 import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
 import org.infernalstudios.infernalexp.init.IESoundEvents;
@@ -49,14 +59,39 @@ import java.util.UUID;
 
 //import net.minecraft.entity.projectile.ArrowEntity;
 
-public class BlackstoneDwarfEntity extends PathfinderMob implements NeutralMob {
+public class BlackstoneDwarfEntity extends PathfinderMob implements RangedAttackMob, NeutralMob {
+
+    private static final EntityDataAccessor<Boolean> PLAYER_CREATED = SynchedEntityData.defineId(BlackstoneDwarfEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> ATTACK_TIMER = SynchedEntityData.defineId(BlackstoneDwarfEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> ROCK_TIMER = SynchedEntityData.defineId(BlackstoneDwarfEntity.class, EntityDataSerializers.INT);
     private static final UniformInt RANGED_INT = TimeUtil.rangeOfSeconds(20, 39);
-    private int attackTimer;
     private int angerTime;
     private UUID angerTarget;
 
     public BlackstoneDwarfEntity(EntityType<? extends PathfinderMob> type, Level worldIn) {
         super(type, worldIn);
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(PLAYER_CREATED, false);
+        this.entityData.define(ATTACK_TIMER, 0);
+        this.entityData.define(ROCK_TIMER, 0);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putBoolean("PlayerCreated", this.isPlayerCreated());
+        this.addPersistentAngerSaveData(tag);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        this.setPlayerCreated(tag.getBoolean("PlayerCreated"));
+        this.readPersistentAngerSaveData(this.level, tag);
     }
 
     // ATTRIBUTES
@@ -70,34 +105,40 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements NeutralMob {
         // .createMutableAttribute(Attributes.FOLLOW_RANGE, 20.0D);
     }
 
-    // ---
-    // Retaliating
-    @OnlyIn(Dist.CLIENT)
-    public void handleEntityEvent(byte id) {
-        if (id == 4) {
-            this.attackTimer = 10;
-            this.playSound(IESoundEvents.BASALT_GIANT_DEATH.get(), 1.0F, 1.0F);
-        } else {
-            super.handleEntityEvent(id);
-        }
-
-    }
-
     public void aiStep() {
         super.aiStep();
-        if (this.attackTimer > 0) {
-            --this.attackTimer;
+
+        if (this.getRockTimer() == 5) {
+            this.throwRocks();
+        }
+
+        if (this.getAttackTimer() > 0) {
+            this.entityData.set(ATTACK_TIMER, this.getAttackTimer() - 1);
+        }
+        if (this.getRockTimer() > 0) {
+            this.entityData.set(ROCK_TIMER, this.getRockTimer() - 1);
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public int getAttackTimer() {
-        return this.attackTimer;
+        return this.entityData.get(ATTACK_TIMER);
+    }
+
+    public int getRockTimer() {
+        return this.entityData.get(ROCK_TIMER);
+    }
+
+    public boolean isPlayerCreated() {
+        return this.entityData.get(PLAYER_CREATED);
+    }
+
+    public void setPlayerCreated(boolean isCreated) {
+        this.entityData.set(PLAYER_CREATED, isCreated);
     }
 
     public boolean doHurtTarget(Entity entityIn) {
-        this.attackTimer = 10;
-        this.level.broadcastEntityEvent(this, (byte) 4);
+        this.entityData.set(ATTACK_TIMER, 10);
+        this.playSound(IESoundEvents.BLACKSTONE_DWARF_ROAR_MELEE.get(), 1.0F, 1.0F);
         boolean disableShield = false;
         float f = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
         float f1 = (int) f > 0 ? f / 2.0F + (float) this.random.nextInt((int) f) : f;
@@ -118,7 +159,6 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements NeutralMob {
             ((Player) entityIn).disableShield(true);
         }
 
-        this.playSound(IESoundEvents.BASALT_GIANT_HURT.get(), 1.0F, 1.0F);
         return flag;
     }
 
@@ -140,7 +180,8 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements NeutralMob {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 0.6D, true));
+        this.goalSelector.addGoal(0, new DwarfMeleeAttackGoal(this, 0.6D, 8.0F, true));
+        this.goalSelector.addGoal(0, new RockThrowAttackGoal(this, 0.6D, 20, 60, 8.0F));
         this.goalSelector.addGoal(1, new WaterAvoidingRandomStrollGoal(this, 0.5d));
         this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8.0f));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
@@ -156,6 +197,33 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements NeutralMob {
         }
         if (InfernalExpansionConfig.MobInteractions.GLOWSQUITO_ATTACK_DWARF.getBoolean()) {
             this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, GlowsquitoEntity.class, true));
+        }
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return IESoundEvents.BLACKSTONE_DWARF_AMBIENT.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return IESoundEvents.BLACKSTONE_DWARF_HURT.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return IESoundEvents.BLACKSTONE_DWARF_DEATH.get();
+    }
+
+    @Override
+    public boolean canAttackType(EntityType<?> targetType) {
+        if (this.isPlayerCreated() && targetType == EntityType.PLAYER) {
+            return false;
+        } else {
+            return super.canAttackType(targetType);
         }
     }
 
@@ -193,5 +261,94 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements NeutralMob {
     @Override
     public void startPersistentAngerTimer() {
         this.setRemainingPersistentAngerTime(RANGED_INT.sample(this.random));
+    }
+
+    @Override
+    public void performRangedAttack(LivingEntity entity, float damage) {
+        this.entityData.set(ROCK_TIMER, 10);
+        this.playSound(IESoundEvents.BLACKSTONE_DWARF_ROAR_RANGED.get(), 1.0F, 1.0F);
+    }
+
+    public void throwRocks() {
+        for(int i = 0; i < 5; ++i) {
+            switch (i) {
+                case 0:
+                    throwRock(this.level, this, 1.6F, 1.0F, 0, 0.1F);
+                    break;
+                case 1:
+                    throwRock(this.level, this, 1.6F, 1.0F, -5, 0.1F);
+                    break;
+                case 2:
+                    throwRock(this.level, this, 1.6F, 1.0F, -10, 0.1F);
+                    break;
+                case 3:
+                    throwRock(this.level, this, 1.6F, 1.0F, 5, 0.1F);
+                    break;
+                default:
+                case 4:
+                    throwRock(this.level, this, 1.6F, 1.0F, 10, 0.1F);
+                    break;
+            }
+        }
+    }
+
+    private void throwRock(Level level, LivingEntity shooter, float shotPower, float componentMultiplier, float horizontalVariance, float verticalVariance) {
+        if (!level.isClientSide) {
+            RockEntity rock = new RockEntity(this.level, this);
+            Vec3 vec31 = shooter.getUpVector(1.0F);
+            Quaternion quaternion = new Quaternion(new Vector3f(vec31), horizontalVariance, true);
+            Vec3 vec3 = shooter.getViewVector(1.0F);
+            Vector3f launchVector = new Vector3f(vec3);
+            launchVector.transform(quaternion);
+            rock.shoot(launchVector.x(), launchVector.y() + shooter.getRandom().nextFloat(2 * verticalVariance) - verticalVariance, launchVector.z(), shotPower, componentMultiplier);
+
+            level.addFreshEntity(rock);
+            this.playSound(SoundEvents.EGG_THROW, 1.0F, 1.0F);
+        }
+    }
+
+    static class RockThrowAttackGoal extends RangedAttackGoal {
+        private final BlackstoneDwarfEntity dwarf;
+        private final float minRangeSqr;
+
+        public RockThrowAttackGoal(BlackstoneDwarfEntity dwarf, double speedModifier, int minInterval, int maxInterval, float minRange, float maxRange) {
+            super(dwarf, speedModifier, minInterval, maxInterval, maxRange);
+            this.dwarf = dwarf;
+            this.minRangeSqr = minRange * minRange;
+        }
+
+        public RockThrowAttackGoal(BlackstoneDwarfEntity dwarf, double speedModifier, int minInterval, int maxInterval, float range) {
+            this(dwarf, speedModifier, minInterval, maxInterval, range, range);
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && this.dwarf.getTarget() != null && this.dwarf.distanceToSqr(this.dwarf.getTarget()) >= minRangeSqr;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return super.canContinueToUse() && this.dwarf.getTarget() != null && this.dwarf.distanceToSqr(this.dwarf.getTarget()) >= minRangeSqr;
+        }
+    }
+
+    static class DwarfMeleeAttackGoal extends MeleeAttackGoal {
+        private final BlackstoneDwarfEntity dwarf;
+        private final float maxRangeSqr;
+        public DwarfMeleeAttackGoal(BlackstoneDwarfEntity dwarf, double speedModifier, float maxRange, boolean followIfNotSeen) {
+            super(dwarf, speedModifier, followIfNotSeen);
+            this.dwarf = dwarf;
+            this.maxRangeSqr = maxRange * maxRange;
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && this.dwarf.getTarget() != null && this.dwarf.distanceToSqr(this.dwarf.getTarget()) < this.maxRangeSqr;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return super.canContinueToUse() && this.dwarf.getTarget() != null && this.dwarf.distanceToSqr(this.dwarf.getTarget()) < this.maxRangeSqr;
+        }
     }
 }

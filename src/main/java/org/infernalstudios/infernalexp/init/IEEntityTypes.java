@@ -17,6 +17,7 @@ import org.infernalstudios.infernalexp.entities.GlowsilkArrowEntity;
 import org.infernalstudios.infernalexp.entities.GlowsilkMothEntity;
 import org.infernalstudios.infernalexp.entities.GlowsquitoEntity;
 import org.infernalstudios.infernalexp.entities.InfernalPaintingEntity;
+import org.infernalstudios.infernalexp.entities.RockEntity;
 import org.infernalstudios.infernalexp.entities.ShroomloinEntity;
 import org.infernalstudios.infernalexp.entities.ThrowableBrickEntity;
 import org.infernalstudios.infernalexp.entities.ThrowableFireChargeEntity;
@@ -110,7 +111,12 @@ public class IEEntityTypes {
             .sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20)
             .build(new ResourceLocation(InfernalExpansion.MOD_ID, "glowsilk_arrow").toString()));
 
-    public static final RegistryObject<EntityType<InfernalPaintingEntity>> INFERNAL_PAINTING = ENTITY_TYPES.register("infernal_painting",
+    public static final RegistryObject<EntityType<RockEntity>> ROCK = ENTITY_TYPES.register("rock",
+        () -> EntityType.Builder.<RockEntity>of(RockEntity::new, MobCategory.MISC)
+            .sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20)
+            .build(new ResourceLocation(InfernalExpansion.MOD_ID, "rock").toString()));
+
+	public static final RegistryObject<EntityType<InfernalPaintingEntity>> INFERNAL_PAINTING = ENTITY_TYPES.register("infernal_painting",
         () -> EntityType.Builder.<InfernalPaintingEntity>of(InfernalPaintingEntity::new, MobCategory.MISC)
             .sized(0.5F, 0.5F).clientTrackingRange(10).updateInterval(Integer.MAX_VALUE)
             .build(new ResourceLocation(InfernalExpansion.MOD_ID, "infernal_painting").toString()));

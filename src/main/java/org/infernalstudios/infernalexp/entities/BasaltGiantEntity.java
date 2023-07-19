@@ -16,6 +16,8 @@
 
 package org.infernalstudios.infernalexp.entities;
 
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.entity.IEntityAdditionalSpawnData;
@@ -59,8 +61,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
@@ -69,7 +69,7 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
 
     //    private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.BASALT, Items.POLISHED_BASALT);
     private static final UniformInt RANGED_INT = TimeUtil.rangeOfSeconds(20, 39);
-    private int attackTimer;
+
     private int angerTime;
     private UUID angerTarget;
 
@@ -77,6 +77,9 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
     private static final float BASE_ENTITY_HEIGHT = 5.0F;
     private static final float MIN_ENTITY_HEIGHT = 4.0F;
     private static final float MAX_ENTITY_HEIGHT = 6.0F;
+
+    private static final EntityDataAccessor<Integer> KICK_TIMER = SynchedEntityData.defineId(BasaltGiantEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> ROAR_TIMER = SynchedEntityData.defineId(BasaltGiantEntity.class, EntityDataSerializers.INT);
 
     private static final EntityDataAccessor<Float> GIANT_SIZE = SynchedEntityData.defineId(BasaltGiantEntity.class, EntityDataSerializers.FLOAT);
 
@@ -113,15 +116,25 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
     @Override
     public void aiStep() {
         super.aiStep();
-        if (this.attackTimer > 0) {
-            --this.attackTimer;
+
+        if (this.getRoarTimer() == 5) {
+            this.performRoar(this.getTarget());
+        }
+
+        if (this.getKickTimer() > 0) {
+            this.entityData.set(KICK_TIMER, this.getKickTimer() - 1);
+        }
+        if (this.getRoarTimer() > 0) {
+            this.entityData.set(ROAR_TIMER, this.getRoarTimer() - 1);
         }
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        entityData.define(GIANT_SIZE, 1.0F);
+        this.entityData.define(GIANT_SIZE, 1.0F);
+        this.entityData.define(KICK_TIMER, 0);
+        this.entityData.define(ROAR_TIMER, 0);
     }
 
     @Override
@@ -168,27 +181,22 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
         super.onSyncedDataUpdated(key);
     }
 
-    // ---
-    // Retaliating
-    @OnlyIn(Dist.CLIENT)
-    public void handleEntityEvent(byte id) {
-        if (id == 4) {
-            this.attackTimer = 10;
-            this.playSound(IESoundEvents.BASALT_GIANT_DEATH.get(), 1.0F, 1.0F);
-        } else {
-            super.handleEntityEvent(id);
-        }
-
+    public int getKickTimer() {
+        return this.entityData.get(KICK_TIMER);
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public int getAttackTimer() {
-        return this.attackTimer;
+    public int getRoarTimer() {
+        return this.entityData.get(ROAR_TIMER);
     }
 
+    public void setRoarTimer(int time) {
+        this.entityData.set(ROAR_TIMER, time);
+    }
+
+    @Override
     public boolean doHurtTarget(Entity entityIn) {
-        this.attackTimer = 10;
-        this.level.broadcastEntityEvent(this, (byte) 4);
+        this.entityData.set(KICK_TIMER, 10);
+        this.playSound(IESoundEvents.BASALT_GIANT_ATTACK.get(), 1.0F, 1.0F);
         float f = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
         float f1 = (int) f > 0 ? f / 2.0F + (float) this.random.nextInt((int) f) : f;
         float f2 = (float) this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
@@ -204,8 +212,33 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
             attackFling(entityIn, f2, 0.6);
         }
 
-        this.playSound(IESoundEvents.BASALT_GIANT_HURT.get(), 1.0F, 1.0F);
         return flag;
+    }
+
+    private boolean performRoar(@Nullable Entity target) {
+        boolean flag = false;
+        this.level.playSound(null, this, IESoundEvents.BASALT_GIANT_ATTACK.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
+        if (!this.level.isClientSide() && target != null) {
+            float f = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) / 2.0F;
+            float f1 = (int) f > 0 ? f / 2.0F + (float) this.random.nextInt((int) f) : f;
+            float f2 = (float) this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
+
+            flag = target.hurt(DamageSource.mobAttack(this), f1);
+            if (target instanceof LivingEntity livingEntity) {
+                livingEntity.knockback(f2, Mth.sin(this.getYRot() * ((float) Math.PI / 180F)), -Mth.cos(this.getYRot() * ((float) Math.PI / 180F)));
+            }
+        }
+
+        this.playSound(SoundEvents.FIREWORK_ROCKET_LARGE_BLAST, 1.0F, 1.0F);
+        spawnFlames(5);
+
+        return flag;
+    }
+
+    private void spawnFlames(int flameCount) {
+        for (int i = 0; i < flameCount; i++) {
+            this.level.addParticle(ParticleTypes.FLAME, this.getX() - 0.75D * Mth.sin(this.getYHeadRot() * Mth.DEG_TO_RAD), this.getY() + this.getEyeHeight() - 0.3D, this.getZ() + 0.75D * Mth.cos(this.getYHeadRot() * Mth.DEG_TO_RAD), this.random.nextDouble(0.5D) * -Mth.sin(this.getYHeadRot() * Mth.DEG_TO_RAD), 0, this.random.nextDouble(0.5D) * Mth.cos(this.getYHeadRot() * Mth.DEG_TO_RAD));
+        }
     }
 
     private void attackFling(Entity entityIn, float f2, double height) {
@@ -228,7 +261,8 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 0.6D, true));
+        this.goalSelector.addGoal(0, new KickAttackGoal(this, 0.6D, true));
+        this.goalSelector.addGoal(0, new RoarAttackGoal(this, 0.6D, true));
         this.goalSelector.addGoal(1, new FloatGoal(this));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 0.5d));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0f));
@@ -309,5 +343,61 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
     @Override
     public void startPersistentAngerTimer() {
         this.setRemainingPersistentAngerTime(RANGED_INT.sample(this.random));
+    }
+
+    static class KickAttackGoal extends MeleeAttackGoal {
+        public KickAttackGoal(BasaltGiantEntity giant, double speedModifier, boolean followIfNotSeen) {
+            super(giant, speedModifier, followIfNotSeen);
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && this.mob.getTarget() != null && this.mob.getTarget().getY() - this.mob.getY() <= this.mob.getBbHeight() / 2.0D;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return super.canContinueToUse() && this.mob.getTarget() != null && this.mob.getTarget().getY() - this.mob.getY() <= this.mob.getBbHeight() / 2.0D;
+        }
+
+    }
+
+    static class RoarAttackGoal extends MeleeAttackGoal {
+        private final BasaltGiantEntity basaltGiant;
+
+        public RoarAttackGoal(BasaltGiantEntity giant, double speedModifier, boolean followIfNotSeen) {
+            super(giant, speedModifier, followIfNotSeen);
+            this.basaltGiant = giant;
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && this.mob.getTarget() != null && this.mob.getTarget().getY() - this.mob.getY() > this.mob.getBbHeight() / 2.0D;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return super.canContinueToUse() && this.mob.getTarget() != null && this.mob.getTarget().getY() - this.mob.getY() > this.mob.getBbHeight() / 2.0D;
+        }
+
+        @Override
+        protected void checkAndPerformAttack(LivingEntity target, double distance3D) {
+            double range = this.getAttackReachSqr(target);
+            double distance2D = this.mob.distanceToSqr(target.getX(), this.mob.getY(), target.getZ());
+            if (distance2D <= range && target.getY() - this.mob.getY() <= 6.0D && this.getTicksUntilNextAttack() <= 0) {
+                this.resetAttackCooldown();
+                this.basaltGiant.setRoarTimer(10);
+            }
+        }
+
+        @Override
+        protected int getAttackInterval() {
+            return this.adjustedTickDelay(100);
+        }
+
+        @Override
+        protected double getAttackReachSqr(LivingEntity target) {
+            return this.mob.getBbWidth() * 3.0F * this.mob.getBbWidth() * 3.0F + target.getBbWidth();
+        }
     }
 }

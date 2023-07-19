@@ -19,14 +19,19 @@ package org.infernalstudios.infernalexp;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.core.dispenser.DispenseItemBehavior;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CarvedPumpkinBlock;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.carver.WorldCarver;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -43,6 +48,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.infernalstudios.infernalexp.blocks.CarvedShroomlightBlock;
 import org.infernalstudios.infernalexp.client.InfernalExpansionClient;
 import org.infernalstudios.infernalexp.config.ConfigHelper;
 import org.infernalstudios.infernalexp.config.ConfigHolder;
@@ -173,6 +179,27 @@ public class InfernalExpansion {
                     world.setBlockAndUpdate(blockpos, IEBlocks.DIMSTONE.get().defaultBlockState());
                 } else {
                     spawnItem(world, itemstack, 6, source.getBlockState().getValue(DispenserBlock.FACING), DispenserBlock.getDispensePosition(source));
+                }
+
+                return stack;
+            }
+        });
+
+        DispenserBlock.registerBehavior(IEBlocks.CARVED_SHROOMLIGHT.get(), new DefaultDispenseItemBehavior() {
+            @Override
+            protected ItemStack execute(BlockSource source, ItemStack stack) {
+                Level level = source.getLevel();
+                BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
+                CarvedShroomlightBlock carvedShroomlight = (CarvedShroomlightBlock) IEBlocks.CARVED_SHROOMLIGHT.get();
+                if (level.isEmptyBlock(blockpos) && carvedShroomlight.canSpawnGolem(level, blockpos)) {
+                    if (!level.isClientSide) {
+                        level.setBlock(blockpos, carvedShroomlight.defaultBlockState(), 3);
+                        level.gameEvent(null, GameEvent.BLOCK_PLACE, blockpos);
+                    }
+
+                    stack.shrink(1);
+                } else {
+                    ArmorItem.dispenseArmor(source, stack);
                 }
 
                 return stack;

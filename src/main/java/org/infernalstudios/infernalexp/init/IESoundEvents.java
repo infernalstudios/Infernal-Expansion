@@ -45,6 +45,7 @@ public class IESoundEvents {
 	public static final RegistryObject<SoundEvent> BASALT_GIANT_AMBIENT = add("entity.basalt_giant.ambient");
 	public static final RegistryObject<SoundEvent> BASALT_GIANT_HURT = add("entity.basalt_giant.hurt");
 	public static final RegistryObject<SoundEvent> BASALT_GIANT_DEATH = add("entity.basalt_giant.death");
+    public static final RegistryObject<SoundEvent> BASALT_GIANT_ATTACK = add("entity.basalt_giant.attack");
 
 	// GLOWSQUITO
 	public static final RegistryObject<SoundEvent> GLOWSQUITO_LOOP = add("entity.glowsquito.loop");
@@ -56,6 +57,13 @@ public class IESoundEvents {
 	public static final RegistryObject<SoundEvent> BLINDSIGHT_HURT = add("entity.blindsight.hurt");
 	public static final RegistryObject<SoundEvent> BLINDSIGHT_DEATH = add("entity.blindsight.death");
     public static final RegistryObject<SoundEvent> BLINDSIGHT_LEAP = add("entity.blindsight.leap");
+
+    // BLACKSTONE_DWARF
+    public static final RegistryObject<SoundEvent> BLACKSTONE_DWARF_AMBIENT = add("entity.blackstone_dwarf.ambient");
+    public static final RegistryObject<SoundEvent> BLACKSTONE_DWARF_HURT = add("entity.blackstone_dwarf.hurt");
+    public static final RegistryObject<SoundEvent> BLACKSTONE_DWARF_DEATH = add("entity.blackstone_dwarf.death");
+    public static final RegistryObject<SoundEvent> BLACKSTONE_DWARF_ROAR_MELEE = add("entity.blackstone_dwarf.roar_melee");
+    public static final RegistryObject<SoundEvent> BLACKSTONE_DWARF_ROAR_RANGED = add("entity.blackstone_dwarf.roar_ranged");
 
     // GLOWSILK_MOTH
     public static final RegistryObject<SoundEvent> GLOWSILK_MOTH_AMBIENT = add("entity.glowsilk_moth.ambient");

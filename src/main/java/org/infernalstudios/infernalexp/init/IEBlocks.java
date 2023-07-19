@@ -22,6 +22,7 @@ import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.blocks.BasaltIronOreBlock;
 import org.infernalstudios.infernalexp.blocks.BasalticMagmaBlock;
 import org.infernalstudios.infernalexp.blocks.BuriedBoneBlock;
+import org.infernalstudios.infernalexp.blocks.CarvedShroomlightBlock;
 import org.infernalstudios.infernalexp.blocks.CrumblingBlackstoneBlock;
 import org.infernalstudios.infernalexp.blocks.DullthornsBlock;
 import org.infernalstudios.infernalexp.blocks.DullthornsBlockBlock;
@@ -241,6 +242,8 @@ public class IEBlocks {
     public static final RegistryObject<Block> CRIMSON_FUNGUS_CAP = registerBlockWithDefaultItem("crimson_fungus_cap", () -> new FungusCapBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_WART_BLOCK)));
     public static final RegistryObject<Block> WARPED_FUNGUS_CAP = registerBlockWithDefaultItem("warped_fungus_cap", () -> new FungusCapBlock(BlockBehaviour.Properties.copy(Blocks.WARPED_WART_BLOCK)));
     public static final RegistryObject<Block> LUMINOUS_FUNGUS_CAP = registerBlockWithDefaultItem("luminous_fungus_cap", () -> new FungusCapBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_WART_BLOCK).lightLevel(value -> 14)));
+    public static final RegistryObject<Block> CARVED_SHROOMLIGHT = registerBlock("carved_shroomlight", () -> new CarvedShroomlightBlock(getProperties(Blocks.SHROOMLIGHT)));
+    public static final RegistryObject<Block> SOUL_SALT_BLOCK = registerBlockWithDefaultItem("soul_salt_block", () -> new Block(BlockBehaviour.Properties.of(Material.SAND, MaterialColor.COLOR_LIGHT_BLUE).strength(1.0F).sound(SoundType.GRAVEL)));
 
     public static final RegistryObject<Block> GLOW_LANTERN = registerBlockWithDefaultItem("glow_lantern", () -> new LanternBlock(getProperties(Blocks.LANTERN)));
     public static final RegistryObject<Block> GLOW_TORCH = registerBlock("glow_torch", () -> new GlowTorchBlock(getProperties(Blocks.TORCH)));
