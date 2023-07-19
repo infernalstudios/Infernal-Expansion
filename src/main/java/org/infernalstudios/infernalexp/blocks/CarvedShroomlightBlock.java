@@ -1,12 +1,10 @@
 package org.infernalstudios.infernalexp.blocks;
 
+import javax.annotation.Nullable;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.animal.IronGolem;
-import net.minecraft.world.entity.animal.SnowGolem;
 import net.minecraft.world.item.Wearable;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
@@ -26,8 +24,7 @@ import net.minecraft.world.level.material.Material;
 import org.infernalstudios.infernalexp.entities.BlackstoneDwarfEntity;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
-
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 public class CarvedShroomlightBlock extends HorizontalDirectionalBlock implements Wearable {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
@@ -41,7 +38,8 @@ public class CarvedShroomlightBlock extends HorizontalDirectionalBlock implement
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 
-    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState currentState, boolean p_51391_) {
+    @Override
+    public void onPlace(BlockState state, @NotNull Level level, @NotNull BlockPos pos, BlockState currentState, boolean p_51391_) {
         if (!currentState.is(state.getBlock())) {
             this.trySpawnGolem(level, pos);
         }
@@ -56,9 +54,9 @@ public class CarvedShroomlightBlock extends HorizontalDirectionalBlock implement
         if (patternMatch != null) {
             for (int j = 0; j < this.getOrCreateBlackstoneDwarfFull().getWidth(); ++j) {
                 for (int k = 0; k < this.getOrCreateBlackstoneDwarfFull().getHeight(); ++k) {
-                    BlockInWorld blockinworld2 = patternMatch.getBlock(j, k, 0);
-                    level.setBlock(blockinworld2.getPos(), Blocks.AIR.defaultBlockState(), 2);
-                    level.levelEvent(2001, blockinworld2.getPos(), Block.getId(blockinworld2.getState()));
+                    BlockInWorld blockInWorld2 = patternMatch.getBlock(j, k, 0);
+                    level.setBlock(blockInWorld2.getPos(), Blocks.AIR.defaultBlockState(), 2);
+                    level.levelEvent(2001, blockInWorld2.getPos(), Block.getId(blockInWorld2.getState()));
                 }
             }
 
@@ -74,8 +72,8 @@ public class CarvedShroomlightBlock extends HorizontalDirectionalBlock implement
 
             for (int i1 = 0; i1 < this.getOrCreateBlackstoneDwarfFull().getWidth(); ++i1) {
                 for (int j1 = 0; j1 < this.getOrCreateBlackstoneDwarfFull().getHeight(); ++j1) {
-                    BlockInWorld blockinworld1 = patternMatch.getBlock(i1, j1, 0);
-                    level.blockUpdated(blockinworld1.getPos(), Blocks.AIR);
+                    BlockInWorld blockInWorld1 = patternMatch.getBlock(i1, j1, 0);
+                    level.blockUpdated(blockInWorld1.getPos(), Blocks.AIR);
                 }
             }
         }

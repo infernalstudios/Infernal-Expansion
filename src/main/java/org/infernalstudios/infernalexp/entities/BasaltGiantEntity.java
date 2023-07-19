@@ -16,54 +16,56 @@
 
 package org.infernalstudios.infernalexp.entities;
 
+import java.util.UUID;
+
+import javax.annotation.Nullable;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraftforge.common.ToolActions;
-import net.minecraftforge.entity.IEntityAdditionalSpawnData;
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-import org.infernalstudios.infernalexp.init.IESoundEvents;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.NeutralMob;
-import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
-import net.minecraft.world.entity.monster.MagmaCube;
-import net.minecraft.world.entity.monster.Skeleton;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.TimeUtil;
-import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.TimeUtil;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.NeutralMob;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.monster.MagmaCube;
+import net.minecraft.world.entity.monster.Skeleton;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
+import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
+import org.infernalstudios.infernalexp.init.IESoundEvents;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
-import java.util.UUID;
+import net.minecraftforge.common.ToolActions;
+import net.minecraftforge.entity.IEntityAdditionalSpawnData;
 
 public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEntityAdditionalSpawnData, IResizable {
 
@@ -96,7 +98,7 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor worldIn, @NotNull DifficultyInstance difficultyIn, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
 
         // Get a random size scale value resulting in a height between the MIN and MAX
         // values specified above
@@ -150,7 +152,7 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putFloat("Size", getEntitySize());
     }
@@ -168,12 +170,12 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
     }
 
     @Override
-    public EntityDimensions getDimensions(Pose poseIn) {
+    public @NotNull EntityDimensions getDimensions(@NotNull Pose poseIn) {
         return super.getDimensions(poseIn).scale(getEntitySize());
     }
 
     @Override
-    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
         if (GIANT_SIZE.equals(key)) {
             refreshDimensions();
         }
@@ -194,7 +196,7 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
     }
 
     @Override
-    public boolean doHurtTarget(Entity entityIn) {
+    public boolean doHurtTarget(@NotNull Entity entityIn) {
         this.entityData.set(KICK_TIMER, 10);
         this.playSound(IESoundEvents.BASALT_GIANT_ATTACK.get(), 1.0F, 1.0F);
         float f = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
@@ -290,7 +292,7 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
 
     // EXP POINTS
     @Override
-    protected int getExperienceReward(Player player) {
+    protected int getExperienceReward(@NotNull Player player) {
         return 73;
     }
 
@@ -306,15 +308,16 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
     }
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
         return IESoundEvents.BASALT_GIANT_HURT.get();
     }
 
     @Override
-    protected void playStepSound(BlockPos pos, BlockState blockIn) {
+    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState blockIn) {
         this.playSound(SoundEvents.PIG_STEP, 0.15F, 1.0F);
     }
 
+    @Override
     public boolean fireImmune() {
         return true;
     }
@@ -381,7 +384,7 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
         }
 
         @Override
-        protected void checkAndPerformAttack(LivingEntity target, double distance3D) {
+        protected void checkAndPerformAttack(@NotNull LivingEntity target, double distance3D) {
             double range = this.getAttackReachSqr(target);
             double distance2D = this.mob.distanceToSqr(target.getX(), this.mob.getY(), target.getZ());
             if (distance2D <= range && target.getY() - this.mob.getY() <= 6.0D && this.getTicksUntilNextAttack() <= 0) {
