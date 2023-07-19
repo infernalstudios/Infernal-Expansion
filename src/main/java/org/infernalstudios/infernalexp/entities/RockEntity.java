@@ -1,11 +1,9 @@
 package org.infernalstudios.infernalexp.entities;
 
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -27,6 +25,7 @@ import net.minecraft.world.phys.Vec3;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
 
 import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 public class RockEntity extends Projectile {
     private static final EntityDataAccessor<ItemStack> ITEM = SynchedEntityData.defineId(RockEntity.class, EntityDataSerializers.ITEM_STACK);
@@ -141,7 +140,7 @@ public class RockEntity extends Projectile {
     }
 
     @Override
-    protected void onHitEntity(EntityHitResult hitResult) {
+    protected void onHitEntity(@NotNull EntityHitResult hitResult) {
         super.onHitEntity(hitResult);
         Entity hitEntity = hitResult.getEntity();
         float f = (float)this.getDeltaMovement().length();
@@ -180,7 +179,7 @@ public class RockEntity extends Projectile {
     }
 
     @Override
-    protected void onHitBlock(BlockHitResult blockHitResult) {
+    protected void onHitBlock(@NotNull BlockHitResult blockHitResult) {
         super.onHitBlock(blockHitResult);
         this.discard();
     }

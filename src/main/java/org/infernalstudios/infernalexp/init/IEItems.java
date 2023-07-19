@@ -16,12 +16,13 @@
 
 package org.infernalstudios.infernalexp.init;
 
+import java.util.function.Supplier;
+
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.BowlFoodItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -30,12 +31,6 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.common.ForgeSpawnEggItem;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.blocks.DullthornsBlockItem;
 import org.infernalstudios.infernalexp.items.AscusBombItem;
@@ -49,7 +44,12 @@ import org.infernalstudios.infernalexp.items.SlurpItem;
 import org.infernalstudios.infernalexp.items.SlurpSoupItem;
 import org.infernalstudios.infernalexp.items.WhipItem;
 
-import java.util.function.Supplier;
+import net.minecraftforge.common.ForgeSpawnEggItem;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 @SuppressWarnings("unused")
 public class IEItems {

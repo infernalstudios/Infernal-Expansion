@@ -16,25 +16,23 @@
 
 package org.infernalstudios.infernalexp.mixin.common;
 
+import java.util.Set;
+
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.Arrow;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.Potion;
 import org.infernalstudios.infernalexp.access.AbstractArrowEntityAccess;
 import org.infernalstudios.infernalexp.init.IEEffects;
 import org.infernalstudios.infernalexp.init.IEParticleTypes;
 import org.infernalstudios.infernalexp.init.IEPotions;
-
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.Arrow;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.item.alchemy.Potion;
-
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.Set;
 
 @Mixin(Arrow.class)
 public abstract class MixinArrowEntity {
@@ -90,10 +88,6 @@ public abstract class MixinArrowEntity {
 
     @Inject(at = @At("RETURN"), method = "doPostHurtEffects")
     private void onArrowHitInfernalExpansion(LivingEntity living, CallbackInfo ci) {
-        //        if (((AbstractArrowEntityAccess) this).getLuminous()) {
-        //            living.addEffect(new MobEffectInstance(IEEffects.LUMINOUS.get(), 3600));
-        //        }
-
         if (((AbstractArrowEntityAccess) this).getInfectedSource()) {
             living.addEffect(new MobEffectInstance(IEEffects.INFECTION.get(), 600));
         }

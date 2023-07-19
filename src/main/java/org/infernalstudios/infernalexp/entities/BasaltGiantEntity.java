@@ -90,11 +90,28 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
         this.maxUpStep = 2.0f;
     }
 
-//    public BasaltGiantEntity(EntityType<? extends BasaltGiantEntity> type, World worldIn, float size) {
-//        super(type, worldIn);
-//        if (size != 1)
-//            this.dataManager.set(GIANT_SIZE, size);
-//    }
+    public static AttributeSupplier.Builder setCustomAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 56.0D).add(Attributes.ATTACK_DAMAGE, 12.0D).add(Attributes.ATTACK_KNOCKBACK, 2.0D).add(Attributes.KNOCKBACK_RESISTANCE, 30.0D).add(Attributes.MOVEMENT_SPEED, 0.45D);
+    }
+
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(0, new KickAttackGoal(this, 0.6D, true));
+        this.goalSelector.addGoal(0, new RoarAttackGoal(this, 0.6D, true));
+        this.goalSelector.addGoal(1, new FloatGoal(this));
+        this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 0.5d));
+        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0f));
+        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+
+        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+        if (InfernalExpansionConfig.MobInteractions.SKELETON_ATTACK_GIANT.getBoolean()) {
+            this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Skeleton.class, true, false));
+        }
+        if (InfernalExpansionConfig.MobInteractions.GIANT_ATTACK_MAGMA_CUBE.getBoolean()) {
+            this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, MagmaCube.class, true, false));
+        }
+    }
 
     @Nullable
     @Override
@@ -108,11 +125,6 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
         this.setEntitySize(size);
 
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-    }
-
-    // ATTRIBUTES
-    public static AttributeSupplier.Builder setCustomAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 56.0D).add(Attributes.ATTACK_DAMAGE, 12.0D).add(Attributes.ATTACK_KNOCKBACK, 2.0D).add(Attributes.KNOCKBACK_RESISTANCE, 30.0D).add(Attributes.MOVEMENT_SPEED, 0.45D);
     }
 
     @Override
@@ -140,15 +152,9 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
     }
 
     @Override
-    public float getEntitySize() {
-        return this.entityData.get(GIANT_SIZE);
-    }
-
-    @Override
-    public void setEntitySize(float size) {
-        getEntityData().set(GIANT_SIZE, size);
-        reapplyPosition();
-        refreshDimensions();
+    public void readAdditionalSaveData(CompoundTag compound) {
+        setEntitySize(compound.getFloat("Size"));
+        super.readAdditionalSaveData(compound);
     }
 
     @Override
@@ -158,9 +164,15 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        setEntitySize(compound.getFloat("Size"));
-        super.readAdditionalSaveData(compound);
+    public float getEntitySize() {
+        return this.entityData.get(GIANT_SIZE);
+    }
+
+    @Override
+    public void setEntitySize(float size) {
+        getEntityData().set(GIANT_SIZE, size);
+        reapplyPosition();
+        refreshDimensions();
     }
 
     @Override
@@ -257,29 +269,6 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
         return super.hurt(source, amount);
     }
 
-    // ---
-
-    // BEHAVIOUR
-    @Override
-    protected void registerGoals() {
-        super.registerGoals();
-        this.goalSelector.addGoal(0, new KickAttackGoal(this, 0.6D, true));
-        this.goalSelector.addGoal(0, new RoarAttackGoal(this, 0.6D, true));
-        this.goalSelector.addGoal(1, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 0.5d));
-        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0f));
-        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-//        this.goalSelector.addGoal(5, new TemptGoal(this, 0.6D, TEMPTATION_ITEMS, false));
-
-        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        if (InfernalExpansionConfig.MobInteractions.SKELETON_ATTACK_GIANT.getBoolean()) {
-            this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Skeleton.class, true, false));
-        }
-        if (InfernalExpansionConfig.MobInteractions.GIANT_ATTACK_MAGMA_CUBE.getBoolean()) {
-            this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, MagmaCube.class, true, false));
-        }
-    }
-
     @Override
     public void writeSpawnData(FriendlyByteBuf buffer) {
         buffer.writeFloat(getEntitySize());
@@ -290,31 +279,9 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
         this.entityData.set(GIANT_SIZE, buffer.readFloat());
     }
 
-    // EXP POINTS
     @Override
     protected int getExperienceReward(@NotNull Player player) {
         return 73;
-    }
-
-    // SOUNDS
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return IESoundEvents.BASALT_GIANT_AMBIENT.get();
-    }
-
-    @Override
-    protected SoundEvent getDeathSound() {
-        return IESoundEvents.BASALT_GIANT_DEATH.get();
-    }
-
-    @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
-        return IESoundEvents.BASALT_GIANT_HURT.get();
-    }
-
-    @Override
-    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState blockIn) {
-        this.playSound(SoundEvents.PIG_STEP, 0.15F, 1.0F);
     }
 
     @Override
@@ -346,6 +313,26 @@ public class BasaltGiantEntity extends PathfinderMob implements NeutralMob, IEnt
     @Override
     public void startPersistentAngerTimer() {
         this.setRemainingPersistentAngerTime(RANGED_INT.sample(this.random));
+    }
+
+    @Override
+    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState blockIn) {
+        this.playSound(SoundEvents.PIG_STEP, 0.15F, 1.0F);
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return IESoundEvents.BASALT_GIANT_AMBIENT.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+        return IESoundEvents.BASALT_GIANT_HURT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return IESoundEvents.BASALT_GIANT_DEATH.get();
     }
 
     static class KickAttackGoal extends MeleeAttackGoal {

@@ -19,8 +19,6 @@ package org.infernalstudios.infernalexp;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
-import net.minecraft.core.dispenser.DispenseItemBehavior;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -28,7 +26,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CarvedPumpkinBlock;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -188,7 +185,7 @@ public class InfernalExpansion {
 
         DispenserBlock.registerBehavior(IEBlocks.CARVED_SHROOMLIGHT.get(), new DefaultDispenseItemBehavior() {
             @Override
-            protected ItemStack execute(BlockSource source, ItemStack stack) {
+            protected @NotNull ItemStack execute(@NotNull BlockSource source, @NotNull ItemStack stack) {
                 Level level = source.getLevel();
                 BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
                 CarvedShroomlightBlock carvedShroomlight = (CarvedShroomlightBlock) IEBlocks.CARVED_SHROOMLIGHT.get();

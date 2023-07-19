@@ -1,7 +1,8 @@
 package org.infernalstudios.infernalexp.client.entity.render;
 
+import java.util.Random;
+
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -11,16 +12,13 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.infernalstudios.infernalexp.entities.RockEntity;
+import org.jetbrains.annotations.NotNull;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.infernalstudios.infernalexp.entities.RockEntity;
-
-import java.util.Random;
 
 @OnlyIn(Dist.CLIENT)
 public class RockRenderer extends EntityRenderer<RockEntity> {
@@ -35,7 +33,7 @@ public class RockRenderer extends EntityRenderer<RockEntity> {
     }
 
     @Override
-    public void render(RockEntity rock, float p_115037_, float p_115038_, PoseStack poseStack, MultiBufferSource buffer, int packedLightIn) {
+    public void render(RockEntity rock, float p_115037_, float p_115038_, PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLightIn) {
         poseStack.pushPose();
         ItemStack itemstack = rock.getItem();
         int i = itemstack.isEmpty() ? 187 : Item.getId(itemstack.getItem()) + itemstack.getDamageValue();
@@ -55,7 +53,7 @@ public class RockRenderer extends EntityRenderer<RockEntity> {
     }
 
     @Override
-    public ResourceLocation getTextureLocation(RockEntity rock) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull RockEntity rock) {
         return TextureAtlas.LOCATION_BLOCKS;
     }
 }

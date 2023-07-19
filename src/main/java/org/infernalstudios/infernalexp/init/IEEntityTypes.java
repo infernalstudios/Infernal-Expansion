@@ -53,7 +53,7 @@ public class IEEntityTypes {
             .build(new ResourceLocation(InfernalExpansion.MOD_ID, "embody").toString()));
 
     public static final RegistryObject<EntityType<BasaltGiantEntity>> BASALT_GIANT = ENTITY_TYPES.register("basalt_giant",
-        () -> EntityType.Builder.<BasaltGiantEntity>of(BasaltGiantEntity::new, IEEntityClassifications.IE_CREATURE)
+        () -> EntityType.Builder.of(BasaltGiantEntity::new, IEEntityClassifications.IE_CREATURE)
             .sized(1.2f, 4.3f)// Hitbox Size
             .build(new ResourceLocation(InfernalExpansion.MOD_ID, "basalt_giant").toString()));
 
