@@ -3,49 +3,58 @@ package org.infernalstudios.infernalexp.client.entity.render;
 import java.util.Random;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.state.BlockState;
 import org.infernalstudios.infernalexp.entities.RockEntity;
 import org.jetbrains.annotations.NotNull;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraftforge.client.model.data.EmptyModelData;
 
 @OnlyIn(Dist.CLIENT)
 public class RockRenderer extends EntityRenderer<RockEntity> {
-    private final ItemRenderer itemRenderer;
+
     private final Random random = new Random();
 
     public RockRenderer(EntityRendererProvider.Context context) {
         super(context);
-        this.itemRenderer = context.getItemRenderer();
         this.shadowRadius = 0.15F;
         this.shadowStrength = 0.75F;
     }
 
     @Override
-    public void render(RockEntity rock, float p_115037_, float p_115038_, PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLightIn) {
-        poseStack.pushPose();
-        ItemStack itemstack = rock.getItem();
-        int i = itemstack.isEmpty() ? 187 : Item.getId(itemstack.getItem()) + itemstack.getDamageValue();
-        this.random.setSeed(i);
-        BakedModel bakedmodel = this.itemRenderer.getModel(itemstack, rock.level, null, rock.getId());
-        boolean flag = bakedmodel.isGui3d();
+    public void render(RockEntity rock, float p_115037_, float p_115038_, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLightIn) {
+        BlockState blockState = rock.getBlockState();
 
-        poseStack.pushPose();
-        this.itemRenderer.render(itemstack, ItemTransforms.TransformType.GROUND, false, poseStack, buffer, packedLightIn, OverlayTexture.NO_OVERLAY, bakedmodel);
-        poseStack.popPose();
-        if (!flag) {
-            poseStack.translate(0.0, 0.0, 0.09375F);
+        if (blockState.getRenderShape() == RenderShape.MODEL) {
+            poseStack.pushPose();
+
+            BlockPos blockPos = new BlockPos(rock.getX(), rock.getBoundingBox().maxY, rock.getZ());
+            poseStack.translate(-0.5D, 0.0D, -0.5D);
+            BlockRenderDispatcher blockRenderDispatcher = Minecraft.getInstance().getBlockRenderer();
+
+            for (RenderType type: RenderType.chunkBufferLayers()) {
+                if (ItemBlockRenderTypes.canRenderInLayer(blockState, type)) {
+                    ForgeHooksClient.setRenderType(type);
+                    blockRenderDispatcher.getModelRenderer().tesselateBlock(rock.getLevel(), blockRenderDispatcher.getBlockModel(blockState), blockState, blockPos, poseStack, buffer.getBuffer(type), false, random, blockState.getSeed(blockPos), OverlayTexture.NO_OVERLAY, EmptyModelData.INSTANCE);
+                }
+            }
+
+            ForgeHooksClient.setRenderType(null);
+
         }
 
         poseStack.popPose();

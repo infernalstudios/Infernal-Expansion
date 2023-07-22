@@ -1,34 +1,33 @@
 package org.infernalstudios.infernalexp.entities;
 
+import javax.annotation.Nullable;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
-
-import javax.annotation.Nullable;
 import org.jetbrains.annotations.NotNull;
 
 public class RockEntity extends Projectile {
-    private static final EntityDataAccessor<ItemStack> ITEM = SynchedEntityData.defineId(RockEntity.class, EntityDataSerializers.ITEM_STACK);
+
+    private BlockState blockState = Blocks.BLACKSTONE.defaultBlockState();
 
     public RockEntity(EntityType<? extends RockEntity> entityType, Level level) {
         super(entityType, level);
@@ -42,12 +41,7 @@ public class RockEntity extends Projectile {
     public RockEntity(Level level, LivingEntity thrower) {
         this(IEEntityTypes.ROCK.get(), level, thrower.getX(), thrower.getEyeY() - (double)0.1F, thrower.getZ());
         this.setOwner(thrower);
-        this.entityData.set(ITEM, new ItemStack(thrower.level.getBlockState(thrower.getOnPos()).getBlock().asItem()));
-    }
-
-    @Override
-    protected void defineSynchedData() {
-        this.entityData.define(ITEM, new ItemStack(Items.BLACKSTONE));
+        this.blockState = thrower.getLevel().getBlockState(thrower.getOnPos());
     }
 
     @Override
@@ -55,6 +49,14 @@ public class RockEntity extends Projectile {
         this.setPos(posX, posY, posZ);
         this.setRot(rotY, rotX);
     }
+
+    @Override
+    public EntityDimensions getDimensions(Pose pPose) {
+        return super.getDimensions(pPose).scale(2.0F);
+    }
+
+    @Override
+    protected void defineSynchedData() {}
 
     @Override
     public void tick() {
@@ -189,8 +191,8 @@ public class RockEntity extends Projectile {
         return ProjectileUtil.getEntityHitResult(this.level, this, firstBound, secondBound, this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0D), this::canHitEntity);
     }
 
-    public ItemStack getItem() {
-        return this.entityData.get(ITEM);
+    public BlockState getBlockState() {
+        return blockState;
     }
 
 }

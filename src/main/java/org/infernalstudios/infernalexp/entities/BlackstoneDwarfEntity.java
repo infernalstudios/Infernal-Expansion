@@ -84,7 +84,7 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements RangedAttack
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new DwarfMeleeAttackGoal(this, 0.6D, 8.0F, true));
-        this.goalSelector.addGoal(0, new RockThrowAttackGoal(this, 0.6D, 20, 60, 8.0F));
+        this.goalSelector.addGoal(0, new RangedAttackGoal(this, 0.6D, 20, 60, 8.0F));
         this.goalSelector.addGoal(1, new WaterAvoidingRandomStrollGoal(this, 0.5d));
         this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8.0f));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
@@ -236,36 +236,50 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements RangedAttack
     }
 
     @Override
-    public void performRangedAttack(@NotNull LivingEntity entity, float damage) {
+    public void performRangedAttack(@NotNull LivingEntity target, float damage) {
         this.entityData.set(ROCK_TIMER, 10);
         this.playSound(IESoundEvents.BLACKSTONE_DWARF_ROAR_RANGED.get(), 1.0F, 1.0F);
     }
 
     public void throwRocks() {
-        for(int i = 0; i < 5; ++i) {
-            switch (i) {
-                case 0 -> throwRock(this.level, this, 1.6F, 1.0F, 0, 0.1F);
-                case 1 -> throwRock(this.level, this, 1.6F, 1.0F, -5, 0.1F);
-                case 2 -> throwRock(this.level, this, 1.6F, 1.0F, -10, 0.1F);
-                case 3 -> throwRock(this.level, this, 1.6F, 1.0F, 5, 0.1F);
-                default -> throwRock(this.level, this, 1.6F, 1.0F, 10, 0.1F);
-            }
+//        throwRock(this.level, 0, 0.1F);
+//        throwRock(this.level, -5, 0.1F);
+//        throwRock(this.level, -10, 0.1F);
+//        throwRock(this.level, 5, 0.1F);
+//        throwRock(this.level, 10, 0.1F);
+
+        if (getTarget() != null) {
+            throwRock2(getTarget());
         }
     }
 
-    private void throwRock(Level level, LivingEntity shooter, float shotPower, float componentMultiplier, float horizontalVariance, float verticalVariance) {
+    private void throwRock(Level level, float xOffset, float verticalVariance) {
+        if (getTarget() == null)
+            return;
+
+        RockEntity rock = new RockEntity(this.level, this);
         if (!level.isClientSide) {
-            RockEntity rock = new RockEntity(this.level, this);
-            Vec3 vec31 = shooter.getUpVector(1.0F);
-            Quaternion quaternion = new Quaternion(new Vector3f(vec31), horizontalVariance, true);
-            Vec3 vec3 = shooter.getViewVector(1.0F);
-            Vector3f launchVector = new Vector3f(vec3);
+            Quaternion quaternion = new Quaternion(new Vector3f(getUpVector(1.0F)), xOffset, true);
+            Vector3f launchVector = new Vector3f(getViewVector(1.0F));
             launchVector.transform(quaternion);
-            rock.shoot(launchVector.x(), launchVector.y() + shooter.getRandom().nextFloat(2 * verticalVariance) - verticalVariance, launchVector.z(), shotPower, componentMultiplier);
+            rock.shoot(launchVector.x(), launchVector.y() + getRandom().nextFloat(2 * verticalVariance) - verticalVariance + 1.0F, launchVector.z(), distanceTo(getTarget()) * 0.075F, 1.0F);
 
             level.addFreshEntity(rock);
             this.playSound(SoundEvents.EGG_THROW, 1.0F, 1.0F);
         }
+    }
+
+    private void throwRock2(LivingEntity target) {
+        Vec3 targetMovement = target.getDeltaMovement();
+        double x = target.getX() + targetMovement.x() - getX();
+        double y = target.getEyeY() - 1.1D - getY();
+        double z = target.getZ() + targetMovement.z() - getZ();
+
+        RockEntity rock = new RockEntity(level, this);
+        rock.shoot(x, y + Math.sqrt(x * x + z * z) * 0.0D, z, 0.75F, 8.0F);
+
+        level.addFreshEntity(rock);
+        playSound(SoundEvents.EGG_THROW, 1.0F, 1.0F);
     }
 
     @Nullable
