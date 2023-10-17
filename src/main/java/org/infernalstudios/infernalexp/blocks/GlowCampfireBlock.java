@@ -16,6 +16,11 @@
 
 package org.infernalstudios.infernalexp.blocks;
 
+import org.infernalstudios.infernalexp.blockentities.GlowCampfireBlockEntity;
+import org.infernalstudios.infernalexp.init.IEBlockEntityTypes;
+import org.infernalstudios.infernalexp.init.IEFireTypes;
+
+import crystalspider.soulfired.api.type.FireTypeChanger;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.CampfireBlock;
@@ -25,12 +30,11 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.CampfireBlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import org.infernalstudios.infernalexp.blockentities.GlowCampfireBlockEntity;
-import org.infernalstudios.infernalexp.init.IEBlockEntityTypes;
 
 public class GlowCampfireBlock extends CampfireBlock {
     public GlowCampfireBlock(boolean smokey, int fireDamage, BlockBehaviour.Properties properties) {
         super(smokey, fireDamage, properties);
+        ((FireTypeChanger) this).setFireType(IEFireTypes.GLOW_FIRE_TYPE);
     }
 
     @Override

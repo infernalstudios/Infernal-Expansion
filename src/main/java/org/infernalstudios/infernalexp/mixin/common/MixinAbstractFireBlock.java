@@ -16,26 +16,19 @@
 
 package org.infernalstudios.infernalexp.mixin.common;
 
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.BaseFireBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.registries.ForgeRegistries;
-import org.infernalstudios.infernalexp.access.FireTypeAccess;
-import org.infernalstudios.infernalexp.api.FireType;
 import org.infernalstudios.infernalexp.blocks.GlowFireBlock;
 import org.infernalstudios.infernalexp.init.IEBlocks;
-import org.infernalstudios.infernalexp.init.IEFireTypes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.BaseFireBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 
 @Mixin(BaseFireBlock.class)
 public abstract class MixinAbstractFireBlock extends Block {
@@ -51,14 +44,14 @@ public abstract class MixinAbstractFireBlock extends Block {
         }
     }
 
-    @Inject(method = "entityInside", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"))
-    private void IE_setCustomFires(BlockState state, Level worldIn, BlockPos pos, Entity entityIn, CallbackInfo info) {
-        FireType.getFireTypes().forEach(fireType -> {
-            if (fireType != IEFireTypes.FIRE && ModList.get().isLoaded(fireType.getName().getNamespace())) {
-                if (ForgeRegistries.BLOCKS.getKey(state.getBlock()).equals(fireType.getBlock()) && state.getBlock() instanceof BaseFireBlock) {
-                    ((FireTypeAccess) entityIn).setFireType(fireType);
-                }
-            }
-        });
-    }
+    // @Inject(method = "entityInside", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"))
+    // private void IE_setCustomFires(BlockState state, Level worldIn, BlockPos pos, Entity entityIn, CallbackInfo info) {
+    //     FireType.getFireTypes().forEach(fireType -> {
+    //         if (fireType != IEFireTypes.FIRE && ModList.get().isLoaded(fireType.getName().getNamespace())) {
+    //             if (ForgeRegistries.BLOCKS.getKey(state.getBlock()).equals(fireType.getBlock()) && state.getBlock() instanceof BaseFireBlock) {
+    //                 ((FireTypeAccess) entityIn).setFireType(fireType);
+    //             }
+    //         }
+    //     });
+    // }
 }
