@@ -34,7 +34,6 @@ import net.minecraft.world.level.block.state.BlockState;
 public class GlowCampfireBlock extends CampfireBlock {
     public GlowCampfireBlock(boolean smokey, int fireDamage, BlockBehaviour.Properties properties) {
         super(smokey, fireDamage, properties);
-        ((FireTypeChanger) this).setFireType(IEFireTypes.GLOW_FIRE_TYPE);
     }
 
     @Override

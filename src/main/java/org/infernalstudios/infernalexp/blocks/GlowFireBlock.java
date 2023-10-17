@@ -38,7 +38,6 @@ public class GlowFireBlock extends BaseFireBlock {
 
     public GlowFireBlock(Properties builder) {
         super(builder, 2.0F);
-        ((FireTypeChanger) this).setFireType(IEFireTypes.GLOW_FIRE_TYPE);
     }
 
     public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {

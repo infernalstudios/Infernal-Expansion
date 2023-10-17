@@ -43,15 +43,4 @@ public abstract class MixinAbstractFireBlock extends Block {
             info.setReturnValue(IEBlocks.GLOW_FIRE.get().defaultBlockState());
         }
     }
-
-    // @Inject(method = "entityInside", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"))
-    // private void IE_setCustomFires(BlockState state, Level worldIn, BlockPos pos, Entity entityIn, CallbackInfo info) {
-    //     FireType.getFireTypes().forEach(fireType -> {
-    //         if (fireType != IEFireTypes.FIRE && ModList.get().isLoaded(fireType.getName().getNamespace())) {
-    //             if (ForgeRegistries.BLOCKS.getKey(state.getBlock()).equals(fireType.getBlock()) && state.getBlock() instanceof BaseFireBlock) {
-    //                 ((FireTypeAccess) entityIn).setFireType(fireType);
-    //             }
-    //         }
-    //     });
-    // }
 }
