@@ -16,12 +16,6 @@
 
 package org.infernalstudios.infernalexp.blocks;
 
-import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
-import org.infernalstudios.infernalexp.init.IEEffects;
-import org.infernalstudios.infernalexp.init.IEFireTypes;
-import org.infernalstudios.infernalexp.init.IETags;
-
-import crystalspider.soulfired.api.type.FireTypeChanger;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -33,6 +27,9 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import org.infernalstudios.infernalexp.config.InfernalExpansionConfig;
+import org.infernalstudios.infernalexp.init.IEEffects;
+import org.infernalstudios.infernalexp.init.IETags;
 
 public class GlowFireBlock extends BaseFireBlock {
 
