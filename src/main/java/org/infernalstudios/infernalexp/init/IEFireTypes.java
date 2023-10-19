@@ -70,7 +70,7 @@ public class IEFireTypes {
                 FireManager.fireBuilder(CRYPTIC_FIRE_TYPE)
                     .setDamage(3.5f)
                     .setSource(new ResourceLocation(CRYPTIC_FIRE_TYPE.getNamespace(), "cryptic_fire"))
-                    .setCampfire(new ResourceLocation(CRYPTIC_FIRE_TYPE.getNamespace(), "cryptic_fire"))
+                    .setCampfire(new ResourceLocation(CRYPTIC_FIRE_TYPE.getNamespace(), "cryptic_campfire"))
                     .removeFireAspect()
                     .removeFlame()
                     .build()
