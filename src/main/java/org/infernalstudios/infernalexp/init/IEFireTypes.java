@@ -34,43 +34,33 @@ public class IEFireTypes {
         FireManager.registerFire(
             fireBuilder
                 .setDamage(2)
-                // .setSource(IEBlocks.GLOW_FIRE.getId())
-                // .setCampfire(IEBlocks.GLOW_CAMPFIRE.getId())
-                .setSource(new ResourceLocation(GLOW_FIRE_TYPE.getNamespace(), "glow_fire"))
-                .setCampfire(new ResourceLocation(GLOW_FIRE_TYPE.getNamespace(), "glow_campfire"))
                 .removeFireAspect()
                 .removeFlame()
                 .build()
         );
         if (ModList.get().isLoaded(ENDER_FIRE_TYPE.getNamespace())) {
-            fireBuilder.reset(ENDER_FIRE_TYPE);
             FireManager.registerFire(
-                FireManager.fireBuilder(ENDER_FIRE_TYPE)
+                fireBuilder
+                    .reset(ENDER_FIRE_TYPE)
                     .setDamage(3)
-                    .setSource(new ResourceLocation(ENDER_FIRE_TYPE.getNamespace(), "ender_fire"))
-                    .setCampfire(new ResourceLocation(ENDER_FIRE_TYPE.getNamespace(), "ender_campfire"))
                     .removeFireAspect()
                     .removeFlame()
                     .build()
             );
         }
         if (ModList.get().isLoaded(BORIC_FIRE_TYPE.getNamespace())) {
-            fireBuilder.reset(BORIC_FIRE_TYPE);
             FireManager.registerFire(
-                FireManager.fireBuilder(BORIC_FIRE_TYPE)
+                fireBuilder
+                    .reset(BORIC_FIRE_TYPE)
                     .setDamage(3.5f)
-                    .setSource(new ResourceLocation(BORIC_FIRE_TYPE.getNamespace(), "boric_fire"))
-                    .setCampfire(new ResourceLocation(BORIC_FIRE_TYPE.getNamespace(), "boric_campfire"))
                     .removeFireAspect()
                     .removeFlame()
                     .build()
             );
-            fireBuilder.reset(CRYPTIC_FIRE_TYPE);
             FireManager.registerFire(
-                FireManager.fireBuilder(CRYPTIC_FIRE_TYPE)
+                fireBuilder
+                    .reset(CRYPTIC_FIRE_TYPE)
                     .setDamage(3.5f)
-                    .setSource(new ResourceLocation(CRYPTIC_FIRE_TYPE.getNamespace(), "cryptic_fire"))
-                    .setCampfire(new ResourceLocation(CRYPTIC_FIRE_TYPE.getNamespace(), "cryptic_campfire"))
                     .removeFireAspect()
                     .removeFlame()
                     .build()

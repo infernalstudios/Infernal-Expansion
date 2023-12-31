@@ -102,7 +102,7 @@ dependencies {
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     // Soul Fire'd dependency
-    implementation fg.deobf("curse.maven:soulfired-662413:4783351")
+    implementation fg.deobf("curse.maven:soulfired-662413:4875142")
 }
 
 jar {
