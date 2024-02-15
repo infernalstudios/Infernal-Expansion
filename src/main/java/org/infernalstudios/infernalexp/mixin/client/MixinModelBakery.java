@@ -16,36 +16,33 @@
 
 package org.infernalstudios.infernalexp.mixin.client;
 
-import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.client.resources.model.Material;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.ModList;
-import org.infernalstudios.infernalexp.api.FireType;
-import org.infernalstudios.infernalexp.init.IEFireTypes;
+import java.util.Set;
+
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
-import java.util.Set;
+import crystalspider.soulfired.api.FireManager;
+import crystalspider.soulfired.api.client.FireClientManager;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.ModList;
 
 @OnlyIn(Dist.CLIENT)
 @Mixin(ModelBakery.class)
 public class MixinModelBakery {
-
     @Shadow
     @Final
     protected static Set<Material> UNREFERENCED_TEXTURES;
 
     static {
-        FireType.getFireTypes().forEach(fireType -> {
-            if (fireType != IEFireTypes.FIRE) {
-                if (ModList.get().isLoaded(fireType.getName().getNamespace())) {
-                    UNREFERENCED_TEXTURES.add(fireType.getSprite0());
-                    UNREFERENCED_TEXTURES.add(fireType.getSprite1());
-                }
+        FireManager.getFireTypes().forEach(fireType -> {
+            if (ModList.get().isLoaded(fireType.getNamespace())) {
+                UNREFERENCED_TEXTURES.add(FireClientManager.getMaterial0(fireType));
+                UNREFERENCED_TEXTURES.add(FireClientManager.getMaterial0(fireType));
             }
         });
     }
-
 }

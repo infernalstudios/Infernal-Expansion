@@ -16,21 +16,35 @@
 
 package org.infernalstudios.infernalexp.init;
 
-import net.minecraft.resources.ResourceLocation;
 import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.api.FireType;
+
+import crystalspider.soulfired.api.FireBuilder;
+import crystalspider.soulfired.api.FireManager;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.fml.ModList;
 
 public class IEFireTypes {
+    public static final ResourceLocation GLOW_FIRE_TYPE = new ResourceLocation(InfernalExpansion.MOD_ID, "glow");
+    public static final ResourceLocation ENDER_FIRE_TYPE = new ResourceLocation("endergetic", "ender");
 
-    public static final FireType FIRE = FireType.register(new ResourceLocation("fire"));
-    public static final FireType SOUL_FIRE = FireType.register(new ResourceLocation("soul_fire"));
-    public static final FireType GLOW_FIRE = FireType.register(new ResourceLocation(InfernalExpansion.MOD_ID, "glow_fire"));
-    public static final FireType ENDER_FIRE = FireType.register(new ResourceLocation("endergetic", "ender_fire"));
-    public static final FireType BORIC_FIRE = FireType.register(new ResourceLocation("byg", "boric_fire"));
-    public static final FireType CRYPTIC_FIRE = FireType.register(new ResourceLocation("byg", "cryptic_fire"));
-
-    public static void register() {}
-
-    ;
-
+    public static void register() {
+        FireBuilder fireBuilder = FireManager.fireBuilder(GLOW_FIRE_TYPE);
+        FireManager.registerFire(
+            fireBuilder
+                .setDamage(2)
+                .removeFireAspect()
+                .removeFlame()
+                .build()
+        );
+        if (ModList.get().isLoaded(ENDER_FIRE_TYPE.getNamespace())) {
+            FireManager.registerFire(
+                fireBuilder
+                    .reset(ENDER_FIRE_TYPE)
+                    .setDamage(3)
+                    .removeFireAspect()
+                    .removeFlame()
+                    .build()
+            );
+        }
+    }
 }
