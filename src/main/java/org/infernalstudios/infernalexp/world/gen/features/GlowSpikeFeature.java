@@ -83,7 +83,7 @@ public class GlowSpikeFeature extends IEFeature<GlowSpikeFeatureConfig> {
             BlockPos pos = line.get(i);
 
             // Skip parts of the spike generating above bedrock
-            if (pos.getY() >= 128 || world.getBlockState(pos).equals(Blocks.BEDROCK.defaultBlockState())) {
+            if (pos.getY() >= world.getHeight() || world.getBlockState(pos).equals(Blocks.BEDROCK.defaultBlockState())) {
                 continue;
             }
 

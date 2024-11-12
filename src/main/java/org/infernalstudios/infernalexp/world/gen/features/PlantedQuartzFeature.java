@@ -41,7 +41,7 @@ public class PlantedQuartzFeature extends IEFeature<PlantedQuartzFeatureConfig> 
         int amount = 0;
 
         // Attempt to place quartz 128 times
-        for (int j = 0; j < 128; j++) {
+        for (int j = 0; j < context.level().getHeight(); j++) {
             // Randomize the direction the quartz is facing
             int random = context.random().nextInt(6);
 
