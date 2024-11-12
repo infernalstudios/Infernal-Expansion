@@ -40,7 +40,7 @@ public class LuminousFungusFeature extends IEFeature<NoneFeatureConfiguration> {
         int amount = 0;
 
         // Try to place luminous fungus 128 times
-        for (int i = 0; i < context.level().getHeight(); i++) {
+        for (int i = 0; i < 128; i++) {
             // Randomize the location of the next luminous fungus to be placed
             BlockState state = IEBlocks.LUMINOUS_FUNGUS.get().defaultBlockState().setValue(LuminousFungusBlock.FACE, onCeiling ? AttachFace.CEILING : AttachFace.FLOOR);
             BlockPos pos = context.origin().offset(context.random().nextInt(17) - 8, context.random().nextInt(9) - 4, context.random().nextInt(17) - 8);
