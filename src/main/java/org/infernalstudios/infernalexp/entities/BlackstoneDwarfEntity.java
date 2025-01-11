@@ -16,6 +16,7 @@
 
 package org.infernalstudios.infernalexp.entities;
 
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -120,6 +121,12 @@ public class BlackstoneDwarfEntity extends PathfinderMob implements NeutralMob {
 
         this.playSound(IESoundEvents.BASALT_GIANT_HURT.get(), 1.0F, 1.0F);
         return flag;
+    }
+
+    // TODO Change?
+    @Override
+    protected SoundEvent getHurtSound(DamageSource p_21239_) {
+        return IESoundEvents.BASALT_GIANT_HURT.get();
     }
 
     private void attackFling(Entity entityIn, float f2, double height) {
