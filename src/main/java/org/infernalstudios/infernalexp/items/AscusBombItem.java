@@ -16,6 +16,9 @@
 
 package org.infernalstudios.infernalexp.items;
 
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.item.SnowballItem;
 import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.entities.AscusBombEntity;
 
@@ -35,6 +38,7 @@ public class AscusBombItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemStack = playerIn.getItemInHand(handIn);
+        worldIn.playSound(playerIn, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (worldIn.getRandom().nextFloat() * 0.4F + 0.8F));
 
         if (!worldIn.isClientSide) {
             AscusBombEntity ascusBombEntity = new AscusBombEntity(worldIn, playerIn);

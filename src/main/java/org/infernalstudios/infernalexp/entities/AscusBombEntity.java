@@ -16,6 +16,7 @@
 
 package org.infernalstudios.infernalexp.entities;
 
+import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraftforge.network.NetworkHooks;
 import org.infernalstudios.infernalexp.init.IEEffects;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
@@ -72,11 +73,13 @@ public class AscusBombEntity extends ThrowableItemProjectile {
 
         if (!this.level.isClientSide) {
             this.playSound(SoundEvents.GENERIC_EXPLODE, 1.0F, 0.5F);
-            this.spawnExplosionCloud();
+//            this.spawnExplosionCloud();
             this.remove(RemovalReason.DISCARDED);
 
             this.initialEffect(result);
             this.spawnLingeringCloud();
+        } else {
+            this.level.addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
         }
 
     }
