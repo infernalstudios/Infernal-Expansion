@@ -55,9 +55,6 @@ public class MixinMultiNoiseBiomeSourcePreset {
 
     @ModifyVariable(method = "biomeSource(Lnet/minecraft/world/level/biome/MultiNoiseBiomeSource$PresetInstance;Z)Lnet/minecraft/world/level/biome/MultiNoiseBiomeSource;", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/biome/MultiNoiseBiomeSource$PresetInstance;biomes()Lnet/minecraft/core/Registry;", shift = At.Shift.BY, by = 4), name = "parameterlist", index = 3)
     private Climate.ParameterList<Holder<Biome>> IE_addNetherBiomes(Climate.ParameterList<Holder<Biome>> parameterList) {
-        if (ModList.get().isLoaded("terrablender"))
-            return parameterList;
-
         if (biomeRegistry == null || !name.equals(new ResourceLocation("nether")))
             return parameterList;
 
