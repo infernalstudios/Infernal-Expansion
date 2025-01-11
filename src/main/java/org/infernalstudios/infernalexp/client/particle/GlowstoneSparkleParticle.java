@@ -32,11 +32,11 @@ public class GlowstoneSparkleParticle extends TextureSheetParticle {
 
     private GlowstoneSparkleParticle(ClientLevel world, double x, double y, double z, double motionX, double motionY, double motionZ) {
         super(world, x, y, z);
-        this.xd = (motionX + random.nextFloat() - 0.5) / 3;
-        this.yd = (motionY + random.nextFloat()) / 5;
-        this.zd = (motionZ + random.nextFloat() - 0.5) / 3;
+        this.xd = ((motionX + random.nextFloat() - 0.5) / 3) / 4;
+        this.yd = ((motionY + random.nextFloat()) / 5) / 4;
+        this.zd = ((motionZ + random.nextFloat() - 0.5) / 3) / 4;
         this.quadSize *= 0.75F;
-        this.lifetime = 60 + this.random.nextInt(12);
+        this.lifetime = 120 + this.random.nextInt(12);
     }
 
     public void move(double x, double y, double z) {
