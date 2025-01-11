@@ -351,6 +351,7 @@ public class MiscEvents {
         }
     }
 
+    // TODO Do this in effect class!!!
     @SubscribeEvent
     public void onLivingEntityUpdate(LivingEvent.LivingTickEvent event) {
         LivingEntity entity = event.getEntity();

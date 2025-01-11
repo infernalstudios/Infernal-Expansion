@@ -18,6 +18,7 @@ package org.infernalstudios.infernalexp.access;
 
 import org.infernalstudios.infernalexp.api.FireType;
 
+// TODO FUCK YOU AHHHAHAHAHHAHHHHH
 public interface FireTypeAccess {
 
     FireType getFireType();

@@ -32,6 +32,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+// TODO Disable in favor of lucent
 @OnlyIn(Dist.CLIENT)
 public class DynamicLightingHandler {
     private static final Minecraft MinecraftInstance = Minecraft.getInstance();

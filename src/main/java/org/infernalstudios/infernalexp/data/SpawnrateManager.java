@@ -49,6 +49,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+// TODO Forge Biome Modifier
 public class SpawnrateManager {
 
     private static final Gson GSON_INSTANCE = new GsonBuilder().setPrettyPrinting().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).registerTypeAdapter(Double.class, new TypeAdapter<Double>() {
