@@ -94,6 +94,8 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${config.MINECRAFT_VERSION}-${config.FORGE_VERSION}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
+    compileOnly fg.deobf("com.github.glitchfiend:TerraBlender-forge:${config.MINECRAFT_VERSION}-${config.TERRABLENDER_VERSION}")
 }
 
 jar {

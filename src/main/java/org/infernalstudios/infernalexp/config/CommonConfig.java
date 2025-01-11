@@ -81,6 +81,9 @@ public class CommonConfig {
     final ForgeConfigSpec.DoubleValue luminousFungusActivateDistance;
     final ForgeConfigSpec.BooleanValue luminousFungusGivesEffect;
 
+    //TerraBlender compatibility
+    final ForgeConfigSpec.IntValue terraBlenderRegionWeight;
+
     CommonConfig(final ForgeConfigSpec.Builder builder) {
         //Mob Interactions
         builder.push("Mob Interactions");
@@ -357,5 +360,14 @@ public class CommonConfig {
             .comment("Determines if bricks are throwable or not")
             .translation(InfernalExpansion.MOD_ID + ".config.tooltip.useThrowableBricks")
             .define("useThrowableBricks", true);
+
+        builder.push("TerraBlender Compatibility");
+
+        terraBlenderRegionWeight = builder
+            .comment("Determines the weight of the Infernal Expansion region in TerraBlender")
+            .translation(InfernalExpansion.MOD_ID + ".config.tooltip.terraBlenderRegionWeight")
+            .defineInRange("terraBlenderRegionWeight", 5, 0, Integer.MAX_VALUE);
+
+        builder.pop();
     }
 }

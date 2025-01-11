@@ -94,6 +94,8 @@ public final class ConfigHelper {
         Miscellaneous.LUMINOUS_FUNGUS_GIVES_EFFECT.set(ConfigHolder.COMMON.luminousFungusGivesEffect.get());
 
         Miscellaneous.USE_THROWABLE_BRICKS.set(ConfigHolder.COMMON.useThrowableBricks.get());
+
+        Miscellaneous.TERRABLENDER_REGION_WEIGHT.set(ConfigHolder.COMMON.terraBlenderRegionWeight.get());
     }
 
     public static void saveToClient() {
@@ -159,6 +161,8 @@ public final class ConfigHelper {
         ConfigHolder.COMMON.luminousFungusGivesEffect.set(Miscellaneous.LUMINOUS_FUNGUS_GIVES_EFFECT.getBool());
 
         ConfigHolder.COMMON.useThrowableBricks.set(Miscellaneous.USE_THROWABLE_BRICKS.getBool());
+
+        ConfigHolder.COMMON.terraBlenderRegionWeight.set(Miscellaneous.TERRABLENDER_REGION_WEIGHT.getInt());
 
         ConfigHolder.COMMON_SPEC.save();
     }

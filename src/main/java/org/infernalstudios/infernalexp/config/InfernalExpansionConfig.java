@@ -213,7 +213,8 @@ public final class InfernalExpansionConfig {
         JERKY_EFFECT_DURATION("jerkyEffectDuration", true, 1, 120, 1),
         JERKY_EFFECT_AMPLIFIER("jerkyEffectAmplifier", true, 0, 2, 1),
         LUMINOUS_FUNGUS_GIVES_EFFECT("luminousFungusGivesEffect", false, 0, 0, 0),
-        USE_THROWABLE_BRICKS("useThrowableBricks", false, 0, 0,0);
+        USE_THROWABLE_BRICKS("useThrowableBricks", false, 0, 0,0),
+        TERRABLENDER_REGION_WEIGHT("terraBlenderRegionWeight", true, 0, 50, 1);
 
         private final String translationName;
         private final boolean isSlider;

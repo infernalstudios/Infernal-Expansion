@@ -23,6 +23,7 @@ import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.storage.WorldData;
+import net.minecraftforge.fml.ModList;
 import org.infernalstudios.infernalexp.world.gen.surfacerules.NetherSurfaceRules;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -46,6 +47,9 @@ public abstract class MixinMinecraftServer {
      */
     @Inject(method = "createLevels", at = @At("TAIL"))
     private void IE_appendSurfaceRules(ChunkProgressListener holder, CallbackInfo ci) {
+        if (ModList.get().isLoaded("terrablender"))
+            return;
+
         if (this.getWorldData() == null)
             throw new NullPointerException("What! The server's world data is null.");
 
