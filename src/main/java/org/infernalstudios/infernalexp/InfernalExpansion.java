@@ -147,22 +147,24 @@ public class InfernalExpansion {
         flowerPot.addPlant(IEBlocks.SHROOMLIGHT_FUNGUS.getId(), IEBlocks.POTTED_SHROOMLIGHT_FUNGUS);
 
         // Custom Dispenser Behavior
-        DispenserBlock.registerBehavior(Items.GLOWSTONE_DUST, new DefaultDispenseItemBehavior() {
-            @Override
-            protected ItemStack execute(BlockSource source, ItemStack stack) {
-                Level world = source.getLevel();
-                BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
-                ItemStack itemstack = stack.split(1);
-                if (world.getBlockState(blockpos).getBlock() == IEBlocks.DIMSTONE.get()) {
-                    world.setBlockAndUpdate(blockpos, Blocks.GLOWSTONE.defaultBlockState());
-                } else if (world.getBlockState(blockpos).getBlock() == IEBlocks.DULLSTONE.get()) {
-                    world.setBlockAndUpdate(blockpos, IEBlocks.DIMSTONE.get().defaultBlockState());
-                } else {
-                    spawnItem(world, itemstack, 6, source.getBlockState().getValue(DispenserBlock.FACING), DispenserBlock.getDispensePosition(source));
-                }
+        event.enqueueWork(() -> {
+            DispenserBlock.registerBehavior(Items.GLOWSTONE_DUST, new DefaultDispenseItemBehavior() {
+                @Override
+                protected ItemStack execute(BlockSource source, ItemStack stack) {
+                    Level world = source.getLevel();
+                    BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
+                    ItemStack itemstack = stack.split(1);
+                    if (world.getBlockState(blockpos).getBlock() == IEBlocks.DIMSTONE.get()) {
+                        world.setBlockAndUpdate(blockpos, Blocks.GLOWSTONE.defaultBlockState());
+                    } else if (world.getBlockState(blockpos).getBlock() == IEBlocks.DULLSTONE.get()) {
+                        world.setBlockAndUpdate(blockpos, IEBlocks.DIMSTONE.get().defaultBlockState());
+                    } else {
+                        spawnItem(world, itemstack, 6, source.getBlockState().getValue(DispenserBlock.FACING), DispenserBlock.getDispensePosition(source));
+                    }
 
-                return stack;
-            }
+                    return stack;
+                }
+            });
         });
     }
 
