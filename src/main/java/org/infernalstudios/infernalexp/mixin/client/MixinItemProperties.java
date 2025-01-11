@@ -30,7 +30,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-@Mixin(targets = "net.minecraft.client.renderer.item.ItemProperties$static$1")
+@Mixin(targets = "net.minecraft.client.renderer.item.ItemProperties$1")
 public class MixinItemProperties {
 
     @ModifyVariable(method = "unclampedCall", at = @At(value = "STORE", ordinal = 1 /* this ordinal is when its set to Math.random(), the second time d0 is set to something */), ordinal = 0 /* this ordinal means the first double variable */)
