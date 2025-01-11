@@ -5,15 +5,11 @@
       "returned_items": []
     },
     {
-      "accepted_item": "minecraft:gold_nugget",
-      "returned_items": []
-    },
-    {
       "accepted_item": "minecraft:gold_ingot",
       "returned_items": [
         {
-          "item": "infernalexp:molten_gold_cluster",
-          "amount": 1
+          "item": "minecraft:gold_nugget",
+          "amount": 3
         }
       ]
     },
@@ -21,8 +17,8 @@
       "accepted_item": "minecraft:raw_gold",
       "returned_items": [
         {
-          "item": "infernalexp:molten_gold_cluster",
-          "amount": 1
+          "item": "minecraft:gold_nugget",
+          "amount": 3
         }
       ]
     },
@@ -30,8 +26,8 @@
       "accepted_item": "minecraft:gold_block",
       "returned_items": [
         {
-          "item": "infernalexp:molten_gold_cluster",
-          "amount": 9
+          "item": "minecraft:gold_nugget",
+          "amount": 27
         }
       ]
     },
@@ -39,8 +35,8 @@
       "accepted_item": "minecraft:raw_gold_block",
       "returned_items": [
         {
-          "item": "infernalexp:molten_gold_cluster",
-          "amount": 9
+          "item": "minecraft:gold_nugget",
+          "amount": 27
         }
       ]
     },
@@ -48,8 +44,8 @@
       "accepted_item": "minecraft:gold_ore",
       "returned_items": [
         {
-          "item": "infernalexp:molten_gold_cluster",
-          "amount": 3
+          "item": "minecraft:gold_nugget",
+          "amount": 9
         }
       ]
     },
@@ -57,8 +53,8 @@
       "accepted_item": "minecraft:deepslate_gold_ore",
       "returned_items": [
         {
-          "item": "infernalexp:molten_gold_cluster",
-          "amount": 3
+          "item": "minecraft:gold_nugget",
+          "amount": 9
         }
       ]
     },
@@ -66,8 +62,8 @@
       "accepted_item": "minecraft:nether_gold_ore",
       "returned_items": [
         {
-          "item": "infernalexp:molten_gold_cluster",
-          "amount": 3
+          "item": "minecraft:gold_nugget",
+          "amount": 9
         }
       ]
     },
@@ -75,8 +71,8 @@
       "accepted_item": "minecraft:golden_axe",
       "returned_items": [
         {
-          "item": "infernalexp:molten_gold_cluster",
-          "amount": 3
+          "item": "minecraft:gold_nugget",
+          "amount": 9
         }
       ]
     },
@@ -84,8 +80,8 @@
       "accepted_item": "minecraft:golden_pickaxe",
       "returned_items": [
         {
-          "item": "infernalexp:molten_gold_cluster",
-          "amount": 3
+          "item": "minecraft:gold_nugget",
+          "amount": 9
         }
       ]
     },
@@ -93,8 +89,8 @@
       "accepted_item": "minecraft:golden_sword",
       "returned_items": [
         {
-          "item": "infernalexp:molten_gold_cluster",
-          "amount": 2
+          "item": "minecraft:gold_nugget",
+          "amount": 6
         }
       ]
     },
@@ -102,8 +98,8 @@
       "accepted_item": "minecraft:golden_hoe",
       "returned_items": [
         {
-          "item": "infernalexp:molten_gold_cluster",
-          "amount": 2
+          "item": "minecraft:gold_nugget",
+          "amount": 6
         }
       ]
     },
@@ -111,8 +107,8 @@
       "accepted_item": "minecraft:golden_shovel",
       "returned_items": [
         {
-          "item": "infernalexp:molten_gold_cluster",
-          "amount": 1
+          "item": "minecraft:gold_nugget",
+          "amount": 3
         }
       ]
     },
@@ -120,8 +116,8 @@
       "accepted_item": "minecraft:golden_helmet",
       "returned_items": [
         {
-          "item": "infernalexp:molten_gold_cluster",
-          "amount": 5
+          "item": "minecraft:gold_nugget",
+          "amount": 15
         }
       ]
     },
@@ -129,8 +125,8 @@
       "accepted_item": "minecraft:golden_chestplate",
       "returned_items": [
         {
-          "item": "infernalexp:molten_gold_cluster",
-          "amount": 8
+          "item": "minecraft:gold_nugget",
+          "amount": 24
         }
       ]
     },
@@ -138,8 +134,8 @@
       "accepted_item": "minecraft:golden_leggings",
       "returned_items": [
         {
-          "item": "infernalexp:molten_gold_cluster",
-          "amount": 7
+          "item": "minecraft:gold_nugget",
+          "amount": 21
         }
       ]
     },
@@ -147,8 +143,8 @@
       "accepted_item": "minecraft:golden_boots",
       "returned_items": [
         {
-          "item": "infernalexp:molten_gold_cluster",
-          "amount": 4
+          "item": "minecraft:gold_nugget",
+          "amount": 12
         }
       ]
     },
@@ -156,8 +152,8 @@
       "accepted_item": "minecraft:golden_horse_armor",
       "returned_items": [
         {
-          "item": "infernalexp:molten_gold_cluster",
-          "amount": 6
+          "item": "minecraft:gold_nugget",
+          "amount": 18
         }
       ]
     },
@@ -165,8 +161,8 @@
       "accepted_item": "minecraft:light_weighted_pressure_plate",
       "returned_items": [
         {
-          "item": "infernalexp:molten_gold_cluster",
-          "amount": 2
+          "item": "minecraft:gold_nugget",
+          "amount": 6
         }
       ]
     },
@@ -174,8 +170,8 @@
       "accepted_item": "minecraft:powered_rail",
       "returned_items": [
         {
-          "item": "infernalexp:molten_gold_cluster",
-          "amount": 6
+          "item": "minecraft:gold_nugget",
+          "amount": 18
         }
       ]
     },
@@ -183,8 +179,8 @@
       "accepted_item": "minecraft:bell",
       "returned_items": [
         {
-          "item": "infernalexp:molten_gold_cluster",
-          "amount": 7
+          "item": "minecraft:gold_nugget",
+          "amount": 21
         }
       ]
     },
@@ -192,8 +188,8 @@
       "accepted_item": "minecraft:gilded_blackstone",
       "returned_items": [
         {
-          "item": "infernalexp:molten_gold_cluster",
-          "amount": 1
+          "item": "minecraft:gold_nugget",
+          "amount": 3
         }
       ]
     },
@@ -201,8 +197,8 @@
       "accepted_item": "minecraft:clock",
       "returned_items": [
         {
-          "item": "infernalexp:molten_gold_cluster",
-          "amount": 4
+          "item": "minecraft:gold_nugget",
+          "amount": 12
         }
       ]
     },
@@ -210,8 +206,8 @@
       "accepted_item": "minecraft:golden_carrot",
       "returned_items": [
         {
-          "item": "infernalexp:molten_gold_cluster",
-          "amount": 1
+          "item": "minecraft:gold_nugget",
+          "amount": 3
         }
       ]
     },
@@ -219,8 +215,8 @@
       "accepted_item": "minecraft:golden_apple",
       "returned_items": [
         {
-          "item": "infernalexp:molten_gold_cluster",
-          "amount": 2
+          "item": "minecraft:gold_nugget",
+          "amount": 6
         }
       ]
     },
