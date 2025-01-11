@@ -18,6 +18,7 @@ buildscript {
 
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'com.matthewprenger.cursegradle'
@@ -211,4 +212,9 @@ if (System.getProperty("idea.sync.active") == "true") {
             it.options.annotationProcessorPath = files()
         }
     }
+}
+
+idea.module {
+    // IntelliJ IDEA does not do this by itself anymore...
+    downloadJavadoc = downloadSources = true
 }
