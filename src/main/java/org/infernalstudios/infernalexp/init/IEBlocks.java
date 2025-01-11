@@ -16,6 +16,7 @@
 
 package org.infernalstudios.infernalexp.init;
 
+import net.minecraft.world.level.block.MagmaBlock;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.RegistryObject;
 import org.infernalstudios.infernalexp.InfernalExpansion;
@@ -171,7 +172,7 @@ public class IEBlocks {
     public static final RegistryObject<Block> RUBBLE = registerBlockWithDefaultItem("rubble", () -> new Block(getProperties(Blocks.GRAVEL)));
     public static final RegistryObject<Block> SILT = registerBlockWithDefaultItem("silt", () -> new Block(getProperties(Blocks.SAND)));
 
-    public static final RegistryObject<Block> BASALT_COBBLED = registerBlockWithDefaultItem("basalt_cobbled", () -> new RotatedPillarBlock(getProperties(Blocks.GRAVEL).sound(SoundType.BASALT)));
+    public static final RegistryObject<Block> BASALT_COBBLED = registerBlockWithDefaultItem("basalt_cobbled", () -> new Block(getProperties(Blocks.GRAVEL).sound(SoundType.BASALT)));
     public static final RegistryObject<Block> BASALT_COBBLED_SLAB = registerBlockWithDefaultItem("basalt_cobbled_slab", () -> new SlabBlock(getProperties(Blocks.GRAVEL).sound(SoundType.BASALT)));
     public static final RegistryObject<Block> BASALT_COBBLED_VERTICAL_SLAB = registerBlockWithDefaultItemConditioned("basalt_cobbled_vertical_slab", () -> new VerticalSlabBlock(getProperties(Blocks.GRAVEL).sound(SoundType.BASALT)), "quark");
 
@@ -198,7 +199,7 @@ public class IEBlocks {
     public static final RegistryObject<Block> MAGMATIC_CHISELED_BASALT_BRICKS = registerBlockWithDefaultItem("magmatic_chiseled_basalt_bricks", () -> new RotatedPillarBlock(getProperties(Blocks.BASALT)));
 
     public static final RegistryObject<Block> BASALT_IRON_ORE = registerBlockWithDefaultItem("basalt_iron_ore", () -> new BasaltIronOreBlock(getProperties(Blocks.NETHER_GOLD_ORE)));
-    public static final RegistryObject<Block> BASALTIC_MAGMA = registerBlockWithDefaultItem("basaltic_magma", () -> new BasalticMagmaBlock(getProperties(Blocks.MAGMA_BLOCK).lightLevel(value -> 2)));
+    public static final RegistryObject<Block> BASALTIC_MAGMA = registerBlockWithDefaultItem("basaltic_magma", () -> new MagmaBlock(getProperties(Blocks.MAGMA_BLOCK).lightLevel(value -> 2)));
 
     public static final RegistryObject<Block> SOUL_SAND_SLAB = registerBlockWithDefaultItem("soul_sand_slab", () -> new SlabBlock(getProperties(Blocks.SOUL_SAND)));
     public static final RegistryObject<Block> SOUL_SAND_VERTICAL_SLAB = registerBlockWithDefaultItemConditioned("soul_sand_vertical_slab", () -> new VerticalSlabBlock(getProperties(Blocks.SOUL_SAND)), "quark");
