@@ -83,10 +83,10 @@ public class InfernalExpansion {
     public static final String MOD_ID = "infernalexp";
 
     public InfernalExpansion() {
-        IEFireTypes.register();
-
         final ModLoadingContext modLoadingContext = ModLoadingContext.get();
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        IEFireTypes.register();
 
         modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(this::commonSetup);

@@ -33,26 +33,26 @@ public class GlowCampfireBlock extends CustomCampfireBlock {
 
     @Override
     protected BlockEntityTicker<CampfireBlockEntity> particleTick() {
-        return (Level p_155319_, BlockPos p_155320_, BlockState p_155321_, CampfireBlockEntity p_155322_) -> {
-            RandomSource randomsource = p_155319_.random;
+        return (Level level, BlockPos pos, BlockState state, CampfireBlockEntity blockEntity) -> {
+            RandomSource randomsource = level.random;
             if (randomsource.nextFloat() < 0.11F) {
                 for(int i = 0; i < randomsource.nextInt(2) + 2; ++i) {
-                    makeParticles(p_155319_, p_155320_);
+                    makeParticles(level, pos);
                 }
             }
 
-//            int l = p_155321_.getValue(CampfireBlock.FACING).get2DDataValue();
+//            int l = state.getValue(CampfireBlock.FACING).get2DDataValue();
 //
-//            for(int j = 0; j < p_155322_.items.size(); ++j) {
-//                if (!p_155322_.items.get(j).isEmpty() && randomsource.nextFloat() < 0.2F) {
+//            for(int j = 0; j < blockEntity.items.size(); ++j) {
+//                if (!blockEntity.items.get(j).isEmpty() && randomsource.nextFloat() < 0.2F) {
 //                    Direction direction = Direction.from2DDataValue(Math.floorMod(j + l, 4));
 //                    float f = 0.3125F;
-//                    double d0 = (double)p_155320_.getX() + 0.5D - (double)((float)direction.getStepX() * 0.3125F) + (double)((float)direction.getClockWise().getStepX() * 0.3125F);
-//                    double d1 = (double)p_155320_.getY() + 0.5D;
-//                    double d2 = (double)p_155320_.getZ() + 0.5D - (double)((float)direction.getStepZ() * 0.3125F) + (double)((float)direction.getClockWise().getStepZ() * 0.3125F);
+//                    double d0 = (double)pos.getX() + 0.5D - (double)((float)direction.getStepX() * 0.3125F) + (double)((float)direction.getClockWise().getStepX() * 0.3125F);
+//                    double d1 = (double)pos.getY() + 0.5D;
+//                    double d2 = (double)pos.getZ() + 0.5D - (double)((float)direction.getStepZ() * 0.3125F) + (double)((float)direction.getClockWise().getStepZ() * 0.3125F);
 //
 //                    for(int k = 0; k < 4; ++k) {
-//                        p_155319_.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 5.0E-4D, 0.0D);
+//                        level.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 5.0E-4D, 0.0D);
 //                    }
 //                }
 //            }
