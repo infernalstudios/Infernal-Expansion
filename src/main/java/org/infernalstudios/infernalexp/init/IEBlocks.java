@@ -23,7 +23,28 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.RegistryObject;
 import org.apache.commons.lang3.tuple.Pair;
 import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.blocks.*;
+import org.infernalstudios.infernalexp.blocks.BasaltIronOreBlock;
+import org.infernalstudios.infernalexp.blocks.BasalticMagmaBlock;
+import org.infernalstudios.infernalexp.blocks.BuriedBoneBlock;
+import org.infernalstudios.infernalexp.blocks.CrumblingBlackstoneBlock;
+import org.infernalstudios.infernalexp.blocks.DullthornsBlock;
+import org.infernalstudios.infernalexp.blocks.DullthornsBlockBlock;
+import org.infernalstudios.infernalexp.blocks.FungusCapBlock;
+import org.infernalstudios.infernalexp.blocks.GlowCampfireBlock;
+import org.infernalstudios.infernalexp.blocks.GlowFireBlock;
+import org.infernalstudios.infernalexp.blocks.GlowSandBlock;
+import org.infernalstudios.infernalexp.blocks.GlowTorchBlock;
+import org.infernalstudios.infernalexp.blocks.GlowWallTorchBlock;
+import org.infernalstudios.infernalexp.blocks.GlowdustBlock;
+import org.infernalstudios.infernalexp.blocks.LightUpPressurePlateBlock;
+import org.infernalstudios.infernalexp.blocks.LuminousFungusBlock;
+import org.infernalstudios.infernalexp.blocks.NetherCarpetBlock;
+import org.infernalstudios.infernalexp.blocks.NetherrackPathBlock;
+import org.infernalstudios.infernalexp.blocks.PlantedQuartzBlock;
+import org.infernalstudios.infernalexp.blocks.ShroomlightFungusBlock;
+import org.infernalstudios.infernalexp.blocks.SoulSoilPathBlock;
+import org.infernalstudios.infernalexp.blocks.TrappedGlowSandBlock;
+import org.infernalstudios.infernalexp.blocks.VerticalSlabBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -265,7 +286,7 @@ public class IEBlocks {
     }
 
     private static Boolean neverAllowSpawn(BlockState state, BlockGetter reader, BlockPos pos, EntityType<?> entity) {
-        return false;
+        return (boolean) false;
     }
 
     public static BlockBehaviour.Properties getProperties(Material materialIn, float hardnessAndResistanceIn) {
