@@ -33,27 +33,27 @@ public class IEFireTypes {
     public static void register() {
         Fire.Builder fireBuilder = FireManager.fireBuilder(GLOW_FIRE_TYPE);
         FireManager.registerFire(
-          fireBuilder
-            .setDamage(2)
-            .setComponent(Fire.Component.FLAME_PARTICLE, new ResourceLocation(InfernalExpansion.MOD_ID, "glowstone_sparkle"))
-            .setComponent(Fire.Component.WALL_TORCH_BLOCK, new ResourceLocation(InfernalExpansion.MOD_ID, "glow_torch_wall"))
-            .setBehavior(entity -> {
-                if (!entity.level.isClientSide() && entity.isAlive() && entity instanceof LivingEntity livingEntity && InfernalExpansionConfig.Miscellaneous.LUMINOUS_FUNGUS_GIVES_EFFECT.getBool()) {
-                    livingEntity.addEffect(new MobEffectInstance(IEEffects.LUMINOUS.get(), 600, 0, true, true));
-                }
-            })
-            .removeFireAspect()
-            .removeFlame()
-            .build()
-        );
-        if (ModList.get().isLoaded(ENDER_FIRE_TYPE.getNamespace())) {
-            FireManager.registerFire(
-              fireBuilder
-                .reset(ENDER_FIRE_TYPE)
-                .setDamage(3)
+            fireBuilder
+                .setDamage(2)
+                .setComponent(Fire.Component.FLAME_PARTICLE, new ResourceLocation(InfernalExpansion.MOD_ID, "glowstone_sparkle"))
+                .setComponent(Fire.Component.WALL_TORCH_BLOCK, new ResourceLocation(InfernalExpansion.MOD_ID, "glow_torch_wall"))
+                .setBehavior(entity -> {
+                    if (!entity.level.isClientSide() && entity.isAlive() && entity instanceof LivingEntity livingEntity && InfernalExpansionConfig.Miscellaneous.LUMINOUS_FUNGUS_GIVES_EFFECT.getBool()) {
+                        livingEntity.addEffect(new MobEffectInstance(IEEffects.LUMINOUS.get(), 600, 0, true, true));
+                    }
+                })
                 .removeFireAspect()
                 .removeFlame()
                 .build()
+        );
+        if (ModList.get().isLoaded(ENDER_FIRE_TYPE.getNamespace())) {
+            FireManager.registerFire(
+                fireBuilder
+                    .reset(ENDER_FIRE_TYPE)
+                    .setDamage(3)
+                    .removeFireAspect()
+                    .removeFlame()
+                    .build()
             );
         }
     }
