@@ -83,6 +83,8 @@ public class InfernalExpansion {
     public static final String MOD_ID = "infernalexp";
 
     public InfernalExpansion() {
+        IEFireTypes.register();
+
         final ModLoadingContext modLoadingContext = ModLoadingContext.get();
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
@@ -127,7 +129,6 @@ public class InfernalExpansion {
         event.enqueueWork(IESurfaceRules::register);
         event.enqueueWork(IENetworkHandler::register);
         event.enqueueWork(IEBrewingRecipes::register);
-        event.enqueueWork(IEFireTypes::register);
         event.enqueueWork(IECompostables::register);
 
         // Create mob spawnrate config files, they get created on game load instead of world load

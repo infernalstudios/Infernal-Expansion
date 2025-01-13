@@ -10,11 +10,9 @@
   },
   "mixins": [
     "common.MixinAbstractArrowEntity",
-    "common.MixinAbstractFireBlock",
     "common.MixinArrowEntity",
     "common.MixinBubbleColumnBlock",
     "common.MixinDimensionGeneratorSettings",
-    "common.MixinEntity",
     "common.MixinMagmaCubeEntity",
     "common.MixinMinecraftServer",
     "common.MixinMultiNoiseBiomeSourcePreset",
@@ -35,12 +33,9 @@
   "client": [
     "client.MixinBlockGetter",
     "client.MixinClientPacketListener",
-    "client.MixinEntityRendererManager",
     "client.MixinItemInHandRenderer",
     "client.MixinItemProperties",
-    "client.MixinModelBakery",
     "client.MixinMultiPlayerGameMode",
-    "client.MixinOverlayRenderer",
     "client.MixinPaintingSpriteUploader",
     "client.MixinPlayerRenderer",
     "client.OptionInstanceAccessor"

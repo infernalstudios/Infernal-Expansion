@@ -16,11 +16,12 @@
 
 package org.infernalstudios.infernalexp.blocks;
 
+import it.crystalnest.soul_fire_d.api.block.CustomWallTorchBlock;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.resources.ResourceLocation;
 import org.infernalstudios.infernalexp.init.IEParticleTypes;
 
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.WallTorchBlock;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
@@ -29,9 +30,11 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class GlowWallTorchBlock extends WallTorchBlock {
-    public GlowWallTorchBlock(Properties properties) {
-        super(properties, null);
+import java.util.function.Supplier;
+
+public class GlowWallTorchBlock extends CustomWallTorchBlock {
+    public GlowWallTorchBlock(ResourceLocation fireType, Supplier<SimpleParticleType> type) {
+        super(fireType, type);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -42,7 +45,7 @@ public class GlowWallTorchBlock extends WallTorchBlock {
         double d1 = (double) pos.getY() + 0.7D;
         double d2 = (double) pos.getZ() + 0.5D;
         Direction direction1 = direction.getOpposite();
-        worldIn.addParticle(ParticleTypes.SMOKE, d0 + 0.27D * (double) direction1.getStepX(), d1 + 0.22D, d2 + 0.27D * (double) direction1.getStepZ(), 0.0D, 0.0D, 0.0D);
+//        worldIn.addParticle(ParticleTypes.SMOKE, d0 + 0.27D * (double) direction1.getStepX(), d1 + 0.22D, d2 + 0.27D * (double) direction1.getStepZ(), 0.0D, 0.0D, 0.0D);
         if (rand.nextInt(2) == 1) {
             worldIn.addParticle(IEParticleTypes.GLOWSTONE_SPARKLE.get(), d0 + 0.27D * (double) direction1.getStepX(), d1 + 0.22D, d2 + 0.27D * (double) direction1.getStepZ(), 0.0D, 0.0D, 0.0D);
         }

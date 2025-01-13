@@ -16,32 +16,14 @@
 
 package org.infernalstudios.infernalexp.init;
 
+import it.crystalnest.soul_fire_d.api.FireManager;
+import it.crystalnest.soul_fire_d.api.block.CustomLanternBlock;
 import net.minecraft.world.level.block.MagmaBlock;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.RegistryObject;
+import org.apache.commons.lang3.tuple.Pair;
 import org.infernalstudios.infernalexp.InfernalExpansion;
-import org.infernalstudios.infernalexp.blocks.BasaltIronOreBlock;
-import org.infernalstudios.infernalexp.blocks.BasalticMagmaBlock;
-import org.infernalstudios.infernalexp.blocks.BuriedBoneBlock;
-import org.infernalstudios.infernalexp.blocks.CrumblingBlackstoneBlock;
-import org.infernalstudios.infernalexp.blocks.DullthornsBlock;
-import org.infernalstudios.infernalexp.blocks.DullthornsBlockBlock;
-import org.infernalstudios.infernalexp.blocks.FungusCapBlock;
-import org.infernalstudios.infernalexp.blocks.GlowCampfireBlock;
-import org.infernalstudios.infernalexp.blocks.GlowFireBlock;
-import org.infernalstudios.infernalexp.blocks.GlowSandBlock;
-import org.infernalstudios.infernalexp.blocks.GlowTorchBlock;
-import org.infernalstudios.infernalexp.blocks.GlowWallTorchBlock;
-import org.infernalstudios.infernalexp.blocks.GlowdustBlock;
-import org.infernalstudios.infernalexp.blocks.LightUpPressurePlateBlock;
-import org.infernalstudios.infernalexp.blocks.LuminousFungusBlock;
-import org.infernalstudios.infernalexp.blocks.NetherCarpetBlock;
-import org.infernalstudios.infernalexp.blocks.NetherrackPathBlock;
-import org.infernalstudios.infernalexp.blocks.PlantedQuartzBlock;
-import org.infernalstudios.infernalexp.blocks.ShroomlightFungusBlock;
-import org.infernalstudios.infernalexp.blocks.SoulSoilPathBlock;
-import org.infernalstudios.infernalexp.blocks.TrappedGlowSandBlock;
-import org.infernalstudios.infernalexp.blocks.VerticalSlabBlock;
+import org.infernalstudios.infernalexp.blocks.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -49,7 +31,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour.OffsetType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.GlassBlock;
-import net.minecraft.world.level.block.LanternBlock;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -244,12 +225,10 @@ public class IEBlocks {
     public static final RegistryObject<Block> WARPED_FUNGUS_CAP = registerBlockWithDefaultItem("warped_fungus_cap", () -> new FungusCapBlock(BlockBehaviour.Properties.copy(Blocks.WARPED_WART_BLOCK)));
     public static final RegistryObject<Block> LUMINOUS_FUNGUS_CAP = registerBlockWithDefaultItem("luminous_fungus_cap", () -> new FungusCapBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_WART_BLOCK).lightLevel(value -> 14)));
 
-    public static final RegistryObject<Block> GLOW_LANTERN = registerBlockWithDefaultItem("glow_lantern", () -> new LanternBlock(getProperties(Blocks.LANTERN)));
-    public static final RegistryObject<Block> GLOW_TORCH = registerBlock("glow_torch", () -> new GlowTorchBlock(getProperties(Blocks.TORCH)));
-    @SuppressWarnings("deprecation")
-    public static final RegistryObject<Block> GLOW_TORCH_WALL = registerBlock("glow_torch_wall", () -> new GlowWallTorchBlock(getProperties(IEBlocks.GLOW_TORCH.get()).dropsLike(GLOW_TORCH.get())));
-    public static final RegistryObject<Block> GLOW_CAMPFIRE = registerBlockWithDefaultItem("glow_campfire", () -> new GlowCampfireBlock(2, getProperties(Blocks.CAMPFIRE)));
-    public static final RegistryObject<Block> GLOW_FIRE = registerBlock("glow_fire", () -> new GlowFireBlock(getProperties(Blocks.FIRE)));
+    public static final Supplier<CustomLanternBlock> GLOW_LANTERN = FireManager.registerLantern(IEFireTypes.GLOW_FIRE_TYPE);
+    public static final Pair<Supplier<GlowTorchBlock>, Supplier<GlowWallTorchBlock>> GLOW_TORCHES = FireManager.registerTorch(IEFireTypes.GLOW_FIRE_TYPE, GlowTorchBlock::new, GlowWallTorchBlock::new);
+    public static final Supplier<GlowCampfireBlock> GLOW_CAMPFIRE = FireManager.registerCampfire(IEFireTypes.GLOW_FIRE_TYPE, GlowCampfireBlock::new);
+    public static final Supplier<GlowFireBlock> GLOW_FIRE = FireManager.registerFireSource(IEFireTypes.GLOW_FIRE_TYPE, GlowFireBlock::new);
 
     public static final RegistryObject<Block> GLOWSILK_COCOON = registerBlockWithDefaultItem("glowsilk_cocoon", () -> new RotatedPillarBlock(getProperties(Material.GRASS).sound(SoundType.WOOL).requiresCorrectToolForDrops().strength(5.0F, 1200.0F).lightLevel(value -> 5)));
     // Foliage
@@ -286,7 +265,7 @@ public class IEBlocks {
     }
 
     private static Boolean neverAllowSpawn(BlockState state, BlockGetter reader, BlockPos pos, EntityType<?> entity) {
-        return (boolean) false;
+        return false;
     }
 
     public static BlockBehaviour.Properties getProperties(Material materialIn, float hardnessAndResistanceIn) {

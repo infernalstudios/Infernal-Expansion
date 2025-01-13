@@ -18,7 +18,6 @@ package org.infernalstudios.infernalexp.events;
 
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.blockentity.CampfireRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -49,7 +48,6 @@ import org.infernalstudios.infernalexp.client.entity.render.ShroomloinRenderer;
 import org.infernalstudios.infernalexp.client.entity.render.VolineRenderer;
 import org.infernalstudios.infernalexp.client.entity.render.WarpbeetleRenderer;
 import org.infernalstudios.infernalexp.client.gui.InfectionHeartOverlay;
-import org.infernalstudios.infernalexp.init.IEBlockEntityTypes;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.infernalstudios.infernalexp.init.IEEntityTypes;
 import org.infernalstudios.infernalexp.init.IEItems;
@@ -76,8 +74,6 @@ public class ClientEvents {
         event.registerEntityRenderer(IEEntityTypes.INFERNAL_PAINTING.get(), InfernalPaintingRenderer::new);
 //        event.registerEntityRenderer(IEEntityTypes.CEROBEETLE.get(), CerobeetleRenderer::new);
 //        event.registerEntityRenderer(IEEntityTypes.PYRNO.get(), PyrnoRenderer::new);
-
-        event.registerBlockEntityRenderer(IEBlockEntityTypes.GLOW_CAMPFIRE.get(), CampfireRenderer::new);
     }
 
     @SubscribeEvent
@@ -108,12 +104,6 @@ public class ClientEvents {
         ItemBlockRenderTypes.setRenderLayer(IEBlocks.POTTED_LUMINOUS_FUNGUS.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(IEBlocks.POTTED_DULLTHORNS.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(IEBlocks.POTTED_SHROOMLIGHT_FUNGUS.get(), RenderType.cutout());
-
-        ItemBlockRenderTypes.setRenderLayer(IEBlocks.GLOW_TORCH.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(IEBlocks.GLOW_TORCH_WALL.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(IEBlocks.GLOW_CAMPFIRE.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(IEBlocks.GLOW_LANTERN.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(IEBlocks.GLOW_FIRE.get(), RenderType.cutout());
 
         ItemBlockRenderTypes.setRenderLayer(IEBlocks.SHROOMLIGHT_FUNGUS.get(), RenderType.cutout());
 
