@@ -57,12 +57,7 @@ public class GlowdustBlock extends Block {
 
     @Override
     public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
-        switch (type) {
-            case LAND:
-                return state.getValue(LAYERS) < HEIGHT_IMPASSABLE;
-            default:
-                return false;
-        }
+        return type == PathComputationType.LAND && state.getValue(LAYERS) < HEIGHT_IMPASSABLE;
     }
 
     @Override
