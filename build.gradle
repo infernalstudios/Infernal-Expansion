@@ -1,54 +1,48 @@
-buildscript {
-    repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
-        maven { url = 'https://repo.spongepowered.org/maven/' }
-        maven { url = 'https://plugins.gradle.org/m2/' }
-
-        jcenter()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle',           name: 'ForgeGradle', version: '5.1+',          changing: true
-        classpath group: 'org.spongepowered',                   name: 'mixingradle', version: '0.7-SNAPSHOT'
-        classpath group: 'gradle.plugin.com.modrinth.minotaur', name: 'Minotaur',    version: '1.2.1'
-        classpath group: 'gradle.plugin.com.matthewprenger',    name: 'CurseGradle', version: '1.4.0'
-    }
-}
+import net.minecraftforge.gradle.userdev.tasks.JarJar
 
 plugins {
-    // This should be below the net.minecraftforge.gradle plugin
-    id 'org.parchmentmc.librarian.forgegradle' version '1.+' apply false
+    id 'eclipse'
+    id 'idea'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'org.parchmentmc.librarian.forgegradle' version '[1,2)'
+    id 'org.spongepowered.mixin' version '[0.7,0.8)'
+    id 'org.moddingx.modgradle.mapping' version '[4,5)'
+    id 'org.moddingx.modgradle.sourcejar' version '[4,5)' apply false
+    id 'com.matthewprenger.cursegradle' version '1.4.0' apply false
+    id 'com.modrinth.minotaur' version '[2,)' apply false
 }
-
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'org.parchmentmc.librarian.forgegradle'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-apply plugin: 'maven-publish'
-apply plugin: 'org.spongepowered.mixin'
-apply plugin: 'com.matthewprenger.cursegradle'
 
 // This initializes the config. Please try to modify the variables in the config file, if needed, add more if you see a reason to.
 ext.config = parseConfig(file('build.properties'))
 
 version = config.VERSION
 group = "${config.GROUP}.${config.ARTIFACT}"
-archivesBaseName = "${config.ARCHIVES_BASE_NAME}-${config.MINECRAFT_VERSION}"
+base.archivesName = "${config.ARCHIVES_BASE_NAME}-${config.MINECRAFT_VERSION}"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+apply plugin: 'org.moddingx.modgradle.sourcejar'
 
 minecraft {
     mappings channel: config.MAPPINGS_CHANNEL, version: config.MAPPINGS_VERSION
 
+    //enableEclipsePrepareRuns = true
+    //enableIdeaPrepareRuns = true
+
+    copyIdeResources = true
+
+    //generateRunFolders = true
+
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
-        client {
+        configureEach {
             workingDirectory project.file('run')
-            arg '-mixin.config=infernal-expansion.mixins.json'
+
             property 'forge.logging.markers', 'SCAN,REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+
             mods {
                 infernalexp {
                     source sourceSets.main
@@ -56,35 +50,25 @@ minecraft {
             }
         }
 
+        client { }
+
         server {
-            workingDirectory project.file('run')
-            arg '-mixin.config=infernal-expansion.mixins.json'
-            property 'forge.logging.markers', 'SCAN,REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-            mods {
-                infernalexp {
-                    source sourceSets.main
-                }
-            }
+            args '--nogui'
         }
 
         data {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-            args '--mod', 'infernalexp', '--all', '--output', file('src/generated/resources/')
-            mods {
-                infernalexp {
-                    source sourceSets.main
-                }
-            }
+            args '--mod', 'infernalexp', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
         }
     }
 }
 
+sourceSets.main.resources {
+    srcDir 'src/generated/resources'
+}
+
 mixin {
     add sourceSets.main, "infernal-expansion.refmap.json"
-    config "infernal-expansion.mixins.json"
+    config 'infernal-expansion.mixins.json'
 
     debug.verbose = true
     debug.export = true
@@ -93,9 +77,6 @@ mixin {
 
 repositories {
     maven { url = 'https://repo.spongepowered.org/maven/' }
-
-    jcenter()
-    mavenCentral()
 
     // Crystal Nest repository where Soul Fire'd is hosted.
     maven {
@@ -111,12 +92,25 @@ repositories {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${config.MINECRAFT_VERSION}-${config.FORGE_VERSION}"
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    annotationProcessor "org.spongepowered:mixin:${config.MIXIN_VERSION}:processor"
 
+    // MixinExtras
+    // This is included with Soul Fire'd, so we don't need to embed it ourselves
+    compileOnly annotationProcessor("io.github.llamalad7:mixinextras-common:${config.MIXINEXTRAS_VERSION}")
+    implementation "io.github.llamalad7:mixinextras-forge:${config.MIXINEXTRAS_VERSION}"
+
+    // TerraBlender
     compileOnly fg.deobf("com.github.glitchfiend:TerraBlender-forge:${config.MINECRAFT_VERSION}-${config.TERRABLENDER_VERSION}")
 
-    implementation fg.deobf("it.crystalnest:cobweb-forge:${config.MINECRAFT_VERSION}-${config.COBWEB_VERSION}")
-    implementation fg.deobf("it.crystalnest:soul-fire-d-forge:${config.MINECRAFT_VERSION}-${config.SOUL_FIRE_D_VERSION}")
+    // Soul Fire'd
+    implementation(jarJar(fg.deobf("it.crystalnest:cobweb-forge:${config.MINECRAFT_VERSION}-${config.COBWEB_VERSION}"))) {
+        jarJar.pin(it, config.COBWEB_VERSION)
+        jarJar.ranged(it, "[${config.COBWEB_VERSION},)")
+    }
+    implementation(jarJar(fg.deobf("it.crystalnest:soul-fire-d-forge:${config.MINECRAFT_VERSION}-${config.SOUL_FIRE_D_VERSION}"))) {
+        jarJar.pin(it, config.SOUL_FIRE_D_VERSION)
+        jarJar.ranged(it, "[${config.SOUL_FIRE_D_VERSION},)")
+    }
 }
 
 jar {
@@ -127,28 +121,47 @@ jar {
                 'Specification-Version' : '1',
                 'Implementation-Title'  : config.TITLE,
                 'Implementation-Version': config.VERSION,
-                'Implementation-Vendor' : config.AUTHOR,
-                'MixinConfigs'          : 'infernal-expansion.mixins.json',
+                'Implementation-Vendor' : config.AUTHOR
         ])
     }
+
+    finalizedBy('reobfJar')
+
+    archiveClassifier = 'no-embeds'
 }
 
-jar.finalizedBy('reobfJar')
+tasks.named('jarJar', JarJar).configure {
+    finalizedBy 'reobfJarJar'
 
-task sourcesJar(type: Jar) {
-    archiveClassifier.set('sources')
-    from sourceSets.main.allJava
+    archiveClassifier = ''
 }
 
-tasks.build.dependsOn sourcesJar
+tasks.named('build', DefaultTask).configure {
+    dependsOn 'jarJar'
+}
+
+afterEvaluate {
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+    }
+
+    tasks.withType(Test).configureEach {
+        defaultCharacterEncoding = 'UTF-8'
+    }
+
+    tasks.withType(Javadoc).configureEach {
+        options.encoding = 'UTF-8'
+    }
+}
 
 publishing {
     publications {
         mavenJava(MavenPublication) {
             groupId = config.GROUP
             artifactId = config.ARTIFACT
+            artifact project.tasks.jarJar
             artifact jar
-            artifact sourcesJar
+            artifact sourceJar
             version "${config.VERSION}-${config.MINECRAFT_VERSION}"
 
             pom {
@@ -183,37 +196,45 @@ publishing {
     }
 }
 
-// Modrinth publishing
-import com.modrinth.minotaur.TaskModrinthUpload
+if (System.getenv('MODRINTH')) {
+    apply plugin: 'com.modrinth.minotaur'
 
-task publishModrinth (type: TaskModrinthUpload) {
-    onlyIf {
-        System.getenv('MODRINTH')
+    // Modrinth publishing
+    modrinth {
+        token = System.getenv('MODRINTH')
+        projectId = 'ZrpxHZN4'
+        versionNumber = project.version
+        versionType = "release"
+        uploadFile = project.tasks.jarJar
+        additionalFiles = [ jar, sourceJar ]
+        gameVersions = [ config.MINECRAFT_VERSION ]
+        loaders = [ 'forge' ]
     }
-
-    token = System.getenv('MODRINTH')
-    projectId = 'ZrpxHZN4'
-    versionNumber = project.version
-    uploadFile = jar
-    addFile(sourcesJar)
-    addGameVersion(config.MINECRAFT_VERSION)
-    addLoader('forge')
+} else {
+    logger.lifecycle 'Disabling Modrinth publishing! MODRINTH environment variable is not set.'
 }
 
-// Curseforge publishing
-curseforge {
-  apiKey = System.getenv('CURSEFORGE') ?: 'If you\'re seeing this, you haven\'t set your "CURSEFORGE" environment variable'
-  
-  project {
-    id = '395078'
-    changelog = 'No changelog specified.'
-    releaseType = 'release'
-    addGameVersion config.MINECRAFT_VERSION
-    mainArtifact (jar) { 
-      displayName = "Infernal Expansion Release ${project.version}"
+if (System.getenv('CURSEFORGE')) {
+    apply plugin: 'com.matthewprenger.cursegradle'
+
+    // Curseforge publishing
+    curseforge {
+        apiKey = System.getenv('CURSEFORGE') ?: 'If you\'re seeing this, you haven\'t set your "CURSEFORGE" environment variable'
+
+        project {
+            id = '395078'
+            changelog = 'No changelog specified.'
+            releaseType = 'release'
+            addGameVersion config.MINECRAFT_VERSION
+            mainArtifact (project.tasks.jarJar) {
+                displayName = "Infernal Expansion Release ${project.version}"
+            }
+            addArtifact jar
+            addArtifact sourceJar
+        }
     }
-    addArtifact sourcesJar
-  }
+} else {
+    logger.lifecycle 'Disabling CurseForge publishing! CURSEFORGE environment variable is not set.'
 }
 
 
@@ -223,14 +244,6 @@ def parseConfig(File config) {
         def prop = new Properties()
         prop.load(it)
         return (new ConfigSlurper().parse(prop))
-    }
-}
-
-if (System.getProperty("idea.sync.active") == "true") {
-    afterEvaluate {
-        tasks.withType(JavaCompile).all {
-            it.options.annotationProcessorPath = files()
-        }
     }
 }
 
