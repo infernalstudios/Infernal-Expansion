@@ -44,7 +44,7 @@ public class MixinItemProperties {
         Optional<ResourceKey<Biome>> biomeKey = clientWorld.getBiome(entity.blockPosition()).unwrapKey();
 
         if (biomeKey.isPresent() && biomeKey.get().equals(IEBiomes.GLOWSTONE_CANYON)) {
-            return Mth.nextDouble(entity.getRandom(), 0.95, 1.05) % 1;
+            return Mth.nextDouble(entity.random, 0.95, 1.05) % 1;
         }
         return original.call();
     }
