@@ -39,7 +39,7 @@ public class DevEnvironmentMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        if (mixinClassName.contains("org.infernalstudios.infernalexp.mixin.dev"))
+        if (mixinClassName.startsWith("org.infernalstudios.infernalexp.mixin.dev"))
             return !FMLLoader.isProduction();
 
         return true;

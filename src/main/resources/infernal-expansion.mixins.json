@@ -12,7 +12,6 @@
     "common.MixinAbstractArrowEntity",
     "common.MixinArrowEntity",
     "common.MixinBubbleColumnBlock",
-    "common.MixinDimensionGeneratorSettings",
     "common.MixinMagmaCubeEntity",
     "common.MixinMinecraftServer",
     "common.MixinMultiNoiseBiomeSourcePreset",

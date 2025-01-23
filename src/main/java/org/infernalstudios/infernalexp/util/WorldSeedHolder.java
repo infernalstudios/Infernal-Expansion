@@ -16,14 +16,9 @@
 
 package org.infernalstudios.infernalexp.util;
 
+@Deprecated(forRemoval = true)
 public class WorldSeedHolder {
-    private static long SEED = 0;
+    public static long getSeed() { return 0; }
 
-    public static long getSeed() {
-        return SEED;
-    }
-
-    public static void setSeed(long seed) {
-        SEED = seed;
-    }
+    public static void setSeed(long seed) { }
 }
