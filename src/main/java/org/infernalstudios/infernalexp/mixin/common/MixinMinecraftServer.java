@@ -36,10 +36,6 @@ import java.util.List;
 
 @Mixin(MinecraftServer.class)
 public abstract class MixinMinecraftServer {
-
-    @Shadow
-    public abstract WorldData getWorldData();
-
     /**
      * Thanks to CorgiTaco from BYG for showing me and letting me use this approach to adding surface rules
      *
@@ -50,10 +46,7 @@ public abstract class MixinMinecraftServer {
         if (ModList.get().isLoaded("terrablender"))
             return;
 
-        if (this.getWorldData() == null)
-            throw new NullPointerException("What! The server's world data is null.");
-
-        LevelStem levelStem = this.getWorldData().worldGenSettings().dimensions().get(LevelStem.NETHER);
+        LevelStem levelStem = ((MinecraftServer) (Object) this).getWorldData().worldGenSettings().dimensions().get(LevelStem.NETHER);
 
         if (levelStem == null)
             throw new NullPointerException(LevelStem.NETHER.location() + " is not a valid level stem key. This is likely the result of a broken level.dat, likely caused by moving this world between MC versions.");

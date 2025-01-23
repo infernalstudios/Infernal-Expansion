@@ -47,38 +47,47 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Strider.class)
 public abstract class MixinStriderEntity extends Animal implements ItemSteerable, Saddleable, IBucketable {
+    // TODO Replace with capability
+    @Deprecated(forRemoval = true)
     @Shadow
     protected abstract void defineSynchedData();
 
+    @Deprecated(forRemoval = true)
     @Shadow
     public abstract void readAdditionalSaveData(CompoundTag compound);
 
+    @Deprecated(forRemoval = true)
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Strider.class, EntityDataSerializers.BOOLEAN);
 
     protected MixinStriderEntity(EntityType<? extends Animal> type, Level worldIn) {
         super(type, worldIn);
     }
 
+    @Deprecated(forRemoval = true)
     @Inject(method = "defineSynchedData", at = @At("HEAD"))
     private void IE_registerData(CallbackInfo info) {
         this.entityData.define(FROM_BUCKET, false);
     }
 
+    @Deprecated(forRemoval = true)
     @Override
     public boolean isFromBucket() {
         return this.entityData.get(FROM_BUCKET);
     }
 
+    @Deprecated(forRemoval = true)
     @Override
     public void setFromBucket(boolean isFromBucket) {
         this.entityData.set(FROM_BUCKET, isFromBucket);
     }
 
+    @Deprecated(forRemoval = true)
     @Inject(method = "addAdditionalSaveData", at = @At("HEAD"))
     private void IE_writeAdditional(CompoundTag compound, CallbackInfo ci) {
         compound.putBoolean("FromBucket", this.isFromBucket());
     }
 
+    @Deprecated(forRemoval = true)
     @Inject(method = "readAdditionalSaveData", at = @At("HEAD"))
     private void IE_readAdditional(CompoundTag compound, CallbackInfo ci) {
         this.setFromBucket(compound.getBoolean("FromBucket"));

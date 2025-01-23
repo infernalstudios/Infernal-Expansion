@@ -16,24 +16,27 @@
 
 package org.infernalstudios.infernalexp.mixin.client;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
-import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
 import org.infernalstudios.infernalexp.init.IEItems;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerRenderer.class)
 public class MixinPlayerRenderer {
 
-    @Inject(method = "getArmPose", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;getUseAnimation()Lnet/minecraft/world/item/UseAnim;"), cancellable = true)
-    private static void renderWhipInfernalExpansion(AbstractClientPlayer player, InteractionHand hand, CallbackInfoReturnable<HumanoidModel.ArmPose> cir) {
-        if (player.getItemInHand(hand).is(IEItems.BLINDSIGHT_TONGUE_WHIP.get()) || player.getItemInHand(hand).is(IEItems.KINETIC_TONGUE_WHIP.get())) {
-            cir.setReturnValue(HumanoidModel.ArmPose.THROW_SPEAR);
+    @WrapOperation(method = "getArmPose", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;getUseAnimation()Lnet/minecraft/world/item/UseAnim;"))
+    private static UseAnim renderWhipInfernalExpansion(ItemStack itemstack, Operation<UseAnim> original) {
+        if (itemstack.is(IEItems.BLINDSIGHT_TONGUE_WHIP.get()) || itemstack.is(IEItems.KINETIC_TONGUE_WHIP.get())) {
+            return UseAnim.SPEAR;
         }
+
+        return original.call(itemstack);
     }
 
 }

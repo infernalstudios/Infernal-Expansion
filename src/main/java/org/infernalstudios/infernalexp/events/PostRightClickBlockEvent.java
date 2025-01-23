@@ -24,17 +24,25 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.fml.LogicalSide;
 
+/**
+ * This event is only fired if there was no right click action for the targeted block.
+ * <p>
+ * This event won't fire if
+ * {@link net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock RightClickBlock}
+ * has set the useItem {@link net.minecraftforge.eventbus.api.Event.Result Event.Result} to
+ * {@link net.minecraftforge.eventbus.api.Event.Result#DENY DENY}.
+ * <p>
+ * This event is not cancellable and is fired on the {@linkplain LogicalSide#SERVER logical server} and the
+ * {@linkplain LogicalSide#CLIENT logical client}.
+ */
 public class PostRightClickBlockEvent extends PlayerEvent {
 
     private final InteractionHand hand;
     private final BlockPos pos;
     private final BlockHitResult hitVec;
 
-    /**
-     * This event is only fired if there was no right click action for the targeted block.
-     * This event won't fire if {@link net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock} has set the useItem {@link net.minecraftforge.eventbus.api.Event.Result} to DENY
-     */
     public PostRightClickBlockEvent(Player player, InteractionHand hand, BlockPos pos, BlockHitResult hitVec) {
         super(Preconditions.checkNotNull(player, "Null player in PostRightClickBlockEvent!"));
         this.hand = Preconditions.checkNotNull(hand, "Null hand in PostRightClickBlockEvent!");

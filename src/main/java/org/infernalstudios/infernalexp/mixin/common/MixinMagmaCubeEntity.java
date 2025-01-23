@@ -38,39 +38,47 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 
 import javax.annotation.Nullable;
 
 @Mixin(MagmaCube.class)
 public abstract class MixinMagmaCubeEntity extends Slime implements IBucketable {
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(MagmaCube.class, EntityDataSerializers.BOOLEAN);
+    // TODO Replace with capability
+    @Deprecated(forRemoval = true)
+    @Unique private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(MagmaCube.class, EntityDataSerializers.BOOLEAN);
 
     public MixinMagmaCubeEntity(EntityType<? extends Slime> type, Level worldIn) {
         super(type, worldIn);
     }
 
+    @Deprecated(forRemoval = true)
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(FROM_BUCKET, false);
     }
 
+    @Deprecated(forRemoval = true)
     @Override
     public boolean isFromBucket() {
         return this.entityData.get(FROM_BUCKET);
     }
 
+    @Deprecated(forRemoval = true)
     @Override
     public void setFromBucket(boolean isFromBucket) {
         this.entityData.set(FROM_BUCKET, isFromBucket);
     }
 
+    @Deprecated(forRemoval = true)
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("FromBucket", this.isFromBucket());
     }
 
+    @Deprecated(forRemoval = true)
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);

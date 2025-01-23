@@ -16,24 +16,31 @@
 
 package org.infernalstudios.infernalexp.mixin.client;
 
-import net.minecraft.client.player.LocalPlayer;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.renderer.ItemInHandRenderer;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import org.infernalstudios.infernalexp.init.IEItems;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ItemInHandRenderer.class)
 public class MixinItemInHandRenderer {
 
-    @Inject(method = "evaluateWhichHandsToRender", at = @At("HEAD"), cancellable = true)
-    private static void IE_selectionUsingItemWhileHoldingGlowsilkBow(LocalPlayer player, CallbackInfoReturnable<ItemInHandRenderer.HandRenderSelection> cir) {
-        if (player.isUsingItem()) {
-            if (player.getMainHandItem().is(IEItems.GLOWSILK_BOW.get()) || player.getOffhandItem().is(IEItems.GLOWSILK_BOW.get())) {
-                cir.setReturnValue(ItemInHandRenderer.HandRenderSelection.onlyForHand(player.getUsedItemHand()));
-            }
-        }
+    @WrapOperation(
+        method = {
+            "evaluateWhichHandsToRender",
+            "selectionUsingItemWhileHoldingBowLike"
+        },
+        at = @At(
+            value = "INVOKE",
+            target = "net/minecraft/world/item/ItemStack.is(Lnet/minecraft/world/item/Item;)Z"
+        ),
+        require = 0
+    )
+    private static boolean IE_selectionUsingItemWhileHoldingGlowsilkBow(ItemStack itemStack, Item item, Operation<Boolean> original) {
+        return original.call(itemStack, item) || (item == Items.BOW && original.call(itemStack, IEItems.GLOWSILK_BOW.get()));
     }
-
 }

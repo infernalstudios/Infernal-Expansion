@@ -16,20 +16,29 @@
 
 package org.infernalstudios.infernalexp.mixin.common;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import org.infernalstudios.infernalexp.init.IEBlocks;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShearsItem;
+import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(ShearsItem.class)
 public class MixinShearsItem {
-    @Inject(method = "getDestroySpeed", at = @At("HEAD"), cancellable = true)
-    private void IE_getDestroySpeed(ItemStack stack, BlockState state, CallbackInfoReturnable<Float> ci) {
-        if (state.is(IEBlocks.DULLTHORNS.get())) ci.setReturnValue(15.0F);
+    @ModifyExpressionValue(
+        method = "getDestroySpeed",
+        at = @At(
+            value = "INVOKE",
+            target = "net/minecraft/world/level/block/state/BlockState.is(Lnet/minecraft/world/level/block/Block;)Z",
+            ordinal = 0
+        )
+    )
+    private boolean IE_getDestroySpeed(boolean original, ItemStack stack, BlockState state) {
+        return original || state.is(IEBlocks.DULLTHORNS.get());
     }
 }

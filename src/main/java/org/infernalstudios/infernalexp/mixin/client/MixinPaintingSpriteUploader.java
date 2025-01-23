@@ -16,6 +16,7 @@
 
 package org.infernalstudios.infernalexp.mixin.client;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.client.resources.PaintingTextureManager;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -24,22 +25,13 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.stream.Stream;
 
 @Mixin(PaintingTextureManager.class)
 public class MixinPaintingSpriteUploader {
-
-    @Shadow
-    @Final
-    private static ResourceLocation BACK_SPRITE_LOCATION;
-
-    @SuppressWarnings("deprecation")
-    @Inject(method = "getResourcesToLoad", at = @At("RETURN"), cancellable = true)
-    private void getResourcesToLoad(CallbackInfoReturnable<Stream<ResourceLocation>> cir) {
-        cir.setReturnValue(Stream.concat(ForgeRegistries.PAINTING_VARIANTS.getKeys().stream(), Stream.of(BACK_SPRITE_LOCATION, InfernalPaintingRenderer.BACK_TEXTURE_ATLAS_LOCATION)));
+    @ModifyReturnValue(method = "getResourcesToLoad", at = @At("RETURN"))
+    private Stream<ResourceLocation> getResourcesToLoad(Stream<ResourceLocation> original) {
+        return Stream.concat(original, Stream.of(InfernalPaintingRenderer.BACK_TEXTURE_ATLAS_LOCATION));
     }
-
 }

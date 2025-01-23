@@ -37,6 +37,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+// TODO Replace with capability
+@Deprecated(forRemoval = true)
 @Mixin(AbstractArrow.class)
 public class MixinAbstractArrowEntity implements AbstractArrowEntityAccess {
     @Unique
