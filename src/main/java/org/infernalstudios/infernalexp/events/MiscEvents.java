@@ -41,6 +41,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
+import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.AnvilUpdateEvent;
@@ -449,6 +450,20 @@ public class MiscEvents {
     public void onCheckFuelBurnTime(FurnaceFuelBurnTimeEvent event) {
         if (event.getItemStack().getItem() instanceof IFuel fuel) {
             event.setBurnTime(fuel.getBurnTime());
+        }
+    }
+
+    @SubscribeEvent
+    public void onBlockToolModification(BlockEvent.BlockToolModificationEvent event) {
+        if (event.getToolAction() == ToolActions.SHOVEL_FLATTEN && event.getContext().getItemInHand().canPerformAction(ToolActions.SHOVEL_FLATTEN)) {
+            Block block = event.getFinalState().getBlock();
+            if (block == Blocks.CRIMSON_NYLIUM) {
+                event.setFinalState(IEBlocks.CRIMSON_NYLIUM_PATH.get().defaultBlockState());
+            } else if (block == Blocks.WARPED_NYLIUM) {
+                event.setFinalState(IEBlocks.WARPED_NYLIUM_PATH.get().defaultBlockState());
+            } else if (block == Blocks.SOUL_SOIL) {
+                event.setFinalState(IEBlocks.SOUL_SOIL_PATH.get().defaultBlockState());
+            }
         }
     }
 }

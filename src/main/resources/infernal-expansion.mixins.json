@@ -17,7 +17,6 @@
     "common.MixinMultiNoiseBiomeSourcePreset",
     "common.MixinServerPlayerGameMode",
     "common.MixinShearsItem",
-    "common.MixinShovelItem",
     "common.MixinStriderEntity",
     "common.NoiseBasedChunkGeneratorAccessor",
     "common.NoiseGeneratorSettingsAccessor",
