@@ -105,12 +105,12 @@ dependencies {
 
     // Soul Fire'd
     implementation(jarJar(fg.deobf("it.crystalnest:cobweb-forge:${config.MINECRAFT_VERSION}-${config.COBWEB_VERSION}"))) {
-        jarJar.pin(it, config.COBWEB_VERSION)
-        jarJar.ranged(it, "[${config.COBWEB_VERSION},)")
+        jarJar.pin(it, "${config.MINECRAFT_VERSION}-${config.COBWEB_VERSION}")
+        jarJar.ranged(it, "[${config.MINECRAFT_VERSION}-${config.COBWEB_VERSION},)")
     }
     implementation(jarJar(fg.deobf("it.crystalnest:soul-fire-d-forge:${config.MINECRAFT_VERSION}-${config.SOUL_FIRE_D_VERSION}"))) {
-        jarJar.pin(it, config.SOUL_FIRE_D_VERSION)
-        jarJar.ranged(it, "[${config.SOUL_FIRE_D_VERSION},)")
+        jarJar.pin(it, "${config.MINECRAFT_VERSION}-${config.SOUL_FIRE_D_VERSION}")
+        jarJar.ranged(it, "[${config.MINECRAFT_VERSION}-${config.SOUL_FIRE_D_VERSION},)")
     }
 }
 
