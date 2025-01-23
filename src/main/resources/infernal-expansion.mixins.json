@@ -31,7 +31,6 @@
     "dev.MixinPrimaryLevelData"
   ],
   "client": [
-    "client.MixinBlockGetter",
     "client.MixinClientPacketListener",
     "client.MixinItemInHandRenderer",
     "client.MixinItemProperties",
