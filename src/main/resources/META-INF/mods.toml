@@ -50,6 +50,7 @@ Coders:
 - Dayton_10
 - Flenarn
 - HellionGames
+- Jonathing
 - LudoCrypt
 - Merxlc
 - Orcinus
@@ -73,7 +74,7 @@ Special Thanks:
 [[dependencies.infernalexp]]
 modId = "forge"
 mandatory = true
-versionRange = "[43,)"
+versionRange = "[43.1,)"
 ordering = "NONE"
 side = "BOTH"
 [[dependencies.infernalexp]]
@@ -85,6 +86,6 @@ side = "BOTH"
 [[dependencies.infernalexp]]
 modId = "soul_fire_d"
 mandatory = true
-versionRange = "[4.0.7,)"
+versionRange = "[4.0.10,)"
 ordering = "AFTER"
 side = "BOTH"
