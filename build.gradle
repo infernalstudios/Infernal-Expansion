@@ -96,6 +96,17 @@ repositories {
 
     jcenter()
     mavenCentral()
+
+    // Crystal Nest repository where Soul Fire'd is hosted.
+    maven {
+        name = "Crystal Nest"
+        url = "https://maven.crystalnest.it"
+    }
+    // Fuzs repository where Soul Fire'd required dependency FCAP is hosted.
+    maven {
+        name = "Fuzs Mod Resources"
+        url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
+    }
 }
 
 dependencies {
@@ -103,6 +114,9 @@ dependencies {
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     compileOnly fg.deobf("com.github.glitchfiend:TerraBlender-forge:${config.MINECRAFT_VERSION}-${config.TERRABLENDER_VERSION}")
+
+    implementation fg.deobf("it.crystalnest:cobweb-forge:${config.MINECRAFT_VERSION}-${config.COBWEB_VERSION}")
+    implementation fg.deobf("it.crystalnest:soul-fire-d-forge:${config.MINECRAFT_VERSION}-${config.SOUL_FIRE_D_VERSION}")
 }
 
 jar {

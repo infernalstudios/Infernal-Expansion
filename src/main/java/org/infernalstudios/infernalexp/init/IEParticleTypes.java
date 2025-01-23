@@ -16,6 +16,7 @@
 
 package org.infernalstudios.infernalexp.init;
 
+import it.crystalnest.soul_fire_d.api.FireManager;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -30,12 +31,14 @@ import org.infernalstudios.infernalexp.InfernalExpansion;
 import org.infernalstudios.infernalexp.client.particle.GlowstoneSparkleParticle;
 import org.infernalstudios.infernalexp.client.particle.InfectionParticle;
 
+import java.util.function.Supplier;
+
 @Mod.EventBusSubscriber(modid = InfernalExpansion.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class IEParticleTypes {
 
     public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, InfernalExpansion.MOD_ID);
 
-    public static final RegistryObject<SimpleParticleType> GLOWSTONE_SPARKLE = PARTICLES.register("glowstone_sparkle", () -> new SimpleParticleType(false));
+    public static final Supplier<SimpleParticleType> GLOWSTONE_SPARKLE = FireManager.registerParticle(IEFireTypes.GLOW_FIRE_TYPE);
     public static final RegistryObject<SimpleParticleType> INFECTION = PARTICLES.register("infection", () -> new SimpleParticleType(false));
 
     @SubscribeEvent

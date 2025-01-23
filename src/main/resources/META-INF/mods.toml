@@ -82,3 +82,9 @@ mandatory = true
 versionRange = "[1.19,)"
 ordering = "NONE"
 side = "BOTH"
+[[dependencies.infernalexp]]
+modId = "soul_fire_d"
+mandatory = true
+versionRange = "[4.0.7,)"
+ordering = "AFTER"
+side = "BOTH"

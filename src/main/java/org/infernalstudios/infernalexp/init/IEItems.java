@@ -16,11 +16,13 @@
 
 package org.infernalstudios.infernalexp.init;
 
+import it.crystalnest.soul_fire_d.api.FireManager;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.BowlFoodItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -118,7 +120,9 @@ public class IEItems {
     public static final RegistryObject<EntityBucketItem> STRIDER_BUCKET = registerItem("strider_bucket", () -> new EntityBucketItem(() -> EntityType.STRIDER, Fluids.LAVA, () -> SoundEvents.BUCKET_EMPTY_LAVA, new Item.Properties().stacksTo(1).tab(InfernalExpansion.TAB)));
 
     // Block items
-    public static final RegistryObject<Item> GLOW_TORCH = registerItem("glow_torch", () -> new StandingAndWallBlockItem(IEBlocks.GLOW_TORCH.get(), IEBlocks.GLOW_TORCH_WALL.get(), (new Item.Properties()).tab(InfernalExpansion.TAB)));
+    public static final Supplier<BlockItem> GLOW_LANTERN = FireManager.registerLanternItem(IEFireTypes.GLOW_FIRE_TYPE, lantern -> new BlockItem(lantern, new Item.Properties().tab(InfernalExpansion.TAB)));
+    public static final Supplier<StandingAndWallBlockItem> GLOW_TORCH = FireManager.registerTorchItem(IEFireTypes.GLOW_FIRE_TYPE, (torch, wallTorch) -> new StandingAndWallBlockItem(torch, wallTorch, new Item.Properties().tab(InfernalExpansion.TAB)));
+    public static final Supplier<BlockItem> GLOW_CAMPFIRE = FireManager.registerCampfireItem(IEFireTypes.GLOW_FIRE_TYPE, campfire -> new BlockItem(campfire, new Item.Properties().tab(InfernalExpansion.TAB)));
 
     public static final RegistryObject<Item> DULLTHORNS = registerItem("dullthorns", () -> new DullthornsBlockItem(IEBlocks.DULLTHORNS.get()));
 

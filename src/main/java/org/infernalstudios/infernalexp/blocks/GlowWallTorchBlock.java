@@ -16,11 +16,13 @@
 
 package org.infernalstudios.infernalexp.blocks;
 
+import it.crystalnest.soul_fire_d.api.block.CustomWallTorchBlock;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.resources.ResourceLocation;
 import org.infernalstudios.infernalexp.init.IEParticleTypes;
 
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.WallTorchBlock;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
@@ -29,9 +31,11 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class GlowWallTorchBlock extends WallTorchBlock {
-    public GlowWallTorchBlock(Properties properties) {
-        super(properties, null);
+import java.util.function.Supplier;
+
+public class GlowWallTorchBlock extends CustomWallTorchBlock {
+    public GlowWallTorchBlock(ResourceLocation fireType, Supplier<SimpleParticleType> type) {
+        super(fireType, type);
     }
 
     @OnlyIn(Dist.CLIENT)
