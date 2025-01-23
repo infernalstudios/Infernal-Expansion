@@ -17,6 +17,7 @@
 package org.infernalstudios.infernalexp.blocks;
 
 import it.crystalnest.soul_fire_d.api.block.CustomWallTorchBlock;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.resources.ResourceLocation;
@@ -34,7 +35,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.function.Supplier;
 
 public class GlowWallTorchBlock extends CustomWallTorchBlock {
-    public GlowWallTorchBlock(ResourceLocation fireType, Supplier<SimpleParticleType> type) {
+    public GlowWallTorchBlock(ResourceLocation fireType, Supplier<? extends ParticleOptions> type) {
         super(fireType, type);
     }
 

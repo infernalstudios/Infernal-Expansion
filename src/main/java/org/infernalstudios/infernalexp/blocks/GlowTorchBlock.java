@@ -17,6 +17,7 @@
 package org.infernalstudios.infernalexp.blocks;
 
 import it.crystalnest.soul_fire_d.api.block.CustomTorchBlock;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.resources.ResourceLocation;
 import org.infernalstudios.infernalexp.init.IEParticleTypes;
@@ -31,7 +32,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.function.Supplier;
 
 public class GlowTorchBlock extends CustomTorchBlock {
-    public GlowTorchBlock(ResourceLocation fireType, Supplier<SimpleParticleType> type) {
+    public GlowTorchBlock(ResourceLocation fireType, Supplier<? extends ParticleOptions> type) {
         super(fireType, type);
     }
 
